@@ -75,46 +75,56 @@
 </div>
 
 <!-- FINANCE TOOLS -->
-<section class="section">
+<section class="section" id="calculator">
   <div class="container">
 
     <div class="section-header">
       <span class="section-label"><span class="lang-th">เครื่องมือวางแผนการเงิน</span><span class="lang-en">Finance Tools</span></span>
-      <h2><span class="lang-th">วางแผนค่าใช้จ่ายอย่างถูกต้อง</span><span class="lang-en">Plan Your Budget Accurately</span></h2>
-      <p><span class="lang-th">เครื่องมือทั้งหมดคำนวณเป็นบาทไทย — ไม่ต้องเสียเวลาแปลงเอง</span><span class="lang-en">All tools calculate in Thai Baht — no manual conversion needed.</span></p>
+      <h2><span class="lang-th">เครื่องคำนวณค่าเรียน UK ครบวงจร</span><span class="lang-en">Complete UK Fee Planner</span></h2>
+      <p><span class="lang-th">คำนวณค่าเรียน ค่าครองชีพ และทุนการศึกษา — ครบ 3 เครื่องมือในหน้าเดียว ข้อมูลจากฐานข้อมูล 99 โรงเรียนของ LINKEDU</span><span class="lang-en">Calculate fees, living costs &amp; scholarships — 3 tools merged into one. Real data from LINKEDU's database of 99 UK boarding schools.</span></p>
     </div>
 
-    <div class="tools-grid" id="calculator">
+    <!-- Version picker cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:48px;">
 
-      <div class="tool-card">
-        <div class="tool-card-icon">💷</div>
-        <div class="tool-card-title"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">UK Boarding School Fee Calculator</span></div>
-        <p class="tool-card-desc"><span class="lang-th">ป้อนค่าเรียนและรับยอดรวมพร้อม VAT 20% ในทั้ง GBP และ THB ทันที</span><span class="lang-en">Enter any school fee and instantly get the total with 20% VAT in both GBP and THB.</span></p>
-        <a href="tools/fee-calculator.html" class="tool-card-link"><span class="lang-th">คำนวณเลย</span><span class="lang-en">Calculate Now</span></a>
+      <div class="tool-card" style="position:relative;border:2px solid #B8962E;">
+        <div style="position:absolute;top:-12px;left:24px;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 1 / Layout A</div>
+        <div class="tool-card-icon">📑</div>
+        <div class="tool-card-title"><span class="lang-th">แบบแท็บ — Tab Hub</span><span class="lang-en">Tabbed Hub Layout</span></div>
+        <p class="tool-card-desc"><span class="lang-th">3 เครื่องมือในแท็บเดียว — หาโรงเรียนในงบ / คำนวณค่าจริง / ค้นหาทุน สลับแท็บได้อย่างรวดเร็ว</span><span class="lang-en">3 tools in clean tabs — Budget Finder / True Cost / Scholarships. Switch between tools instantly.</span></p>
+        <a href="tools/fees-calculator-v1.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 1</span><span class="lang-en">View Layout A</span></a>
       </div>
 
-      <div class="tool-card" id="living">
-        <div class="tool-card-icon">🏠</div>
-        <div class="tool-card-title"><span class="lang-th">ค่าครองชีพที่แท้จริง</span><span class="lang-en">True Cost of Living Calculator</span></div>
-        <p class="tool-card-desc"><span class="lang-th">คำนวณค่าใช้จ่ายครบทั้งปี รวมค่าเดินทาง ค่าของใช้ส่วนตัว และค่าเที่ยว exeat</span><span class="lang-en">Calculate full annual costs including travel, personal allowance, and exeat trips.</span></p>
-        <a href="tools/cost-of-living-calc.html" class="tool-card-link"><span class="lang-th">คำนวณเลย</span><span class="lang-en">Calculate Now</span></a>
+      <div class="tool-card" style="position:relative;">
+        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 2 / Layout B</div>
+        <div class="tool-card-icon">📜</div>
+        <div class="tool-card-title"><span class="lang-th">แบบขั้นตอน — Step Journey</span><span class="lang-en">Step-by-Step Journey</span></div>
+        <p class="tool-card-desc"><span class="lang-th">3 ขั้นตอนเรียงกันพร้อมแถบ progress — นำทางจากงบประมาณสู่ค่าจริง สู่ทุนการศึกษา อย่างต่อเนื่อง</span><span class="lang-en">3 guided steps with sticky progress bar — flows naturally from budget to true cost to scholarships.</span></p>
+        <a href="tools/fees-calculator-v2.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 2</span><span class="lang-en">View Layout B</span></a>
       </div>
 
-      <div class="tool-card" id="scholarships">
-        <div class="tool-card-icon">🏅</div>
-        <div class="tool-card-title"><span class="lang-th">ค้นหาทุนการศึกษา</span><span class="lang-en">Bursary &amp; Scholarship Finder</span></div>
-        <p class="tool-card-desc"><span class="lang-th">กรองทุนตามประเภท (วิชาการ กีฬา ดนตรี ฯลฯ) และช่วงค่าลดหย่อน ค้นหาทุนที่ใช่</span><span class="lang-en">Filter scholarships by type (Academic, Sport, Music, etc.) and remission range to find what fits.</span></p>
-        <a href="tools/bursary-finder.html" class="tool-card-link"><span class="lang-th">ค้นหาทุน</span><span class="lang-en">Find Scholarships</span></a>
-      </div>
-
-      <div class="tool-card">
-        <div class="tool-card-icon">📊</div>
-        <div class="tool-card-title"><span class="lang-th">เอกชน vs รัฐ + VAT</span><span class="lang-en">Private vs State Boarding — VAT Analysis</span></div>
-        <p class="tool-card-desc"><span class="lang-th">เปรียบเทียบโรงเรียนเอกชน (VAT 20%) กับโรงเรียนรัฐประจำ (ไม่มี VAT) ว่าคุ้มค่าต่างกันอย่างไร</span><span class="lang-en">Compare private boarding (20% VAT) vs state boarding (VAT-exempt at £10K–£19K/yr) value for money.</span></p>
-        <a href="tools/private-vs-state-boarding.html" class="tool-card-link"><span class="lang-th">ดูการเปรียบเทียบ</span><span class="lang-en">View Analysis</span></a>
+      <div class="tool-card" style="position:relative;">
+        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 3 / Layout C</div>
+        <div class="tool-card-icon">🖥️</div>
+        <div class="tool-card-title"><span class="lang-th">แบบแดชบอร์ด — Dashboard</span><span class="lang-en">Power Dashboard</span></div>
+        <p class="tool-card-desc"><span class="lang-th">แผงควบคุมซ้าย + ผลลัพธ์ขวา อัปเดตแบบ real-time เหมาะสำหรับผู้ที่ต้องการเปรียบเทียบหลายตัวเลขพร้อมกัน</span><span class="lang-en">Side-by-side control panel + live results. Perfect for comparing multiple scenarios simultaneously.</span></p>
+        <a href="tools/fees-calculator-v3.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 3</span><span class="lang-en">View Layout C</span></a>
       </div>
 
     </div>
+
+    <!-- Additional standalone tool -->
+    <div style="border-top:1px solid rgba(0,0,0,0.08);padding-top:32px;">
+      <div class="tools-grid" id="living">
+        <div class="tool-card">
+          <div class="tool-card-icon">📊</div>
+          <div class="tool-card-title"><span class="lang-th">เอกชน vs รัฐ + VAT</span><span class="lang-en">Private vs State Boarding — VAT Analysis</span></div>
+          <p class="tool-card-desc"><span class="lang-th">เปรียบเทียบโรงเรียนเอกชน (VAT 20%) กับโรงเรียนรัฐประจำ (ไม่มี VAT) ว่าคุ้มค่าต่างกันอย่างไร</span><span class="lang-en">Compare private boarding (20% VAT) vs state boarding (VAT-exempt at £10K–£19K/yr) value for money.</span></p>
+          <a href="tools/private-vs-state-boarding.html" class="tool-card-link"><span class="lang-th">ดูการเปรียบเทียบ</span><span class="lang-en">View Analysis</span></a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concord vs Cardiff Sixth Form Oxbridge Race - LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #111111;
+            --text-color: #e0e0e0;
+            --accent-color: #C9A84C;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --cta-bg: #C9A84C;
+            --cta-text: #111111;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 2.8em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        header p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            color: #b0b0b0;
+        }
+
+        .linkedu-branding {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .linkedu-branding a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            color: var(--accent-color);
+            margin: 40px 0 30px 0;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .school-card h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2.2em;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .school-card h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+
+        .school-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            flex-grow: 1; /* Allow content to grow */
+        }
+
+        .school-card ul li {
+            background-color: #222;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.05em;
+            transition: background-color 0.2s ease;
+        }
+
+        .school-card ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .school-card ul li strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .school-card .description {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.95em;
+            color: #b0b0b0;
+            text-align: center;
+        }
+        
+        .school-card .description strong {
+            color: var(--accent-color);
+        }
+
+        .cta-button, .cta-box {
+            display: block;
+            text-align: center;
+            background-color: var(--cta-bg);
+            color: var(--cta-text);
+            padding: 18px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 40px auto;
+            max-width: 400px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.5px;
+            border: none; /* Ensure no default button border */
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        .cta-button:hover, .cta-box:hover {
+            background-color: #b39542; /* Slightly darker gold */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .cta-button span, .cta-box span {
+            display: block;
+        }
+
+        .cta-button .thai, .cta-box .thai {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .vat-note {
+            background-color: #222;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 8px;
+            max-width: 900px;
+            font-size: 0.95em;
+            color: #ccc;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .vat-note strong {
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Interactive Element - Toggle Switch */
+        .interactive-section {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            text-align: center;
+            box-shadow: 0 6px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .interactive-section h3.section-title {
+            margin-top: 0; /* Override default section-title margin-top */
+            margin-bottom: 25px;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+
+        .toggle-label {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #ccc;
+            text-align: right; /* For the left label */
+            flex-basis: auto; /* Allow sizing based on content */
+        }
+        .toggle-container .toggle-label:last-child {
+            text-align: left; /* For the right label */
+        }
+
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 38px;
+            flex-shrink: 0; /* Prevent switch from shrinking */
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3a3a3a;
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--accent-color);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 30px;
+            width: 55px;
+            left: 4px;
+            bottom: 3px;
+            background-color: var(--accent-color);
+            transition: .4s;
+            border-radius: 26px;
+        }
+
+        input:checked + .slider {
+            background-color: #3a3a3a;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(55px);
+        }
+
+        .slider-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            color: #aaa;
+            font-size: 0.85em;
+            font-weight: 600;
+            pointer-events: none; /* Allow clicks to pass through to slider */
+        }
+
+        .slider-text span.left {
+            color: var(--accent-color);
+            transition: color 0.4s ease;
+        }
+
+        input:checked ~ .slider-text span.left {
+            color: #aaa;
+        }
+
+        input:checked ~ .slider-text span.right {
+            color: var(--accent-color);
+        }
+
+        .recommendation-output {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #222;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recommendation-output h4 {
+            font-size: 1.8em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .recommendation-output p {
+            font-size: 1.1em;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .recommendation-output p strong {
+            color: var(--accent-color);
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.2em;
+            }
+            .school-card h2 {
+                font-size: 1.8em;
+            }
+            .section-title {
+                font-size: 1.8em;
+            }
+            .interactive-section h3.section-title {
+                font-size: 1.4em;
+            }
+            .toggle-label {
+                font-size: 1em;
+            }
+            .toggle-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .toggle-label {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            header {
+                padding: 30px 0;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .school-card {
+                padding: 25px;
+            }
+            .school-card h2 {
+                font-size: 1.6em;
+            }
+            .school-card ul li {
+                font-size: 0.95em;
+                padding: 12px 15px;
+            }
+            .cta-button, .cta-box {
+                font-size: 1.1em;
+                padding: 15px 25px;
+            }
+            .vat-note {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+            .interactive-section {
+                padding: 30px;
+            }
+            .slider-text {
+                font-size: 0.75em;
+            }
+            .recommendation-output h4 {
+                font-size: 1.5em;
+            }
+            .recommendation-output p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            .school-card h2 {
+                font-size: 1.4em;
+            }
+            .school-card ul li {
+                font-size: 0.9em;
+            }
+            .cta-button, .cta-box {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .slider {
+                width: 100px;
+                height: 34px;
+            }
+            .slider:before {
+                height: 26px;
+                width: 48px;
+                bottom: 3px;
+                left: 3px;
+            }
+            input:checked + .slider:before {
+                transform: translateX(48px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Concord vs Cardiff Sixth Form: The Oxbridge Race</h1>
+            <h1>Concord vs Cardiff Sixth Form: การแข่งขันสู่ Oxbridge</h1>
+            <p>
+                A side-by-side comparison of two of the UK's leading academic schools for Oxbridge preparation.
+                These schools are known for their exceptional results and highly competitive environments.
+            </p>
+            <p>
+                การเปรียบเทียบแบบเจาะลึกระหว่างสองโรงเรียนชั้นนำของสหราชอาณาจักร
+                ที่โดดเด่นในการเตรียมความพร้อมนักเรียนเพื่อเข้าศึกษาต่อที่มหาวิทยาลัย Oxbridge
+            </p>
+            <div class="linkedu-branding">
+                Powered by <a href="https://th.linkedu.hk" target="_blank">LINKEDU</a> Education Consulting Bangkok
+            </div>
+        </header>
+
+        <section class="comparison-section">
+            <h2 class="section-title">School Comparison | เปรียบเทียบโรงเรียน</h2>
+            <div class="comparison-grid">
+                <div class="school-card">
+                    <h2>Cardiff Sixth Form College</h2>
+                    <ul>
+                        <li><strong>Ranking:</strong> #1 UK (Best Private School)</li>
+                        <li><strong>A-Level A*/A:</strong> 90%</li>
+                        <li><strong>Oxbridge Offers 2024:</strong> 12 offers</li>
+                        <li><strong>Fees (GBP):</strong> GBP 62,095 / year</li>
+                        <li><strong>Fees (THB):</strong> THB 2,794,275 / year</li>
+                        <li><strong>Scholarship:</strong> Up to 50%</li>
+                    </ul>
+                    <div class="description">
+                        <strong>Suits:</strong> Highly ambitious students seeking an intensely academic environment with a proven track record for top grades and direct Oxbridge entry. Ideal for those who thrive under pressure and are focused solely on academic excellence.
+                    </div>
+                </div>
+
+                <div class="school-card">
+                    <h2>Concord College</h2>
+                    <ul>
+                        <li><strong>Ranking:</strong> Top 10 UK (often higher for A-Level)</li>
+                        <li><strong>A-Level A*/A:</strong> 74%</li>
+                        <li><strong>Oxbridge Offers:</strong> 103 Historically (over 10 years)</li>
+                        <li><strong>Fees (GBP):</strong> GBP 61,764 / year</li>
+                        <li><strong>Fees (THB):</strong> THB 2,779,380 / year</li>
+                        <li><strong>Scholarship:</strong> 5-15%</li>
+                    </ul>
+                    <div class="description">
+                        <strong>Suits:</strong> Academically strong students who also value a holistic boarding school experience, a supportive international community, and a long-standing, robust Oxbridge preparation program. Excellent for those seeking a challenging yet well-rounded education.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="cta-button">
+            <span>LINE: satitlinkedu</span>
+            <span class="thai">ปรึกษาฟรี (Free Consultation)</span>
+        </a>
+
+        <section class="interactive-section">
+            <h3 class="section-title">Which Student Type Are You? | คุณเป็นนักเรียนประเภทใด?</h3>
+            <p style="margin-bottom: 30px; color: #b0b0b0;">
+                Select the profile that best describes your priorities to see a recommendation.
+                เลือกโปรไฟล์ที่ตรงกับความต้องการของคุณมากที่สุดเพื่อดูคำแนะนำ
+            </p>
+            <div class="toggle-container">
+                <span class="toggle-label">Elite Academic Achiever <br> เน้นผลการเรียนสูงสุด</span>
+                <label class="switch">
+                    <input type="checkbox" id="studentTypeToggle">
+                    <span class="slider round"></span>
+                    <div class="slider-text">
+                        <span class="left">Cardiff</span>
+                        <span class="right">Concord</span>
+                    </div>
+                </label>
+                <span class="toggle-label">Ambitious All-Rounder <br> เน้นการเรียนและประสบการณ์</span>
+            </div>
+
+            <div id="recommendationOutput" class="recommendation-output">
+                <!-- Recommendation will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <div class="vat-note">
+            <strong>VAT Note | หมายเหตุ VAT:</strong><br>
+            Private school fees in the UK will have 20% VAT added from January 2025.
+            State boarding schools, with annual fees typically GBP 10,000 to 19,000, are VAT exempt.
+            <br><br>
+            ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป
+            โรงเรียนประจำของรัฐ (State boarding schools) ซึ่งมีค่าธรรมเนียมประมาณ 10,000 ถึง 19,000 ปอนด์ต่อปี จะได้รับการยกเว้น VAT
+        </div>
+
+        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="cta-button">
+            <span>LINE: satitlinkedu</span>
+            <span class="thai">ปรึกษาฟรี (Free Consultation)</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.
+            Visit us at <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a>.
+            LINE: <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">satitlinkedu</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('studentTypeToggle');
+            const recommendationOutput = document.getElementById('recommendationOutput');
+
+            function updateRecommendation() {
+                if (toggle.checked) {
+                    // Ambitious All-Rounder (Concord)
+                    recommendationOutput.innerHTML = `
+                        <h4>Recommendation: Concord College</h4>
+                        <h4>คำแนะนำ: โรงเรียน Concord College</h4>
+                        <p>
+                            Based on your preference for an <strong>Ambitious All-Rounder</strong> profile, 
+                            Concord College is likely a better fit. It offers a strong academic challenge within a more holistic boarding school environment 
+                            and a long-standing tradition of Oxbridge success, appealing to students who seek both academic rigor and a well-rounded experience.
+                        </p>
+                        <p>
+                            จากความต้องการของคุณในฐานะ <strong>นักเรียนที่เน้นการเรียนและประสบการณ์รอบด้าน</strong>,
+                            Concord College น่าจะเหมาะสมกว่า โรงเรียนนำเสนอความท้าทายทางวิชาการที่แข็งแกร่ง 
+                            พร้อมกับประสบการณ์โรงเรียนประจำที่ครบวงจรยิ่งขึ้น และประวัติความสำเร็จในการเข้า Oxbridge ที่ยาวนาน 
+                            เหมาะสำหรับนักเรียนที่ต้องการทั้งความเข้มข้นทางวิชาการและประสบการณ์ที่รอบด้าน.
+                        </p>
+                    `;
+                } else {
+                    // Elite Academic Achiever (Cardiff)
+                    recommendationOutput.innerHTML = `
+                        <h4>Recommendation: Cardiff Sixth Form College</h4>
+                        <h4>คำแนะนำ: โรงเรียน Cardiff Sixth Form College</h4>
+                        <p>
+                            Based on your preference for an <strong>Elite Academic Achiever</strong> profile, 
+                            Cardiff Sixth Form College is likely a better fit. Its intensely academic focus, 
+                            exceptionally high A-Level grades, and strong recent Oxbridge numbers make it ideal for students 
+                            who are singularly driven by top academic performance and direct entry to elite universities.
+                        </p>
+                        <p>
+                            จากความต้องการของคุณในฐานะ <strong>นักเรียนที่เน้นผลการเรียนสูงสุด</strong>,
+                            Cardiff Sixth Form College น่าจะเหมาะสมกว่า ด้วยการมุ่งเน้นทางวิชาการอย่างเข้มข้น 
+                            ผลการเรียน A-Level ที่สูงเป็นพิเศษ และจำนวนนักเรียนที่เข้า Oxbridge ล่าสุดที่แข็งแกร่ง 
+                            ทำให้เหมาะสำหรับนักเรียนที่มีแรงผลักดันเพื่อผลการเรียนสูงสุด และต้องการเข้ามหาวิทยาลัยชั้นนำโดยตรง.
+                        </p>
+                    `;
+                }
+            }
+
+            // Initial recommendation on page load
+            updateRecommendation();
+
+            // Update recommendation when toggle changes
+            toggle.addEventListener('change', updateRecommendation);
+        });
+    </script>
+</body>
+</html>

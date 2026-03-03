@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU: Millfield vs Rossall Sports Scholarship Comparison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #111111;
+            --card-bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #C9A84C; /* Gold */
+            --light-gold: #e2c163;
+            --border-color: #333333;
+            --line-cta-bg: #C9A84C;
+            --line-cta-text: #111111;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--card-bg-color);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .linkedu-brand {
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--light-gold);
+            border-radius: 2px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+
+        .card h3 {
+            color: var(--accent-color);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card p {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .card strong {
+            color: var(--light-gold);
+        }
+
+        .fees {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .fees p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .vat-note {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dotted var(--border-color);
+        }
+
+        .cta-line {
+            background-color: var(--line-cta-bg);
+            color: var(--line-cta-text);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 500px;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-line:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+        }
+
+        .cta-line span {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .cta-line .thai-text {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .interactive-section {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .interactive-section h3 {
+            color: var(--accent-color);
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.1em;
+            color: var(--light-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button-group button {
+            background-color: #333;
+            color: var(--text-color);
+            border: 2px solid #555;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .button-group button:hover {
+            background-color: #444;
+            border-color: var(--light-gold);
+        }
+
+        .button-group button.active {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--line-cta-text);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #recommendation-output {
+            background-color: #222;
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #recommendation-output h4 {
+            color: var(--light-gold);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        #recommendation-output p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            max-width: 700px;
+        }
+        
+        #recommendation-output .school-name {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        footer {
+            background-color: var(--card-bg-color);
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card h3 {
+                font-size: 1.5em;
+            }
+            .fees p {
+                font-size: 1em;
+            }
+            .interactive-section {
+                padding: 30px;
+            }
+            .button-group button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            .cta-line {
+                font-size: 1.1em;
+                padding: 15px 20px;
+            }
+            #recommendation-output h4 {
+                font-size: 1.3em;
+            }
+            #recommendation-output p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .button-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <p><span class="linkedu-brand">LINKEDU</span> Education Consulting Bangkok</p>
+            <h1>Millfield vs Rossall: Sports Scholarship Comparison</h1>
+            <p>มิลฟิลด์ vs รอสซอลล์: การเปรียบเทียบทุนกีฬา</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="introduction">
+            <h2>Unlocking UK Sports Scholarships<br>ปลดล็อกทุนกีฬาสหราชอาณาจักร</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+                Millfield and Rossall are two of the UK's premier boarding schools renowned for their exceptional sports programs and scholarship opportunities. This tool helps you understand which school might be the best fit for your specific sport and level.
+                <br>
+                <br>
+                มิลฟิลด์และรอสซอลล์เป็นสองโรงเรียนประจำชั้นนำของสหราชอาณาจักรที่มีชื่อเสียงด้านโปรแกรมกีฬาที่ยอดเยี่ยมและโอกาสในการรับทุนการศึกษา เครื่องมือนี้จะช่วยให้คุณเข้าใจว่าโรงเรียนใดอาจเหมาะสมที่สุดสำหรับกีฬาและระดับความสามารถเฉพาะของคุณ
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Millfield School</h3>
+                    <p><strong>Location:</strong> Somerset, England</p>
+                    <p><strong>Strengths:</strong> Elite sports facilities, world-class coaching, strong track record of producing professional athletes and Olympians. Offers scholarships from Year 9 and Year 12.</p>
+                    <p><strong>Best for:</strong> Athletes aiming for national/international recognition, especially in individual sports like swimming, athletics, golf, and tennis. Highly competitive scholarships.</p>
+                    <div class="fees">
+                        <p><strong>Annual Boarding Fees (Year 9+):</strong></p>
+                        <p>GBP 57,132</p>
+                        <p>THB 2,570,940 (GBP x 45)</p>
+                    </div>
+                    <p class="vat-note">
+                        <em>*Note: Private school fees will have 20% VAT added from January 2025. This applies to Millfield. State boarding schools (approx. GBP 10,000-19,000/year) are VAT exempt.</em>
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Rossall School</h3>
+                    <p><strong>Location:</strong> Lancashire, England</p>
+                    <p><strong>Strengths:</strong> Generous scholarship awards, a supportive environment for sports development, strong programs in football, golf (on-site links course), and a wide range of team and individual sports. Offers scholarships from Year 7, Year 9, and Year 12.</p>
+                    <p><strong>Best for:</strong> Athletes looking for excellent development pathways, often more accessible for strong regional-level athletes progressing to national. Strong community feel.</p>
+                    <div class="fees">
+                        <p><strong>Annual Boarding Fees (Year 9+):</strong></p>
+                        <p>GBP 54,648</p>
+                        <p>THB 2,459,160 (GBP x 45)</p>
+                    </div>
+                    <p class="vat-note">
+                        <em>*Note: Private school fees will have 20% VAT added from January 2025. This applies to Rossall. State boarding schools (approx. GBP 10,000-19,000/year) are VAT exempt.</em>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="cta-line">
+            <span>LINE: satitlinkedu</span>
+            <span class="thai-text">ปรึกษาฟรี (Free Consultation)</span>
+        </a>
+
+        <section id="interactive-comparison" class="interactive-section">
+            <h3>Find Your Best Fit: Which School For You?<br>ค้นหาโรงเรียนที่ใช่: โรงเรียนไหนเหมาะกับคุณ?</h3>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 0.95em;">
+                Select your sport and current skill level to get a tailored recommendation.
+                <br>
+                เลือกกีฬาและระดับความสามารถปัจจุบันของคุณเพื่อรับคำแนะนำที่เหมาะสม
+            </p>
+
+            <div class="input-group">
+                <label for="sport-selection">Which sport are you focusing on?<br>คุณเน้นกีฬาประเภทใด?</label>
+                <div class="button-group" id="sport-selection">
+                    <button data-sport="tennis">Tennis / เทนนิส</button>
+                    <button data-sport="football">Football / ฟุตบอล</button>
+                    <button data-sport="swimming">Swimming / ว่ายน้ำ</button>
+                    <button data-sport="golf">Golf / กอล์ฟ</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="level-selection">What is your current skill level?<br>ระดับความสามารถปัจจุบันของคุณคืออะไร?</label>
+                <div class="button-group" id="level-selection">
+                    <button data-level="regional">Regional Level / ระดับภูมิภาค</button>
+                    <button data-level="national">National Level / ระดับประเทศ</button>
+                    <button data-level="international">International Level / ระดับนานาชาติ</button>
+                </div>
+            </div>
+
+            <div id="recommendation-output">
+                <h4>Select your sport and level above to see a recommendation.<br>เลือกระดับกีฬาและระดับความสามารถของคุณด้านบนเพื่อดูคำแนะนำ</h4>
+            </div>
+        </section>
+
+        <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="cta-line">
+            <span>LINE: satitlinkedu</span>
+            <span class="thai-text">ปรึกษาฟรี (Free Consultation)</span>
+        </a>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 <span class="linkedu-brand">LINKEDU</span> Education Consulting Bangkok. All rights reserved.</p>
+            <p>Visit us: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sportButtons = document.querySelectorAll('#sport-selection button');
+            const levelButtons = document.querySelectorAll('#level-selection button');
+            const recommendationOutput = document.getElementById('recommendation-output');
+
+            let selectedSport = null;
+            let selectedLevel = null;
+
+            function updateRecommendation() {
+                if (!selectedSport || !selectedLevel) {
+                    recommendationOutput.innerHTML = `
+                        <h4>Select your sport and level above to see a recommendation.<br>เลือกระดับกีฬาและระดับความสามารถของคุณด้านบนเพื่อดูคำแนะนำ</h4>
+                    `;
+                    return;
+                }
+
+                let recommendation = {
+                    school: '',
+                    reason: ''
+                };
+
+                // Logic based on sport and level
+                if (selectedSport === 'tennis') {
+                    if (selectedLevel === 'international' || selectedLevel === 'national') {
+                        recommendation.school = 'Millfield School';
+                        recommendation.reason = 'With its elite facilities and track record of producing top tennis players, Millfield is ideal for national and international level athletes seeking a professional pathway. Scholarships are highly competitive.';
+                        recommendation.reasonThai = 'ด้วยสิ่งอำนวยความสะดวกชั้นยอดและประวัติการสร้างนักเทนนิสระดับแนวหน้า มิลฟิลด์จึงเหมาะสำหรับนักกีฬาในระดับประเทศและนานาชาติที่ต้องการเส้นทางอาชีพ ทุนการแข่งขันสูงมาก';
+                    } else if (selectedLevel === 'regional') {
+                        recommendation.school = 'Rossall School';
+                        recommendation.reason = 'Rossall offers strong tennis programs with a supportive environment for developing talent. It can be a great choice for regional players looking to elevate their game and potentially achieve national recognition.';
+                        recommendation.reasonThai = 'รอสซอลล์มีโปรแกรมเทนนิสที่แข็งแกร่งพร้อมสภาพแวดล้อมที่สนับสนุนการพัฒนานักกีฬา เป็นทางเลือกที่ดีสำหรับผู้เล่นระดับภูมิภาคที่ต้องการยกระดับฝีมือและอาจได้รับการยอมรับในระดับประเทศ';
+                    }
+                } else if (selectedSport === 'football') {
+                    if (selectedLevel === 'international' || selectedLevel === 'national') {
+                        recommendation.school = 'Both Millfield and Rossall';
+                        recommendation.reason = 'Millfield has strong academy links and elite training. Rossall also boasts an excellent football program, often with pathways to professional clubs and a very supportive community. The best choice depends on specific academy affiliations and playing style.';
+                        recommendation.reasonThai = 'ทั้งมิลฟิลด์และรอสซอลล์ มิลฟิลด์มีการเชื่อมโยงกับสถาบันชั้นนำและฝึกซ้อมระดับสูง รอสซอลล์ก็มีโปรแกรมฟุตบอลที่ยอดเยี่ยมเช่นกัน มักจะมีเส้นทางสู่สโมสรอาชีพและชุมชนที่สนับสนุนอย่างมาก การเลือกที่ดีที่สุดขึ้นอยู่กับการเชื่อมโยงกับสถาบันเฉพาะและสไตล์การเล่น';
+                    } else if (selectedLevel === 'regional') {
+                        recommendation.school = 'Rossall School';
+                        recommendation.reason = 'Rossall provides an excellent environment for developing football talent from a regional level, with strong coaching and competitive opportunities. It focuses on nurturing potential in a supportive setting.';
+                        recommendation.reasonThai = 'รอสซอลล์มอบสภาพแวดล้อมที่ยอดเยี่ยมสำหรับการพัฒนานักฟุตบอลจากระดับภูมิภาค ด้วยการฝึกสอนที่แข็งแกร่งและโอกาสในการแข่งขัน มุ่งเน้นการบ่มเพาะศักยภาพในสภาพแวดล้อมที่สนับสนุน';
+                    }
+                } else if (selectedSport === 'swimming') {
+                    if (selectedLevel === 'international' || selectedLevel === 'national') {
+                        recommendation.school = 'Millfield School';
+                        recommendation.reason = 'Millfield is unparalleled for swimming, with an Olympic-sized pool and a history of producing Olympic and national champions. This is the top choice for serious swimmers aiming for the highest level.';
+                        recommendation.reasonThai = 'มิลฟิลด์เป็นเลิศด้านการว่ายน้ำ โดยมีสระว่ายน้ำขนาดโอลิมปิกและประวัติการสร้างแชมป์โอลิมปิกและแชมป์ระดับประเทศ นี่คือตัวเลือกอันดับต้นๆ สำหรับนักว่ายน้ำที่จริงจังที่ต้องการไปถึงระดับสูงสุด';
+                    } else if (selectedLevel === 'regional') {
+                        recommendation.school = 'Rossall School';
+                        recommendation.reason = 'Rossall offers good swimming facilities and coaching to help regional swimmers improve and progress. While not as elite as Millfield, it provides a solid foundation for development.';
+                        recommendation.reasonThai = 'รอสซอลล์มีสิ่งอำนวยความสะดวกด้านการว่ายน้ำและการฝึกสอนที่ดีเพื่อช่วยให้นักว่ายน้ำระดับภูมิภาคพัฒนาและก้าวหน้า แม้จะไม่ใช่ระดับยอดเยี่ยมเท่ามิลฟิลด์ แต่ก็เป็นรากฐานที่แข็งแกร่งสำหรับการพัฒนา';
+                    }
+                } else if (selectedSport === 'golf') {
+                    if (selectedLevel === 'international' || selectedLevel === 'national') {
+                        recommendation.school = 'Both Millfield and Rossall';
+                        recommendation.reason = 'Millfield offers an on-site course, advanced coaching, and a strong competitive circuit. Rossall boasts its own links course and a thriving golf academy, providing unique challenges and development opportunities. Both are excellent, depending on preference for inland vs links golf.';
+                        recommendation.reasonThai = 'ทั้งมิลฟิลด์และรอสซอลล์ มิลฟิลด์มีสนามกอล์ฟในโรงเรียน การฝึกสอนขั้นสูง และวงจรการแข่งขันที่แข็งแกร่ง รอสซอลล์มีสนามกอล์ฟลิงค์ในโรงเรียนและสถาบันกอล์ฟที่เฟื่องฟู มอบความท้าทายและโอกาสในการพัฒนาที่เป็นเอกลักษณ์ ทั้งสองแห่งยอดเยี่ยม ขึ้นอยู่กับความชอบสนามกอล์ฟในร่มเทียบกับสนามลิงค์';
+                    } else if (selectedLevel === 'regional') {
+                        recommendation.school = 'Rossall School';
+                        recommendation.reason = 'Rossall’s on-site links course and supportive golf academy make it an excellent choice for regional players looking to develop their game seriously and gain valuable links experience.';
+                        recommendation.reasonThai = 'สนามกอล์ฟลิงค์ในโรงเรียนของรอสซอลล์และสถาบันกอล์ฟที่สนับสนุน ทำให้เป็นทางเลือกที่ยอดเยี่ยมสำหรับผู้เล่นระดับภูมิภาคที่ต้องการพัฒนากอล์ฟอย่างจริงจังและได้รับประสบการณ์อันมีค่าจากสนามลิงค์';
+                    }
+                }
+
+                recommendationOutput.innerHTML = `
+                    <h4>Our Recommendation for You:<br>คำแนะนำสำหรับคุณ:</h4>
+                    <p>Based on your selections, we recommend considering <span class="school-name">${recommendation.school}</span>.</p>
+                    <p>${recommendation.reason}</p>
+                    <p style="margin-top: 15px;"><em>(Thai/ไทย)</em></p>
+                    <p>ตามการเลือกของคุณ เราขอแนะนำให้พิจารณา <span class="school-name">${recommendation.school}</span></p>
+                    <p>${recommendation.reasonThai}</p>
+                    <p style="margin-top: 20px; font-size: 0.9em; color: #aaa;">
+                        Scholarships at both schools are highly competitive and require a strong athletic profile, often combined with academic potential. <span class="linkedu-brand">LINKEDU</span> can help you navigate the application process.
+                        <br>
+                        ทุนการศึกษาในทั้งสองโรงเรียนมีการแข่งขันสูงและต้องมีประวัติกีฬาที่แข็งแกร่ง ซึ่งมักจะรวมกับศักยภาพทางวิชาการ <span class="linkedu-brand">LINKEDU</span> สามารถช่วยคุณในการดำเนินการสมัครได้
+                    </p>
+                `;
+            }
+
+            sportButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    sportButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedSport = button.dataset.sport;
+                    updateRecommendation();
+                });
+            });
+
+            levelButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    levelButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedLevel = button.dataset.level;
+                    updateRecommendation();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

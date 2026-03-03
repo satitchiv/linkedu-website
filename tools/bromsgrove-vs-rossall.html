@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU: Bromsgrove vs Rossall Best Value Boarding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #C9A84C; /* Gold */
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --hover-bg: #2a2a2a;
+            --line-cta-bg: #C9A84C;
+            --line-cta-text: #0a0a0a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        header .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header .logo span {
+            color: var(--text-color);
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        header h1 span {
+            color: var(--accent-color);
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 40px 0 20px;
+            font-weight: 600;
+        }
+
+        .section-title span {
+            color: var(--text-color);
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            color: #bbb;
+        }
+
+        .vat-note {
+            background-color: #2a2a2a;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 800px;
+            font-size: 0.95em;
+            color: #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .vat-note strong {
+            color: var(--accent-color);
+        }
+
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .school-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .school-card h2 {
+            font-size: 1.8em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .school-card p {
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .school-card p strong {
+            color: var(--text-color);
+        }
+
+        .school-card .fees {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-top: 15px;
+        }
+
+        .school-card ul {
+            list-style: none;
+            margin-top: 15px;
+            padding-left: 0;
+        }
+
+        .school-card ul li {
+            background-color: #222;
+            padding: 8px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ddd;
+        }
+        .school-card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        .line-cta-box {
+            background-color: var(--line-cta-bg);
+            color: var(--line-cta-text);
+            padding: 25px;
+            margin: 50px auto;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            max-width: 600px;
+        }
+
+        .line-cta-box h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .line-cta-box p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .line-cta-box a {
+            display: inline-block;
+            background-color: var(--line-cta-text);
+            color: var(--line-cta-bg);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .line-cta-box a:hover {
+            background-color: #333;
+            color: var(--line-cta-bg);
+        }
+
+        .interactive-section {
+            background-color: var(--card-bg);
+            padding: 40px;
+            margin: 50px auto;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .interactive-section h2 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .interactive-section p {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #ddd;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .radio-group label {
+            background-color: #222;
+            color: #ddd;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+            flex: 1 1 auto; /* Allow items to grow and shrink */
+            min-width: 180px; /* Minimum width for each radio button */
+        }
+
+        .radio-group label:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .radio-group input[type="radio"]:checked + label {
+            background-color: var(--accent-color);
+            color: var(--line-cta-text);
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.5);
+            transform: scale(1.02);
+        }
+
+        .recommendation-output {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            min-height: 100px; /* Ensure some space even when empty */
+        }
+
+        .recommendation-output h3 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-output p {
+            color: #ddd;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+        }
+        .recommendation-output p strong {
+            color: var(--accent-color);
+        }
+        .recommendation-output .school-highlight {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .scholarship-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .scholarship-section .school-card {
+            padding: 25px;
+        }
+        .scholarship-section .school-card h2 {
+            font-size: 1.6em;
+        }
+        .scholarship-section .school-card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .section-title {
+                font-size: 1.6em;
+            }
+            .school-card {
+                padding: 20px;
+            }
+            .school-card h2 {
+                font-size: 1.5em;
+            }
+            .line-cta-box h3 {
+                font-size: 1.5em;
+            }
+            .line-cta-box p {
+                font-size: 1em;
+            }
+            .line-cta-box a {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .radio-group label {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+            .section-title {
+                font-size: 1.4em;
+            }
+            .school-card {
+                padding: 15px;
+            }
+            .school-card h2 {
+                font-size: 1.3em;
+            }
+            .vat-note {
+                padding: 15px;
+                margin: 20px auto;
+            }
+            .interactive-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">LINKEDU<span>.hk</span></div>
+            <h1><span>Bromsgrove</span> vs <span>Rossall</span> Best Value Boarding</h1>
+            <p>Choosing the right UK boarding school for Thai families</p>
+            <p>การเลือกโรงเรียนประจำในสหราชอาณาจักรที่ใช่สำหรับครอบครัวไทย</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="description">
+            <p>Bromsgrove and Rossall are two popular UK boarding schools among Thai families, each offering distinct advantages. This tool helps you compare their value, academic focus, location, and scholarship opportunities to find the perfect fit for your child.</p>
+            <p>โรงเรียน Bromsgrove และ Rossall เป็นโรงเรียนประจำในสหราชอาณาจักรสองแห่งที่ได้รับความนิยมในหมู่ครอบครัวไทย โดยแต่ละแห่งมีข้อดีที่แตกต่างกัน เครื่องมือนี้จะช่วยให้คุณเปรียบเทียบคุณค่า การเน้นด้านวิชาการ ที่ตั้ง และโอกาสในการรับทุนการศึกษา เพื่อค้นหาสิ่งที่เหมาะสมที่สุดสำหรับบุตรหลานของคุณ</p>
+        </section>
+
+        <section class="vat-note">
+            <p><strong>VAT Note | หมายเหตุภาษีมูลค่าเพิ่ม:</strong></p>
+            <p>Private school fees have 20 percent VAT added from January 2025. State boarding schools are VAT exempt at GBP 10,000 to 19,000 per year. (อัตราค่าเล่าเรียนโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าใช้จ่ายประมาณ 10,000 ถึง 19,000 ปอนด์ต่อปี)</p>
+            <p><strong>Current THB conversion rate: GBP 1 = THB 45</strong></p>
+        </section>
+
+        <h2 class="section-title">School Comparison | การเปรียบเทียบโรงเรียน</h2>
+
+        <div class="school-grid">
+            <div class="school-card">
+                <div>
+                    <h2>Bromsgrove School</h2>
+                    <p><strong>Location | ที่ตั้ง:</strong> Worcestershire, Midlands (ภาคกลางของอังกฤษ)</p>
+                    <p><strong>Fees | ค่าเล่าเรียน:</strong></p>
+                    <p class="fees">GBP 52,254 / year (THB 2,351,430)</p>
+                    <p><strong>Academics | ผลสัมฤทธิ์ทางการศึกษา:</strong></p>
+                    <ul>
+                        <li>2 Oxbridge entries in recent year</li>
+                        <li>39% A-Level A*/A grades</li>
+                        <li>Strong, traditional academic focus</li>
+                    </ul>
+                    <p><strong>Key Strengths | จุดเด่น:</strong></p>
+                    <ul>
+                        <li>Established, reputable school with strong academic results.</li>
+                        <li>Excellent all-round education.</li>
+                        <li>Convenient location in the heart of England (Midlands).</li>
+                        <li>Well-regarded by universities for producing confident, capable students.</li>
+                    </ul>
+                </div>
+                <div class="line-cta-box" style="margin-top: 30px; margin-bottom: 0; padding: 15px; background-color: #2a2a2a; color: var(--text-color);">
+                    <p style="font-size: 1.1em; margin-bottom: 10px; font-weight: 400;">Need more details about Bromsgrove?</p>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">LINE: satitlinkedu | ปรึกษาฟรี</a>
+                </div>
+            </div>
+
+            <div class="school-card">
+                <div>
+                    <h2>Rossall School</h2>
+                    <p><strong>Location | ที่ตั้ง:</strong> Lancashire, North England (ภาคเหนือของอังกฤษ) - Sea-front campus</p>
+                    <p><strong>Fees | ค่าเล่าเรียน:</strong></p>
+                    <p class="fees">GBP 54,648 / year (THB 2,459,160)</p>
+                    <p><strong>Academics | ผลสัมฤทธิ์ทางการศึกษา:</strong></p>
+                    <ul>
+                        <li>59 students to top universities in 2024</li>
+                        <li>Offers both A-Level and International Baccalaureate (IB) Diploma</li>
+                        <li>Focus on holistic development and global outlook</li>
+                    </ul>
+                    <p><strong>Key Strengths | จุดเด่น:</strong></p>
+                    <ul>
+                        <li>Known for being one of the most generous schools for scholarships.</li>
+                        <li>Unique sea-front campus with stunning views and outdoor opportunities.</li>
+                        <li>Strong support for international students.</li>
+                        <li>Excellent university progression, including top global institutions.</li>
+                    </ul>
+                </div>
+                <div class="line-cta-box" style="margin-top: 30px; margin-bottom: 0; padding: 15px; background-color: #2a2a2a; color: var(--text-color);">
+                    <p style="font-size: 1.1em; margin-bottom: 10px; font-weight: 400;">Interested in Rossall scholarships?</p>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">LINE: satitlinkedu | ปรึกษาฟรี</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Which Suits Your Family? | โรงเรียนไหนเหมาะกับครอบครัวคุณ?</h2>
+
+        <section class="interactive-section">
+            <h2>Your Family's Priority | ลำดับความสำคัญของครอบครัวคุณ</h2>
+            <p>Select the statement that best describes what you are looking for in a boarding school. (เลือกข้อความที่อธิบายสิ่งที่คุณกำลังมองหาในโรงเรียนประจำได้ดีที่สุด)</p>
+
+            <div class="radio-group">
+                <input type="radio" id="priority1" name="family_priority" value="academics">
+                <label for="priority1">Strong Academics & Oxbridge Focus<br>เน้นวิชาการ & มุ่งสู่ Oxbridge</label>
+
+                <input type="radio" id="priority2" name="family_priority" value="scholarships">
+                <label for="priority2">Generous Scholarships & Value<br>ทุนการศึกษา & ความคุ้มค่า</label>
+
+                <input type="radio" id="priority3" name="family_priority" value="location">
+                <label for="priority3">Midlands Location & Traditional<br>ทำเลภาคกลาง & โรงเรียนแบบดั้งเดิม</label>
+
+                <input type="radio" id="priority4" name="family_priority" value="unique_setting">
+                <label for="priority4">Unique Setting & Holistic Development<br>สภาพแวดล้อมไม่เหมือนใคร & พัฒนาการรอบด้าน</label>
+            </div>
+
+            <div class="recommendation-output" id="recommendationOutput">
+                <!-- Recommendation will be displayed here -->
+            </div>
+        </section>
+
+        <h2 class="section-title">Scholarship Comparison | การเปรียบเทียบทุนการศึกษา</h2>
+        <section class="scholarship-section">
+            <div class="school-card">
+                <h2>Bromsgrove Scholarships</h2>
+                <ul>
+                    <li><strong>Types:</strong> Academic, Art, Drama, Music, Sport, Design & Technology.</li>
+                    <li><strong>Value:</strong> Typically up to 20-30% fee remission, sometimes more for exceptional candidates.</li>
+                    <li><strong>Application:</strong> Requires assessments, interviews, and portfolio/audition where applicable.</li>
+                    <li><strong>Focus:</strong> Recognises excellence across various fields, supporting well-rounded students.</li>
+                </ul>
+                <p>Bromsgrove offers scholarships to attract talented students, providing a degree of financial support based on merit. These are competitive and designed for students who can contribute significantly to school life.</p>
+                <p>Bromsgrove มีทุนการศึกษาเพื่อดึงดูดนักเรียนที่มีความสามารถ โดยให้การสนับสนุนทางการเงินในระดับหนึ่งตามความสามารถ ทุนเหล่านี้มีการแข่งขันสูงและออกแบบมาสำหรับนักเรียนที่มีส่วนร่วมอย่างมีนัยสำคัญต่อชีวิตของโรงเรียน</p>
+            </div>
+            <div class="school-card">
+                <h2>Rossall Scholarships</h2>
+                <ul>
+                    <li><strong>Types:</strong> Academic, Music, Art, Drama, Sport, All-Rounder, Choral, Design & Technology, Sixth Form.</li>
+                    <li><strong>Value:</strong> Renowned for offering some of the most generous scholarships, often up to 50% or even higher for outstanding candidates, including full scholarships in exceptional cases.</li>
+                    <li><strong>Application:</strong> Rigorous assessment process, interviews, and specific trials/auditions.</li>
+                    <li><strong>Focus:</strong> Actively seeks to make a Rossall education accessible to a diverse range of talented students.</li>
+                </ul>
+                <p>Rossall is widely recognized for its commitment to making its education accessible through a comprehensive and generous scholarship program. Families prioritizing significant financial aid for highly talented children should explore Rossall's offerings.</p>
+                <p>Rossall ได้รับการยอมรับอย่างกว้างขวางถึงความมุ่งมั่นที่จะทำให้การศึกษาของโรงเรียนเข้าถึงได้ผ่านโครงการทุนการศึกษาที่ครอบคลุมและเอื้อเฟื้อ ครอบครัวที่ให้ความสำคัญกับการช่วยเหลือทางการเงินจำนวนมากสำหรับบุตรหลานที่มีความสามารถสูงควรพิจารณาข้อเสนอของ Rossall</p>
+            </div>
+        </section>
+
+        <div class="line-cta-box">
+            <h3>Ready to Discuss Your Child's Future?</h3>
+            <h3>พร้อมที่จะปรึกษาอนาคตของบุตรหลานของคุณแล้วหรือยัง?</h3>
+            <p>Connect with LINKEDU for a free, personalized consultation.</p>
+            <p>ติดต่อ LINKEDU เพื่อรับคำปรึกษาฟรีแบบส่วนตัว</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">LINE: satitlinkedu | ปรึกษาฟรี</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 LINKEDU. All rights reserved. | <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p>LINE: satitlinkedu</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioButtons = document.querySelectorAll('input[name="family_priority"]');
+            const recommendationOutput = document.getElementById('recommendationOutput');
+
+            const recommendations = {
+                academics: `
+                    <h3>Recommendation: <span class="school-highlight">Bromsgrove School</span></h3>
+                    <p>If your primary focus is on strong academic results, a traditional UK boarding school experience, and a clear path towards top universities including Oxbridge, then <strong class="school-highlight">Bromsgrove School</strong> is likely a better fit. Its established reputation, strong A-Level performance, and location in the academically competitive Midlands make it ideal for ambitious students.</p>
+                    <p>หากคุณให้ความสำคัญกับผลการเรียนที่แข็งแกร่ง ประสบการณ์โรงเรียนประจำแบบดั้งเดิมของสหราชอาณาจักร และเส้นทางที่ชัดเจนสู่มหาวิทยาลัยชั้นนำรวมถึง Oxbridge <strong class="school-highlight">Bromsgrove School</strong> น่าจะเหมาะสมกว่า ชื่อเสียงที่มั่นคง ผลการเรียน A-Level ที่ดีเยี่ยม และที่ตั้งในภาคกลางที่เน้นวิชาการ ทำให้เป็นตัวเลือกที่เหมาะสำหรับนักเรียนที่มีความมุ่งมั่น</p>
+                `,
+                scholarships: `
+                    <h3>Recommendation: <span class="school-highlight">Rossall School</span></h3>
+                    <p>For families prioritizing financial assistance and seeking a school known for its generous scholarship offerings, <strong class="school-highlight">Rossall School</strong> stands out. While academically strong, its commitment to providing significant scholarship opportunities (including potentially full scholarships) makes it an excellent choice for talented students seeking value and support.</p>
+                    <p>สำหรับครอบครัวที่ให้ความสำคัญกับการช่วยเหลือทางการเงินและกำลังมองหาโรงเรียนที่มีชื่อเสียงด้านทุนการศึกษาจำนวนมาก <strong class="school-highlight">Rossall School</strong> โดดเด่นกว่า แม้จะมีผลการเรียนที่ดี แต่ความมุ่งมั่นในการมอบโอกาสทุนการศึกษาที่สำคัญ (รวมถึงทุนเต็มจำนวนในกรณีพิเศษ) ทำให้เป็นตัวเลือกที่ยอดเยี่ยมสำหรับนักเรียนที่มีความสามารถที่มองหาความคุ้มค่าและการสนับสนุน</p>
+                `,
+                location: `
+                    <h3>Recommendation: Consider <span class="school-highlight">Bromsgrove School</span> for Midlands</h3>
+                    <p>If a location in the Midlands, offering easier access to major cities and a more central UK experience, is important, then <strong class="school-highlight">Bromsgrove School</strong> is the ideal choice. Its Worcestershire setting provides a traditional English environment with excellent transport links.</p>
+                    <p>หากทำเลที่ตั้งในภาคกลาง ซึ่งเข้าถึงเมืองใหญ่ได้ง่ายกว่าและมอบประสบการณ์ใจกลางสหราชอาณาจักรเป็นสิ่งสำคัญ <strong class="school-highlight">Bromsgrove School</strong> คือตัวเลือกที่เหมาะสมที่สุด ที่ตั้งใน Worcestershire มอบสภาพแวดล้อมแบบอังกฤษดั้งเดิมพร้อมการคมนาคมที่ยอดเยี่ยม</p>
+                    <p>However, if a unique sea-front setting in North England with a vibrant community appeals more, <strong class="school-highlight">Rossall School</strong> offers a distinct alternative.</p>
+                    <p>อย่างไรก็ตาม หากสภาพแวดล้อมริมทะเลที่ไม่เหมือนใครในภาคเหนือของอังกฤษพร้อมชุมชนที่มีชีวิตชีวาเป็นที่ดึงดูดใจมากกว่า <strong class="school-highlight">Rossall School</strong> ก็เป็นทางเลือกที่แตกต่าง</p>
+                `,
+                unique_setting: `
+                    <h3>Recommendation: <span class="school-highlight">Rossall School</span></h3>
+                    <p>If you are looking for a school with a unique and inspiring environment, such as a sea-front campus, and a strong emphasis on holistic development alongside academics, <strong class="school-highlight">Rossall School</strong> is an excellent choice. Its diverse offerings, including the IB Diploma, and focus on individual growth make it appealing for students seeking a broader educational experience beyond just exam results.</p>
+                    <p>หากคุณกำลังมองหาโรงเรียนที่มีสภาพแวดล้อมที่เป็นเอกลักษณ์และสร้างแรงบันดาลใจ เช่น วิทยาเขตริมทะเล และเน้นการพัฒนาแบบองค์รวมควบคู่ไปกับวิชาการ <strong class="school-highlight">Rossall School</strong> เป็นตัวเลือกที่ยอดเยี่ยม ข้อเสนอที่หลากหลาย รวมถึงหลักสูตร IB Diploma และการเน้นการเติบโตส่วนบุคคล ทำให้เป็นที่น่าสนใจสำหรับนักเรียนที่แสวงหาประสบการณ์การศึกษาที่กว้างขึ้นนอกเหนือจากผลการสอบ</p>
+                `
+            };
+
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    recommendationOutput.innerHTML = recommendations[this.value];
+                });
+            });
+        });
+    </script>
+</body>
+</html>

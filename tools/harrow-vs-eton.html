@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harrow vs Eton: Which School For Your Son? | LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #1c1c1c;
+            --accent-gold: #C9A84C;
+            --text-light: #e0e0e0;
+            --text-dark: #f0f0f0;
+            --border-color: #333;
+            --cta-bg: #C9A84C;
+            --cta-text: #0a0a0a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        header .logo span {
+            color: var(--text-light);
+            font-size: 0.7em;
+            display: block;
+            margin-top: -10px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: var(--text-dark);
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        header h2 {
+            font-size: 1.4em;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .intro, .vat-note, .conclusion {
+            background-color: var(--secondary-bg);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .intro p, .vat-note p, .conclusion p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .vat-note {
+            background-color: #2a1a1a; /* Slightly different background for emphasis */
+            color: #ffcc80;
+            border-color: #553333;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--accent-gold);
+            text-align: center;
+            margin: 40px 0 30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .school-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 550px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .school-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .school-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .school-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .school-card ul li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .school-card ul li strong {
+            color: var(--text-dark);
+            min-width: 120px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .school-card ul li span {
+            flex: 1;
+        }
+
+        .school-card .suitability {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            font-style: italic;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .cta-box {
+            background-color: var(--cta-bg);
+            color: var(--cta-text);
+            padding: 25px 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-box:hover {
+            background-color: #b39540; /* Slightly darker gold on hover */
+        }
+
+        .cta-box p {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--cta-text);
+        }
+
+        .cta-box a {
+            display: inline-block;
+            background-color: var(--cta-text);
+            color: var(--cta-bg);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-box a:hover {
+            background-color: #333; /* Darker background for button on hover */
+            color: var(--cta-bg);
+        }
+
+        /* Accordion Styles */
+        .accordion-container {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .accordion-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--secondary-bg);
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #2a2a2a;
+        }
+
+        .accordion-header .icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            color: var(--text-light);
+            font-size: 1.05em;
+        }
+
+        .accordion-content.show {
+            max-height: 1000px; /* Adjust based on expected content height */
+            padding: 20px 25px;
+        }
+
+        .accordion-content h4 {
+            color: var(--accent-gold);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .accordion-content p {
+            margin-bottom: 10px;
+        }
+
+        .accordion-content ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        footer .linkedu-info {
+            margin-bottom: 10px;
+        }
+
+        footer .linkedu-info span {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f0d070;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            header h2 {
+                font-size: 1.2em;
+            }
+            .section-title {
+                font-size: 1.7em;
+            }
+            .school-comparison {
+                flex-direction: column;
+                align-items: center;
+            }
+            .school-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            .cta-box p {
+                font-size: 1.2em;
+            }
+            .cta-box a {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            .accordion-header {
+                font-size: 1.1em;
+                padding: 15px 20px;
+            }
+            .accordion-content {
+                padding: 15px 20px;
+            }
+            .accordion-content.show {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">LINKEDU <span>th.linkedu.hk</span></div>
+            <h1>Harrow vs Eton: Which School For Your Son?</h1>
+            <h2>แฮร์โรว์ vs อีตัน: โรงเรียนไหนเหมาะกับลูกชายของคุณ?</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>Choosing the right UK boarding school is a monumental decision, especially when comparing titans like Harrow and Eton. Both are world-renowned, boys-only institutions with centuries of history, but they offer distinct experiences. This head-to-head comparison by LINKEDU will help Thai families navigate their choice.</p>
+            <p>การเลือกโรงเรียนประจำในสหราชอาณาจักรที่เหมาะสมเป็นการตัดสินใจครั้งสำคัญ โดยเฉพาะอย่างยิ่งเมื่อเปรียบเทียบโรงเรียนชั้นนำอย่างแฮร์โรว์และอีตัน ทั้งสองเป็นสถาบันที่มีชื่อเสียงระดับโลกสำหรับนักเรียนชายเท่านั้น มีประวัติยาวนานหลายศตวรรษ แต่ให้ประสบการณ์ที่แตกต่างกัน การเปรียบเทียบเชิงลึกนี้โดย LINKEDU จะช่วยให้ครอบครัวชาวไทยตัดสินใจเลือกได้อย่างเหมาะสม</p>
+        </section>
+
+        <section class="vat-note">
+            <p><strong>โปรดทราบ:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าใช้จ่ายประมาณ 10,000 ถึง 19,000 ปอนด์ต่อปี</p>
+            <p><strong>Please note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, costing approximately GBP 10,000 to 19,000 per year.</p>
+        </section>
+
+        <section class="school-comparison-section">
+            <h3 class="section-title">Head-to-Head Comparison | การเปรียบเทียบแบบเจาะลึก</h3>
+            <div class="school-comparison">
+                <div class="school-card">
+                    <h3>Harrow School | โรงเรียนแฮร์โรว์</h3>
+                    <ul>
+                        <li><strong>Location | ที่ตั้ง:</strong> Harrow-on-the-Hill, London</li>
+                        <li><strong>Type | ประเภท:</strong> Full Boarding, Boys Only</li>
+                        <li><strong>Annual Fees (2024) | ค่าเล่าเรียนต่อปี:</strong>
+                            <span>GBP 61,584 (THB 2,771,280)</span>
+                        </li>
+                        <li><strong>Fees with 20% VAT (2025) | ค่าเล่าเรียนรวม VAT (2568):</strong>
+                            <span>GBP 73,901 (THB 3,325,536)</span>
+                        </li>
+                        <li><strong>A-Level A*/A (2023) | ผลสอบ A-Level A*/A:</strong>
+                            <span>52%</span>
+                        </li>
+                        <li><strong>Oxbridge Offers | ข้อเสนอจาก Oxbridge:</strong>
+                            <span>Consistently strong, though slightly less than Eton</span>
+                        </li>
+                        <li><strong>Key Strengths | จุดเด่น:</strong>
+                            <span>Iconic uniform, strong emphasis on leadership, character development, and a vibrant House system.</span>
+                        </li>
+                    </ul>
+                    <div class="suitability">
+                        เหมาะสำหรับเด็กชายที่ต้องการการศึกษาแบบคลาสสิก เน้นการสร้างผู้นำ และเติบโตในชุมชนที่แน่นแฟ้น
+                        <br>
+                        Ideal for boys seeking a classic, character-building education with a strong emphasis on leadership and a tight-knit community.
+                    </div>
+                </div>
+
+                <div class="school-card">
+                    <h3>Eton College | วิทยาลัยอีตัน</h3>
+                    <ul>
+                        <li><strong>Location | ที่ตั้ง:</strong> Eton, Berkshire (near Windsor)</li>
+                        <li><strong>Type | ประเภท:</strong> Full Boarding, Boys Only</li>
+                        <li><strong>Annual Fees (2024) | ค่าเล่าเรียนต่อปี:</strong>
+                            <span>GBP 52,749 (THB 2,373,705)</span>
+                        </li>
+                        <li><strong>Fees with 20% VAT (2025) | ค่าเล่าเรียนรวม VAT (2568):</strong>
+                            <span>GBP 63,299 (THB 2,848,446)</span>
+                        </li>
+                        <li><strong>A-Level A*/A (2023) | ผลสอบ A-Level A*/A:</strong>
+                            <span>84%</span>
+                        </li>
+                        <li><strong>Oxbridge Offers | ข้อเสนอจาก Oxbridge:</strong>
+                            <span>Exceptional, one of the highest rates in the UK</span>
+                        </li>
+                        <li><strong>Key Strengths | จุดเด่น:</strong>
+                            <span>Unrivalled academic rigour, vast array of societies and extracurriculars, fostering intellectual curiosity and independence.</span>
+                        </li>
+                    </ul>
+                    <div class="suitability">
+                        เหมาะสำหรับเด็กชายที่มีความสามารถทางวิชาการสูง มีความกระตือรือร้นทางปัญญา และต้องการโอกาสที่หลากหลาย
+                        <br>
+                        Ideal for academically gifted boys with strong intellectual curiosity, seeking unparalleled opportunities and independence.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <p>LINE: satitlinkedu | ปรึกษาฟรี (Free Consultation)</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">Add LINE for a Free Consultation | เพิ่ม LINE เพื่อปรึกษาฟรี</a>
+        </div>
+
+        <section class="accordion-container">
+            <h3 class="section-title">Detailed Comparison | รายละเอียดการเปรียบเทียบ</h3>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Academics & Oxbridge | ผลสัมฤทธิ์ทางวิชาการและการเข้า Oxbridge
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="accordion-content">
+                    <h4>Harrow:</h4>
+                    <p>Harrow boasts strong academic results, with 52% A*/A at A-Level in 2023. It prepares boys well for top universities, including Oxbridge, with a focus on holistic development alongside academic excellence.</p>
+                    <h4>Eton:</h4>
+                    <p>Eton is an academic powerhouse, achieving an outstanding 84% A*/A at A-Level in 2023. It consistently sends a very high number of students to Oxford and Cambridge, known for its rigorous intellectual environment and diverse subject offerings.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Pastoral Care & Welfare | การดูแลนักเรียนและสวัสดิภาพ
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="accordion-content">
+                    <h4>Harrow:</h4>
+                    <p>Harrow's strong House system is at the heart of its pastoral care. Each House is a close-knit community led by a House Master, providing a family-like environment and strong support network for boys throughout their time at school.</p>
+                    <h4>Eton:</h4>
+                    <p>Eton also operates a House system, with each boy having a House Master and a tutor who oversees their academic and personal development. The system encourages independence while ensuring support is always available, fostering a sense of belonging within a larger, diverse community.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Sports & Extracurriculars | กีฬาและกิจกรรมนอกหลักสูตร
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="accordion-content">
+                    <h4>Harrow:</h4>
+                    <p>Harrow has a proud sporting tradition, with famous sports like 'Harrow Football'. It offers a wide range of sports at all levels, from elite performance to casual participation, emphasizing teamwork and physical well-being. There's also a rich programme of arts, music, and drama.</p>
+                    <h4>Eton:</h4>
+                    <p>Eton offers an unparalleled range of sports and extracurricular activities, from traditional rowing and rugby to unique Eton Fives. Its facilities are world-class, and the sheer number of clubs and societies (over 100) caters to every possible interest, encouraging boys to explore and excel beyond academics.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Application Difficulty & Entry | ความยากในการสมัครและการเข้าศึกษา
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="accordion-content">
+                    <h4>Harrow:</h4>
+                    <p>Both schools are highly selective. Harrow requires strong academic performance, interviews, and assessments. Early registration (often several years in advance) is crucial, and places are competitive.</p>
+                    <h4>Eton:</h4>
+                    <p>Eton is one of the most competitive schools globally. Entry requires exceptional academic ability, demonstrated through pre-tests, interviews, and assessments. Many boys are registered at birth or shortly after, and success in the King's Scholarship or Common Entrance is essential.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Thai Family Suitability | ความเหมาะสมสำหรับครอบครัวไทย
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="accordion-content">
+                    <h4>Harrow:</h4>
+                    <p>Harrow's strong community and clear structure can be very reassuring for Thai families. The emphasis on character and leadership aligns well with many traditional Thai values. Its London location also offers good accessibility.</p>
+                    <h4>Eton:</h4>
+                    <p>Eton's reputation for academic excellence and global network appeals greatly to Thai families prioritizing top-tier university entry. Its diverse international student body can also help new students integrate, though the demanding academic environment requires a highly self-motivated individual.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="conclusion">
+            <h3 class="section-title">Conclusion: Which School Suits Your Son? | สรุป: โรงเรียนไหนเหมาะกับลูกชายของคุณ?</h3>
+            <p><strong>Choose Harrow if:</strong> Your son thrives in a structured, character-focused environment where leadership and camaraderie are highly valued. He seeks a strong House system and a traditional British boarding experience with excellent academic and sporting opportunities.</p>
+            <p><strong>เลือกแฮร์โรว์ หาก:</strong> ลูกชายของคุณเติบโตได้ดีในสภาพแวดล้อมที่มีโครงสร้างชัดเจน เน้นการสร้างบุคลิกภาพและความเป็นผู้นำ เขาต้องการระบบ House ที่แข็งแกร่งและประสบการณ์การเรียนประจำแบบอังกฤษดั้งเดิม พร้อมโอกาสทางวิชาการและกีฬาที่ยอดเยี่ยม</p>
+            <p><strong>Choose Eton if:</strong> Your son is exceptionally academically gifted, highly independent, and thrives on intellectual challenge and a vast array of opportunities. He is self-driven and aims for the highest echelons of academia, potentially Oxbridge, within a diverse and intellectually stimulating community.</p>
+            <p><strong>เลือกอีตัน หาก:</strong> ลูกชายของคุณมีความสามารถทางวิชาการโดดเด่น มีความเป็นอิสระสูง และชื่นชอบความท้าทายทางปัญญาและโอกาสที่หลากหลาย เขาเป็นคนขับเคลื่อนตัวเองและมุ่งหวังที่จะเข้าสู่สถาบันการศึกษาชั้นนำอย่าง Oxbridge ภายในชุมชนที่หลากหลายและกระตุ้นความคิด</p>
+            <p>Ultimately, both schools offer an outstanding education. The best choice depends on your son's individual personality, academic strengths, and aspirations. LINKEDU is here to guide you through this important decision.</p>
+            <p>ท้ายที่สุด ทั้งสองโรงเรียนล้วนมีการศึกษาที่ยอดเยี่ยม การเลือกที่ดีที่สุดขึ้นอยู่กับบุคลิกภาพ จุดแข็งทางวิชาการ และความใฝ่ฝันของลูกชายคุณ LINKEDU พร้อมให้คำแนะนำคุณในการตัดสินใจครั้งสำคัญนี้</p>
+        </section>
+
+        <div class="cta-box">
+            <p>LINE: satitlinkedu | ปรึกษาฟรี (Free Consultation)</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">Add LINE for a Free Consultation | เพิ่ม LINE เพื่อปรึกษาฟรี</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="linkedu-info">
+                <span>LINKEDU</span> Education Consulting Bangkok | Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">satitlinkedu</a>
+            </div>
+            <p>&copy; 2024 LINKEDU. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.icon');
+
+                    // Toggle 'active' class on header
+                    this.classList.toggle('active');
+
+                    // Toggle 'show' class on content
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
+                    } else {
+                        // Close other open accordions if desired (optional)
+                        // document.querySelectorAll('.accordion-content.show').forEach(openContent => {
+                        //     openContent.classList.remove('show');
+                        //     openContent.previousElementSibling.classList.remove('active');
+                        // });
+                        content.classList.add('show');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

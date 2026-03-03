@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU: OIC vs Cardiff vs Concord - Oxbridge Schools Comparison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;560;700&family=Noto+Sans+Thai:wght@300;400;560;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f5f5f5;
+            --accent-color: #C9A84C;
+            --card-bg: #1a1a1a;
+            --card-hover-bg: #2a2a2a;
+            --border-color: #333;
+            --padding-base: 20px;
+            --border-radius-base: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--padding-base);
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: var(--padding-base) 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header .linkedu-brand {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 15px;
+        }
+
+        header .linkedu-brand a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 560;
+        }
+
+        section {
+            padding: 40px 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-base);
+            padding: var(--padding-base);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .school-card h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .school-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Make list grow to fill space */
+        }
+
+        .school-card li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        .school-card li strong {
+            color: var(--accent-color);
+            font-weight: 560;
+        }
+
+        .school-card li::before {
+            content: "•";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-button, .cta-box {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: var(--border-radius-base);
+            font-weight: 700;
+            font-size: 1.1em;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover, .cta-box:hover {
+            background-color: #d8b65e; /* Slightly lighter gold */
+            transform: translateY(-2px);
+        }
+
+        .cta-box {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 20px;
+            border-radius: var(--border-radius-base);
+            margin: 40px auto;
+            max-width: 400px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 700;
+            line-height: 1.4;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-box span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .interactive-quiz {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-base);
+            padding: var(--padding-base) 40px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .interactive-quiz .question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            font-weight: 560;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .radio-option {
+            background-color: #222;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-base);
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            flex: 1 1 280px; /* Allows flexibility but keeps min width */
+            max-width: 350px;
+            text-align: left;
+        }
+
+        .radio-option:hover {
+            background-color: #333;
+            border-color: var(--accent-color);
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .radio-option input[type="radio"]:checked {
+            border-color: var(--accent-color);
+            background-color: #2a2a2a;
+        }
+
+        .radio-option label {
+            display: block;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .radio-option label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            background-color: var(--bg-color);
+        }
+
+        .radio-option input[type="radio"]:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .recommendation {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-base);
+            padding: var(--padding-base);
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: none; /* Hidden by default */
+        }
+
+        .recommendation h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .recommendation p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .vat-info {
+            background-color: #151515;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: var(--border-radius-base);
+            font-size: 0.95em;
+            color: #ccc;
+        }
+
+        .vat-info strong {
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .school-grid {
+                grid-template-columns: 1fr;
+            }
+            .interactive-quiz .question {
+                font-size: 1.1em;
+            }
+            .radio-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .radio-option {
+                width: 100%;
+                max-width: 90%;
+            }
+            .cta-button, .cta-box {
+                width: 90%;
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .cta-box {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>OIC vs Cardiff vs Concord: Top Three Oxbridge Schools</h1>
+            <p>Three-way comparison of best Oxbridge-route schools for Thai students. Find out which is right for your child.</p>
+            <div class="linkedu-brand">
+                Powered by LINKEDU | Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="comparison-overview">
+            <h2>School Comparison / เปรียบเทียบโรงเรียน</h2>
+            <div class="school-grid">
+                <div class="school-card">
+                    <h3>Oxford International College (OIC)</h3>
+                    <ul>
+                        <li><strong>Fees (Boarding):</strong> GBP 35,075 / THB 1,578,375</li>
+                        <li><strong>A-Level A*-A:</strong> 91% (often highest in UK)</li>
+                        <li><strong>Oxbridge Offers:</strong> 13 (typical per year)</li>
+                        <li><strong>Key Focus:</strong> Highly academic, intensive Oxbridge preparation, excellent progression to top universities.</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h3>Cardiff Sixth Form College</h3>
+                    <ul>
+                        <li><strong>Fees (Boarding):</strong> GBP 62,095 / THB 2,794,275</li>
+                        <li><strong>UK Ranking:</strong> #1 UK (often cited by league tables)</li>
+                        <li><strong>Oxbridge Offers:</strong> 12 (2024 intake)</li>
+                        <li><strong>Key Focus:</strong> Top academic performance, outstanding university progression, 50% scholarship opportunities available.</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h3>Concord College</h3>
+                    <ul>
+                        <li><strong>Fees (Boarding):</strong> GBP 61,764 / THB 2,779,380</li>
+                        <li><strong>A-Level A*-A:</strong> 74%</li>
+                        <li><strong>Oxbridge Offers:</strong> 103 (historically, over many years)</li>
+                        <li><strong>Key Focus:</strong> Strong academic tradition, well-rounded boarding experience, long-standing Oxbridge success.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cta-box">
+                LINE: satitlinkedu<br>ปรึกษาฟรี (Free Consultation)
+            </div>
+        </section>
+
+        <section id="interactive-quiz" class="interactive-quiz">
+            <h2>Which is right for your child? / โรงเรียนไหนเหมาะกับลูกของคุณ?</h2>
+            <p class="question">What is the most important factor for your child's Oxbridge journey?</p>
+            <div class="radio-group" role="radiogroup" aria-label="Choose your priority for Oxbridge schools">
+                <div class="radio-option">
+                    <input type="radio" id="priority1" name="school_priority" value="OIC">
+                    <label for="priority1">Highest A-Level Percentage & Direct Oxbridge Focus<br>(ผลสอบ A-Level สูงสุด และมุ่งเน้น Oxbridge โดยตรง)</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="priority2" name="school_priority" value="Cardiff">
+                    <label for="priority2">Top UK Ranking & Scholarship Potential<br>(อันดับ 1 ในสหราชอาณาจักร และโอกาสทุนการศึกษา)</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="priority3" name="school_priority" value="Concord">
+                    <label for="priority3">Long-standing Oxbridge History & Broad Excellence<br>(ประวัติ Oxbridge ที่ยาวนาน และความเป็นเลิศรอบด้าน)</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="priority4" name="school_priority" value="Value">
+                    <label for="priority4">Best Value for Money (Lowest Fees)<br>(คุ้มค่าที่สุด (ค่าธรรมเนียมต่ำสุด))</label>
+                </div>
+            </div>
+            <button id="showRecommendationBtn" class="cta-button" style="display:none; margin-top: 40px;">Show Recommendation / แสดงคำแนะนำ</button>
+        </section>
+
+        <section id="recommendation" class="recommendation">
+            <h2>Our Recommendation / คำแนะนำของเรา</h2>
+            <h3 id="recommendedSchool"></h3>
+            <p id="recommendationText"></p>
+            <div class="cta-box">
+                LINE: satitlinkedu<br>ปรึกษาฟรี (Free Consultation)
+            </div>
+        </section>
+
+        <section id="vat-info" class="vat-info">
+            <p><strong>VAT Note / หมายเหตุ VAT:</strong> Private school fees like these will have 20% VAT added from January 2025 in the UK. State boarding schools (typically GBP 10,000-19,000 per year) are VAT exempt.</p>
+            <p>ค่าธรรมเนียมโรงเรียนเอกชนเหล่านี้จะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2568 ในสหราชอาณาจักร โรงเรียนประจำของรัฐ (โดยทั่วไป GBP 10,000-19,000 ต่อปี) ได้รับการยกเว้น VAT</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+            <p>Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioButtons = document.querySelectorAll('input[name="school_priority"]');
+            const showRecommendationBtn = document.getElementById('showRecommendationBtn');
+            const recommendationSection = document.getElementById('recommendation');
+            const recommendedSchool = document.getElementById('recommendedSchool');
+            const recommendationText = document.getElementById('recommendationText');
+
+            const recommendations = {
+                OIC: {
+                    school: "Oxford International College (OIC)",
+                    text: "For a student aiming for the absolute highest A-Level results and an intensive, focused path directly to Oxbridge, OIC is an outstanding choice. Its track record speaks for itself in academic excellence.",
+                    textThai: "สำหรับนักเรียนที่ต้องการผลสอบ A-Level สูงสุด และเส้นทางที่เข้มข้น มุ่งเน้นไปที่ Oxbridge โดยตรง OIC เป็นตัวเลือกที่โดดเด่น ผลงานของโรงเรียนพิสูจน์ถึงความเป็นเลิศทางวิชาการ"
+                },
+                Cardiff: {
+                    school: "Cardiff Sixth Form College",
+                    text: "If a top UK ranking, strong Oxbridge offers, and the opportunity for significant scholarships are priorities, Cardiff Sixth Form College is an excellent fit. It offers a highly competitive environment with financial support potential.",
+                    textThai: "หากการจัดอันดับสูงสุดในสหราชอาณาจักร ข้อเสนอ Oxbridge ที่แข็งแกร่ง และโอกาสในการรับทุนการศึกษาจำนวนมากเป็นสิ่งสำคัญ Cardiff Sixth Form College เป็นตัวเลือกที่ยอดเยี่ยม โรงเรียนมีสภาพแวดล้อมที่แข่งขันสูงพร้อมศักยภาพการสนับสนุนทางการเงิน"
+                },
+                Concord: {
+                    school: "Concord College",
+                    text: "For a well-rounded boarding experience with a long-standing history of Oxbridge success and strong A-Level performance, Concord College provides a nurturing yet academically rigorous environment. It's ideal for those seeking tradition and broad excellence.",
+                    textThai: "สำหรับประสบการณ์การเรียนแบบประจำที่ครบวงจร พร้อมประวัติความสำเร็จด้าน Oxbridge ที่ยาวนานและผลการเรียน A-Level ที่ดี Concord College มอบสภาพแวดล้อมที่ส่งเสริมแต่เข้มข้นทางวิชาการ เหมาะสำหรับผู้ที่ต้องการประเพณีและความเป็นเลิศในวงกว้าง"
+                },
+                Value: {
+                    school: "Oxford International College (OIC)",
+                    text: "If budget is a primary concern while still seeking a top Oxbridge pathway, OIC offers the lowest fees among these three elite institutions, providing exceptional academic focus at a comparatively more accessible price point.",
+                    textThai: "หากงบประมาณเป็นข้อกังวลหลักในขณะที่ยังคงต้องการเส้นทางสู่ Oxbridge ที่ยอดเยี่ยม OIC เสนอค่าธรรมเนียมที่ต่ำที่สุดในบรรดาสถาบันชั้นนำสามแห่งนี้ โดยให้ความสำคัญทางวิชาการเป็นพิเศษในราคาที่เข้าถึงได้มากกว่า"
+                }
+            };
+
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    showRecommendationBtn.style.display = 'block';
+                    recommendationSection.style.display = 'none'; // Hide previous recommendation
+                });
+            });
+
+            showRecommendationBtn.addEventListener('click', () => {
+                const selectedPriority = document.querySelector('input[name="school_priority"]:checked');
+                if (selectedPriority) {
+                    const recommendation = recommendations[selectedPriority.value];
+                    recommendedSchool.textContent = recommendation.school + " / " + recommendation.school; // Show school name in both languages
+                    recommendationText.innerHTML = `${recommendation.text}<br><br>${recommendation.textThai}`;
+                    recommendationSection.style.display = 'block';
+                    recommendationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert('Please select an option to get a recommendation.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
