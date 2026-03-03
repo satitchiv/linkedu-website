@@ -264,8 +264,6 @@
     background: rgba(26,26,26,0.15);
     outline: none;
     cursor: pointer;
-    min-height: 44px; /* touch target */
-    padding: 20px 0;
   }
   .dark-bg input[type="range"] { background: rgba(245,240,232,0.15); }
   input[type="range"]::-webkit-slider-thumb {
@@ -387,17 +385,40 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
+  /* ── POPULAR CARD (inverted) ── */
+  .school-card.popular-card {
+    background: var(--cream) !important;
+    border: 1.5px solid var(--gold) !important;
+    box-shadow: 0 4px 16px rgba(184,150,46,0.12);
+  }
+  .school-card.popular-card .school-card-name { color: var(--dark); }
+  .school-card.popular-card .school-card-fees { color: rgba(26,26,26,0.6); }
+  .school-card.popular-card .school-card-fees strong { color: #6B4E0A; }
+  .school-card.popular-card .school-card-select-hint { color: var(--dark); }
+  .school-card.popular-card .badge-type {
+    background: rgba(107,78,10,0.1);
+    color: #6B4E0A;
+    border-color: rgba(107,78,10,0.25);
+  }
+  .school-card.popular-card .badge-schol,
+  .school-card.popular-card .badge-schol-highlight {
+    background: rgba(26,26,26,0.07);
+    color: rgba(26,26,26,0.6);
+    border-color: rgba(26,26,26,0.15);
+  }
+
   .popular-badge {
     position: absolute;
     top: 0.6rem;
     right: 0.6rem;
-    background: #D4A017;
-    color: #1a1a1a;
+    background: var(--dark);
+    color: var(--gold);
     font-family: 'Inter', sans-serif;
     font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 0.25rem 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
     border-radius: 999px;
     white-space: nowrap;
     line-height: 1;
@@ -1575,7 +1596,12 @@ function renderStep1() {
   const grid = document.getElementById('schoolGrid');
   grid.innerHTML = '';
 
-  matching.sort((a, b) => effectiveFee(a) - effectiveFee(b));
+  matching.sort(function(a, b) {
+    const aP = featuredSchools.indexOf(a.name) !== -1 ? 0 : 1;
+    const bP = featuredSchools.indexOf(b.name) !== -1 ? 0 : 1;
+    if (aP !== bP) return aP - bP; // popular first
+    return effectiveFee(a) - effectiveFee(b); // then by fee ascending
+  });
 
   matching.forEach(function(school) {
     const fee = effectiveFee(school);
@@ -1593,8 +1619,9 @@ function renderStep1() {
     }
 
     const isPopular = featuredSchools.indexOf(school.name) !== -1;
+    if (isPopular) card.classList.add('popular-card');
     const popularBadge = isPopular
-      ? '<div class="popular-badge"><span class="lang-th">⭐ นิยมในหมู่ครอบครัวไทย</span><span class="lang-en">⭐ Popular with Thai Families</span></div>'
+      ? '<div class="popular-badge">Popular</div>'
       : '';
 
     card.innerHTML =
