@@ -385,6 +385,22 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
+  .popular-badge {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background: #D4A017;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    line-height: 1;
+    pointer-events: none;
+  }
   .school-card-name {
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
@@ -1534,6 +1550,17 @@ function revealStep(id) {
 /* ──────────────────────────────────
    STEP 1 — RENDER
 ────────────────────────────────── */
+const featuredSchools = [
+  "Tonbridge",
+  "Uppingham",
+  "Millfield School",
+  "Concord",
+  "Bromsgrove School",
+  "Queen Ethelburga",
+  "Rossall School",
+  "Wells Cathedral",
+];
+
 function renderStep1() {
   const matching = getMatchingSchools();
   document.getElementById('schoolCount').textContent = matching.length;
@@ -1560,7 +1587,13 @@ function renderStep1() {
       scholBadge = '<span class="badge ' + cls + '">' + scholPct + '% schol</span>';
     }
 
+    const isPopular = featuredSchools.indexOf(school.name) !== -1;
+    const popularBadge = isPopular
+      ? '<div class="popular-badge"><span class="lang-th">⭐ นิยมในหมู่ครอบครัวไทย</span><span class="lang-en">⭐ Popular with Thai Families</span></div>'
+      : '';
+
     card.innerHTML =
+      popularBadge +
       '<div class="school-card-name">' + school.name + '</div>' +
       '<div class="school-card-fees"><strong>' + fmtGBP(fee) + '</strong> / ' + fmtTHB(feeTHB) + ' <span style="font-size:0.75rem;opacity:0.5;">/yr</span></div>' +
       '<div class="school-card-badges">' +
