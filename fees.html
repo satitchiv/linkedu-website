@@ -81,34 +81,31 @@
     <div class="section-header">
       <span class="section-label"><span class="lang-th">เครื่องมือวางแผนการเงิน</span><span class="lang-en">Finance Tools</span></span>
       <h2><span class="lang-th">เครื่องคำนวณค่าเรียน UK ครบวงจร</span><span class="lang-en">Complete UK Fee Planner</span></h2>
-      <p><span class="lang-th">คำนวณค่าเรียน ค่าครองชีพ และทุนการศึกษา — ครบ 3 เครื่องมือในหน้าเดียว ข้อมูลจากฐานข้อมูล 99 โรงเรียนของ LINKEDU</span><span class="lang-en">Calculate fees, living costs &amp; scholarships — 3 tools merged into one. Real data from LINKEDU's database of 99 UK boarding schools.</span></p>
+      <p><span class="lang-th">3 ขั้นตอนเชื่อมกันอัตโนมัติ — จากงบประมาณ สู่ค่าใช้จ่ายจริง สู่ทุนการศึกษาที่ใช่ เลือกรูปแบบที่คุณชอบ</span><span class="lang-en">3 connected steps — from budget to true cost to scholarship match. Choose the experience that suits you.</span></p>
     </div>
 
-    <!-- Version picker cards -->
+    <!-- V2 sub-variation picker -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:48px;">
 
       <div class="tool-card" style="position:relative;border:2px solid #B8962E;">
-        <div style="position:absolute;top:-12px;left:24px;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 1 / Layout A</div>
-        <div class="tool-card-icon">📑</div>
-        <div class="tool-card-title"><span class="lang-th">แบบแท็บ — Tab Hub</span><span class="lang-en">Tabbed Hub Layout</span></div>
-        <p class="tool-card-desc"><span class="lang-th">3 เครื่องมือในแท็บเดียว — หาโรงเรียนในงบ / คำนวณค่าจริง / ค้นหาทุน สลับแท็บได้อย่างรวดเร็ว</span><span class="lang-en">3 tools in clean tabs — Budget Finder / True Cost / Scholarships. Switch between tools instantly.</span></p>
-        <a href="tools/fees-calculator-v1.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 1</span><span class="lang-en">View Layout A</span></a>
+        <div style="position:absolute;top:-12px;left:24px;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;"><span class="lang-th">แบบ A</span><span class="lang-en">Version A</span></div>
+        <div class="tool-card-title" style="margin-top:16px;"><span class="lang-th">Locked Journey — ขั้นตอนที่ล็อก</span><span class="lang-en">The Locked Journey</span></div>
+        <p class="tool-card-desc"><span class="lang-th">ขั้นตอน 2 และ 3 ล็อกไว้จนกว่าคุณจะเสร็จขั้นตอนก่อน — ข้อมูลส่งต่อกันอัตโนมัติ ชัดเจนที่สุด</span><span class="lang-en">Steps 2 and 3 are locked until you complete the previous step. Data chains automatically. Most structured experience.</span></p>
+        <a href="tools/fees-calculator-v2a.html" class="tool-card-link"><span class="lang-th">ลองแบบ A</span><span class="lang-en">Try Version A</span></a>
       </div>
 
       <div class="tool-card" style="position:relative;">
-        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 2 / Layout B</div>
-        <div class="tool-card-icon">📜</div>
-        <div class="tool-card-title"><span class="lang-th">แบบขั้นตอน — Step Journey</span><span class="lang-en">Step-by-Step Journey</span></div>
-        <p class="tool-card-desc"><span class="lang-th">3 ขั้นตอนเรียงกันพร้อมแถบ progress — นำทางจากงบประมาณสู่ค่าจริง สู่ทุนการศึกษา อย่างต่อเนื่อง</span><span class="lang-en">3 guided steps with sticky progress bar — flows naturally from budget to true cost to scholarships.</span></p>
-        <a href="tools/fees-calculator-v2.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 2</span><span class="lang-en">View Layout B</span></a>
+        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;"><span class="lang-th">แบบ B</span><span class="lang-en">Version B</span></div>
+        <div class="tool-card-title" style="margin-top:16px;"><span class="lang-th">Running Summary — แถบสรุปสะสม</span><span class="lang-en">The Running Summary</span></div>
+        <p class="tool-card-desc"><span class="lang-th">แถบสรุปติดหน้าจอที่เติมข้อมูลทีละขั้น — เห็นภาพรวมทุกช่วงของการวางแผน ทั้ง 3 ขั้นตอนมองเห็นพร้อมกัน</span><span class="lang-en">Sticky summary bar fills in as you progress. See your full journey at a glance. All 3 steps visible at once.</span></p>
+        <a href="tools/fees-calculator-v2b.html" class="tool-card-link"><span class="lang-th">ลองแบบ B</span><span class="lang-en">Try Version B</span></a>
       </div>
 
       <div class="tool-card" style="position:relative;">
-        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;">แบบที่ 3 / Layout C</div>
-        <div class="tool-card-icon">🖥️</div>
-        <div class="tool-card-title"><span class="lang-th">แบบแดชบอร์ด — Dashboard</span><span class="lang-en">Power Dashboard</span></div>
-        <p class="tool-card-desc"><span class="lang-th">แผงควบคุมซ้าย + ผลลัพธ์ขวา อัปเดตแบบ real-time เหมาะสำหรับผู้ที่ต้องการเปรียบเทียบหลายตัวเลขพร้อมกัน</span><span class="lang-en">Side-by-side control panel + live results. Perfect for comparing multiple scenarios simultaneously.</span></p>
-        <a href="tools/fees-calculator-v3.html" class="tool-card-link"><span class="lang-th">ดูแบบที่ 3</span><span class="lang-en">View Layout C</span></a>
+        <div style="position:absolute;top:-12px;left:24px;background:#1a1a1a;color:#B8962E;border:1px solid #B8962E;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;"><span class="lang-th">แบบ C</span><span class="lang-en">Version C</span></div>
+        <div class="tool-card-title" style="margin-top:16px;"><span class="lang-th">The Reveal — เปิดเผยตัวเลข</span><span class="lang-en">The Reveal</span></div>
+        <p class="tool-card-desc"><span class="lang-th">หลังแต่ละขั้นตอน ตัวเลขสำคัญจะนับขึ้นแบบดราม่าเต็มหน้าจอ — รู้จำนวนโรงเรียน รู้ค่าจริง รู้ทุนที่ต้องการ</span><span class="lang-en">After each step, a dramatic full-screen number reveal counts up to your result. The most engaging experience.</span></p>
+        <a href="tools/fees-calculator-v2c.html" class="tool-card-link"><span class="lang-th">ลองแบบ C</span><span class="lang-en">Try Version C</span></a>
       </div>
 
     </div>

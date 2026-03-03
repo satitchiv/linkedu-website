@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — The Locked Journey: Fee Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-width: 320px;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+.gold { color: var(--gold); }
+
+/* ── Header ─────────────────────────────────────────────── */
+#site-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.3);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 24px; gap: 32px;
+}
+#site-header .logo { flex-shrink: 0; }
+#site-header nav { display: flex; gap: 20px; flex: 1; justify-content: center; flex-wrap: wrap; }
+#site-header nav a {
+  color: var(--cream); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.04em; opacity: 0.8; transition: opacity 0.2s;
+}
+#site-header nav a:hover, #site-header nav a.active { opacity: 1; color: var(--gold); }
+.lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s; opacity: 0.6;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); opacity: 1; font-weight: 600; }
+
+/* ── Journey bar at top ───────────────────────────────── */
+.journey-bar {
+  background: var(--dark); display: flex; align-items: center;
+  justify-content: center; padding: 14px 24px;
+  border-bottom: 1px solid rgba(184,150,46,0.2); flex-wrap: wrap; gap: 8px;
+}
+.journey-step {
+  display: flex; align-items: center; gap: 8px; font-size: 0.82rem;
+  color: rgba(245,240,232,0.4); font-weight: 500; transition: color 0.3s;
+}
+.journey-step.active { color: var(--gold); }
+.journey-step .step-num {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 0.9rem; flex-shrink: 0;
+}
+.journey-step.active .step-num { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.journey-connector { width: 40px; height: 1px; background: rgba(184,150,46,0.3); flex-shrink: 0; }
+
+/* ── Step sections ────────────────────────────────────── */
+.step-section { position: relative; overflow: hidden; }
+.step-ghost {
+  position: absolute; font-family: 'Playfair Display', serif;
+  font-size: 18vw; font-weight: 400; line-height: 1;
+  top: -0.1em; right: -0.05em; pointer-events: none; user-select: none; z-index: 0;
+}
+.step-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 60px 24px 80px; }
+#step1 { background: var(--cream); min-height: 100vh; }
+#step1 .step-ghost { color: var(--gold); opacity: 0.05; }
+#step2 { background: var(--dark); min-height: 80vh; }
+#step2 .step-ghost { color: var(--cream); opacity: 0.05; }
+#step3 { background: var(--cream); min-height: 80vh; }
+#step3 .step-ghost { color: var(--gold); opacity: 0.05; }
+
+/* ── Lock overlay ────────────────────────────────────── */
+.lock-overlay {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 16px; transition: opacity 0.5s;
+}
+#step2 .lock-overlay { background: rgba(26,26,26,0.88); }
+#step3 .lock-overlay { background: rgba(245,240,232,0.9); }
+.lock-icon { width: 64px; height: 64px; opacity: 0.6; }
+.lock-msg { font-family: 'Playfair Display', serif; font-size: 1.3rem; text-align: center; padding: 0 32px; }
+#step2 .lock-msg { color: var(--cream); }
+#step3 .lock-msg { color: var(--dark); }
+.lock-sub { font-size: 0.88rem; opacity: 0.6; text-align: center; }
+#step2 .lock-sub { color: var(--cream); }
+#step3 .lock-sub { color: var(--dark); }
+.step-section.unlocked .lock-overlay { opacity: 0; pointer-events: none; }
+.step-inner { transition: transform 0.6s ease-out, opacity 0.6s ease-out; }
+.step-section:not(.unlocked) .step-inner { transform: translateY(20px); opacity: 0.3; pointer-events: none; user-select: none; }
+.step-section.unlocked .step-inner { transform: translateY(0); opacity: 1; }
+@keyframes goldBorderFlash {
+  0% { border-left-color: transparent; }
+  20% { border-left-color: var(--gold); }
+  60% { border-left-color: var(--gold); }
+  100% { border-left-color: transparent; }
+}
+.step-section.just-unlocked { animation: goldBorderFlash 1.2s ease-out; border-left: 4px solid transparent; }
+
+/* ── Step 1 elements ──────────────────────────────────── */
+.hero-promise { margin-bottom: 8px; }
+.hero-promise h1 { font-size: clamp(2rem, 5vw, 3.2rem); color: var(--dark); line-height: 1.2; }
+.hero-subtitle { font-size: 1rem; color: var(--dark); opacity: 0.7; margin-top: 10px; margin-bottom: 36px; max-width: 600px; }
+.journey-promise {
+  display: flex; align-items: stretch; gap: 0;
+  border: 1px solid var(--gold); border-radius: 8px; overflow: hidden;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.jp-step { padding: 14px 20px; font-size: 0.85rem; font-weight: 500; color: var(--dark); flex: 1; text-align: center; min-width: 120px; }
+.jp-step .jp-num { display: block; font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+.jp-connector { width: 1px; align-self: stretch; background: var(--gold); opacity: 0.4; flex-shrink: 0; }
+.controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+@media (max-width: 680px) { .controls-grid { grid-template-columns: 1fr; gap: 20px; } }
+.control-group label { display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark); opacity: 0.6; margin-bottom: 10px; }
+.budget-display { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); margin-bottom: 10px; }
+.budget-thb { font-size: 0.95rem; color: var(--dark); opacity: 0.55; margin-bottom: 12px; }
+input[type="range"] {
+  width: 100%; height: 4px; accent-color: var(--gold); cursor: pointer;
+  border-radius: 2px; outline: none; border: none; -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--dark); cursor: pointer; box-shadow: 0 2px 8px rgba(184,150,46,0.4);
+}
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  padding: 7px 16px; border-radius: 24px; font-size: 0.83rem; font-weight: 500;
+  cursor: pointer; border: 1px solid rgba(26,26,26,0.2); background: none; color: var(--dark);
+  font-family: 'Inter', sans-serif; transition: all 0.2s;
+}
+.pill.active { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 600; }
+.pill:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; border: 1px solid rgba(26,26,26,0.2); background: none; color: var(--dark);
+  font-family: 'Inter', sans-serif; transition: all 0.2s;
+}
+.chip.active { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+.chip:hover:not(.active) { border-color: var(--dark); }
+.grid-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+.grid-count { font-size: 0.82rem; opacity: 0.6; }
+.school-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+@media (max-width: 900px) { .school-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .school-grid { grid-template-columns: 1fr; } }
+.school-card {
+  background: #fff9f0; border: 1.5px solid rgba(184,150,46,0.2); border-radius: 8px;
+  padding: 14px 16px; cursor: pointer; transition: all 0.2s; position: relative;
+}
+.school-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(184,150,46,0.15); }
+.school-card.selected { border-color: var(--gold); border-width: 2px; background: rgba(184,150,46,0.08); box-shadow: 0 0 0 2px var(--gold); }
+.school-card.selected::after {
+  content: ''; position: absolute; top: 8px; right: 8px; width: 20px; height: 20px;
+  background: var(--gold); border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a1a1a' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-size: 14px; background-repeat: no-repeat; background-position: center;
+}
+.card-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--dark); margin-bottom: 4px; padding-right: 20px; line-height: 1.3; }
+.card-fee-gbp { font-size: 1rem; font-weight: 600; color: var(--dark); }
+.card-fee-thb { font-size: 0.78rem; color: var(--dark); opacity: 0.55; margin-bottom: 6px; }
+.card-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+.badge { font-size: 0.68rem; font-weight: 600; padding: 2px 7px; border-radius: 10px; letter-spacing: 0.03em; text-transform: uppercase; }
+.badge-type { background: rgba(26,26,26,0.08); color: var(--dark); }
+.badge-schol { background: var(--gold); color: var(--dark); }
+.selected-bar {
+  display: none; background: var(--gold); color: var(--dark); padding: 14px 20px;
+  border-radius: 8px; font-weight: 600; font-size: 0.92rem; margin-bottom: 20px;
+  align-items: center; justify-content: space-between; gap: 12px;
+}
+.selected-bar.visible { display: flex; }
+.selected-bar-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+.cta-btn {
+  display: block; width: 100%; padding: 18px 24px; background: var(--gold); color: var(--dark);
+  border: none; border-radius: 8px; font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  cursor: pointer; transition: all 0.2s; text-align: center;
+}
+.cta-btn:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(184,150,46,0.4); }
+.cta-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.cta-btn-cream {
+  display: block; width: 100%; padding: 16px 24px; background: transparent;
+  color: var(--cream); border: 1.5px solid var(--gold); border-radius: 8px;
+  font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer;
+  transition: all 0.2s; text-align: center;
+}
+.cta-btn-cream:hover { background: rgba(184,150,46,0.1); }
+.no-schools-msg { grid-column: 1/-1; text-align: center; padding: 48px 24px; opacity: 0.5; font-size: 0.95rem; }
+
+/* ── Step 2 elements ──────────────────────────────────── */
+.step2-school-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 32px; }
+.step2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+@media (max-width: 720px) { .step2-grid { grid-template-columns: 1fr; } }
+.panel { border-radius: 8px; padding: 24px; }
+.panel-dark { background: rgba(245,240,232,0.06); border: 1px solid rgba(245,240,232,0.12); }
+.panel-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-bottom: 20px; }
+.fee-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid rgba(245,240,232,0.08); font-size: 0.9rem; color: var(--cream); }
+.fee-row:last-child { border-bottom: none; }
+.fee-row .label { opacity: 0.7; }
+.fee-row .amount { font-weight: 600; }
+.fee-row.total-row { border-top: 1px solid rgba(184,150,46,0.4); padding-top: 14px; margin-top: 8px; font-size: 1rem; color: var(--gold); font-weight: 600; }
+.fee-row.total-row .label { opacity: 1; color: var(--gold); }
+.vat-toggle-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+.toggle-switch { position: relative; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0; }
+.toggle-switch input { display: none; }
+.toggle-track { position: absolute; inset: 0; background: rgba(245,240,232,0.15); border-radius: 12px; transition: background 0.2s; }
+.toggle-switch input:checked + .toggle-track { background: var(--gold); }
+.toggle-knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--cream); transition: transform 0.2s; }
+.toggle-switch input:checked ~ .toggle-knob { transform: translateX(20px); }
+.toggle-label { font-size: 0.88rem; color: var(--cream); opacity: 0.8; }
+.living-row { margin-bottom: 16px; }
+.living-row label { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.83rem; color: var(--cream); opacity: 0.75; margin-bottom: 6px; }
+.living-val { font-weight: 600; color: var(--cream); opacity: 1; }
+.living-total { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0 0; border-top: 1px solid rgba(184,150,46,0.3); margin-top: 8px; color: var(--cream); font-size: 0.92rem; font-weight: 600; }
+.section-heading { font-size: clamp(1.4rem, 3.5vw, 2rem); margin-bottom: 6px; }
+.section-sub { font-size: 0.95rem; opacity: 0.65; margin-bottom: 28px; }
+#step2 .section-heading, #step2 .section-sub { color: var(--cream); }
+#step3 .section-heading { color: var(--dark); }
+.result-reveal { display: none; margin-top: 32px; animation: slideIn 0.6s ease-out; }
+.result-reveal.visible { display: block; }
+@keyframes slideIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.result-card { background: var(--gold); color: var(--dark); border-radius: 12px; padding: 32px; margin-bottom: 20px; }
+.result-card-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px; }
+.result-cost-gbp { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1; margin-bottom: 4px; }
+.result-cost-thb { font-size: 1rem; opacity: 0.75; margin-bottom: 24px; }
+.result-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 540px) { .result-rows { grid-template-columns: 1fr; } }
+.result-stat { background: rgba(26,26,26,0.12); border-radius: 8px; padding: 12px 16px; }
+.result-stat-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.65; margin-bottom: 4px; }
+.result-stat-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+.gap-notice { background: rgba(26,26,26,0.1); border-radius: 8px; padding: 14px 16px; margin-top: 16px; font-size: 0.9rem; font-weight: 600; text-align: center; }
+.step2-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+/* ── Step 3 elements ──────────────────────────────────── */
+.chain-banner { background: var(--dark); color: var(--cream); border-radius: 8px; padding: 16px 20px; font-size: 0.85rem; margin-bottom: 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.chain-val { font-weight: 600; color: var(--gold); }
+.chain-arrow { color: var(--gold); font-size: 1rem; }
+.filter-section { margin-bottom: 24px; }
+.filter-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--dark); opacity: 0.5; margin-bottom: 10px; display: block; }
+.schol-chip-row .chip { border-color: rgba(26,26,26,0.2); color: var(--dark); background: none; }
+.schol-chip-row .chip.active { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+.schol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
+@media (max-width: 620px) { .schol-grid { grid-column: 1fr; } }
+.schol-card { background: #fff9f0; border: 1.5px solid rgba(184,150,46,0.2); border-radius: 10px; padding: 20px; transition: all 0.2s; }
+.schol-card:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(184,150,46,0.15); }
+.schol-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark); margin-bottom: 6px; }
+.schol-fee { font-size: 0.88rem; color: var(--dark); opacity: 0.6; margin-bottom: 12px; }
+.schol-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.schol-detail { background: rgba(26,26,26,0.04); border-radius: 6px; padding: 8px 10px; }
+.schol-detail-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark); opacity: 0.5; margin-bottom: 2px; }
+.schol-detail-val { font-size: 0.92rem; font-weight: 600; color: var(--dark); }
+.schol-detail-val.highlight { color: var(--gold); }
+.schol-types-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 14px; }
+.schol-type-pill { font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: rgba(184,150,46,0.12); color: var(--dark); letter-spacing: 0.03em; }
+.enquire-btn { display: block; width: 100%; padding: 10px 16px; background: var(--gold); color: var(--dark); border: none; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; }
+.enquire-btn:hover { background: var(--gold-light); }
+.empty-state { text-align: center; padding: 60px 24px; opacity: 0.5; font-size: 1rem; grid-column: 1/-1; }
+.surplus-banner { background: rgba(184,150,46,0.1); border: 1px solid var(--gold); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.92rem; color: var(--dark); display: none; }
+.surplus-banner.visible { display: block; }
+
+/* ── LINE CTA ────────────────────────────────────────── */
+.line-inline { background: var(--dark); color: var(--cream); border-radius: 10px; padding: 28px 32px; margin-top: 40px; text-align: center; }
+.line-inline p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 14px; }
+.line-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--gold); color: var(--dark); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+.line-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+#line-cta { background: var(--dark); padding: 80px 24px; text-align: center; }
+.line-cta-inner { max-width: 600px; margin: 0 auto; }
+#line-cta h2 { color: var(--gold); font-size: 1.8rem; margin-bottom: 8px; }
+#line-cta p { color: rgba(245,240,232,0.75); margin-bottom: 24px; font-size: 0.95rem; }
+#line-cta .line-id { color: var(--gold); font-weight: 600; }
+footer { background: var(--dark); border-top: 1px solid rgba(184,150,46,0.2); padding: 32px 24px; text-align: center; color: rgba(245,240,232,0.45); font-size: 0.82rem; }
+
+/* ── Mobile ──────────────────────────────────────────── */
+.mobile-nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--cream); padding: 4px; }
+@media (max-width: 820px) {
+  #site-header nav { display: none; }
+  #site-header nav.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--dark); padding: 16px 24px; gap: 14px; border-bottom: 1px solid rgba(184,150,46,0.2); z-index: 201; }
+  .mobile-nav-toggle { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="logo">
+    <a href="../index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0vA{fill:#FFFFFF;}</style><path class="st0vA" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    </a>
+  </div>
+  <nav id="main-nav">
+    <a href="../index.html"><span class="lang-th">หน้าแรก</span><span class="lang-en">Home</span></a>
+    <a href="../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../fees.html" class="active"><span class="lang-th">คำนวณค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../prepare.html"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
+    <a href="../guides.html"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="../contact.html"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a>
+  </nav>
+  <button class="mobile-nav-toggle" onclick="document.getElementById('main-nav').classList.toggle('open')" aria-label="Toggle navigation">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- JOURNEY PROGRESS BAR -->
+<div class="journey-bar">
+  <div class="journey-step active" id="jstep1">
+    <div class="step-num">1</div>
+    <span class="lang-th">งบประมาณ</span><span class="lang-en">Budget</span>
+  </div>
+  <div class="journey-connector"></div>
+  <div class="journey-step" id="jstep2">
+    <div class="step-num">2</div>
+    <span class="lang-th">ค่าใช้จ่ายจริง</span><span class="lang-en">True Cost</span>
+  </div>
+  <div class="journey-connector"></div>
+  <div class="journey-step" id="jstep3">
+    <div class="step-num">3</div>
+    <span class="lang-th">ทุนการศึกษา</span><span class="lang-en">Scholarship</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     STEP 1 — BUDGET + SCHOOL SELECTION
+═════════════════════════════════════════════════════ -->
+<section class="step-section unlocked" id="step1">
+  <div class="step-ghost">01</div>
+  <div class="step-content">
+    <div class="step-inner">
+
+      <div class="hero-promise">
+        <h1 class="lang-th">ค้นหาโรงเรียนที่ใช่<br>ใน 3 ขั้นตอน</h1>
+        <h1 class="lang-en">Find Your Perfect School<br>in 3 Steps</h1>
+      </div>
+      <p class="hero-subtitle lang-th">เริ่มจากงบประมาณของคุณ แล้วเราจะพาคุณไปถึงทุนการศึกษาที่เหมาะสม</p>
+      <p class="hero-subtitle lang-en">Start with your budget — we'll guide you to the right scholarship</p>
+
+      <div class="journey-promise">
+        <div class="jp-step">
+          <span class="jp-num">01</span>
+          <span class="lang-th">กำหนดงบประมาณ</span><span class="lang-en">Set Budget</span>
+        </div>
+        <div class="jp-connector"></div>
+        <div class="jp-step">
+          <span class="jp-num">02</span>
+          <span class="lang-th">คำนวณค่าใช้จ่ายจริง</span><span class="lang-en">True Cost</span>
+        </div>
+        <div class="jp-connector"></div>
+        <div class="jp-step">
+          <span class="jp-num">03</span>
+          <span class="lang-th">ค้นหาทุนการศึกษา</span><span class="lang-en">Scholarship</span>
+        </div>
+      </div>
+
+      <div class="controls-grid">
+        <div class="control-group">
+          <label class="lang-th">งบประมาณต่อปี (GBP)</label>
+          <label class="lang-en">Annual Budget (GBP)</label>
+          <div class="budget-display" id="budget-display">£55,000</div>
+          <div class="budget-thb" id="budget-thb">฿2,475,000</div>
+          <input type="range" id="budget-slider" min="10000" max="120000" step="500" value="55000" oninput="onBudgetChange(this.value)">
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.75rem;opacity:0.5;"><span>£10,000</span><span>£120,000</span></div>
+        </div>
+        <div class="control-group">
+          <label class="lang-th">อัตราแลกเปลี่ยน</label>
+          <label class="lang-en">Exchange Rate</label>
+          <div class="pill-row" style="margin-bottom:16px;" id="rate-pills">
+            <button class="pill" onclick="setRate(40,this)">฿40</button>
+            <button class="pill active" onclick="setRate(45,this)">฿45</button>
+            <button class="pill" onclick="setRate(50,this)">฿50</button>
+          </div>
+          <div style="font-size:0.8rem;opacity:0.55;" class="lang-th">อัตรา: 1 GBP = ฿<span id="rate-display">45</span></div>
+          <div style="font-size:0.8rem;opacity:0.55;" class="lang-en">Rate: 1 GBP = ฿<span id="rate-display-en">45</span></div>
+        </div>
+      </div>
+
+      <div>
+        <span class="filter-label lang-th">ประเภทโรงเรียน</span>
+        <span class="filter-label lang-en">School Type</span>
+        <div class="chip-row" id="type-chips">
+          <button class="chip active" onclick="setTypeFilter('all',this)"><span class="lang-th">ทั้งหมด</span><span class="lang-en">All</span></button>
+          <button class="chip" onclick="setTypeFilter('co-ed',this)">Co-Ed</button>
+          <button class="chip" onclick="setTypeFilter('boys',this)"><span class="lang-th">ชาย</span><span class="lang-en">Boys</span></button>
+          <button class="chip" onclick="setTypeFilter('girls',this)"><span class="lang-th">หญิง</span><span class="lang-en">Girls</span></button>
+          <button class="chip" onclick="setTypeFilter('sixth',this)">6th Form</button>
+        </div>
+      </div>
+
+      <div class="grid-header" style="margin-top:28px;">
+        <h3 style="font-size:1rem;font-weight:400;"><span class="lang-th">โรงเรียนที่อยู่ในงบประมาณ</span><span class="lang-en">Schools Within Your Budget</span></h3>
+        <span class="grid-count" id="grid-count"></span>
+      </div>
+      <div class="school-grid" id="school-grid"></div>
+
+      <div class="selected-bar" id="selected-bar">
+        <div>
+          <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;opacity:0.7;margin-bottom:2px;"><span class="lang-th">โรงเรียนที่เลือก</span><span class="lang-en">Selected School</span></div>
+          <div class="selected-bar-name" id="selected-bar-name"></div>
+        </div>
+        <div style="text-align:right;">
+          <div id="selected-bar-fee" style="font-size:1.1rem;font-weight:700;"></div>
+          <div id="selected-bar-type" style="font-size:0.8rem;opacity:0.7;"></div>
+        </div>
+      </div>
+
+      <button class="cta-btn" id="step1-cta" disabled onclick="proceedToStep2()">
+        <span class="lang-th">ไปขั้นตอนที่ 2: คำนวณค่าใช้จ่ายจริง &rarr;</span>
+        <span class="lang-en">Proceed to Step 2: Calculate True Cost &rarr;</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     STEP 2 — TRUE COST CALCULATOR
+═════════════════════════════════════════════════════ -->
+<section class="step-section" id="step2">
+  <div class="step-ghost">02</div>
+  <div class="lock-overlay" id="step2-lock">
+    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#f5f0e8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <div class="lock-msg lang-th">กรุณาเลือกโรงเรียนก่อน</div>
+    <div class="lock-msg lang-en">Please Select a School in Step 1</div>
+    <div class="lock-sub lang-th">เลือกโรงเรียนจากตารางด้านบน แล้วกดไปขั้นตอนที่ 2</div>
+    <div class="lock-sub lang-en">Select a school from the grid above, then click Proceed</div>
+  </div>
+  <div class="step-content">
+    <div class="step-inner">
+
+      <h2 class="section-heading lang-th">ค่าใช้จ่ายที่แท้จริงต่อปี</h2>
+      <h2 class="section-heading lang-en">True Annual Cost</h2>
+      <div class="step2-school-name" id="step2-school-name">&nbsp;</div>
+
+      <div class="step2-grid">
+        <div class="panel panel-dark">
+          <div class="panel-title lang-th">ค่าธรรมเนียมโรงเรียน</div>
+          <div class="panel-title lang-en">School Fees</div>
+          <div class="fee-row">
+            <span class="label"><span class="lang-th">ค่าธรรมเนียมพื้นฐาน</span><span class="lang-en">Base Fee</span></span>
+            <span class="amount" id="s2-base-gbp">£0</span>
+          </div>
+          <div class="fee-row" style="padding-top:2px;padding-bottom:6px;">
+            <span></span>
+            <span style="font-size:0.78rem;opacity:0.5;" id="s2-base-thb">฿0</span>
+          </div>
+          <div class="vat-toggle-row">
+            <label class="toggle-switch">
+              <input type="checkbox" id="vat-toggle" checked>
+              <div class="toggle-track"></div>
+              <div class="toggle-knob"></div>
+            </label>
+            <span class="toggle-label lang-th">บวก VAT 20% (โรงเรียนเอกชน)</span>
+            <span class="toggle-label lang-en">Add VAT 20% (Private schools)</span>
+          </div>
+          <div class="fee-row" id="vat-row">
+            <span class="label">VAT 20%</span>
+            <span class="amount" id="s2-vat-gbp">£0</span>
+          </div>
+          <div class="fee-row total-row">
+            <span class="label"><span class="lang-th">รวมค่าธรรมเนียม</span><span class="lang-en">Total School Fees</span></span>
+            <span class="amount" id="s2-school-total-gbp">£0</span>
+          </div>
+          <div class="fee-row" style="border-bottom:none;padding-top:4px;">
+            <span></span>
+            <span style="font-size:0.82rem;color:var(--gold);" id="s2-school-total-thb">฿0</span>
+          </div>
+        </div>
+
+        <div class="panel panel-dark">
+          <div class="panel-title lang-th">ค่าใช้จ่ายชีวิตประจำวัน</div>
+          <div class="panel-title lang-en">Living Costs</div>
+          <div class="living-row">
+            <label><span class="lang-th">ตั๋วเครื่องบิน (ต่อปี)</span><span class="lang-en">Flights (per year)</span><span class="living-val">£<span id="lv-flights-val">3,000</span></span></label>
+            <input type="range" min="0" max="12000" step="250" value="3000" id="lv-flights" oninput="updateLiving('flights',this.value,this)">
+          </div>
+          <div class="living-row">
+            <label><span class="lang-th">ชุดนักเรียน/อุปกรณ์</span><span class="lang-en">Uniform &amp; Equipment</span><span class="living-val">£<span id="lv-uniform-val">1,000</span></span></label>
+            <input type="range" min="0" max="5000" step="100" value="1000" id="lv-uniform" oninput="updateLiving('uniform',this.value,this)">
+          </div>
+          <div class="living-row">
+            <label><span class="lang-th">ค่าใช้จ่ายส่วนตัว</span><span class="lang-en">Personal Allowance</span><span class="living-val">£<span id="lv-personal-val">2,500</span></span></label>
+            <input type="range" min="0" max="10000" step="250" value="2500" id="lv-personal" oninput="updateLiving('personal',this.value,this)">
+          </div>
+          <div class="living-row">
+            <label><span class="lang-th">ที่พักช่วงปิดเทอม</span><span class="lang-en">Holiday Accommodation</span><span class="living-val">£<span id="lv-accommodation-val">1,500</span></span></label>
+            <input type="range" min="0" max="8000" step="250" value="1500" id="lv-accommodation" oninput="updateLiving('accommodation',this.value,this)">
+          </div>
+          <div class="living-row">
+            <label><span class="lang-th">โทรศัพท์/อินเทอร์เน็ต</span><span class="lang-en">Phone &amp; Internet</span><span class="living-val">£<span id="lv-phone-val">1,000</span></span></label>
+            <input type="range" min="0" max="3000" step="100" value="1000" id="lv-phone" oninput="updateLiving('phone',this.value,this)">
+          </div>
+          <div class="living-row">
+            <label><span class="lang-th">ค่าสำรองฉุกเฉิน</span><span class="lang-en">Contingency</span><span class="living-val">£<span id="lv-contingency-val">1,500</span></span></label>
+            <input type="range" min="0" max="6000" step="250" value="1500" id="lv-contingency" oninput="updateLiving('contingency',this.value,this)">
+          </div>
+          <div class="living-total">
+            <span class="lang-th">รวมค่าใช้จ่ายชีวิต</span><span class="lang-en">Total Living</span>
+            <span id="s2-living-total">£10,500</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="cta-btn" onclick="calculateTrueCost()">
+        <span class="lang-th">คำนวณค่าใช้จ่ายจริง</span>
+        <span class="lang-en">Calculate True Cost</span>
+      </button>
+
+      <div class="result-reveal" id="result-reveal">
+        <div class="result-card">
+          <div class="result-card-title lang-th">ค่าใช้จ่ายรวมต่อปี</div>
+          <div class="result-card-title lang-en">TRUE ANNUAL COST</div>
+          <div class="result-cost-gbp" id="res-cost-gbp">£0</div>
+          <div class="result-cost-thb" id="res-cost-thb">฿0</div>
+          <div class="result-rows">
+            <div class="result-stat">
+              <div class="result-stat-label lang-th">งบประมาณของคุณ</div>
+              <div class="result-stat-label lang-en">Your Budget</div>
+              <div class="result-stat-val" id="res-budget">£0</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-label lang-th">ผลต่าง</div>
+              <div class="result-stat-label lang-en">Difference</div>
+              <div class="result-stat-val" id="res-gap-val">—</div>
+            </div>
+          </div>
+          <div class="gap-notice" id="res-gap-notice"></div>
+        </div>
+        <div class="step2-btns">
+          <button class="cta-btn-cream" onclick="proceedToStep3()">
+            <span class="lang-th">ดูทุนการศึกษาที่เหมาะสม &rarr;</span>
+            <span class="lang-en">Find Matching Scholarships &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     STEP 3 — SCHOLARSHIP MATCHING
+═════════════════════════════════════════════════════ -->
+<section class="step-section" id="step3">
+  <div class="step-ghost">03</div>
+  <div class="lock-overlay" id="step3-lock">
+    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <div class="lock-msg lang-th">กรุณาคำนวณค่าใช้จ่ายก่อน</div>
+    <div class="lock-msg lang-en">Complete Step 2 First</div>
+    <div class="lock-sub lang-th">กดปุ่ม "คำนวณค่าใช้จ่ายจริง" ในขั้นตอนที่ 2</div>
+    <div class="lock-sub lang-en">Click "Calculate True Cost" in Step 2 to unlock</div>
+  </div>
+  <div class="step-content">
+    <div class="step-inner">
+
+      <div class="chain-banner" id="chain-banner">
+        <span class="lang-th">งบประมาณ</span><span class="lang-en">Budget</span>
+        <span class="chain-val" id="chain-budget">—</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span id="chain-school-name" style="opacity:0.7;font-size:0.82rem;"></span>
+        <span class="lang-th" style="font-size:0.82rem;">ค่าใช้จ่ายจริง</span><span class="lang-en" style="font-size:0.82rem;">True Cost</span>
+        <span class="chain-val" id="chain-cost">—</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="lang-th" style="font-size:0.82rem;">ต้องการทุน</span><span class="lang-en" style="font-size:0.82rem;">Scholarship needed</span>
+        <span class="chain-val" id="chain-gap">—</span>
+      </div>
+
+      <div class="surplus-banner" id="surplus-banner">
+        <span class="lang-th">ยอดเยี่ยม — งบประมาณของคุณครอบคลุม <span id="surplus-name-th"></span> แล้ว! นี่คือโรงเรียนอื่นที่มีทุนในงบประมาณด้วย:</span>
+        <span class="lang-en">Great news — your budget covers <span id="surplus-name-en"></span>! Here are other schools within your budget with scholarships too:</span>
+      </div>
+
+      <h2 class="section-heading lang-th">โรงเรียนที่ทุนการศึกษาช่วยได้</h2>
+      <h2 class="section-heading lang-en">Schools Where Scholarships Bridge Your Gap</h2>
+
+      <div class="filter-section" style="margin-top:20px;">
+        <span class="filter-label lang-th">ประเภททุนการศึกษา</span>
+        <span class="filter-label lang-en">Scholarship Type</span>
+        <div class="chip-row schol-chip-row" id="schol-chips">
+          <button class="chip active" onclick="setScholFilter('all',this)"><span class="lang-th">ทั้งหมด</span><span class="lang-en">All</span></button>
+          <button class="chip" onclick="setScholFilter('academic',this)">Academic</button>
+          <button class="chip" onclick="setScholFilter('sport',this)">Sport</button>
+          <button class="chip" onclick="setScholFilter('music',this)">Music</button>
+          <button class="chip" onclick="setScholFilter('art',this)">Art</button>
+          <button class="chip" onclick="setScholFilter('drama',this)">Drama</button>
+        </div>
+      </div>
+
+      <div class="schol-grid" id="schol-grid"></div>
+
+      <div class="line-inline">
+        <p class="lang-th">สอบถามรายละเอียดทุนการศึกษากับที่ปรึกษาของเรา LINE: <strong>@linkedu.th</strong></p>
+        <p class="lang-en">Ask our advisors about scholarships. LINE: <strong>@linkedu.th</strong></p>
+        <a class="line-btn" href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          <span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">Add LINE</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- LINE CTA SECTION -->
+<section id="line-cta">
+  <div class="line-cta-inner">
+    <h2 class="lang-th">ปรึกษาผู้เชี่ยวชาญด้านการศึกษา</h2>
+    <h2 class="lang-en">Speak to Our Education Experts</h2>
+    <p class="lang-th">ปรึกษาผู้เชี่ยวชาญด้านการศึกษาของเรา <span class="line-id">LINE: @linkedu.th</span></p>
+    <p class="lang-en">Get personalised advice on UK boarding schools and scholarships. <span class="line-id">LINE: @linkedu.th</span></p>
+    <a class="line-btn" href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener" style="display:inline-flex;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.630 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 LINKEDU. Part of the Beacon Group.</p>
+</footer>
+
+
+<script>
+/* ── SCHOOLS DATA ─────────────────────────────── */
+const SCHOOLS = [
+  {"name":"Abbotsholme","minFee":20985,"maxFee":44313,"remission":"Not publicly stated","maxScholPct":0,"scholTypes":"Academic","type":"Co Ed","isState":true},
+  {"name":"Kent College Canterbury","minFee":27978,"maxFee":38649,"remission":"up to 50% tuition; most awards ~20%","maxScholPct":50,"scholTypes":"Academic, Art, Design, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Bedford School","minFee":30057,"maxFee":50322,"remission":"Music = free tuition on 2 instruments; other % not specified","maxScholPct":0,"scholTypes":"Academic, Art, Computer Science, Drama, Golf, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Kingswood School","minFee":32268,"maxFee":48858,"remission":"5-15%","maxScholPct":15,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Oxford International College","minFee":33637,"maxFee":35075,"remission":"partial to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Ardingly College","minFee":33903,"maxFee":48741,"remission":"5-25%","maxScholPct":25,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Haileybury","minFee":33990,"maxFee":53580,"remission":"Not publicly specified","maxScholPct":0,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Leighton Park School","minFee":34800,"maxFee":52905,"remission":"5-30%; honorary also awarded","maxScholPct":30,"scholTypes":"Academic, Art, Dance, Drama, Ethical Changemaking, Music, Sport, STEAM","type":"Co-Ed","isState":false},
+  {"name":"Ashville College","minFee":34965,"maxFee":46095,"remission":"Fee discount (% not publicly disclosed)","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Mount Kelly","minFee":35370,"maxFee":49500,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Choral, Design Technology, Drama, Music, Sport, Swimming","type":"Co Ed","isState":false},
+  {"name":"Windermere School","minFee":36000,"maxFee":47000,"remission":"Cumbria Award up to 75%","maxScholPct":75,"scholTypes":"Academic, Music, Outdoor Education, Performing Arts, Sailing, Sport, Visual Arts","type":"Co-ed","isState":false},
+  {"name":"Merchiston Castle School","minFee":36288,"maxFee":50706,"remission":"5% of fees","maxScholPct":5,"scholTypes":"Academic, All-Rounder, Art and Design, DT, Music, Sport","type":"Boy school","isState":false},
+  {"name":"Strathallan School","minFee":37425,"maxFee":52431,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Drama, Music, Performing Arts, Piping, Sport","type":"Co Ed","isState":false},
+  {"name":"St. Michael's School","minFee":37443,"maxFee":41355,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Abbey DLD College Cambridge","minFee":37600,"maxFee":61850,"remission":"up to 100% at 13+; up to 20% at 16+","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Abbey DLD College London","minFee":37600,"maxFee":61850,"remission":"Alpha 5-50%; College Awards 5-30%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Queenswood School","minFee":37908,"maxFee":37908,"remission":"10% standard; Sixth Form Academic up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Dance, Drama, DT, Hockey, Music, Sport, Tennis","type":"Girls School","isState":false},
+  {"name":"Ellesmere College","minFee":37965,"maxFee":37965,"remission":"up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Organ, Sport","type":"Co-Ed","isState":false},
+  {"name":"Burgess Hill Girls","minFee":38745,"maxFee":44595,"remission":"5-40%","maxScholPct":40,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Christ's Hospital School","minFee":38790,"maxFee":47085,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"The Leys School","minFee":38832,"maxFee":53235,"remission":"5%; Choral/Organ honorary","maxScholPct":5,"scholTypes":"Academic, Choral, Music, Organ, STEM","type":"Co-Ed","isState":false},
+  {"name":"Loretto School","minFee":40380,"maxFee":49632,"remission":"Scholarship 10% day fees","maxScholPct":10,"scholTypes":"Academic, Art, Drama, Golf, Music, Sport","type":"Co-ed","isState":false},
+  {"name":"Stonar School","minFee":40665,"maxFee":54960,"remission":"Not publicly disclosed","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Riding, Sport","type":"Co-Ed","isState":false},
+  {"name":"Culford School","minFee":40755,"maxFee":52515,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Royal Hospital School","minFee":41250,"maxFee":52521,"remission":"Modest; De Neumann Maths Award up to 100%","maxScholPct":100,"scholTypes":"Academic, Creativity, Drama, Music, Sailing, Sport","type":"Co-Ed","isState":false},
+  {"name":"King's College Taunton","minFee":41400,"maxFee":54351,"remission":"up to 20% at 13+; up to 50% at 16+","maxScholPct":50,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Malvern College","minFee":41700,"maxFee":57285,"remission":"up to 15%","maxScholPct":15,"scholTypes":"Academic, Art and Design, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Clifton College","minFee":42090,"maxFee":55080,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
+  {"name":"St Leonards Scotland","minFee":42465,"maxFee":54420,"remission":"5% tuition; up to 50% Golf","maxScholPct":50,"scholTypes":"Academic","type":"Co-ed","isState":false},
+  {"name":"Plymouth College","minFee":42750,"maxFee":50100,"remission":"5-10% standard, up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Wells Cathedral School","minFee":42762,"maxFee":47286,"remission":"10% standard, up to 50% exceptional","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Maths, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Brooke House College","minFee":42900,"maxFee":45570,"remission":"Partial (% not published)","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Royal High School Bath","minFee":43018,"maxFee":43018,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art and Design, Dance, Drama, DT, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Woodbridge School","minFee":43290,"maxFee":47286,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Chess, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Ashford School","minFee":44685,"maxFee":44685,"remission":"10-50% of day fee","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Piano, Sport, Swimming","type":"Co-Ed","isState":false},
+  {"name":"Sherborne","minFee":44775,"maxFee":55386,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Boys School","isState":false},
+  {"name":"St Catherine's School Bramley","minFee":44859,"maxFee":44859,"remission":"Honorary or 5%","maxScholPct":5,"scholTypes":"Academic","type":"Girls School","isState":false},
+  {"name":"St Swithun's School","minFee":45636,"maxFee":45636,"remission":"5-20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Mathematics, Music, Sport","type":"Girls School","isState":false},
+  {"name":"St Mary's School Cambridge","minFee":45840,"maxFee":45840,"remission":"5% (up to 20% exceptional)","maxScholPct":20,"scholTypes":"Academic, Art, Creative Writing, Dance, Design, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Stowe School","minFee":46701,"maxFee":46701,"remission":"5-25%","maxScholPct":25,"scholTypes":"Academic, Art, Chess, Design, Drama, Equestrian, Golf, Music, Sport","type":"Co-ed","isState":false},
+  {"name":"Warwick School","minFee":46998,"maxFee":46998,"remission":"Governor up to 20%; King Henry VIII up to 50%","maxScholPct":50,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"Earlscliff School","minFee":47000,"maxFee":47000,"remission":"up to 50% tuition and boarding fees","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Roedean School","minFee":48375,"maxFee":58050,"remission":"2500/yr","maxScholPct":0,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Sedbergh School","minFee":49140,"maxFee":51195,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Design Technology, Drama, Equestrian, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Berkhamsted School","minFee":49173,"maxFee":49173,"remission":"~10%","maxScholPct":10,"scholTypes":"Academic, Drama, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Bloxham School","minFee":50670,"maxFee":50670,"remission":"up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, DT, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Bede's School","minFee":50745,"maxFee":50745,"remission":"Up to 25%","maxScholPct":25,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Woldingham School","minFee":50940,"maxFee":57564,"remission":"5-20% of day fees","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Music, Performing Arts, Sport","type":"Girls School","isState":false},
+  {"name":"Headington School","minFee":50943,"maxFee":50943,"remission":"Honorary; 10% Special Awards at 16+","maxScholPct":10,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Royal Russell School","minFee":51993,"maxFee":51993,"remission":"5-35%","maxScholPct":35,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Brentwood School","minFee":52251,"maxFee":52251,"remission":"Not publicly specified","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Bromsgrove School","minFee":52254,"maxFee":52254,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Mill Hill School","minFee":52320,"maxFee":52320,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art and Design, Drama, DT, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"King's School Canterbury","minFee":52344,"maxFee":52344,"remission":"Fraction of annual fees","maxScholPct":0,"scholTypes":"Academic, Art, Dance, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Bishop's Stortford College","minFee":52479,"maxFee":52479,"remission":"10-20%","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Caterham School","minFee":52620,"maxFee":55455,"remission":"Up to 10%; up to 50% exceptional","maxScholPct":50,"scholTypes":"Academic, Art, Chess, Dance, Drama, Innovation, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Eton College","minFee":52749,"maxFee":63300,"remission":"Academic honorary; Orwell Award 100% fees","maxScholPct":100,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"Eastbourne College","minFee":52959,"maxFee":53781,"remission":"5-20%; up to 50% exceptional","maxScholPct":50,"scholTypes":"Academic, All-Rounder, Art, Dance, DT, Drama, Music, Sport","type":"Co Ed","isState":false},
+  {"name":"Lancing College","minFee":53319,"maxFee":53319,"remission":"5-10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Sherborne School for Girls","minFee":53640,"maxFee":53640,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"St Paul's School","minFee":53943,"maxFee":53943,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Music","type":"Boy School","isState":false},
+  {"name":"Shrewsbury School","minFee":54222,"maxFee":56118,"remission":"Music up to 30%, Sport up to 20%","maxScholPct":30,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Rossall School","minFee":54648,"maxFee":57078,"remission":"Up to 50%","maxScholPct":50,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Abingdon School","minFee":54780,"maxFee":54780,"remission":"300/yr nominal","maxScholPct":0,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"Repton School","minFee":54825,"maxFee":54825,"remission":"Honorary up to 10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Rugby School","minFee":55056,"maxFee":55056,"remission":"5% all types","maxScholPct":5,"scholTypes":"Academic, Art, Computing, DT, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
+  {"name":"Cheltenham Ladies College","minFee":55350,"maxFee":61470,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Uppingham School","minFee":55674,"maxFee":55674,"remission":"Up to 5%; Music up to 20%","maxScholPct":20,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport, Textiles","type":"Co-Ed","isState":false},
+  {"name":"Charterhouse","minFee":56418,"maxFee":56418,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art and Textiles, Dance, Design Engineering, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
+  {"name":"Bryanston School","minFee":56523,"maxFee":56523,"remission":"Honorary up to 10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
+  {"name":"Benenden School","minFee":56700,"maxFee":56700,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, All-Rounder, Art, Creative Technology, Drama, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Sevenoaks","minFee":56763,"maxFee":56763,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Dean Close School","minFee":57450,"maxFee":57450,"remission":"Up to 40%","maxScholPct":40,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Whitgift School","minFee":57591,"maxFee":57591,"remission":"5-50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, DT and Engineering, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Radley College","minFee":57600,"maxFee":57600,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Innovation, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Cheltenham College","minFee":57780,"maxFee":59310,"remission":"Up to 15%","maxScholPct":15,"scholTypes":"Academic, Art, Choral, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Wycombe Abbey","minFee":58572,"maxFee":58572,"remission":"Academic ~5%","maxScholPct":5,"scholTypes":"Academic, Music","type":"Girls School","isState":false},
+  {"name":"Marlborough College","minFee":59142,"maxFee":59142,"remission":"Honorary; Directors Awards up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Oundle School","minFee":59400,"maxFee":59400,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Milton Abbey School","minFee":59745,"maxFee":59745,"remission":"10% standard; Dorset Award 20%","maxScholPct":20,"scholTypes":"Academic, Art, Design, Drama, Music, Performing Arts, Sailing, Sport","type":"Co-ed","isState":false},
+  {"name":"Wellington College","minFee":59940,"maxFee":59940,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Harrow School","minFee":61584,"maxFee":61584,"remission":"5-10%","maxScholPct":10,"scholTypes":"Academic, Art, Drama, DT and Engineering, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Concord College","minFee":61764,"maxFee":61764,"remission":"5-10%; Principal Scholar up to 50%","maxScholPct":50,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Cardiff Sixth Form College","minFee":62095,"maxFee":68185,"remission":"Up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Winchester College","minFee":62226,"maxFee":62226,"remission":"25% fees Founder Scholar","maxScholPct":25,"scholTypes":"Academic, Music, Sport","type":"Boys School","isState":false},
+  {"name":"MPW Cambridge","minFee":62450,"maxFee":62450,"remission":"15-40%; Woodward Scholarship up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Westminster School","minFee":62985,"maxFee":62985,"remission":"King Scholar day fee saving; Music 10%","maxScholPct":10,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"St Mary's School Ascot","minFee":63180,"maxFee":63180,"remission":"5% or honorary","maxScholPct":5,"scholTypes":"Academic, All-Rounder, Art, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Brighton College","minFee":65010,"maxFee":68520,"remission":"Undisclosed annual award","maxScholPct":0,"scholTypes":"Academic, Art, Chess, Choral, Dance, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
+  {"name":"Hurtwood House","minFee":65256,"maxFee":65256,"remission":"Performing Arts 10-50%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"MPW London","minFee":69750,"maxFee":69750,"remission":"15-40%; Woodward Scholarship up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"The National Mathematics and Science College","minFee":69984,"maxFee":69984,"remission":"5-10%; up to 100% local scholarship","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"No current merit scholarships available","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false}
+];
+
+/* ── STATE ──────────────────────────────────────── */
+const state = {
+  budget: 55000,
+  rate: 45,
+  vatOn: true,
+  typeFilter: 'all',
+  selectedSchool: null,
+  livingCosts: { flights:3000, uniform:1000, personal:2500, accommodation:1500, phone:1000, contingency:1500 },
+  trueCostGBP: 0,
+  trueCostTHB: 0,
+  gapGBP: 0,
+  scholFilter: 'all'
+};
+
+/* ── HELPERS ──────────────────────────────────── */
+function fmtGBP(n) { return '\u00a3' + Math.round(n).toLocaleString('en-GB'); }
+function fmtTHB(n) { return '\u0e3f' + Math.round(n).toLocaleString('en-GB'); }
+function isEN() { return document.documentElement.lang === 'en'; }
+
+/* ── LANGUAGE ─────────────────────────────────── */
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-th').classList.toggle('active', lang==='th');
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  renderSchoolGrid();
+  if (document.getElementById('step3').classList.contains('unlocked')) renderScholGrid();
+}
+
+/* ── RANGE SLIDER BACKGROUND ──────────────────── */
+function setSliderBg(el, pct, dark) {
+  const track = dark ? 'rgba(245,240,232,0.15)' : 'rgba(26,26,26,0.15)';
+  el.style.background = 'linear-gradient(to right, #B8962E 0%, #B8962E '+pct+'%, '+track+' '+pct+'%)';
+}
+function syncSlider(el) {
+  const pct = (el.value - el.min) / (el.max - el.min) * 100;
+  const dark = el.closest('#step2') !== null;
+  setSliderBg(el, pct, dark);
+}
+
+/* ── STEP 1 ───────────────────────────────────── */
+function onBudgetChange(val) {
+  state.budget = parseInt(val);
+  document.getElementById('budget-display').textContent = fmtGBP(state.budget);
+  document.getElementById('budget-thb').textContent = fmtTHB(state.budget * state.rate);
+  syncSlider(document.getElementById('budget-slider'));
+  if (state.selectedSchool && state.selectedSchool.minFee > state.budget) deselectSchool();
+  renderSchoolGrid();
+}
+
+function setRate(rate, btn) {
+  state.rate = rate;
+  document.querySelectorAll('#rate-pills .pill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('rate-display').textContent = rate;
+  document.getElementById('rate-display-en').textContent = rate;
+  document.getElementById('budget-thb').textContent = fmtTHB(state.budget * state.rate);
+  if (state.selectedSchool) updateStep2();
+  renderSchoolGrid();
+}
+
+function setTypeFilter(f, btn) {
+  state.typeFilter = f;
+  document.querySelectorAll('#type-chips .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  deselectSchool();
+  renderSchoolGrid();
+}
+
+function matchesType(s, f) {
+  if (f==='all') return true;
+  const t = s.type.toLowerCase();
+  if (f==='co-ed') return t.includes('co');
+  if (f==='boys') return t.includes('boy');
+  if (f==='girls') return t.includes('girl');
+  if (f==='sixth') return t.includes('sixth');
+  return true;
+}
+
+function renderSchoolGrid() {
+  const grid = document.getElementById('school-grid');
+  const filtered = SCHOOLS.filter(s => s.minFee <= state.budget && matchesType(s, state.typeFilter));
+  filtered.sort((a,b) => a.minFee - b.minFee);
+  document.getElementById('grid-count').textContent = filtered.length + (isEN() ? ' schools' : ' โรงเรียน');
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="no-schools-msg"><span class="lang-th">ไม่พบโรงเรียนในงบประมาณนี้ — ลองเพิ่มงบประมาณ</span><span class="lang-en">No schools found — try increasing your budget</span></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map((s,_i) => {
+    const idx = SCHOOLS.indexOf(s);
+    const sel = state.selectedSchool && state.selectedSchool.name === s.name;
+    return '<div class="school-card'+(sel?' selected':'')+'" onclick="selectSchool('+idx+')">'+
+      '<div class="card-name">'+s.name+'</div>'+
+      '<div class="card-fee-gbp">'+fmtGBP(s.minFee)+'/yr</div>'+
+      '<div class="card-fee-thb">'+fmtTHB(s.minFee*state.rate)+'</div>'+
+      '<div class="card-badges">'+
+        '<span class="badge badge-type">'+s.type+'</span>'+
+        (s.maxScholPct>0 ? '<span class="badge badge-schol">Schol up to '+s.maxScholPct+'%</span>' : '')+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function selectSchool(idx) {
+  state.selectedSchool = SCHOOLS[idx];
+  document.querySelectorAll('.school-card').forEach(c => {
+    c.classList.toggle('selected', c.querySelector('.card-name').textContent === state.selectedSchool.name);
+  });
+  const bar = document.getElementById('selected-bar');
+  bar.classList.add('visible');
+  document.getElementById('selected-bar-name').textContent = state.selectedSchool.name;
+  document.getElementById('selected-bar-fee').textContent = fmtGBP(state.selectedSchool.minFee)+'/yr';
+  document.getElementById('selected-bar-type').textContent = state.selectedSchool.type;
+  document.getElementById('step1-cta').disabled = false;
+  prefillStep2();
+}
+
+function deselectSchool() {
+  state.selectedSchool = null;
+  document.getElementById('selected-bar').classList.remove('visible');
+  document.getElementById('step1-cta').disabled = true;
+}
+
+/* ── STEP 2 ───────────────────────────────────── */
+function prefillStep2() { if (state.selectedSchool) updateStep2(); }
+
+function updateStep2() {
+  if (!state.selectedSchool) return;
+  const s = state.selectedSchool;
+  const base = s.minFee;
+  const canVAT = !s.isState;
+  const vatAmt = (canVAT && state.vatOn) ? base * 0.2 : 0;
+  const total = base + vatAmt;
+  document.getElementById('step2-school-name').textContent = s.name;
+  document.getElementById('s2-base-gbp').textContent = fmtGBP(base);
+  document.getElementById('s2-base-thb').textContent = fmtTHB(base * state.rate);
+  document.getElementById('s2-vat-gbp').textContent = fmtGBP(vatAmt);
+  document.getElementById('s2-school-total-gbp').textContent = fmtGBP(total);
+  document.getElementById('s2-school-total-thb').textContent = fmtTHB(total * state.rate);
+  const vr = document.getElementById('vat-row');
+  const vt = document.getElementById('vat-toggle');
+  if (s.isState) { vr.style.opacity='0.3'; vt.disabled=true; } else { vr.style.opacity='1'; vt.disabled=false; }
+  updateLivingTotal();
+}
+
+function updateLiving(key, val, el) {
+  state.livingCosts[key] = parseInt(val);
+  document.getElementById('lv-'+key+'-val').textContent = parseInt(val).toLocaleString('en-GB');
+  if (el) syncSlider(el);
+  updateLivingTotal();
+}
+
+function updateLivingTotal() {
+  const tot = Object.values(state.livingCosts).reduce((a,b)=>a+b,0);
+  document.getElementById('s2-living-total').textContent = fmtGBP(tot);
+}
+
+function calculateTrueCost() {
+  if (!state.selectedSchool) return;
+  const s = state.selectedSchool;
+  const base = s.minFee;
+  const vatAmt = (!s.isState && state.vatOn) ? base*0.2 : 0;
+  const schoolTotal = base + vatAmt;
+  const living = Object.values(state.livingCosts).reduce((a,b)=>a+b,0);
+  const trueCost = schoolTotal + living;
+  state.trueCostGBP = trueCost;
+  state.trueCostTHB = trueCost * state.rate;
+  state.gapGBP = Math.max(0, trueCost - state.budget);
+  const diff = trueCost - state.budget;
+
+  document.getElementById('res-cost-gbp').textContent = fmtGBP(trueCost);
+  document.getElementById('res-cost-thb').textContent = fmtTHB(state.trueCostTHB);
+  document.getElementById('res-budget').textContent = fmtGBP(state.budget);
+  document.getElementById('res-gap-val').textContent = (diff>=0?'+':'')+fmtGBP(diff);
+
+  const en = isEN();
+  if (diff > 0) {
+    document.getElementById('res-gap-notice').textContent = en
+      ? 'Scholarship needed: '+fmtGBP(diff)+'/yr to stay within budget'
+      : '\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e17\u0e38\u0e19\u0e01\u0e32\u0e23\u0e28\u0e36\u0e01\u0e29\u0e32 '+fmtGBP(diff)+'/\u0e1b\u0e35 \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19\u0e07\u0e1a\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13';
+  } else {
+    document.getElementById('res-gap-notice').textContent = en
+      ? 'Within budget — '+fmtGBP(Math.abs(diff))+'/yr to spare'
+      : '\u0e07\u0e1a\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1e\u0e2d \u0e40\u0e2b\u0e25\u0e37\u0e2d '+fmtGBP(Math.abs(diff))+'/\u0e1b\u0e35';
+  }
+
+  document.getElementById('result-reveal').classList.add('visible');
+  document.getElementById('result-reveal').scrollIntoView({behavior:'smooth', block:'nearest'});
+  setTimeout(() => unlockStep(3), 1500);
+}
+
+function proceedToStep2() {
+  if (!state.selectedSchool) return;
+  unlockStep(2);
+  updateStep2();
+  setTimeout(() => document.getElementById('step2').scrollIntoView({behavior:'smooth', block:'start'}), 300);
+}
+
+function proceedToStep3() {
+  document.getElementById('step3').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ── STEP 3 ───────────────────────────────────── */
+function setScholFilter(f, btn) {
+  state.scholFilter = f;
+  document.querySelectorAll('#schol-chips .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderScholGrid();
+}
+
+function renderScholGrid() {
+  const gap = state.gapGBP;
+  const en = isEN();
+  const sName = state.selectedSchool ? state.selectedSchool.name : '';
+  document.getElementById('chain-budget').textContent = fmtGBP(state.budget);
+  document.getElementById('chain-cost').textContent = fmtGBP(state.trueCostGBP);
+  document.getElementById('chain-school-name').textContent = sName ? sName+' — ' : '';
+  document.getElementById('chain-gap').textContent = gap>0 ? fmtGBP(gap)+' needed' : 'Within budget';
+  document.getElementById('surplus-name-th').textContent = sName;
+  document.getElementById('surplus-name-en').textContent = sName;
+
+  let candidates;
+  const surp = document.getElementById('surplus-banner');
+  if (gap <= 0) {
+    surp.classList.add('visible');
+    candidates = SCHOOLS.filter(s => s.minFee <= state.budget && s.maxScholPct > 0);
+  } else {
+    surp.classList.remove('visible');
+    candidates = SCHOOLS.filter(s => {
+      if (s.maxScholPct <= 0) return false;
+      return (s.minFee * s.maxScholPct / 100) >= gap;
+    });
+  }
+
+  if (state.scholFilter !== 'all') {
+    const fw = state.scholFilter.toLowerCase();
+    candidates = candidates.filter(s => s.scholTypes.toLowerCase().includes(fw));
+  }
+
+  candidates.sort((a,b) => (b.minFee*b.maxScholPct/100) - (a.minFee*a.maxScholPct/100));
+
+  const grid = document.getElementById('schol-grid');
+  if (!candidates.length) {
+    grid.innerHTML = '<div class="empty-state"><span class="lang-th">\u0e44\u0e21\u0e48\u0e1e\u0e1a\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e15\u0e32\u0e21\u0e40\u0e01\u0e13\u0e11\u0e4c \u2014 \u0e25\u0e2d\u0e07\u0e1b\u0e23\u0e31\u0e1a\u0e15\u0e31\u0e27\u0e01\u0e23\u0e2d\u0e07</span><span class="lang-en">No schools match \u2014 try adjusting filters</span></div>';
+    return;
+  }
+  grid.innerHTML = candidates.map(s => {
+    const saving = Math.round(s.minFee * s.maxScholPct / 100);
+    const net = s.minFee - saving;
+    const pills = s.scholTypes.split(',').slice(0,5).map(t => '<span class="schol-type-pill">'+t.trim()+'</span>').join('');
+    return '<div class="schol-card">'+
+      '<div class="schol-name">'+s.name+'</div>'+
+      '<div class="schol-fee">'+fmtGBP(s.minFee)+'/yr &bull; '+s.type+'</div>'+
+      '<div class="schol-detail-grid">'+
+        '<div class="schol-detail"><div class="schol-detail-label lang-th">\u0e17\u0e38\u0e19\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14</div><div class="schol-detail-label lang-en">Max Scholarship</div><div class="schol-detail-val highlight">Up to '+s.maxScholPct+'%</div></div>'+
+        '<div class="schol-detail"><div class="schol-detail-label lang-th">\u0e1b\u0e23\u0e30\u0e2b\u0e22\u0e31\u0e14\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14</div><div class="schol-detail-label lang-en">Max Saving</div><div class="schol-detail-val highlight">'+fmtGBP(saving)+'/yr</div></div>'+
+        '<div class="schol-detail"><div class="schol-detail-label lang-th">\u0e04\u0e48\u0e32\u0e40\u0e23\u0e35\u0e22\u0e19\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e4c</div><div class="schol-detail-label lang-en">Net Cost</div><div class="schol-detail-val">'+fmtGBP(net)+'/yr</div></div>'+
+        '<div class="schol-detail"><div class="schol-detail-label lang-th">\u0e43\u0e19 THB</div><div class="schol-detail-label lang-en">Net in THB</div><div class="schol-detail-val">'+fmtTHB(net*state.rate)+'</div></div>'+
+      '</div>'+
+      '<div class="schol-types-row">'+pills+'</div>'+
+      '<a class="enquire-btn" href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener">'+
+        '<span class="lang-th">\u0e2a\u0e2d\u0e1a\u0e16\u0e32\u0e21 / Enquire</span>'+
+        '<span class="lang-en">Enquire</span>'+
+      '</a>'+
+    '</div>';
+  }).join('');
+}
+
+/* ── UNLOCK ───────────────────────────────────── */
+function unlockStep(n) {
+  const sec = document.getElementById('step'+n);
+  const lock = document.getElementById('step'+n+'-lock');
+  if (!sec || sec.classList.contains('unlocked')) return;
+  sec.classList.add('unlocked','just-unlocked');
+  if (lock) { lock.style.opacity='0'; lock.style.pointerEvents='none'; }
+  const jstep = document.getElementById('jstep'+n);
+  if (jstep) jstep.classList.add('active');
+  setTimeout(() => sec.classList.remove('just-unlocked'), 1500);
+  if (n===3) renderScholGrid();
+}
+
+/* ── VAT TOGGLE ───────────────────────────────── */
+document.getElementById('vat-toggle').addEventListener('change', function() {
+  state.vatOn = this.checked;
+  updateStep2();
+});
+
+/* ── INIT ─────────────────────────────────────── */
+(function() {
+  renderSchoolGrid();
+  const bs = document.getElementById('budget-slider');
+  syncSlider(bs);
+  ['lv-flights','lv-uniform','lv-personal','lv-accommodation','lv-phone','lv-contingency'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) syncSlider(el);
+  });
+})();
+</script>
+</body>
+</html>
