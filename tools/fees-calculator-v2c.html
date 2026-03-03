@@ -870,6 +870,32 @@
     .reveal-btn-primary, .reveal-btn-secondary { width: 100%; text-align: center; }
   }
 
+  /* ── PROGRESSIVE REVEAL ── */
+  .step-hidden { display: none; }
+  @keyframes stepReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .step-visible { animation: stepReveal 400ms ease forwards; }
+
+  /* Find Scholarships button (injected at bottom of Step 2) */
+  .find-schol-btn {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .find-schol-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
   /* VAT notice bar */
   .vat-notice {
     background: rgba(184,150,46,0.1);
@@ -914,9 +940,9 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:26px;width:auto;display:block"><style>.st0vC{fill:#FFFFFF;}</style><path class="st0vC" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
   </a>
   <nav class="header-nav">
-    <a href="../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
-    <a href="../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
-    <a href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a>
+    <a href="../fees.html"><span class="lang-th">ค่าใช้จ่าย</span> / <span class="lang-en">Fees</span></a>
+    <a href="../schools.html"><span class="lang-th">โรงเรียน</span> / <span class="lang-en">Schools</span></a>
+    <a href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener"><span class="lang-th">ติดต่อ</span> / <span class="lang-en">Contact</span></a>
     <button class="lang-toggle" id="langToggle">EN</button>
   </nav>
 </header>
@@ -950,14 +976,36 @@
 <section class="hero">
   <div class="hero-eyebrow">LINKEDU — The Reveal</div>
   <h1>
-    <span class="lang-th">3 ขั้นตอน<br>สู่<span> ทุนการศึกษา</span>ที่ใช่</span>
-    <span class="lang-en">3 Steps to Your<br><span>Perfect Scholarship</span></span>
+    <span class="lang-th">รู้ตัวเลขจริง<br><span>ก่อนตัดสินใจ</span></span>
+    <span class="lang-en">Know the <span>Real Numbers</span> Before You Decide</span>
   </h1>
   <p class="hero-sub">
     <span class="lang-th">เลือกโรงเรียน — คำนวณค่าใช้จ่ายจริง — ค้นหาทุนที่ใช่ได้เลย</span>
     <span class="lang-en">Choose your school — Calculate the true cost — Find the scholarship that fits</span>
   </p>
+  <p style="margin-top:0.75rem;font-size:0.82rem;color:rgba(245,240,232,0.45);font-family:'Inter',sans-serif;">
+    <span class="lang-th">⏱ ใช้เวลาประมาณ 2 นาที</span><span class="lang-en">⏱ Takes about 2 minutes</span>
+  </p>
 </section>
+
+<!-- ══════════════════════════════════
+     TRUST BAR
+══════════════════════════════════ -->
+<div style="background:#f0ebe0;border-top:1px solid rgba(184,150,46,0.15);border-bottom:1px solid rgba(184,150,46,0.15);padding:0.7rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;">
+    <span style="font-size:0.78rem;font-family:'Inter',sans-serif;color:rgba(26,26,26,0.55);font-weight:500;padding:0 1.25rem;text-align:center;">
+      📚 <span class="lang-th">114 โรงเรียน</span><span class="lang-en">114 UK Schools</span>
+    </span>
+    <span style="width:1px;height:14px;background:rgba(26,26,26,0.15);flex-shrink:0;"></span>
+    <span style="font-size:0.78rem;font-family:'Inter',sans-serif;color:rgba(26,26,26,0.55);font-weight:500;padding:0 1.25rem;text-align:center;">
+      📅 <span class="lang-th">อัปเดต 2025</span><span class="lang-en">Updated 2025</span>
+    </span>
+    <span style="width:1px;height:14px;background:rgba(26,26,26,0.15);flex-shrink:0;"></span>
+    <span style="font-size:0.78rem;font-family:'Inter',sans-serif;color:rgba(26,26,26,0.55);font-weight:500;padding:0 1.25rem;text-align:center;">
+      ✅ <span class="lang-th">ข้อมูลจริงจากโรงเรียน</span><span class="lang-en">Verified School Data</span>
+    </span>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════
      STEP 1 — CHOOSE SCHOOL
@@ -998,6 +1046,9 @@
           <button class="pill active" data-rate="45" onclick="setRate(45, this)">฿45</button>
           <button class="pill" data-rate="50" onclick="setRate(50, this)">฿50</button>
         </div>
+        <div style="margin-top:0.4rem;font-size:0.72rem;color:rgba(26,26,26,0.45);font-family:'Inter',sans-serif;">
+          <span class="lang-th">อัตราปัจจุบันประมาณ ฿43</span><span class="lang-en">Current rate approx. ฿43</span>
+        </div>
       </div>
 
       <!-- VAT -->
@@ -1014,6 +1065,9 @@
             <span class="lang-en">Include VAT</span>
           </span>
         </div>
+        <div style="margin-top:0.4rem;font-size:0.72rem;color:rgba(26,26,26,0.45);font-family:'Inter',sans-serif;line-height:1.4;">
+          <span class="lang-th">โรงเรียนเอกชน UK เพิ่ม VAT 20% ตั้งแต่ มกราคม 2568</span><span class="lang-en">UK private schools added VAT 20% from January 2025</span>
+        </div>
       </div>
     </div>
 
@@ -1028,9 +1082,7 @@
         <button class="pill" data-type="co-ed" onclick="setType('co-ed', this)">Co-Ed</button>
         <button class="pill" data-type="boys" onclick="setType('boys', this)">Boys</button>
         <button class="pill" data-type="girls" onclick="setType('girls', this)">Girls</button>
-        <button class="pill" data-type="sixth" onclick="setType('sixth', this)">
-          <span class="lang-th">6th Form</span><span class="lang-en">6th Form</span>
-        </button>
+        <button class="pill" data-type="sixth" onclick="setType('sixth', this)">6th Form</button>
       </div>
     </div>
 
@@ -1064,12 +1116,12 @@
     <div class="step-heading-label lang-th">ขั้นตอนที่ 2</div>
     <div class="step-heading-label lang-en">Step 2</div>
     <h2 class="step-heading" id="step2Heading">
-      <span class="lang-th">ค่าใช้จ่ายจริงของโรงเรียนที่เลือก</span>
-      <span class="lang-en">True Cost at Your Chosen School</span>
+      <span class="lang-th">ตัวเลขที่โรงเรียนไม่ได้บอกคุณ</span>
+      <span class="lang-en">The Number Schools Don't Tell You</span>
     </h2>
     <p class="step-subheading">
-      <span class="lang-th">ค่าเทอมบวกค่าใช้จ่ายชีวิตจริง — ตัวเลขที่พ่อแม่ต้องรู้</span>
-      <span class="lang-en">Tuition plus real living costs — the number every parent must know</span>
+      <span class="lang-th">ค่าเทอม + ค่าครองชีพจริง + ค่าเดินทาง — รวมทุกอย่างที่คุณต้องรู้</span>
+      <span class="lang-en">Tuition + Real Living Costs + Travel — Everything You Need to Know</span>
     </p>
 
     <div id="step2Inner">
@@ -1132,16 +1184,16 @@
 ══════════════════════════════════ -->
 <div class="line-cta">
   <h2>
-    <span class="lang-th">ปรึกษาผู้เชี่ยวชาญ<span> LINKEDU</span></span>
-    <span class="lang-en">Talk to a <span>LINKEDU</span> Expert</span>
+    <span class="lang-th">รับรายงานโรงเรียนส่วนตัวของลูกคุณ —<span> ฟรี</span></span>
+    <span class="lang-en">Get Your Child's Personal School Report —<span> Free</span></span>
   </h2>
   <p>
-    <span class="lang-th">ทีมของเราพร้อมช่วยวางแผนค่าใช้จ่ายและทุนการศึกษาให้ตรงกับเป้าหมายของลูกคุณ</span>
-    <span class="lang-en">Our team is ready to help plan fees and scholarships aligned to your child's goals</span>
+    <span class="lang-th">ภายใน 2 นาที เราส่งรายงานโรงเรียนส่วนตัว 3 แห่งที่เหมาะกับลูกคุณโดยเฉพาะ</span>
+    <span class="lang-en">Within 2 minutes, we send a personalised report of 3 schools matched to your child</span>
   </p>
   <a class="line-btn" href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener">
-    <span class="lang-th">เพิ่ม LINE @linkedu.th</span>
-    <span class="lang-en">Add LINE @linkedu.th</span>
+    <span class="lang-th">รับรายงานฟรี ผ่าน LINE</span>
+    <span class="lang-en">Get Free Report on LINE</span>
   </a>
 </div>
 
@@ -1151,7 +1203,7 @@
     <span class="lang-th">เครื่องมือนี้จัดทำโดย <strong style="color:var(--gold);">LINKEDU</strong> — ที่ปรึกษาการศึกษา UK สำหรับครอบครัวไทย</span>
     <span class="lang-en">This tool is provided by <strong style="color:var(--gold);">LINKEDU</strong> — UK Education Consultants for Thai Families</span>
   </p>
-  <p>Beacon Group &copy; 2025 &nbsp;|&nbsp; <a href="https://line.me/ti/p/@linkedu.th" target="_blank">LINE @linkedu.th</a></p>
+  <p>LINKEDU &copy; 2025 &nbsp;|&nbsp; <a href="https://line.me/ti/p/@linkedu.th" target="_blank">LINE @linkedu.th</a></p>
 </footer>
 
 <!-- ══════════════════════════════════
@@ -1441,23 +1493,42 @@ function updateProgressBar(activeStep) {
     document.getElementById('pConn1'),
     document.getElementById('pConn2')
   ];
-  steps.forEach((el, i) => {
+  const nums = ['01', '02', '03'];
+  steps.forEach(function(el, i) {
     el.classList.remove('active', 'done');
-    if (i + 1 < activeStep) el.classList.add('done');
-    else if (i + 1 === activeStep) el.classList.add('active');
+    const numEl = el.querySelector('.progress-step-num');
+    if (i + 1 < activeStep) {
+      el.classList.add('done');
+      numEl.textContent = '✓';
+    } else {
+      numEl.textContent = nums[i];
+      if (i + 1 === activeStep) el.classList.add('active');
+    }
   });
-  conns.forEach((el, i) => {
+  conns.forEach(function(el, i) {
     el.classList.remove('done');
     if (i + 1 < activeStep) el.classList.add('done');
   });
 }
 
 /* ──────────────────────────────────
-   SCROLL
+   SCROLL / REVEAL
 ────────────────────────────────── */
 function scrollToStep(n) {
   const el = document.getElementById('step' + n);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function revealStep(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  // Remove hidden, force reflow to restart animation, then animate in
+  el.classList.remove('step-hidden', 'step-visible');
+  void el.offsetHeight;
+  el.classList.add('step-visible');
+  setTimeout(function() {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
 }
 
 /* ──────────────────────────────────
@@ -1608,7 +1679,7 @@ function proceedToStep2() {
   document.body.style.overflow = '';
   renderStep2();
   updateProgressBar(2);
-  setTimeout(function() { scrollToStep(2); }, 100);
+  revealStep('step2');
 }
 
 /* ──────────────────────────────────
@@ -1625,8 +1696,8 @@ function renderStep2() {
   // Update heading
   const heading = document.getElementById('step2Heading');
   heading.innerHTML =
-    '<span class="lang-th">ค่าใช้จ่ายจริงของ <span style="color:var(--gold);">' + school.name + '</span></span>' +
-    '<span class="lang-en">True Cost at <span style="color:var(--gold);">' + school.name + '</span></span>';
+    '<span class="lang-th">ตัวเลขที่โรงเรียนไม่ได้บอกคุณ — <span style="color:var(--gold);">' + school.name + '</span></span>' +
+    '<span class="lang-en">The Number Schools Don\'t Tell You — <span style="color:var(--gold);">' + school.name + '</span></span>';
 
   const container = document.getElementById('step2Inner');
 
@@ -1742,6 +1813,19 @@ function calculateTrueCost() {
   state.gapGBP = Math.max(0, state.trueCostGBP - state.budget);
 
   triggerReveal2();
+
+  // Inject "Find Scholarships" button into Step 2 so it's visible after reveal closes
+  var step2Inner = document.getElementById('step2Inner');
+  if (step2Inner && !document.getElementById('findScholBtn')) {
+    var btn = document.createElement('button');
+    btn.id = 'findScholBtn';
+    btn.className = 'find-schol-btn';
+    btn.innerHTML =
+      '<span class="lang-th">ค้นหาทุนการศึกษา →</span>' +
+      '<span class="lang-en">Find Scholarships →</span>';
+    btn.onclick = function() { proceedToStep3(); };
+    step2Inner.appendChild(btn);
+  }
 }
 
 /* ──────────────────────────────────
@@ -1819,8 +1903,8 @@ function proceedToStep3() {
   document.getElementById('reveal2').classList.remove('active');
   document.body.style.overflow = '';
   renderStep3();
-  setTimeout(function() { scrollToStep(3); }, 100);
   updateProgressBar(3);
+  revealStep('step3');
 }
 
 /* ──────────────────────────────────
@@ -1965,8 +2049,12 @@ stepSections.forEach(function(el) {
 renderStep1();
 updateProgressBar(1);
 
-// Initial scholarship grid (shows all scholarship schools by default)
+// Pre-render Step 3 data while hidden so it's ready when revealed
 renderStep3();
+
+// Progressive reveal — only Step 1 visible on load
+document.getElementById('step2').classList.add('step-hidden');
+document.getElementById('step3').classList.add('step-hidden');
 </script>
 </body>
 </html>
