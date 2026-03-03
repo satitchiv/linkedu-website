@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="lang-en">Scholarship Application Checklist - LINKEDU</title>
+    <title class="lang-th">รายการตรวจสอบทุนการศึกษา - LINKEDU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* LINKEDU Brand Standards - CSS */
+
+        :root {
+            --dark: #1a1a1a;
+            --cream: #f5f0e8;
+            --gold: #B8962E;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f0e8;
+            --border-light: rgba(0,0,0,0.08);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--cream);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--dark);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--gold);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Headings */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.8rem; }
+        h3 { font-size: 2.2rem; }
+        h4 { font-size: 1.8rem; }
+
+        /* General Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+        .logo-wrap span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--text-light);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        nav a {
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--gold);
+        }
+        .lang-toggle {
+            display: flex;
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .lang-toggle button {
+            background: none;
+            border: none;
+            color: var(--gold);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .lang-toggle button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-secondary:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .section-label::before {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--gold);
+            margin-right: 15px;
+            max-width: 50px; /* Limit line length */
+        }
+        .section-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--gold);
+            margin-left: 15px;
+            max-width: 50px; /* Limit line length */
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--cream); /* Default card background */
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-subtle);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-white { /* For alternating white cards */
+            background-color: #ffffff;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Form elements */
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none; /* Remove default arrow */
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.7-6.9H18.5c-5.9%200-11.2%203.4-13.7%206.9-4.5%204.6-4.5%2012.3%200%2016.9l128.9%20128.9a17.6%2017.6%200%200%200%2024.7%200l128.9-128.9c4.5-4.6%204.5-12.3%200-16.9z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+        }
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* LINE CTA Box */
+        .line-cta-box {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        .line-cta-box p {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .line-cta-box span {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .line-cta-box .btn-primary {
+            padding: 12px 25px;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        footer a {
+            color: var(--text-light);
+            text-decoration: underline;
+        }
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+            .hero { padding: 80px 0; }
+            .section-padding { padding: 60px 0; }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero { padding: 60px 0; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .line-cta-box { padding: 30px; }
+            .line-cta-box p { font-size: 1.3rem; }
+            .line-cta-box span { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 15px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .section-padding { padding: 40px 0; }
+            .card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span>OVERSEAS EDUCATION</span>
+            </div>
+            <nav>
+                <a href="https://th.linkedu.hk" target="_blank" class="lang-en">Home</a>
+                <a href="https://th.linkedu.hk" target="_blank" class="lang-th">หน้าแรก</a>
+                <div class="lang-toggle">
+                    <button id="lang-th" class="active">TH</button>
+                    <button id="lang-en">EN</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="lang-en">Scholarship Application Checklist</h1>
+                <h1 class="lang-th">รายการตรวจสอบทุนการศึกษา</h1>
+                <p class="lang-en">Your step-by-step guide to securing a scholarship at top UK boarding schools.</p>
+                <p class="lang-th">คู่มือทีละขั้นตอนเพื่อรับทุนการศึกษาในโรงเรียนประจำชั้นนำของสหราชอาณาจักร</p>
+                <a href="#checklist-form" class="btn-primary lang-en">Start Your Checklist</a>
+                <a href="#checklist-form" class="btn-primary lang-th">เริ่มตรวจสอบ</a>
+            </div>
+        </section>
+
+        <section id="checklist-form" class="section-padding">
+            <div class="container">
+                <div class="section-label lang-en">· CHOOSE YOUR PATH ·</div>
+                <div class="section-label lang-th">· เลือกเส้นทางของคุณ ·</div>
+                <h2 class="lang-en">Select Scholarship Type & School</h2>
+                <h2 class="lang-th">เลือกประเภททุนการศึกษาและโรงเรียน</h2>
+                <div class="card card-white">
+                    <label for="scholarshipType" style="display: block; margin-bottom: 8px;" class="lang-en">Scholarship Type:</label>
+                    <label for="scholarshipType" style="display: block; margin-bottom: 8px;" class="lang-th">ประเภททุนการศึกษา:</label>
+                    <select id="scholarshipType">
+                        <option value="" disabled selected class="lang-en">Select a scholarship type</option>
+                        <option value="" disabled selected class="lang-th">เลือกประเภททุนการศึกษา</option>
+                        <option value="Academic" class="lang-en">Academic Scholarship</option>
+                        <option value="Academic" class="lang-th">ทุนการศึกษาด้านวิชาการ</option>
+                        <option value="Music" class="lang-en">Music Scholarship</option>
+                        <option value="Music" class="lang-th">ทุนการศึกษาด้านดนตรี</option>
+                        <option value="Sport" class="lang-en">Sport Scholarship</option>
+                        <option value="Sport" class="lang-th">ทุนการศึกษาด้านกีฬา</option>
+                        <option value="Art" class="lang-en">Art Scholarship</option>
+                        <option value="Art" class="lang-th">ทุนการศึกษาด้านศิลปะ</option>
+                        <option value="Drama" class="lang-en">Drama Scholarship</option>
+                        <option value="Drama" class="lang-th">ทุนการศึกษาด้านการละคร</option>
+                    </select>
+
+                    <label for="selectedSchool" style="display: block; margin-bottom: 8px;" class="lang-en">Select School:</label>
+                    <label for="selectedSchool" style="display: block; margin-bottom: 8px;" class="lang-th">เลือกโรงเรียน:</label>
+                    <select id="selectedSchool">
+                        <option value="" disabled selected class="lang-en">Select a school</option>
+                        <option value="" disabled selected class="lang-th">เลือกโรงเรียน</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+
+                    <button id="generateChecklistBtn" class="btn-primary lang-en">Generate Checklist</button>
+                    <button id="generateChecklistBtn" class="btn-primary lang-th">สร้างรายการตรวจสอบ</button>
+                </div>
+
+                <div id="checklistOutput" class="section-padding" style="display:none;">
+                    <div class="section-label lang-en">· YOUR PERSONALIZED CHECKLIST ·</div>
+                    <div class="section-label lang-th">· รายการตรวจสอบส่วนบุคคลของคุณ ·</div>
+                    <h2 class="lang-en">Your Scholarship Checklist for <span id="outputSchoolNameEn"></span></h2>
+                    <h2 class="lang-th">รายการตรวจสอบทุนการศึกษาของคุณสำหรับ <span id="outputSchoolNameTh"></span></h2>
+                    
+                    <div class="card card-white" id="scholarshipRequirementsCard">
+                        <h3 class="lang-en">Requirements for <span id="outputScholarshipTypeEn"></span> Scholarship:</h3>
+                        <h3 class="lang-th">ข้อกำหนดสำหรับทุนการศึกษา <span id="outputScholarshipTypeTh"></span>:</h3>
+                        <ul id="requirementsList"></ul>
+                    </div>
+
+                    <div class="card card-white" id="schoolFeeCard" style="margin-top: 30px;">
+                        <h3 class="lang-en">Estimated Annual Boarding Fees:</h3>
+                        <h3 class="lang-th">ค่าเล่าเรียนประจำปีโดยประมาณ:</h3>
+                        <p class="lang-en"><strong>Fees:</strong> <span id="feesGBP"></span> GBP (<span id="feesTHB"></span> THB)</p>
+                        <p class="lang-th"><strong>ค่าธรรมเนียม:</strong> <span id="feesGBP_th"></span> ปอนด์ (<span id="feesTHB_th"></span> บาท)</p>
+                        <small class="lang-en"><strong>VAT Note:</strong> Private school fees have 20 percent VAT added from January 2025. State boarding schools are VAT exempt at GBP 10,000 to 19,000 per year.</small>
+                        <small class="lang-th"><strong>หมายเหตุ VAT:</strong> ค่าเล่าเรียนโรงเรียนเอกชนจะถูกเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่มที่ 10,000 ถึง 19,000 ปอนด์ต่อปี</small>
+                    </div>
+
+                    <!-- LINE CTA after every result/output -->
+                    <div class="line-cta-box">
+                        <p>LINE: satitlinkedu</p>
+                        <span class="lang-en">Free Consultation</span>
+                        <span class="lang-th">ปรึกษาฟรี</span>
+                        <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+                        <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding card-white">
+            <div class="container">
+                <div class="section-label lang-en">· GENERAL APPLICATION TIMELINE ·</div>
+                <div class="section-label lang-th">· ไทม์ไลน์การสมัครโดยทั่วไป ·</div>
+                <h2 class="lang-en">Your 12-Month Scholarship Application Timeline</h2>
+                <h2 class="lang-th">ไทม์ไลน์การสมัครทุนการศึกษา 12 เดือนของคุณ</h2>
+                <div class="card">
+                    <ul id="timelineList"></ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="line-cta-section section-padding">
+        <div class="container line-cta-box">
+            <p>LINE: satitlinkedu</p>
+            <span class="lang-en">Free Consultation</span>
+            <span class="lang-th">ปรึกษาฟรี</span>
+            <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+            <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="lang-en">&copy; 2024 LINKEDU. All rights reserved. <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p class="lang-th">&copy; 2024 LINKEDU. สงวนลิขสิทธิ์. <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45;
+
+        const schools = [
+            { name: "Abbotsholme", feesGBP: 38000, type: "Academic, Sport" },
+            { name: "Ardingly", feesGBP: 43000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Brighton College", feesGBP: 48000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Bromsgrove", feesGBP: 42000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Bryanston", feesGBP: 46000, type: "Academic, Music, Sport, Art" },
+            { name: "Cardiff Sixth Form", feesGBP: 50000, type: "Academic" },
+            { name: "Caterham", feesGBP: 41000, type: "Academic, Music, Sport, Drama" },
+            { name: "Charterhouse", feesGBP: 47000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Clifton", feesGBP: 40000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Concord", feesGBP: 45000, type: "Academic" },
+            { name: "D Overbroeks", feesGBP: 40000, type: "Academic, Art, Drama" },
+            { name: "Dulwich", feesGBP: 48000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Epsom", feesGBP: 44000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Eton", feesGBP: 49000, type: "Academic, Music, Sport, Art" },
+            { name: "Harrow", feesGBP: 49000, type: "Academic, Music, Sport, Art" },
+            { name: "Lancing", feesGBP: 41000, type: "Academic, Music, Art, Drama" },
+            { name: "Loretto", feesGBP: 39000, type: "Academic, Sport, Music" },
+            { name: "Millfield", feesGBP: 46000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Oakham", feesGBP: 42000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Oundle", feesGBP: 47000, type: "Academic, Music, Sport, Art" },
+            { name: "Oxford International", feesGBP: 35000, type: "Academic" },
+            { name: "Queen Ethelburgas", feesGBP: 55000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Repton", feesGBP: 45000, type: "Academic, Music, Sport, Art" },
+            { name: "Roedean", feesGBP: 48000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Rossall", feesGBP: 40000, type: "Academic, Music, Sport, Drama" },
+            { name: "Royal Russell", feesGBP: 39000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Sedbergh", feesGBP: 43000, type: "Academic, Sport, Music" },
+            { name: "Sevenoaks", feesGBP: 49000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Shrewsbury", feesGBP: 44000, type: "Academic, Music, Sport, Art, Drama" },
+            { name: "Sidcot", feesGBP: 37000, type: "Academic, Art, Drama" },
+            { name: "St Leonards", feesGBP: 36000, type: "Academic, Music, Sport, Art" },
+            { name: "The Leys", feesGBP: 42000, type: "Academic, Music, Sport" },
+            { name: "NMSC", feesGBP: 48000, type: "Academic" }, 
+            { name: "Tonbridge", feesGBP: 48000, type: "Academic, Music, Sport" },
+            { name: "Uppingham", feesGBP: 47000, type: "Academic, Music, Sport, Art" },
+            { name: "Wells Cathedral", feesGBP: 40000, type: "Music, Academic" }
+        ];
+
+        const scholarshipRequirements = {
+            "Academic": {
+                "en": [
+                    "Submit academic transcripts (last 2-3 years) with outstanding grades.",
+                    "Provide evidence of significant academic achievements (e.g., competition wins, extended projects).",
+                    "Prepare for scholarship examinations (may include UKiset, CAT4, or school's own papers in English, Maths, Science, Reasoning).",
+                    "Write a compelling personal statement outlining academic interests and aspirations.",
+                    "Obtain strong academic references from current teachers."
+                ],
+                "th": [
+                    "ส่งใบรับรองผลการเรียน (2-3 ปีล่าสุด) ที่มีผลการเรียนดีเยี่ยม",
+                    "แสดงหลักฐานความสำเร็จทางวิชาการที่สำคัญ (เช่น ชนะการแข่งขัน, โครงงานพิเศษ)",
+                    "เตรียมตัวสำหรับการสอบชิงทุน (อาจรวมถึง UKiset, CAT4 หรือข้อสอบของโรงเรียนเองในวิชาภาษาอังกฤษ, คณิตศาสตร์, วิทยาศาสตร์, การใช้เหตุผล)",
+                    "เขียนเรียงความส่วนตัวที่น่าสนใจ โดยระบุความสนใจและความมุ่งมั่นทางวิชาการ",
+                    "ขอจดหมายรับรองทางวิชาการที่แข็งแกร่งจากครูผู้สอนปัจจุบัน"
+                ]
+            },
+            "Music": {
+                "en": [
+                    "Prepare two contrasting pieces on your principal instrument (e.g., Grade 6-8 ABRSM/Trinity standard or equivalent).",
+                    "Prepare one piece on a second instrument (if applicable).",
+                    "Demonstrate sight-reading and aural skills.",
+                    "Attend an audition and interview with the Director of Music.",
+                    "Submit a portfolio of musical achievements (e.g., performance history, ensemble participation, theory certificates)."
+                ],
+                "th": [
+                    "เตรียมเพลงสองชิ้นที่แตกต่างกันสำหรับเครื่องดนตรีหลักของคุณ (เช่น มาตรฐาน Grade 6-8 ABRSM/Trinity หรือเทียบเท่า)",
+                    "เตรียมเพลงหนึ่งชิ้นสำหรับเครื่องดนตรีรอง (ถ้ามี)",
+                    "แสดงความสามารถในการอ่านโน้ตและทักษะการฟัง",
+                    "เข้าร่วมการทดสอบและสัมภาษณ์กับผู้อำนวยการฝ่ายดนตรี",
+                    "ส่งแฟ้มผลงานดนตรี (เช่น ประวัติการแสดง, การเข้าร่วมวง, ใบรับรองทฤษฎีดนตรี)"
+                ]
+            },
+            "Sport": {
+                "en": [
+                    "Submit a sports CV detailing achievements, representative honors (e.g., county, regional, national level), and training history.",
+                    "Provide a highlight video of your performance in your primary sport.",
+                    "Attend a sports trial day at the school, demonstrating skills, fitness, and teamwork.",
+                    "Obtain strong references from coaches.",
+                    "Undergo an interview with the Director of Sport."
+                ],
+                "th": [
+                    "ส่งประวัติย่อด้านกีฬา โดยระบุความสำเร็จ, เกียรติยศที่ได้รับ (เช่น ระดับจังหวัด, ภูมิภาค, ประเทศ) และประวัติการฝึกซ้อม",
+                    "จัดทำวิดีโอไฮไลท์การแสดงของคุณในกีฬาหลัก",
+                    "เข้าร่วมวันทดสอบกีฬาที่โรงเรียน เพื่อแสดงทักษะ, ความแข็งแรง และการทำงานเป็นทีม",
+                    "ขอจดหมายรับรองที่แข็งแกร่งจากโค้ช",
+                    "เข้ารับการสัมภาษณ์กับผู้อำนวยการฝ่ายกีฬา"
+                ]
+            },
+            "Art": {
+                "en": [
+                    "Prepare a portfolio of 10-15 pieces demonstrating a range of media, techniques, and artistic interests.",
+                    "Include work from various projects, showing development and experimentation.",
+                    "Present sketchbooks and visual journals to showcase creative process and ideas.",
+                    "Attend an interview with the Head of Art to discuss your portfolio and artistic aspirations.",
+                    "Some schools may require a practical art test."
+                ],
+                "th": [
+                    "เตรียมแฟ้มผลงาน 10-15 ชิ้น ที่แสดงให้เห็นถึงความหลากหลายของสื่อ, เทคนิค และความสนใจทางศิลปะ",
+                    "รวมผลงานจากโครงการต่างๆ เพื่อแสดงการพัฒนาและการทดลอง",
+                    "นำเสนอสมุดสเก็ตช์และสมุดบันทึกภาพ เพื่อแสดงกระบวนการสร้างสรรค์และแนวคิด",
+                    "เข้าร่วมการสัมภาษณ์กับหัวหน้าภาควิชาศิลปะ เพื่อหารือเกี่ยวกับแฟ้มผลงานและความมุ่งมั่นทางศิลปะของคุณ",
+                    "บางโรงเรียนอาจต้องการการทดสอบปฏิบัติทางศิลปะ"
+                ]
+            },
+            "Drama": {
+                "en": [
+                    "Prepare a monologue (approx. 2-3 minutes) from a published play.",
+                    "Be prepared for improvisation or group workshop exercises.",
+                    "Attend an interview with the Head of Drama to discuss your experience, interests, and aspirations.",
+                    "Submit a drama CV detailing performance experience, roles, and workshops attended.",
+                    "Some schools may require a short prepared poem or sight-reading of a script."
+                ],
+                "th": [
+                    "เตรียมบทพูดคนเดียว (ประมาณ 2-3 นาที) จากบทละครที่ตีพิมพ์",
+                    "เตรียมพร้อมสำหรับการแสดงด้นสดหรือการฝึกอบรมกลุ่ม",
+                    "เข้าร่วมการสัมภาษณ์กับหัวหน้าภาควิชาการละคร เพื่อหารือเกี่ยวกับประสบการณ์, ความสนใจ และความมุ่งมั่นของคุณ",
+                    "ส่งประวัติย่อด้านการละคร โดยระบุประสบการณ์การแสดง, บทบาท และเวิร์คช็อปที่เข้าร่วม",
+                    "บางโรงเรียนอาจต้องการบทกวีสั้นๆ ที่เตรียมไว้ หรือการอ่านบทละครแบบกะทันหัน"
+                ]
+            }
+        };
+
+        const timelineSteps = {
+            "en": [
+                "12-18 Months Before Entry: Research schools, scholarship types, and application deadlines. Contact LINKEDU for initial consultation.",
+                "10-12 Months Before Entry: Register for entrance exams (e.g., UKiset, CAT4). Begin preparing scholarship portfolios/audition pieces.",
+                "8-10 Months Before Entry: Submit initial school applications. Secure academic and personal references.",
+                "6-8 Months Before Entry: Attend scholarship interviews, trials, or auditions. Complete school-specific scholarship application forms.",
+                "4-6 Months Before Entry: Receive scholarship offers. Review terms and conditions with LINKEDU.",
+                "2-4 Months Before Entry: Accept scholarship offer and confirm enrollment. Prepare for visa applications if needed.",
+                "Entry Date: Begin your scholarship journey!"
+            ],
+            "th": [
+                "12-18 เดือนก่อนเข้าเรียน: ศึกษาข้อมูลโรงเรียน, ประเภททุนการศึกษา และกำหนดเวลาการสมัคร ติดต่อ LINKEDU เพื่อขอคำปรึกษาเบื้องต้น",
+                "10-12 เดือนก่อนเข้าเรียน: ลงทะเบียนสอบเข้า (เช่น UKiset, CAT4) เริ่มเตรียมแฟ้มผลงานทุนการศึกษา/ชิ้นงานสำหรับออดิชั่น",
+                "8-10 เดือนก่อนเข้าเรียน: ส่งใบสมัครโรงเรียนเบื้องต้น ขอจดหมายรับรองทางวิชาการและส่วนตัว",
+                "6-8 เดือนก่อนเข้าเรียน: เข้าร่วมการสัมภาษณ์ทุน, การทดสอบ หรือการออดิชั่น กรอกแบบฟอร์มสมัครทุนเฉพาะของโรงเรียน",
+                "4-6 เดือนก่อนเข้าเรียน: ได้รับข้อเสนอทุนการศึกษา ตรวจสอบเงื่อนไขกับ LINKEDU",
+                "2-4 เดือนก่อนเข้าเรียน: ยอมรับข้อเสนอทุนการศึกษาและยืนยันการลงทะเบียน เตรียมการสมัครวีซ่าหากจำเป็น",
+                "วันเข้าเรียน: เริ่มต้นการเดินทางสู่ทุนการศึกษาของคุณ!"
+            ]
+        };
+
+        // Language Toggle
+        const langThBtn = document.getElementById('lang-th');
+        const langEnBtn = document.getElementById('lang-en');
+
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            langThBtn.classList.toggle('active', lang === 'th');
+            langEnBtn.classList.toggle('active', lang === 'en');
+        }
+
+        langThBtn.addEventListener('click', () => setLanguage('th'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+        // Default to Thai on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('th');
+            populateSchoolDropdown();
+            populateTimeline();
+        });
+
+        // Populate school dropdown
+        const selectedSchoolDropdown = document.getElementById('selectedSchool');
+        function populateSchoolDropdown() {
+            // Clear existing options except the placeholder
+            selectedSchoolDropdown.innerHTML = '<option value="" disabled selected class="lang-en">Select a school</option><option value="" disabled selected class="lang-th">เลือกโรงเรียน</option>';
+            
+            schools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.name;
+                option.textContent = school.name;
+                selectedSchoolDropdown.appendChild(option);
+            });
+        }
+
+        // Populate timeline
+        const timelineList = document.getElementById('timelineList');
+        function populateTimeline() {
+            const currentLang = document.documentElement.getAttribute('lang');
+            timelineList.innerHTML = '';
+            timelineSteps[currentLang].forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                timelineList.appendChild(li);
+            });
+        }
+
+        // Generate Checklist
+        const generateChecklistBtn = document.getElementById('generateChecklistBtn');
+        const scholarshipTypeSelect = document.getElementById('scholarshipType');
+        const checklistOutput = document.getElementById('checklistOutput');
+        const outputSchoolNameEn = document.getElementById('outputSchoolNameEn');
+        const outputSchoolNameTh = document.getElementById('outputSchoolNameTh');
+        const outputScholarshipTypeEn = document.getElementById('outputScholarshipTypeEn');
+        const outputScholarshipTypeTh = document.getElementById('outputScholarshipTypeTh');
+        const requirementsList = document.getElementById('requirementsList');
+        const feesGBP = document.getElementById('feesGBP');
+        const feesTHB = document.getElementById('feesTHB');
+        const feesGBP_th = document.getElementById('feesGBP_th');
+        const feesTHB_th = document.getElementById('feesTHB_th');
+
+        generateChecklistBtn.addEventListener('click', () => {
+            const selectedScholarshipType = scholarshipTypeSelect.value;
+            const selectedSchoolName = selectedSchoolDropdown.value;
+            const currentLang = document.documentElement.getAttribute('lang');
+
+            if (!selectedScholarshipType || !selectedSchoolName) {
+                alert(currentLang === 'en' ? "Please select both a scholarship type and a school." : "โปรดเลือกทั้งประเภททุนการศึกษาและโรงเรียน");
+                return;
+            }
+
+            const selectedSchool = schools.find(s => s.name === selectedSchoolName);
+
+            // Check if selected scholarship type is offered by the school
+            if (!selectedSchool.type.includes(selectedScholarshipType)) {
+                alert(currentLang === 'en'
+                    ? `The selected school (${selectedSchoolName}) does not offer ${selectedScholarshipType} scholarships. Please choose another type or school.`
+                    : `โรงเรียนที่เลือก (${selectedSchoolName}) ไม่มีทุนการศึกษาประเภท ${getThaiScholarshipType(selectedScholarshipType)} โปรดเลือกประเภทอื่นหรือโรงเรียนอื่น`);
+                checklistOutput.style.display = 'none';
+                return;
+            }
+
+            outputSchoolNameEn.textContent = selectedSchoolName;
+            outputSchoolNameTh.textContent = selectedSchoolName;
+            outputScholarshipTypeEn.textContent = selectedScholarshipType;
+            outputScholarshipTypeTh.textContent = getThaiScholarshipType(selectedScholarshipType);
+
+            // Display requirements
+            requirementsList.innerHTML = '';
+            const requirements = scholarshipRequirements[selectedScholarshipType][currentLang];
+            requirements.forEach(req => {
+                const li = document.createElement('li');
+                li.textContent = req;
+                requirementsList.appendChild(li);
+            });
+
+            // Display fees
+            const annualFeesGBP = selectedSchool.feesGBP;
+            const annualFeesTHB = (annualFeesGBP * GBP_TO_THB_RATE).toLocaleString('th-TH');
+
+            feesGBP.textContent = annualFeesGBP.toLocaleString('en-US');
+            feesTHB.textContent = annualFeesTHB;
+            feesGBP_th.textContent = annualFeesGBP.toLocaleString('th-TH');
+            feesTHB_th.textContent = annualFeesTHB;
+
+            checklistOutput.style.display = 'block';
+
+            // Scroll to output
+            checklistOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Helper for Thai Scholarship Type
+        function getThaiScholarshipType(type) {
+            switch (type) {
+                case "Academic": return "วิชาการ";
+                case "Music": return "ดนตรี";
+                case "Sport": return "กีฬา";
+                case "Art": return "ศิลปะ";
+                case "Drama": return "การละคร";
+                default: return type;
+            }
+        }
+
+        // Re-populate timeline and update dynamic text on language change
+        document.documentElement.addEventListener('langchange', () => {
+            populateTimeline();
+            // Re-run checklist generation if already displayed to update language
+            if (checklistOutput.style.display === 'block') {
+                generateChecklistBtn.click(); // Simulate click to update content
+            }
+        });
+
+        // Event listener for when the html lang attribute changes
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+                    // Custom event to signal language change
+                    document.documentElement.dispatchEvent(new Event('langchange'));
+                }
+            }
+        });
+        observer.observe(document.documentElement, { attributes: true });
+
+    </script>
+</body>
+</html>

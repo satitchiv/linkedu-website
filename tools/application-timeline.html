@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Boarding School Application Timeline - LINKEDU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --dark: #1A1A1A;
+            --navy: #1B3A5C;
+            --gold: #C9A84C;
+            --cream: #F5F0E8;
+            --bg: #FAFAF8;
+            --text: #2D2D2D;
+            --border: #E8E4DC;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            color: var(--dark);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        a {
+            color: var(--navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Sticky Header */
+        .header {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+        .header nav a {
+            color: var(--cream);
+            margin-left: 30px;
+            font-weight: 500;
+        }
+        .header nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* Content Sections */
+        .section {
+            background-color: var(--bg);
+            padding: 80px 0;
+        }
+
+        /* Buttons and Accents */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .btn-primary:hover {
+            background-color: #B29543;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: var(--navy);
+            color: var(--cream);
+        }
+        .btn-secondary:hover {
+            background-color: #162E47;
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        .card {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .card h4 {
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        /* Timeline Specifics */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--border);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        .timeline-item-content {
+            width: 45%;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .timeline-item-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.08);
+        }
+        .timeline-item-content h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .timeline-item-content strong {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .timeline-item .timeline-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border: 3px solid var(--bg);
+        }
+        .timeline-item:nth-child(odd) .timeline-item-content::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -17px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid var(--border);
+            transform: translateY(-50%);
+        }
+        .timeline-item:nth-child(even) .timeline-item-content::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -17px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid var(--border);
+            transform: translateY(-50%);
+        }
+        .timeline-item:nth-child(odd) .timeline-item-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid #fff;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even) .timeline-item-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #fff;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        /* Interactive Toggle */
+        .toggle-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+        .toggle-switch input[type="radio"] {
+            display: none;
+        }
+        .toggle-switch label {
+            background-color: var(--navy);
+            color: var(--cream);
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+        .toggle-switch input[type="radio"]:checked + label {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .toggle-switch label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* School Select Dropdown */
+        .school-select-wrapper {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        .school-select-wrapper select {
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            background-color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%232D2D2D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 20px;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            min-width: 300px;
+            max-width: 90%;
+        }
+        .school-select-wrapper select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        }
+        .school-info-card {
+            margin-top: 30px;
+            padding: 25px;
+            border-left: 5px solid var(--gold);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .school-info-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .school-info-card p {
+            margin-bottom: 10px;
+        }
+        .school-info-card strong {
+            color: var(--navy);
+        }
+
+        /* LINE CTA */
+        .line-cta {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 30px 20px;
+            text-align: center;
+            margin: 40px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .line-cta h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        .line-cta p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .line-cta .btn {
+            background-color: var(--navy);
+            color: var(--cream);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+        }
+        .line-cta .btn:hover {
+            background-color: #162E47;
+            transform: translateY(-3px);
+        }
+
+        /* General Info */
+        .info-box {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--navy);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .info-box h4 {
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        .info-box p {
+            margin-bottom: 0.5em;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .footer a {
+            color: var(--gold);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .timeline-item-content {
+                width: calc(100% - 40px);
+                margin-left: 40px;
+            }
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+            }
+            .timeline-item .timeline-dot {
+                left: 20px;
+                transform: translate(-50%, -50%);
+            }
+            .timeline-item-content::after,
+            .timeline-item-content::before {
+                left: -17px;
+                right: auto;
+                border-left: none;
+                border-right: 10px solid var(--border);
+            }
+            .timeline-item-content::before {
+                border-right: 8px solid #fff;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            .hero { padding: 60px 0; }
+            .section { padding: 60px 0; }
+            .toggle-switch {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .toggle-switch label {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .header nav a {
+                margin: 0;
+            }
+            .line-cta p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .container { padding: 0 15px; }
+            .timeline-item-content {
+                padding: 15px;
+            }
+            .school-select-wrapper select {
+                min-width: unset;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">LINKEDU</div>
+            <nav>
+                <a href="#timeline-selection">Timeline</a>
+                <a href="#fees-vat">Fees & VAT</a>
+                <a href="#travel-planning">Travel</a>
+                <a href="https://th.linkedu.hk" target="_blank">Website</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>UK Boarding School Application Timeline</h1>
+            <h1>ตารางเวลาการสมัครโรงเรียนประจำสหราชอาณาจักร</h1>
+            <p>Navigate the journey from Bangkok to a top UK boarding school with our interactive timeline. Choose your entry year to see a detailed application path.</p>
+            <p>สำรวจเส้นทางจากกรุงเทพฯ สู่โรงเรียนประจำชั้นนำในสหราชอาณาจักรด้วยตารางเวลาแบบโต้ตอบของเรา เลือกปีที่ต้องการเข้าศึกษาเพื่อดูรายละเอียดเส้นทางการสมัคร</p>
+
+            <div class="toggle-switch" id="timeline-selection">
+                <input type="radio" id="year9" name="entryYear" value="year9" checked>
+                <label for="year9">Year 9 Entry (Age 13) | เข้าเรียน Year 9 (อายุ 13 ปี)</label>
+
+                <input type="radio" id="year12" name="entryYear" value="year12">
+                <label for="year12">Year 12 Entry (Age 16) | เข้าเรียน Year 12 (อายุ 16 ปี)</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center">Your Application Journey | เส้นทางการสมัครของคุณ</h2>
+            <p class="text-center" style="margin-bottom: 40px;">Select your preferred entry year above to view the tailored timeline.</p>
+            <p class="text-center" style="margin-bottom: 40px;">เลือกปีที่ต้องการเข้าศึกษาด้านบนเพื่อดูตารางเวลาที่ปรับแต่งแล้ว</p>
+
+            <!-- Year 9 Timeline -->
+            <div id="timeline-year9" class="timeline-path">
+                <h3 class="text-center" style="color: var(--navy); margin-bottom: 30px;">Year 9 Entry (Age 13) Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry - 3 Years: Research & Registration</h5>
+                            <p><strong>Age: 10-11 (Year 6)</strong></p>
+                            <ul>
+                                <li><strong>Research Schools:</strong> Start exploring schools, their ethos, and academic focus.</li>
+                                <li><strong>Initial Consultation:</strong> Contact LINKEDU for personalized guidance and school shortlisting.</li>
+                                <li><strong>School Registration:</strong> Register with your chosen schools. Many top schools have early registration deadlines (e.g., 2-3 years prior to entry).</li>
+                                <li><strong>UKISET/CAT4 Testing:</strong> Prepare for and take entrance exams like UKISET or CAT4 as required.</li>
+                            </ul>
+                            <p><em>School-specific deadlines vary greatly. Early registration is crucial for competitive schools.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry - 2 Years: Visits & Application Preparation</h5>
+                            <p><strong>Age: 11-12 (Year 7)</strong></p>
+                            <ul>
+                                <li><strong>School Visits (UK):</strong> Plan trips to visit shortlisted schools in the UK. This is essential for both parents and students.</li>
+                                <li><strong>Application Forms:</strong> Complete detailed application forms.</li>
+                                <li><strong>References:</strong> Request academic references from current school.</li>
+                                <li><strong>Interview Preparation:</strong> Begin preparing for interviews, focusing on communication skills and personal interests.</li>
+                            </ul>
+                            <p><em>Bangkok to UK travel planning: Allow sufficient time for visa application (if required) and flight bookings. Consider school holiday periods for visits.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry - 1 Year: Exams & Interviews</h5>
+                            <p><strong>Age: 12-13 (Year 8)</strong></p>
+                            <ul>
+                                <li><strong>Entrance Exams:</strong> Sit formal entrance exams (e.g., Common Entrance, school-specific papers).</li>
+                                <li><strong>Interviews:</strong> Attend interviews, either in person, via video conference, or during school visits.</li>
+                                <li><strong>Offers:</strong> Receive offers of admission from schools (typically Jan-Feb of the year prior to entry).</li>
+                            </ul>
+                            <p><em>Decision period: Often a tight window to accept offers, usually by early March.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry Year: Confirmation & Visa</h5>
+                            <p><strong>Age: 13 (Year 9)</strong></p>
+                            <ul>
+                                <li><strong>Place Confirmation:</strong> Finalize acceptance and pay deposits.</li>
+                                <li><strong>Visa Application:</strong> Apply for a UK Student Visa (Child Student Visa) if required. LINKEDU can assist with this process.</li>
+                                <li><strong>Travel & Orientation:</strong> Arrange travel from Bangkok to the UK. Attend school induction/orientation.</li>
+                                <li><strong>Start School:</strong> Begin Year 9 in September!</li>
+                            </ul>
+                            <p><em>Visa processing times can vary, start early.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Year 12 Timeline -->
+            <div id="timeline-year12" class="timeline-path" style="display: none;">
+                <h3 class="text-center" style="color: var(--navy); margin-bottom: 30px;">Year 12 Entry (Age 16) Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry - 2 Years: Research & Registration</h5>
+                            <p><strong>Age: 14-15 (Year 10)</strong></p>
+                            <ul>
+                                <li><strong>Research Schools:</strong> Identify schools offering desired A-Level or IB subjects.</li>
+                                <li><strong>Initial Consultation:</strong> Contact LINKEDU for expert advice on Sixth Form options.</li>
+                                <li><strong>School Registration:</strong> Register with schools. Deadlines are often earlier than Year 9, sometimes 1.5-2 years prior.</li>
+                                <li><strong>UKISET/CAT4 Testing:</strong> Prepare for and take entrance exams like UKISET or CAT4.</li>
+                            </ul>
+                            <p><em>Sixth Form entry is competitive; early planning is key.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry - 1 Year: Application & Interviews</h5>
+                            <p><strong>Age: 15-16 (Year 11)</strong></p>
+                            <ul>
+                                <li><strong>School Visits (UK):</strong> Essential to visit schools to assess fit for Sixth Form.</li>
+                                <li><strong>Application Forms:</strong> Complete forms, often requiring a personal statement and predicted GCSE/IGCSE grades.</li>
+                                <li><strong>References:</strong> Obtain strong academic references.</li>
+                                <li><strong>Entrance Exams:</strong> Sit school-specific entrance exams, particularly for academic Sixth Forms.</li>
+                                <li><strong>Interviews:</strong> Attend interviews, showcasing academic potential and extracurricular interests.</li>
+                            </ul>
+                            <p><em>Bangkok to UK travel planning: Coordinate school visits with interview schedules.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-content">
+                            <h5>Entry Year: Offers, Confirmation & Visa</h5>
+                            <p><strong>Age: 16 (Year 12)</strong></p>
+                            <ul>
+                                <li><strong>Offers:</strong> Receive conditional offers (based on GCSE/IGCSE results) or unconditional offers.</li>
+                                <li><strong>Place Confirmation:</strong> Accept offer, pay deposit, and meet any conditions.</li>
+                                <li><strong>Visa Application:</strong> Apply for a UK Student Visa. LINKEDU provides comprehensive support.</li>
+                                <li><strong>Travel & Orientation:</strong> Arrange travel from Bangkok to the UK. Attend pre-sessional courses or induction.</li>
+                                <li><strong>Start School:</strong> Begin Year 12 in September!</li>
+                            </ul>
+                            <p><em>Ensure all visa documents are prepared well in advance.</em></p>
+                        </div>
+                        <span class="timeline-dot"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line-cta">
+                <h3>LINE: satitlinkedu</h3>
+                <p>ปรึกษาฟรี (Free Consultation)</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy">Add LINE for Consultation | เพิ่ม LINE เพื่อปรึกษา</a>
+            </div>
+
+            <h3 class="text-center" style="margin-top: 60px; margin-bottom: 30px; color: var(--navy);">School-Specific Deadlines & Information</h3>
+            <p class="text-center">While general timelines are helpful, specific school deadlines vary. Select a school below for general guidance.</p>
+            <p class="text-center">แม้ตารางเวลาทั่วไปจะมีประโยชน์ แต่กำหนดเวลาเฉพาะของแต่ละโรงเรียนแตกต่างกัน เลือกโรงเรียนด้านล่างเพื่อดูคำแนะนำทั่วไป</p>
+
+            <div class="school-select-wrapper">
+                <select id="schoolSelector">
+                    <option value="">Select a UK Boarding School | เลือกโรงเรียนประจำในสหราชอาณาจักร</option>
+                    <option value="Abbotsholme">Abbotsholme</option>
+                    <option value="Ardingly">Ardingly College</option>
+                    <option value="Brighton">Brighton College</option>
+                    <option value="Bromsgrove">Bromsgrove School</option>
+                    <option value="Bryanston">Bryanston School</option>
+                    <option value="CardiffSixthForm">Cardiff Sixth Form College</option>
+                    <option value="Caterham">Caterham School</option>
+                    <option value="Charterhouse">Charterhouse</option>
+                    <option value="Clifton">Clifton College</option>
+                    <option value="Concord">Concord College</option>
+                    <option value="D Overbroeks">d'Overbroeck's</option>
+                    <option value="Dulwich">Dulwich College</option>
+                    <option value="Epsom">Epsom College</option>
+                    <option value="Eton">Eton College</option>
+                    <option value="Harrow">Harrow School</option>
+                    <option value="Lancing">Lancing College</option>
+                    <option value="Loretto">Loretto School</option>
+                    <option value="Millfield">Millfield School</option>
+                    <option value="Oakham">Oakham School</option>
+                    <option value="Oundle">Oundle School</option>
+                    <option value="OxfordInternational">Oxford International College</option>
+                    <option value="QueenEthelburgas">Queen Ethelburga's Collegiate</option>
+                    <option value="Repton">Repton School</option>
+                    <option value="Roedean">Roedean School</option>
+                    <option value="Rossall">Rossall School</option>
+                    <option value="RoyalRussell">Royal Russell School</option>
+                    <option value="Sedbergh">Sedbergh School</option>
+                    <option value="Sevenoaks">Sevenoaks School</option>
+                    <option value="Shrewsbury">Shrewsbury School</option>
+                    <option value="Sidcot">Sidcot School</option>
+                    <option value="StLeonards">St Leonards School</option>
+                    <option value="TheLeys">The Leys School</option>
+                    <option value="NMSC">NMSC (Northamptonshire Maths and Science College)</option>
+                    <option value="Tonbridge">Tonbridge School</option>
+                    <option value="Uppingham">Uppingham School</option>
+                    <option value="WellsCathedral">Wells Cathedral School</option>
+                </select>
+                <div id="schoolInfo" class="school-info-card">
+                    <!-- School-specific info will be displayed here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="fees-vat">
+        <div class="container">
+            <h2 class="text-center">Fees, VAT & Currency | ค่าธรรมเนียม, VAT และสกุลเงิน</h2>
+            <div class="info-box">
+                <h4>Understanding UK Boarding School Fees | ทำความเข้าใจค่าธรรมเนียมโรงเรียนประจำในสหราชอาณาจักร</h4>
+                <p>Annual boarding fees for private UK schools typically range from <strong>£30,000 to £50,000 per year</strong>. State boarding schools offer a more affordable option, with fees usually between <strong>£10,000 to £19,000 per year</strong> (covering boarding costs only, tuition is state-funded).</p>
+                <p>ค่าธรรมเนียมการเข้าเรียนประจำปีสำหรับโรงเรียนเอกชนในสหราชอาณาจักรโดยทั่วไปจะอยู่ระหว่าง <strong>30,000 ถึง 50,000 ปอนด์ต่อปี</strong> โรงเรียนประจำของรัฐเสนอทางเลือกที่ประหยัดกว่า โดยมีค่าธรรมเนียมปกติระหว่าง <strong>10,000 ถึง 19,000 ปอนด์ต่อปี</strong> (ครอบคลุมเฉพาะค่าที่พัก ค่าเล่าเรียนได้รับการสนับสนุนจากรัฐ)</p>
+            </div>
+            <div class="info-box">
+                <h4>VAT Changes from January 2025 | การเปลี่ยนแปลง VAT ตั้งแต่เดือนมกราคม 2568</h4>
+                <p><strong>Important Note:</strong> From January 2025, a <strong>20% VAT (Value Added Tax) will be added to private school fees</strong> in the UK. This means fees will effectively increase by 20% for private schools. <strong>State boarding schools are exempt from this VAT increase.</strong></p>
+                <p><strong>ข้อสำคัญ:</strong> ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป <strong>ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะถูกเพิ่ม VAT (ภาษีมูลค่าเพิ่ม) 20%</strong> ซึ่งหมายความว่าค่าธรรมเนียมจะเพิ่มขึ้น 20% สำหรับโรงเรียนเอกชน <strong>โรงเรียนประจำของรัฐจะได้รับการยกเว้นจากการเพิ่ม VAT นี้</strong></p>
+            </div>
+            <div class="info-box">
+                <h4>Dual Currency Conversion | การแปลงสกุลเงินคู่</h4>
+                <p>For your convenience, we provide estimated fees in both GBP (Great British Pounds) and THB (Thai Baht). We use an approximate conversion rate of <strong>1 GBP = 45 THB</strong>. Please note that exchange rates fluctuate daily.</p>
+                <p>เพื่อความสะดวกของคุณ เราประมาณการค่าธรรมเนียมเป็นทั้ง GBP (ปอนด์อังกฤษ) และ THB (บาทไทย) เราใช้อัตราแลกเปลี่ยนโดยประมาณที่ <strong>1 GBP = 45 THB</strong> โปรดทราบว่าอัตราแลกเปลี่ยนมีการผันผวนทุกวัน</p>
+                <p><strong>Example Private School Fee (post-Jan 2025):</strong><br>
+                £40,000 (pre-VAT) + 20% VAT = <strong>£48,000 per year</strong><br>
+                Equivalent in THB: 48,000 x 45 = <strong>2,160,000 THB per year</strong></p>
+                <p><strong>Example State Boarding School Fee (VAT exempt):</strong><br>
+                <strong>£15,000 per year</strong><br>
+                Equivalent in THB: 15,000 x 45 = <strong>675,000 THB per year</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="travel-planning">
+        <div class="container">
+            <h2 class="text-center">Bangkok to UK Travel Planning | การวางแผนการเดินทางจากกรุงเทพฯ ไปยังสหราชอาณาจักร</h2>
+            <div class="card">
+                <h4>Visa Application | การยื่นคำขอวีซ่า</h4>
+                <p>Thai students requiring a visa for study in the UK will need to apply for a <strong>Child Student Visa</strong> (for under 18s) or a <strong>Student Visa</strong> (for 18+). Begin this process well in advance (3-6 months before departure) as processing times can vary. LINKEDU provides guidance and support for visa applications.</p>
+                <p>นักเรียนไทยที่ต้องการวีซ่าเพื่อศึกษาต่อในสหราชอาณาจักรจะต้องยื่นขอ <strong>Child Student Visa</strong> (สำหรับผู้ที่อายุต่ำกว่า 18 ปี) หรือ <strong>Student Visa</strong> (สำหรับผู้ที่อายุ 18 ปีขึ้นไป) ควรเริ่มกระบวนการนี้ล่วงหน้า (3-6 เดือนก่อนเดินทาง) เนื่องจากเวลาดำเนินการอาจแตกต่างกัน LINKEDU ให้คำแนะนำและสนับสนุนในการยื่นคำขอวีซ่า</p>
+            </div>
+            <div class="card">
+                <h4>Flights & Airports | เที่ยวบินและสนามบิน</h4>
+                <p>Direct flights from Bangkok (BKK) to London (LHR) are available. Many boarding schools are located outside London, requiring onward travel by train or school-arranged transport. Consider booking flights for peak times (start/end of terms) well in advance.</p>
+                <p>มีเที่ยวบินตรงจากกรุงเทพฯ (BKK) ไปยังลอนดอน (LHR) โรงเรียนประจำหลายแห่งตั้งอยู่นอกลอนดอน ซึ่งต้องเดินทางต่อด้วยรถไฟหรือรถรับส่งที่โรงเรียนจัดเตรียมไว้ ควรจองเที่ยวบินในช่วงเวลาที่มีผู้โดยสารหนาแน่น (ช่วงเริ่มต้น/สิ้นสุดภาคเรียน) ล่วงหน้า</p>
+            </div>
+            <div class="card">
+                <h4>Arrival & Transfers | การเดินทางถึงและรถรับส่ง</h4>
+                <p>Schools often arrange airport transfers for international students, especially for younger pupils. Confirm these arrangements with the school directly. LINKEDU can help coordinate arrival logistics.</p>
+                <p>โรงเรียนมักจะจัดรถรับส่งจากสนามบินสำหรับนักเรียนต่างชาติ โดยเฉพาะอย่างยิ่งสำหรับนักเรียนที่อายุน้อยกว่า ยืนยันการจัดเตรียมเหล่านี้กับโรงเรียนโดยตรง LINKEDU สามารถช่วยประสานงานด้านการเดินทางถึงได้</p>
+            </div>
+            <div class="line-cta">
+                <h3>LINE: satitlinkedu</h3>
+                <p>ปรึกษาฟรี (Free Consultation)</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy">Add LINE for Consultation | เพิ่ม LINE เพื่อปรึกษา</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 LINKEDU Education Consulting. All rights reserved.</p>
+            <p>Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const year9Radio = document.getElementById('year9');
+            const year12Radio = document.getElementById('year12');
+            const timelineYear9 = document.getElementById('timeline-year9');
+            const timelineYear12 = document.getElementById('timeline-year12');
+            const schoolSelector = document.getElementById('schoolSelector');
+            const schoolInfoDiv = document.getElementById('schoolInfo');
+
+            function showTimeline(entryYear) {
+                if (entryYear === 'year9') {
+                    timelineYear9.style.display = 'block';
+                    timelineYear12.style.display = 'none';
+                } else {
+                    timelineYear9.style.display = 'none';
+                    timelineYear12.style.display = 'block';
+                }
+            }
+
+            // Initial display based on checked radio button
+            if (year9Radio.checked) {
+                showTimeline('year9');
+            } else if (year12Radio.checked) {
+                showTimeline('year12');
+            }
+
+            year9Radio.addEventListener('change', function() {
+                if (this.checked) {
+                    showTimeline('year9');
+                }
+            });
+
+            year12Radio.addEventListener('change', function() {
+                if (this.checked) {
+                    showTimeline('year12');
+                }
+            });
+
+            // School Data for specific information
+            const schoolsData = {
+                "Abbotsholme": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but advised 1-2 years prior.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Focus on outdoor education and practical skills."
+                },
+                "Ardingly": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior for Year 9, 1 year for Year 12.",
+                    fees: "38,000-45,000",
+                    isPrivate: true,
+                    note: "Strong academic record and IB program."
+                },
+                "Brighton": {
+                    entryYears: "Year 9, 12",
+                    registration: "Early registration is highly recommended (3+ years for Year 9).",
+                    fees: "40,000-50,000",
+                    isPrivate: true,
+                    note: "One of the UK's top academic schools."
+                },
+                "Bromsgrove": {
+                    entryYears: "Year 9, 12",
+                    registration: "1-2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Large co-educational school with strong international community."
+                },
+                "Bryanston": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "Known for its 'one-to-one' teaching model."
+                },
+                "CardiffSixthForm": {
+                    entryYears: "Year 12",
+                    registration: "Rolling, but apply early for popular subjects.",
+                    fees: "45,000-55,000",
+                    isPrivate: true,
+                    note: "Specializes in A-Level preparation for top universities. Day school with boarding options."
+                },
+                "Caterham": {
+                    entryYears: "Year 9, 12",
+                    registration: "1.5-2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Strong in academics and extracurriculars, particularly technology."
+                },
+                "Charterhouse": {
+                    entryYears: "Year 9, 12",
+                    registration: "3-4 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "40,000-50,000",
+                    isPrivate: true,
+                    note: "Historic boys' school (co-ed in Sixth Form)."
+                },
+                "Clifton": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Vibrant city location, strong arts and sports."
+                },
+                "Concord": {
+                    entryYears: "Year 9, 10, 12",
+                    registration: "1-1.5 years prior.",
+                    fees: "45,000-55,000",
+                    isPrivate: true,
+                    note: "Highly academic, large international student body."
+                },
+                "D Overbroeks": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but apply 1 year prior.",
+                    fees: "38,000-45,000",
+                    isPrivate: true,
+                    note: "Modern, progressive school in Oxford."
+                },
+                "Dulwich": {
+                    entryYears: "Year 9, 12",
+                    registration: "2-3 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "Prestigious boys' school with strong academic and sporting traditions."
+                },
+                "Epsom": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior.",
+                    fees: "38,000-45,000",
+                    isPrivate: true,
+                    note: "Known for its academic rigour and medical connections."
+                },
+                "Eton": {
+                    entryYears: "Year 9",
+                    registration: "Boys must be registered by age 10 (Year 5).",
+                    fees: "48,000-55,000",
+                    isPrivate: true,
+                    note: "Highly selective, world-renowned boys' school."
+                },
+                "Harrow": {
+                    entryYears: "Year 9",
+                    registration: "Boys must be registered by age 11 (Year 6).",
+                    fees: "48,000-55,000",
+                    isPrivate: true,
+                    note: "Iconic boys' boarding school with a rich history."
+                },
+                "Lancing": {
+                    entryYears: "Year 9, 12",
+                    registration: "1.5-2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Stunning location, strong in music and arts."
+                },
+                "Loretto": {
+                    entryYears: "Year 9, 12",
+                    registration: "1-1.5 years prior.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Scotland's oldest boarding school, strong golf academy."
+                },
+                "Millfield": {
+                    entryYears: "Year 9, 12",
+                    registration: "Rolling, but apply 1 year prior.",
+                    fees: "40,000-50,000",
+                    isPrivate: true,
+                    note: "Renowned for sports and diverse extracurriculars."
+                },
+                "Oakham": {
+                    entryYears: "Year 9, 12",
+                    registration: "1.5-2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Round Square school, strong community feel."
+                },
+                "Oundle": {
+                    entryYears: "Year 9, 12",
+                    registration: "3 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "One of the largest and most prestigious co-educational boarding schools."
+                },
+                "OxfordInternational": {
+                    entryYears: "Year 12",
+                    registration: "Rolling, but apply early due to demand.",
+                    fees: "50,000-60,000",
+                    isPrivate: true,
+                    note: "Top-performing Sixth Form college for university progression."
+                },
+                "QueenEthelburgas": {
+                    entryYears: "Year 7-13",
+                    registration: "Rolling, flexible entry.",
+                    fees: "45,000-55,000",
+                    isPrivate: true,
+                    note: "Highly resourced, offers a wide range of academic pathways."
+                },
+                "Repton": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior.",
+                    fees: "38,000-45,000",
+                    isPrivate: true,
+                    note: "Historic school with a strong academic and sporting reputation."
+                },
+                "Roedean": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "2 years prior for Year 7/9, 1 year for Year 12.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "Leading girls' boarding school with sea views."
+                },
+                "Rossall": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but 1 year prior recommended.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Strong in academics, music, and sports (golf academy)."
+                },
+                "RoyalRussell": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "1-1.5 years prior.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Close to London, offers IB and A-Levels."
+                },
+                "Sedbergh": {
+                    entryYears: "Year 9, 12",
+                    registration: "1.5-2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "Rugged Cumbrian setting, strong outdoor and sporting ethos."
+                },
+                "Sevenoaks": {
+                    entryYears: "Year 9, 12",
+                    registration: "Highly selective, 3 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "Pioneer of the IB Diploma, very strong academics."
+                },
+                "Shrewsbury": {
+                    entryYears: "Year 9, 12",
+                    registration: "2-3 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "38,000-45,000",
+                    isPrivate: true,
+                    note: "Historic co-educational school, strong sports and arts."
+                },
+                "Sidcot": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but 1 year prior recommended.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Quaker school with a focus on values and sustainability."
+                },
+                "StLeonards": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but 1 year prior recommended.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "All-IB school in a beautiful coastal town in Scotland."
+                },
+                "TheLeys": {
+                    entryYears: "Year 9, 12",
+                    registration: "2 years prior.",
+                    fees: "35,000-42,000",
+                    isPrivate: true,
+                    note: "City centre location in Cambridge, strong academic focus."
+                },
+                "NMSC": {
+                    entryYears: "Year 12",
+                    registration: "Highly selective, apply 1 year prior.",
+                    fees: "45,000-55,000",
+                    isPrivate: true,
+                    note: "Specialist Maths and Science Sixth Form college."
+                },
+                "Tonbridge": {
+                    entryYears: "Year 9, 12",
+                    registration: "Boys must be registered by age 10 (Year 5).",
+                    fees: "45,000-52,000",
+                    isPrivate: true,
+                    note: "Leading boys' boarding school, strong academics and pastoral care."
+                },
+                "Uppingham": {
+                    entryYears: "Year 9, 12",
+                    registration: "3 years prior for Year 9, 1.5 years for Year 12.",
+                    fees: "40,000-48,000",
+                    isPrivate: true,
+                    note: "Full boarding school with excellent facilities and strong community."
+                },
+                "WellsCathedral": {
+                    entryYears: "Year 7, 9, 12",
+                    registration: "Rolling, but 1 year prior recommended.",
+                    fees: "30,000-38,000",
+                    isPrivate: true,
+                    note: "Specialist music school, but also offers academic pathways."
+                }
+            };
+
+            const GBP_TO_THB_RATE = 45;
+
+            schoolSelector.addEventListener('change', function() {
+                const selectedSchoolKey = this.value;
+                if (selectedSchoolKey) {
+                    const school = schoolsData[selectedSchoolKey];
+                    const feesRange = school.fees.split('-').map(f => parseFloat(f.replace(/,/g, '')));
+                    
+                    let feeDisplay = `<strong>Estimated Annual Boarding Fees:</strong> £${formatNumber(feesRange[0])}-£${formatNumber(feesRange[1])} `;
+                    let thbFeeDisplay = ` (ประมาณ ${formatNumber((feesRange[0] * GBP_TO_THB_RATE).toFixed(0))} - ${formatNumber((feesRange[1] * GBP_TO_THB_RATE).toFixed(0))} THB)`;
+
+                    if (school.isPrivate) {
+                        feeDisplay += `<span style="color: var(--navy);">(plus 20% VAT from Jan 2025)</span>`;
+                    } else {
+                        feeDisplay += `<span style="color: var(--navy);">(VAT exempt - State Boarding)</span>`;
+                    }
+
+                    schoolInfoDiv.innerHTML = `
+                        <h4>${selectedSchoolKey}</h4>
+                        <p><strong>Entry Years:</strong> ${school.entryYears}</p>
+                        <p><strong>General Registration Advice:</strong> ${school.registration}</p>
+                        <p>${feeDisplay}${thbFeeDisplay}</p>
+                        <p><strong>Note:</strong> ${school.note}</p>
+                        <p style="font-size: 0.9em; color: #666;"><em>Exact deadlines and fees vary. Please contact LINKEDU for the most up-to-date information and personalized guidance.</em></p>
+                        <p style="font-size: 0.9em; color: #666;"><em>กำหนดเวลาและค่าธรรมเนียมที่แน่นอนอาจแตกต่างกันไป โปรดติดต่อ LINKEDU สำหรับข้อมูลล่าสุดและคำแนะนำส่วนบุคคล</em></p>
+                    `;
+                    schoolInfoDiv.classList.add('visible');
+                } else {
+                    schoolInfoDiv.classList.remove('visible');
+                    // Delay clearing content so animation can play
+                    setTimeout(() => { schoolInfoDiv.innerHTML = ''; }, 500);
+                }
+            });
+
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+        });
+    </script>
+</body>
+</html>

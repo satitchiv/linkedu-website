@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="lang-en">Boarding School Interview Preparation Guide - LINKEDU</title>
+    <title class="lang-th">คู่มือเตรียมสอบสัมภาษณ์โรงเรียนประจำ - LINKEDU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* LINKEDU BRAND STANDARDS - MANDATORY STYLES */
+
+        :root {
+            --color-dark: #1a1a1a;
+            --color-cream: #f5f0e8;
+            --color-gold: #B8962E;
+            --font-playfair: 'Playfair Display', serif;
+            --font-inter: 'Inter', sans-serif;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            line-height: 1.6;
+            color: var(--color-dark);
+            background-color: var(--color-cream);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Language System - CRITICAL */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-playfair);
+            font-weight: 400; /* Playfair Display weight 400 */
+            color: var(--color-dark);
+            margin-bottom: 0.8em;
+        }
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--color-dark);
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-dark { color: var(--color-dark); }
+        .text-cream { color: var(--color-cream); }
+        .text-gold { color: var(--color-gold); }
+
+        .bg-dark { background-color: var(--color-dark); }
+        .bg-cream { background-color: var(--color-cream); }
+        .bg-white { background-color: #ffffff; } /* Allowed for cards only, not sections */
+
+        .padding-y-80 { padding-top: 80px; padding-bottom: 80px; }
+
+        /* Section Label */
+        .section-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-family: var(--font-inter);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--color-gold);
+            text-align: center;
+        }
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--color-gold);
+            margin: 0 10px;
+        }
+        .section-label::before { margin-right: 15px; }
+        .section-label::after { margin-left: 15px; }
+        .section-label span { white-space: nowrap; } /* Prevent label text from wrapping */
+
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-family: var(--font-inter);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+        .btn-primary:hover {
+            background-color: #a38529; /* Slightly darker gold */
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--color-cream);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .card.bg-white {
+            background-color: #ffffff;
+        }
+
+        /* Specific Components */
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--color-dark);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .header .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+        .header .logo-wrap span {
+            font-family: var(--font-inter);
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--color-cream);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-right: 30px;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            color: var(--color-cream);
+            font-family: var(--font-inter);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--color-gold);
+        }
+
+        .lang-toggle {
+            display: flex;
+            border: 1px solid var(--color-gold);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .lang-toggle button {
+            background-color: transparent;
+            color: var(--color-gold);
+            border: none;
+            padding: 8px 12px;
+            font-family: var(--font-inter);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .lang-toggle button.active {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            text-align: center;
+            padding: 100px 0;
+        }
+        .hero h1 {
+            color: var(--color-cream);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* LINE CTA Box (reusable) */
+        .line-cta-box {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px 0; /* Spacing for when it's placed after sections */
+        }
+        .line-cta-box .line-handle {
+            font-family: var(--font-inter);
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 10px;
+        }
+        .line-cta-box .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .line-cta-box .btn-primary {
+            min-width: 200px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        .content-section.bg-cream {
+            background-color: var(--color-cream);
+        }
+        .content-section.bg-white {
+            background-color: #ffffff;
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* School Fees Table */
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .fee-table th, .fee-table td {
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .fee-table th {
+            background-color: rgba(184, 150, 46, 0.1); /* Light gold tint */
+            font-weight: 600;
+            color: var(--color-dark);
+        }
+        .fee-table tbody tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.02);
+        }
+        .fee-table .vat-note {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Interactive Interview Questions */
+        .interview-questions-section .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .interview-questions-section .tabs button {
+            background-color: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-inter);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .interview-questions-section .tabs button.active {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+        .interview-questions-section .question-list {
+            margin-top: 30px;
+            display: grid;
+            gap: 25px;
+        }
+        .interview-questions-section .question-item {
+            background-color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .interview-questions-section .question-item h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--color-dark);
+        }
+        .interview-questions-section .question-item .tip-toggle-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--color-gold);
+            font-family: var(--font-inter);
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 15px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .interview-questions-section .question-item .tip-toggle-btn:hover {
+            color: var(--color-dark);
+        }
+        .interview-questions-section .question-item .tip-toggle-btn svg {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        .interview-questions-section .question-item .tip-toggle-btn.active svg {
+            transform: rotate(180deg);
+        }
+        .interview-questions-section .question-item .tip-content {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            color: #555;
+            display: none; /* Hidden by default */
+        }
+        .interview-questions-section .question-item .tip-content p {
+            margin-bottom: 0.5em;
+        }
+
+
+        /* Mock Scenario */
+        .mock-scenario-card {
+            background-color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+        .mock-scenario-card h4 {
+            color: var(--color-gold);
+            margin-bottom: 10px;
+        }
+        .mock-scenario-card .scenario-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .mock-scenario-card .question-text {
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 15px;
+        }
+        .mock-scenario-card .reveal-btn {
+            background-color: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-inter);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .mock-scenario-card .reveal-btn:hover {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+        .mock-scenario-card .suggested-response {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            display: none; /* Hidden by default */
+        }
+        .mock-scenario-card .suggested-response p {
+            margin-bottom: 0.5em;
+        }
+
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer p {
+            margin-bottom: 5px;
+        }
+        .footer a {
+            color: var(--color-gold);
+        }
+        .footer a:hover {
+            color: var(--color-cream);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+
+            .nav-links {
+                display: none; /* Hide nav links on smaller screens for simplicity */
+            }
+            .header .container {
+                justify-content: center; /* Center logo and language toggle */
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .lang-toggle {
+                margin-top: 10px;
+            }
+            .hero {
+                padding: 80px 20px;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .grid-2-col {
+                grid-template-columns: 1fr;
+            }
+            .content-section {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            .line-cta-box {
+                margin: 30px 0;
+            }
+            .interview-questions-section .tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .interview-questions-section .tabs button {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            h4 { font-size: 1.3rem; }
+            .hero {
+                padding: 60px 15px;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .line-cta-box {
+                padding: 20px;
+            }
+            .line-cta-box .line-handle {
+                font-size: 1.3rem;
+            }
+            .line-cta-box .cta-text {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 12px 20px;
+            }
+            .section-label {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span class="lang-en">OVERSEAS EDUCATION</span>
+                <span class="lang-th">การศึกษาต่างประเทศ</span>
+            </div>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#hero" class="lang-en">Home</a><a href="#hero" class="lang-th">หน้าแรก</a></li>
+                    <li><a href="#guide" class="lang-en">Guide</a><a href="#guide" class="lang-th">คู่มือ</a></li>
+                    <li><a href="#schools" class="lang-en">Schools</a><a href="#schools" class="lang-th">โรงเรียน</a></li>
+                    <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-th">ติดต่อ</a></li>
+                </ul>
+                <div class="lang-toggle">
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn active" data-lang="th">TH</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero bg-dark" id="hero">
+            <div class="container">
+                <h1 class="text-cream lang-en">Master Your Boarding School Interview</h1>
+                <h1 class="text-cream lang-th">พิชิตการสัมภาษณ์เข้าโรงเรียนประจำในฝันของคุณ</h1>
+                <p class="text-cream lang-en">Prepare with confidence for top UK boarding school interviews. Our comprehensive guide covers common questions, etiquette, and mock scenarios tailored to leading institutions.</p>
+                <p class="text-cream lang-th">เตรียมตัวอย่างมั่นใจสำหรับการสัมภาษณ์เข้าโรงเรียนประจำชั้นนำในสหราชอาณาจักร คู่มือที่ครอบคลุมของเราครอบคลุมคำถามทั่วไป มารยาท และสถานการณ์จำลองที่ปรับให้เข้ากับสถาบันชั้นนำ</p>
+                <a href="#guide" class="btn btn-primary lang-en">Start Your Preparation</a>
+                <a href="#guide" class="btn btn-primary lang-th">เริ่มเตรียมตัวของคุณ</a>
+            </div>
+        </section>
+
+        <section class="content-section bg-cream" id="guide">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· INTRODUCTION ·</span><span class="lang-th">· บทนำ ·</span></div>
+                <h2 class="lang-en">Your Path to Success Starts Here</h2>
+                <h2 class="lang-th">เส้นทางสู่ความสำเร็จของคุณเริ่มต้นที่นี่</h2>
+                <p class="lang-en">The boarding school interview is a crucial step in your application journey. It's your opportunity to showcase your personality, academic potential, and genuine interest in the school. This guide, brought to you by LINKEDU Education Consulting, will equip you with the knowledge and confidence to shine.</p>
+                <p class="lang-th">การสัมภาษณ์เข้าโรงเรียนประจำคือขั้นตอนสำคัญในการสมัครของคุณ เป็นโอกาสที่คุณจะได้แสดงบุคลิกภาพ ศักยภาพทางวิชาการ และความสนใจที่แท้จริงในโรงเรียน คู่มือนี้จาก LINKEDU Education Consulting จะช่วยให้คุณมีความรู้และความมั่นใจที่จะโดดเด่น</p>
+            </div>
+        </section>
+
+        <section class="content-section bg-white" id="schools">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· UNDERSTANDING SCHOOL TYPES ·</span><span class="lang-th">· ทำความเข้าใจประเภทโรงเรียน ·</span></div>
+                <h2 class="lang-en">Find Your Perfect Fit: School Categories & Fees</h2>
+                <h2 class="lang-th">ค้นหาสิ่งที่ใช่สำหรับคุณ: ประเภทโรงเรียนและค่าธรรมเนียม</h2>
+                <p class="lang-en">Different schools look for different qualities. Understanding their focus helps you tailor your responses. Here are common categories and approximate full boarding fees for our approved schools.</p>
+                <p class="lang-th">โรงเรียนที่แตกต่างกันมองหาคุณสมบัติที่แตกต่างกัน การทำความเข้าใจจุดเน้นของโรงเรียนจะช่วยให้คุณปรับแต่งคำตอบได้ นี่คือประเภททั่วไปและค่าธรรมเนียมการอยู่ประจำโดยประมาณสำหรับโรงเรียนที่เราแนะนำ</p>
+
+                <div class="grid-3-col" style="margin-top: 40px;">
+                    <div class="card bg-cream">
+                        <h3 class="lang-en">Leadership & Character Focused</h3>
+                        <h3 class="lang-th">เน้นความเป็นผู้นำและอุปนิสัย</h3>
+                        <p class="lang-en">Schools like Eton, Harrow, Charterhouse, and Tonbridge often seek students with strong leadership potential, a sense of responsibility, and a commitment to community. They value well-rounded individuals who can contribute beyond academics.</p>
+                        <p class="lang-th">โรงเรียนอย่าง Eton, Harrow, Charterhouse และ Tonbridge มักมองหานักเรียนที่มีศักยภาพความเป็นผู้นำสูง มีความรับผิดชอบ และมุ่งมั่นต่อชุมชน พวกเขาให้ความสำคัญกับบุคคลที่มีความสามารถรอบด้านที่สามารถมีส่วนร่วมได้นอกเหนือจากด้านวิชาการ</p>
+                        <p class="lang-en"><em>Examples: Eton, Harrow, Charterhouse, Tonbridge, Sevenoaks, Shrewsbury, Uppingham, Repton, Oundle, Lancing, Bryanston, Dulwich, Clifton, Millfield.</em></p>
+                        <p class="lang-th"><em>ตัวอย่าง: Eton, Harrow, Charterhouse, Tonbridge, Sevenoaks, Shrewsbury, Uppingham, Repton, Oundle, Lancing, Bryanston, Dulwich, Clifton, Millfield.</em></p>
+                    </div>
+                    <div class="card bg-cream">
+                        <h3 class="lang-en">Goals & Interests Focused</h3>
+                        <h3 class="lang-th">เน้นเป้าหมายและความสนใจ</h3>
+                        <p class="lang-en">Schools such as Bromsgrove, Brighton College, and Epsom are interested in your passions, extracurricular involvement, and how you envision your personal growth within their community. They look for enthusiasm and a clear sense of purpose.</p>
+                        <p class="lang-th">โรงเรียนอย่าง Bromsgrove, Brighton College และ Epsom สนใจในความหลงใหล การมีส่วนร่วมในกิจกรรมนอกหลักสูตร และวิธีที่คุณมองเห็นการพัฒนาตนเองภายในชุมชนของพวกเขา พวกเขามองหาความกระตือรือร้นและความมีเป้าหมายที่ชัดเจน</p>
+                        <p class="lang-en"><em>Examples: Bromsgrove, Brighton College, Epsom, Oakham, Sedbergh, Rossall, Royal Russell, Wells Cathedral, Ardingly, Caterham, Loretto, The Leys, St Leonards, Abbotsholme, Sidcot.</em></p>
+                        <p class="lang-th"><em>ตัวอย่าง: Bromsgrove, Brighton College, Epsom, Oakham, Sedbergh, Rossall, Royal Russell, Wells Cathedral, Ardingly, Caterham, Loretto, The Leys, St Leonards, Abbotsholme, Sidcot.</em></p>
+                    </div>
+                    <div class="card bg-cream">
+                        <h3 class="lang-en">Academic Motivation Focused</h3>
+                        <h3 class="lang-th">เน้นแรงจูงใจทางวิชาการ</h3>
+                        <p class="lang-en">Institutions like Cardiff Sixth Form, Concord, and D Overbroeks prioritize students with strong academic drive, specific subject interests, and clear university aspirations. They seek intellectual curiosity and a commitment to high achievement.</p>
+                        <p class="lang-th">สถาบันอย่าง Cardiff Sixth Form, Concord และ D Overbroeks ให้ความสำคัญกับนักเรียนที่มีแรงผลักดันทางวิชาการสูง มีความสนใจในวิชาเฉพาะ และมีความมุ่งมั่นในการเข้ามหาวิทยาลัยที่ชัดเจน พวกเขามองหาความกระหายใคร่รู้ทางปัญญาและความมุ่งมั่นสู่ความสำเร็จสูง</p>
+                        <p class="lang-en"><em>Examples: Cardiff Sixth Form, Concord, D Overbroeks, Oxford International, NMSC, Queen Ethelburgas.</em></p>
+                        <p class="lang-th"><em>ตัวอย่าง: Cardiff Sixth Form, Concord, D Overbroeks, Oxford International, NMSC, Queen Ethelburgas.</em></p>
+                    </div>
+                </div>
+
+                <h3 class="lang-en" style="margin-top: 60px;">Approximate Full Boarding Fees (Per Year)</h3>
+                <h3 class="lang-th" style="margin-top: 60px;">ค่าธรรมเนียมการอยู่ประจำโดยประมาณ (ต่อปี)</h3>
+                <table class="fee-table">
+                    <thead>
+                        <tr>
+                            <th class="lang-en">School Type</th>
+                            <th class="lang-th">ประเภทโรงเรียน</th>
+                            <th class="lang-en">Approx. GBP</th>
+                            <th class="lang-th">ประมาณการ (GBP)</th>
+                            <th class="lang-en">Approx. THB (x45)</th>
+                            <th class="lang-th">ประมาณการ (THB x45)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="lang-en">Leadership & Character Focused (e.g., Eton, Harrow)</td>
+                            <td class="lang-th">เน้นความเป็นผู้นำและอุปนิสัย (เช่น Eton, Harrow)</td>
+                            <td>£45,000 - £50,000</td>
+                            <td>£45,000 - £50,000</td>
+                            <td>฿2,025,000 - ฿2,250,000</td>
+                            <td>฿2,025,000 - ฿2,250,000</td>
+                        </tr>
+                        <tr>
+                            <td class="lang-en">Goals & Interests Focused (e.g., Bromsgrove, Brighton College)</td>
+                            <td class="lang-th">เน้นเป้าหมายและความสนใจ (เช่น Bromsgrove, Brighton College)</td>
+                            <td>£38,000 - £45,000</td>
+                            <td>£38,000 - £45,000</td>
+                            <td>฿1,710,000 - ฿2,025,000</td>
+                            <td>฿1,710,000 - ฿2,025,000</td>
+                        </tr>
+                        <tr>
+                            <td class="lang-en">Academic Motivation Focused (e.g., Cardiff Sixth Form, Concord)</td>
+                            <td class="lang-th">เน้นแรงจูงใจทางวิชาการ (เช่น Cardiff Sixth Form, Concord)</td>
+                            <td>£35,000 - £42,000</td>
+                            <td>£35,000 - £42,000</td>
+                            <td>฿1,575,000 - ฿1,890,000</td>
+                            <td>฿1,575,000 - ฿1,890,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="vat-note lang-en"><strong>VAT Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools (not typically in the above categories) are VAT exempt, with fees generally ranging from £10,000 to £19,000 per year. Fees are approximate and subject to change.</p>
+                <p class="vat-note lang-th"><strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐ (ซึ่งมักจะไม่อยู่ในประเภทข้างต้น) ได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ในช่วง £10,000 ถึง £19,000 ต่อปี ค่าธรรมเนียมเป็นค่าประมาณและอาจมีการเปลี่ยนแปลง</p>
+            </div>
+        </section>
+
+        <div class="line-cta-box bg-dark">
+            <div class="container">
+                <p class="line-handle text-gold">LINE: satitlinkedu</p>
+                <p class="cta-text text-cream lang-en">Get personalized advice for your boarding school application.</p>
+                <p class="cta-text text-cream lang-th">รับคำแนะนำส่วนบุคคลสำหรับการสมัครเข้าโรงเรียนประจำของคุณ</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-en">Free Consultation</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-th">ปรึกษาฟรี</a>
+            </div>
+        </div>
+
+        <section class="content-section bg-cream">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· INTERVIEW ESSENTIALS ·</span><span class="lang-th">· สิ่งจำเป็นสำหรับการสัมภาษณ์ ·</span></div>
+                <h2 class="lang-en">Making a Lasting First Impression</h2>
+                <h2 class="lang-th">สร้างความประทับใจแรกพบที่ยั่งยืน</h2>
+
+                <div class="grid-2-col">
+                    <div class="card bg-white">
+                        <h3 class="lang-en">Dress Code & Etiquette</h3>
+                        <h3 class="lang-th">การแต่งกายและมารยาท</h3>
+                        <p class="lang-en"><strong>Dress Smartly:</strong> Opt for business casual attire. A clean, pressed shirt/blouse, smart trousers/skirt, and polished shoes. Avoid overly casual clothing like t-shirts or ripped jeans. Ensure you look neat and presentable.</p>
+                        <p class="lang-th"><strong>แต่งกายสุภาพ:</strong> เลือกชุดกึ่งทางการ เสื้อเชิ้ต/เสื้อเบลาส์ที่สะอาด รีดเรียบ กางเกง/กระโปรงสุภาพ และรองเท้าขัดเงา หลีกเลี่ยงเสื้อผ้าที่ดูไม่เป็นทางการ เช่น เสื้อยืดหรือกางเกงยีนส์ขาด ตรวจสอบให้แน่ใจว่าคุณดูเรียบร้อยและน่าเชื่อถือ</p>
+                        <p class="lang-en"><strong>Body Language:</strong> Maintain good posture, make eye contact, and offer a firm handshake (if appropriate). Smile genuinely and nod to show engagement. Avoid fidgeting or crossing your arms, which can appear defensive.</p>
+                        <p class="lang-th"><strong>ภาษากาย:</strong> รักษาท่าทางที่ดี สบตา และจับมืออย่างมั่นคง (หากเหมาะสม) ยิ้มอย่างจริงใจและพยักหน้าเพื่อแสดงความสนใจ หลีกเลี่ยงการกระสับกระส่ายหรือกอดอก ซึ่งอาจดูเหมือนเป็นการตั้งรับ</p>
+                    </div>
+                    <div class="card bg-white">
+                        <h3 class="lang-en">Crafting Your Introduction</h3>
+                        <h3 class="lang-th">การสร้างสรรค์การแนะนำตัวของคุณ</h3>
+                        <p class="lang-en">Prepare a concise 1-2 minute introduction that covers your name, current school, academic interests, hobbies, and why you are interested in <em>this specific school</em>. Practice it until it feels natural, not rehearsed.</p>
+                        <p class="lang-th">เตรียมการแนะนำตัวสั้นๆ 1-2 นาที ซึ่งครอบคลุมชื่อของคุณ โรงเรียนปัจจุบัน ความสนใจทางวิชาการ งานอดิเรก และเหตุผลที่คุณสนใจใน <em>โรงเรียนแห่งนี้โดยเฉพาะ</em> ฝึกฝนจนรู้สึกเป็นธรรมชาติ ไม่ใช่ท่องจำ</p>
+                        <p class="lang-en"><strong>Key Elements:</strong></p>
+                        <ul class="lang-en">
+                            <li>Who you are (name, age, current school).</li>
+                            <li>Your strongest academic subjects/passions.</li>
+                            <li>Key extracurricular activities or achievements.</li>
+                            <li>A specific, well-researched reason why this school appeals to you.</li>
+                        </ul>
+                        <p class="lang-th"><strong>องค์ประกอบสำคัญ:</strong></p>
+                        <ul class="lang-th">
+                            <li>คุณคือใคร (ชื่อ, อายุ, โรงเรียนปัจจุบัน)</li>
+                            <li>วิชาการ/ความสนใจทางวิชาการที่แข็งแกร่งที่สุดของคุณ</li>
+                            <li>กิจกรรมนอกหลักสูตรหรือความสำเร็จที่สำคัญ</li>
+                            <li>เหตุผลเฉพาะเจาะจงและผ่านการค้นคว้ามาอย่างดีว่าทำไมโรงเรียนนี้ถึงดึงดูดคุณ</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white">
+                        <h3 class="lang-en">Presenting as a Thai Student</h3>
+                        <h3 class="lang-th">การนำเสนอตัวในฐานะนักเรียนไทย</h3>
+                        <p class="lang-en">Embrace your unique background! Be ready to share aspects of Thai culture, your experiences, and how they've shaped you. British schools value diversity.</p>
+                        <p class="lang-th">เปิดรับภูมิหลังที่เป็นเอกลักษณ์ของคุณ! เตรียมพร้อมที่จะแบ่งปันแง่มุมของวัฒนธรรมไทย ประสบการณ์ของคุณ และวิธีที่สิ่งเหล่านั้นหล่อหลอมคุณ โรงเรียนในอังกฤษให้ความสำคัญกับความหลากหลาย</p>
+                        <p class="lang-en"><strong>Confidence & Clarity:</strong> Speak clearly and at a moderate pace. Don't be afraid to ask for clarification if you don't understand a question. It shows thoughtfulness. Practice speaking English regularly.</p>
+                        <p class="lang-th"><strong>ความมั่นใจและความชัดเจน:</strong> พูดให้ชัดเจนและด้วยจังหวะปานกลาง อย่ากลัวที่จะขอคำชี้แจงหากคุณไม่เข้าใจคำถาม มันแสดงให้เห็นถึงความรอบคอบ ฝึกพูดภาษาอังกฤษเป็นประจำ</p>
+                        <p class="lang-en"><strong>Asking Questions:</strong> Prepare 2-3 thoughtful questions to ask the interviewer. This demonstrates your engagement and genuine interest. Avoid questions easily answered on the school website.</p>
+                        <p class="lang-th"><strong>การถามคำถาม:</strong> เตรียมคำถามที่รอบคอบ 2-3 ข้อเพื่อถามผู้สัมภาษณ์ สิ่งนี้แสดงให้เห็นถึงการมีส่วนร่วมและความสนใจที่แท้จริงของคุณ หลีกเลี่ยงคำถามที่สามารถหาคำตอบได้ง่ายจากเว็บไซต์ของโรงเรียน</p>
+                    </div>
+                    <div class="card bg-white">
+                        <h3 class="lang-en">Research is Key</h3>
+                        <h3 class="lang-th">การค้นคว้าคือกุญแจสำคัญ</h3>
+                        <p class="lang-en">Thoroughly research the school's ethos, academic strengths, extracurricular offerings, and specific values. Mentioning specific programs, houses, or traditions shows genuine interest.</p>
+                        <p class="lang-th">ค้นคว้าอย่างละเอียดเกี่ยวกับหลักปรัชญา จุดแข็งทางวิชาการ กิจกรรมนอกหลักสูตร และค่านิยมเฉพาะของโรงเรียน การกล่าวถึงโปรแกรม บ้าน หรือประเพณีเฉพาะแสดงให้เห็นถึงความสนใจที่แท้จริง</p>
+                        <p class="lang-en"><strong>What to look for:</strong></p>
+                        <ul class="lang-en">
+                            <li>School motto or mission statement.</li>
+                            <li>Unique academic programs or departments.</li>
+                            <li>Specific sports, arts, or clubs you'd join.</li>
+                            <li>Notable alumni or school history.</li>
+                        </ul>
+                        <p class="lang-th"><strong>สิ่งที่ควรมองหา:</strong></p>
+                        <ul class="lang-th">
+                            <li>คำขวัญหรือพันธกิจของโรงเรียน</li>
+                            <li>โปรแกรมหรือแผนกวิชาการที่เป็นเอกลักษณ์</li>
+                            <li>กีฬา ศิลปะ หรือชมรมเฉพาะที่คุณสนใจเข้าร่วม</li>
+                            <li>ศิษย์เก่าที่มีชื่อเสียงหรือประวัติโรงเรียน</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="line-cta-box bg-dark">
+            <div class="container">
+                <p class="line-handle text-gold">LINE: satitlinkedu</p>
+                <p class="cta-text text-cream lang-en">Need help with specific school applications? We're here for you.</p>
+                <p class="cta-text text-cream lang-th">ต้องการความช่วยเหลือในการสมัครโรงเรียนเฉพาะ? เราพร้อมช่วยเหลือคุณ</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-en">Chat with an Expert</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-th">พูดคุยกับผู้เชี่ยวชาญ</a>
+            </div>
+        </div>
+
+        <section class="content-section bg-white interview-questions-section">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· COMMON INTERVIEW QUESTIONS ·</span><span class="lang-th">· คำถามสัมภาษณ์ทั่วไป ·</span></div>
+                <h2 class="lang-en">Practice Makes Perfect: Questions by School Type</h2>
+                <h2 class="lang-th">ฝึกฝนให้สมบูรณ์แบบ: คำถามตามประเภทโรงเรียน</h2>
+                <p class="lang-en">Select a school type to see common interview questions and tips for answering them effectively. Use the toggle to reveal suggested responses.</p>
+                <p class="lang-th">เลือกประเภทโรงเรียนเพื่อดูคำถามสัมภาษณ์ทั่วไปและเคล็ดลับในการตอบอย่างมีประสิทธิภาพ ใช้ปุ่มสลับเพื่อดูคำตอบที่แนะนำ</p>
+
+                <div class="tabs" id="schoolTypeTabs">
+                    <button class="lang-en" data-type="leadership">Leadership & Character</button>
+                    <button class="lang-th" data-type="leadership">ความเป็นผู้นำและอุปนิสัย</button>
+                    <button class="lang-en" data-type="goals">Goals & Interests</button>
+                    <button class="lang-th" data-type="goals">เป้าหมายและความสนใจ</button>
+                    <button class="lang-en" data-type="academic">Academic Motivation</button>
+                    <button class="lang-th" data-type="academic">แรงจูงใจทางวิชาการ</button>
+                </div>
+
+                <div id="questionOutput">
+                    <!-- Questions will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <div class="line-cta-box bg-dark">
+            <div class="container">
+                <p class="line-handle text-gold">LINE: satitlinkedu</p>
+                <p class="cta-text text-cream lang-en">Struggling with a specific question? Let LINKEDU help you craft the perfect answer.</p>
+                <p class="cta-text text-cream lang-th">ติดขัดกับคำถามเฉพาะ? ให้ LINKEDU ช่วยคุณสร้างคำตอบที่สมบูรณ์แบบ</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-en">Get Interview Coaching</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-th">รับการฝึกสอนสัมภาษณ์</a>
+            </div>
+        </div>
+
+        <section class="content-section bg-cream">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· MOCK SCENARIOS ·</span><span class="lang-th">· สถานการณ์จำลอง ·</span></div>
+                <h2 class="lang-en">Real-World Challenges: Test Your Responses</h2>
+                <h2 class="lang-th">ความท้าทายในโลกแห่งความเป็นจริง: ทดสอบคำตอบของคุณ</h2>
+                <p class="lang-en">Interviewers often present hypothetical situations. Practice thinking on your feet with these mock scenarios.</p>
+                <p class="lang-th">ผู้สัมภาษณ์มักจะนำเสนอสถานการณ์สมมติ ฝึกคิดอย่างรวดเร็วด้วยสถานการณ์จำลองเหล่านี้</p>
+
+                <div class="mock-scenario-card">
+                    <h4 class="lang-en">Scenario 1: Ethical Dilemma</h4>
+                    <h4 class="lang-th">สถานการณ์ที่ 1: ปัญหาจริยธรรม</h4>
+                    <p class="scenario-text lang-en">"You see a classmate cheating on an important test. What do you do?"</p>
+                    <p class="scenario-text lang-th">"คุณเห็นเพื่อนร่วมชั้นโกงการสอบที่สำคัญ คุณจะทำอย่างไร?"</p>
+                    <p class="question-text lang-en">How would you approach this situation, considering your school's values?</p>
+                    <p class="question-text lang-th">คุณจะจัดการกับสถานการณ์นี้อย่างไร โดยคำนึงถึงค่านิยมของโรงเรียน?</p>
+                    <button class="reveal-btn lang-en">Reveal Suggested Response</button>
+                    <button class="reveal-btn lang-th">เปิดเผยคำตอบที่แนะนำ</button>
+                    <div class="suggested-response">
+                        <p class="lang-en"><strong>Suggested Response:</strong> "This is a difficult situation, but upholding academic integrity is paramount. First, I would consider talking to my classmate privately to explain the consequences and encourage them to confess. If they refuse, I would feel it's my responsibility to discreetly inform a teacher or a house parent, emphasizing that I want to protect the school's reputation and ensure fairness for all students, including the one who cheated, who might need support."</p>
+                        <p class="lang-th"><strong>คำตอบที่แนะนำ:</strong> "นี่เป็นสถานการณ์ที่ยากลำบาก แต่การรักษาความซื่อสัตย์ทางวิชาการเป็นสิ่งสำคัญที่สุด ประการแรก ผมจะพิจารณาพูดคุยกับเพื่อนร่วมชั้นเป็นการส่วนตัวเพื่ออธิบายผลที่ตามมาและสนับสนุนให้เขาสารภาพ หากเขาปฏิเสธ ผมจะรู้สึกว่าเป็นความรับผิดชอบของผมที่จะแจ้งให้ครูหรือผู้ดูแลหอพักทราบอย่างรอบคอบ โดยเน้นว่าผมต้องการปกป้องชื่อเสียงของโรงเรียนและรับประกันความเป็นธรรมสำหรับนักเรียนทุกคน รวมถึงผู้ที่โกง ซึ่งอาจต้องการความช่วยเหลือ"</p>
+                    </div>
+                </div>
+
+                <div class="mock-scenario-card">
+                    <h4 class="lang-en">Scenario 2: Problem Solving</h4>
+                    <h4 class="lang-th">สถานการณ์ที่ 2: การแก้ปัญหา</h4>
+                    <p class="scenario-text lang-en">"Your group project is due tomorrow, but one member hasn't contributed anything. What do you do?"</p>
+                    <p class="scenario-text lang-th">"โครงงานกลุ่มของคุณครบกำหนดส่งพรุ่งนี้ แต่สมาชิกคนหนึ่งยังไม่ได้ส่งงานอะไรเลย คุณจะทำอย่างไร?"</p>
+                    <p class="question-text lang-en">How would you ensure the project is completed while addressing the team dynamic?</p>
+                    <p class="question-text lang-th">คุณจะมั่นใจได้อย่างไรว่าโครงงานจะเสร็จสมบูรณ์ในขณะที่จัดการกับพลวัตของทีม?</p>
+                    <button class="reveal-btn lang-en">Reveal Suggested Response</button>
+                    <button class="reveal-btn lang-th">เปิดเผยคำตอบที่แนะนำ</button>
+                    <div class="suggested-response">
+                        <p class="lang-en"><strong>Suggested Response:</strong> "My priority would be to ensure the project is completed to a high standard. I would immediately reach out to the non-contributing member to understand if there are any issues they are facing and offer support. If time is extremely short, I would divide their remaining tasks among the other members to ensure completion, and then, after the deadline, discuss the situation with the teacher to find a fair resolution and improve future group work dynamics."</p>
+                        <p class="lang-th"><strong>คำตอบที่แนะนำ:</strong> "สิ่งสำคัญอันดับแรกของผมคือการทำให้โครงงานเสร็จสมบูรณ์ตามมาตรฐานที่สูง ผมจะติดต่อสมาชิกที่ไม่ได้มีส่วนร่วมทันทีเพื่อทำความเข้าใจว่าพวกเขากำลังเผชิญปัญหาใดๆ หรือไม่ และเสนอความช่วยเหลือ หากเวลาเหลือน้อยมาก ผมจะแบ่งงานที่เหลือของพวกเขาให้กับสมาชิกคนอื่นๆ เพื่อให้แน่ใจว่างานจะเสร็จสมบูรณ์ และหลังจากนั้น หลังเส้นตาย จะหารือสถานการณ์กับครูเพื่อหาทางออกที่เป็นธรรมและปรับปรุงพลวัตการทำงานกลุ่มในอนาคต"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="line-cta-box bg-dark">
+            <div class="container">
+                <p class="line-handle text-gold">LINE: satitlinkedu</p>
+                <p class="cta-text text-cream lang-en">Ready to take the next step? Contact LINKEDU for a tailored consultation.</p>
+                <p class="cta-text text-cream lang-th">พร้อมที่จะก้าวไปอีกขั้นแล้วหรือยัง? ติดต่อ LINKEDU เพื่อรับคำปรึกษาเฉพาะบุคคล</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-en">Book a Free Session</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-th">จองการปรึกษาฟรี</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer bg-dark" id="contact">
+        <div class="container">
+            <p class="lang-en">© 2024 LINKEDU Education Consulting. All rights reserved.</p>
+            <p class="lang-th">© 2024 LINKEDU Education Consulting สงวนลิขสิทธิ์</p>
+            <p><span class="lang-en">Website:</span> <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p><span class="lang-th">เว็บไซต์:</span> <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p><span class="lang-en">LINE:</span> <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">satitlinkedu</a></p>
+            <p><span class="lang-th">LINE:</span> <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">satitlinkedu</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const htmlTag = document.documentElement;
+            const questionOutput = document.getElementById('questionOutput');
+            const schoolTypeTabs = document.getElementById('schoolTypeTabs');
+
+            // Default language to Thai and update button states
+            htmlTag.setAttribute('lang', 'th');
+            updateLangButtonStates('th');
+            loadQuestions('leadership', 'th'); // Load default questions for TH
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const newLang = button.dataset.lang;
+                    htmlTag.setAttribute('lang', newLang);
+                    updateLangButtonStates(newLang);
+                    
+                    // Update active tab for the new language
+                    const currentActiveType = schoolTypeTabs.querySelector('button.active')?.dataset.type || 'leadership';
+                    schoolTypeTabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active')); // Clear all
+                    const newActiveTab = schoolTypeTabs.querySelector(`button[data-type="${currentActiveType}"].lang-${newLang}`);
+                    if (newActiveTab) {
+                        newActiveTab.classList.add('active');
+                    } else { // Fallback if a specific language tab doesn't exist for the type (shouldn't happen with current structure)
+                        schoolTypeTabs.querySelector(`button[data-type="leadership"].lang-${newLang}`).classList.add('active');
+                    }
+                    loadQuestions(currentActiveType, newLang);
+                });
+            });
+
+            function updateLangButtonStates(activeLang) {
+                langButtons.forEach(btn => {
+                    if (btn.dataset.lang === activeLang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            const questionsData = {
+                leadership: {
+                    en: [
+                        { q: "Describe a time you demonstrated leadership. What was the outcome?", t: "Focus on a specific example where you took initiative, motivated others, or guided a group. Highlight what you learned, even if the outcome wasn't perfect." },
+                        { q: "What challenges do leaders face, and how would you overcome them?", t: "Discuss common leadership challenges like conflict resolution, decision-making under pressure, or motivating a diverse team. Emphasize communication, empathy, and problem-solving skills." },
+                        { q: "How do you contribute to your community (school, local, or wider)?", t: "Share examples of volunteering, helping classmates, or participating in school events. Show your commitment to collective well-being and active participation." },
+                        { q: "What qualities do you believe define good character?", t: "Mention qualities like integrity, resilience, kindness, and empathy. Provide small examples of how you embody these in your daily life." },
+                        { q: "Tell me about a time you failed or made a mistake, and what you learned from it.", t: "This shows self-awareness and a growth mindset. Describe the situation, your role, the lesson learned, and how you applied it to future situations." }
+                    ],
+                    th: [
+                        { q: "อธิบายช่วงเวลาที่คุณแสดงความเป็นผู้นำ ผลลัพธ์เป็นอย่างไร?", t: "เน้นตัวอย่างเฉพาะที่คุณริเริ่ม สร้างแรงจูงใจให้ผู้อื่น หรือนำกลุ่ม เน้นสิ่งที่คุณเรียนรู้ แม้ว่าผลลัพธ์จะไม่สมบูรณ์แบบก็ตาม" },
+                        { q: "ผู้นำต้องเผชิญกับความท้าทายอะไรบ้าง และคุณจะเอาชนะได้อย่างไร?", t: "อภิปรายความท้าทายในการเป็นผู้นำทั่วไป เช่น การแก้ไขข้อขัดแย้ง การตัดสินใจภายใต้ความกดดัน หรือการสร้างแรงจูงใจให้ทีมที่หลากหลาย เน้นทักษะการสื่อสาร ความเห็นอกเห็นใจ และการแก้ปัญหา" },
+                        { q: "คุณมีส่วนร่วมกับชุมชนของคุณ (โรงเรียน ท้องถิ่น หรือกว้างขึ้น) อย่างไร?", t: "แบ่งปันตัวอย่างของการเป็นอาสาสมัคร การช่วยเหลือเพื่อนร่วมชั้น หรือการเข้าร่วมกิจกรรมของโรงเรียน แสดงให้เห็นถึงความมุ่งมั่นของคุณต่อความเป็นอยู่ที่ดีของส่วนรวมและการมีส่วนร่วมอย่างแข็งขัน" },
+                        { q: "คุณคิดว่าคุณสมบัติใดที่บ่งบอกถึงอุปนิสัยที่ดี?", t: "กล่าวถึงคุณสมบัติเช่น ความซื่อสัตย์ ความยืดหยุ่น ความเมตตา และความเห็นอกเห็นใจ ให้ตัวอย่างเล็กๆ น้อยๆ ว่าคุณแสดงออกถึงสิ่งเหล่านี้ในชีวิตประจำวันของคุณอย่างไร" },
+                        { q: "เล่าให้ฟังถึงช่วงเวลาที่คุณล้มเหลวหรือทำผิดพลาด และคุณได้เรียนรู้อะไรจากมัน", t: "สิ่งนี้แสดงให้เห็นถึงการตระหนักรู้ในตนเองและกรอบความคิดที่มุ่งเน้นการเติบโต อธิบายสถานการณ์ บทบาทของคุณ บทเรียนที่ได้รับ และวิธีที่คุณนำไปใช้กับสถานการณ์ในอนาคต" }
+                    ]
+                },
+                goals: {
+                    en: [
+                        { q: "What are your academic and personal goals for your time at boarding school?", t: "Be specific. Discuss subjects you want to excel in, new skills you want to learn, or extracurriculars you aim to join. Connect them to the school's offerings." },
+                        { q: "What subjects excite you the most, and why?", t: "Go beyond 'I like Science.' Explain *what aspects* of the subject fascinate you, a particular topic, or how it relates to your future aspirations." },
+                        { q: "How do you spend your free time? What are your hobbies and interests?", t: "Share genuine interests. Show how your hobbies have developed skills like teamwork, creativity, or discipline. Be ready to discuss them in detail." },
+                        { q: "What clubs, societies, or activities at our school particularly interest you, and why?", t: "This requires research! Mention specific programs or societies. Explain how they align with your interests and how you would contribute." },
+                        { q: "What do you hope to achieve by studying at our school, both academically and personally?", t: "Articulate how the school's unique environment, resources, and community will help you grow and reach your potential. Show a clear understanding of what makes this school special." }
+                    ],
+                    th: [
+                        { q: "เป้าหมายทางวิชาการและส่วนตัวของคุณในช่วงเวลาที่คุณจะอยู่ที่โรงเรียนประจำคืออะไร?", t: "ระบุให้ชัดเจน พูดคุยเกี่ยวกับวิชาที่คุณต้องการเก่ง ทักษะใหม่ที่คุณต้องการเรียนรู้ หรือกิจกรรมนอกหลักสูตรที่คุณตั้งใจจะเข้าร่วม เชื่อมโยงสิ่งเหล่านี้กับสิ่งที่โรงเรียนมีให้" },
+                        { q: "วิชาใดที่คุณตื่นเต้นที่สุด และเพราะเหตุใด?", t: "ไปให้ไกลกว่า 'ฉันชอบวิทยาศาสตร์' อธิบายว่า *แง่มุมใด* ของวิชาที่ทำให้คุณหลงใหล หัวข้อเฉพาะ หรือความเกี่ยวข้องกับความใฝ่ฝันในอนาคตของคุณ" },
+                        { q: "คุณใช้เวลาว่างอย่างไร? งานอดิเรกและความสนใจของคุณคืออะไร?", t: "แบ่งปันความสนใจที่แท้จริง แสดงให้เห็นว่างานอดิเรกของคุณได้พัฒนาทักษะอย่างไร เช่น การทำงานเป็นทีม ความคิดสร้างสรรค์ หรือระเบียบวินัย เตรียมพร้อมที่จะอภิปรายในรายละเอียด" },
+                        { q: "ชมรม สมาคม หรือกิจกรรมใดในโรงเรียนของเราที่คุณสนใจเป็นพิเศษ และเพราะเหตุใด?", t: "สิ่งนี้ต้องอาศัยการค้นคว้า! กล่าวถึงโปรแกรมหรือสมาคมเฉพาะ อธิบายว่าสิ่งเหล่านั้นสอดคล้องกับความสนใจของคุณอย่างไร และคุณจะสามารถมีส่วนร่วมได้อย่างไร" },
+                        { q: "คุณหวังที่จะประสบความสำเร็จอะไรบ้างจากการเรียนที่โรงเรียนของเรา ทั้งด้านวิชาการและส่วนตัว?", t: "อธิบายว่าสภาพแวดล้อม ทรัพยากร และชุมชนที่เป็นเอกลักษณ์ของโรงเรียนจะช่วยให้คุณเติบโตและบรรลุศักยภาพของคุณได้อย่างไร แสดงให้เห็นถึงความเข้าใจที่ชัดเจนว่าอะไรที่ทำให้โรงเรียนแห่งนี้พิเศษ" }
+                    ]
+                },
+                academic: {
+                    en: [
+                        { q: "What motivates you academically, and how do you approach challenging subjects?", t: "Discuss your genuine love for learning, intellectual curiosity, and strategies for tackling difficult topics (e.g., seeking help, extra research, practice)." },
+                        { q: "Why did you choose your A-level/IB subjects, and how do they align with your future aspirations?", t: "Explain the reasoning behind your subject choices. Connect them to potential university courses or career paths, demonstrating foresight and purpose." },
+                        { q: "Discuss a recent academic challenge you faced and how you overcame it.", t: "Show resilience and problem-solving skills. Describe the challenge, the steps you took, and the positive outcome or learning experience." },
+                        { q: "How do you stay updated on current affairs or developments in your chosen academic fields?", t: "Mention specific books, journals, news sources, podcasts, or lectures you engage with. This shows initiative and passion beyond the curriculum." },
+                        { q: "What are your university aspirations, and how do you believe our school will help you achieve them?", t: "Name specific universities or courses if you have them, but also discuss the general type of higher education you seek. Link the school's academic support and university guidance to your goals." }
+                    ],
+                    th: [
+                        { q: "อะไรคือแรงจูงใจทางวิชาการของคุณ และคุณรับมือกับวิชาที่ท้าทายอย่างไร?", t: "พูดคุยถึงความรักในการเรียนรู้ที่แท้จริง ความอยากรู้อยากเห็นทางปัญญา และกลยุทธ์ในการจัดการกับหัวข้อที่ยาก (เช่น การขอความช่วยเหลือ การค้นคว้าเพิ่มเติม การฝึกฝน)" },
+                        { q: "ทำไมคุณถึงเลือกวิชา A-level/IB ของคุณ และวิชาเหล่านั้นสอดคล้องกับความใฝ่ฝันในอนาคตของคุณอย่างไร?", t: "อธิบายเหตุผลเบื้องหลังการเลือกวิชาของคุณ เชื่อมโยงสิ่งเหล่านี้กับหลักสูตรมหาวิทยาลัยหรือเส้นทางอาชีพที่เป็นไปได้ แสดงให้เห็นถึงการมองการณ์ไกลและมีเป้าหมาย" },
+                        { q: "อภิปรายความท้าทายทางวิชาการล่าสุดที่คุณเผชิญ และคุณเอาชนะมันได้อย่างไร", t: "แสดงความยืดหยุ่นและทักษะการแก้ปัญหา อธิบายความท้าทาย ขั้นตอนที่คุณดำเนินการ และผลลัพธ์เชิงบวกหรือประสบการณ์การเรียนรู้" },
+                        { q: "คุณติดตามข่าวสารหรือความคืบหน้าในสาขาวิชาที่คุณเลือกอย่างไร?", t: "กล่าวถึงหนังสือ วารสาร แหล่งข่าว พอดคาสต์ หรือการบรรยายเฉพาะที่คุณสนใจ สิ่งนี้แสดงให้เห็นถึงความคิดริเริ่มและความหลงใหลนอกเหนือจากหลักสูตร" },
+                        { q: "ความใฝ่ฝันในการเข้ามหาวิทยาลัยของคุณคืออะไร และคุณเชื่อว่าโรงเรียนของเราจะช่วยให้คุณบรรลุเป้าหมายเหล่านั้นได้อย่างไร?", t: "ระบุชื่อมหาวิทยาลัยหรือหลักสูตรเฉพาะหากคุณมี แต่ก็พูดคุยถึงประเภทของการศึกษาระดับอุดมศึกษาที่คุณต้องการโดยรวมด้วย เชื่อมโยงการสนับสนุนทางวิชาการและคำแนะนำการเข้ามหาวิทยาลัยของโรงเรียนเข้ากับเป้าหมายของคุณ" }
+                    ]
+                }
+            };
+
+            function loadQuestions(type, currentLang) {
+                const data = questionsData[type][currentLang];
+                questionOutput.innerHTML = ''; // Clear previous questions
+                const questionListDiv = document.createElement('div');
+                questionListDiv.className = 'question-list';
+
+                data.forEach((item, index) => {
+                    const questionItem = document.createElement('div');
+                    questionItem.className = 'question-item';
+                    questionItem.innerHTML = `
+                        <h4><span class="lang-${currentLang}">${item.q}</span></h4>
+                        <button class="tip-toggle-btn">
+                            <span class="lang-en">Show Tip</span>
+                            <span class="lang-th">แสดงเคล็ดลับ</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="tip-content">
+                            <p><span class="lang-${currentLang}">${item.t}</span></p>
+                        </div>
+                    `;
+                    questionListDiv.appendChild(questionItem);
+                });
+                questionOutput.appendChild(questionListDiv);
+
+                // Add event listeners for new tip toggles
+                questionOutput.querySelectorAll('.tip-toggle-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tipContent = btn.nextElementSibling;
+                        tipContent.style.display = tipContent.style.display === 'block' ? 'none' : 'block';
+                        btn.classList.toggle('active');
+                        // Update button text
+                        if (btn.classList.contains('active')) {
+                            btn.querySelector('.lang-en').textContent = 'Hide Tip';
+                            btn.querySelector('.lang-th').textContent = 'ซ่อนเคล็ดลับ';
+                        } else {
+                            btn.querySelector('.lang-en').textContent = 'Show Tip';
+                            btn.querySelector('.lang-th').textContent = 'แสดงเคล็ดลับ';
+                        }
+                    });
+                });
+            }
+
+            schoolTypeTabs.querySelectorAll('button').forEach(tabButton => {
+                tabButton.addEventListener('click', () => {
+                    // Remove active from all buttons of the current language
+                    schoolTypeTabs.querySelectorAll(`button.lang-${htmlTag.lang}`).forEach(btn => btn.classList.remove('active'));
+                    // Add active to the clicked button
+                    tabButton.classList.add('active');
+                    loadQuestions(tabButton.dataset.type, htmlTag.lang);
+                });
+            });
+
+            // Set initial active tab for the default language
+            const defaultType = 'leadership';
+            const initialActiveTab = schoolTypeTabs.querySelector(`button[data-type="${defaultType}"].lang-${htmlTag.lang}`);
+            if(initialActiveTab) {
+                initialActiveTab.classList.add('active');
+            }
+
+
+            // Mock scenario reveal buttons
+            document.querySelectorAll('.mock-scenario-card .reveal-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const responseDiv = btn.nextElementSibling;
+                    responseDiv.style.display = responseDiv.style.display === 'block' ? 'none' : 'block';
+                    if (responseDiv.style.display === 'block') {
+                        btn.querySelector('.lang-en').textContent = 'Hide Response';
+                        btn.querySelector('.lang-th').textContent = 'ซ่อนคำตอบ';
+                    } else {
+                        btn.querySelector('.lang-en').textContent = 'Reveal Suggested Response';
+                        btn.querySelector('.lang-th').textContent = 'เปิดเผยคำตอบที่แนะนำ';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Level Self-Assessment for UK Schools - LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #1A1A1A;
+            --navy: #1B3A5C;
+            --gold: #C9A84C;
+            --cream: #F5F0E8;
+            --bg: #FAFAF8;
+            --text: #2D2D2D;
+            --border: #E8E4DC;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            color: var(--dark);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Sticky Header */
+        .header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-decoration: none;
+        }
+        .header-nav button {
+            background: none;
+            border: 1px solid var(--cream);
+            color: var(--cream);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .header-nav button:hover {
+            background-color: var(--cream);
+            color: var(--dark);
+        }
+        .header-nav button.active {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+        .hero .start-button {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .hero .start-button:hover {
+            background-color: #e0b95a;
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 80px 0;
+            background-color: var(--bg);
+        }
+
+        /* Quiz Section */
+        .quiz-container, .results-container {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .quiz-container:hover, .results-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+        .quiz-question p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .quiz-options label {
+            display: block;
+            background-color: var(--cream);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+        .quiz-options label:hover {
+            background-color: var(--border);
+        }
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--gold);
+        }
+        .quiz-options input[type="radio"]:checked + span {
+            font-weight: 600;
+            color: var(--navy);
+        }
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .quiz-navigation button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .quiz-navigation .prev-button {
+            background-color: var(--navy);
+            color: var(--cream);
+        }
+        .quiz-navigation .prev-button:hover {
+            background-color: #1a4d7d;
+        }
+        .quiz-navigation .next-button, .quiz-navigation .submit-button {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .quiz-navigation .next-button:hover, .quiz-navigation .submit-button:hover {
+            background-color: #e0b95a;
+        }
+        .quiz-progress {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .quiz-progress span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .quiz-passage {
+            background-color: var(--cream);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .quiz-passage p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        .quiz-passage p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Results Section */
+        .results-container {
+            display: none;
+            text-align: center;
+        }
+        .results-container h2 {
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+        .result-level {
+            background-color: var(--navy);
+            color: var(--cream);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .result-level h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 2.5rem;
+        }
+        .result-level p {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .result-section {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .result-section h4 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+        .result-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .result-section li {
+            background-color: var(--cream);
+            border: 1px solid var(--border);
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+        }
+        .result-section li strong {
+            color: var(--navy);
+        }
+        .result-section .school-fees {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .result-section .school-fees span {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        .vat-note {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        /* LINE CTA */
+        .line-cta {
+            background-color: #E60023; /* LINE Red */
+            color: #fff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .line-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        .line-cta p {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .line-cta a {
+            display: inline-block;
+            background-color: #fff;
+            color: #E60023;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .line-cta a:hover {
+            background-color: #f0f0f0;
+        }
+        .line-cta a strong {
+            color: #E60023;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer p {
+            margin: 0;
+        }
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #e0b95a;
+        }
+
+        /* Utility classes */
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+
+            .hero { padding: 80px 0 60px 0; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            .hero .start-button { padding: 12px 25px; font-size: 1rem; }
+
+            .content-section { padding: 60px 0; }
+            .quiz-container, .results-container { padding: 25px; }
+            .quiz-options label { padding: 12px 15px; font-size: 0.95rem; }
+            .quiz-navigation { flex-direction: column; gap: 15px; }
+            .quiz-navigation button { width: 100%; }
+            .header .container { flex-direction: column; gap: 15px; }
+            .logo { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            h4 { font-size: 1.3rem; }
+            .container { padding: 0 15px; }
+            .hero { padding: 50px 0 40px 0; }
+            .hero h1 { font-size: 2.2rem; }
+            .line-cta { padding: 20px; }
+            .line-cta p { font-size: 1rem; }
+            .line-cta a { font-size: 0.95rem; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="https://th.linkedu.hk" class="logo">LINKEDU</a>
+            <nav class="header-nav">
+                <button id="lang-toggle-en" class="active">English</button>
+                <button id="lang-toggle-th">ภาษาไทย</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 id="hero-title">English Level Self-Assessment for UK Schools</h1>
+                <p id="hero-description">Find out your current English proficiency (CEFR & IELTS equivalent) and get personalized recommendations for UK boarding schools and preparation.</p>
+                <a href="#quiz-start" class="start-button" id="start-quiz-button">Start Assessment</a>
+            </div>
+        </section>
+
+        <section id="quiz-start" class="content-section">
+            <div class="container">
+                <div id="quiz-section" class="quiz-container">
+                    <h2 class="text-center" id="quiz-heading">Your English Level Assessment</h2>
+                    <p class="text-center" id="quiz-intro">Answer 15 questions to determine your CEFR and IELTS English proficiency. Choose the best option for each question.</p>
+
+                    <div id="quiz-content">
+                        <!-- Quiz questions will be rendered here by JavaScript -->
+                    </div>
+
+                    <div class="quiz-progress">
+                        <span id="current-question-number">1</span> / <span id="total-questions-number">15</span>
+                    </div>
+
+                    <div class="quiz-navigation">
+                        <button id="prev-button" class="prev-button hidden">Previous / ย้อนกลับ</button>
+                        <button id="next-button" class="next-button">Next / ถัดไป</button>
+                        <button id="submit-button" class="submit-button hidden">Submit / ส่งคำตอบ</button>
+                    </div>
+                </div>
+
+                <div id="results-section" class="results-container hidden">
+                    <h2 id="results-heading">Your English Level Assessment Results</h2>
+                    <p id="results-intro">Based on your answers, here is your estimated English proficiency:</p>
+
+                    <div class="result-level">
+                        <p id="result-level-text-prefix">Your CEFR Level is:</p>
+                        <h3 id="cefr-level"></h3>
+                        <p id="ielts-equivalent"></p>
+                    </div>
+
+                    <div class="result-section">
+                        <h4 id="prep-needed-heading">Preparation Needed Before Applying</h4>
+                        <p id="prep-needed-content"></p>
+                    </div>
+
+                    <div class="result-section">
+                        <h4 id="school-recommendations-heading">Recommended UK Boarding Schools</h4>
+                        <ul id="school-recommendations-list">
+                            <!-- School recommendations will be inserted here -->
+                        </ul>
+                        <p class="vat-note" id="vat-note-text">
+                            <strong>VAT Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.
+                            <br>
+                            <strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ในช่วง 10,000 ถึง 19,000 ปอนด์ต่อปี
+                        </p>
+                    </div>
+
+                    <div class="result-section">
+                        <h4 id="specific-recommendations-heading">Specific Recommendations</h4>
+                        <p id="specific-recommendations-content"></p>
+                    </div>
+
+                    <div class="line-cta">
+                        <p id="line-cta-text-results">Ready to plan your UK education journey?</p>
+                        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">
+                            <strong id="line-cta-button-text-results">LINE: satitlinkedu</strong> <span id="line-cta-button-subtext-results">ปรึกษาฟรี (Free Consultation)</span>
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="retake-quiz-button" class="start-button">Retake Assessment / ทำแบบประเมินอีกครั้ง</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="line-cta">
+                <p id="line-cta-text-footer">Ready to plan your UK education journey?</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">
+                    <strong id="line-cta-button-text-footer">LINE: satitlinkedu</strong> <span id="line-cta-button-subtext-footer">ปรึกษาฟรี (Free Consultation)</span>
+                </a>
+            </div>
+            <p>&copy; 2024 <a href="https://th.linkedu.hk">LINKEDU Education Consulting</a>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Data Definitions ---
+        const GBP_TO_THB_RATE = 45;
+
+        const APPROVED_SCHOOLS = [
+            { name: "Abbotsholme", type: "private", min_ielts_b2: true, min_ielts_c1: false, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Known for practical education and outdoor pursuits, good EAL support.", description_th: "มีชื่อเสียงด้านการศึกษาเชิงปฏิบัติและกิจกรรมกลางแจ้ง มีการสนับสนุน EAL ที่ดี" },
+            { name: "Ardingly", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Co-educational, strong academics and sports, offers IB and A-Levels.", description_th: "โรงเรียนสหศึกษา มีผลการเรียนดีเด่นด้านวิชาการและกีฬา มีหลักสูตร IB และ A-Levels" },
+            { name: "Brighton College", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 55000, description_en: "Highly academic, innovative, and progressive. Very competitive entry.", description_th: "โรงเรียนวิชาการชั้นนำ มีนวัตกรรมและความก้าวหน้าสูง การรับเข้าแข่งขันสูงมาก" },
+            { name: "Bromsgrove", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 46000, description_en: "One of the oldest and most prestigious co-educational schools, strong IB.", description_th: "หนึ่งในโรงเรียนสหศึกษาที่เก่าแก่และมีชื่อเสียงที่สุด เน้นหลักสูตร IB" },
+            { name: "Bryanston", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 42000, fee_gbp_max: 50000, description_en: "Focus on individual development, arts, and creativity. Strong pastoral care.", description_th: "เน้นการพัฒนาแต่ละบุคคล ศิลปะ และความคิดสร้างสรรค์ มีการดูแลนักเรียนอย่างใกล้ชิด" },
+            { name: "Cardiff Sixth Form", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 45000, fee_gbp_max: 50000, description_en: "Top academic sixth form college, exceptional university progression.", description_th: "วิทยาลัย Sixth Form ชั้นนำด้านวิชาการ มีอัตราการเข้ามหาวิทยาลัยชั้นนำสูงมาก" },
+            { name: "Caterham", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 46000, description_en: "Strong academic record, excellent facilities, and a focus on innovation.", description_th: "มีผลการเรียนดีเด่น สิ่งอำนวยความสะดวกยอดเยี่ยม และเน้นนวัตกรรม" },
+            { name: "Charterhouse", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 55000, description_en: "Historic and prestigious boys' school, strong academic focus, competitive.", description_th: "โรงเรียนชายล้วนเก่าแก่และมีชื่อเสียง เน้นวิชาการสูง มีการแข่งขันสูง" },
+            { name: "Clifton", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 47000, description_en: "Co-educational, excellent academic and co-curricular opportunities.", description_th: "โรงเรียนสหศึกษา มีโอกาสทางวิชาการและกิจกรรมนอกหลักสูตรที่ยอดเยี่ยม" },
+            { name: "Concord", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 42000, fee_gbp_max: 50000, description_en: "Highly international, strong academic results, especially for A-Levels.", description_th: "โรงเรียนนานาชาติชั้นนำ มีผลการเรียนดีเด่น โดยเฉพาะหลักสูตร A-Levels" },
+            { name: "D Overbroeks", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 46000, description_en: "Modern and progressive school in Oxford, strong EAL support.", description_th: "โรงเรียนสมัยใหม่และก้าวหน้าใน Oxford มีการสนับสนุน EAL ที่ดี" },
+            { name: "Dulwich", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 55000, description_en: "Leading boys' school in London, strong academic and sporting traditions.", description_th: "โรงเรียนชายล้วนชั้นนำในลอนดอน มีประเพณีด้านวิชาการและกีฬาที่แข็งแกร่ง" },
+            { name: "Epsom", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Co-educational, strong in sciences and medicine, excellent facilities.", description_th: "โรงเรียนสหศึกษา เก่งด้านวิทยาศาสตร์และการแพทย์ มีสิ่งอำนวยความสะดวกยอดเยี่ยม" },
+            { name: "Eton", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 48000, fee_gbp_max: 55000, description_en: "World-renowned boys' boarding school, highly selective and academic.", description_th: "โรงเรียนประจำชายล้วนที่มีชื่อเสียงระดับโลก คัดเลือกสูงและเน้นวิชาการ" },
+            { name: "Harrow", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 48000, fee_gbp_max: 55000, description_en: "Iconic boys' school, strong traditions, exceptional academic and extracurriculars.", description_th: "โรงเรียนชายล้วนสัญลักษณ์ มีประเพณีแข็งแกร่ง วิชาการและกิจกรรมนอกหลักสูตรยอดเยี่ยม" },
+            { name: "Lancing", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 46000, description_en: "Stunning campus, strong in arts and music, good academic support.", description_th: "วิทยาเขตสวยงาม เก่งด้านศิลปะและดนตรี มีการสนับสนุนด้านวิชาการที่ดี" },
+            { name: "Loretto", type: "private", min_ielts_b2: true, min_ielts_c1: false, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Scotland's oldest boarding school, strong all-round education.", description_th: "โรงเรียนประจำที่เก่าแก่ที่สุดของสกอตแลนด์ มีการศึกษารอบด้านที่แข็งแกร่ง" },
+            { name: "Millfield", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 45000, fee_gbp_max: 52000, description_en: "World-renowned for sports, extensive facilities, excellent EAL.", description_th: "มีชื่อเสียงระดับโลกด้านกีฬา สิ่งอำนวยความสะดวกครบครัน มี EAL ยอดเยี่ยม" },
+            { name: "Oakham", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 46000, description_en: "Co-educational, strong academic and arts programs, vibrant community.", description_th: "โรงเรียนสหศึกษา มีหลักสูตรวิชาการและศิลปะที่แข็งแกร่ง ชุมชนมีชีวิตชีวา" },
+            { name: "Oundle", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 52000, description_en: "Large, traditional boarding school, strong in sciences and engineering.", description_th: "โรงเรียนประจำขนาดใหญ่และดั้งเดิม เก่งด้านวิทยาศาสตร์และวิศวกรรม" },
+            { name: "Oxford International", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 45000, description_en: "Sixth Form college, strong university preparation, international focus.", description_th: "วิทยาลัย Sixth Form เน้นการเตรียมตัวเข้ามหาวิทยาลัย มีความเป็นนานาชาติสูง" },
+            { name: "Queen Ethelburgas", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Highly supportive environment, excellent facilities, strong academic results.", description_th: "สภาพแวดล้อมที่สนับสนุนสูง สิ่งอำนวยความสะดวกยอดเยี่ยม ผลการเรียนดีเด่น" },
+            { name: "Repton", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Historic school, strong academic and sporting reputation.", description_th: "โรงเรียนเก่าแก่ มีชื่อเสียงด้านวิชาการและกีฬาที่แข็งแกร่ง" },
+            { name: "Roedean", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 52000, description_en: "Leading girls' boarding school, strong academics and beautiful coastal location.", description_th: "โรงเรียนประจำหญิงล้วนชั้นนำ วิชาการแข็งแกร่ง และตั้งอยู่ริมทะเลสวยงาม" },
+            { name: "Rossall", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Co-educational, strong EAL support, offers IB and A-Levels.", description_th: "โรงเรียนสหศึกษา มีการสนับสนุน EAL ที่แข็งแกร่ง มีหลักสูตร IB และ A-Levels" },
+            { name: "Royal Russell", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 38000, fee_gbp_max: 45000, description_en: "Co-educational, strong academic record and excellent pastoral care.", description_th: "โรงเรียนสหศึกษา มีผลการเรียนดีเด่น และมีการดูแลนักเรียนอย่างยอดเยี่ยม" },
+            { name: "Sedbergh", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Remote location, strong in sports and outdoor activities, robust EAL.", description_th: "ตั้งอยู่ในพื้นที่ชนบท เก่งกีฬาและกิจกรรมกลางแจ้ง มี EAL ที่แข็งแกร่ง" },
+            { name: "Sevenoaks", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 55000, description_en: "Leading IB school, highly academic and competitive entry.", description_th: "โรงเรียน IB ชั้นนำ เน้นวิชาการสูงและมีการแข่งขันในการรับเข้า" },
+            { name: "Shrewsbury", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 42000, fee_gbp_max: 50000, description_en: "Historic, co-educational, strong academic and sporting traditions.", description_th: "โรงเรียนเก่าแก่ สหศึกษา มีประเพณีด้านวิชาการและกีฬาที่แข็งแกร่ง" },
+            { name: "Sidcot", type: "private", min_ielts_b2: true, min_ielts_c1: false, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Quaker school, focus on values, strong EAL and individual support.", description_th: "โรงเรียน Quaker เน้นค่านิยม มี EAL และการสนับสนุนรายบุคคลที่แข็งแกร่ง" },
+            { name: "St Leonards", type: "private", min_ielts_b2: true, min_ielts_c1: false, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Scottish school, offers IB, strong EAL and beautiful coastal location.", description_th: "โรงเรียนสกอตแลนด์ มีหลักสูตร IB มี EAL ที่แข็งแกร่งและตั้งอยู่ริมทะเลสวยงาม" },
+            { name: "The Leys", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Cambridge-based, strong academic record, excellent facilities.", description_th: "ตั้งอยู่ในเคมบริดจ์ มีผลการเรียนดีเด่น สิ่งอำนวยความสะดวกยอดเยี่ยม" },
+            { name: "NMSC", type: "private", min_ielts_b2: true, min_ielts_c1: true, min_ielts_c2: false, fee_gbp_min: 40000, fee_gbp_max: 48000, description_en: "Sixth Form college, highly successful in STEM subjects.", description_th: "วิทยาลัย Sixth Form ประสบความสำเร็จสูงในสาขาวิทยาศาสตร์ เทคโนโลยี วิศวกรรม และคณิตศาสตร์ (STEM)" },
+            { name: "Tonbridge", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 45000, fee_gbp_max: 55000, description_en: "Leading boys' school, strong academics and traditional values.", description_th: "โรงเรียนชายล้วนชั้นนำ วิชาการแข็งแกร่งและค่านิยมดั้งเดิม" },
+            { name: "Uppingham", type: "private", min_ielts_b2: false, min_ielts_c1: true, min_ielts_c2: true, fee_gbp_min: 42000, fee_gbp_max: 50000, description_en: "Traditional co-educational school, strong in arts and sports.", description_th: "โรงเรียนสหศึกษาดั้งเดิม เก่งด้านศิลปะและกีฬา" },
+            { name: "Wells Cathedral", type: "private", min_ielts_b2: true, min_ielts_c1: false, min_ielts_c2: false, fee_gbp_min: 35000, fee_gbp_max: 42000, description_en: "Specialist music school, strong academic offering, good EAL.", description_th: "โรงเรียนดนตรีเฉพาะทาง มีหลักสูตรวิชาการที่แข็งแกร่ง มี EAL ที่ดี" }
+        ];
+
+        const CEFR_LEVELS = [
+            {
+                level: "A1",
+                ielts_range: "2.0 - 3.0",
+                score_min: 0,
+                score_max: 8,
+                prep_en: "Intensive foundational English language preparation is essential. Focus on basic vocabulary, grammar, and simple sentence structures. Consider a pre-sessional English course or a language school before applying to UK boarding schools.",
+                prep_th: "จำเป็นต้องมีการเตรียมภาษาอังกฤษพื้นฐานอย่างเข้มข้น เน้นคำศัพท์ ไวยากรณ์ และโครงสร้างประโยคพื้นฐาน พิจารณาหลักสูตรภาษาอังกฤษก่อนเข้าเรียน (pre-sessional) หรือโรงเรียนสอนภาษาก่อนสมัครเข้าโรงเรียนประจำในสหราชอาณาจักร",
+                specific_en: "At this level, direct entry to UK boarding schools is generally not feasible for academic years. Focus on building a strong foundation in English. LINKEDU can help you find suitable language programs.",
+                specific_th: "ในระดับนี้ การเข้าเรียนโดยตรงในโรงเรียนประจำของสหราชอาณาจักรไม่สามารถทำได้สำหรับปีการศึกษาปกติ ควรเน้นการสร้างรากฐานภาษาอังกฤษที่แข็งแกร่ง LINKEDU สามารถช่วยคุณหาโปรแกรมภาษาที่เหมาะสมได้",
+                schools_en: ["Intensive language preparation is required. Direct entry not typical."],
+                schools_th: ["ต้องมีการเตรียมภาษาอย่างเข้มข้น การเข้าเรียนโดยตรงไม่เป็นไปตามปกติ"]
+            },
+            {
+                level: "A2",
+                ielts_range: "3.5 - 4.0",
+                score_min: 9,
+                score_max: 16,
+                prep_en: "Significant language development is needed. Focus on expanding vocabulary, improving conversational skills, and understanding more complex sentences. Look for schools with strong English as an Additional Language (EAL) support.",
+                prep_th: "จำเป็นต้องมีการพัฒนาภาษาอย่างมาก เน้นการขยายคำศัพท์ ปรับปรุงทักษะการสนทนา และทำความเข้าใจประโยคที่ซับซ้อนมากขึ้น มองหาโรงเรียนที่มีการสนับสนุน EAL (English as an Additional Language) ที่แข็งแกร่ง",
+                specific_en: "Entry to UK boarding schools at this level may be possible for younger years (e.g., Year 7-9) with extensive EAL support. For Sixth Form, a dedicated language year or pre-sessional course is highly recommended. LINKEDU can guide you to schools with suitable EAL programs.",
+                specific_th: "การเข้าเรียนในโรงเรียนประจำของสหราชอาณาจักรในระดับนี้อาจเป็นไปได้สำหรับนักเรียนอายุน้อย (เช่น Year 7-9) ที่ต้องการการสนับสนุน EAL อย่างกว้างขวาง สำหรับ Sixth Form แนะนำให้เรียนภาษาหนึ่งปีเต็มหรือหลักสูตร pre-sessional LINKEDU สามารถแนะนำโรงเรียนที่มีโปรแกรม EAL ที่เหมาะสม",
+                schools_en: [
+                    "Intensive language preparation and EAL support are crucial.",
+                    "Schools with strong EAL departments for younger years (Year 7-9) may consider, e.g., Rossall, Sidcot, St Leonards, Wells Cathedral, Abbotsholme, Loretto."
+                ],
+                schools_th: [
+                    "การเตรียมภาษาอย่างเข้มข้นและการสนับสนุน EAL เป็นสิ่งสำคัญอย่างยิ่ง",
+                    "โรงเรียนที่มีแผนก EAL ที่แข็งแกร่งสำหรับนักเรียนอายุน้อย (Year 7-9) อาจพิจารณา เช่น Rossall, Sidcot, St Leonards, Wells Cathedral, Abbotsholme, Loretto"
+                ]
+            },
+            {
+                level: "B1",
+                ielts_range: "4.5 - 5.0",
+                score_min: 17,
+                score_max: 25,
+                prep_en: "Intermediate level. Focus on developing academic vocabulary, essay structure, and improving listening comprehension. Practice expressing opinions and participating in discussions.",
+                prep_th: "ระดับกลาง เน้นการพัฒนาคำศัพท์เชิงวิชาการ โครงสร้างเรียงความ และปรับปรุงความเข้าใจในการฟัง ฝึกการแสดงความคิดเห็นและการเข้าร่วมการอภิปราย",
+                specific_en: "Many UK boarding schools will consider students at B1 level, especially for GCSE years (Year 10) or Foundation courses, provided they have good EAL support. For A-Levels or IB, a strong B1 is a minimum, often requiring additional English tuition. LINKEDU can help identify schools that excel in supporting international students at this stage.",
+                specific_th: "โรงเรียนประจำในสหราชอาณาจักรหลายแห่งจะพิจารณานักเรียนระดับ B1 โดยเฉพาะอย่างยิ่งสำหรับปี GCSE (Year 10) หรือหลักสูตร Foundation โดยมีเงื่อนไขว่าต้องมีการสนับสนุน EAL ที่ดี สำหรับ A-Levels หรือ IB ระดับ B1 ถือเป็นขั้นต่ำ และมักจะต้องเรียนภาษาอังกฤษเพิ่มเติม LINKEDU สามารถช่วยระบุโรงเรียนที่เก่งในการสนับสนุนนักเรียนต่างชาติในขั้นตอนนี้",
+                schools_en: [
+                    "Schools with strong EAL departments: Rossall, Sidcot, St Leonards, Wells Cathedral, Abbotsholme, Loretto, Millfield, Queen Ethelburgas, Royal Russell, Sedbergh, D Overbroeks, Oxford International."
+                ],
+                schools_th: [
+                    "โรงเรียนที่มีแผนก EAL ที่แข็งแกร่ง: Rossall, Sidcot, St Leonards, Wells Cathedral, Abbotsholme, Loretto, Millfield, Queen Ethelburgas, Royal Russell, Sedbergh, D Overbroeks, Oxford International"
+                ]
+            },
+            {
+                level: "B2",
+                ielts_range: "5.5 - 6.5",
+                score_min: 26,
+                score_max: 34,
+                prep_en: "Upper-Intermediate. You are well-positioned for entry to most UK boarding schools for GCSE and A-Level programs. Focus on refining academic writing, critical reading, and developing presentation skills. Practice exam techniques for IELTS if required.",
+                prep_th: "ระดับกลางสูง คุณอยู่ในตำแหน่งที่ดีสำหรับการเข้าเรียนในโรงเรียนประจำของสหราชอาณาจักรส่วนใหญ่สำหรับหลักสูตร GCSE และ A-Level เน้นการปรับปรุงการเขียนเชิงวิชาการ การอ่านเชิงวิพากษ์ และการพัฒนาทักษะการนำเสนอ ฝึกเทคนิคการสอบ IELTS หากจำเป็น",
+                specific_en: "This level is generally sufficient for direct entry to many UK boarding schools for GCSE (Year 10) and A-Level (Year 12) programs, often with some EAL support. More competitive schools may still require a higher score or specific subject English proficiency. LINKEDU can advise on specific school entry requirements.",
+                specific_th: "ระดับนี้โดยทั่วไปเพียงพอสำหรับการเข้าเรียนโดยตรงในโรงเรียนประจำของสหราชอาณาจักรหลายแห่งสำหรับหลักสูตร GCSE (Year 10) และ A-Level (Year 12) ซึ่งมักจะมีการสนับสนุน EAL บ้าง โรงเรียนที่มีการแข่งขันสูงกว่าอาจยังคงต้องการคะแนนที่สูงขึ้นหรือความสามารถทางภาษาอังกฤษเฉพาะวิชา LINKEDU สามารถให้คำแนะนำเกี่ยวกับข้อกำหนดการรับเข้าเรียนของแต่ละโรงเรียนได้",
+                schools_en: [
+                    "Many excellent co-educational and single-sex schools are suitable for this level. Consider schools like:"
+                ],
+                schools_th: [
+                    "โรงเรียนสหศึกษาและโรงเรียนแยกเพศที่ยอดเยี่ยมหลายแห่งเหมาะสำหรับระดับนี้ พิจารณาโรงเรียนเช่น:"
+                ]
+            },
+            {
+                level: "C1",
+                ielts_range: "7.0 - 8.0",
+                score_min: 35,
+                score_max: 39,
+                prep_en: "Advanced. You are ready for most academic environments. Focus on subject-specific vocabulary, advanced essay writing, critical analysis, and participating in sophisticated academic discussions. Practice interview skills for top universities.",
+                prep_th: "ระดับสูง คุณพร้อมสำหรับสภาพแวดล้อมทางวิชาการส่วนใหญ่ เน้นคำศัพท์เฉพาะทางวิชา การเขียนเรียงความขั้นสูง การวิเคราะห์เชิงวิพากษ์ และการเข้าร่วมการอภิปรายเชิงวิชาการที่ซับซ้อน ฝึกทักษะการสัมภาษณ์สำหรับการเข้ามหาวิทยาลัยชั้นนำ",
+                specific_en: "This level is excellent for direct entry to most competitive UK boarding schools for A-Levels or IB. You should be able to fully engage with the curriculum without significant language barriers. Focus on academic excellence and preparing for entrance exams and interviews. LINKEDU can help you target highly selective schools.",
+                specific_th: "ระดับนี้ยอดเยี่ยมสำหรับการเข้าเรียนโดยตรงในโรงเรียนประจำของสหราชอาณาจักรที่มีการแข่งขันสูงส่วนใหญ่สำหรับหลักสูตร A-Levels หรือ IB คุณควรจะสามารถมีส่วนร่วมกับหลักสูตรได้อย่างเต็มที่โดยไม่มีอุปสรรคทางภาษาที่สำคัญ เน้นความเป็นเลิศทางวิชาการและการเตรียมตัวสำหรับการสอบเข้าและการสัมภาษณ์ LINKEDU สามารถช่วยคุณกำหนดเป้าหมายโรงเรียนที่มีการคัดเลือกสูงได้",
+                schools_en: [
+                    "All approved schools, including highly selective ones, are within reach. Consider schools like:"
+                ],
+                schools_th: [
+                    "โรงเรียนที่ได้รับการรับรองทั้งหมด รวมถึงโรงเรียนที่มีการคัดเลือกสูง สามารถเข้าถึงได้ พิจารณาโรงเรียนเช่น:"
+                ]
+            },
+            {
+                level: "C2",
+                ielts_range: "8.5 - 9.0",
+                score_min: 40,
+                score_max: 42,
+                prep_en: "Proficient. You have native-like proficiency in English. Your focus should be entirely on academic excellence, subject-specific knowledge, and preparation for competitive university applications.",
+                prep_th: "ระดับเชี่ยวชาญ คุณมีความเชี่ยวชาญภาษาอังกฤษเหมือนเจ้าของภาษา การมุ่งเน้นของคุณควรอยู่ที่ความเป็นเลิศทางวิชาการ ความรู้เฉพาะทางวิชา และการเตรียมตัวสำหรับการสมัครเข้ามหาวิทยาลัยที่มีการแข่งขันสูง",
+                specific_en: "You are an exceptional candidate for any UK boarding school, including the most prestigious and competitive. Your English will not be a barrier. Focus on excelling in your chosen subjects, leadership opportunities, and preparing for Oxbridge/Russell Group university interviews. LINKEDU can provide bespoke guidance for elite school and university applications.",
+                specific_th: "คุณเป็นผู้สมัครที่ยอดเยี่ยมสำหรับโรงเรียนประจำในสหราชอาณาจักรทุกแห่ง รวมถึงโรงเรียนที่มีชื่อเสียงและมีการแข่งขันสูงที่สุด ภาษาอังกฤษของคุณจะไม่เป็นอุปสรรค เน้นความเป็นเลิศในวิชาที่คุณเลือก โอกาสในการเป็นผู้นำ และการเตรียมตัวสำหรับการสัมภาษณ์เข้ามหาวิทยาลัย Oxbridge/Russell Group LINKEDU สามารถให้คำแนะนำแบบเฉพาะบุคคลสำหรับการสมัครเข้าโรงเรียนและมหาวิทยาลัยชั้นนำได้",
+                schools_en: [
+                    "All approved schools, including the most highly selective, are excellent options. Consider schools like:"
+                ],
+                schools_th: [
+                    "โรงเรียนที่ได้รับการรับรองทั้งหมด รวมถึงโรงเรียนที่มีการคัดเลือกสูงที่สุด เป็นตัวเลือกที่ยอดเยี่ยม พิจารณาโรงเรียนเช่น:"
+                ]
+            }
+        ];
+
+        const QUESTIONS = [
+            {
+                id: 1,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Choose the word that best completes the sentence: 'She felt a deep _______ for her grandmother, who had always supported her.'",
+                question_th: "เลือกคำที่เติมประโยคได้ดีที่สุด: 'เธอรู้สึกถึงความ _______ อย่างลึกซึ้งต่อคุณย่าของเธอ ผู้ซึ่งคอยสนับสนุนเธอมาตลอด'",
+                options_en: ["apathy", "resentment", "affection", "indifference"],
+                options_th: ["ความไม่แยแส", "ความขุ่นเคือง", "ความรักความผูกพัน", "ความไม่สนใจ"],
+                correct_answer_index: 2
+            },
+            {
+                id: 2,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Which sentence uses the correct verb tense? 'Yesterday, I _______ to the park.'",
+                question_th: "ประโยคใดใช้กาลของกริยาถูกต้อง? 'เมื่อวานนี้ ฉัน _______ ไปสวนสาธารณะ'",
+                options_en: ["go", "will go", "went", "going"],
+                options_th: ["ไป", "จะไป", "ไปแล้ว", "กำลังไป"],
+                correct_answer_index: 2
+            },
+            {
+                id: 3,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "What does 'ubiquitous' mean?",
+                question_th: "คำว่า 'ubiquitous' หมายความว่าอะไร?",
+                options_en: ["Rare", "Found everywhere", "Secret", "Difficult to find"],
+                options_th: ["หายาก", "พบได้ทุกที่", "ลับ", "หายากมาก"],
+                correct_answer_index: 1
+            },
+            {
+                id: 4,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Identify the correct use of 'their', 'there', or 'they're': '_______ going to _______ house over _______.'",
+                question_th: "ระบุการใช้ 'their', 'there', หรือ 'they're' ที่ถูกต้อง: '_______ กำลังจะไป _______ บ้านที่ _______'",
+                options_en: ["They're, their, there", "Their, there, they're", "There, their, they're", "They're, there, their"],
+                options_th: ["They're, their, there", "Their, there, they're", "There, their, they're", "They're, there, their"],
+                correct_answer_index: 0
+            },
+            {
+                id: 5,
+                type: 'reading',
+                passage_en: "The Amazon rainforest is the largest tropical rainforest in the world, covering much of northwestern South America. It is home to an incredible diversity of wildlife, including millions of species of insects, thousands of species of plants, and hundreds of species of mammals and birds. The rainforest plays a crucial role in regulating the Earth's climate by absorbing vast amounts of carbon dioxide. However, it faces significant threats from deforestation, primarily due to agriculture and cattle ranching.",
+                passage_th: "ป่าฝนอเมซอนเป็นป่าฝนเขตร้อนที่ใหญ่ที่สุดในโลก ครอบคลุมพื้นที่ส่วนใหญ่ทางตะวันตกเฉียงเหนือของทวีปอเมริกาใต้ เป็นที่อยู่อาศัยของสัตว์ป่าที่มีความหลากหลายอย่างไม่น่าเชื่อ รวมถึงแมลงหลายล้านชนิด พืชหลายพันชนิด และสัตว์เลี้ยงลูกด้วยนมกับนกหลายร้อยชนิด ป่าฝนมีบทบาทสำคัญในการควบคุมสภาพภูมิอากาศของโลกโดยการดูดซับก๊าซคาร์บอนไดออกไซด์จำนวนมาก อย่างไรก็ตาม ป่าฝนกำลังเผชิญกับภัยคุกคามที่สำคัญจากการตัดไม้ทำลายป่า ซึ่งส่วนใหญ่เกิดจากการเกษตรและการเลี้ยงปศุสัตว์",
+                sub_questions: [
+                    {
+                        sub_id: 5.1,
+                        question_en: "What is the primary threat to the Amazon rainforest?",
+                        question_th: "ภัยคุกคามหลักต่อป่าฝนอเมซอนคืออะไร?",
+                        options_en: ["Volcanic eruptions", "Deforestation", "Extreme weather", "Pollution from cities"],
+                        options_th: ["การปะทุของภูเขาไฟ", "การตัดไม้ทำลายป่า", "สภาพอากาศรุนแรง", "มลพิษจากเมือง"],
+                        correct_answer_index: 1,
+                        score_value: 1
+                    },
+                    {
+                        sub_id: 5.2,
+                        question_en: "How does the Amazon rainforest help regulate Earth's climate?",
+                        question_th: "ป่าฝนอเมซอนช่วยควบคุมสภาพภูมิอากาศของโลกได้อย่างไร?",
+                        options_en: ["By reflecting sunlight", "By producing oxygen", "By absorbing carbon dioxide", "By creating clouds"],
+                        options_th: ["โดยการสะท้อนแสงอาทิตย์", "โดยการผลิตออกซิเจน", "โดยการดูดซับคาร์บอนไดออกไซด์", "โดยการสร้างเมฆ"],
+                        correct_answer_index: 2,
+                        score_value: 1
+                    }
+                ],
+                points: 2
+            },
+            {
+                id: 6,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Which word is an antonym for 'benevolent'?",
+                question_th: "คำใดเป็นคำตรงข้ามของ 'benevolent'?",
+                options_en: ["Kind", "Generous", "Malicious", "Compassionate"],
+                options_th: ["ใจดี", "เอื้อเฟื้อ", "มุ่งร้าย", "มีเมตตา"],
+                correct_answer_index: 2
+            },
+            {
+                id: 7,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Complete the idiom: 'It's raining cats and _______.'",
+                question_th: "เติมสำนวนให้สมบูรณ์: 'ฝนตกหนักมาก (It's raining cats and _______.)'",
+                options_en: ["dogs", "mice", "birds", "frogs"],
+                options_th: ["สุนัข", "หนู", "นก", "กบ"],
+                correct_answer_index: 0
+            },
+            {
+                id: 8,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Which sentence is grammatically correct?",
+                question_th: "ประโยคใดถูกต้องตามหลักไวยากรณ์?",
+                options_en: ["He don't like coffee.", "She doesn't like coffee.", "They likes coffee.", "We doesn't like coffee."],
+                options_th: ["เขาไม่ชอบกาแฟ (ผิด)", "เธอไม่ชอบกาแฟ (ถูก)", "พวกเขาชอบกาแฟ (ผิด)", "พวกเราไม่ชอบกาแฟ (ผิด)"],
+                correct_answer_index: 1
+            },
+            {
+                id: 9,
+                type: 'reading',
+                passage_en: "The invention of the printing press by Johannes Gutenberg in the 15th century revolutionized the spread of knowledge. Before its invention, books were meticulously copied by hand, a process that was slow, expensive, and prone to errors. The printing press allowed for the mass production of books, making them more accessible and affordable to a wider audience. This led to a significant increase in literacy rates and played a crucial role in the Renaissance and the Scientific Revolution, transforming European society.",
+                passage_th: "การประดิษฐ์แท่นพิมพ์โดยโยฮันเนส กูเทนเบิร์กในศตวรรษที่ 15 ได้ปฏิวัติการเผยแพร่ความรู้ ก่อนการประดิษฐ์ แท่นพิมพ์ หนังสือถูกคัดลอกด้วยมืออย่างพิถีพิถัน ซึ่งเป็นกระบวนการที่ช้า มีราคาแพง และเกิดข้อผิดพลาดได้ง่าย แท่นพิมพ์ทำให้สามารถผลิตหนังสือจำนวนมากได้ ทำให้ผู้คนจำนวนมากเข้าถึงและซื้อได้ง่ายขึ้น สิ่งนี้นำไปสู่การเพิ่มขึ้นอย่างมีนัยสำคัญของอัตราการรู้หนังสือ และมีบทบาทสำคัญในการฟื้นฟูศิลปวิทยาและการปฏิวัติวิทยาศาสตร์ ซึ่งเปลี่ยนแปลงสังคมยุโรป",
+                sub_questions: [
+                    {
+                        sub_id: 9.1,
+                        question_en: "What was the main impact of the printing press?",
+                        question_th: "ผลกระทบหลักของแท่นพิมพ์คืออะไร?",
+                        options_en: ["It made books more artistic.", "It slowed down knowledge spread.", "It increased book accessibility.", "It made books more expensive."],
+                        options_th: ["ทำให้หนังสือมีศิลปะมากขึ้น", "ทำให้การเผยแพร่ความรู้ช้าลง", "เพิ่มการเข้าถึงหนังสือ", "ทำให้หนังสือมีราคาแพงขึ้น"],
+                        correct_answer_index: 2,
+                        score_value: 1
+                    },
+                    {
+                        sub_id: 9.2,
+                        question_en: "What was the process of making books like before the printing press?",
+                        question_th: "กระบวนการทำหนังสือเป็นอย่างไรก่อนมีแท่นพิมพ์?",
+                        options_en: ["Fast and cheap", "Done by machines", "Slow, expensive, and error-prone", "Only for the wealthy"],
+                        options_th: ["รวดเร็วและราคาถูก", "ทำโดยเครื่องจักร", "ช้า แพง และมีข้อผิดพลาดง่าย", "สำหรับคนรวยเท่านั้น"],
+                        correct_answer_index: 2,
+                        score_value: 1
+                    }
+                ],
+                points: 2
+            },
+            {
+                id: 10,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Choose the correct preposition: 'She is good _______ playing the piano.'",
+                question_th: "เลือกคำบุพบทที่ถูกต้อง: 'เธอเก่ง _______ เล่นเปียโน'",
+                options_en: ["at", "in", "on", "for"],
+                options_th: ["ที่", "ใน", "บน", "สำหรับ"],
+                correct_answer_index: 0
+            },
+            {
+                id: 11,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "What is the meaning of 'meticulous'?",
+                question_th: "คำว่า 'meticulous' หมายความว่าอะไร?",
+                options_en: ["Careless", "Hasty", "Careful and precise", "Lazy"],
+                options_th: ["ประมาท", "รีบร้อน", "ระมัดระวังและแม่นยำ", "ขี้เกียจ"],
+                correct_answer_index: 2
+            },
+            {
+                id: 12,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Which modal verb expresses strong obligation? 'You _______ submit your assignment by Friday.'",
+                question_th: "กริยาช่วยตัวใดแสดงถึงข้อผูกมัดที่แข็งแกร่ง? 'คุณ _______ ส่งงานภายในวันศุกร์'",
+                options_en: ["might", "should", "must", "could"],
+                options_th: ["อาจจะ", "ควรจะ", "ต้อง", "สามารถ"],
+                correct_answer_index: 2
+            },
+            {
+                id: 13,
+                type: 'reading',
+                passage_en: "Artificial intelligence (AI) is rapidly transforming various aspects of our lives, from healthcare to entertainment. Machine learning, a subset of AI, allows systems to learn from data without explicit programming. This has led to breakthroughs in areas like image recognition, natural language processing, and predictive analytics. While AI offers immense potential for progress, concerns about job displacement, ethical implications, and data privacy are also growing, prompting a need for careful regulation and societal adaptation.",
+                passage_th: "ปัญญาประดิษฐ์ (AI) กำลังเปลี่ยนแปลงแง่มุมต่างๆ ในชีวิตของเราอย่างรวดเร็ว ตั้งแต่การดูแลสุขภาพไปจนถึงความบันเทิง การเรียนรู้ของเครื่องจักร (Machine learning) ซึ่งเป็นส่วนหนึ่งของ AI ช่วยให้ระบบสามารถเรียนรู้จากข้อมูลโดยไม่ต้องมีการเขียนโปรแกรมอย่างชัดเจน สิ่งนี้นำไปสู่ความก้าวหน้าในด้านต่างๆ เช่น การจดจำภาพ การประมวลผลภาษาธรรมชาติ และการวิเคราะห์เชิงพยากรณ์ แม้ว่า AI จะมีศักยภาพมหาศาลในการก้าวหน้า แต่ความกังวลเกี่ยวกับการทดแทนงาน ผลกระทบทางจริยธรรม และความเป็นส่วนตัวของข้อมูลก็เพิ่มขึ้นเช่นกัน ซึ่งกระตุ้นให้เกิดความจำเป็นในการควบคุมและปรับตัวทางสังคมอย่างรอบคอบ",
+                sub_questions: [
+                    {
+                        sub_id: 13.1,
+                        question_en: "What is a major concern associated with the rise of AI?",
+                        question_th: "ความกังวลหลักที่เกี่ยวข้องกับการเพิ่มขึ้นของ AI คืออะไร?",
+                        options_en: ["Lack of entertainment options", "Job displacement", "Slow development", "Limited data access"],
+                        options_th: ["ขาดตัวเลือกความบันเทิง", "การทดแทนงาน", "การพัฒนาช้า", "การเข้าถึงข้อมูลที่จำกัด"],
+                        correct_answer_index: 1,
+                        score_value: 1
+                    },
+                    {
+                        sub_id: 13.2,
+                        question_en: "Which of the following is a subset of AI?",
+                        question_th: "ข้อใดต่อไปนี้เป็นส่วนหนึ่งของ AI?",
+                        options_en: ["Photography", "Machine learning", "Traditional programming", "Manual data entry"],
+                        options_th: ["การถ่ายภาพ", "การเรียนรู้ของเครื่องจักร", "การเขียนโปรแกรมแบบดั้งเดิม", "การป้อนข้อมูลด้วยมือ"],
+                        correct_answer_index: 1,
+                        score_value: 1
+                    }
+                ],
+                points: 2
+            },
+            {
+                id: 14,
+                type: 'multiple-choice',
+                points: 3,
+                question_en: "Choose the sentence with the correct subject-verb agreement:",
+                question_th: "เลือกประโยคที่ประธานและกริยาสอดคล้องกันถูกต้อง:",
+                options_en: ["The dog and the cat is playing.", "Neither of the students are here.", "Every student have a book.", "One of the books is missing."],
+                options_th: ["สุนัขและแมวกำลังเล่น (ผิด)", "ไม่มีนักเรียนคนใดอยู่ที่นี่ (ผิด)", "นักเรียนทุกคนมีหนังสือ (ผิด)", "หนังสือเล่มหนึ่งหายไป (ถูก)"],
+                correct_answer_index: 3
+            },
+            {
+                id: 15,
+                type: 'writing-comfort',
+                points: 3,
+                question_en: "How comfortable are you writing a 200-word essay in English on an unfamiliar academic topic within 30 minutes?",
+                question_th: "คุณรู้สึกสบายใจแค่ไหนในการเขียนเรียงความภาษาอังกฤษ 200 คำในหัวข้อเชิงวิชาการที่ไม่คุ้นเคยภายใน 30 นาที?",
+                options_en: ["Not comfortable at all", "Somewhat comfortable, but would struggle with vocabulary/grammar", "Comfortable, can express ideas clearly", "Very comfortable, can write fluently and accurately"],
+                options_th: ["ไม่สบายใจเลย", "ค่อนข้างสบายใจ แต่จะมีปัญหาเรื่องคำศัพท์/ไวยากรณ์", "สบายใจ สามารถแสดงความคิดเห็นได้อย่างชัดเจน", "สบายใจมาก สามารถเขียนได้อย่างคล่องแคล่วและถูกต้อง"],
+                score_mapping: [0, 1, 2, 3]
+            }
+        ];
+
+        // --- Global Variables ---
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let currentLanguage = 'en';
+
+        // --- DOM Elements ---
+        const langToggleEn = document.getElementById('lang-toggle-en');
+        const langToggleTh = document.getElementById('lang-toggle-th');
+
+        const heroTitle = document.getElementById('hero-title');
+        const heroDescription = document.getElementById('hero-description');
+        const startQuizButton = document.getElementById('start-quiz-button');
+
+        const quizSection = document.getElementById('quiz-section');
+        const quizHeading = document.getElementById('quiz-heading');
+        const quizIntro = document.getElementById('quiz-intro');
+        const quizContent = document.getElementById('quiz-content');
+        const currentQuestionNumberSpan = document.getElementById('current-question-number');
+        const totalQuestionsNumberSpan = document.getElementById('total-questions-number');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const submitButton = document.getElementById('submit-button');
+
+        const resultsSection = document.getElementById('results-section');
+        const resultsHeading = document.getElementById('results-heading');
+        const resultsIntro = document.getElementById('results-intro');
+        const cefrLevelElem = document.getElementById('cefr-level');
+        const ieltsEquivalentElem = document.getElementById('ielts-equivalent');
+        const prepNeededHeading = document.getElementById('prep-needed-heading');
+        const prepNeededContent = document.getElementById('prep-needed-content');
+        const schoolRecommendationsHeading = document.getElementById('school-recommendations-heading');
+        const schoolRecommendationsList = document.getElementById('school-recommendations-list');
+        const specificRecommendationsHeading = document.getElementById('specific-recommendations-heading');
+        const specificRecommendationsContent = document.getElementById('specific-recommendations-content');
+        const vatNoteText = document.getElementById('vat-note-text');
+        const retakeQuizButton = document.getElementById('retake-quiz-button');
+        const resultLevelTextPrefix = document.getElementById('result-level-text-prefix');
+        
+        const lineCtaTextResults = document.getElementById('line-cta-text-results');
+        const lineCtaButtonTextResults = document.getElementById('line-cta-button-text-results');
+        const lineCtaButtonSubtextResults = document.getElementById('line-cta-button-subtext-results');
+        
+        const lineCtaTextFooter = document.getElementById('line-cta-text-footer');
+        const lineCtaButtonTextFooter = document.getElementById('line-cta-button-text-footer');
+        const lineCtaButtonSubtextFooter = document.getElementById('line-cta-button-subtext-footer');
+
+
+        totalQuestionsNumberSpan.textContent = QUESTIONS.length;
+
+        // --- Functions ---
+
+        function updateLanguageContent() {
+            if (currentLanguage === 'en') {
+                langToggleEn.classList.add('active');
+                langToggleTh.classList.remove('active');
+
+                heroTitle.textContent = "English Level Self-Assessment for UK Schools";
+                heroDescription.textContent = "Find out your current English proficiency (CEFR & IELTS equivalent) and get personalized recommendations for UK boarding schools and preparation.";
+                startQuizButton.textContent = "Start Assessment";
+                quizHeading.textContent = "Your English Level Assessment";
+                quizIntro.textContent = "Answer 15 questions to determine your CEFR and IELTS English proficiency. Choose the best option for each question.";
+                prevButton.textContent = "Previous / ย้อนกลับ";
+                nextButton.textContent = "Next / ถัดไป";
+                submitButton.textContent = "Submit / ส่งคำตอบ";
+                resultsHeading.textContent = "Your English Level Assessment Results";
+                resultsIntro.textContent = "Based on your answers, here is your estimated English proficiency:";
+                resultLevelTextPrefix.textContent = "Your CEFR Level is:";
+                prepNeededHeading.textContent = "Preparation Needed Before Applying";
+                schoolRecommendationsHeading.textContent = "Recommended UK Boarding Schools";
+                specificRecommendationsHeading.textContent = "Specific Recommendations";
+                vatNoteText.innerHTML = `
+                    <strong>VAT Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.
+                    <br>
+                    <strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ในช่วง 10,000 ถึง 19,000 ปอนด์ต่อปี
+                `;
+                lineCtaTextResults.textContent = "Ready to plan your UK education journey?";
+                lineCtaButtonTextResults.textContent = "LINE: satitlinkedu";
+                lineCtaButtonSubtextResults.textContent = "ปรึกษาฟรี (Free Consultation)";
+                retakeQuizButton.textContent = "Retake Assessment / ทำแบบประเมินอีกครั้ง";
+                
+                lineCtaTextFooter.textContent = "Ready to plan your UK education journey?";
+                lineCtaButtonTextFooter.textContent = "LINE: satitlinkedu";
+                lineCtaButtonSubtextFooter.textContent = "ปรึกษาฟรี (Free Consultation)";
+
+            } else { // currentLanguage === 'th'
+                langToggleTh.classList.add('active');
+                langToggleEn.classList.remove('active');
+
+                heroTitle.textContent = "แบบประเมินระดับภาษาอังกฤษเพื่อเข้าโรงเรียนในสหราชอาณาจักร";
+                heroDescription.textContent = "ค้นหาระดับความสามารถทางภาษาอังกฤษของคุณ (เทียบเท่า CEFR & IELTS) และรับคำแนะนำส่วนบุคคลสำหรับโรงเรียนประจำในสหราชอาณาจักรและการเตรียมตัว";
+                startQuizButton.textContent = "เริ่มทำแบบประเมิน";
+                quizHeading.textContent = "แบบประเมินระดับภาษาอังกฤษของคุณ";
+                quizIntro.textContent = "ตอบคำถาม 15 ข้อเพื่อกำหนดระดับความสามารถทางภาษาอังกฤษ CEFR และ IELTS ของคุณ เลือกตัวเลือกที่ดีที่สุดสำหรับแต่ละคำถาม";
+                prevButton.textContent = "ย้อนกลับ / Previous";
+                nextButton.textContent = "ถัดไป / Next";
+                submitButton.textContent = "ส่งคำตอบ / Submit";
+                resultsHeading.textContent = "ผลการประเมินระดับภาษาอังกฤษของคุณ";
+                resultsIntro.textContent = "จากคำตอบของคุณ นี่คือระดับความสามารถทางภาษาอังกฤษโดยประมาณ:";
+                resultLevelTextPrefix.textContent = "ระดับ CEFR ของคุณคือ:";
+                prepNeededHeading.textContent = "การเตรียมตัวที่จำเป็นก่อนการสมัคร";
+                schoolRecommendationsHeading.textContent = "โรงเรียนประจำในสหราชอาณาจักรที่แนะนำ";
+                specificRecommendationsHeading.textContent = "คำแนะนำเฉพาะ";
+                vatNoteText.innerHTML = `
+                    <strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ในช่วง 10,000 ถึง 19,000 ปอนด์ต่อปี
+                    <br>
+                    <strong>VAT Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.
+                `;
+                lineCtaTextResults.textContent = "พร้อมวางแผนการเดินทางการศึกษาในสหราชอาณาจักรของคุณแล้วหรือยัง?";
+                lineCtaButtonTextResults.textContent = "LINE: satitlinkedu";
+                lineCtaButtonSubtextResults.textContent = "ปรึกษาฟรี (Free Consultation)";
+                retakeQuizButton.textContent = "ทำแบบประเมินอีกครั้ง / Retake Assessment";
+
+                lineCtaTextFooter.textContent = "พร้อมวางแผนการเดินทางการศึกษาในสหราชอาณาจักรของคุณแล้วหรือยัง?";
+                lineCtaButtonTextFooter.textContent = "LINE: satitlinkedu";
+                lineCtaButtonSubtextFooter.textContent = "ปรึกษาฟรี (Free Consultation)";
+            }
+            renderQuestion(currentQuestionIndex);
+            if (!resultsSection.classList.contains('hidden')) {
+                displayResults(calculateScore());
+            }
+        }
+
+        function renderQuestion(index) {
+            const questionData = QUESTIONS[index];
+            quizContent.innerHTML = '';
+
+            let questionHtml = '';
+            const questionTextKey = `question_${currentLanguage}`;
+            const optionsKey = `options_${currentLanguage}`;
+            const passageKey = `passage_${currentLanguage}`;
+
+            if (questionData.type === 'reading') {
+                questionHtml += `<div class="quiz-passage"><p>${questionData[passageKey]}</p></div>`;
+                questionData.sub_questions.forEach((subQ, subIndex) => {
+                    const subQuestionTextKey = `question_${currentLanguage}`;
+                    const subOptionsKey = `options_${currentLanguage}`;
+                    questionHtml += `
+                        <div class="quiz-question">
+                            <p>${index + 1}.${subIndex + 1} ${subQ[subQuestionTextKey]}</p>
+                            <div class="quiz-options">
+                    `;
+                    subQ[subOptionsKey].forEach((option, optIndex) => {
+                        const uniqueName = `question-${questionData.id}-${subQ.sub_id}`;
+                        const isChecked = userAnswers[uniqueName] === optIndex;
+                        questionHtml += `
+                            <label>
+                                <input type="radio" name="${uniqueName}" value="${optIndex}" ${isChecked ? 'checked' : ''} data-question-id="${questionData.id}" data-sub-id="${subQ.sub_id}" data-option-index="${optIndex}">
+                                <span>${option}</span>
+                            </label>
+                        `;
+                    });
+                    questionHtml += `</div></div>`;
+                });
+            } else {
+                questionHtml += `
+                    <div class="quiz-question">
+                        <p>${index + 1}. ${questionData[questionTextKey]}</p>
+                        <div class="quiz-options">
+                `;
+                questionData[optionsKey].forEach((option, optIndex) => {
+                    const uniqueName = `question-${questionData.id}`;
+                    const isChecked = userAnswers[uniqueName] === optIndex;
+                    questionHtml += `
+                        <label>
+                            <input type="radio" name="${uniqueName}" value="${optIndex}" ${isChecked ? 'checked' : ''} data-question-id="${questionData.id}" data-option-index="${optIndex}">
+                            <span>${option}</span>
+                        </label>
+                    `;
+                });
+                questionHtml += `</div></div>`;
+            }
+
+            quizContent.innerHTML = questionHtml;
+            currentQuestionNumberSpan.textContent = index + 1;
+
+            prevButton.classList.toggle('hidden', index === 0);
+            nextButton.classList.toggle('hidden', index === QUESTIONS.length - 1);
+            submitButton.classList.toggle('hidden', index !== QUESTIONS.length - 1);
+
+            quizContent.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    const qId = event.target.dataset.questionId;
+                    const subId = event.target.dataset.subId;
+                    const name = subId ? `question-${qId}-${subId}` : `question-${qId}`;
+                    userAnswers[name] = parseInt(event.target.value);
+                });
+            });
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < QUESTIONS.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion(currentQuestionIndex);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion(currentQuestionIndex);
+            }
+        }
+
+        function calculateScore() {
+            let totalScore = 0;
+            QUESTIONS.forEach(q => {
+                if (q.type === 'reading') {
+                    q.sub_questions.forEach(subQ => {
+                        const answerKey = `question-${q.id}-${subQ.sub_id}`;
+                        if (userAnswers[answerKey] !== undefined && userAnswers[answerKey] === subQ.correct_answer_index) {
+                            totalScore += subQ.score_value;
+                        }
+                    });
+                } else if (q.type === 'multiple-choice') {
+                    const answerKey = `question-${q.id}`;
+                    if (userAnswers[answerKey] !== undefined && userAnswers[answerKey] === q.correct_answer_index) {
+                        totalScore += q.points;
+                    }
+                } else if (q.type === 'writing-comfort') {
+                    const answerKey = `question-${q.id}`;
+                    if (userAnswers[answerKey] !== undefined) {
+                        totalScore += q.score_mapping[userAnswers[answerKey]];
+                    }
+                }
+            });
+            return totalScore;
+        }
+
+        function getCefrLevel(score) {
+            for (const level of CEFR_LEVELS) {
+                if (score >= level.score_min && score <= level.score_max) {
+                    return level;
+                }
+            }
+            return CEFR_LEVELS[0];
+        }
+
+        function displayResults(score) {
+            quizSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+
+            const cefr = getCefrLevel(score);
+            cefrLevelElem.textContent = `${cefr.level} - ${currentLanguage === 'en' ? cefr.level : 'ระดับ ' + cefr.level}`;
+            ieltsEquivalentElem.textContent = `${currentLanguage === 'en' ? 'IELTS Equivalent' : 'เทียบเท่า IELTS'}: ${cefr.ielts_range}`;
+            prepNeededContent.textContent = currentLanguage === 'en' ? cefr.prep_en : cefr.prep_th;
+            specificRecommendationsContent.textContent = currentLanguage === 'en' ? cefr.specific_en : cefr.specific_th;
+
+            schoolRecommendationsList.innerHTML = '';
+            let recommendedSchools = [];
+
+            if (cefr.level === 'A1' || cefr.level === 'A2' || cefr.level === 'B1') {
+                (currentLanguage === 'en' ? cefr.schools_en : cefr.schools_th).forEach(rec => {
+                    schoolRecommendationsList.innerHTML += `<li>${rec}</li>`;
+                });
+            } else { // B2, C1, C2
+                let filterKey;
+                if (cefr.level === 'B2') filterKey = 'min_ielts_b2';
+                else if (cefr.level === 'C1') filterKey = 'min_ielts_c1';
+                else if (cefr.level === 'C2') filterKey = 'min_ielts_c2';
+
+                recommendedSchools = APPROVED_SCHOOLS.filter(school => school[filterKey]);
+                recommendedSchools.sort((a, b) => a.name.localeCompare(b.name));
+
+                if (recommendedSchools.length === 0) {
+                    schoolRecommendationsList.innerHTML = `<li>${currentLanguage === 'en' ? "No specific school recommendations at this level based on strict criteria. Please contact us for personalized advice." : "ไม่มีคำแนะนำโรงเรียนเฉพาะในระดับนี้ตามเกณฑ์ที่เข้มงวด กรุณาติดต่อเราเพื่อขอคำแนะนำส่วนบุคคล"}</li>`;
+                } else {
+                    schoolRecommendationsList.innerHTML += `<li>${currentLanguage === 'en' ? cefr.schools_en[0] : cefr.schools_th[0]}</li>`; // Add general intro for B2/C1/C2
+                    recommendedSchools.forEach(school => {
+                        const feeGBPMIN = school.fee_gbp_min.toLocaleString('en-GB');
+                        const feeGBPMAX = school.fee_gbp_max.toLocaleString('en-GB');
+                        const feeTHBMIN = (school.fee_gbp_min * GBP_TO_THB_RATE).toLocaleString('th-TH');
+                        const feeTHBMAX = (school.fee_gbp_max * GBP_TO_THB_RATE).toLocaleString('th-TH');
+                        const description = currentLanguage === 'en' ? school.description_en : school.description_th;
+
+                        schoolRecommendationsList.innerHTML += `
+                            <li>
+                                <div>
+                                    <strong>${school.name}</strong><br>
+                                    <small>${description}</small>
+                                    <div class="school-fees">
+                                        <span>${currentLanguage === 'en' ? 'Annual Boarding Fees' : 'ค่าธรรมเนียมประจำปี'}: GBP ${feeGBPMIN} - ${feeGBPMAX} (~THB ${feeTHBMIN} - ${feeTHBMAX})</span>
+                                    </div>
+                                </div>
+                            </li>
+                        `;
+                    });
+                }
+            }
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            quizSection.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
+            renderQuestion(currentQuestionIndex);
+            window.scrollTo({ top: quizSection.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        langToggleEn.addEventListener('click', () => {
+            currentLanguage = 'en';
+            updateLanguageContent();
+        });
+        langToggleTh.addEventListener('click', () => {
+            currentLanguage = 'th';
+            updateLanguageContent();
+        });
+
+        startQuizButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            quizSection.classList.remove('hidden');
+            document.getElementById('results-section').classList.add('hidden');
+            renderQuestion(0);
+            window.scrollTo({ top: quizSection.offsetTop - 100, behavior: 'smooth' });
+        });
+
+        nextButton.addEventListener('click', nextQuestion);
+        prevButton.addEventListener('click', prevQuestion);
+        submitButton.addEventListener('click', () => {
+            const score = calculateScore();
+            displayResults(score);
+            window.scrollTo({ top: resultsSection.offsetTop - 100, behavior: 'smooth' });
+        });
+        retakeQuizButton.addEventListener('click', resetQuiz);
+
+        // Initial render
+        updateLanguageContent();
+        quizSection.classList.add('hidden');
+    </script>
+</body>
+</html>

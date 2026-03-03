@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Private vs State Boarding VAT Impact 2026 | LINKEDU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f0f0f0;
+            --accent-gold: #C9A84C;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --cta-bg: #C9A84C;
+            --cta-text: #0a0a0a;
+            --input-bg: #222;
+            --input-border: #444;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Open Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-top: 0;
+        }
+
+        .section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .section h3 {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section p, .section ul {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .section ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background-color: var(--card-bg);
+            border-left: 5px solid var(--accent-gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        /* CTA Button */
+        .cta-box {
+            background-color: var(--cta-bg);
+            color: var(--cta-text);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin: 3rem auto;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-box p {
+            margin: 0.5rem 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cta-text);
+        }
+
+        .cta-box .line-id {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-box a {
+            color: var(--cta-text);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* Calculator Styles */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculator-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-input-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .calculator-input-group select,
+        .calculator-input-group input[type="number"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .calculator-input-group select:focus,
+        .calculator-input-group input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+        }
+
+        .calculator-input-group input[type="radio"] {
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            transform: scale(1.2); /* Make radio buttons slightly larger */
+        }
+
+        .calculator-input-group .radio-option {
+            margin-right: 1.5rem;
+            display: inline-block;
+        }
+
+        .calculator-input-group .radio-option label {
+            display: inline;
+            font-weight: normal;
+        }
+
+        .calculator-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-gold);
+            color: var(--cta-text);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .calculator-button:hover {
+            background-color: #b39542;
+            transform: translateY(-2px);
+        }
+
+        .calculator-results {
+            background-color: var(--input-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 1px solid var(--input-border);
+        }
+
+        .calculator-results h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .calculator-results p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .calculator-results p strong {
+            color: var(--accent-gold);
+        }
+
+        .calculator-results .total-difference {
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* School Cards */
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .school-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-gold);
+        }
+
+        .school-card h4 {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .school-card p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .school-card .fee {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .calculator-grid > div:last-child {
+                grid-column: span 2;
+            }
+            .calculator-results {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            .section h3 {
+                font-size: 1.4rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .cta-box {
+                margin: 2rem auto;
+                padding: 1rem;
+            }
+            .cta-box p {
+                font-size: 1.2rem;
+            }
+            .cta-box .line-id {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>UK Private vs State Boarding VAT Impact 2026</h1>
+            <h1>ค่าใช้จ่ายโรงเรียนประจำอังกฤษ: เอกชน vs รัฐบาล (ผลกระทบภาษี VAT 2026)</h1>
+            <p>Your comprehensive guide to UK boarding school costs and value post-VAT changes.</p>
+            <p>คู่มือฉบับสมบูรณ์เกี่ยวกับค่าใช้จ่ายและความคุ้มค่าของโรงเรียนประจำในสหราชอาณาจักรหลังการเปลี่ยนแปลงภาษี VAT</p>
+            <p style="font-size:0.9rem; margin-top:1.5rem;">Powered by <a href="https://th.linkedu.hk" style="color:var(--accent-gold); text-decoration:none;">LINKEDU</a></p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="section">
+            <h2>Understanding the VAT Impact | ทำความเข้าใจผลกระทบของภาษี VAT</h2>
+            <div class="highlight">
+                <p><strong>IMPORTANT VAT NOTE:</strong> From January 2025, private boarding school fees in the UK will have 20% VAT added. State boarding schools remain VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.</p>
+                <p><strong>หมายเหตุสำคัญเกี่ยวกับ VAT:</strong> ตั้งแต่เดือนมกราคม 2025 เป็นต้นไป ค่าเล่าเรียนโรงเรียนประจำเอกชนในสหราชอาณาจักรจะถูกเพิ่มภาษี VAT 20% โรงเรียนประจำของรัฐยังคงได้รับการยกเว้นภาษี VAT โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ระหว่าง 10,000 ถึง 19,000 ปอนด์ต่อปี</p>
+            </div>
+            <p>This tool helps Thai families understand the significant financial implications and compare the value proposition of private vs. state boarding schools in the UK. We'll explore various aspects side-by-side to help you make an informed decision.</p>
+            <p>เครื่องมือนี้ช่วยให้ครอบครัวชาวไทยเข้าใจถึงผลกระทบทางการเงินที่สำคัญ และเปรียบเทียบคุณค่าของโรงเรียนประจำเอกชนกับโรงเรียนประจำของรัฐในสหราชอาณาจักร เราจะสำรวจด้านต่างๆ ควบคู่กันไปเพื่อช่วยให้คุณตัดสินใจได้อย่างชาญฉลาด</p>
+        </section>
+
+        <section class="section">
+            <h2>VAT Impact Calculator | เครื่องคำนวณผลกระทบ VAT</h2>
+            <p>Use our interactive calculator to compare the estimated total costs for private vs. state boarding schools, including the new 20% VAT for private institutions.</p>
+            <p>ใช้เครื่องคำนวณแบบโต้ตอบของเราเพื่อเปรียบเทียบค่าใช้จ่ายโดยประมาณทั้งหมดสำหรับโรงเรียนประจำเอกชนกับโรงเรียนประจำของรัฐ รวมถึงภาษี VAT 20% ใหม่สำหรับสถาบันเอกชน</p>
+
+            <div class="calculator-grid">
+                <div>
+                    <div class="calculator-input-group">
+                        <label for="schoolType">School Type | ประเภทโรงเรียน</label>
+                        <div style="display:flex; gap:1.5rem;">
+                            <div class="radio-option">
+                                <input type="radio" id="typePrivate" name="schoolType" value="private" checked>
+                                <label for="typePrivate">Private Boarding | เอกชน</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="typeState" name="schoolType" value="state">
+                                <label for="typeState">State Boarding | รัฐบาล</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-input-group" id="privateSchoolSelectionGroup">
+                        <label for="privateSchool">Select Private School | เลือกโรงเรียนเอกชน</label>
+                        <select id="privateSchool">
+                            <!-- Options will be populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="calculator-input-group" id="customFeeGroup" style="display:none;">
+                        <label for="customFee">Enter Estimated Private Fee (GBP/year) | ป้อนค่าธรรมเนียมเอกชนโดยประมาณ (ปอนด์/ปี)</label>
+                        <input type="number" id="customFee" value="45000" min="10000" step="1000">
+                    </div>
+
+                    <div class="calculator-input-group" id="stateFeeGroup" style="display:none;">
+                        <label for="stateFee">Enter Estimated State Boarding Fee (GBP/year) | ป้อนค่าธรรมเนียมโรงเรียนประจำของรัฐโดยประมาณ (ปอนด์/ปี)</label>
+                        <input type="number" id="stateFee" value="14500" min="10000" max="19000" step="500">
+                        <small style="display:block; margin-top:0.5rem; color:#aaa;">(Typical range: GBP 10,000 - 19,000)</small>
+                    </div>
+
+                    <div class="calculator-input-group">
+                        <label for="years">Number of Years | จำนวนปี</label>
+                        <input type="number" id="years" value="5" min="1" max="7">
+                    </div>
+
+                    <button class="calculator-button" onclick="calculateVATImpact()">Calculate Impact | คำนวณผลกระทบ</button>
+                </div>
+
+                <div class="calculator-results" id="calculatorResults">
+                    <h3>Calculation Results | ผลการคำนวณ</h3>
+                    <p>Select inputs and click 'Calculate Impact' to see results.</p>
+                    <p>เลือกข้อมูลป้อนเข้าและคลิก 'คำนวณผลกระทบ' เพื่อดูผลลัพธ์</p>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <p class="line-id">LINE: satitlinkedu</p>
+                <p>ปรึกษาฟรี (Free Consultation)</p>
+                <p>เกี่ยวกับโรงเรียนประจำใน UK | About UK Boarding Schools</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Side-by-Side Comparison | การเปรียบเทียบแบบเจาะลึก</h2>
+
+            <h3>Quality & Academic Rigour | คุณภาพและความเข้มข้นทางวิชาการ</h3>
+            <p><strong>Private Boarding:</strong> Often renowned for strong academic results, smaller class sizes, and a wide range of subjects. Highly selective schools push students towards top universities.</p>
+            <p><strong>โรงเรียนประจำเอกชน:</strong> มีชื่อเสียงด้านผลการเรียนที่ดีเยี่ยม ขนาดชั้นเรียนที่เล็กกว่า และวิชาที่หลากหลาย โรงเรียนที่คัดเลือกนักเรียนอย่างเข้มงวดจะผลักดันนักเรียนสู่มหาวิทยาลัยชั้นนำ</p>
+            <p><strong>State Boarding:</strong> Excellent academic standards, especially those with Sixth Form provision. While not as selective, they still offer a robust curriculum and support for university applications, focusing on value for money.</p>
+            <p><strong>โรงเรียนประจำของรัฐ:</strong> มาตรฐานการศึกษาที่ยอดเยี่ยม โดยเฉพาะอย่างยิ่งโรงเรียนที่มีระดับ Sixth Form แม้ว่าจะไม่คัดเลือกนักเรียนอย่างเข้มงวดเท่า แต่ก็ยังคงเสนอหลักสูตรที่แข็งแกร่งและการสนับสนุนการสมัครเข้ามหาวิทยาลัย โดยเน้นที่ความคุ้มค่า</p>
+
+            <h3>Facilities & Extracurriculars | สิ่งอำนวยความสะดวกและกิจกรรมนอกหลักสูตร</h3>
+            <p><strong>Private Boarding:</strong> World-class facilities including Olympic-sized pools, theatres, equestrian centres, and extensive sports grounds. A vast array of extracurricular activities, clubs, and societies.</p>
+            <p><strong>โรงเรียนประจำเอกชน:</strong> สิ่งอำนวยความสะดวกระดับโลก เช่น สระว่ายน้ำขนาดโอลิมปิก โรงละคร ศูนย์ขี่ม้า และสนามกีฬากว้างขวาง มีกิจกรรมนอกหลักสูตร ชมรม และสมาคมมากมาย</p>
+            <p><strong>State Boarding:</strong> Good to very good facilities, often shared with day pupils. A solid range of sports, arts, and academic clubs, though perhaps not as expansive as the most elite private schools. Focus on practical, well-rounded development.</p>
+            <p><strong>โรงเรียนประจำของรัฐ:</strong> สิ่งอำนวยความสะดวกที่ดีถึงดีมาก มักจะใช้ร่วมกับนักเรียนไปกลับ มีกีฬา ศิลปะ และชมรมวิชาการที่หลากหลาย แต่ก็อาจจะไม่กว้างขวางเท่าโรงเรียนเอกชนชั้นนำ เน้นการพัฒนาที่รอบด้านและใช้งานได้จริง</p>
+
+            <h3>University Outcomes | ผลลัพธ์การเข้ามหาวิทยาลัย</h3>
+            <p><strong>Private Boarding:</strong> Many top private schools boast high percentages of students gaining places at Oxbridge, Russell Group universities, and prestigious international institutions. Strong university guidance and application support.</p>
+            <p><strong>โรงเรียนประจำเอกชน:</strong> โรงเรียนเอกชนชั้นนำหลายแห่งมีเปอร์เซ็นต์นักเรียนสูงที่ได้เข้าเรียนที่ Oxbridge, มหาวิทยาลัย Russell Group และสถาบันต่างประเทศที่มีชื่อเสียง มีการแนะแนวและสนับสนุนการสมัครเข้ามหาวิทยาลัยที่แข็งแกร่ง</p>
+            <p><strong>State Boarding:</strong> Students regularly achieve places at Russell Group and other reputable UK universities. While statistics may not match the very top private schools, the support for university applications is dedicated and effective, often at a fraction of the cost.</p>
+            <p><strong>โรงเรียนประจำของรัฐ:</strong> นักเรียนมักจะได้รับเข้าเรียนที่ Russell Group และมหาวิทยาลัยอื่นๆ ที่มีชื่อเสียงในสหราชอาณาจักร แม้ว่าสถิติอาจไม่เท่ากับโรงเรียนเอกชนชั้นนำ แต่การสนับสนุนการสมัครเข้ามหาวิทยาลัยก็ทุ่มเทและมีประสิทธิภาพ โดยมักจะมีค่าใช้จ่ายที่น้อยกว่ามาก</p>
+
+            <h3>Application Process | ขั้นตอนการสมัคร</h3>
+            <p><strong>Private Boarding:</strong> Highly competitive, often requiring entrance exams, interviews, and strong academic records from primary years. Early application is crucial.</p>
+            <p><strong>โรงเรียนประจำเอกชน:</strong> มีการแข่งขันสูง มักจะต้องสอบเข้า สัมภาษณ์ และมีผลการเรียนที่ดีตั้งแต่ระดับประถม การสมัครล่วงหน้าเป็นสิ่งสำคัญ</p>
+            <p><strong>State Boarding:</strong> Generally less competitive than top private schools. Applications often involve academic assessments, interviews, and demonstrating suitability for boarding. Requires UK residency/visa status for study.</p>
+            <p><strong>โรงเรียนประจำของรัฐ:</strong> โดยทั่วไปแล้วการแข่งขันน้อยกว่าโรงเรียนเอกชนชั้นนำ การสมัครมักจะเกี่ยวข้องกับการประเมินทางวิชาการ การสัมภาษณ์ และการแสดงความเหมาะสมในการเป็นนักเรียนประจำ ต้องมีสถานะผู้พำนักในสหราชอาณาจักร/วีซ่าสำหรับการศึกษา</p>
+
+            <h3>What Thai Families Get for the Price Difference | สิ่งที่ครอบครัวชาวไทยได้รับจากความแตกต่างของราคา</h3>
+            <p>The choice between private and state boarding is increasingly a value-for-money decision:</p>
+            <p>การเลือกระหว่างโรงเรียนประจำเอกชนและรัฐบาลกลายเป็นการตัดสินใจที่เน้นความคุ้มค่ามากขึ้น:</p>
+            <ul>
+                <li><strong>Private:</strong> Access to elite networks, unparalleled facilities, highly individualized attention, and a strong push towards top-tier global universities. The higher price (now with VAT) reflects this premium experience.</li>
+                <li><strong>เอกชน:</strong> การเข้าถึงเครือข่ายชั้นนำ สิ่งอำนวยความสะดวกที่ไม่มีใครเทียบได้ การดูแลเอาใจใส่เป็นรายบุคคลอย่างสูง และการผลักดันอย่างแข็งแกร่งสู่มหาวิทยาลัยชั้นนำระดับโลก ราคาที่สูงขึ้น (พร้อม VAT) สะท้อนถึงประสบการณ์ระดับพรีเมียมนี้</li>
+                <li><strong>State:</strong> A high-quality UK education and boarding experience at a significantly lower cost. Excellent preparation for UK universities, a diverse and inclusive environment, and strong pastoral care, all without the added VAT burden.</li>
+                <li><strong>รัฐบาล:</strong> การศึกษาและประสบการณ์โรงเรียนประจำในสหราชอาณาจักรที่มีคุณภาพสูงด้วยค่าใช้จ่ายที่ต่ำกว่ามาก การเตรียมตัวที่ดีเยี่ยมสำหรับมหาวิทยาลัยในสหราชอาณาจักร สภาพแวดล้อมที่หลากหลายและครอบคลุม และการดูแลเอาใจใส่ที่ดีเยี่ยม ทั้งหมดนี้โดยไม่มีภาระภาษี VAT เพิ่มเติม</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Approved UK Boarding Schools | โรงเรียนประจำในสหราชอาณาจักรที่ได้รับการรับรอง</h2>
+            <p>These are some of the highly regarded private boarding schools in the UK that LINKEDU works with. For state boarding options, please consult with us directly.</p>
+            <p>นี่คือโรงเรียนประจำเอกชนในสหราชอาณาจักรที่ได้รับการยอมรับซึ่ง LINKEDU ทำงานด้วย สำหรับทางเลือกโรงเรียนประจำของรัฐ โปรดปรึกษาเราโดยตรง</p>
+            <div class="school-grid" id="schoolList">
+                <!-- School cards will be populated by JS -->
+            </div>
+            <div class="cta-box">
+                <p class="line-id">LINE: satitlinkedu</p>
+                <p>ปรึกษาฟรี (Free Consultation)</p>
+                <p>วางแผนการศึกษาต่อ UK | Plan Your UK Education</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+        <p>Website: <a href="https://th.linkedu.hk" target="_blank" rel="noopener noreferrer">th.linkedu.hk</a> | LINE: <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">satitlinkedu</a></p>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45;
+        const VAT_RATE = 0.20; // 20%
+
+        const privateSchools = [
+            { name: "Abbotsholme", feeGBP: 36000 },
+            { name: "Ardingly", feeGBP: 42000 },
+            { name: "Brighton College", feeGBP: 50000 },
+            { name: "Bromsgrove", feeGBP: 41000 },
+            { name: "Bryanston", feeGBP: 47000 },
+            { name: "Cardiff Sixth Form", feeGBP: 55000 },
+            { name: "Caterham", feeGBP: 43000 },
+            { name: "Charterhouse", feeGBP: 48000 },
+            { name: "Clifton", feeGBP: 40000 },
+            { name: "Concord", feeGBP: 45000 },
+            { name: "D Overbroeks", feeGBP: 44000 },
+            { name: "Dulwich", feeGBP: 46000 },
+            { name: "Epsom", feeGBP: 42000 },
+            { name: "Eton", feeGBP: 49000 },
+            { name: "Harrow", feeGBP: 48000 },
+            { name: "Lancing", feeGBP: 40000 },
+            { name: "Loretto", feeGBP: 38000 },
+            { name: "Millfield", feeGBP: 45000 },
+            { name: "Oakham", feeGBP: 39000 },
+            { name: "Oundle", feeGBP: 46000 },
+            { name: "Oxford International", feeGBP: 40000 },
+            { name: "Queen Ethelburgas", feeGBP: 52000 },
+            { name: "Repton", feeGBP: 43000 },
+            { name: "Roedean", feeGBP: 47000 },
+            { name: "Rossall", feeGBP: 37000 },
+            { name: "Royal Russell", feeGBP: 39000 },
+            { name: "Sedbergh", feeGBP: 41000 },
+            { name: "Sevenoaks", feeGBP: 49000 },
+            { name: "Shrewsbury", feeGBP: 45000 },
+            { name: "Sidcot", feeGBP: 35000 },
+            { name: "St Leonards", feeGBP: 36000 },
+            { name: "The Leys", feeGBP: 41000 },
+            { name: "NMSC", feeGBP: 54000 }, /* Northwood Schools Maths & Science College */
+            { name: "Tonbridge", feeGBP: 48000 },
+            { name: "Uppingham", feeGBP: 46000 },
+            { name: "Wells Cathedral", feeGBP: 38000 }
+        ];
+
+        const privateSchoolSelect = document.getElementById('privateSchool');
+        const customFeeInput = document.getElementById('customFee');
+        const stateFeeInput = document.getElementById('stateFee');
+        const privateSchoolSelectionGroup = document.getElementById('privateSchoolSelectionGroup');
+        const customFeeGroup = document.getElementById('customFeeGroup');
+        const stateFeeGroup = document.getElementById('stateFeeGroup');
+        const calculatorResults = document.getElementById('calculatorResults');
+
+        function formatCurrency(amount, currency = 'GBP') {
+            if (currency === 'GBP') {
+                return `GBP ${amount.toLocaleString('en-UK', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            } else if (currency === 'THB') {
+                return `THB ${amount.toLocaleString('th-TH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            }
+            return amount;
+        }
+
+        function populatePrivateSchools() {
+            privateSchoolSelect.innerHTML = '<option value="custom">Custom Fee / กำหนดเอง</option>';
+            privateSchools.sort((a, b) => a.name.localeCompare(b.name)).forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.feeGBP;
+                option.textContent = `${school.name} (Est. ${formatCurrency(school.feeGBP)}/yr)`;
+                privateSchoolSelect.appendChild(option);
+            });
+            privateSchoolSelect.value = privateSchools[0].feeGBP; // Set a default selected value
+        }
+
+        function toggleFeeInputs() {
+            const schoolType = document.querySelector('input[name="schoolType"]:checked').value;
+            if (schoolType === 'private') {
+                privateSchoolSelectionGroup.style.display = 'block';
+                stateFeeGroup.style.display = 'none';
+                if (privateSchoolSelect.value === 'custom') {
+                    customFeeGroup.style.display = 'block';
+                } else {
+                    customFeeGroup.style.display = 'none';
+                }
+            } else { // state
+                privateSchoolSelectionGroup.style.display = 'none';
+                customFeeGroup.style.display = 'none';
+                stateFeeGroup.style.display = 'block';
+            }
+        }
+
+        function calculateVATImpact() {
+            const schoolType = document.querySelector('input[name="schoolType"]:checked').value;
+            const years = parseInt(document.getElementById('years').value);
+
+            if (isNaN(years) || years < 1) {
+                alert('Please enter a valid number of years.');
+                return;
+            }
+
+            let privateFeeGBP_yearly = 0;
+            let stateFeeGBP_yearly = 0;
+
+            if (schoolType === 'private') {
+                if (privateSchoolSelect.value === 'custom') {
+                    privateFeeGBP_yearly = parseFloat(customFeeInput.value);
+                } else {
+                    privateFeeGBP_yearly = parseFloat(privateSchoolSelect.value);
+                }
+                stateFeeGBP_yearly = parseFloat(stateFeeInput.value); // Use default/user input for state if comparing
+            } else { // state
+                stateFeeGBP_yearly = parseFloat(stateFeeInput.value);
+                // For comparison, let's use an average private school fee if "State" is selected as primary
+                privateFeeGBP_yearly = privateSchools.reduce((sum, school) => sum + school.feeGBP, 0) / privateSchools.length;
+            }
+
+            if (isNaN(privateFeeGBP_yearly) || isNaN(stateFeeGBP_yearly)) {
+                alert('Please ensure all fee inputs are valid numbers.');
+                return;
+            }
+
+            const privateFeeWithVAT_yearly = privateFeeGBP_yearly * (1 + VAT_RATE);
+            const totalPrivateCostGBP = privateFeeWithVAT_yearly * years;
+            const totalPrivateCostTHB = totalPrivateCostGBP * GBP_TO_THB_RATE;
+
+            const totalStateCostGBP = stateFeeGBP_yearly * years; // State boarding is VAT exempt
+            const totalStateCostTHB = totalStateCostGBP * GBP_TO_THB_RATE;
+
+            let differenceGBP = totalPrivateCostGBP - totalStateCostGBP;
+            let differenceTHB = totalPrivateCostTHB - totalStateCostTHB;
+
+            let comparisonText = '';
+            if (schoolType === 'private') {
+                comparisonText = `
+                    <p><strong>Private Boarding (Selected):</strong></p>
+                    <p>Fee (ex. VAT): ${formatCurrency(privateFeeGBP_yearly)}/yr</p>
+                    <p>Fee (inc. VAT): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
+                    <p>Total Private Cost (inc. VAT): <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
+                    <hr style="border-color:var(--border-color); margin: 1.5rem 0;">
+                    <p><strong>State Boarding (Comparison):</strong></p>
+                    <p>Fee (VAT exempt): ${formatCurrency(stateFeeGBP_yearly)}/yr</p>
+                    <p>Total State Cost (VAT exempt): <strong>${formatCurrency(totalStateCostGBP)}</strong> | <strong>${formatCurrency(totalStateCostTHB, 'THB')}</strong></p>
+                    <p class="total-difference">Cost Difference: <strong>${formatCurrency(differenceGBP)}</strong> | <strong>${formatCurrency(differenceTHB, 'THB')}</strong></p>
+                `;
+            } else { // schoolType === 'state'
+                comparisonText = `
+                    <p><strong>State Boarding (Selected):</strong></p>
+                    <p>Fee (VAT exempt): ${formatCurrency(stateFeeGBP_yearly)}/yr</p>
+                    <p>Total State Cost (VAT exempt): <strong>${formatCurrency(totalStateCostGBP)}</strong> | <strong>${formatCurrency(totalStateCostTHB, 'THB')}</strong></p>
+                    <hr style="border-color:var(--border-color); margin: 1.5rem 0;">
+                    <p><strong>Private Boarding (Average Comparison):</strong></p>
+                    <p>Fee (ex. VAT): ${formatCurrency(privateFeeGBP_yearly)}/yr</p>
+                    <p>Fee (inc. VAT): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
+                    <p>Total Private Cost (inc. VAT): <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
+                    <p class="total-difference">Cost Difference: <strong>${formatCurrency(differenceGBP * -1)}</strong> | <strong>${formatCurrency(differenceTHB * -1, 'THB')}</strong></p>
+                `;
+            }
+
+            calculatorResults.innerHTML = `
+                <h3>Calculation Results | ผลการคำนวณ</h3>
+                <p><strong>Years | จำนวนปี:</strong> ${years}</p>
+                ${comparisonText}
+                <small style="display:block; margin-top:1rem; color:#aaa;">(Exchange Rate: 1 GBP = ${GBP_TO_THB_RATE} THB)</small>
+                <small style="display:block; margin-top:0.5rem; color:#aaa;">(Private fees include 20% VAT from Jan 2025. State fees are VAT exempt.)</small>
+            `;
+        }
+
+        function populateSchoolCards() {
+            const schoolListDiv = document.getElementById('schoolList');
+            schoolListDiv.innerHTML = ''; // Clear existing content
+            privateSchools.sort((a, b) => a.name.localeCompare(b.name)).forEach(school => {
+                const card = document.createElement('div');
+                card.classList.add('school-card');
+                card.innerHTML = `
+                    <h4>${school.name}</h4>
+                    <p class="fee">Est. Fee (ex. VAT): ${formatCurrency(school.feeGBP)}/yr</p>
+                    <p class="fee">ค่าใช้จ่ายโดยประมาณ (ไม่รวม VAT): ${formatCurrency(school.feeGBP * GBP_TO_THB_RATE, 'THB')}/ปี</p>
+                `;
+                schoolListDiv.appendChild(card);
+            });
+        }
+
+        // Event Listeners
+        document.querySelectorAll('input[name="schoolType"]').forEach(radio => {
+            radio.addEventListener('change', toggleFeeInputs);
+        });
+
+        privateSchoolSelect.addEventListener('change', () => {
+            if (privateSchoolSelect.value === 'custom') {
+                customFeeGroup.style.display = 'block';
+            } else {
+                customFeeGroup.style.display = 'none';
+            }
+        });
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            populatePrivateSchools();
+            populateSchoolCards();
+            toggleFeeInputs(); // Set initial visibility based on default radio selection
+            calculateVATImpact(); // Run initial calculation
+        });
+    </script>
+
+</body>
+</html>

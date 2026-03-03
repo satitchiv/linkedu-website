@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU | เครื่องมือประเมินความเหมาะสมกับวัฒนธรรมโรงเรียนประจำในสหราชอาณาจักร</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset & Body Styles */
+        :root {
+            --dark: #1a1a1a;
+            --cream: #f5f0e8;
+            --gold: #B8962E;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f0e8;
+            --border-light: rgba(0,0,0,0.08);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: var(--cream);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 0.8em;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Language System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Header */
+        .header {
+            background-color: var(--dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+        .logo-wrap .st0 { fill: var(--text-light); } /* Ensure logo is white on dark */
+        .logo-wrap span {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--text-light);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .nav-language-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .lang-toggle button {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            margin-left: 5px;
+        }
+
+        .lang-toggle button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .lang-toggle button:hover:not(.active) {
+            background-color: rgba(184, 150, 46, 0.1); /* Light gold hover */
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h1 {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: rgba(245, 240, 232, 0.8);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-family: var(--font-body);
+        }
+
+        .btn-primary:hover {
+            background-color: #a38529; /* Slightly darker gold */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-family: var(--font-body);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(184, 150, 46, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            display: inline-block;
+            width: 30px; /* Adjust as needed */
+            height: 1px;
+            background-color: var(--gold);
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--cream);
+            padding: 80px 0;
+        }
+
+        .content-section.dark-bg {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        .content-section.dark-bg h2,
+        .content-section.dark-bg h3,
+        .content-section.dark-bg h4 {
+            color: var(--text-light);
+        }
+        .content-section.dark-bg .section-label {
+            color: var(--gold);
+        }
+        .content-section.dark-bg .section-label::before,
+        .content-section.dark-bg .section-label::after {
+            background-color: var(--gold);
+        }
+
+        .card {
+            background-color: #fff; /* White for cards */
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-subtle);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Quiz Specific Styles */
+        .quiz-section {
+            background-color: var(--cream);
+            padding: 80px 0;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-subtle);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 20px;
+        }
+
+        .quiz-options label {
+            display: block;
+            background-color: var(--cream);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-options label:hover {
+            background-color: #f0ebe4; /* Slightly lighter cream */
+            border-color: var(--gold);
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            accent-color: var(--gold); /* Gold radio button */
+        }
+
+        .quiz-options input[type="radio"]:checked + span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .quiz-navigation button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #quiz-results {
+            display: none; /* Hidden by default */
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        #quiz-results h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result-score-box {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-score-box h3 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .result-score-box p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .result-details h4 {
+            color: var(--gold);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .result-details ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        .result-details ul li {
+            background-color: var(--cream);
+            padding: 10px 15px;
+            border-left: 3px solid var(--gold);
+            margin-bottom: 8px;
+            border-radius: 4px;
+            color: var(--text-dark);
+        }
+        .result-details ul li strong {
+            color: var(--dark);
+        }
+
+        .fee-info {
+            background-color: var(--cream);
+            padding: 20px;
+            border-left: 5px solid var(--gold);
+            border-radius: 8px;
+            margin-top: 30px;
+            color: var(--text-dark);
+        }
+        .fee-info p {
+            margin-bottom: 8px;
+        }
+        .fee-info strong {
+            color: var(--dark);
+        }
+
+        /* LINE CTA */
+        .line-cta-section {
+            background-color: var(--dark);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .line-cta-section .line-handle {
+            font-family: var(--font-body);
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .line-cta-section .cta-subtext {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-family: var(--font-heading);
+        }
+        .line-cta-section .btn-primary {
+            min-width: 200px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: rgba(245, 240, 232, 0.7);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .footer a {
+            color: var(--gold);
+        }
+        .footer a:hover {
+            color: var(--text-light);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+
+            .section-padding {
+                padding: 60px 0;
+            }
+            .hero {
+                padding: 80px 0;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .quiz-container {
+                padding: 30px 20px;
+            }
+            .quiz-options label {
+                padding: 12px 15px;
+            }
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .quiz-navigation button {
+                width: 100%;
+            }
+            .line-cta-section .line-handle {
+                font-size: 2rem;
+            }
+            .line-cta-section .cta-subtext {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span class="lang-en">OVERSEAS EDUCATION</span>
+                <span class="lang-th">การศึกษาต่างประเทศ</span>
+            </div>
+            <div class="nav-language-toggle">
+                <div class="lang-toggle">
+                    <button id="lang-th-btn" class="active">TH</button>
+                    <button id="lang-en-btn">EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="lang-th">เครื่องมือประเมินความเหมาะสมกับวัฒนธรรมโรงเรียนประจำในสหราชอาณาจักร</h1>
+                <h1 class="lang-en">UK Boarding School Culture Fit Assessor</h1>
+                <p class="lang-th">ค้นพบว่าบุคลิกภาพ สไตล์การเรียนรู้ และค่านิยมของครอบครัวคุณสอดคล้องกับสภาพแวดล้อมของโรงเรียนประจำในสหราชอาณาจักรได้ดีเพียงใด ด้วยเครื่องมือประเมินเชิงโต้ตอบนี้</p>
+                <p class="lang-en">Discover how well your child's personality, learning style, and family values align with a UK boarding school environment with this interactive assessor.</p>
+                <button class="btn-primary" onclick="document.getElementById('assessor-start').scrollIntoView({ behavior: 'smooth' });">
+                    <span class="lang-th">เริ่มการประเมิน</span>
+                    <span class="lang-en">Start Assessment</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="assessor-start" class="content-section">
+            <div class="container">
+                <span class="section-label lang-th">· คำแนะนำ ·</span>
+                <span class="section-label lang-en">· INSTRUCTIONS ·</span>
+                <h2 class="lang-th">ทำความเข้าใจวัฒนธรรมโรงเรียนประจำในสหราชอาณาจักร</h2>
+                <h2 class="lang-en">Understanding UK Boarding School Culture</h2>
+                <div class="card">
+                    <p class="lang-th">การเลือกโรงเรียนประจำในสหราชอาณาจักรที่เหมาะสมเป็นมากกว่าแค่ผลการเรียน มันคือการค้นหาสภาพแวดล้อมที่ลูกของคุณจะเติบโตและมีความสุข เครื่องมือนี้จะช่วยคุณสำรวจด้านต่างๆ ของวัฒนธรรมโรงเรียน เพื่อให้คุณสามารถตัดสินใจได้อย่างรอบคอบ</p>
+                    <p class="lang-en">Choosing the right UK boarding school is about more than just academic results; it's about finding an environment where your child will thrive and be happy. This tool helps you explore various aspects of school culture, empowering you to make an informed decision.</p>
+                    <h3 class="lang-th">วิธีการใช้งาน:</h3>
+                    <h3 class="lang-en">How it works:</h3>
+                    <ul class="lang-th">
+                        <li>ตอบคำถามเกี่ยวกับสถานการณ์ต่างๆ ที่เกี่ยวข้องกับชีวิตในโรงเรียนประจำ</li>
+                        <li>เลือกตัวเลือกที่ตรงกับบุคลิกภาพ สไตล์การเรียนรู้ และค่านิยมของครอบครัวคุณมากที่สุด</li>
+                        <li>เมื่อเสร็จสิ้น คุณจะได้รับคะแนนความเหมาะสมทางวัฒนธรรมและข้อมูลเชิงลึกเฉพาะบุคคล</li>
+                    </ul>
+                    <ul class="lang-en">
+                        <li>Answer a series of questions about various scenarios related to boarding school life.</li>
+                        <li>Select the option that best reflects your child's personality, learning style, and your family's values.</li>
+                        <li>Upon completion, you'll receive a 'culture fit' score and personalized insights.</li>
+                    </ul>
+                    <p class="lang-th">โปรดทราบว่านี่เป็นเพียงเครื่องมือประเมินเบื้องต้น สำหรับคำแนะนำเฉพาะบุคคลและละเอียดเพิ่มเติม โปรดติดต่อ LINKEDU เพื่อปรึกษาฟรี</p>
+                    <p class="lang-en">Please note this is an initial assessment tool. For personalized and detailed guidance, contact LINKEDU for a free consultation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-section">
+            <div class="container">
+                <span class="section-label lang-th">· เริ่มการประเมิน ·</span>
+                <span class="section-label lang-en">· START ASSESSMENT ·</span>
+                <h2 class="lang-th">คำถามประเมินวัฒนธรรม</h2>
+                <h2 class="lang-en">Culture Assessment Questions</h2>
+
+                <div id="quiz-container" class="quiz-container">
+                    <div id="quiz-question-display">
+                        <!-- Questions will be loaded here by JavaScript -->
+                    </div>
+                    <div class="quiz-navigation">
+                        <button id="prev-btn" class="btn-secondary" disabled>
+                            <span class="lang-th">ก่อนหน้า</span>
+                            <span class="lang-en">Previous</span>
+                        </button>
+                        <button id="next-btn" class="btn-primary">
+                            <span class="lang-th">ถัดไป</span>
+                            <span class="lang-en">Next</span>
+                        </button>
+                        <button id="submit-btn" class="btn-primary" style="display: none;">
+                            <span class="lang-th">ดูผลลัพธ์</span>
+                            <span class="lang-en">View Results</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-results" class="quiz-container">
+                    <span class="section-label lang-th">· ผลการประเมิน ·</span>
+                    <span class="section-label lang-en">· ASSESSMENT RESULTS ·</span>
+                    <h2 class="lang-th">ผลลัพธ์ความเหมาะสมกับวัฒนธรรมโรงเรียน</h2>
+                    <h2 class="lang-en">School Culture Fit Results</h2>
+
+                    <div class="result-score-box">
+                        <p class="lang-th">คะแนนความเหมาะสมโดยรวม:</p>
+                        <p class="lang-en">Overall Culture Fit Score:</p>
+                        <h3 id="fit-score">--%</h3>
+                        <p id="score-interpretation"></p>
+                    </div>
+
+                    <div class="result-details">
+                        <h4 class="lang-th">จุดแข็งและจุดที่ต้องพิจารณา:</h4>
+                        <h4 class="lang-en">Areas of Alignment & Consideration:</h4>
+                        <ul id="alignment-areas"></ul>
+
+                        <h4 class="lang-th">ประเภทโรงเรียนที่อาจเหมาะสม:</h4>
+                        <h4 class="lang-en">Potential School Profiles:</h4>
+                        <ul id="school-profiles"></ul>
+
+                        <div class="fee-info">
+                            <p class="lang-th"><strong>หมายเหตุเกี่ยวกับค่าเล่าเรียน:</strong> ค่าเล่าเรียนเฉลี่ยสำหรับโรงเรียนประจำเอกชนในสหราชอาณาจักรอยู่ระหว่าง <strong>£12,000 - £17,000 (540,000 - 765,000 บาท) ต่อเทอม</strong> หรือ <strong>£36,000 - £51,000 (1,620,000 - 2,295,000 บาท) ต่อปี</strong></p>
+                            <p class="lang-en"><strong>Note on School Fees:</strong> Average boarding fees for private UK boarding schools range from <strong>£12,000 - £17,000 (THB 540,000 - 765,000) per term</strong> or <strong>£36,000 - £51,000 (THB 1,620,000 - 2,295,000) per year</strong>.</p>
+                            <p class="lang-th"><strong>ภาษีมูลค่าเพิ่ม (VAT):</strong> ตั้งแต่เดือนมกราคม 2025 เป็นต้นไป ค่าเล่าเรียนของโรงเรียนเอกชนจะมีภาษีมูลค่าเพิ่ม 20% เพิ่มเติม โรงเรียนประจำของรัฐ (State boarding schools) ได้รับการยกเว้น VAT โดยมีค่าเล่าเรียนประมาณ £10,000 - £19,000 (450,000 - 855,000 บาท) ต่อปี</p>
+                            <p class="lang-en"><strong>Value Added Tax (VAT):</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from £10,000 - £19,000 (THB 450,000 - 855,000) per year.</p>
+                            <p class="lang-th"><strong>ตัวอย่างโรงเรียน (ค่าเล่าเรียนต่อปีโดยประมาณ):</strong></p>
+                            <p class="lang-en"><strong>Example Schools (Approx. Annual Boarding Fees):</strong></p>
+                            <ul style="list-style:disc; margin-left: 20px; margin-top: 10px;">
+                                <li class="lang-th">โรงเรียนอย่าง <strong>Brighton College</strong> หรือ <strong>Sevenoaks</strong> มักจะมีค่าเล่าเรียนประมาณ <strong>£48,000 - £55,000 (2,160,000 - 2,475,000 บาท)</strong> ต่อปี (ก่อน VAT)</li>
+                                <li class="lang-en">Schools like <strong>Brighton College</strong> or <strong>Sevenoaks</strong> typically have fees around <strong>£48,000 - £55,000 (THB 2,160,000 - 2,475,000)</strong> per year (pre-VAT).</li>
+                                <li class="lang-th">โรงเรียนที่มีชื่อเสียงระดับโลกอย่าง <strong>Eton</strong> หรือ <strong>Harrow</strong> อาจมีค่าเล่าเรียนสูงถึง <strong>£50,000 - £60,000 (2,250,000 - 2,700,000 บาท)</strong> ต่อปี (ก่อน VAT)</li>
+                                <li class="lang-en">World-renowned schools like <strong>Eton</strong> or <strong>Harrow</strong> can have fees up to <strong>£50,000 - £60,000 (THB 2,250,000 - 2,700,000)</strong> per year (pre-VAT).</li>
+                                <li class="lang-th">โรงเรียนเช่น <strong>Bromsgrove</strong> หรือ <strong>Oakham</strong> มีค่าเล่าเรียนประมาณ <strong>£38,000 - £45,000 (1,710,000 - 2,025,000 บาท)</strong> ต่อปี (ก่อน VAT)</li>
+                                <li class="lang-en">Schools such as <strong>Bromsgrove</strong> or <strong>Oakham</strong> have fees around <strong>£38,000 - £45,000 (THB 1,710,000 - 2,025,000)</strong> per year (pre-VAT).</li>
+                            </ul>
+                            <p class="lang-th">ค่าเล่าเรียนเหล่านี้เป็นค่าประมาณและอาจแตกต่างกันไปตามโรงเรียนและปีการศึกษา สำหรับข้อมูลที่แม่นยำที่สุด โปรดตรวจสอบกับโรงเรียนโดยตรงหรือปรึกษา LINKEDU</p>
+                            <p class="lang-en">These fees are approximate and can vary significantly by school and academic year. For the most accurate information, please check directly with the school or consult LINKEDU.</p>
+                        </div>
+                    </div>
+
+                    <!-- LINE CTA after results -->
+                    <div class="line-cta-section" style="background-color: var(--dark); margin-top: 40px; padding: 40px 0;">
+                        <span class="line-handle">LINE: satitlinkedu</span>
+                        <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
+                        <p class="cta-subtext lang-en">Free Consultation</p>
+                        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary">
+                            <span class="lang-th">เพิ่ม LINE</span>
+                            <span class="lang-en">Add LINE</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final LINE CTA Section -->
+        <section class="line-cta-section">
+            <div class="container">
+                <span class="section-label lang-th">· ติดต่อเรา ·</span>
+                <span class="section-label lang-en">· CONTACT US ·</span>
+                <span class="line-handle">LINE: satitlinkedu</span>
+                <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
+                <p class="cta-subtext lang-en">Free Consultation</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary">
+                    <span class="lang-th">เพิ่ม LINE</span>
+                    <span class="lang-en">Add LINE</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="lang-th">&copy; 2024 LINKEDU. สงวนลิขสิทธิ์. <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p class="lang-en">&copy; 2024 LINKEDU. All rights reserved. <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45;
+        const APPROVED_SCHOOLS = [
+            "Abbotsholme", "Ardingly", "Brighton College", "Bromsgrove", "Bryanston", "Cardiff Sixth Form", "Caterham", "Charterhouse", "Clifton", "Concord", "D Overbroeks", "Dulwich", "Epsom", "Eton", "Harrow", "Lancing", "Loretto", "Millfield", "Oakham", "Oundle", "Oxford International", "Queen Ethelburgas", "Repton", "Roedean", "Rossall", "Royal Russell", "Sedbergh", "Sevenoaks", "Shrewsbury", "Sidcot", "St Leonards", "The Leys", "NMSC", "Tonbridge", "Uppingham", "Wells Cathedral"
+        ];
+
+        const questions = [
+            {
+                id: 'q1',
+                category: 'daily_routine',
+                question_th: 'ลูกของคุณชอบกิจวัตรประจำวันที่กำหนดไว้อย่างชัดเจนและมีโครงสร้าง หรือชอบความยืดหยุ่นและอิสระในการจัดการเวลาของตัวเองมากกว่า?',
+                question_en: 'Does your child prefer a clearly defined and structured daily routine, or do they thrive with more flexibility and independence in managing their time?',
+                options: [
+                    { value: 'structured', text_th: 'ชอบกิจวัตรที่มีโครงสร้างและตารางเวลาที่ชัดเจน', text_en: 'Prefers structured routines and clear timetables.', scores: { structure: 3, independence: 0, support: 2 } },
+                    { value: 'balanced', text_th: 'ชอบความสมดุลระหว่างโครงสร้างและความยืดหยุ่น', text_en: 'Enjoys a balance of structure and some flexibility.', scores: { structure: 1, independence: 1, support: 1 } },
+                    { value: 'flexible', text_th: 'ชอบอิสระในการจัดการเวลาและกิจวัตรของตัวเอง', text_en: 'Prefers freedom to manage their own time and routine.', scores: { structure: 0, independence: 3, support: 0 } }
+                ]
+            },
+            {
+                id: 'q2',
+                category: 'social_dynamics',
+                question_th: 'เมื่อเผชิญกับสภาพแวดล้อมทางสังคมใหม่ๆ ลูกของคุณมักจะเป็นอย่างไร?',
+                question_en: 'When faced with new social environments, how does your child typically react?',
+                options: [
+                    { value: 'introverted', text_th: 'ชอบใช้เวลาอยู่คนเดียวหรือกับเพื่อนสนิทไม่กี่คน', text_en: 'Prefers spending time alone or with a small, close-knit group of friends.', scores: { social: 0, community: 1, independence: 2 } },
+                    { value: 'adaptable', text_th: 'ปรับตัวเข้ากับกลุ่มต่างๆ ได้ดี แต่ก็ยังต้องการเวลาส่วนตัว', text_en: 'Adapts well to various groups but still values personal space.', scores: { social: 1, community: 2, independence: 1 } },
+                    { value: 'extroverted', text_th: 'กระตือรือร้นที่จะพบปะผู้คนใหม่ๆ และเข้าร่วมกิจกรรมทางสังคม', text_en: 'Eager to meet new people and participate in social activities.', scores: { social: 3, community: 3, independence: 0 } }
+                ]
+            },
+            {
+                id: 'q3',
+                category: 'academic_environment',
+                question_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดในสภาพแวดล้อมแบบใด?',
+                question_en: 'What kind of academic environment does your child learn best in?',
+                options: [
+                    { value: 'competitive', text_th: 'สภาพแวดล้อมที่ท้าทายและมีการแข่งขันสูง เพื่อผลักดันให้ดีที่สุด', text_en: 'A challenging, competitive environment that pushes them to excel.', scores: { academics: 3, support: 0, independence: 1 } },
+                    { value: 'collaborative', text_th: 'สภาพแวดล้อมที่เน้นการทำงานร่วมกันและการสนับสนุนซึ่งกันและกัน', text_en: 'A collaborative environment with a strong emphasis on mutual support.', scores: { academics: 1, support: 2, community: 2 } },
+                    { value: 'independent', text_th: 'สภาพแวดล้อมที่ให้อิสระในการสำรวจความสนใจของตัวเอง ด้วยการสนับสนุนเมื่อจำเป็น', text_en: 'An environment that offers independence to explore interests, with support when needed.', scores: { academics: 2, support: 1, independence: 3 } }
+                ]
+            },
+            {
+                id: 'q4',
+                category: 'extracurricular_emphasis',
+                question_th: 'ลูกของคุณให้ความสำคัญกับกิจกรรมนอกหลักสูตรประเภทใดมากที่สุด?',
+                question_en: 'What type of extracurricular activities does your child value most?',
+                options: [
+                    { value: 'sports', text_th: 'กีฬาและการแข่งขัน เพื่อพัฒนาความแข็งแกร่งทางกายและจิตใจ', text_en: 'Sports and competitive activities to build physical and mental resilience.', scores: { co_curricular: 3, community: 1 } },
+                    { value: 'arts', text_th: 'ศิลปะ ดนตรี การแสดง เพื่อแสดงออกถึงความคิดสร้างสรรค์', text_en: 'Arts, music, drama for creative expression.', scores: { co_curricular: 2, independence: 1 } },
+                    { value: 'clubs', text_th: 'ชมรมและกิจกรรมทางวิชาการ เพื่อสำรวจความสนใจเชิงลึก', text_en: 'Clubs and academic societies for in-depth interest exploration.', scores: { co_curricular: 2, academics: 1 } },
+                    { value: 'diverse', text_th: 'กิจกรรมที่หลากหลาย เพื่อพัฒนาทักษะรอบด้าน', text_en: 'A wide range of activities to develop well-rounded skills.', scores: { co_curricular: 2, community: 1, academics: 1 } }
+                ]
+            },
+            {
+                id: 'q5',
+                category: 'disciplinary_approach',
+                question_th: 'เมื่อมีปัญหาเรื่องวินัยหรือการทำผิดกฎ ลูกของคุณตอบสนองต่อแนวทางใดได้ดีที่สุด?',
+                question_en: 'When facing disciplinary issues or rule-breaking, which approach does your child respond best to?',
+                options: [
+                    { value: 'strict', text_th: 'กฎระเบียบที่ชัดเจนและการบังคับใช้ที่เข้มงวด', text_en: 'Clear rules and strict, consistent enforcement.', scores: { discipline: 3, structure: 2 } },
+                    { value: 'restorative', text_th: 'การพูดคุยทำความเข้าใจถึงสาเหตุและผลที่ตามมา เพื่อเรียนรู้จากความผิดพลาด', text_en: 'Discussions to understand causes and consequences, learning from mistakes.', scores: { discipline: 1, support: 2, independence: 1 } },
+                    { value: 'guidance', text_th: 'คำแนะนำและการสนับสนุน เพื่อช่วยในการตัดสินใจที่ดีขึ้นในอนาคต', text_en: 'Guidance and support to help make better choices in the future.', scores: { discipline: 0, support: 3, independence: 2 } }
+                ]
+            },
+            {
+                id: 'q6',
+                category: 'family_values',
+                question_th: 'ครอบครัวของคุณให้ความสำคัญกับสิ่งใดมากที่สุดในสภาพแวดล้อมของโรงเรียน?',
+                question_en: 'What does your family value most in a school environment?',
+                options: [
+                    { value: 'tradition', text_th: 'ประเพณีอันยาวนานและชื่อเสียงทางวิชาการที่แข็งแกร่ง', text_en: 'Strong traditions and a robust academic reputation.', scores: { academics: 2, structure: 2, community: 1 } },
+                    { value: 'innovation', text_th: 'นวัตกรรม การคิดเชิงวิพากษ์ และการเตรียมพร้อมสำหรับอนาคต', text_en: 'Innovation, critical thinking, and future-readiness.', scores: { academics: 3, independence: 2 } },
+                    { value: 'wellbeing', text_th: 'ความเป็นอยู่ที่ดีของนักเรียน การดูแลเอาใจใส่ และสภาพแวดล้อมที่อบอุ่น', text_en: 'Student well-being, pastoral care, and a nurturing environment.', scores: { support: 3, community: 2 } }
+                ]
+            },
+            {
+                id: 'q7',
+                category: 'learning_style',
+                question_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดเมื่อมีปฏิสัมพันธ์กับครูและเพื่อนร่วมชั้นอย่างไร?',
+                question_en: 'How does your child best engage with teachers and classmates for learning?',
+                options: [
+                    { value: 'independent_study', text_th: 'ชอบการศึกษาด้วยตนเอง การอ่าน และการทำโปรเจกต์เดี่ยว', text_en: 'Prefers independent study, reading, and individual projects.', scores: { academics: 2, independence: 3, social: 0 } },
+                    { value: 'interactive_discussion', text_th: 'ชอบการอภิปรายในชั้นเรียน การถามคำถาม และการทำงานกลุ่มเล็กๆ', text_en: 'Enjoys classroom discussions, asking questions, and small group work.', scores: { academics: 2, social: 2, community: 1 } },
+                    { value: 'direct_instruction', text_th: 'ชอบการสอนแบบตรงไปตรงมา คำแนะนำที่ชัดเจน และโครงสร้างที่มั่นคง', text_en: 'Thrives with direct instruction, clear guidance, and solid structure.', scores: { academics: 1, structure: 2, support: 1 } }
+                ]
+            },
+            {
+                id: 'q8',
+                category: 'environment_preference',
+                question_th: 'ลูกของคุณมีความสุขกับสภาพแวดล้อมแบบใดมากที่สุด?',
+                question_en: 'What type of environment does your child thrive in the most?',
+                options: [
+                    { value: 'bustling_city', text_th: 'เมืองที่พลุกพล่าน พร้อมโอกาสทางวัฒนธรรมมากมาย', text_en: 'A bustling city, with many cultural opportunities.', scores: { social: 2, independence: 1, co_curricular: 1 } },
+                    { value: 'countryside_peace', text_th: 'ชนบทที่เงียบสงบ พร้อมพื้นที่เปิดโล่งและธรรมชาติ', text_en: 'Peaceful countryside, with open spaces and nature.', scores: { support: 2, independence: 2, structure: 1 } },
+                    { value: 'town_community', text_th: 'เมืองเล็กๆ ที่มีชุมชนเข้มแข็งและรู้สึกเป็นส่วนหนึ่ง', text_en: 'A small town with a strong sense of community and belonging.', scores: { social: 2, community: 3, support: 2 } }
+                ]
+            },
+            {
+                id: 'q9',
+                category: 'pastoral_care',
+                question_th: 'หากลูกของคุณรู้สึกไม่สบายใจหรือมีปัญหา พวกเขาต้องการการสนับสนุนแบบไหนจากโรงเรียน?',
+                question_en: 'If your child is feeling unwell or struggling, what kind of support would they ideally seek from the school?',
+                options: [
+                    { value: 'independent_coping', text_th: 'จัดการด้วยตัวเองเป็นหลัก อาจปรึกษาครูหรือพี่เลี้ยงเมื่อจำเป็น', text_en: 'Primarily handles it themselves, perhaps consulting a teacher or houseparent when necessary.', scores: { independence: 3, support: 0 } },
+                    { value: 'structured_support', text_th: 'ระบบการดูแลที่ชัดเจน มีผู้ใหญ่คอยให้คำแนะนำและช่วยเหลืออย่างสม่ำเสมอ', text_en: 'A clear pastoral system with consistent adult guidance and support.', scores: { support: 3, structure: 2 } },
+                    { value: 'peer_support', text_th: 'พึ่งพาเพื่อนและระบบพี่เลี้ยงนักเรียนเป็นหลัก', text_en: 'Relies mostly on friends and a student mentoring system.', scores: { social: 2, independence: 1 } }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const userAnswers = {};
+        const scoreDimensions = {
+            structure: 0,       // Prefers routine, clear rules
+            independence: 0,    // Prefers flexibility, self-management
+            social: 0,          // Enjoys meeting people, group activities
+            community: 0,       // Values belonging, mutual support
+            academics: 0,       // Focus on learning, academic rigor
+            co_curricular: 0,   // Emphasis on non-academic activities
+            support: 0,         // Needs nurturing, guidance, pastoral care
+            discipline: 0       // Responds to strict rules vs. restorative
+        };
+
+        const maxScores = {
+            structure: 0,
+            independence: 0,
+            social: 0,
+            community: 0,
+            academics: 0,
+            co_curricular: 0,
+            support: 0,
+            discipline: 0
+        };
+
+        // Calculate max possible scores for normalization
+        questions.forEach(q => {
+            q.options.forEach(option => {
+                for (const dim in option.scores) {
+                    maxScores[dim] += Math.max(0, option.scores[dim]);
+                }
+            });
+        });
+
+        const quizQuestionDisplay = document.getElementById('quiz-question-display');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResults = document.getElementById('quiz-results');
+        const fitScoreDisplay = document.getElementById('fit-score');
+        const scoreInterpretationDisplay = document.getElementById('score-interpretation');
+        const alignmentAreasList = document.getElementById('alignment-areas');
+        const schoolProfilesList = document.getElementById('school-profiles');
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            const lang = document.documentElement.lang;
+
+            let optionsHtml = question.options.map(option => `
+                <label>
+                    <input type="radio" name="q${question.id}" value="${option.value}" ${userAnswers[question.id] === option.value ? 'checked' : ''}>
+                    <span class="lang-th">${option.text_th}</span>
+                    <span class="lang-en">${option.text_en}</span>
+                </label>
+            `).join('');
+
+            quizQuestionDisplay.innerHTML = `
+                <div class="quiz-question">
+                    <h3 class="lang-th">${currentQuestionIndex + 1}. ${question.question_th}</h3>
+                    <h3 class="lang-en">${currentQuestionIndex + 1}. ${question.question_en}</h3>
+                    <div class="quiz-options">${optionsHtml}</div>
+                </div>
+            `;
+
+            document.querySelectorAll(`input[name="q${question.id}"]`).forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    userAnswers[question.id] = event.target.value;
+                    updateNavigationButtons();
+                });
+            });
+
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            submitBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // Enable Next/Submit only if an answer is selected for the current question
+            const currentQuestionId = questions[currentQuestionIndex].id;
+            const hasAnswer = userAnswers[currentQuestionId] !== undefined;
+            nextBtn.disabled = !hasAnswer;
+            submitBtn.disabled = !hasAnswer;
+        }
+
+        function calculateResults() {
+            // Reset scores
+            for (const dim in scoreDimensions) {
+                scoreDimensions[dim] = 0;
+            }
+
+            // Aggregate scores from user answers
+            questions.forEach(q => {
+                const selectedOptionValue = userAnswers[q.id];
+                if (selectedOptionValue) {
+                    const selectedOption = q.options.find(opt => opt.value === selectedOptionValue);
+                    if (selectedOption && selectedOption.scores) {
+                        for (const dim in selectedOption.scores) {
+                            scoreDimensions[dim] += selectedOption.scores[dim];
+                        }
+                    }
+                }
+            });
+
+            // Calculate overall fit score (simple average of dimension percentages)
+            let totalPercentage = 0;
+            let countDimensions = 0;
+            for (const dim in scoreDimensions) {
+                if (maxScores[dim] > 0) { // Avoid division by zero
+                    totalPercentage += (scoreDimensions[dim] / maxScores[dim]) * 100;
+                    countDimensions++;
+                }
+            }
+            const overallFitScore = countDimensions > 0 ? Math.round(totalPercentage / countDimensions) : 0;
+            fitScoreDisplay.textContent = `${overallFitScore}%`;
+
+            let interpretationText_th = '';
+            let interpretationText_en = '';
+            if (overallFitScore >= 80) {
+                interpretationText_th = 'ยอดเยี่ยม! ลูกของคุณมีแนวโน้มที่จะปรับตัวและเติบโตได้ดีในสภาพแวดล้อมของโรงเรียนประจำในสหราชอาณาจักร';
+                interpretationText_en = 'Excellent! Your child is highly likely to adapt and thrive in a UK boarding school environment.';
+            } else if (overallFitScore >= 60) {
+                interpretationText_th = 'ดี! มีความเหมาะสมที่ดี อาจมีบางจุดที่ต้องปรับตัวเล็กน้อย';
+                interpretationText_en = 'Good! A strong fit, with only minor areas requiring adaptation.';
+            } else if (overallFitScore >= 40) {
+                interpretationText_th = 'ปานกลาง มีทั้งจุดที่เหมาะสมและจุดที่ต้องพิจารณาอย่างรอบคอบ';
+                interpretationText_en = 'Moderate. There are both areas of alignment and significant points for careful consideration.';
+            } else {
+                interpretationText_th = 'ต่ำ อาจต้องพิจารณาอย่างละเอียดว่าโรงเรียนประจำเหมาะสมหรือไม่ หรือมองหาโรงเรียนที่มีความยืดหยุ่นสูง';
+                interpretationText_en = 'Low. You may need to carefully reconsider if boarding school is the right fit, or look for highly flexible institutions.';
+            }
+            scoreInterpretationDisplay.innerHTML = `<span class="lang-th">${interpretationText_th}</span><span class="lang-en">${interpretationText_en}</span>`;
+
+            displayDetailedResults();
+        }
+
+        function displayDetailedResults() {
+            alignmentAreasList.innerHTML = '';
+            schoolProfilesList.innerHTML = '';
+            const lang = document.documentElement.lang;
+
+            const insights = {
+                structure: {
+                    high_th: 'ลูกของคุณน่าจะชอบโรงเรียนที่มีโครงสร้างชัดเจน กฎระเบียบเข้มงวด และตารางเวลาที่กำหนดไว้',
+                    high_en: 'Your child likely prefers schools with clear structure, firm rules, and defined timetables.',
+                    low_th: 'ลูกของคุณอาจต้องการโรงเรียนที่มีความยืดหยุ่นสูง ให้อิสระในการจัดการเวลาและกิจวัตรประจำวัน',
+                    low_en: 'Your child might prefer highly flexible schools, offering autonomy in managing time and routines.'
+                },
+                independence: {
+                    high_th: 'ลูกของคุณต้องการอิสระในการสำรวจและจัดการตัวเอง โรงเรียนที่ส่งเสริมการคิดริเริ่มส่วนบุคคลจะเหมาะสม',
+                    high_en: 'Your child thrives on independence and self-management. Schools that foster individual initiative would be a good fit.',
+                    low_th: 'ลูกของคุณอาจต้องการการสนับสนุนและคำแนะนำที่ใกล้ชิด โรงเรียนที่มีการดูแลเอาใจใส่สูงจะเหมาะสมกว่า',
+                    low_en: 'Your child may prefer closer guidance and support. A school with strong pastoral care would be more suitable.'
+                },
+                social: {
+                    high_th: 'ลูกของคุณจะเติบโตได้ดีในสภาพแวดล้อมทางสังคมที่คึกคัก มีกิจกรรมกลุ่มและโอกาสในการพบปะผู้คนมากมาย',
+                    high_en: 'Your child would thrive in a vibrant social environment with many group activities and opportunities to meet people.',
+                    low_th: 'ลูกของคุณอาจต้องการสภาพแวดล้อมที่เงียบสงบกว่า มีพื้นที่ส่วนตัวและกลุ่มเพื่อนที่สนิทสนม',
+                    low_en: 'Your child might prefer a quieter environment, with personal space and a close-knit group of friends.'
+                },
+                community: {
+                    high_th: 'ลูกของคุณให้ความสำคัญกับความรู้สึกเป็นส่วนหนึ่งของชุมชนที่อบอุ่นและให้การสนับสนุน',
+                    high_en: 'Your child values a strong sense of belonging within a nurturing and supportive community.',
+                    low_th: 'ลูกของคุณอาจจะสบายใจกว่าในสภาพแวดล้อมที่เน้นความเป็นปัจเจกบุคคลและอิสระ',
+                    low_en: 'Your child might be more comfortable in an environment that emphasizes individualism and autonomy.'
+                },
+                academics: {
+                    high_th: 'ลูกของคุณมีแรงจูงใจสูงในด้านวิชาการและจะเติบโตได้ดีในโรงเรียนที่มีชื่อเสียงด้านวิชาการที่เข้มแข็ง',
+                    high_en: 'Your child is highly academically motivated and would thrive in a school with a strong academic reputation.',
+                    low_th: 'ลูกของคุณอาจจะได้รับประโยชน์จากโรงเรียนที่เน้นการเรียนรู้แบบปฏิบัติจริงและพัฒนาการรอบด้าน มากกว่าการแข่งขันทางวิชาการที่เข้มข้น',
+                    low_en: 'Your child might benefit from schools emphasizing practical learning and holistic development, rather than intense academic competition.'
+                },
+                co_curricular: {
+                    high_th: 'ลูกของคุณให้ความสำคัญกับกิจกรรมนอกหลักสูตรอย่างมาก โรงเรียนที่มีโปรแกรมกีฬา ศิลปะ หรือชมรมที่หลากหลายจะเหมาะสม',
+                    high_en: 'Your child places high value on extracurriculars. Schools with diverse sports, arts, or club programs would be ideal.',
+                    low_th: 'ลูกของคุณอาจจะให้ความสำคัญกับการเรียนรู้ในห้องเรียนมากกว่ากิจกรรมนอกหลักสูตร',
+                    low_en: 'Your child might prioritize classroom learning over an extensive extracurricular program.'
+                },
+                support: {
+                    high_th: 'ลูกของคุณต้องการการดูแลเอาใจใส่และระบบสนับสนุนด้านอารมณ์และวิชาการที่แข็งแกร่ง',
+                    high_en: 'Your child needs strong pastoral care and robust emotional and academic support systems.',
+                    low_th: 'ลูกของคุณมีความสามารถในการรับมือกับความท้าทายด้วยตนเองได้ดี และอาจไม่ต้องการการดูแลที่ใกล้ชิดมากนัก',
+                    low_en: 'Your child is capable of handling challenges independently and may not require intensive pastoral oversight.'
+                },
+                discipline: {
+                    high_th: 'ลูกของคุณตอบสนองได้ดีต่อกฎระเบียบที่ชัดเจนและการบังคับใช้ที่สอดคล้องกัน',
+                    high_en: 'Your child responds well to clear rules and consistent enforcement.',
+                    low_th: 'ลูกของคุณอาจจะเติบโตได้ดีกว่าในสภาพแวดล้อมที่เน้นการเรียนรู้จากความผิดพลาดและการแก้ไขปัญหาเชิงสร้างสรรค์',
+                    low_en: 'Your child might thrive better in an environment focused on learning from mistakes and restorative justice.'
+                }
+            };
+
+            const schoolTypeSuggestions = {
+                academics_high: {
+                    th: `สำหรับนักเรียนที่มีแรงจูงใจทางวิชาการสูง: โรงเรียนที่มีชื่อเสียงด้านวิชาการที่แข็งแกร่งและเน้นผลการสอบ เช่น <strong>${APPROVED_SCHOOLS[28]} (Shrewsbury)</strong>, <strong>${APPROVED_SCHOOLS[27]} (Sevenoaks)</strong>, <strong>${APPROVED_SCHOOLS[2]} (Brighton College)</strong>, <strong>${APPROVED_SCHOOLS[9]} (Concord)</strong> หรือ <strong>${APPROVED_SCHOOLS[5]} (Cardiff Sixth Form)</strong>`,
+                    en: `For highly academic children: Schools with strong academic reputations and a focus on exam results, such as <strong>${APPROVED_SCHOOLS[28]} (Shrewsbury)</strong>, <strong>${APPROVED_SCHOOLS[27]} (Sevenoaks)</strong>, <strong>${APPROVED_SCHOOLS[2]} (Brighton College)</strong>, <strong>${APPROVED_SCHOOLS[9]} (Concord)</strong>, or <strong>${APPROVED_SCHOOLS[5]} (Cardiff Sixth Form)</strong>.`
+                },
+                holistic_development: {
+                    th: `สำหรับนักเรียนที่ต้องการการพัฒนาแบบองค์รวม: โรงเรียนที่เน้นกีฬา ศิลปะ และกิจกรรมที่หลากหลาย เช่น <strong>${APPROVED_SCHOOLS[17]} (Millfield)</strong>, <strong>${APPROVED_SCHOOLS[3]} (Bromsgrove)</strong>, <strong>${APPROVED_SCHOOLS[18]} (Oakham)</strong> หรือ <strong>${APPROVED_SCHOOLS[12]} (Epsom)</strong>`,
+                    en: `For holistic development: Schools that emphasize sports, arts, and a wide range of activities, such as <strong>${APPROVED_SCHOOLS[17]} (Millfield)</strong>, <strong>${APPROVED_SCHOOLS[3]} (Bromsgrove)</strong>, <strong>${APPROVED_SCHOOLS[18]} (Oakham)</strong>, or <strong>${APPROVED_SCHOOLS[12]} (Epsom)</strong>.`
+                },
+                nurturing_support: {
+                    th: `สำหรับนักเรียนที่ต้องการการดูแลเอาใจใส่: โรงเรียนที่มีระบบการดูแลนักเรียน (Pastoral Care) ที่แข็งแกร่งและสภาพแวดล้อมที่อบอุ่น เช่น <strong>${APPROVED_SCHOOLS[23]} (Roedean)</strong>, <strong>${APPROVED_SCHOOLS[31]} (The Leys)</strong>, <strong>${APPROVED_SCHOOLS[0]} (Abbotsholme)</strong> หรือ <strong>${APPROVED_SCHOOLS[29]} (Sidcot)</strong>`,
+                    en: `For nurturing and support: Schools with strong pastoral care and a warm environment, such as <strong>${APPROVED_SCHOOLS[23]} (Roedean)</strong>, <strong>${APPROVED_SCHOOLS[31]} (The Leys)</strong>, <strong>${APPROVED_SCHOOLS[0]} (Abbotsholme)</strong>, or <strong>${APPROVED_SCHOOLS[29]} (Sidcot)</strong>.`
+                },
+                traditional_structured: {
+                    th: `สำหรับนักเรียนที่ชอบโครงสร้างและประเพณี: โรงเรียนที่มีประวัติศาสตร์ยาวนานและโครงสร้างที่ชัดเจน เช่น <strong>${APPROVED_SCHOOLS[14]} (Eton)</strong>, <strong>${APPROVED_SCHOOLS[15]} (Harrow)</strong>, <strong>${APPROVED_SCHOOLS[19]} (Oundle)</strong> หรือ <strong>${APPROVED_SCHOOLS[34]} (Uppingham)</strong>`,
+                    en: `For structure and tradition: Schools with long histories and clear structures, such as <strong>${APPROVED_SCHOOLS[14]} (Eton)</strong>, <strong>${APPROVED_SCHOOLS[15]} (Harrow)</strong>, <strong>${APPROVED_SCHOOLS[19]} (Oundle)</strong>, or <strong>${APPROVED_SCHOOLS[34]} (Uppingham)</strong>.`
+                },
+                modern_flexible: {
+                    th: `สำหรับนักเรียนที่ชอบความยืดหยุ่นและนวัตกรรม: โรงเรียนที่มีแนวทางการศึกษาที่ทันสมัยและยืดหยุ่น เช่น <strong>${APPROVED_SCHOOLS[10]} (D Overbroeks)</strong>, <strong>${APPROVED_SCHOOLS[20]} (Oxford International)</strong> หรือ <strong>${APPROVED_SCHOOLS[4]} (Bryanston)</strong>`,
+                    en: `For flexibility and innovation: Schools with a modern and flexible approach to education, such as <strong>${APPROVED_SCHOOLS[10]} (D Overbroeks)</strong>, <strong>${APPROVED_SCHOOLS[20]} (Oxford International)</strong>, or <strong>${APPROVED_SCHOOLS[4]} (Bryanston)</strong>.`
+                }
+            };
+
+            let suggestedSchoolTypes = new Set();
+
+            for (const dim in scoreDimensions) {
+                const percentage = maxScores[dim] > 0 ? (scoreDimensions[dim] / maxScores[dim]) * 100 : 0;
+                let insightItem = document.createElement('li');
+
+                if (percentage >= 70) {
+                    insightItem.innerHTML = `<strong class="lang-th">${getDimensionName_th(dim)} (สูง):</strong> <span class="lang-th">${insights[dim].high_th}</span><strong class="lang-en">${getDimensionName_en(dim)} (High):</strong> <span class="lang-en">${insights[dim].high_en}</span>`;
+                    if (dim === 'academics') suggestedSchoolTypes.add('academics_high');
+                    if (dim === 'structure') suggestedSchoolTypes.add('traditional_structured');
+                    if (dim === 'support') suggestedSchoolTypes.add('nurturing_support');
+                    if (dim === 'co_curricular' || dim === 'social') suggestedSchoolTypes.add('holistic_development');
+                    if (dim === 'independence') suggestedSchoolTypes.add('modern_flexible');
+                } else if (percentage <= 30) {
+                    insightItem.innerHTML = `<strong class="lang-th">${getDimensionName_th(dim)} (ต่ำ):</strong> <span class="lang-th">${insights[dim].low_th}</span><strong class="lang-en">${getDimensionName_en(dim)} (Low):</strong> <span class="lang-en">${insights[dim].low_en}</span>`;
+                    // Add inverse suggestions for low scores
+                    if (dim === 'academics') suggestedSchoolTypes.add('holistic_development');
+                    if (dim === 'structure') suggestedSchoolTypes.add('modern_flexible');
+                    if (dim === 'support') suggestedSchoolTypes.add('independence'); // No direct type, but implies a less structured support system
+                    if (dim === 'independence') suggestedSchoolTypes.add('nurturing_support');
+                } else {
+                    insightItem.innerHTML = `<strong class="lang-th">${getDimensionName_th(dim)} (ปานกลาง):</strong> <span class="lang-th">ความสมดุลในด้านนี้อาจหมายถึงความสามารถในการปรับตัวกับสภาพแวดล้อมที่หลากหลาย.</span><strong class="lang-en">${getDimensionName_en(dim)} (Moderate):</strong> <span class="lang-en">A balance in this area suggests adaptability to various environments.</span>`;
+                }
+                alignmentAreasList.appendChild(insightItem);
+            }
+
+            if (suggestedSchoolTypes.size === 0) {
+                let item = document.createElement('li');
+                item.innerHTML = `<span class="lang-th">ลูกของคุณมีความสมดุลและสามารถปรับตัวเข้ากับโรงเรียนได้หลากหลายประเภท.</span><span class="lang-en">Your child demonstrates a balanced profile and could adapt to various school types.</span>`;
+                schoolProfilesList.appendChild(item);
+            } else {
+                suggestedSchoolTypes.forEach(type => {
+                    let item = document.createElement('li');
+                    item.innerHTML = `<span class="lang-th">${schoolTypeSuggestions[type].th}</span><span class="lang-en">${schoolTypeSuggestions[type].en}</span>`;
+                    schoolProfilesList.appendChild(item);
+                });
+            }
+        }
+
+        function getDimensionName_th(dim) {
+            switch (dim) {
+                case 'structure': return 'โครงสร้างและระเบียบ';
+                case 'independence': return 'ความเป็นอิสระ';
+                case 'social': return 'การเข้าสังคม';
+                case 'community': return 'การรวมกลุ่ม/ชุมชน';
+                case 'academics': return 'ความเป็นเลิศทางวิชาการ';
+                case 'co_curricular': return 'กิจกรรมนอกหลักสูตร';
+                case 'support': return 'การดูแลเอาใจใส่';
+                case 'discipline': return 'แนวทางวินัย';
+                default: return dim;
+            }
+        }
+
+        function getDimensionName_en(dim) {
+            switch (dim) {
+                case 'structure': return 'Structure & Routine';
+                case 'independence': return 'Independence';
+                case 'social': return 'Social Engagement';
+                case 'community': return 'Community & Belonging';
+                case 'academics': return 'Academic Focus';
+                case 'co_curricular': return 'Co-curricular Emphasis';
+                case 'support': return 'Pastoral Support';
+                case 'discipline': return 'Disciplinary Approach';
+                default: return dim;
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const currentQuestionId = questions[currentQuestionIndex].id;
+            if (userAnswers[currentQuestionId] !== undefined) {
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            } else {
+                alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกคำตอบก่อนดำเนินการต่อ' : 'Please select an answer before proceeding.');
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            const currentQuestionId = questions[currentQuestionIndex].id;
+            if (userAnswers[currentQuestionId] !== undefined) {
+                calculateResults();
+                quizContainer.style.display = 'none';
+                quizResults.style.display = 'block';
+                quizResults.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกคำตอบก่อนดูผลลัพธ์' : 'Please select an answer before viewing results.');
+            }
+        });
+
+        // Language Toggle
+        const langThBtn = document.getElementById('lang-th-btn');
+        const langEnBtn = document.getElementById('lang-en-btn');
+
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            langThBtn.classList.remove('active');
+            langEnBtn.classList.remove('active');
+            if (lang === 'th') {
+                langThBtn.classList.add('active');
+            } else {
+                langEnBtn.classList.add('active');
+            }
+            // Reload the current question to update language
+            if (quizContainer.style.display !== 'none') {
+                 loadQuestion();
+            } else if (quizResults.style.display !== 'none') {
+                // If results are displayed, recalculate and re-display to update language
+                displayDetailedResults();
+            }
+        }
+
+        // Initial load
+        loadQuestion();
+        setLanguage('th'); // Default to Thai on load
+
+        langThBtn.addEventListener('click', () => setLanguage('th'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+    </script>
+
+</body>
+</html>

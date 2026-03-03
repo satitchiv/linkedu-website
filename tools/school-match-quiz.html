@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU School Match Quiz | แบบทดสอบจับคู่โรงเรียน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #111111;
+            --text-color: #f0f0f0;
+            --accent-color: #C9A84C;
+            --card-bg-color: #1a1a1a;
+            --border-color: #333;
+            --line-button-bg: #00B900; /* LINE green */
+            --line-button-text: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        header {
+            background-color: #0a0a0a;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 40px 0 30px;
+            font-weight: 600;
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .question-card {
+            display: none; /* Hidden by default */
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            color: var(--accent-color);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .question-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .question-options label {
+            background-color: #222;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.1em;
+            font-weight: 400;
+            border: 1px solid var(--border-color);
+            flex-grow: 1;
+            text-align: center;
+            min-width: 150px;
+            max-width: 250px;
+        }
+
+        .question-options label:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .question-options input[type="radio"],
+        .question-options input[type="checkbox"] {
+            display: none;
+        }
+
+        .question-options input[type="radio"]:checked + label,
+        .question-options input[type="checkbox"]:checked + label {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #222;
+            color: var(--text-color);
+            font-size: 1.1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .quiz-navigation button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .quiz-navigation button:hover {
+            background-color: #b39441; /* Slightly darker gold */
+            transform: translateY(-2px);
+        }
+
+        .quiz-navigation button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #quiz-submit {
+            background-color: var(--line-button-bg);
+        }
+        #quiz-submit:hover {
+            background-color: #009900;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .school-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .school-card h4 {
+            font-size: 1.8em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .school-card p {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .school-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .school-card ul li {
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .school-card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        .fees-info {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #333;
+        }
+
+        .fees-info p {
+            margin: 5px 0;
+        }
+
+        .line-cta {
+            background-color: var(--line-button-bg);
+            color: var(--line-button-text);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        .line-cta:hover {
+            background-color: #009900;
+            transform: translateY(-2px);
+        }
+
+        .line-cta-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .line-cta-container p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background-color: #0a0a0a;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-size: 0.95em;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            .section-title {
+                font-size: 1.5em;
+            }
+            .quiz-container {
+                padding: 20px;
+            }
+            .question-card h3 {
+                font-size: 1.3em;
+            }
+            .question-options label {
+                padding: 12px 18px;
+                font-size: 1em;
+                min-width: unset;
+                max-width: unset;
+                flex-basis: calc(50% - 10px);
+            }
+            .quiz-navigation button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .school-card {
+                padding: 20px;
+            }
+            .school-card h4 {
+                font-size: 1.5em;
+            }
+            .school-card p, .school-card ul li {
+                font-size: 0.95em;
+            }
+            .line-cta {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+            .line-cta-container p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-options label {
+                flex-basis: 100%;
+            }
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .quiz-navigation button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>LINKEDU School Match Quiz</h1>
+            <p>ค้นหาโรงเรียนในฝันของบุตรหลานคุณในสหราชอาณาจักร | Find your child's dream school in the UK</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="quiz-section">
+            <h2 class="section-title">ตอบคำถามเพื่อค้นหาโรงเรียนที่ใช่ | Answer Questions to Find Your Match</h2>
+            <div class="quiz-container">
+                <form id="school-quiz-form">
+                    <!-- Question 1: Budget -->
+                    <div class="question-card active" data-question="1">
+                        <h3>1. งบประมาณต่อปี (รวมค่าที่พัก) เป็นจำนวนเท่าใด? | What is your annual budget (including boarding fees)?</h3>
+                        <input type="number" id="q1_budget" name="budget" placeholder="ป้อนงบประมาณเป็น THB / Enter budget in THB" required min="100000">
+                        <div class="error-message" id="error_budget"></div>
+                    </div>
+
+                    <!-- Question 2: Child Age -->
+                    <div class="question-card" data-question="2">
+                        <h3>2. บุตรหลานของคุณอายุเท่าไหร่? | How old is your child?</h3>
+                        <input type="number" id="q2_age" name="age" placeholder="ป้อนอายุ / Enter age" required min="7" max="18">
+                        <div class="error-message" id="error_age"></div>
+                    </div>
+
+                    <!-- Question 3: Gender Preference -->
+                    <div class="question-card" data-question="3">
+                        <h3>3. โรงเรียนแบบใดที่คุณต้องการ? | What type of school gender do you prefer?</h3>
+                        <div class="question-options">
+                            <input type="radio" id="q3_gender_boys" name="gender" value="boys"><label for="q3_gender_boys">โรงเรียนชายล้วน (Boys' School)</label>
+                            <input type="radio" id="q3_gender_girls" name="gender" value="girls"><label for="q3_gender_girls">โรงเรียนหญิงล้วน (Girls' School)</label>
+                            <input type="radio" id="q3_gender_coed" name="gender" value="coed"><label for="q3_gender_coed">โรงเรียนสหศึกษา (Co-ed School)</label>
+                        </div>
+                        <div class="error-message" id="error_gender"></div>
+                    </div>
+
+                    <!-- Question 4: Goal -->
+                    <div class="question-card" data-question="4">
+                        <h3>4. เป้าหมายหลักของการศึกษาคืออะไร? | What is the primary educational goal?</h3>
+                        <div class="question-options">
+                            <input type="radio" id="q4_goal_oxbridge" name="goal" value="oxbridge"><label for="q4_goal_oxbridge">เข้ามหาวิทยาลัยชั้นนำ (Oxbridge/Top Universities)</label>
+                            <input type="radio" id="q4_goal_sport" name="goal" value="sport"><label for="q4_goal_sport">ความเป็นเลิศด้านกีฬา (Sporting Excellence)</label>
+                            <input type="radio" id="q4_goal_general" name="goal" value="general"><label for="q4_goal_general">การศึกษาแบบองค์รวม (Holistic/General Education)</label>
+                        </div>
+                        <div class="error-message" id="error_goal"></div>
+                    </div>
+
+                    <!-- Question 5: English Level -->
+                    <div class="question-card" data-question="5">
+                        <h3>5. ระดับภาษาอังกฤษของบุตรหลานคุณเป็นอย่างไร? | What is your child's English proficiency level?</h3>
+                        <div class="question-options">
+                            <input type="radio" id="q5_english_beginner" name="english_level" value="beginner"><label for="q5_english_beginner">เริ่มต้น (Beginner)</label>
+                            <input type="radio" id="q5_english_intermediate" name="english_level" value="intermediate"><label for="q5_english_intermediate">ปานกลาง (Intermediate)</label>
+                            <input type="radio" id="q5_english_advanced" name="english_level" value="advanced"><label for="q5_english_advanced">ดีเยี่ยม (Advanced)</label>
+                        </div>
+                        <div class="error-message" id="error_english_level"></div>
+                    </div>
+
+                    <!-- Question 6: Boarding Preference -->
+                    <div class="question-card" data-question="6">
+                        <h3>6. รูปแบบการอยู่ประจำที่คุณต้องการคืออะไร? | What is your preferred boarding type?</h3>
+                        <div class="question-options">
+                            <input type="radio" id="q6_boarding_full" name="boarding_preference" value="full"><label for="q6_boarding_full">ประจำเต็มเวลา (Full Boarding)</label>
+                            <input type="radio" id="q6_boarding_weekly" name="boarding_preference" value="weekly"><label for="q6_boarding_weekly">ประจำรายสัปดาห์ (Weekly Boarding)</label>
+                            <input type="radio" id="q6_boarding_day" name="boarding_preference" value="day"><label for="q6_boarding_day">ไป-กลับ (Day Student)</label>
+                        </div>
+                        <div class="error-message" id="error_boarding_preference"></div>
+                    </div>
+
+                    <!-- Question 7: Sport Interest -->
+                    <div class="question-card" data-question="7">
+                        <h3>7. บุตรหลานของคุณสนใจกีฬาประเภทใดบ้าง? (เลือกได้หลายข้อ) | What sports is your child interested in? (Select all that apply)</h3>
+                        <div class="question-options">
+                            <input type="checkbox" id="q7_sport_rugby" name="sport_interest" value="rugby"><label for="q7_sport_rugby">รักบี้ (Rugby)</label>
+                            <input type="checkbox" id="q7_sport_football" name="sport_interest" value="football"><label for="q7_sport_football">ฟุตบอล (Football)</label>
+                            <input type="checkbox" id="q7_sport_tennis" name="sport_interest" value="tennis"><label for="q7_sport_tennis">เทนนิส (Tennis)</label>
+                            <input type="checkbox" id="q7_sport_swimming" name="sport_interest" value="swimming"><label for="q7_sport_swimming">ว่ายน้ำ (Swimming)</label>
+                            <input type="checkbox" id="q7_sport_cricket" name="sport_interest" value="cricket"><label for="q7_sport_cricket">คริกเก็ต (Cricket)</label>
+                            <input type="checkbox" id="q7_sport_hockey" name="sport_interest" value="hockey"><label for="q7_sport_hockey">ฮอกกี้ (Hockey)</label>
+                            <input type="checkbox" id="q7_sport_netball" name="sport_interest" value="netball"><label for="q7_sport_netball">เน็ตบอล (Netball)</label>
+                            <input type="checkbox" id="q7_sport_athletics" name="sport_interest" value="athletics"><label for="q7_sport_athletics">กรีฑา (Athletics)</label>
+                            <input type="checkbox" id="q7_sport_other" name="sport_interest" value="other"><label for="q7_sport_other">อื่น ๆ (Other)</label>
+                            <input type="checkbox" id="q7_sport_none" name="sport_interest" value="none"><label for="q7_sport_none">ไม่สนใจกีฬา (None)</label>
+                        </div>
+                    </div>
+
+                    <!-- Question 8: Timeline -->
+                    <div class="question-card" data-question="8">
+                        <h3>8. ระยะเวลาที่ต้องการให้บุตรหลานเข้าเรียน? | What is your preferred timeline for enrollment?</h3>
+                        <div class="question-options">
+                            <input type="radio" id="q8_timeline_immediate" name="timeline" value="immediate"><label for="q8_timeline_immediate">ภายใน 6 เดือน (Immediate/Within 6 months)</label>
+                            <input type="radio" id="q8_timeline_1_2_years" name="timeline" value="1-2 years"><label for="q8_timeline_1_2_years">1-2 ปีข้างหน้า (1-2 Years)</label>
+                            <input type="radio" id="q8_timeline_3_plus_years" name="timeline" value="3+ years"><label for="q8_timeline_3_plus_years">3 ปีขึ้นไป (3+ Years)</label>
+                        </div>
+                        <div class="error-message" id="error_timeline"></div>
+                    </div>
+
+                    <div class="quiz-navigation">
+                        <button type="button" id="prev-btn" disabled>ย้อนกลับ (Previous)</button>
+                        <button type="button" id="next-btn">ถัดไป (Next)</button>
+                        <button type="submit" id="quiz-submit" style="display: none;">ค้นหาโรงเรียน (Find Schools)</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="results-section">
+            <h2 class="section-title">โรงเรียนที่แนะนำสำหรับคุณ | Recommended Schools for You</h2>
+            <div id="school-results">
+                <!-- School results will be injected here -->
+            </div>
+            <div class="line-cta-container">
+                <p>ต้องการข้อมูลเพิ่มเติมหรือปรึกษาฟรี? | Need more information or a free consultation?</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="line-cta">LINE: satitlinkedu ปรึกษาฟรี (Free Consultation)</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+            <p>Visit us: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+            <p>
+                <small><strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2025 โรงเรียนประจำของรัฐได้รับการยกเว้น VAT อยู่ที่ GBP 10,000 ถึง 19,000 ต่อปี</small><br>
+                <small><strong>VAT Note:</strong> Private school fees have 20 percent VAT added from January 2025. State boarding schools are VAT exempt at GBP 10,000 to 19,000 per year.</small>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45; // Exchange rate
+        const VAT_RATE = 0.20; // 20% VAT
+
+        const schools = [
+            {
+                name: 'Abbotsholme', name_th: 'แอบบอทสโฮล์ม', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['general', 'sport', 'outdoor'], englishLevel: 'intermediate', sports: ['rugby', 'football', 'tennis', 'swimming', 'hockey', 'athletics', 'equestrian'], feesGBP: 39000, isStateBoarding: false,
+                keyFacts_en: ['Rural setting with strong outdoor education.', 'Focus on character development and practical skills.', 'Smaller school with a family feel.'],
+                keyFacts_th: ['ตั้งอยู่ในชนบท เน้นการศึกษากลางแจ้งอย่างเข้มแข็ง', 'มุ่งเน้นการพัฒนาบุคลิกภาพและทักษะการปฏิบัติ', 'โรงเรียนขนาดเล็กให้ความรู้สึกเหมือนครอบครัว']
+            },
+            {
+                name: 'Ardingly College', name_th: 'อาร์ดิงลีย์ คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'sport'], englishLevel: 'advanced', sports: ['football', 'hockey', 'cricket', 'netball', 'rugby', 'swimming', 'tennis', 'athletics'], feesGBP: 47000, isStateBoarding: false,
+                keyFacts_en: ['Strong academic reputation with excellent facilities.', 'Known for innovation and entrepreneurship.', 'Beautiful rural campus in West Sussex.'],
+                keyFacts_th: ['ชื่อเสียงทางวิชาการที่แข็งแกร่งพร้อมสิ่งอำนวยความสะดวกที่ยอดเยี่ยม', 'มีชื่อเสียงด้านนวัตกรรมและการเป็นผู้ประกอบการ', 'วิทยาเขตชนบทที่สวยงามในเวสต์ซัสเซกซ์']
+            },
+            {
+                name: 'Brighton College', name_th: 'ไบรท์ตัน คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'oxbridge', 'arts'], englishLevel: 'advanced', sports: ['rugby', 'football', 'tennis', 'swimming', 'cricket', 'hockey', 'netball', 'athletics'], feesGBP: 50000, isStateBoarding: false,
+                keyFacts_en: ['Top academic results, particularly strong in humanities and arts.', 'Located on the south coast, close to Brighton city centre.', 'Known for its progressive and inclusive ethos.'],
+                keyFacts_th: ['ผลการเรียนดีเยี่ยม โดยเฉพาะอย่างยิ่งในสาขามนุษยศาสตร์และศิลปะ', 'ตั้งอยู่บนชายฝั่งทางใต้ ใกล้ใจกลางเมืองไบรท์ตัน', 'มีชื่อเสียงด้านแนวคิดที่ก้าวหน้าและครอบคลุม']
+            },
+            {
+                name: 'Bromsgrove School', name_th: 'บรอมส์โกรฟ สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'athletics', 'swimming', 'tennis'], feesGBP: 45000, isStateBoarding: false,
+                keyFacts_en: ['Strong all-round education with excellent academic and sporting facilities.', 'Large international community.', 'Located in the heart of England.'],
+                keyFacts_th: ['การศึกษาที่รอบด้านพร้อมสิ่งอำนวยความสะดวกทางวิชาการและกีฬาที่ยอดเยี่ยม', 'มีชุมชนนานาชาติขนาดใหญ่', 'ตั้งอยู่ในใจกลางประเทศอังกฤษ']
+            },
+            {
+                name: 'Bryanston School', name_th: 'ไบรอันสตัน สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'arts', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'equestrian', 'tennis', 'swimming'], feesGBP: 48500, isStateBoarding: false,
+                keyFacts_en: ['Unique one-to-one teaching approach.', 'Stunning rural campus in Dorset.', 'Strong emphasis on arts and creativity.'],
+                keyFacts_th: ['วิธีการสอนแบบตัวต่อตัวที่เป็นเอกลักษณ์', 'วิทยาเขตชนบทที่สวยงามในดอร์เซ็ต', 'เน้นศิลปะและความคิดสร้างสรรค์อย่างมาก']
+            },
+            {
+                name: 'Cardiff Sixth Form College', name_th: 'คาร์ดิฟฟ์ ซิกซ์ ฟอร์ม คอลเลจ', type: 'coed', minAge: 15, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge', 'medicine'], englishLevel: 'advanced', sports: [], feesGBP: 55000, isStateBoarding: false,
+                keyFacts_en: ['Number one independent sixth form college for academic results.', 'Specialises in preparing students for top universities.', 'City centre location in Cardiff.'],
+                keyFacts_th: ['วิทยาลัย Sixth Form อิสระอันดับหนึ่งด้านผลการเรียน', 'เชี่ยวชาญในการเตรียมนักเรียนเข้าสู่มหาวิทยาลัยชั้นนำ', 'ตั้งอยู่ในใจกลางเมืองคาร์ดิฟฟ์']
+            },
+            {
+                name: 'Caterham School', name_th: 'เคเทอร์แฮม สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'innovation', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 44000, isStateBoarding: false,
+                keyFacts_en: ['Strong academic focus with a modern approach to education.', 'Excellent facilities for sports and performing arts.', 'Close proximity to London.'],
+                keyFacts_th: ['เน้นวิชาการอย่างเข้มข้นด้วยแนวทางการศึกษาที่ทันสมัย', 'สิ่งอำนวยความสะดวกที่ยอดเยี่ยมสำหรับกีฬาและศิลปะการแสดง', 'ใกล้กับลอนดอน']
+            },
+            {
+                name: 'Charterhouse', name_th: 'ชาร์เตอร์เฮาส์', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'oxbridge', 'sport'], englishLevel: 'advanced', sports: ['football', 'cricket', 'rugby', 'hockey', 'tennis', 'athletics', 'golf'], feesGBP: 49000, isStateBoarding: false,
+                keyFacts_en: ['Historic public school with a strong academic tradition.', 'Beautiful and extensive grounds.', 'Strong alumni network.'],
+                keyFacts_th: ['โรงเรียนสาธารณะเก่าแก่ที่มีประเพณีทางวิชาการที่แข็งแกร่ง', 'มีพื้นที่กว้างขวางและสวยงาม', 'เครือข่ายศิษย์เก่าที่แข็งแกร่ง']
+            },
+            {
+                name: 'Clifton College', name_th: 'คลิฟตัน คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 46000, isStateBoarding: false,
+                keyFacts_en: ['City-based boarding school in the vibrant city of Bristol.', 'Strong emphasis on arts, music, and drama.', 'Diverse and inclusive community.'],
+                keyFacts_th: ['โรงเรียนประจำในเมืองบริสตอลที่มีชีวิตชีวา', 'เน้นศิลปะ ดนตรี และการละครอย่างมาก', 'ชุมชนที่หลากหลายและครอบคลุม']
+            },
+            {
+                name: 'Concord College', name_th: 'คอนคอร์ด คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge'], englishLevel: 'intermediate', sports: ['tennis', 'badminton', 'swimming', 'athletics', 'football'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Highly academic school with exceptional results.', 'Large international student body.', 'Rural location in Shropshire.'],
+                keyFacts_th: ['โรงเรียนวิชาการสูงที่มีผลการเรียนโดดเด่น', 'มีนักเรียนต่างชาติจำนวนมาก', 'ตั้งอยู่ในชนบทในชรอปเชอร์']
+            },
+            {
+                name: 'd\'Overbroeck\'s', name_th: 'ดีโอเวอร์บรูคส์', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'day'], focus: ['academic', 'individual'], englishLevel: 'intermediate', sports: ['football', 'basketball', 'tennis', 'swimming'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Individualised learning approach in a dynamic city environment.', 'Focus on student well-being and personal growth.', 'Modern facilities in Oxford.'],
+                keyFacts_th: ['แนวทางการเรียนรู้ที่ปรับให้เข้ากับแต่ละบุคคลในสภาพแวดล้อมเมืองที่มีชีวิตชีวา', 'มุ่งเน้นความเป็นอยู่ที่ดีของนักเรียนและการเติบโตส่วนบุคคล', 'สิ่งอำนวยความสะดวกที่ทันสมัยในอ็อกซ์ฟอร์ด']
+            },
+            {
+                name: 'Dulwich College', name_th: 'ดัลลิช คอลเลจ', type: 'boys', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'oxbridge', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'cricket', 'athletics', 'swimming', 'tennis', 'hockey'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Historic boys\' school with strong academic and sporting traditions.', 'Located in South London.', 'Excellent facilities and wide range of extracurriculars.'],
+                keyFacts_th: ['โรงเรียนชายล้วนเก่าแก่ที่มีประเพณีทางวิชาการและกีฬาที่แข็งแกร่ง', 'ตั้งอยู่ในลอนดอนใต้', 'สิ่งอำนวยความสะดวกที่ยอดเยี่ยมและกิจกรรมนอกหลักสูตรที่หลากหลาย']
+            },
+            {
+                name: 'Epsom College', name_th: 'เอปซัม คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'medicine', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'swimming', 'athletics', 'tennis'], feesGBP: 47000, isStateBoarding: false,
+                keyFacts_en: ['Strong reputation for medicine and sciences.', 'Beautiful campus in Surrey, close to London.', 'Excellent pastoral care.'],
+                keyFacts_th: ['มีชื่อเสียงอย่างมากด้านการแพทย์และวิทยาศาสตร์', 'วิทยาเขตที่สวยงามในเซอร์รีย์ ใกล้ลอนดอน', 'การดูแลเอาใจใส่นักเรียนที่ดีเยี่ยม']
+            },
+            {
+                name: 'Eton College', name_th: 'อีตัน คอลเลจ', type: 'boys', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge', 'leadership'], englishLevel: 'advanced', sports: ['rowing', 'rugby', 'football', 'cricket', 'fives', 'athletics', 'tennis', 'swimming'], feesGBP: 50000, isStateBoarding: false,
+                keyFacts_en: ['World-renowned boys\' boarding school with exceptional academic standards.', 'Produces future leaders.', 'Historic institution with unique traditions.'],
+                keyFacts_th: ['โรงเรียนประจำชายล้วนที่มีชื่อเสียงระดับโลกพร้อมมาตรฐานทางวิชาการที่ยอดเยี่ยม', 'ผลิตผู้นำในอนาคต', 'สถาบันเก่าแก่ที่มีประเพณีที่เป็นเอกลักษณ์']
+            },
+            {
+                name: 'Harrow School', name_th: 'ฮาร์โรว์ สคูล', type: 'boys', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge', 'leadership'], englishLevel: 'advanced', sports: ['rugby', 'football', 'cricket', 'fives', 'athletics', 'tennis', 'golf', 'swimming'], feesGBP: 50000, isStateBoarding: false,
+                keyFacts_en: ['Iconic boys\' boarding school with a rich history and traditions.', 'Strong emphasis on leadership and character development.', 'Beautiful hill-top campus near London.'],
+                keyFacts_th: ['โรงเรียนประจำชายล้วนที่มีชื่อเสียงและประวัติศาสตร์อันยาวนาน', 'เน้นการพัฒนาความเป็นผู้นำและบุคลิกภาพอย่างมาก', 'วิทยาเขตบนเนินเขาที่สวยงามใกล้ลอนดอน']
+            },
+            {
+                name: 'Lancing College', name_th: 'แลนซิง คอลเลจ', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'arts', 'sport'], englishLevel: 'advanced', sports: ['football', 'hockey', 'cricket', 'netball', 'rugby', 'swimming', 'tennis', 'athletics'], feesGBP: 46000, isStateBoarding: false,
+                keyFacts_en: ['Stunning Gothic chapel and beautiful campus overlooking the sea.', 'Strong in music and arts.', 'Holistic education in a Christian environment.'],
+                keyFacts_th: ['โบสถ์สไตล์โกธิคที่สวยงามและวิทยาเขตที่มองเห็นทะเล', 'โดดเด่นด้านดนตรีและศิลปะ', 'การศึกษาแบบองค์รวมในสภาพแวดล้อมแบบคริสเตียน']
+            },
+            {
+                name: 'Loretto School', name_th: 'ลอเร็ตโต้ สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'sport', 'golf'], englishLevel: 'advanced', sports: ['golf', 'rugby', 'hockey', 'cricket', 'netball', 'tennis', 'athletics'], feesGBP: 45000, isStateBoarding: false,
+                keyFacts_en: ['Scotland\'s oldest boarding school, known for its golf academy.', 'Strong academic program.', 'Close to Edinburgh.'],
+                keyFacts_th: ['โรงเรียนประจำที่เก่าแก่ที่สุดของสกอตแลนด์ มีชื่อเสียงด้านสถาบันกอล์ฟ', 'โปรแกรมวิชาการที่แข็งแกร่ง', 'ใกล้เมืองเอดินบะระ']
+            },
+            {
+                name: 'Millfield School', name_th: 'มิลล์ฟิลด์ สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['sport', 'academic', 'arts'], englishLevel: 'intermediate', sports: ['swimming', 'athletics', 'rugby', 'football', 'hockey', 'cricket', 'equestrian', 'golf', 'tennis'], feesGBP: 50000, isStateBoarding: false,
+                keyFacts_en: ['World-renowned for sporting excellence and facilities.', 'Strong academic support for all abilities.', 'Extensive campus in Somerset.'],
+                keyFacts_th: ['มีชื่อเสียงระดับโลกด้านความเป็นเลิศและสิ่งอำนวยความสะดวกด้านกีฬา', 'การสนับสนุนทางวิชาการที่แข็งแกร่งสำหรับทุกความสามารถ', 'วิทยาเขตขนาดใหญ่ในซอมเมอร์เซ็ต']
+            },
+            {
+                name: 'Oakham School', name_th: 'โอ๊คแฮม สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 45000, isStateBoarding: false,
+                keyFacts_en: ['Full range of academic and co-curricular activities.', 'Located in a charming market town.', 'Strong community spirit.'],
+                keyFacts_th: ['กิจกรรมทางวิชาการและกิจกรรมร่วมหลักสูตรครบวงจร', 'ตั้งอยู่ในเมืองตลาดที่มีเสน่ห์', 'จิตวิญญาณของชุมชนที่แข็งแกร่ง']
+            },
+            {
+                name: 'Oundle School', name_th: 'โออันเดิล สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'oxbridge', 'science'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'rowing', 'swimming', 'tennis'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['One of the largest and most prestigious co-educational boarding schools.', 'Strong in sciences and engineering.', 'Historic market town setting.'],
+                keyFacts_th: ['หนึ่งในโรงเรียนประจำสหศึกษาที่ใหญ่ที่สุดและมีชื่อเสียงที่สุด', 'โดดเด่นด้านวิทยาศาสตร์และวิศวกรรม', 'ตั้งอยู่ในเมืองตลาดเก่าแก่']
+            },
+            {
+                name: 'Oxford International College', name_th: 'อ็อกซ์ฟอร์ด อินเตอร์เนชั่นแนล คอลเลจ', type: 'coed', minAge: 15, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge', 'medicine'], englishLevel: 'intermediate', sports: [], feesGBP: 60000, isStateBoarding: false,
+                keyFacts_en: ['Top-ranked for A-level results, specialising in university preparation.', 'Strong focus on career guidance.', 'City centre location in Oxford.'],
+                keyFacts_th: ['ติดอันดับสูงสุดสำหรับผลสอบ A-level เชี่ยวชาญในการเตรียมความพร้อมเข้ามหาวิทยาลัย', 'เน้นการแนะแนวอาชีพอย่างเข้มข้น', 'ตั้งอยู่ในใจกลางเมืองอ็อกซ์ฟอร์ด']
+            },
+            {
+                name: 'Queen Ethelburgas Collegiate', name_th: 'ควีน เอเธลเบอร์กาส คอลลีเจต', type: 'coed', minAge: 5, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'pastoral'], englishLevel: 'beginner', sports: ['football', 'basketball', 'swimming', 'tennis', 'equestrian'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Offers a highly supportive and individualised learning environment.', 'Extensive facilities and varied curriculum.', 'Caters to a wide range of academic abilities.'],
+                keyFacts_th: ['มอบสภาพแวดล้อมการเรียนรู้ที่สนับสนุนและปรับให้เข้ากับแต่ละบุคคลอย่างสูง', 'สิ่งอำนวยความสะดวกที่กว้างขวางและหลักสูตรที่หลากหลาย', 'รองรับความสามารถทางวิชาการที่หลากหลาย']
+            },
+            {
+                name: 'Repton School', name_th: 'เรปตัน สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'sport', 'arts'], englishLevel: 'advanced', sports: ['hockey', 'football', 'cricket', 'rugby', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 46000, isStateBoarding: false,
+                keyFacts_en: ['Ancient and historic school with a modern outlook.', 'Outstanding sporting reputation, especially in hockey.', 'Village location in Derbyshire.'],
+                keyFacts_th: ['โรงเรียนเก่าแก่และมีประวัติศาสตร์ยาวนานพร้อมมุมมองที่ทันสมัย', 'มีชื่อเสียงด้านกีฬาที่โดดเด่น โดยเฉพาะฮอกกี้', 'ตั้งอยู่ในหมู่บ้านในดาร์บี้เชอร์']
+            },
+            {
+                name: 'Roedean School', name_th: 'โรเดียน สคูล', type: 'girls', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'oxbridge', 'leadership'], englishLevel: 'advanced', sports: ['netball', 'hockey', 'swimming', 'tennis', 'athletics'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Leading girls\' boarding school with spectacular sea views.', 'Strong academic results and leadership opportunities.', 'Close to Brighton city centre.'],
+                keyFacts_th: ['โรงเรียนประจำหญิงล้วนชั้นนำพร้อมทิวทัศน์ทะเลที่งดงาม', 'ผลการเรียนที่แข็งแกร่งและโอกาสในการเป็นผู้นำ', 'ใกล้ใจกลางเมืองไบรตัน']
+            },
+            {
+                name: 'Rossall School', name_th: 'รอสซอล สคูล', type: 'coed', minAge: 7, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'IB', 'music', 'golf'], englishLevel: 'intermediate', sports: ['football', 'rugby', 'hockey', 'cricket', 'netball', 'golf', 'swimming', 'tennis'], feesGBP: 42000, isStateBoarding: false,
+                keyFacts_en: ['Coastal location with a strong emphasis on internationalism and IB curriculum.', 'Excellent music and performing arts.', 'Offers a dedicated golf academy.'],
+                keyFacts_th: ['ตั้งอยู่ริมชายฝั่ง เน้นความเป็นนานาชาติและหลักสูตร IB', 'โดดเด่นด้านดนตรีและศิลปะการแสดง', 'มีสถาบันกอล์ฟโดยเฉพาะ']
+            },
+            {
+                name: 'Royal Russell School', name_th: 'รอยัล รัสเซลล์ สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'sport'], englishLevel: 'advanced', sports: ['football', 'hockey', 'netball', 'rugby', 'cricket', 'tennis', 'swimming', 'athletics'], feesGBP: 43000, isStateBoarding: false,
+                keyFacts_en: ['Beautiful parkland setting, close to central London.', 'Strong academic record with a nurturing environment.', 'Excellent reputation for football.'],
+                keyFacts_th: ['ตั้งอยู่ในพื้นที่สวนสาธารณะที่สวยงาม ใกล้ใจกลางลอนดอน', 'ผลการเรียนที่แข็งแกร่งพร้อมสภาพแวดล้อมที่อบอุ่น', 'มีชื่อเสียงด้านฟุตบอล']
+            },
+            {
+                name: 'Sedbergh School', name_th: 'เซดเบิร์ก สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['academic', 'sport', 'outdoor'], englishLevel: 'advanced', sports: ['rugby', 'hockey', 'cricket', 'netball', 'fells running', 'athletics', 'swimming', 'tennis'], feesGBP: 46000, isStateBoarding: false,
+                keyFacts_en: ['Rugged Cumbrian location, known for its strong rugby and outdoor pursuits.', 'Full boarding ethos.', 'Strong academic outcomes.'],
+                keyFacts_th: ['ตั้งอยู่ในคัมเบรียที่ขรุขระ มีชื่อเสียงด้านรักบี้และกิจกรรมกลางแจ้งที่แข็งแกร่ง', 'เน้นการอยู่ประจำเต็มเวลา', 'ผลสัมฤทธิ์ทางการเรียนที่แข็งแกร่ง']
+            },
+            {
+                name: 'Sevenoaks School', name_th: 'เซเว่นโอ๊คส์ สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'day'], focus: ['academic', 'IB', 'oxbridge'], englishLevel: 'advanced', sports: ['hockey', 'rugby', 'football', 'netball', 'cricket', 'swimming', 'tennis', 'athletics'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Leading IB school with exceptional academic results.', 'Internationally minded community.', 'Set in a beautiful town in Kent.'],
+                keyFacts_th: ['โรงเรียน IB ชั้นนำที่มีผลการเรียนที่ยอดเยี่ยม', 'ชุมชนที่มีความคิดแบบนานาชาติ', 'ตั้งอยู่ในเมืองที่สวยงามในเคนต์']
+            },
+            {
+                name: 'Shrewsbury School', name_th: 'ชรูว์สบิวรี สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'sport', 'arts'], englishLevel: 'advanced', sports: ['rowing', 'football', 'cricket', 'rugby', 'hockey', 'netball', 'athletics', 'tennis', 'swimming'], feesGBP: 47000, isStateBoarding: false,
+                keyFacts_en: ['Historic school on the banks of the River Severn.', 'Strong in rowing and cricket.', 'Excellent all-round education.'],
+                keyFacts_th: ['โรงเรียนเก่าแก่ริมฝั่งแม่น้ำเซเวิร์น', 'โดดเด่นด้านการพายเรือและคริกเก็ต', 'การศึกษาที่รอบด้านยอดเยี่ยม']
+            },
+            {
+                name: 'Sidcot School', name_th: 'ซิดคอต สคูล', type: 'coed', minAge: 7, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'ethics', 'arts'], englishLevel: 'intermediate', sports: ['equestrian', 'swimming', 'football', 'basketball', 'athletics'], feesGBP: 38000, isStateBoarding: false,
+                keyFacts_en: ['Quaker school with a strong emphasis on values and sustainability.', 'Excellent arts and equestrian facilities.', 'Rural location in Somerset.'],
+                keyFacts_th: ['โรงเรียนคริสเตียนนิกายเควกเกอร์ที่เน้นคุณค่าและความยั่งยืน', 'สิ่งอำนวยความสะดวกด้านศิลปะและการขี่ม้าที่ยอดเยี่ยม', 'ตั้งอยู่ในชนบทในซอมเมอร์เซ็ต']
+            },
+            {
+                name: 'St Leonards School', name_th: 'เซนต์ ลีโอนาร์ดส์ สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'IB', 'golf'], englishLevel: 'intermediate', sports: ['golf', 'hockey', 'rugby', 'football', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 40000, isStateBoarding: false,
+                keyFacts_en: ['Scottish school offering the IB curriculum from age 11.', 'Located in the home of golf, St Andrews.', 'Strong academic and sporting traditions.'],
+                keyFacts_th: ['โรงเรียนสกอตแลนด์ที่เปิดสอนหลักสูตร IB ตั้งแต่อายุ 11 ปี', 'ตั้งอยู่ในเมืองเซนต์แอนดรูส์ แหล่งกำเนิดกอล์ฟ', 'ประเพณีทางวิชาการและกีฬาที่แข็งแกร่ง']
+            },
+            {
+                name: 'The Leys School', name_th: 'เดอะ เลย์ส สคูล', type: 'coed', minAge: 11, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'general', 'arts'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'rowing', 'swimming', 'tennis'], feesGBP: 45000, isStateBoarding: false,
+                keyFacts_en: ['City centre school in Cambridge with excellent facilities.', 'Strong in arts and music.', 'Nurturing community environment.'],
+                keyFacts_th: ['โรงเรียนในใจกลางเมืองเคมบริดจ์พร้อมสิ่งอำนวยความสะดวกที่ยอดเยี่ยม', 'โดดเด่นด้านศิลปะและดนตรี', 'สภาพแวดล้อมชุมชนที่อบอุ่น']
+            },
+            {
+                name: 'National Mathematics and Science College (NMSC)', name_th: 'วิทยาลัยคณิตศาสตร์และวิทยาศาสตร์แห่งชาติ (NMSC)', type: 'coed', minAge: 15, maxAge: 18, boardingType: ['full'], focus: ['academic', 'oxbridge', 'STEM'], englishLevel: 'advanced', sports: [], feesGBP: 55000, isStateBoarding: false,
+                keyFacts_en: ['Specialises in STEM subjects, preparing students for top universities.', 'Intensive academic programme.', 'Located in Coventry.'],
+                keyFacts_th: ['เชี่ยวชาญในวิชาวิทยาศาสตร์ เทคโนโลยี วิศวกรรม และคณิตศาสตร์ (STEM) เตรียมความพร้อมนักเรียนเข้าสู่มหาวิทยาลัยชั้นนำ', 'โปรแกรมวิชาการเข้มข้น', 'ตั้งอยู่ในโคเวนทรี']
+            },
+            {
+                name: 'Tonbridge School', name_th: 'ทอนบริดจ์ สคูล', type: 'boys', minAge: 13, maxAge: 18, boardingType: ['full', 'weekly'], focus: ['academic', 'oxbridge', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'cricket', 'hockey', 'rowing', 'athletics', 'tennis', 'swimming'], feesGBP: 49000, isStateBoarding: false,
+                keyFacts_en: ['One of the leading boys\' boarding schools, known for academic excellence.', 'Exceptional facilities across all areas.', 'Located in Kent.'],
+                keyFacts_th: ['หนึ่งในโรงเรียนประจำชายล้วนชั้นนำ มีชื่อเสียงด้านความเป็นเลิศทางวิชาการ', 'สิ่งอำนวยความสะดวกที่ยอดเยี่ยมในทุกด้าน', 'ตั้งอยู่ในเคนต์']
+            },
+            {
+                name: 'Uppingham School', name_th: 'อัพพิงแฮม สคูล', type: 'coed', minAge: 13, maxAge: 18, boardingType: ['full'], focus: ['academic', 'music', 'sport'], englishLevel: 'advanced', sports: ['rugby', 'football', 'hockey', 'cricket', 'netball', 'swimming', 'tennis', 'athletics'], feesGBP: 48000, isStateBoarding: false,
+                keyFacts_en: ['Renowned for music and arts, alongside strong academics.', 'Beautiful village setting in Rutland.', 'Full boarding experience.'],
+                keyFacts_th: ['มีชื่อเสียงด้านดนตรีและศิลปะ ควบคู่ไปกับวิชาการที่แข็งแกร่ง', 'ตั้งอยู่ในหมู่บ้านที่สวยงามในรัทแลนด์', 'ประสบการณ์การอยู่ประจำเต็มเวลา']
+            },
+            {
+                name: 'Wells Cathedral School', name_th: 'เวลส์ คาเธดรัล สคูล', type: 'coed', minAge: 7, maxAge: 18, boardingType: ['full', 'weekly', 'day'], focus: ['academic', 'music', 'general'], englishLevel: 'intermediate', sports: ['football', 'hockey', 'netball', 'rugby', 'swimming', 'tennis', 'athletics'], feesGBP: 40000, isStateBoarding: false,
+                keyFacts_en: ['One of the UK\'s specialist music schools, integrated with a strong academic program.', 'Set in a beautiful cathedral city.', 'Nurturing and supportive environment.'],
+                keyFacts_th: ['หนึ่งในโรงเรียนดนตรีเฉพาะทางของสหราชอาณาจักร ผสมผสานกับโปรแกรมวิชาการที่แข็งแกร่ง', 'ตั้งอยู่ในเมืองมหาวิหารที่สวยงาม', 'สภาพแวดล้อมที่อบอุ่นและให้การสนับสนุน']
+            }
+        ];
+
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+        const form = document.getElementById('school-quiz-form');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('quiz-submit');
+        const quizSection = document.getElementById('quiz-section');
+        const resultsSection = document.getElementById('results-section');
+        const schoolResultsDiv = document.getElementById('school-results');
+
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`.question-card[data-question="${questionNumber}"]`).classList.add('active');
+
+            prevBtn.disabled = (questionNumber === 1);
+            nextBtn.style.display = (questionNumber === totalQuestions) ? 'none' : 'inline-block';
+            submitBtn.style.display = (questionNumber === totalQuestions) ? 'inline-block' : 'none';
+        }
+
+        function validateCurrentQuestion() {
+            const currentCard = document.querySelector(`.question-card[data-question="${currentQuestion}"]`);
+            const errorMessageDiv = currentCard.querySelector('.error-message');
+            errorMessageDiv.textContent = ''; // Clear previous error
+
+            if (currentQuestion === 1) {
+                const budget = document.getElementById('q1_budget').value;
+                if (!budget || isNaN(budget) || parseFloat(budget) < 100000) {
+                    errorMessageDiv.textContent = 'กรุณาป้อนงบประมาณที่ถูกต้อง (ขั้นต่ำ 100,000 THB) | Please enter a valid budget (min 100,000 THB).';
+                    return false;
+                }
+            } else if (currentQuestion === 2) {
+                const age = document.getElementById('q2_age').value;
+                if (!age || isNaN(age) || parseInt(age) < 7 || parseInt(age) > 18) {
+                    errorMessageDiv.textContent = 'กรุณาป้อนอายุที่ถูกต้อง (7-18 ปี) | Please enter a valid age (7-18 years).';
+                    return false;
+                }
+            } else if (currentQuestion === 3) {
+                if (!form.elements['gender'].value) {
+                    errorMessageDiv.textContent = 'กรุณาเลือกประเภทโรงเรียน | Please select a school type.';
+                    return false;
+                }
+            } else if (currentQuestion === 4) {
+                if (!form.elements['goal'].value) {
+                    errorMessageDiv.textContent = 'กรุณาเลือกเป้าหมายการศึกษา | Please select an educational goal.';
+                    return false;
+                }
+            } else if (currentQuestion === 5) {
+                if (!form.elements['english_level'].value) {
+                    errorMessageDiv.textContent = 'กรุณาเลือกระดับภาษาอังกฤษ | Please select an English level.';
+                    return false;
+                }
+            } else if (currentQuestion === 6) {
+                if (!form.elements['boarding_preference'].value) {
+                    errorMessageDiv.textContent = 'กรุณาเลือกรูปแบบการอยู่ประจำ | Please select a boarding preference.';
+                    return false;
+                }
+            } else if (currentQuestion === 8) { // Sport interest is optional, timeline is mandatory
+                if (!form.elements['timeline'].value) {
+                    errorMessageDiv.textContent = 'กรุณาเลือกระยะเวลา | Please select a timeline.';
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentQuestion()) {
+                if (currentQuestion < totalQuestions) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                }
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!validateCurrentQuestion()) {
+                return;
+            }
+            processQuiz();
+        });
+
+        // Handle 'None' checkbox for sports
+        document.querySelectorAll('input[name="sport_interest"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (event) => {
+                const noneCheckbox = document.getElementById('q7_sport_none');
+                if (event.target.id === 'q7_sport_none') {
+                    document.querySelectorAll('input[name="sport_interest"]').forEach(otherCheckbox => {
+                        if (otherCheckbox !== noneCheckbox) {
+                            otherCheckbox.checked = false;
+                            otherCheckbox.disabled = noneCheckbox.checked;
+                        }
+                    });
+                } else if (event.target.checked && noneCheckbox.checked) {
+                    noneCheckbox.checked = false;
+                    document.querySelectorAll('input[name="sport_interest"]').forEach(otherCheckbox => {
+                         if (otherCheckbox !== noneCheckbox) {
+                            otherCheckbox.disabled = false;
+                        }
+                    });
+                }
+            });
+        });
+
+        function processQuiz() {
+            const answers = {
+                budget: parseFloat(document.getElementById('q1_budget').value),
+                age: parseInt(document.getElementById('q2_age').value),
+                gender: form.elements['gender'].value,
+                goal: form.elements['goal'].value,
+                english_level: form.elements['english_level'].value,
+                boarding_preference: form.elements['boarding_preference'].value,
+                sport_interest: Array.from(form.elements['sport_interest'])
+                                    .filter(cb => cb.checked && cb.value !== 'none')
+                                    .map(cb => cb.value),
+                timeline: form.elements['timeline'].value // Not used for matching, but collected
+            };
+
+            const scoredSchools = schools.map(school => {
+                let score = 0;
+                let reasons = [];
+
+                // --- Gender Match ---
+                if (answers.gender === 'boys' && school.type === 'boys') { score += 10; reasons.push('Boys school match'); }
+                else if (answers.gender === 'girls' && school.type === 'girls') { score += 10; reasons.push('Girls school match'); }
+                else if (answers.gender === 'coed' && school.type === 'coed') { score += 10; reasons.push('Co-ed school match'); }
+                else if ((answers.gender === 'boys' || answers.gender === 'girls') && school.type === 'coed') { score += 5; reasons.push('Single-sex preference, co-ed school'); }
+                else if (answers.gender !== school.type && school.type !== 'coed') {
+                    score -= 1000; // Effectively disqualify
+                    reasons.push('Gender mismatch (disqualified)');
+                }
+
+                // --- Age Match ---
+                if (answers.age >= school.minAge && answers.age <= school.maxAge) { score += 15; reasons.push('Age range match'); }
+                else {
+                    score -= 500; // Effectively disqualify if age is way off
+                    reasons.push('Age mismatch (disqualified)');
+                }
+
+                // --- Budget Match ---
+                let adjustedFeesGBP = school.feesGBP;
+                if (!school.isStateBoarding) {
+                    adjustedFeesGBP *= (1 + VAT_RATE); // Add VAT for private schools
+                }
+                const adjustedFeesTHB = adjustedFeesGBP * GBP_TO_THB_RATE;
+
+                if (adjustedFeesTHB <= answers.budget) {
+                    score += 20; reasons.push('Within budget');
+                } else if (adjustedFeesTHB <= answers.budget * 1.2) { // Within 20% over budget
+                    score += 10; reasons.push('Slightly over budget');
+                } else if (adjustedFeesTHB <= answers.budget * 1.5) { // Within 50% over budget
+                    score += 5; reasons.push('Moderately over budget');
+                } else {
+                    score -= 50; // Significant over budget, but not disqualifying
+                    reasons.push('Significantly over budget');
+                }
+
+                // --- Goal Match ---
+                if (answers.goal === 'oxbridge' && (school.focus.includes('oxbridge') || school.focus.includes('academic'))) { score += 15; reasons.push('Oxbridge/Academic goal match'); }
+                else if (answers.goal === 'sport' && school.focus.includes('sport')) { score += 15; reasons.push('Sport goal match'); }
+                else if (answers.goal === 'general' && (school.focus.includes('general') || school.focus.includes('academic'))) { score += 10; reasons.push('General/Holistic goal match'); }
+
+                // --- English Level Match ---
+                if (answers.english_level === 'beginner' && school.englishLevel !== 'beginner') {
+                    score -= 1000; // Disqualify if beginner and school requires higher
+                    reasons.push('English level mismatch (disqualified)');
+                } else if (answers.english_level === 'intermediate' && school.englishLevel === 'advanced') {
+                    score += 5; reasons.push('Intermediate English, advanced school (possible with support)');
+                } else if (answers.english_level === 'advanced' && (school.englishLevel === 'intermediate' || school.englishLevel === 'advanced')) {
+                    score += 10; reasons.push('Advanced English match');
+                } else if (answers.english_level === 'beginner' && school.englishLevel === 'beginner') {
+                    score += 10; reasons.push('Beginner English, beginner-friendly school');
+                }
+
+                // --- Boarding Preference Match ---
+                if (school.boardingType.includes(answers.boarding_preference)) { score += 10; reasons.push('Boarding preference match'); }
+                else if (answers.boarding_preference === 'day' && !school.boardingType.includes('day')) {
+                    score -= 50; // Significant mismatch
+                    reasons.push('Day preference, no day option');
+                }
+
+                // --- Sport Interest Match ---
+                if (answers.sport_interest.length > 0) {
+                    let sportMatches = 0;
+                    answers.sport_interest.forEach(userSport => {
+                        if (school.sports.includes(userSport)) {
+                            sportMatches++;
+                        }
+                    });
+                    score += sportMatches * 3; reasons.push(`Matched ${sportMatches} sports`);
+                }
+
+                return { school, score, reasons };
+            });
+
+            // Filter out disqualified schools and sort
+            const topSchools = scoredSchools
+                .filter(item => item.score > -500) // Keep schools not heavily disqualified by age/gender/english
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 3);
+
+            displayResults(topSchools, answers.budget);
+        }
+
+        function displayResults(results, userBudget) {
+            schoolResultsDiv.innerHTML = ''; // Clear previous results
+
+            if (results.length === 0) {
+                schoolResultsDiv.innerHTML = `
+                    <p style="text-align: center; font-size: 1.2em; margin-top: 30px;">
+                        ไม่พบโรงเรียนที่ตรงกับเกณฑ์ของคุณ ลองปรับการตอบคำถามดูนะคะ<br>
+                        No schools matched your criteria. Please try adjusting your answers.
+                    </p>
+                `;
+            } else {
+                results.forEach((item, index) => {
+                    const school = item.school;
+                    const score = item.score;
+                    const adjustedFeesGBP = school.isStateBoarding ? school.feesGBP : school.feesGBP * (1 + VAT_RATE);
+                    const adjustedFeesTHB = adjustedFeesGBP * GBP_TO_THB_RATE;
+
+                    const feeStatus = adjustedFeesTHB <= userBudget ? 'Within budget' : 'Over budget';
+                    const feeStatus_th = adjustedFeesTHB <= userBudget ? 'อยู่ในงบประมาณ' : 'เกินงบประมาณ';
+
+                    schoolResultsDiv.innerHTML += `
+                        <div class="school-card">
+                            <h4>${index + 1}. ${school.name_th} (${school.name})</h4>
+                            <p><strong>คะแนนการจับคู่ (Match Score):</strong> ${score}</p>
+                            <div class="fees-info">
+                                <p><strong>ค่าธรรมเนียมต่อปี (Annual Fees):</strong></p>
+                                <p>GBP: £${adjustedFeesGBP.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                <p>THB: ฿${adjustedFeesTHB.toLocaleString('th-TH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                <p>สถานะงบประมาณ: <span style="color: ${feeStatus === 'Within budget' ? '#00B900' : '#ff6b6b'};">${feeStatus_th} (${feeStatus})</span></p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">
+                                    <small><strong>หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2025 โรงเรียนประจำของรัฐได้รับการยกเว้น VAT อยู่ที่ GBP 10,000 ถึง 19,000 ต่อปี</small><br>
+                                    <small><strong>VAT Note:</strong> Private school fees have 20 percent VAT added from January 2025. State boarding schools are VAT exempt at GBP 10,000 to 19,000 per year.</small>
+                                </p>
+                            </div>
+                            <p style="margin-top: 20px;"><strong>ข้อมูลสำคัญ (Key Facts):</strong></p>
+                            <ul>
+                                ${school.keyFacts_th.map(fact => `<li>${fact}</li>`).join('')}
+                                ${school.keyFacts_en.map(fact => `<li>${fact}</li>`).join('')}
+                            </ul>
+                            <div style="text-align: center; margin-top: 25px;">
+                                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="line-cta">LINE: satitlinkedu ปรึกษาฟรี (Free Consultation)</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            quizSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize quiz
+        showQuestion(currentQuestion);
+    </script>
+</body>
+</html>

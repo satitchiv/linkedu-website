@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="lang-en">Thai Student UK Boarding Packing Guide - LINKEDU</title>
+    <title class="lang-th">คู่มือจัดกระเป๋าสำหรับนักเรียนไทยไปโรงเรียนประจำ UK - LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Resets and Body */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            background-color: #f5f0e8;
+            line-height: 1.6;
+        }
+
+        /* Colors & Fonts */
+        :root {
+            --dark: #1a1a1a;
+            --cream: #f5f0e8;
+            --gold: #B8962E;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.8rem; }
+        h3 { font-size: 2.2rem; }
+        h4 { font-size: 1.8rem; }
+
+        a {
+            text-decoration: none;
+            color: var(--gold);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #a38529; /* Slightly darker gold */
+        }
+
+        /* Language System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--dark);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            text-decoration: none; /* Remove underline for logo link */
+        }
+
+        .logo-line1 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .logo-line2 {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2em;
+            color: var(--cream);
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            margin-left: auto; /* Push nav to center-right */
+        }
+
+        .nav-menu a {
+            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+
+        .lang-toggle {
+            margin-left: 30px; /* Space between nav and toggle */
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-toggle button {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero */
+        .hero {
+            background-color: var(--dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .hero h1 {
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none; /* Ensure no default button border */
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #a38529; /* Slightly darker gold */
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 60px; /* Adjust width as needed */
+            height: 1px;
+            background-color: var(--gold);
+            position: absolute;
+            top: -15px; /* Position above the text */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: var(--cream); /* Default for cards */
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card.white-bg {
+            background-color: white; /* For alternating cards */
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--gold);
+            font-weight: 700; /* Playfair Display can be 700 for card titles if needed */
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+
+        .card ul li::before {
+            content: '✓'; /* Checkmark */
+            color: var(--gold);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 600;
+        }
+
+        /* LINE CTA Section */
+        .line-cta-section {
+            background-color: var(--dark);
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .line-cta-section .line-handle {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .line-cta-section .cta-subtext {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: var(--cream);
+        }
+
+        /* Interactive Element - Season Toggle */
+        .season-toggle-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .season-toggle-container button {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .season-toggle-container button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        .season-content {
+            display: none; /* Hidden by default */
+        }
+        .season-content.active {
+            display: block;
+        }
+
+        /* Schools List */
+        .school-list {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .school-item {
+            background-color: var(--cream);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .school-item h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        .school-item p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .school-item .vat-note {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+
+            .nav-menu {
+                gap: 20px;
+            }
+            .header .container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .logo, .nav-menu, .lang-toggle {
+                flex-basis: 100%;
+                text-align: center;
+                margin-top: 15px;
+            }
+            .logo { margin-bottom: 15px; }
+            .nav-menu { margin-left: 0; }
+            .lang-toggle { margin-left: 0; justify-content: center; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 80px 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            .section-padding { padding: 60px 0; }
+            .card-grid { grid-template-columns: 1fr; }
+            .line-cta-section .line-handle { font-size: 2rem; }
+            .line-cta-section .cta-subtext { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 576px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            .hero { padding: 60px 0; }
+            .section-padding { padding: 40px 0; }
+            .btn-primary, .btn-secondary {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .line-cta-section .line-handle { font-size: 1.8rem; }
+            .line-cta-section .cta-subtext { font-size: 1rem; }
+            .season-toggle-container { flex-direction: column; gap: 10px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="https://th.linkedu.hk" class="logo">
+                <span class="logo-line1">L I N K E D U</span>
+                <span class="logo-line2">OVERSEAS EDUCATION</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="#packing-guide" class="lang-en">Packing Guide</a>
+                <a href="#packing-guide" class="lang-th">คู่มือจัดกระเป๋า</a>
+                <a href="#schools-list" class="lang-en">Schools</a>
+                <a href="#schools-list" class="lang-th">โรงเรียน</a>
+                <a href="https://th.linkedu.hk/contact" class="lang-en">Contact</a>
+                <a href="https://th.linkedu.hk/contact" class="lang-th">ติดต่อ</a>
+            </nav>
+            <div class="lang-toggle">
+                <button id="lang-en-btn" class="lang-btn">EN</button>
+                <button id="lang-th-btn" class="lang-btn active">TH</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="lang-en">Thai Student UK Boarding Packing Guide</h1>
+            <h1 class="lang-th">คู่มือจัดกระเป๋าสำหรับนักเรียนไทยไปโรงเรียนประจำ UK</h1>
+            <p class="lang-en">Your essential checklist for a smooth transition from Bangkok to UK boarding life. From what to bring from home to what to buy locally, we've got you covered.</p>
+            <p class="lang-th">เช็คลิสต์สำคัญเพื่อการเปลี่ยนผ่านที่ราบรื่นจากกรุงเทพฯ สู่ชีวิตโรงเรียนประจำในสหราชอาณาจักร ตั้งแต่ของที่ควรนำมาจากบ้านไปจนถึงของที่ควรซื้อที่นั่น เรามีคำแนะนำครบถ้วน</p>
+            <a href="#packing-guide" class="btn-primary lang-en">Get Started</a>
+            <a href="#packing-guide" class="btn-primary lang-th">เริ่มต้น</a>
+        </div>
+    </section>
+
+    <!-- Main Packing Guide Content -->
+    <section id="packing-guide" class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· PACKING ESSENTIALS ·</span>
+            <span class="section-label lang-th">· สิ่งจำเป็นในการจัดกระเป๋า ·</span>
+            <h2 class="lang-en">What to Bring from Thailand</h2>
+            <h2 class="lang-th">สิ่งที่ควรนำมาจากประเทศไทย</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">These items will help you settle in and feel comfortable in your new environment.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">สิ่งของเหล่านี้จะช่วยให้คุณปรับตัวและรู้สึกสบายในสภาพแวดล้อมใหม่</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3 class="lang-en">Food & Snacks</h3>
+                    <h3 class="lang-th">อาหารและขนม</h3>
+                    <p class="lang-en">A taste of home can be incredibly comforting. Pack non-perishable items that remind you of Thailand.</p>
+                    <p class="lang-th">รสชาติคุ้นเคยจากบ้านเกิดจะช่วยปลอบประโลมจิตใจได้อย่างไม่น่าเชื่อ เตรียมอาหารแห้งที่ไม่เน่าเสียง่ายที่ทำให้คุณนึกถึงประเทศไทย</p>
+                    <ul>
+                        <li class="lang-en">Instant noodles (Mama, Wai Wai) - perfect for late-night cravings.</li>
+                        <li class="lang-th">บะหมี่กึ่งสำเร็จรูป (มาม่า, ไวไว) - เหมาะสำหรับมื้อดึก</li>
+                        <li class="lang-en">Chili paste, dried shrimp paste, instant curry pastes (in small, sealed containers).</li>
+                        <li class="lang-th">น้ำพริก, กะปิ, เครื่องแกงสำเร็จรูป (ในภาชนะขนาดเล็ก ปิดสนิท)</li>
+                        <li class="lang-en">Dried fruits (mango, durian), tamarind candy, crispy pork rinds.</li>
+                        <li class="lang-th">ผลไม้แห้ง (มะม่วง, ทุเรียน), ลูกอมมะขาม, แคบหมู</li>
+                        <li class="lang-en">Small bags of Thai coffee or tea.</li>
+                        <li class="lang-th">กาแฟหรือชาไทยซองเล็กๆ</li>
+                    </ul>
+                </div>
+
+                <div class="card white-bg">
+                    <h3 class="lang-en">Medicine & Health</h3>
+                    <h3 class="lang-th">ยาและเวชภัณฑ์</h3>
+                    <p class="lang-en">Always have your essential medications and common remedies from home.</p>
+                    <p class="lang-th">ควรมียาประจำตัวและยาสามัญทั่วไปจากบ้านติดตัวไว้เสมอ</p>
+                    <ul>
+                        <li class="lang-en">Prescription medications (with doctor's note in English).</li>
+                        <li class="lang-th">ยาตามใบสั่งแพทย์ (พร้อมใบรับรองแพทย์ภาษาอังกฤษ)</li>
+                        <li class="lang-en">Common cold & flu remedies, pain relievers (Paracetamol, Ibuprofen).</li>
+                        <li class="lang-th">ยาแก้หวัดและไข้, ยาแก้ปวด (พาราเซตามอล, ไอบูโพรเฟน)</li>
+                        <li class="lang-en">Tiger Balm, mosquito repellent spray/cream.</li>
+                        <li class="lang-th">ยาหม่องตราเสือ, สเปรย์/ครีมกันยุง</li>
+                        <li class="lang-en">Antiseptic wipes, plasters, stomachache medicine.</li>
+                        <li class="lang-th">ผ้าเช็ดแผลฆ่าเชื้อ, พลาสเตอร์ยา, ยาแก้ปวดท้อง</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="lang-en">Comfort & Personal Items</h3>
+                    <h3 class="lang-th">ของใช้ส่วนตัวและของปลอบใจ</h3>
+                    <p class="lang-en">These small touches can make your new room feel like home.</p>
+                    <p class="lang-th">ของเล็กๆ น้อยๆ เหล่านี้สามารถทำให้ห้องใหม่ของคุณรู้สึกเหมือนอยู่บ้าน</p>
+                    <ul>
+                        <li class="lang-en">Photos of family and friends.</li>
+                        <li class="lang-th">รูปถ่ายครอบครัวและเพื่อนๆ</li>
+                        <li class="lang-en">Small, lightweight blanket or throw (e.g., a thin cotton blanket).</li>
+                        <li class="lang-th">ผ้าห่มหรือผ้าคลุมผืนเล็กๆ น้ำหนักเบา (เช่น ผ้าห่มผ้าฝ้ายบางๆ)</li>
+                        <li class="lang-en">Your favorite mug or water bottle.</li>
+                        <li class="lang-th">แก้วโปรดหรือกระบอกน้ำ</li>
+                        <li class="lang-en">Small religious items or amulets (if applicable).</li>
+                        <li class="lang-th">สิ่งของทางศาสนาหรือเครื่องรางเล็กๆ (ถ้ามี)</li>
+                    </ul>
+                </div>
+
+                <div class="card white-bg">
+                    <h3 class="lang-en">Electronics & Adapters</h3>
+                    <h3 class="lang-th">อุปกรณ์อิเล็กทรอนิกส์และอะแดปเตอร์</h3>
+                    <p class="lang-en">Ensure your devices are ready for UK power outlets.</p>
+                    <p class="lang-th">ตรวจสอบให้แน่ใจว่าอุปกรณ์ของคุณพร้อมใช้งานกับเต้ารับไฟฟ้าในสหราชอาณาจักร</p>
+                    <ul>
+                        <li class="lang-en">UK Type G power adapters (at least 2-3).</li>
+                        <li class="lang-th">อะแดปเตอร์ปลั๊กไฟ UK Type G (อย่างน้อย 2-3 อัน)</li>
+                        <li class="lang-en">Power bank for emergencies.</li>
+                        <li class="lang-th">พาวเวอร์แบงก์สำหรับกรณีฉุกเฉิน</li>
+                        <li class="lang-en">Laptop, phone, and chargers.</li>
+                        <li class="lang-th">แล็ปท็อป โทรศัพท์ และสายชาร์จ</li>
+                        <li class="lang-en">Universal travel adapter (optional, but useful for future travel).</li>
+                        <li class="lang-th">อะแดปเตอร์สำหรับเดินทางทั่วโลก (ไม่บังคับ แต่มีประโยชน์สำหรับการเดินทางในอนาคต)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LINE CTA SECTION (After a major content block) -->
+    <section class="line-cta-section">
+        <div class="container">
+            <div class="line-handle">LINE: satitlinkedu</div>
+            <p class="cta-subtext lang-en">Free Consultation</p>
+            <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+        </div>
+    </section>
+
+    <!-- What Schools Provide Section -->
+    <section class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· SCHOOL SUPPORT ·</span>
+            <span class="section-label lang-th">· การสนับสนุนจากโรงเรียน ·</span>
+            <h2 class="lang-en">What UK Boarding Schools Typically Provide</h2>
+            <h2 class="lang-th">สิ่งที่โรงเรียนประจำใน UK มักจะจัดหาให้</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">Understand what you won't need to pack, as schools cover many essentials.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">ทำความเข้าใจว่าสิ่งใดที่คุณไม่จำเป็นต้องจัดกระเป๋าไป เพราะโรงเรียนจัดหาสิ่งจำเป็นหลายอย่างให้</p>
+
+            <div class="card-grid">
+                <div class="card white-bg">
+                    <h3 class="lang-en">Accommodation & Essentials</h3>
+                    <h3 class="lang-th">ที่พักและสิ่งจำเป็น</h3>
+                    <ul>
+                        <li class="lang-en">Bedding: Duvet, pillows, sheets, and covers are usually provided, often laundered by the school.</li>
+                        <li class="lang-th">เครื่องนอน: โดยทั่วไปจะมีผ้าห่ม, หมอน, ผ้าปูที่นอน และปลอกหมอนให้ และโรงเรียนมักจะซักให้</li>
+                        <li class="lang-en">Basic Furniture: Bed, desk, chair, wardrobe/drawers are standard in dorm rooms.</li>
+                        <li class="lang-th">เฟอร์นิเจอร์พื้นฐาน: เตียง, โต๊ะเรียน, เก้าอี้, ตู้เสื้อผ้า/ลิ้นชัก เป็นของมาตรฐานในห้องพัก</li>
+                        <li class="lang-en">Initial Toiletries: Some schools provide a starter pack of toiletries (soap, shampoo) upon arrival.</li>
+                        <li class="lang-th">ของใช้ส่วนตัวเบื้องต้น: บางโรงเรียนมีชุดของใช้ส่วนตัวเบื้องต้น (สบู่, แชมพู) ให้เมื่อมาถึง</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="lang-en">School Uniform & Academic Supplies</h3>
+                    <h3 class="lang-th">เครื่องแบบนักเรียนและอุปกรณ์การเรียน</h3>
+                    <ul>
+                        <li class="lang-en">School Uniform: Core uniform items are usually purchased from the school shop or designated suppliers (e.g., for Brighton College, Sevenoaks, Harrow).</li>
+                        <li class="lang-th">เครื่องแบบนักเรียน: โดยทั่วไปแล้ว ชุดนักเรียนหลักจะซื้อจากร้านค้าของโรงเรียนหรือผู้จัดจำหน่ายที่กำหนด (เช่น สำหรับ Brighton College, Sevenoaks, Harrow)</li>
+                        <li class="lang-en">Sports Kits: Specific sports uniforms might also be school-issued or purchased through them.</li>
+                        <li class="lang-th">ชุดกีฬา: ชุดกีฬาบางชนิดอาจเป็นของที่โรงเรียนจัดหาให้หรือซื้อผ่านโรงเรียน</li>
+                        <li class="lang-en">Basic Stationery: Pens, pencils, notebooks are often available at the school shop, or you can buy them in the UK.</li>
+                        <li class="lang-th">เครื่องเขียนพื้นฐาน: ปากกา, ดินสอ, สมุดโน้ต มักมีจำหน่ายที่ร้านค้าของโรงเรียน หรือคุณสามารถซื้อได้ในสหราชอาณาจักร</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to Buy in UK Section -->
+    <section class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· UK SHOPPING LIST ·</span>
+            <span class="section-label lang-th">· รายการซื้อของใน UK ·</span>
+            <h2 class="lang-en">What to Buy Upon Arrival in the UK</h2>
+            <h2 class="lang-th">สิ่งที่ควรซื้อเมื่อเดินทางถึงสหราชอาณาจักร</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">Save luggage space by purchasing these items locally once you've settled in.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">ประหยัดพื้นที่กระเป๋าเดินทางโดยการซื้อสิ่งของเหล่านี้ในท้องถิ่นเมื่อคุณเข้าที่พักแล้ว</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3 class="lang-en">Toiletries & Personal Care</h3>
+                    <h3 class="lang-th">ของใช้ในห้องน้ำและของใช้ส่วนตัว</h3>
+                    <ul>
+                        <li class="lang-en">Full-size shampoo, conditioner, body wash, toothpaste, deodorant.</li>
+                        <li class="lang-th">แชมพู, ครีมนวดผม, สบู่เหลวอาบน้ำ, ยาสีฟัน, โรลออน ขนาดปกติ</li>
+                        <li class="lang-en">Hair styling products, skincare items specific to your needs.</li>
+                        <li class="lang-th">ผลิตภัณฑ์จัดแต่งทรงผม, ผลิตภัณฑ์ดูแลผิวที่ตรงกับความต้องการของคุณ</li>
+                        <li class="lang-en">Laundry detergent (liquid or pods), fabric softener.</li>
+                        <li class="lang-th">ผงซักฟอก (แบบน้ำหรือแบบแคปซูล), น้ำยาปรับผ้านุ่ม</li>
+                    </ul>
+                </div>
+                <div class="card white-bg">
+                    <h3 class="lang-en">Clothing & Accessories</h3>
+                    <h3 class="lang-th">เสื้อผ้าและเครื่องประดับ</h3>
+                    <ul>
+                        <li class="lang-en">Seasonal outerwear (heavy coats, waterproof jackets, wellies) - better to buy UK-specific quality.</li>
+                        <li class="lang-th">เสื้อผ้ากันหนาวตามฤดูกาล (เสื้อโค้ทหนา, เสื้อกันฝน, รองเท้าบูทกันฝน) - ซื้อคุณภาพดีที่เหมาะกับ UK ดีกว่า</li>
+                        <li class="lang-en">Additional casual clothes, sportswear (if not provided by school).</li>
+                        <li class="lang-th">เสื้อผ้าลำลองเพิ่มเติม, ชุดกีฬา (หากโรงเรียนไม่ได้จัดหาให้)</li>
+                        <li class="lang-en">Warm socks, hats, scarves, gloves (especially for winter arrivals).</li>
+                        <li class="lang-th">ถุงเท้าอุ่นๆ, หมวก, ผ้าพันคอ, ถุงมือ (โดยเฉพาะสำหรับผู้ที่เดินทางมาถึงในฤดูหนาว)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="lang-en">Room Decor & Stationery</h3>
+                    <h3 class="lang-th">ของตกแต่งห้องและเครื่องเขียน</h3>
+                    <ul>
+                        <li class="lang-en">Small desk lamp, extension cord (UK plugs).</li>
+                        <li class="lang-th">โคมไฟตั้งโต๊ะขนาดเล็ก, ปลั๊กพ่วง (ปลั๊ก UK)</li>
+                        <li class="lang-en">Posters, small plants, personal touches to make your room cozy.</li>
+                        <li class="lang-th">โปสเตอร์, ต้นไม้เล็กๆ, ของตกแต่งส่วนตัวเพื่อให้ห้องน่าอยู่</li>
+                        <li class="lang-en">Specific stationery items (binders, folders, calculators) as per school requirements.</li>
+                        <li class="lang-th">เครื่องเขียนเฉพาะ (แฟ้ม, ปก, เครื่องคิดเลข) ตามข้อกำหนดของโรงเรียน</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Packing Section (Interactive) -->
+    <section class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· SEASONAL ARRIVAL ·</span>
+            <span class="section-label lang-th">· การเดินทางตามฤดูกาล ·</span>
+            <h2 class="lang-en">Packing by Season: September vs. January Arrival</h2>
+            <h2 class="lang-th">การจัดกระเป๋าตามฤดูกาล: เดินทางเดือนกันยายน vs. มกราคม</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">The UK weather varies greatly. Adjust your packing based on your arrival month.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">สภาพอากาศในสหราชอาณาจักรแตกต่างกันมาก ปรับการจัดกระเป๋าตามเดือนที่คุณเดินทางมาถึง</p>
+
+            <div class="season-toggle-container">
+                <button id="sept-arrival-btn" class="season-btn lang-en">September Arrival (Autumn/Winter)</button>
+                <button id="sept-arrival-btn" class="season-btn lang-th">เดินทางเดือนกันยายน (ฤดูใบไม้ร่วง/หนาว)</button>
+                <button id="jan-arrival-btn" class="season-btn lang-en">January Arrival (Winter/Spring)</button>
+                <button id="jan-arrival-btn" class="season-btn lang-th">เดินทางเดือนมกราคม (ฤดูหนาว/ใบไม้ผลิ)</button>
+            </div>
+
+            <div id="sept-content" class="season-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="lang-en">September Arrival: Autumn & Early Winter</h3>
+                        <h3 class="lang-th">เดินทางเดือนกันยายน: ฤดูใบไม้ร่วงและต้นฤดูหนาว</h3>
+                        <p class="lang-en">You'll experience the transition from mild autumn to colder winter. Layers are key!</p>
+                        <p class="lang-th">คุณจะได้สัมผัสกับการเปลี่ยนผ่านจากฤดูใบไม้ร่วงที่อบอุ่นไปสู่ฤดูหนาวที่หนาวเย็น การแต่งกายเป็นชั้นๆ คือสิ่งสำคัญ!</p>
+                        <ul>
+                            <li class="lang-en">Light to medium weight jackets, waterproof coat.</li>
+                            <li class="lang-th">เสื้อแจ็คเก็ตน้ำหนักเบาถึงปานกลาง, เสื้อกันฝน</li>
+                            <li class="lang-en">Sweaters, cardigans, long-sleeved tops.</li>
+                            <li class="lang-th">เสื้อสเวตเตอร์, เสื้อคาร์ดิแกน, เสื้อแขนยาว</li>
+                            <li class="lang-en">Closed-toe shoes, a pair of waterproof boots.</li>
+                            <li class="lang-th">รองเท้าหุ้มส้น, รองเท้าบูทกันน้ำหนึ่งคู่</li>
+                            <li class="lang-en">A few warmer items (hat, gloves, scarf) for when it gets colder later in the term.</li>
+                            <li class="lang-th">เสื้อผ้าอุ่นๆ สองสามชิ้น (หมวก, ถุงมือ, ผ้าพันคอ) สำหรับช่วงปลายเทอมที่อากาศหนาวเย็นขึ้น</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="jan-content" class="season-content">
+                <div class="card-grid">
+                    <div class="card white-bg">
+                        <h3 class="lang-en">January Arrival: Deep Winter & Early Spring</h3>
+                        <h3 class="lang-th">เดินทางเดือนมกราคม: กลางฤดูหนาวและต้นฤดูใบไม้ผลิ</h3>
+                        <p class="lang-en">You'll arrive in the coldest part of the year. Focus on warmth and waterproofing.</p>
+                        <p class="lang-th">คุณจะเดินทางมาถึงในช่วงที่หนาวที่สุดของปี เน้นความอบอุ่นและการกันน้ำ</p>
+                        <ul>
+                            <li class="lang-en">Heavy winter coat, preferably waterproof.</li>
+                            <li class="lang-th">เสื้อโค้ทกันหนาวหนาๆ, ควรเป็นแบบกันน้ำ</li>
+                            <li class="lang-en">Thermal base layers (tops and bottoms).</li>
+                            <li class="lang-th">เสื้อและกางเกงลองจอนเก็บความร้อน</li>
+                            <li class="lang-en">Waterproof winter boots with good grip.</li>
+                            <li class="lang-th">รองเท้าบูทกันหนาวกันน้ำพร้อมพื้นรองเท้ากันลื่น</li>
+                            <li class="lang-en">Warm hats, scarves, and gloves are essential.</li>
+                            <li class="lang-th">หมวก, ผ้าพันคอ และถุงมือที่อบอุ่นเป็นสิ่งจำเป็น</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thai Food Sourcing Section -->
+    <section class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· THAI FOOD ABROAD ·</span>
+            <span class="section-label lang-th">· อาหารไทยในต่างแดน ·</span>
+            <h2 class="lang-en">Sourcing Thai Food in UK Cities</h2>
+            <h2 class="lang-th">แหล่งซื้ออาหารไทยในเมืองต่างๆ ของ UK</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">Missing authentic Thai flavors? Here's where to find your favorite ingredients and snacks.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">คิดถึงรสชาติไทยแท้ๆ ใช่ไหม? นี่คือแหล่งที่คุณจะหาส่วนผสมและขนมโปรดของคุณได้</p>
+
+            <div class="card-grid">
+                <div class="card white-bg">
+                    <h3 class="lang-en">Major Cities (London, Manchester, Birmingham)</h3>
+                    <h3 class="lang-th">เมืองใหญ่ (ลอนดอน, แมนเชสเตอร์, เบอร์มิงแฮม)</h3>
+                    <ul>
+                        <li class="lang-en">**Asian Supermarkets:** Look for stores like Wing Yip, Longdan Express, or specific Thai supermarkets. They stock a wide range of Thai ingredients, sauces, and snacks.</li>
+                        <li class="lang-th">**ซูเปอร์มาร์เก็ตเอเชีย:** มองหาร้านค้าอย่าง Wing Yip, Longdan Express หรือซูเปอร์มาร์เก็ตไทยโดยเฉพาะ พวกเขามีส่วนผสม, ซอส และขนมไทยหลากหลาย</li>
+                        <li class="lang-en">**Mainstream Supermarkets:** Larger Tesco, Sainsbury's, and Waitrose stores often have an "international aisle" with some Thai basics like coconut milk, curry pastes, and rice noodles.</li>
+                        <li class="lang-th">**ซูเปอร์มาร์เก็ตทั่วไป:** Tesco, Sainsbury's และ Waitrose สาขาใหญ่ๆ มักจะมี "ทางเดินสินค้าระหว่างประเทศ" ที่มีของไทยพื้นฐาน เช่น กะทิ, เครื่องแกง และเส้นก๋วยเตี๋ยว</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="lang-en">Other Cities & Online</h3>
+                    <h3 class="lang-th">เมืองอื่นๆ และช่องทางออนไลน์</h3>
+                    <ul>
+                        <li class="lang-en">**Local Asian Stores:** Even smaller towns with universities might have a local Asian grocery store. Ask senior students for recommendations.</li>
+                        <li class="lang-th">**ร้านค้าเอเชียท้องถิ่น:** แม้แต่เมืองเล็กๆ ที่มีมหาวิทยาลัยก็อาจมีร้านขายของชำเอเชียในท้องถิ่น ลองสอบถามจากรุ่นพี่เพื่อขอคำแนะนำ</li>
+                        <li class="lang-en">**Online Retailers:** Many Asian supermarkets offer online delivery across the UK. Websites like Orientalmart.co.uk or Starrymart.co.uk can be good options for bulk purchases.</li>
+                        <li class="lang-th">**ร้านค้าออนไลน์:** ซูเปอร์มาร์เก็ตเอเชียหลายแห่งมีบริการจัดส่งออนไลน์ทั่ว UK เว็บไซต์เช่น Orientalmart.co.uk หรือ Starrymart.co.uk เป็นทางเลือกที่ดีสำหรับการซื้อจำนวนมาก</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- First Week Survival Tips -->
+    <section class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· FIRST WEEK TIPS ·</span>
+            <span class="section-label lang-th">· เคล็ดลับสัปดาห์แรก ·</span>
+            <h2 class="lang-en">First Week Survival Tips</h2>
+            <h2 class="lang-th">เคล็ดลับการเอาชีวิตรอดในสัปดาห์แรก</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 40px;">Making the most of your initial days to settle in smoothly.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 40px;">ใช้เวลาช่วงแรกให้เกิดประโยชน์สูงสุดเพื่อปรับตัวได้อย่างราบรื่น</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3 class="lang-en">Adjust & Explore</h3>
+                    <h3 class="lang-th">ปรับตัวและสำรวจ</h3>
+                    <ul>
+                        <li class="lang-en">**Beat Jet Lag:** Try to adjust to UK time as quickly as possible. Get sunlight, stay hydrated, and try to sleep at local night time.</li>
+                        <li class="lang-th">**เอาชนะ Jet Lag:** พยายามปรับตัวให้เข้ากับเวลา UK ให้เร็วที่สุด รับแสงแดด ดื่มน้ำให้เพียงพอ และพยายามนอนหลับตามเวลาท้องถิ่น</li>
+                        <li class="lang-en">**Explore Your Surroundings:** Familiarize yourself with the school campus, dorms, dining hall, and nearby facilities.</li>
+                        <li class="lang-th">**สำรวจสภาพแวดล้อม:** ทำความคุ้นเคยกับวิทยาเขตของโรงเรียน, หอพัก, โรงอาหาร และสิ่งอำนวยความสะดวกใกล้เคียง</li>
+                    </ul>
+                </div>
+                <div class="card white-bg">
+                    <h3 class="lang-en">Connect & Communicate</h3>
+                    <h3 class="lang-th">เชื่อมสัมพันธ์และสื่อสาร</h3>
+                    <ul>
+                        <li class="lang-en">**Make Friends:** Be open to meeting new people. Join school activities, clubs, or sports.</li>
+                        <li class="lang-th">**ผูกมิตร:** เปิดใจพบปะผู้คนใหม่ๆ เข้าร่วมกิจกรรมของโรงเรียน, ชมรม หรือกีฬา</li>
+                        <li class="lang-en">**Ask for Help:** Don't hesitate to ask teachers, houseparents, or older students if you have questions or need assistance.</li>
+                        <li class="lang-th">**ขอความช่วยเหลือ:** อย่าลังเลที่จะถามครู, หัวหน้าหอพัก หรือรุ่นพี่ หากคุณมีคำถามหรือต้องการความช่วยเหลือ</li>
+                        <li class="lang-en">**Stay in Touch:** Regularly communicate with your family back in Thailand via LINE or video calls.</li>
+                        <li class="lang-th">**ติดต่อสื่อสาร:** ติดต่อกับครอบครัวที่ประเทศไทยเป็นประจำผ่าน LINE หรือวิดีโอคอล</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approved Schools Section -->
+    <section id="schools-list" class="content-section section-padding">
+        <div class="container">
+            <span class="section-label lang-en">· APPROVED SCHOOLS ·</span>
+            <span class="section-label lang-th">· โรงเรียนที่แนะนำ ·</span>
+            <h2 class="lang-en">Our Partner UK Boarding Schools</h2>
+            <h2 class="lang-th">โรงเรียนประจำในสหราชอาณาจักรพันธมิตรของเรา</h2>
+            <p class="lang-en" style="text-align: center; margin-bottom: 20px;">LINKEDU works with a select group of prestigious UK boarding schools. Fees are indicative and may vary. Please note the upcoming VAT changes.</p>
+            <p class="lang-th" style="text-align: center; margin-bottom: 20px;">LINKEDU ทำงานร่วมกับกลุ่มโรงเรียนประจำชั้นนำในสหราชอาณาจักร ค่าธรรมเนียมเป็นเพียงตัวเลขประมาณการและอาจมีการเปลี่ยนแปลง โปรดทราบเกี่ยวกับการเปลี่ยนแปลง VAT ที่กำลังจะมาถึง</p>
+            <p class="lang-en vat-note" style="text-align: center; font-style: italic; color: #777; margin-bottom: 40px;">
+                <strong style="color: var(--dark);">VAT Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, typically costing GBP 10,000 to 19,000 per year.
+            </p>
+            <p class="lang-th vat-note" style="text-align: center; font-style: italic; color: #777; margin-bottom: 40px;">
+                <strong style="color: var(--dark);">หมายเหตุ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐได้รับการยกเว้น VAT โดยปกติมีค่าใช้จ่ายประมาณ 10,000 ถึง 19,000 ปอนด์ต่อปี
+            </p>
+
+            <div class="school-list">
+                <!-- Example School Data (approximate fees for illustration) -->
+                <div class="school-item">
+                    <h4 class="lang-en">Abbotsholme School</h4>
+                    <h4 class="lang-th">โรงเรียน Abbotsholme</h4>
+                    <p class="lang-en">Indicative Fees: GBP 35,000 / THB 1,575,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 35,000 ปอนด์ / 1,575,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Ardingly College</h4>
+                    <h4 class="lang-th">วิทยาลัย Ardingly</h4>
+                    <p class="lang-en">Indicative Fees: GBP 42,000 / THB 1,890,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 42,000 ปอนด์ / 1,890,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Brighton College</h4>
+                    <h4 class="lang-th">วิทยาลัย Brighton</h4>
+                    <p class="lang-en">Indicative Fees: GBP 45,000 / THB 2,025,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 45,000 ปอนด์ / 2,025,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Bromsgrove School</h4>
+                    <h4 class="lang-th">โรงเรียน Bromsgrove</h4>
+                    <p class="lang-en">Indicative Fees: GBP 40,000 / THB 1,800,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 40,000 ปอนด์ / 1,800,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Bryanston School</h4>
+                    <h4 class="lang-th">โรงเรียน Bryanston</h4>
+                    <p class="lang-en">Indicative Fees: GBP 44,000 / THB 1,980,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 44,000 ปอนด์ / 1,980,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Cardiff Sixth Form College</h4>
+                    <h4 class="lang-th">วิทยาลัย Cardiff Sixth Form</h4>
+                    <p class="lang-en">Indicative Fees: GBP 60,000 / THB 2,700,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 60,000 ปอนด์ / 2,700,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Caterham School</h4>
+                    <h4 class="lang-th">โรงเรียน Caterham</h4>
+                    <p class="lang-en">Indicative Fees: GBP 40,000 / THB 1,800,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 40,000 ปอนด์ / 1,800,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Charterhouse School</h4>
+                    <h4 class="lang-th">โรงเรียน Charterhouse</h4>
+                    <p class="lang-en">Indicative Fees: GBP 47,000 / THB 2,115,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 47,000 ปอนด์ / 2,115,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Clifton College</h4>
+                    <h4 class="lang-th">วิทยาลัย Clifton</h4>
+                    <p class="lang-en">Indicative Fees: GBP 41,000 / THB 1,845,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 41,000 ปอนด์ / 1,845,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Concord College</h4>
+                    <h4 class="lang-th">วิทยาลัย Concord</h4>
+                    <p class="lang-en">Indicative Fees: GBP 50,000 / THB 2,250,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 50,000 ปอนด์ / 2,250,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">D'Overbroeck's</h4>
+                    <h4 class="lang-th">D'Overbroeck's</h4>
+                    <p class="lang-en">Indicative Fees: GBP 48,000 / THB 2,160,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 48,000 ปอนด์ / 2,160,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Dulwich College</h4>
+                    <h4 class="lang-th">วิทยาลัย Dulwich</h4>
+                    <p class="lang-en">Indicative Fees: GBP 46,000 / THB 2,070,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 46,000 ปอนด์ / 2,070,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Epsom College</h4>
+                    <h4 class="lang-th">วิทยาลัย Epsom</h4>
+                    <p class="lang-en">Indicative Fees: GBP 43,000 / THB 1,935,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 43,000 ปอนด์ / 1,935,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Eton College</h4>
+                    <h4 class="lang-th">วิทยาลัย Eton</h4>
+                    <p class="lang-en">Indicative Fees: GBP 49,000 / THB 2,205,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 49,000 ปอนด์ / 2,205,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Harrow School</h4>
+                    <h4 class="lang-th">โรงเรียน Harrow</h4>
+                    <p class="lang-en">Indicative Fees: GBP 48,000 / THB 2,160,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 48,000 ปอนด์ / 2,160,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Lancing College</h4>
+                    <h4 class="lang-th">วิทยาลัย Lancing</h4>
+                    <p class="lang-en">Indicative Fees: GBP 40,000 / THB 1,800,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 40,000 ปอนด์ / 1,800,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Loretto School</h4>
+                    <h4 class="lang-th">โรงเรียน Loretto</h4>
+                    <p class="lang-en">Indicative Fees: GBP 38,000 / THB 1,710,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 38,000 ปอนด์ / 1,710,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Millfield School</h4>
+                    <h4 class="lang-th">โรงเรียน Millfield</h4>
+                    <p class="lang-en">Indicative Fees: GBP 49,000 / THB 2,205,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 49,000 ปอนด์ / 2,205,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Oakham School</h4>
+                    <h4 class="lang-th">โรงเรียน Oakham</h4>
+                    <p class="lang-en">Indicative Fees: GBP 41,000 / THB 1,845,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 41,000 ปอนด์ / 1,845,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Oundle School</h4>
+                    <h4 class="lang-th">โรงเรียน Oundle</h4>
+                    <p class="lang-en">Indicative Fees: GBP 45,000 / THB 2,025,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 45,000 ปอนด์ / 2,025,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Oxford International College</h4>
+                    <h4 class="lang-th">วิทยาลัย Oxford International</h4>
+                    <p class="lang-en">Indicative Fees: GBP 65,000 / THB 2,925,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 65,000 ปอนด์ / 2,925,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Queen Ethelburga's Collegiate</h4>
+                    <h4 class="lang-th">วิทยาลัย Queen Ethelburga's</h4>
+                    <p class="lang-en">Indicative Fees: GBP 55,000 / THB 2,475,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 55,000 ปอนด์ / 2,475,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Repton School</h4>
+                    <h4 class="lang-th">โรงเรียน Repton</h4>
+                    <p class="lang-en">Indicative Fees: GBP 42,000 / THB 1,890,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 42,000 ปอนด์ / 1,890,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Roedean School</h4>
+                    <h4 class="lang-th">โรงเรียน Roedean</h4>
+                    <p class="lang-en">Indicative Fees: GBP 46,000 / THB 2,070,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 46,000 ปอนด์ / 2,070,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Rossall School</h4>
+                    <h4 class="lang-th">โรงเรียน Rossall</h4>
+                    <p class="lang-en">Indicative Fees: GBP 39,000 / THB 1,755,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 39,000 ปอนด์ / 1,755,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Royal Russell School</h4>
+                    <h4 class="lang-th">โรงเรียน Royal Russell</h4>
+                    <p class="lang-en">Indicative Fees: GBP 38,000 / THB 1,710,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 38,000 ปอนด์ / 1,710,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Sedbergh School</h4>
+                    <h4 class="lang-th">โรงเรียน Sedbergh</h4>
+                    <p class="lang-en">Indicative Fees: GBP 40,000 / THB 1,800,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 40,000 ปอนด์ / 1,800,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Sevenoaks School</h4>
+                    <h4 class="lang-th">โรงเรียน Sevenoaks</h4>
+                    <p class="lang-en">Indicative Fees: GBP 47,000 / THB 2,115,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 47,000 ปอนด์ / 2,115,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Shrewsbury School</h4>
+                    <h4 class="lang-th">โรงเรียน Shrewsbury</h4>
+                    <p class="lang-en">Indicative Fees: GBP 44,000 / THB 1,980,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 44,000 ปอนด์ / 1,980,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Sidcot School</h4>
+                    <h4 class="lang-th">โรงเรียน Sidcot</h4>
+                    <p class="lang-en">Indicative Fees: GBP 36,000 / THB 1,620,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 36,000 ปอนด์ / 1,620,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">St Leonards School</h4>
+                    <h4 class="lang-th">โรงเรียน St Leonards</h4>
+                    <p class="lang-en">Indicative Fees: GBP 37,000 / THB 1,665,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 37,000 ปอนด์ / 1,665,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">The Leys School</h4>
+                    <h4 class="lang-th">โรงเรียน The Leys</h4>
+                    <p class="lang-en">Indicative Fees: GBP 41,000 / THB 1,845,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 41,000 ปอนด์ / 1,845,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Northern School of Music (NMSC)</h4>
+                    <h4 class="lang-th">โรงเรียน Northern School of Music (NMSC)</h4>
+                    <p class="lang-en">Indicative Fees: GBP 30,000 / THB 1,350,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 30,000 ปอนด์ / 1,350,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Tonbridge School</h4>
+                    <h4 class="lang-th">โรงเรียน Tonbridge</h4>
+                    <p class="lang-en">Indicative Fees: GBP 48,000 / THB 2,160,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 48,000 ปอนด์ / 2,160,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Uppingham School</h4>
+                    <h4 class="lang-th">โรงเรียน Uppingham</h4>
+                    <p class="lang-en">Indicative Fees: GBP 46,000 / THB 2,070,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 46,000 ปอนด์ / 2,070,000 บาท ต่อปี</p>
+                </div>
+                <div class="school-item">
+                    <h4 class="lang-en">Wells Cathedral School</h4>
+                    <h4 class="lang-th">โรงเรียน Wells Cathedral</h4>
+                    <p class="lang-en">Indicative Fees: GBP 39,000 / THB 1,755,000 per year</p>
+                    <p class="lang-th">ค่าธรรมเนียมโดยประมาณ: 39,000 ปอนด์ / 1,755,000 บาท ต่อปี</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LINE CTA SECTION (Bottom of the page) -->
+    <section class="line-cta-section">
+        <div class="container">
+            <div class="line-handle">LINE: satitlinkedu</div>
+            <p class="cta-subtext lang-en">Free Consultation</p>
+            <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="lang-en">© 2024 LINKEDU. All rights reserved. | Website: <a href="https://th.linkedu.hk">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+            <p class="lang-th">© 2024 LINKEDU. สงวนลิขสิทธิ์ | เว็บไซต์: <a href="https://th.linkedu.hk">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlTag = document.documentElement;
+            const langEnBtn = document.getElementById('lang-en-btn');
+            const langThBtn = document.getElementById('lang-th-btn');
+
+            // Set default language on load
+            // This is already set in the HTML tag as lang="th" and active class on TH button.
+            // No need to explicitly set it again unless we want to override.
+            // Ensure the initial state of the buttons matches the html lang attribute
+            if (htmlTag.getAttribute('lang') === 'en') {
+                langEnBtn.classList.add('active');
+                langThBtn.classList.remove('active');
+            } else {
+                langThBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+            }
+
+
+            function switchLanguage(lang) {
+                htmlTag.setAttribute('lang', lang);
+                if (lang === 'en') {
+                    langEnBtn.classList.add('active');
+                    langThBtn.classList.remove('active');
+                } else {
+                    langThBtn.classList.add('active');
+                    langEnBtn.classList.remove('active');
+                }
+            }
+
+            langEnBtn.addEventListener('click', () => switchLanguage('en'));
+            langThBtn.addEventListener('click', () => switchLanguage('th'));
+
+            // Interactive Element: Season Toggle
+            const septArrivalBtn = document.getElementById('sept-arrival-btn');
+            const janArrivalBtn = document.getElementById('jan-arrival-btn');
+            const septContent = document.getElementById('sept-content');
+            const janContent = document.getElementById('jan-content');
+
+            function showSeasonContent(season) {
+                if (season === 'sept') {
+                    septContent.classList.add('active');
+                    janContent.classList.remove('active');
+                    // Find both EN and TH buttons for September and January
+                    document.querySelectorAll('#sept-arrival-btn').forEach(btn => btn.classList.add('active'));
+                    document.querySelectorAll('#jan-arrival-btn').forEach(btn => btn.classList.remove('active'));
+                } else {
+                    janContent.classList.add('active');
+                    septContent.classList.remove('active');
+                    document.querySelectorAll('#jan-arrival-btn').forEach(btn => btn.classList.add('active'));
+                    document.querySelectorAll('#sept-arrival-btn').forEach(btn => btn.classList.remove('active'));
+                }
+            }
+
+            // Corrected event listeners to target the correct button IDs regardless of language
+            document.querySelectorAll('#sept-arrival-btn').forEach(btn => {
+                btn.addEventListener('click', () => showSeasonContent('sept'));
+            });
+            document.querySelectorAll('#jan-arrival-btn').forEach(btn => {
+                btn.addEventListener('click', () => showSeasonContent('jan'));
+            });
+
+            // Initial state for season toggle
+            showSeasonContent('sept');
+        });
+    </script>
+
+</body>
+</html>

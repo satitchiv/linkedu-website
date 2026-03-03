@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursary & Financial Aid Finder | LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* LINKEDU Brand Standards - Colors */
+        :root {
+            --dark-bg: #1a1a1a;
+            --cream-bg: #f5f0e8;
+            --gold-accent: #B8962E;
+            --dark-text: #1a1a1a;
+            --cream-text: #f5f0e8;
+            --light-border: rgba(0,0,0,0.08);
+            --subtle-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            background-color: var(--cream-bg);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--gold-accent);
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--dark-text);
+        }
+
+        /* Typography - Playfair Display for Headings, Inter for Body */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--dark-text);
+        }
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        /* General Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        section {
+            padding: 80px 0;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--dark-bg);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+        .logo-wrap span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--cream-text);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: var(--cream-text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            margin-left: 25px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--gold-accent);
+        }
+        .lang-toggle button {
+            background: transparent;
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin-left: 5px;
+        }
+        .lang-toggle button.active {
+            background-color: var(--gold-accent);
+            color: var(--dark-text);
+        }
+        .lang-toggle button:hover:not(.active) {
+            background-color: rgba(184, 150, 46, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark-bg);
+            color: var(--cream-text);
+            text-align: center;
+            padding: 100px 0;
+        }
+        .hero h1 {
+            color: var(--cream-text);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero .btn-primary {
+            display: inline-block;
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+            display: block;
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold-accent);
+            margin: 0 auto 10px auto;
+        }
+        .section-label span {
+            background-color: var(--cream-bg); /* To make the line appear to break */
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-label-dark {
+            background-color: var(--dark-bg);
+        }
+        .section-label-dark span {
+             background-color: var(--dark-bg);
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 6px;
+            padding: 14px 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background-color: var(--gold-accent);
+            color: var(--dark-text);
+        }
+        .btn-primary:hover {
+            background-color: #a38428; /* Slightly darker gold */
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+        }
+        .btn-secondary:hover {
+            background-color: var(--gold-accent);
+            color: var(--dark-text);
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background-color: var(--cream-bg);
+            text-align: center;
+        }
+        .calculator-form {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid var(--light-border);
+            border-radius: 8px;
+            box-shadow: var(--subtle-shadow);
+        }
+        .calculator-form label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+        .calculator-form input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--light-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        .calculator-form input[type="number"]:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+        }
+        .vat-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 20px;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            padding: 0 20px; /* Adjust padding for better look inside the form */
+        }
+
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .school-card {
+            background-color: #fff;
+            border: 1px solid var(--light-border);
+            border-radius: 8px;
+            box-shadow: var(--subtle-shadow);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .school-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .school-card.highlight {
+            border: 2px solid var(--gold-accent);
+            box-shadow: 0 4px 15px rgba(184, 150, 46, 0.2);
+        }
+        .school-card h3 {
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.8rem; /* Adjusted for card titles */
+        }
+        .school-card p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #444;
+            font-family: 'Inter', sans-serif;
+        }
+        .school-card .fees {
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 1.1rem;
+        }
+        .school-card .scholarship-info {
+            color: var(--gold-accent);
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 1.05rem;
+        }
+        .error-message {
+            color: #e74c3c;
+            margin-top: 20px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* LINE CTA - In-between results */
+        .line-cta-inline {
+            background-color: var(--cream-bg);
+            border: 1px dashed var(--gold-accent);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .line-cta-inline p {
+            margin: 0 0 10px 0;
+            color: var(--dark-text);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .line-cta-inline .line-handle {
+            color: var(--gold-accent);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .line-cta-inline .btn-line-small {
+            background-color: var(--gold-accent);
+            color: var(--dark-text);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .line-cta-inline .btn-line-small:hover {
+            background-color: #a38428;
+        }
+
+        /* LINE CTA Section - Bottom of page */
+        .line-cta-section {
+            background-color: var(--dark-bg);
+            color: var(--cream-text);
+            text-align: center;
+            padding: 80px 0;
+        }
+        .line-cta-section h2 {
+            color: var(--cream-text);
+            margin-bottom: 20px;
+        }
+        .line-cta-section .line-handle {
+            color: var(--gold-accent);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+            font-family: 'Playfair Display', serif;
+        }
+        .line-cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+        .line-cta-section .btn-primary {
+            padding: 18px 36px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            color: var(--cream-text);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+        }
+        .footer p {
+            margin-bottom: 10px;
+            color: rgba(245, 240, 232, 0.8);
+        }
+        .footer a {
+            color: var(--gold-accent);
+        }
+        .footer a:hover {
+            color: var(--cream-text);
+        }
+
+        /* Language System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-right {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .nav-links a {
+                margin: 5px 0;
+            }
+            .hero {
+                padding: 80px 20px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .calculator-form {
+                padding: 20px;
+            }
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            .line-cta-section {
+                padding: 60px 20px;
+            }
+            .line-cta-section .line-handle {
+                font-size: 1.6rem;
+            }
+            .line-cta-section p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+            </div>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <a href="th.linkedu.hk" target="_blank" class="lang-en">Home</a>
+                    <a href="th.linkedu.hk" target="_blank" class="lang-th">หน้าหลัก</a>
+                    <a href="#calculator-section" class="lang-en">Bursary Finder</a>
+                    <a href="#calculator-section" class="lang-th">ค้นหาทุนและค่าช่วยเหลือนักเรียน</a>
+                    <a href="th.linkedu.hk/contact" target="_blank" class="lang-en">Contact</a>
+                    <a href="th.linkedu.hk/contact" target="_blank" class="lang-th">ติดต่อ</a>
+                </nav>
+                <div class="lang-toggle">
+                    <button id="lang-en-btn">EN</button>
+                    <button id="lang-th-btn" class="active">TH</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="lang-en">Find Your Dream School with Financial Aid</h1>
+                <h1 class="lang-th">ค้นหาโรงเรียนในฝันของคุณด้วยทุนการศึกษา</h1>
+                <p class="lang-en">Discover UK boarding schools that fit your family's budget with our Bursary & Financial Aid Finder. We connect you with institutions offering scholarships to bridge the financial gap.</p>
+                <p class="lang-th">ค้นพบโรงเรียนประจำในสหราชอาณาจักรที่เหมาะกับงบประมาณของครอบครัวคุณด้วยเครื่องมือค้นหาทุนและค่าช่วยเหลือนักเรียนของเรา เราเชื่อมโยงคุณกับสถาบันที่มอบทุนการศึกษาเพื่อช่วยลดช่องว่างทางการเงิน</p>
+                <a href="#calculator-section" class="btn btn-primary lang-en">Start Your Search</a>
+                <a href="#calculator-section" class="btn btn-primary lang-th">เริ่มค้นหา</a>
+            </div>
+        </section>
+
+        <section id="calculator-section" class="calculator-section">
+            <div class="container">
+                <div class="section-label"><span class="lang-en">· BURSARY FINDER ·</span><span class="lang-th">· ค้นหาทุนการศึกษา ·</span></div>
+                <h2 class="lang-en">How Much Can Your Family Afford Annually?</h2>
+                <h2 class="lang-th">ครอบครัวของคุณสามารถจัดสรรงบประมาณรายปีได้เท่าไหร่?</h2>
+
+                <div class="calculator-form">
+                    <label for="annualBudgetTHB" class="lang-en">Your Family's Annual Budget (THB):</label>
+                    <label for="annualBudgetTHB" class="lang-th">งบประมาณรายปีของครอบครัว (บาท):</label>
+                    <input type="number" id="annualBudgetTHB" placeholder="เช่น 1,500,000" min="0" step="10000">
+                    <button id="findSchoolsBtn" class="btn btn-primary lang-en">Find Schools</button>
+                    <button id="findSchoolsBtn" class="btn btn-primary lang-th">ค้นหาโรงเรียน</button>
+                    <p class="vat-note lang-en">Note: Private school fees will have 20% VAT added from January 2025. State boarding schools (fees typically £10,000-£19,000 per year) are VAT exempt.</p>
+                    <p class="vat-note lang-th">หมายเหตุ: ค่าธรรมเนียมโรงเรียนเอกชนจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2568 โรงเรียนประจำของรัฐ (ค่าธรรมเนียมโดยปกติ £10,000-£19,000 ต่อปี) ได้รับการยกเว้น VAT</p>
+                </div>
+
+                <div id="results-output">
+                    <!-- Results will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="line-cta-section">
+            <div class="container">
+                <div class="section-label section-label-dark"><span class="lang-en">· CONTACT US ·</span><span class="lang-th">· ติดต่อเรา ·</span></div>
+                <h2 class="lang-en">Ready to Explore Your Options?</h2>
+                <h2 class="lang-th">พร้อมที่จะสำรวจทางเลือกของคุณแล้วหรือยัง?</h2>
+                <span class="line-handle">LINE: satitlinkedu</span>
+                <p class="lang-en">Get personalized advice and free consultation on UK boarding schools and scholarships.</p>
+                <p class="lang-th">รับคำแนะนำส่วนบุคคลและการปรึกษาฟรีเกี่ยวกับโรงเรียนประจำในสหราชอาณาจักรและทุนการศึกษา</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-en">Add LINE / Free Consultation</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-primary lang-th">เพิ่ม LINE / ปรึกษาฟรี</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="lang-en">&copy; 2024 LINKEDU Education Consulting. All rights reserved.</p>
+            <p class="lang-th">&copy; 2024 LINKEDU Education Consulting. สงวนลิขสิทธิ์.</p>
+            <p><a href="th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langEnBtn = document.getElementById('lang-en-btn');
+            const langThBtn = document.getElementById('lang-th-btn');
+            const findSchoolsBtn = document.getElementById('findSchoolsBtn');
+            const annualBudgetTHBInput = document.getElementById('annualBudgetTHB');
+            const resultsOutput = document.getElementById('results-output');
+
+            const GBP_TO_THB_RATE = 45;
+            const VAT_PERCENT = 0.20; // 20% VAT from Jan 2025 for private schools
+
+            const schools = [
+                { name: "Rossall", baseFeeGBP: 42000, maxScholarshipPercent: 1.00, isStateBoarding: false, highlight: true },
+                { name: "Ardingly", baseFeeGBP: 45000, maxScholarshipPercent: 0.50, isStateBoarding: false, highlight: true },
+                { name: "Cardiff Sixth Form", baseFeeGBP: 50000, maxScholarshipPercent: 0.50, isStateBoarding: false, highlight: true },
+                { name: "Abbotsholme", baseFeeGBP: 38000, maxScholarshipPercent: 0.50, isStateBoarding: false, highlight: true },
+                { name: "Oakham", baseFeeGBP: 43000, maxScholarshipPercent: 0.40, isStateBoarding: false, highlight: true },
+                { name: "Brighton College", baseFeeGBP: 48000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Bromsgrove", baseFeeGBP: 42000, maxScholarshipPercent: 0.35, isStateBoarding: false },
+                { name: "Bryanston", baseFeeGBP: 46000, maxScholarshipPercent: 0.25, isStateBoarding: false },
+                { name: "Caterham", baseFeeGBP: 41000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Charterhouse", baseFeeGBP: 49000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Clifton", baseFeeGBP: 40000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Concord", baseFeeGBP: 47000, maxScholarshipPercent: 0.25, isStateBoarding: false },
+                { name: "D Overbroeks", baseFeeGBP: 40000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Dulwich", baseFeeGBP: 48000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Epsom", baseFeeGBP: 45000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Eton", baseFeeGBP: 50000, maxScholarshipPercent: 0.10, isStateBoarding: false },
+                { name: "Harrow", baseFeeGBP: 50000, maxScholarshipPercent: 0.10, isStateBoarding: false },
+                { name: "Lancing", baseFeeGBP: 42000, maxScholarshipPercent: 0.35, isStateBoarding: false },
+                { name: "Loretto", baseFeeGBP: 39000, maxScholarshipPercent: 0.40, isStateBoarding: false },
+                { name: "Millfield", baseFeeGBP: 46000, maxScholarshipPercent: 0.25, isStateBoarding: false },
+                { name: "Oundle", baseFeeGBP: 47000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Oxford International", baseFeeGBP: 35000, maxScholarshipPercent: 0.45, isStateBoarding: false },
+                { name: "Queen Ethelburgas", baseFeeGBP: 55000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Repton", baseFeeGBP: 44000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Roedean", baseFeeGBP: 45000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "Royal Russell", baseFeeGBP: 40000, maxScholarshipPercent: 0.35, isStateBoarding: false },
+                { name: "Sedbergh", baseFeeGBP: 41000, maxScholarshipPercent: 0.40, isStateBoarding: false },
+                { name: "Sevenoaks", baseFeeGBP: 49000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Shrewsbury", baseFeeGBP: 46000, maxScholarshipPercent: 0.25, isStateBoarding: false },
+                { name: "Sidcot", baseFeeGBP: 37000, maxScholarshipPercent: 0.45, isStateBoarding: false },
+                { name: "St Leonards", baseFeeGBP: 39000, maxScholarshipPercent: 0.40, isStateBoarding: false },
+                { name: "The Leys", baseFeeGBP: 43000, maxScholarshipPercent: 0.30, isStateBoarding: false },
+                { name: "NMSC", baseFeeGBP: 36000, maxScholarshipPercent: 0.50, isStateBoarding: false },
+                { name: "Tonbridge", baseFeeGBP: 48000, maxScholarshipPercent: 0.20, isStateBoarding: false },
+                { name: "Uppingham", baseFeeGBP: 47000, maxScholarshipPercent: 0.25, isStateBoarding: false },
+                { name: "Wells Cathedral", baseFeeGBP: 18000, maxScholarshipPercent: 0.60, isStateBoarding: true }
+            ];
+
+            // Language Toggle Functionality
+            function setLanguage(lang) {
+                document.documentElement.setAttribute('lang', lang);
+                langEnBtn.classList.remove('active');
+                langThBtn.classList.remove('active');
+                if (lang === 'en') {
+                    langEnBtn.classList.add('active');
+                } else {
+                    langThBtn.classList.add('active');
+                }
+                updateResultsDisplay(); // Re-render results with new language if any
+            }
+
+            langEnBtn.addEventListener('click', () => setLanguage('en'));
+            langThBtn.addEventListener('click', () => setLanguage('th'));
+
+            // Set initial language to Thai
+            setLanguage('th');
+
+            // Calculator Logic
+            findSchoolsBtn.addEventListener('click', () => {
+                const budgetTHB = parseFloat(annualBudgetTHBInput.value);
+                const currentLang = document.documentElement.getAttribute('lang');
+
+                if (isNaN(budgetTHB) || budgetTHB < 0) {
+                    resultsOutput.innerHTML = `
+                        <p class="error-message lang-en">Please enter a valid family annual budget.</p>
+                        <p class="error-message lang-th">กรุณากรอกงบประมาณรายปีของครอบครัวที่ถูกต้อง.</p>
+                    `;
+                    resultsOutput.querySelector(`.lang-${currentLang}`).style.display = 'block';
+                    return;
+                }
+
+                const budgetGBP = budgetTHB / GBP_TO_THB_RATE;
+                const matchingSchools = [];
+
+                schools.forEach(school => {
+                    let effectiveFeeGBP = school.baseFeeGBP;
+                    if (!school.isStateBoarding) {
+                        effectiveFeeGBP *= (1 + VAT_PERCENT); // Apply VAT for private schools
+                    }
+
+                    const requiredScholarshipGBP = effectiveFeeGBP - budgetGBP;
+
+                    if (requiredScholarshipGBP <= 0) {
+                        // Family can afford it without scholarship
+                        matchingSchools.push({
+                            ...school,
+                            actualFeeGBP: effectiveFeeGBP,
+                            scholarshipRequiredPercent: 0,
+                            scholarshipOfferedPercent: 0,
+                            canBridgeGap: true
+                        });
+                    } else {
+                        // Scholarship is needed
+                        const maxScholarshipAmountGBP = effectiveFeeGBP * school.maxScholarshipPercent;
+                        if (maxScholarshipAmountGBP >= requiredScholarshipGBP) {
+                            const scholarshipRequiredPercent = requiredScholarshipGBP / effectiveFeeGBP;
+                            matchingSchools.push({
+                                ...school,
+                                actualFeeGBP: effectiveFeeGBP,
+                                scholarshipRequiredPercent: scholarshipRequiredPercent,
+                                scholarshipOfferedPercent: school.maxScholarshipPercent,
+                                canBridgeGap: true
+                            });
+                        }
+                    }
+                });
+
+                // Sort by scholarship generosity (higher max scholarship percent first)
+                matchingSchools.sort((a, b) => {
+                    if (a.highlight && !b.highlight) return -1;
+                    if (!a.highlight && b.highlight) return 1;
+                    return b.maxScholarshipPercent - a.maxScholarshipPercent;
+                });
+
+                renderResults(matchingSchools, currentLang);
+            });
+
+            function renderResults(schools, lang) {
+                let resultsHtml = '';
+
+                if (schools.length === 0) {
+                    resultsHtml = `
+                        <div class="calculator-form">
+                            <p class="lang-en">No schools found that can bridge the financial gap with their current scholarship offerings for your budget. Consider adjusting your budget or exploring other options.</p>
+                            <p class="lang-th">ไม่พบโรงเรียนที่สามารถลดช่องว่างทางการเงินด้วยข้อเสนอทุนการศึกษาในปัจจุบันสำหรับงบประมาณของคุณ ลองปรับงบประมาณหรือสำรวจทางเลือกอื่น ๆ</p>
+                            <p class="error-message lang-${lang}" style="margin-top:20px;">${lang === 'en' ? 'No matching schools found.' : 'ไม่พบโรงเรียนที่ตรงกับเงื่อนไข.'}</p>
+                        </div>
+                    `;
+                } else {
+                    const sectionLabelHtml = `
+                        <div class="section-label" style="margin-top: 50px;"><span class="lang-en">· MATCHING SCHOOLS ·</span><span class="lang-th">· โรงเรียนที่ตรงกับเงื่อนไข ·</span></div>
+                        <h2 class="lang-en">Schools Bridging Your Financial Gap</h2>
+                        <h2 class="lang-th">โรงเรียนที่ช่วยลดช่องว่างทางการเงินของคุณ</h2>
+                    `;
+                    resultsHtml += sectionLabelHtml;
+                    resultsHtml += '<div class="results-grid">';
+
+                    schools.forEach((school, index) => {
+                        const feeAfterScholarshipGBP = school.actualFeeGBP * (1 - school.scholarshipRequiredPercent);
+                        const feeAfterScholarshipTHB = feeAfterScholarshipGBP * GBP_TO_THB_RATE;
+
+                        const scholarshipNeededPercent = (school.scholarshipRequiredPercent * 100).toFixed(0);
+                        const maxScholarshipPercent = (school.maxScholarshipPercent * 100).toFixed(0);
+
+                        resultsHtml += `
+                            <div class="school-card ${school.highlight ? 'highlight' : ''}">
+                                <div>
+                                    <h3>${school.name}</h3>
+                                    <p class="lang-en fees">Full Annual Fee (approx.): £${school.actualFeeGBP.toLocaleString()} / ฿${(school.actualFeeGBP * GBP_TO_THB_RATE).toLocaleString()}</p>
+                                    <p class="lang-th fees">ค่าธรรมเนียมรายปีเต็มจำนวน (โดยประมาณ): £${school.actualFeeGBP.toLocaleString()} / ฿${(school.actualFeeGBP * GBP_TO_THB_RATE).toLocaleString()}</p>
+                                    ${school.scholarshipRequiredPercent > 0 ? `
+                                        <p class="lang-en">Your estimated contribution after aid: £${feeAfterScholarshipGBP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} / ฿${feeAfterScholarshipTHB.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                        <p class="lang-th">เงินสมทบโดยประมาณของคุณหลังจากได้รับทุน: £${feeAfterScholarshipGBP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} / ฿${feeAfterScholarshipTHB.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                        <p class="scholarship-info lang-en">Requires ~${scholarshipNeededPercent}% scholarship (School offers up to ${maxScholarshipPercent}%)</p>
+                                        <p class="scholarship-info lang-th">ต้องได้รับทุนประมาณ ${scholarshipNeededPercent}% (โรงเรียนเสนอทุนสูงสุด ${maxScholarshipPercent}%)</p>
+                                    ` : `
+                                        <p class="lang-en scholarship-info">You can afford this school within your budget!</p>
+                                        <p class="lang-th scholarship-info">คุณสามารถจ่ายค่าเล่าเรียนโรงเรียนนี้ได้ภายในงบประมาณของคุณ!</p>
+                                    `}
+                                </div>
+                            </div>
+                        `;
+                        // Add LINE CTA after every result, but not after the last one if it's the only one
+                        if (index < schools.length - 1) {
+                            resultsHtml += `
+                                <div class="line-cta-inline">
+                                    <p class="lang-en">Need personalized advice?</p>
+                                    <p class="lang-th">ต้องการคำแนะนำส่วนบุคคล?</p>
+                                    <span class="line-handle">LINE: satitlinkedu</span>
+                                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-line-small lang-en">Free Consultation</a>
+                                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-line-small lang-th">ปรึกษาฟรี</a>
+                                </div>
+                            `;
+                        }
+                    });
+                    resultsHtml += '</div>';
+                     // Add the final LINE CTA after the results grid, if there are results
+                    if (schools.length > 0) {
+                        resultsHtml += `
+                            <div class="line-cta-inline" style="margin-top: 50px;">
+                                <p class="lang-en">Ready for the next step?</p>
+                                <p class="lang-th">พร้อมสำหรับขั้นตอนต่อไปแล้วหรือยัง?</p>
+                                <span class="line-handle">LINE: satitlinkedu</span>
+                                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-line-small lang-en">Add LINE / Free Consultation</a>
+                                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-line-small lang-th">เพิ่ม LINE / ปรึกษาฟรี</a>
+                            </div>
+                        `;
+                    }
+                }
+                resultsOutput.innerHTML = resultsHtml;
+            }
+
+            // Function to re-render results with current language settings
+            function updateResultsDisplay() {
+                const budgetTHB = parseFloat(annualBudgetTHBInput.value);
+                if (!isNaN(budgetTHB) && budgetTHB >= 0 && resultsOutput.innerHTML.trim() !== '') {
+                    findSchoolsBtn.click(); // Re-trigger the calculation and rendering
+                }
+            }
+        });
+    </script>
+</body>
+</html>

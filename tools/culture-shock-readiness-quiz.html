@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU - UK Culture Shock Readiness Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --dark: #1a1a1a;
+            --cream: #f5f0e8;
+            --gold: #B8962E;
+            --text-dark: #1a1a1a;
+            --text-cream: #f5f0e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.8rem; }
+        h3 { font-size: 2.2rem; }
+        h4 { font-size: 1.8rem; }
+
+        .dark-bg h1, .dark-bg h2, .dark-bg h3, .dark-bg h4 {
+            color: var(--text-cream);
+        }
+
+        /* Language System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Header */
+        .header {
+            background-color: var(--dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-wrap svg { height: 28px; width: auto; display: block; }
+        .logo-wrap span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--text-cream);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            margin-left: auto;
+            margin-right: 30px; /* Space before language toggle */
+        }
+
+        .nav-menu a {
+            color: var(--text-cream);
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .lang-toggle {
+            display: flex;
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .lang-toggle button {
+            background-color: transparent;
+            border: none;
+            color: var(--gold);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .lang-toggle button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--text-cream);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: var(--text-cream);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: rgba(245, 240, 232, 0.8);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #d4ae3e; /* Slightly darker gold */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Section Labels */
+        .section-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 0 10px;
+        }
+        .section-label::before { margin-right: 15px; } /* Only before for top line */
+        .section-label::after { display: none; } /* Only before for top line */
+
+        /* Content Sections */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-cream {
+            background-color: var(--cream);
+            color: var(--text-dark);
+        }
+
+        .section-dark {
+            background-color: var(--dark);
+            color: var(--text-cream);
+        }
+
+        /* Cards */
+        .card {
+            background-color: #ffffff; /* Use white for card backgrounds */
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Quiz Specific Styles */
+        .quiz-section {
+            background-color: var(--cream);
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .quiz-question h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .quiz-options label {
+            display: block;
+            margin-bottom: 15px;
+            cursor: pointer;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-options input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .quiz-options label .radio-custom {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .quiz-options input[type="radio"]:checked ~ .radio-custom {
+            background-color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .quiz-options label .radio-custom::after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--dark);
+        }
+
+        .quiz-options input[type="radio"]:checked ~ .radio-custom::after {
+            display: block;
+        }
+
+        #quizResults {
+            display: none;
+            margin-top: 40px;
+        }
+
+        #quizResults h3 {
+            color: var(--gold);
+        }
+
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .result-level {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .result-tips ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .result-tips li {
+            background-color: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .result-tips li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        .school-recommendations h4 {
+            color: var(--gold);
+            margin-top: 30px;
+        }
+
+        .school-card {
+            background-color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .school-card h5 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .school-card p {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .school-card .fees {
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 10px;
+        }
+
+        .vat-note {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-left: 4px solid var(--gold);
+            border-radius: 4px;
+        }
+
+        /* LINE CTA Section (after results & bottom) */
+        .line-cta-box {
+            background-color: var(--dark);
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 8px;
+        }
+
+        .line-cta-box.full-width {
+            margin-top: 0; /* No top margin if it's the full-width bottom section */
+            border-radius: 0; /* No border-radius if it's the full-width bottom section */
+            padding: 60px 0;
+        }
+
+        .line-cta-box .line-handle {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .line-cta-box .consult-text {
+            font-size: 1.3rem;
+            color: var(--text-cream);
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--text-cream);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .footer a {
+            color: var(--gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header .container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .nav-menu {
+                margin: 0;
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 15px;
+            }
+            .lang-toggle {
+                margin-left: auto; /* Push to right on smaller screens */
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            .hero {
+                padding: 80px 0;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .line-cta-box .line-handle {
+                font-size: 2rem;
+            }
+            .line-cta-box .consult-text {
+                font-size: 1.1rem;
+            }
+            .quiz-options label {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+            .lang-toggle {
+                margin: 15px auto 0;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            .line-cta-box.full-width {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body lang="th">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span class="lang-en">OVERSEAS EDUCATION</span>
+                <span class="lang-th">การศึกษาต่อต่างประเทศ</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="th.linkedu.hk" class="lang-th">หน้าแรก</a>
+                <a href="th.linkedu.hk" class="lang-en">Home</a>
+                <a href="th.linkedu.hk/services" class="lang-th">บริการ</a>
+                <a href="th.linkedu.hk/services" class="lang-en">Services</a>
+            </nav>
+            <div class="lang-toggle">
+                <button id="lang-th-btn" class="active">TH</button>
+                <button id="lang-en-btn">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero dark-bg">
+        <div class="container">
+            <h1 class="lang-th">แบบทดสอบความพร้อมในการปรับตัวเข้ากับวัฒนธรรมสหราชอาณาจักร</h1>
+            <h1 class="lang-en">UK Culture Shock Readiness Quiz</h1>
+            <p class="lang-th">ประเมินความพร้อมของคุณและรับคำแนะนำส่วนบุคคลเพื่อการปรับตัวที่ราบรื่นสู่ชีวิตในสหราชอาณาจักร</p>
+            <p class="lang-en">Assess your readiness and get personalized tips for a smooth transition to life in the UK.</p>
+            <a href="#quiz-start" class="btn lang-th">เริ่มทำแบบทดสอบ</a>
+            <a href="#quiz-start" class="btn lang-en">Start Quiz</a>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz-start" class="section-padding section-cream quiz-section">
+        <div class="container">
+            <div class="section-label">
+                <span class="lang-th">· แบบทดสอบ ·</span>
+                <span class="lang-en">· THE QUIZ ·</span>
+            </div>
+            <h2 class="lang-th">ประเมินความพร้อมของคุณ</h2>
+            <h2 class="lang-en">Assess Your Readiness</h2>
+            <p class="lang-th">ตอบคำถามด้านล่างเพื่อทำความเข้าใจว่าคุณพร้อมสำหรับความท้าทายทางวัฒนธรรมในสหราชอาณาจักรมากน้อยเพียงใด คำตอบของคุณจะช่วยให้เราให้คำแนะนำที่ปรับให้เหมาะกับคุณได้</p>
+            <p class="lang-en">Answer the questions below to understand how prepared you are for cultural differences in the UK. Your responses will help us provide tailored advice.</p>
+
+            <form id="cultureShockQuiz">
+                <!-- Question 1: Food Preferences -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">1. คุณเปิดใจลองอาหารใหม่ๆ ที่แตกต่างจากอาหารไทยมากน้อยเพียงใด?</span><span class="lang-en">1. How open are you to trying new foods that are very different from Thai cuisine?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q1" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">อยากทานอาหารไทยเป็นหลัก อาจลองอาหารต่างชาติบ้างเล็กน้อย</span>
+                            <span class="lang-en">I prefer Thai food primarily and might try new international dishes only a little.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">เปิดใจลองอาหารต่างชาติหลายประเภท แต่ก็ยังอยากมีอาหารไทยเป็นบางครั้ง</span>
+                            <span class="lang-en">I'm open to trying many types of international food but would still like Thai food sometimes.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ตื่นเต้นที่จะได้ลองอาหารท้องถิ่นและอาหารนานาชาติทุกประเภท</span>
+                            <span class="lang-en">I'm excited to explore local cuisine and all kinds of international dishes.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2: Social Etiquette & Communication -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">2. คุณรู้สึกสบายใจกับการสื่อสารที่ตรงไปตรงมาและมีปฏิสัมพันธ์กับคนแปลกหน้ามากน้อยเพียงใด?</span><span class="lang-en">2. How comfortable are you with direct communication and interacting with strangers?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q2" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ค่อนข้างขี้อายและไม่ค่อยกล้าเข้าหาคนแปลกหน้า</span>
+                            <span class="lang-en">I'm quite shy and prefer not to initiate conversations with strangers.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">พอจะคุยกับคนแปลกหน้าได้บ้าง แต่ก็ยังไม่ค่อยมั่นใจนัก</span>
+                            <span class="lang-en">I can talk to strangers if needed, but I'm not always confident.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ชอบที่จะพูดคุยและสร้างเพื่อนใหม่ ไม่กลัวการสื่อสารที่ตรงไปตรงมา</span>
+                            <span class="lang-en">I enjoy striking up conversations and making new friends, comfortable with directness.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3: Weather Expectations -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">3. คุณเตรียมตัวรับมือกับสภาพอากาศที่หนาวเย็นและฝนตกบ่อยในสหราชอาณาจักรอย่างไร?</span><span class="lang-en">3. How prepared are you for the colder and often rainy weather in the UK?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q3" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ไม่ชอบอากาศหนาวเลย และกังวลเรื่องการปรับตัว</span>
+                            <span class="lang-en">I dislike cold weather intensely and am worried about adjusting.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">พอจะรับมือได้ แต่ก็หวังว่าจะมีวันแดดออกบ้าง</span>
+                            <span class="lang-en">I can manage, but I'm hoping for some sunny days too.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">เตรียมเสื้อผ้ากันหนาวและอุปกรณ์กันฝนพร้อม และพร้อมรับทุกสภาพอากาศ</span>
+                            <span class="lang-en">I have warm clothes and rain gear ready, and I'm prepared for all weather conditions.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4: Independence Levels -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">4. คุณเคยใช้ชีวิตอยู่ห่างจากครอบครัวและจัดการกิจวัตรประจำวันด้วยตัวเองมากน้อยเพียงใด?</span><span class="lang-en">4. How much experience do you have living away from family and managing daily routines independently?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q4" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ไม่เคยเลย ครอบครัวดูแลทุกอย่าง</span>
+                            <span class="lang-en">Very little; my family usually handles everything for me.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">เคยลองอยู่ห่างบ้าง แต่ก็ยังต้องพึ่งพาครอบครัวในเรื่องสำคัญ</span>
+                            <span class="lang-en">Some experience, but I still rely on my family for important matters.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">จัดการเรื่องส่วนตัวได้ดี ทั้งการเงิน การเดินทาง และการดูแลตัวเอง</span>
+                            <span class="lang-en">I'm very capable of managing my own affairs, including finances, travel, and self-care.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5: Homesickness Coping -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">5. หากคุณรู้สึกคิดถึงบ้าน คุณจะรับมือกับความรู้สึกนั้นอย่างไร?</span><span class="lang-en">5. If you feel homesick, how would you typically cope with that feeling?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q5" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">โทรหาครอบครัวบ่อยๆ และไม่แน่ใจว่าจะทำกิจกรรมอื่นได้หรือไม่</span>
+                            <span class="lang-en">I'd call my family frequently and might struggle to engage in other activities.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">จะพยายามหากิจกรรมทำ หรือพูดคุยกับเพื่อนใหม่ แต่ก็ยังต้องการกำลังใจจากครอบครัว</span>
+                            <span class="lang-en">I'd try to find activities or talk to new friends, but still need family support.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">จะหากิจกรรมใหม่ๆ ทำ เข้าร่วมชมรม หรือสำรวจสถานที่ใหม่ๆ เพื่อเบี่ยงเบนความสนใจ</span>
+                            <span class="lang-en">I'd actively seek out new activities, join clubs, or explore new places to distract myself.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6: Academic Style -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">6. คุณคุ้นเคยกับการเรียนแบบเน้นการคิดวิเคราะห์ การถกเถียง และการแสดงความคิดเห็นมากน้อยแค่ไหน?</span><span class="lang-en">6. How familiar are you with an academic style that emphasizes critical thinking, debate, and expressing opinions?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q6" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ไม่ค่อยคุ้นเคย ชอบการเรียนแบบท่องจำและทำตามคำแนะนำ</span>
+                            <span class="lang-en">Not very; I prefer rote learning and following instructions.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q6" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">พอจะปรับตัวได้ แต่ก็ยังต้องใช้เวลาในการฝึกฝน</span>
+                            <span class="lang-en">I can adapt, but it will take some time and practice.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q6" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ชอบการเรียนรู้แบบมีส่วนร่วม การอภิปราย และการแสดงความคิดเห็นของตัวเอง</span>
+                            <span class="lang-en">I enjoy participatory learning, debates, and expressing my own ideas.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7: Public Transport -->
+                <div class="quiz-question">
+                    <h3><span class="lang-th">7. คุณรู้สึกสบายใจกับการใช้ระบบขนส่งสาธารณะ เช่น รถบัส รถไฟ ในต่างประเทศเพียงลำพังหรือไม่?</span><span class="lang-en">7. How comfortable are you with using public transport (e.g., buses, trains) in a foreign country by yourself?</span></h3>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="q7" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ไม่เคยใช้เลยและรู้สึกกังวลมาก</span>
+                            <span class="lang-en">I have no experience and would feel very anxious.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q7" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">เคยใช้บ้าง แต่ก็ยังต้องการความช่วยเหลือหรือคำแนะนำ</span>
+                            <span class="lang-en">I've used it a little, but still need assistance or guidance.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q7" value="5">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">มั่นใจในการวางแผนและเดินทางด้วยตัวเองโดยใช้ระบบขนส่งสาธารณะ</span>
+                            <span class="lang-en">I'm confident in planning and navigating public transport independently.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="submit" class="btn lang-th">ส่งคำตอบ</button>
+                    <button type="submit" class="btn lang-en">Submit Answers</button>
+                </div>
+            </form>
+
+            <!-- Quiz Results -->
+            <div id="quizResults" class="card">
+                <div class="section-label">
+                    <span class="lang-th">· ผลลัพธ์ ·</span>
+                    <span class="lang-en">· YOUR RESULTS ·</span>
+                </div>
+                <h2 class="lang-th">คะแนนความพร้อมของคุณ</h2>
+                <h2 class="lang-en">Your Readiness Score</h2>
+                <p class="result-score"><span id="scoreValue">0</span> / 35</p>
+                <p class="result-level"><span class="lang-th">ระดับความพร้อม: </span><span class="lang-en">Readiness Level: </span><span id="readinessLevel" style="color: var(--gold);"></span></p>
+
+                <div class="result-tips">
+                    <h3 class="lang-th">คำแนะนำส่วนบุคคล</h3>
+                    <h3 class="lang-en">Personalized Tips</h3>
+                    <ul id="tipList">
+                        <!-- Tips will be inserted here by JavaScript -->
+                    </ul>
+                </div>
+
+                <div class="school-recommendations">
+                    <h3 class="lang-th">โรงเรียนแนะนำ</h3>
+                    <h3 class="lang-en">Recommended Schools</h3>
+                    <p class="lang-th">จากความพร้อมของคุณ นี่คือโรงเรียนบางส่วนในสหราชอาณาจักรที่ LINKEDU แนะนำให้พิจารณา:</p>
+                    <p class="lang-en">Based on your readiness, here are some UK schools LINKEDU recommends considering:</p>
+                    <div id="schoolList">
+                        <!-- Schools will be inserted here by JavaScript -->
+                    </div>
+                    <div class="vat-note">
+                        <p class="lang-th"><strong>หมายเหตุ:</strong> ค่าเล่าเรียนโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป โรงเรียนประจำของรัฐ (State Boarding Schools) ได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าใช้จ่ายประมาณ 10,000 - 19,000 ปอนด์ต่อปี</p>
+                        <p class="lang-en"><strong>Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.</p>
+                    </div>
+                </div>
+
+                <!-- LINE CTA after results -->
+                <div class="line-cta-box">
+                    <p class="line-handle">LINE: satitlinkedu</p>
+                    <p class="consult-text lang-th">ปรึกษาฟรี</p>
+                    <p class="consult-text lang-en">Free Consultation</p>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LINE CTA Section (Bottom of Page) -->
+    <section class="line-cta-box full-width section-dark">
+        <div class="container">
+            <p class="line-handle">LINE: satitlinkedu</p>
+            <p class="consult-text lang-th">ปรึกษาฟรี</p>
+            <p class="consult-text lang-en">Free Consultation</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer dark-bg">
+        <div class="container">
+            <p>&copy; 2024 LINKEDU. <span class="lang-th">สงวนลิขสิทธิ์.</span><span class="lang-en">All rights reserved.</span></p>
+            <p><span class="lang-th">เยี่ยมชมเว็บไซต์ของเรา: </span><span class="lang-en">Visit our website: </span><a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langThBtn = document.getElementById('lang-th-btn');
+            const langEnBtn = document.getElementById('lang-en-btn');
+            const htmlTag = document.documentElement;
+
+            // Set initial active language button
+            if (htmlTag.getAttribute('lang') === 'th') {
+                langThBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+            } else {
+                langEnBtn.classList.add('active');
+                langThBtn.classList.remove('active');
+            }
+
+            langThBtn.addEventListener('click', () => {
+                htmlTag.setAttribute('lang', 'th');
+                langThBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+            });
+
+            langEnBtn.addEventListener('click', () => {
+                htmlTag.setAttribute('lang', 'en');
+                langEnBtn.classList.add('active');
+                langThBtn.classList.remove('active');
+            });
+
+            const quizForm = document.getElementById('cultureShockQuiz');
+            const quizResults = document.getElementById('quizResults');
+            const scoreValue = document.getElementById('scoreValue');
+            const readinessLevel = document.getElementById('readinessLevel');
+            const tipList = document.getElementById('tipList');
+            const schoolList = document.getElementById('schoolList');
+
+            const schools = [
+                { name: "Brighton College", type: "Private Boarding", feesGBP: 45000, description_th: "โรงเรียนเอกชนชั้นนำ มีชื่อเสียงด้านวิชาการและศิลปะ", description_en: "A top private school, renowned for academics and arts." },
+                { name: "Bromsgrove", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียนสหศึกษาที่มีสิ่งอำนวยความสะดวกที่ทันสมัยและหลักสูตรที่หลากหลาย", description_en: "Co-educational school with modern facilities and diverse curriculum." },
+                { name: "Cardiff Sixth Form", type: "Private Boarding", feesGBP: 48000, description_th: "โรงเรียนชั้นนำด้านวิชาการสำหรับ Sixth Form มีผลการเรียนดีเยี่ยม", description_en: "Leading academic Sixth Form college with outstanding results." },
+                { name: "Caterham", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนที่มีสภาพแวดล้อมที่สวยงามและเน้นการพัฒนาทักษะชีวิต", description_en: "Set in beautiful surroundings, focusing on holistic development and life skills." },
+                { name: "Concord College", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนที่มีชื่อเสียงระดับโลกด้านวิชาการ โดยเฉพาะวิทยาศาสตร์และคณิตศาสตร์", description_en: "World-renowned for academic excellence, especially in Science and Maths." },
+                { name: "D Overbroeks", type: "Private Boarding", feesGBP: 38000, description_th: "โรงเรียนที่เน้นการเรียนรู้แบบส่วนตัวและบรรยากาศที่เป็นกันเอง", description_en: "Focuses on individual learning and a friendly, supportive atmosphere." },
+                { name: "Dulwich College", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนเก่าแก่ มีชื่อเสียงด้านวิชาการและกีฬา", description_en: "Historic boys' school, strong in academics and sports." },
+                { name: "Epsom College", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนสหศึกษาที่มีความโดดเด่นด้านวิชาการและกิจกรรมนอกหลักสูตร", description_en: "Co-educational school with strong academics and extracurriculars." },
+                { name: "Harrow School", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียนชายล้วนที่มีประวัติยาวนานและศิษย์เก่าที่มีชื่อเสียง", description_en: "Historic boys' school with a long tradition and famous alumni." },
+                { name: "Loretto School", type: "Private Boarding", feesGBP: 39000, description_th: "โรงเรียนเก่าแก่ในสกอตแลนด์ เน้นดนตรีและกีฬา", description_en: "Historic Scottish school, strong in music and sports." },
+                { name: "Millfield", type: "Private Boarding", feesGBP: 44000, description_th: "โรงเรียนที่มีชื่อเสียงด้านกีฬาและสิ่งอำนวยความสะดวกที่ยอดเยี่ยม", description_en: "Famous for its sports programs and excellent facilities." },
+                { name: "Oakham School", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนสหศึกษาที่เน้นการพัฒนาศักยภาพนักเรียนอย่างรอบด้าน", description_en: "Co-educational school focusing on all-round student development." },
+                { name: "Oundle School", type: "Private Boarding", feesGBP: 45000, description_th: "โรงเรียนขนาดใหญ่ที่มีวิชาการแข็งแกร่งและสิ่งอำนวยความสะดวกครบครัน", description_en: "Large school with strong academics and comprehensive facilities." },
+                { name: "Queen Ethelburgas", type: "Private Boarding", feesGBP: 50000, description_th: "โรงเรียนที่มีสิ่งอำนวยความสะดวกหรูหราและหลักสูตรที่ยืดหยุ่น", description_en: "Luxurious facilities and a flexible curriculum." },
+                { name: "Repton School", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนเก่าแก่ที่มีชื่อเสียงด้านการศึกษาและวัฒนธรรม", description_en: "Historic school known for education and culture." },
+                { name: "Roedean", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนหญิงล้วนชั้นนำใน Brighton พร้อมวิวทะเลที่สวยงาม", description_en: "Leading girls' school in Brighton with beautiful sea views." },
+                { name: "Rossall School", type: "Private Boarding", feesGBP: 37000, description_th: "โรงเรียนริมทะเลที่มีบรรยากาศอบอุ่นและโปรแกรมดนตรีที่โดดเด่น", description_en: "Seaside school with a warm atmosphere and outstanding music program." },
+                { name: "Royal Russell", type: "Private Boarding", feesGBP: 39000, description_th: "โรงเรียนที่มีความหลากหลายทางวัฒนธรรมและเน้นความเป็นผู้นำ", description_en: "Culturally diverse school with a focus on leadership." },
+                { name: "Sedbergh School", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนใน Lake District เน้นการเรียนรู้กลางแจ้งและกีฬา", description_en: "Located in the Lake District, strong in outdoor education and sports." },
+                { name: "Sevenoaks School", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียน IB ชั้นนำที่มีความเป็นสากลสูง", description_en: "Leading IB school with a strong international focus." },
+                { name: "Shrewsbury School", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียนเก่าแก่ริมแม่น้ำที่มีประวัติยาวนานและชื่อเสียง", description_en: "Historic riverside school with a long tradition and reputation." },
+                { name: "Sidcot School", type: "Private Boarding", feesGBP: 36000, description_th: "โรงเรียน Quaker ที่เน้นค่านิยมและความยั่งยืน", description_en: "Quaker school emphasizing values and sustainability." },
+                { name: "St Leonards", type: "Private Boarding", feesGBP: 38000, description_th: "โรงเรียน IB ในสกอตแลนด์ เน้นการพัฒนาส่วนบุคคล", description_en: "IB school in Scotland, focusing on personal development." },
+                { name: "The Leys School", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนใน Cambridge ที่มีสภาพแวดล้อมที่อบอุ่นและเป็นกันเอง", description_en: "Cambridge school with a warm and friendly environment." },
+                { name: "NMSC (Northern Medical School College)", type: "Private Boarding", feesGBP: 49000, description_th: "วิทยาลัยที่เชี่ยวชาญด้านการเตรียมตัวเข้าสู่มหาวิทยาลัยแพทย์", description_en: "College specializing in preparation for medical university." },
+                { name: "Tonbridge School", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนชั้นนำ มีชื่อเสียงด้านวิชาการและสิ่งอำนวยความสะดวก", description_en: "Leading boys' school, strong in academics and facilities." },
+                { name: "Uppingham School", type: "Private Boarding", feesGBP: 44000, description_th: "โรงเรียนที่มีชื่อเสียงด้านดนตรีและศิลปะ พร้อมวิชาการที่แข็งแกร่ง", description_en: "Known for music and arts, with strong academics." },
+                { name: "Wells Cathedral School", type: "Private Boarding", feesGBP: 37000, description_th: "โรงเรียนดนตรีชั้นนำของโลก พร้อมวิชาการที่ยอดเยี่ยม", description_en: "World-leading specialist music school with excellent academics." },
+                { name: "Abbotsholme", type: "Private Boarding", feesGBP: 35000, description_th: "โรงเรียนที่เน้นการเรียนรู้แบบปฏิบัติและกิจกรรมกลางแจ้ง", description_en: "Focuses on practical learning and outdoor activities." },
+                { name: "Ardingly College", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียน IB และ A-Level ที่มีสภาพแวดล้อมนานาชาติ", description_en: "IB and A-Level school with an international environment." },
+                { name: "Bryanston", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนที่เน้นการศึกษาแบบองค์รวมและพัฒนาความคิดสร้างสรรค์", description_en: "Emphasizes holistic education and creative development." },
+                { name: "Charterhouse", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนเก่าแก่ที่มีประวัติยาวนานและชื่อเสียง", description_en: "Historic boys' school with a long tradition and reputation." },
+                { name: "Clifton College", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนในเมือง Bristol มีชื่อเสียงด้านวิชาการและกีฬา", description_en: "Bristol-based school, strong in academics and sports." },
+                { name: "Eton College", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียนชายล้วนที่มีชื่อเสียงที่สุดแห่งหนึ่งของโลก", description_en: "One of the most famous boys' schools in the world." },
+                { name: "Lancing College", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนที่มีสถาปัตยกรรมงดงามและเน้นการพัฒนาด้านศิลปะ", description_en: "Stunning architecture, strong in arts development." },
+                { name: "Oxford International College", type: "Private Boarding", feesGBP: 52000, description_th: "วิทยาลัยที่เน้นการเตรียมตัวเข้ามหาวิทยาลัยชั้นนำ", description_en: "College focused on preparing students for top universities." },
+                // Example State Boarding School (not from the list, but for VAT note example)
+                // { name: "Wymondham College", type: "State Boarding", feesGBP: 16000, description_th: "โรงเรียนประจำของรัฐที่มีชื่อเสียงและค่าใช้จ่ายคุ้มค่า", description_en: "A well-regarded state boarding school offering excellent value." }
+            ];
+
+            quizForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                let score = 0;
+                const selectedAnswers = {};
+                const questions = quizForm.querySelectorAll('.quiz-question');
+
+                questions.forEach((q, index) => {
+                    const qName = `q${index + 1}`;
+                    const selected = quizForm.querySelector(`input[name="${qName}"]:checked`);
+                    if (selected) {
+                        score += parseInt(selected.value);
+                        selectedAnswers[qName] = parseInt(selected.value);
+                    }
+                });
+
+                scoreValue.textContent = score;
+                displayResults(score, selectedAnswers);
+                quizResults.style.display = 'block';
+                quizResults.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            function displayResults(score, answers) {
+                let levelText_th = '';
+                let levelText_en = '';
+                let tips_th = [];
+                let tips_en = [];
+                let recommendedSchools = [];
+
+                if (score <= 15) {
+                    levelText_th = 'ต้องเตรียมตัวอย่างมาก';
+                    levelText_en = 'Needs Significant Preparation';
+                    tips_th = [
+                        'ศึกษาวัฒนธรรมอังกฤษ: เรียนรู้เกี่ยวกับประเพณี, มารยาทสังคม และรูปแบบการสื่อสาร',
+                        'ฝึกฝนการใช้ภาษาอังกฤษ: โดยเฉพาะการสนทนาในสถานการณ์จริง',
+                        'พัฒนาทักษะการพึ่งพาตนเอง: ลองจัดการกิจวัตรประจำวันและงบประมาณด้วยตัวเอง',
+                        'เปิดใจลองสิ่งใหม่: เริ่มจากการลองอาหารต่างชาติง่ายๆ หรือพูดคุยกับคนแปลกหน้าในไทย',
+                        'ทำความเข้าใจระบบการศึกษา: คุ้นเคยกับแนวคิดการคิดวิเคราะห์และการแสดงความคิดเห็น'
+                    ];
+                    tips_en = [
+                        'Research British Culture: Learn about customs, social etiquette, and communication styles.',
+                        'Practice English: Focus on conversational English for real-life situations.',
+                        'Develop Independence: Try managing daily routines and a budget on your own.',
+                        'Be Open to New Experiences: Start by trying simple international foods or talking to strangers in Thailand.',
+                        'Understand the Education System: Familiarize yourself with critical thinking and expressing opinions.'
+                    ];
+                    // Suggest schools that might offer more support or a diverse environment
+                    recommendedSchools = [
+                        schools.find(s => s.name === "Rossall School"),
+                        schools.find(s => s.name === "Sidcot School"),
+                        schools.find(s => s.name === "Abbotsholme")
+                    ];
+                } else if (score <= 25) {
+                    levelText_th = 'พอใช้ได้ แต่ยังต้องเตรียมตัวเพิ่ม';
+                    levelText_en = 'Moderate Readiness, Room for Improvement';
+                    tips_th = [
+                        'ฝึกฝนการสื่อสารเชิงรุก: ลองแสดงความคิดเห็นและถามคำถามบ่อยขึ้น',
+                        'สำรวจอาหารนานาชาติ: ค่อยๆ ลองอาหารจากวัฒนธรรมที่หลากหลาย',
+                        'วางแผนการเดินทางด้วยตัวเอง: ลองใช้ Google Maps หรือแอปขนส่งสาธารณะเพื่อไปสถานที่ใหม่ๆ',
+                        'สร้างเครือข่ายสังคม: เข้าร่วมกิจกรรมที่สนใจเพื่อพบปะผู้คนใหม่ๆ',
+                        'เตรียมพร้อมสำหรับสภาพอากาศ: ลงทุนกับเสื้อผ้ากันหนาวและอุปกรณ์กันฝนที่มีคุณภาพ'
+                    ];
+                    tips_en = [
+                        'Practice Proactive Communication: Try expressing your opinions and asking questions more often.',
+                        'Explore International Cuisine: Gradually try dishes from various cultures.',
+                        'Plan Independent Travel: Use Google Maps or public transport apps to navigate new places.',
+                        'Build a Social Network: Join clubs or activities of interest to meet new people.',
+                        'Prepare for the Weather: Invest in quality warm clothing and rain gear.'
+                    ];
+                    recommendedSchools = [
+                        schools.find(s => s.name === "Bromsgrove"),
+                        schools.find(s => s.name === "Royal Russell"),
+                        schools.find(s => s.name === "Oakham School")
+                    ];
+                } else {
+                    levelText_th = 'พร้อมมาก!';
+                    levelText_en = 'Highly Ready!';
+                    tips_th = [
+                        'รักษาทัศนคติเชิงบวก: คุณมีพื้นฐานที่ดีแล้ว จงเปิดใจและสนุกกับการผจญภัย',
+                        'เป็นส่วนหนึ่งของชุมชน: เข้าร่วมชมรม กิจกรรม หรืออาสาสมัครเพื่อสร้างประสบการณ์ที่หลากหลาย',
+                        'เรียนรู้ศัพท์เฉพาะถิ่น: คำแสลงและสำนวนท้องถิ่นจะช่วยให้คุณปรับตัวได้ดียิ่งขึ้น',
+                        'แบ่งปันวัฒนธรรมของคุณ: อย่าลืมแบ่งปันเรื่องราวและวัฒนธรรมไทยกับเพื่อนใหม่',
+                        'วางแผนการสำรวจ: ใช้ประโยชน์จากความพร้อมของคุณในการเดินทางและค้นพบสหราชอาณาจักร'
+                    ];
+                    tips_en = [
+                        'Maintain a Positive Attitude: You have a strong foundation; stay open-minded and enjoy the adventure.',
+                        'Engage with the Community: Join clubs, societies, or volunteer to enrich your experience.',
+                        'Learn Local Idioms: Slang and local expressions will help you integrate even better.',
+                        'Share Your Culture: Don\'t forget to share Thai stories and culture with your new friends.',
+                        'Plan Explorations: Leverage your readiness to travel and discover more of the UK.'
+                    ];
+                    recommendedSchools = [
+                        schools.find(s => s.name === "Brighton College"),
+                        schools.find(s => s.name === "Sevenoaks School"),
+                        schools.find(s => s.name === "Cardiff Sixth Form")
+                    ];
+                }
+
+                // Add specific tips based on low scores in certain areas
+                if (answers.q1 === 1) {
+                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองฝึกทำอาหารง่ายๆ หรือค้นหาร้านอาหารนานาชาติในพื้นที่ของคุณ');
+                    tips_en.push('Extra Tip: Try practicing simple cooking or researching international restaurants in your area.');
+                }
+                if (answers.q2 === 1) {
+                    tips_th.push('เคล็ดลับเพิ่มเติม: ฝึกการทักทายและบทสนทนาสั้นๆ (small talk) กับคนที่ไม่รู้จัก');
+                    tips_en.push('Extra Tip: Practice greetings and small talk with unfamiliar people.');
+                }
+                if (answers.q4 === 1) {
+                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองจัดการงานบ้านเล็กๆ น้อยๆ หรือวางแผนกิจกรรมประจำวันด้วยตัวเอง');
+                    tips_en.push('Extra Tip: Try managing small household chores or planning your daily activities independently.');
+                }
+                if (answers.q6 === 1) {
+                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองอ่านบทความวิเคราะห์ข่าว หรือเข้าร่วมกลุ่มอภิปรายเล็กๆ เพื่อฝึกแสดงความคิดเห็น');
+                    tips_en.push('Extra Tip: Try reading analytical articles or joining small discussion groups to practice expressing opinions.');
+                }
+
+
+                readinessLevel.innerHTML = `<span class="lang-th">${levelText_th}</span><span class="lang-en">${levelText_en}</span>`;
+
+                tipList.innerHTML = '';
+                tips_th.forEach((tip, index) => {
+                    tipList.innerHTML += `<li><span class="lang-th">${tip}</span><span class="lang-en">${tips_en[index]}</span></li>`;
+                });
+
+                schoolList.innerHTML = '';
+                const uniqueRecommendedSchools = [...new Set(recommendedSchools)]; // Ensure unique schools
+                uniqueRecommendedSchools.forEach(school => {
+                    if (school) { // Check if school was found
+                        const feesGBP = school.feesGBP;
+                        const feesTHB = feesGBP * 45;
+                        const feesGBP_VAT = feesGBP * 1.2;
+                        const feesTHB_VAT = feesGBP_VAT * 45;
+
+                        let feeDisplay_th = '';
+                        let feeDisplay_en = '';
+
+                        if (school.type === "Private Boarding") {
+                            feeDisplay_th = `ค่าเล่าเรียนโดยประมาณ: <strong>£${feesGBP.toLocaleString()} / ${feesTHB.toLocaleString()} บาท ต่อปี</strong> (ก่อน VAT)<br>ตั้งแต่ ม.ค. 2568: <strong>£${feesGBP_VAT.toLocaleString()} / ${feesTHB_VAT.toLocaleString()} บาท ต่อปี</strong> (รวม VAT 20%)`;
+                            feeDisplay_en = `Estimated Fees: <strong>GBP ${feesGBP.toLocaleString()} / THB ${feesTHB.toLocaleString()} per year</strong> (Pre-VAT)<br>From Jan 2025: <strong>GBP ${feesGBP_VAT.toLocaleString()} / THB ${feesTHB_VAT.toLocaleString()} per year</strong> (Inc. 20% VAT)`;
+                        } else { // State Boarding (VAT exempt)
+                             feeDisplay_th = `ค่าเล่าเรียนโดยประมาณ: <strong>£${feesGBP.toLocaleString()} / ${feesTHB.toLocaleString()} บาท ต่อปี</strong> (ยกเว้น VAT)`;
+                             feeDisplay_en = `Estimated Fees: <strong>GBP ${feesGBP.toLocaleString()} / THB ${feesTHB.toLocaleString()} per year</strong> (VAT Exempt)`;
+                        }
+
+
+                        schoolList.innerHTML += `
+                            <div class="school-card">
+                                <h5><span class="lang-th">${school.name}</span><span class="lang-en">${school.name}</span></h5>
+                                <p><span class="lang-th">ประเภท: ${school.type === "Private Boarding" ? "โรงเรียนประจำเอกชน" : "โรงเรียนประจำของรัฐ"}</span><span class="lang-en">Type: ${school.type}</span></p>
+                                <p><span class="lang-th">${school.description_th}</span><span class="lang-en">${school.description_en}</span></p>
+                                <p class="fees"><span class="lang-th">${feeDisplay_th}</span><span class="lang-en">${feeDisplay_en}</span></p>
+                            </div>
+                        `;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

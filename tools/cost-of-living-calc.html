@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="lang-th">เครื่องคำนวณค่าใช้จ่ายที่แท้จริงของการเรียนต่อ UK | LINKEDU</title>
+    <title class="lang-en">True Cost Calculator UK Boarding | LINKEDU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Brand Standards */
+        :root {
+            --color-dark: #1a1a1a;
+            --color-cream: #f5f0e8;
+            --color-gold: #B8962E;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Base Styles & Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--color-dark);
+            background-color: var(--color-cream);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #a08128; /* Slightly darker gold */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            color: var(--color-dark);
+            margin-bottom: 0.8em;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.7rem; }
+            h4 { font-size: 1.4rem; }
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--color-dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-wrap span {
+            font-family: var(--font-body);
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--color-cream);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .lang-toggle {
+            display: flex;
+            border: 1px solid var(--color-gold);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--color-gold);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .lang-toggle button.active {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h1 {
+            color: var(--color-cream);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            color: var(--color-cream);
+        }
+
+        .hero .btn-primary {
+            display: inline-block;
+        }
+
+        /* Section Labels */
+        .section-label-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-label-wrapper::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background-color: var(--color-gold);
+            margin: 0 auto 10px auto;
+        }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            display: block;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--color-cream);
+            padding-top: 60px;
+        }
+
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: #ffffff; /* White card background */
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 14px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #a08128; /* Slightly darker gold */
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 14px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-gold);
+            color: var(--color-dark);
+        }
+
+        /* Calculator Specifics */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--color-dark);
+        }
+
+        .form-group select,
+        .form-group input[type="number"],
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            color: var(--color-dark);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 2px rgba(184, 150, 46, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            accent-color: var(--color-gold);
+        }
+
+        .calculator-results {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .calculator-results h3 {
+            color: var(--color-dark);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+        }
+
+        .result-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .result-item strong {
+            font-weight: 600;
+        }
+
+        .total-cost {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            border-top: 2px solid var(--color-gold);
+            margin-top: 20px;
+        }
+        
+        .vat-note {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff8eb; /* Lighter cream/yellow for note */
+            border-left: 4px solid var(--color-gold);
+            border-radius: 4px;
+        }
+
+        /* LINE CTA (inline and bottom) */
+        .line-cta-box {
+            background-color: var(--color-cream);
+            border: 2px solid var(--color-gold);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin: 40px auto 0 auto;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .line-cta-box.dark {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            border-color: var(--color-gold);
+        }
+        .line-cta-box.dark .line-handle {
+            color: var(--color-gold);
+        }
+        .line-cta-box.dark .line-consultation {
+            color: var(--color-cream);
+        }
+
+        .line-handle {
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            margin-bottom: 10px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        .line-consultation {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .line-cta-section {
+            background-color: var(--color-dark);
+            text-align: center;
+            padding: 60px 0;
+        }
+        .line-cta-section .line-handle {
+            color: var(--color-gold);
+        }
+        .line-cta-section .line-consultation {
+            color: var(--color-cream);
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: var(--color-dark);
+            color: var(--color-cream);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: var(--color-gold);
+        }
+
+        /* Language System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 0;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .section-label-wrapper::before {
+                margin-top: 0;
+            }
+            .section-label {
+                margin-top: 10px;
+            }
+            .line-handle {
+                font-size: 1.4rem;
+            }
+            .line-consultation {
+                font-size: 1rem;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .total-cost {
+                font-size: 1.2rem;
+            }
+            .card {
+                padding: 20px;
+            }
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="th.linkedu.hk" class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span class="lang-th">การศึกษาต่างประเทศ</span>
+                <span class="lang-en">OVERSEAS EDUCATION</span>
+            </a>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="th">TH</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="lang-th">เครื่องคำนวณค่าใช้จ่ายที่แท้จริงของการเรียนต่อ UK</h1>
+                <h1 class="lang-en">True Cost Calculator: UK Boarding Beyond Fees</h1>
+                <p class="lang-th">LINKEDU ช่วยให้คุณเห็นภาพรวมค่าใช้จ่ายทั้งหมดสำหรับการศึกษาในโรงเรียนประจำที่สหราชอาณาจักร ซึ่งรวมถึงค่าใช้จ่ายนอกเหนือจากค่าเล่าเรียน เพื่อให้คุณวางแผนได้อย่างมั่นใจ</p>
+                <p class="lang-en">LINKEDU provides a comprehensive overview of all expenses for UK boarding school, including costs beyond tuition fees, so you can plan with confidence.</p>
+                <a href="#calculator-section" class="btn-primary lang-th">เริ่มคำนวณเลย</a>
+                <a href="#calculator-section" class="btn-primary lang-en">Calculate Now</a>
+            </div>
+        </section>
+
+        <section id="calculator-section" class="content-section">
+            <div class="container">
+                <div class="section-label-wrapper">
+                    <span class="section-label lang-th">· เครื่องมือคำนวณ ·</span>
+                    <span class="section-label lang-en">· CALCULATOR TOOL ·</span>
+                </div>
+                <h2 class="lang-th">คำนวณค่าใช้จ่ายที่แท้จริงของคุณ</h2>
+                <h2 class="lang-en">Calculate Your True Annual Cost</h2>
+
+                <div class="calculator-card card">
+                    <form id="cost-calculator-form">
+                        <div class="calculator-grid">
+                            <div class="form-group">
+                                <label for="school-select" class="lang-th">เลือกโรงเรียน:</label>
+                                <label for="school-select" class="lang-en">Select School:</label>
+                                <select id="school-select" required>
+                                    <option value="" disabled selected class="lang-th">-- เลือกโรงเรียน --</option>
+                                    <option value="" disabled selected class="lang-en">-- Select a School --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="flights" class="lang-th">ค่าตั๋วเครื่องบิน (กรุงเทพ-UK 3 ครั้ง/ปี):</label>
+                                <label for="flights" class="lang-en">Flights (BKK-UK 3 times/year):</label>
+                                <input type="number" id="flights" value="3000" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="uniform" class="lang-th">ค่าเครื่องแบบนักเรียน:</label>
+                                <label for="uniform" class="lang-en">Uniform:</label>
+                                <input type="number" id="uniform" value="1000" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="spending" class="lang-th">ค่าใช้จ่ายส่วนตัวช่วงสุดสัปดาห์ (ต่อปี):</label>
+                                <label for="spending" class="lang-en">Weekend Spending (per year):</label>
+                                <input type="number" id="spending" value="3000" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="holiday-accom" class="lang-th">ค่าที่พักช่วงวันหยุด:</label>
+                                <label for="holiday-accom" class="lang-en">Holiday Accommodation:</label>
+                                <input type="number" id="holiday-accom" value="2000" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone-pocket" class="lang-th">ค่าโทรศัพท์และค่าใช้จ่ายปลีกย่อย:</label>
+                                <label for="phone-pocket" class="lang-en">Phone & Pocket Money:</label>
+                                <input type="number" id="phone-pocket" value="1000" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="misc" class="lang-th">ค่าใช้จ่ายเบ็ดเตล็ด/ฉุกเฉิน:</label>
+                                <label for="misc" class="lang-en">Miscellaneous/Contingency:</label>
+                                <input type="number" id="misc" value="1500" min="0" step="100">
+                                <small class="lang-th">ปอนด์สเตอร์ลิง (GBP)</small>
+                                <small class="lang-en">GBP</small>
+                            </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="apply-vat" checked>
+                            <label for="apply-vat" class="lang-th">รวม VAT 20% (มีผลบังคับใช้ตั้งแต่ ม.ค. 2568)</label>
+                            <label for="apply-vat" class="lang-en">Apply 20% VAT (effective Jan 2025)</label>
+                        </div>
+                        <button type="submit" class="btn-primary lang-th">คำนวณค่าใช้จ่าย</button>
+                        <button type="submit" class="btn-primary lang-en">Calculate Cost</button>
+                    </form>
+
+                    <div id="results" class="calculator-results" style="display:none;">
+                        <h3 class="lang-th">สรุปค่าใช้จ่ายประจำปี</h3>
+                        <h3 class="lang-en">Annual Cost Summary</h3>
+
+                        <div class="result-item">
+                            <span class="lang-th">ค่าเล่าเรียนโรงเรียน (ก่อน VAT):</span>
+                            <span class="lang-en">School Fees (Pre-VAT):</span>
+                            <span id="school-fees-display-pre-vat"></span>
+                        </div>
+                        <div class="result-item vat-line" style="display:none;">
+                            <span class="lang-th">VAT 20% (จาก ม.ค. 2568):</span>
+                            <span class="lang-en">20% VAT (from Jan 2025):</span>
+                            <span id="vat-amount-display"></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="lang-th">ค่าเล่าเรียนโรงเรียน (รวม VAT):</span>
+                            <span class="lang-en">School Fees (Incl. VAT):</span>
+                            <span id="school-fees-display-vat"></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="lang-th">ค่าใช้จ่ายนอกเหนือจากค่าเล่าเรียน:</span>
+                            <span class="lang-en">Beyond Fees Total:</span>
+                            <span id="beyond-fees-display"></span>
+                        </div>
+                        <div class="total-cost">
+                            <span class="lang-th">ค่าใช้จ่ายรวมต่อปี:</span>
+                            <span class="lang-en">Grand Total Annual Cost:</span>
+                            <span id="total-cost-display"></span>
+                        </div>
+                        <div class="vat-note lang-th">
+                            <p><strong>หมายเหตุ VAT:</strong> ค่าเล่าเรียนโรงเรียนเอกชนในสหราชอาณาจักรจะมีการเพิ่มภาษีมูลค่าเพิ่ม (VAT) 20% ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป โรงเรียนประจำของรัฐ (State Boarding Schools) ซึ่งมีค่าธรรมเนียมประมาณ 10,000 - 19,000 ปอนด์ต่อปี จะได้รับการยกเว้น VAT</p>
+                        </div>
+                        <div class="vat-note lang-en">
+                            <p><strong>VAT Note:</strong> Private school fees in the UK will have 20% VAT added from January 2025. State boarding schools, typically costing GBP 10,000 to 19,000 per year, are VAT exempt.</p>
+                        </div>
+
+                        <!-- LINE CTA after result -->
+                        <div class="line-cta-box">
+                            <span class="line-handle">LINE: satitlinkedu</span>
+                            <span class="line-consultation lang-th">ปรึกษาฟรี</span>
+                            <span class="line-consultation lang-en">Free Consultation</span>
+                            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+                            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="line-cta-section">
+            <div class="container">
+                <div class="section-label-wrapper">
+                    <span class="section-label lang-th">· ติดต่อเรา ·</span>
+                    <span class="section-label lang-en">· CONTACT US ·</span>
+                </div>
+                <h2 class="lang-th" style="color:var(--color-cream);">พร้อมวางแผนอนาคตการศึกษาลูกของคุณหรือยัง?</h2>
+                <h2 class="lang-en" style="color:var(--color-cream);">Ready to plan your child's educational future?</h2>
+                <p class="lang-th" style="color:var(--color-cream); max-width: 700px; margin: 0 auto 30px auto;">ปรึกษาผู้เชี่ยวชาญจาก LINKEDU เพื่อรับคำแนะนำส่วนบุคคลและข้อมูลเชิงลึกเกี่ยวกับการศึกษาต่อในโรงเรียนประจำที่สหราชอาณาจักร</p>
+                <p class="lang-en" style="color:var(--color-cream); max-width: 700px; margin: 0 auto 30px auto;">Consult with LINKEDU experts for personalized advice and insights into UK boarding school education.</p>
+                <span class="line-handle">LINE: satitlinkedu</span>
+                <span class="line-consultation lang-th">ปรึกษาฟรี</span>
+                <span class="line-consultation lang-en">Free Consultation</span>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-th">เพิ่ม LINE</a>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary lang-en">Add LINE</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="lang-th">© 2024 LINKEDU Education Consulting Bangkok. สงวนลิขสิทธิ์.</p>
+            <p class="lang-en">© 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+            <p><a href="th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45;
+        const schools = [
+            'Abbotsholme', 'Ardingly', 'Brighton College', 'Bromsgrove', 'Bryanston', 'Cardiff Sixth Form', 'Caterham', 'Charterhouse', 'Clifton', 'Concord', 'D Overbroeks', 'Dulwich', 'Epsom', 'Eton', 'Harrow', 'Lancing', '' +
+            'Loretto', 'Millfield', 'Oakham', 'Oundle', 'Oxford International', 'Queen Ethelburgas', 'Repton', 'Roedean', 'Rossall', 'Royal Russell', 'Sedbergh', 'Sevenoaks', 'Shrewsbury', 'Sidcot', 'St Leonards', 'The Leys', 'NMSC', 'Tonbridge', 'Uppingham', 'Wells Cathedral'
+        ];
+
+        // Approximate annual boarding fees in GBP
+        const schoolFees = {
+            'Abbotsholme': 38000, 'Ardingly': 42000, 'Brighton College': 48000, 'Bromsgrove': 45000, 'Bryanston': 46000,
+            'Cardiff Sixth Form': 60000, 'Caterham': 45000, 'Charterhouse': 48000, 'Clifton': 42000, 'Concord': 49000,
+            'D Overbroeks': 45000, 'Dulwich': 48000, 'Epsom': 48000, 'Eton': 49000, 'Harrow': 50000,
+            'Lancing': 42000, 'Loretto': 40000, 'Millfield': 50000, 'Oakham': 44000, 'Oundle': 46000,
+            'Oxford International': 50000, 'Queen Ethelburgas': 55000, 'Repton': 45000, 'Roedean': 48000,
+            'Rossall': 40000, 'Royal Russell': 40000, 'Sedbergh': 42000, 'Sevenoaks': 48000, 'Shrewsbury': 45000,
+            'Sidcot': 39000, 'St Leonards': 38000, 'The Leys': 42000, 'NMSC': 30000, 'Tonbridge': 48000,
+            'Uppingham': 46000, 'Wells Cathedral': 40000
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Language Toggle
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const htmlElement = document.documentElement;
+
+            function setLanguage(lang) {
+                htmlElement.setAttribute('lang', lang);
+                langButtons.forEach(button => {
+                    if (button.dataset.lang === lang) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+            }
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    setLanguage(button.dataset.lang);
+                });
+            });
+
+            // Set default language to Thai on load (as per requirements)
+            setLanguage('th');
+
+            // Populate School Dropdown
+            const schoolSelect = document.getElementById('school-select');
+            schools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school;
+                option.textContent = school;
+                schoolSelect.appendChild(option);
+            });
+
+            // Calculator Logic
+            const form = document.getElementById('cost-calculator-form');
+            const resultsDiv = document.getElementById('results');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const selectedSchool = schoolSelect.value;
+                if (!selectedSchool) {
+                    alert(htmlElement.lang === 'th' ? 'กรุณาเลือกโรงเรียนก่อน' : 'Please select a school first.');
+                    return;
+                }
+
+                let currentSchoolFeeGBP = schoolFees[selectedSchool] || 0;
+                const flightsGBP = parseFloat(document.getElementById('flights').value) || 0;
+                const uniformGBP = parseFloat(document.getElementById('uniform').value) || 0;
+                const spendingGBP = parseFloat(document.getElementById('spending').value) || 0;
+                const holidayAccomGBP = parseFloat(document.getElementById('holiday-accom').value) || 0;
+                const phonePocketGBP = parseFloat(document.getElementById('phone-pocket').value) || 0;
+                const miscGBP = parseFloat(document.getElementById('misc').value) || 0;
+                const applyVat = document.getElementById('apply-vat').checked;
+
+                const beyondFeesGBP = flightsGBP + uniformGBP + spendingGBP + holidayAccomGBP + phonePocketGBP + miscGBP;
+                const beyondFeesTHB = beyondFeesGBP * GBP_TO_THB_RATE;
+
+                const schoolFeePreVAT_GBP = currentSchoolFeeGBP;
+                let vatAmountGBP = 0;
+                let schoolFeeInclVAT_GBP = currentSchoolFeeGBP;
+
+                if (applyVat) {
+                    vatAmountGBP = currentSchoolFeeGBP * 0.20;
+                    schoolFeeInclVAT_GBP = currentSchoolFeeGBP + vatAmountGBP;
+                }
+
+                const schoolFeePreVAT_THB = schoolFeePreVAT_GBP * GBP_TO_THB_RATE;
+                const vatAmountTHB = vatAmountGBP * GBP_TO_THB_RATE;
+                const schoolFeeInclVAT_THB = schoolFeeInclVAT_GBP * GBP_TO_THB_RATE;
+
+                const totalCostGBP = schoolFeeInclVAT_GBP + beyondFeesGBP;
+                const totalCostTHB = totalCostGBP * GBP_TO_THB_RATE;
+
+                const formatCurrencyGBP = (amount) => `£${amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                const formatCurrencyTHB = (amount) => `฿${amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
+                document.getElementById('school-fees-display-pre-vat').innerHTML = `${formatCurrencyGBP(schoolFeePreVAT_GBP)} / ${formatCurrencyTHB(schoolFeePreVAT_THB)}`;
+                document.getElementById('school-fees-display-vat').innerHTML = `${formatCurrencyGBP(schoolFeeInclVAT_GBP)} / ${formatCurrencyTHB(schoolFeeInclVAT_THB)}`;
+                document.getElementById('beyond-fees-display').innerHTML = `${formatCurrencyGBP(beyondFeesGBP)} / ${formatCurrencyTHB(beyondFeesTHB)}`;
+                document.getElementById('total-cost-display').innerHTML = `${formatCurrencyGBP(totalCostGBP)} / ${formatCurrencyTHB(totalCostTHB)}`;
+
+                const vatLine = document.querySelector('.vat-line');
+                if (applyVat) {
+                    vatLine.style.display = 'flex';
+                    document.getElementById('vat-amount-display').innerHTML = `${formatCurrencyGBP(vatAmountGBP)} / ${formatCurrencyTHB(vatAmountTHB)}`;
+                } else {
+                    vatLine.style.display = 'none';
+                }
+
+                resultsDiv.style.display = 'block';
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>

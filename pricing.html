@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ราคาบริการ LINKEDU | Pricing — UK Boarding School Consultancy for Thai Families</title>
+  <meta name="description" content="แพ็กเกจบริการ LINKEDU สำหรับครอบครัวไทย — Elite Academic Booster, Admissions Management และโปรแกรมส่วนตัว | LINKEDU service packages for Thai families seeking UK boarding school placement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .pricing-card {
+      background: white;
+      border: 1px solid rgba(26,26,26,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    }
+    .pricing-card.featured {
+      border: 2px solid #B8962E;
+      box-shadow: 0 4px 20px rgba(184,150,46,0.18);
+    }
+    .pricing-card-badge {
+      background: #B8962E;
+      color: #1a1a1a;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 7px 0;
+    }
+    .pricing-card-header {
+      background: #1a1a1a;
+      padding: 32px 32px 24px;
+    }
+    .pricing-card-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 10px;
+    }
+    .pricing-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #f5f0e8;
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .pricing-card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #B8962E;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .pricing-card-price-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.45);
+      margin-top: 5px;
+    }
+    .pricing-card-body {
+      padding: 24px 32px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px 0;
+      flex: 1;
+    }
+    .pricing-features li {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      color: rgba(26,26,26,0.72);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26,26,26,0.06);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before {
+      content: '✓';
+      color: #B8962E;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      background: #1a1a1a;
+      color: #f5f0e8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .pricing-cta:hover { background: #B8962E; color: #1a1a1a; }
+    .pricing-card.featured .pricing-cta { background: #B8962E; color: #1a1a1a; }
+    .pricing-card.featured .pricing-cta:hover { background: #1a1a1a; color: #f5f0e8; }
+
+    .bespoke-block {
+      margin-top: 56px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .bespoke-block { padding: 40px 28px; gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <div class="logo-wrap">
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0pr{fill:#FFFFFF;}</style><path class="st0pr" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+
+      <!-- Nav -->
+      <nav class="site-nav">
+        <div class="nav-item"><a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></div>
+        <div class="nav-item"><a href="find-your-school.html" class="nav-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a></div>
+        <div class="nav-item"><a href="compare.html" class="nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div>
+        <div class="nav-item"><a href="fees.html" class="nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></div>
+        <div class="nav-item"><a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div>
+        <div class="nav-item"><a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link active"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></div>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-link"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="fees.html" class="mobile-nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <a href="pricing.html" class="mobile-nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a>
+    <div class="mobile-nav-actions">
+      <a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     PAGE HERO
+     ============================================================ -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">LINKEDU</a><span>›</span>
+      <span><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></span>
+    </div>
+    <div class="page-hero-eyebrow"><span class="lang-th">แพ็กเกจบริการ</span><span class="lang-en">Service Packages</span></div>
+    <h1>
+      <span class="lang-th">เลือกแพ็กเกจที่เหมาะกับ<br><em>บุตรหลานของคุณ</em></span>
+      <span class="lang-en">Choose the Package That Fits<br><em>Your Child's Journey</em></span>
+    </h1>
+    <p class="page-hero-sub">
+      <span class="lang-th">แพ็กเกจทุกรายการออกแบบมาสำหรับครอบครัวไทยที่ต้องการการสนับสนุนระดับมืออาชีพในการส่งบุตรหลานเรียนในต่างประเทศ</span>
+      <span class="lang-en">Every package is designed for Thai families who want professional support placing their child at the right school abroad.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING PACKAGES
+     ============================================================ -->
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">5 แพ็กเกจหลัก</span><span class="lang-en">5 Core Packages</span></span>
+      <h2><span class="lang-th">เลือกระดับการสนับสนุนที่ต้องการ</span><span class="lang-en">Select the Level of Support You Need</span></h2>
+      <p><span class="lang-th">ทุกแพ็กเกจรวมการปรึกษาเบื้องต้นฟรี — ไม่มีค่าใช้จ่ายซ่อนเร้น</span><span class="lang-en">Every package includes a free initial consultation — no hidden costs.</span></p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- 1. Elite Academic Booster Basic -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-category"><span class="lang-th">ติวเตอร์วิชาการ</span><span class="lang-en">Academic Tutoring</span></div>
+          <div class="pricing-card-name">Elite Academic Booster Basic</div>
+          <div class="pricing-card-price">฿2,500<span style="font-size:1.1rem;"> /hr</span></div>
+          <div class="pricing-card-price-sub"><span class="lang-th">ขั้นต่ำ 10 ชั่วโมง</span><span class="lang-en">10+ hours minimum</span></div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li><span class="lang-th">การสอนพิเศษแบบตัวต่อตัว (1-to-1)</span><span class="lang-en">1-to-1 personal tutoring sessions</span></li>
+            <li><span class="lang-th">การจัดการใบสมัครเรียน</span><span class="lang-en">Application management support</span></li>
+            <li><span class="lang-th">กลยุทธ์ GCSE / A-Level / IB</span><span class="lang-en">GCSE / A-Level / IB strategy</span></li>
+          </ul>
+          <a href="https://line.me/ti/p/@linkedu.th" class="pricing-cta" target="_blank" rel="noopener">
+            <span class="lang-th">สอบถามแพ็กเกจนี้ →</span>
+            <span class="lang-en">Enquire Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Elite Academic Booster Mentorship — POPULAR -->
+      <div class="pricing-card featured">
+        <div class="pricing-card-badge"><span class="lang-th">แพ็กเกจยอดนิยม</span><span class="lang-en">Most Popular</span></div>
+        <div class="pricing-card-header">
+          <div class="pricing-card-category"><span class="lang-th">ติวเตอร์ + เมนทอร์</span><span class="lang-en">Tutoring + Mentorship</span></div>
+          <div class="pricing-card-name">Elite Academic Booster Mentorship</div>
+          <div class="pricing-card-price">฿70,000<span style="font-size:1.1rem;">/yr</span></div>
+          <div class="pricing-card-price-sub"><span class="lang-th">+฿15,000 ต่อวิชาเพิ่มเติม</span><span class="lang-en">+฿15,000 per additional subject</span></div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li><span class="lang-th">ทุกอย่างใน Basic</span><span class="lang-en">Everything in Basic</span></li>
+            <li><span class="lang-th">โปรแกรม Mentorship ส่วนตัว</span><span class="lang-en">Personal mentorship programme</span></li>
+            <li><span class="lang-th">รายงานความคืบหน้ารายเดือน</span><span class="lang-en">Monthly progress reviews</span></li>
+            <li><span class="lang-th">ประเมินข้อสอบเข้า (Admission Test Assessment)</span><span class="lang-en">Admission test assessment</span></li>
+            <li><span class="lang-th">ให้คำปรึกษาด้านใบสมัคร</span><span class="lang-en">Application consulting</span></li>
+          </ul>
+          <a href="https://line.me/ti/p/@linkedu.th" class="pricing-cta" target="_blank" rel="noopener">
+            <span class="lang-th">สอบถามแพ็กเกจนี้ →</span>
+            <span class="lang-en">Enquire Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Elite 9-16+ -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-category"><span class="lang-th">แพ็กเกจครบวงจร</span><span class="lang-en">Comprehensive Package</span></div>
+          <div class="pricing-card-name">Elite 9–16+</div>
+          <div class="pricing-card-price">฿160,000<span style="font-size:1.1rem;">/yr</span></div>
+          <div class="pricing-card-price-sub"><span class="lang-th">เหมาะสำหรับ Year 9 ถึง A-Level</span><span class="lang-en">Ideal from Year 9 through A-Level</span></div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li><span class="lang-th">การสอนพิเศษแบบตัวต่อตัว (1-to-1)</span><span class="lang-en">1-to-1 personal tutoring</span></li>
+            <li><span class="lang-th">รายงานความคืบหน้ารายเดือน</span><span class="lang-en">Monthly progress reviews</span></li>
+            <li><span class="lang-th">ประเมินข้อสอบเข้า (Admission Test Assessment)</span><span class="lang-en">Admission test assessment</span></li>
+            <li><span class="lang-th">จัดการใบสมัครสูงสุด 5 โรงเรียน</span><span class="lang-en">Application management up to 5 schools</span></li>
+            <li><span class="lang-th">กลยุทธ์ GCSE / A-Level / IB</span><span class="lang-en">GCSE / A-Level / IB strategy</span></li>
+            <li><span class="lang-th">ให้คำปรึกษาด้านใบสมัคร</span><span class="lang-en">Application consulting</span></li>
+          </ul>
+          <a href="https://line.me/ti/p/@linkedu.th" class="pricing-cta" target="_blank" rel="noopener">
+            <span class="lang-th">สอบถามแพ็กเกจนี้ →</span>
+            <span class="lang-en">Enquire Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Admissions Management Basic -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-category"><span class="lang-th">จัดการการสมัคร</span><span class="lang-en">Admissions Management</span></div>
+          <div class="pricing-card-name">Admissions Management Basic</div>
+          <div class="pricing-card-price">฿32,000<span style="font-size:1.1rem;">/yr</span></div>
+          <div class="pricing-card-price-sub"><span class="lang-th">สำหรับครอบครัวที่ต้องการการจัดการสมัคร</span><span class="lang-en">For families focused on the application process</span></div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li><span class="lang-th">จัดการใบสมัครสูงสุด 5 โรงเรียน</span><span class="lang-en">Application management up to 5 schools</span></li>
+            <li><span class="lang-th">ให้คำปรึกษาด้านใบสมัคร</span><span class="lang-en">Application consulting</span></li>
+          </ul>
+          <a href="https://line.me/ti/p/@linkedu.th" class="pricing-cta" target="_blank" rel="noopener">
+            <span class="lang-th">สอบถามแพ็กเกจนี้ →</span>
+            <span class="lang-en">Enquire Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 5. Admissions Management Advanced -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-card-category"><span class="lang-th">จัดการการสมัคร — ขั้นสูง</span><span class="lang-en">Admissions Management — Advanced</span></div>
+          <div class="pricing-card-name">Admissions Management Advanced</div>
+          <div class="pricing-card-price">฿45,000<span style="font-size:1.1rem;">/yr</span></div>
+          <div class="pricing-card-price-sub"><span class="lang-th">รวม Personal Statement</span><span class="lang-en">Includes Personal Statement support</span></div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li><span class="lang-th">ทุกอย่างใน Basic</span><span class="lang-en">Everything in Admissions Basic</span></li>
+            <li><span class="lang-th">สนับสนุนการเขียน Personal Statement</span><span class="lang-en">Personal statement support and editing</span></li>
+          </ul>
+          <a href="https://line.me/ti/p/@linkedu.th" class="pricing-cta" target="_blank" rel="noopener">
+            <span class="lang-th">สอบถามแพ็กเกจนี้ →</span>
+            <span class="lang-en">Enquire Now →</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bespoke CTA -->
+    <div class="bespoke-block">
+      <div style="flex:1;min-width:280px;">
+        <div style="font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;margin-bottom:14px;"><span class="lang-th">โปรแกรมส่วนตัว</span><span class="lang-en">Bespoke Programme</span></div>
+        <h2 style="font-family:'Playfair Display',serif;color:#f5f0e8;font-weight:400;font-size:1.9rem;margin-bottom:14px;line-height:1.25;">
+          <span class="lang-th">ต้องการแพ็กเกจที่ออกแบบเฉพาะสำหรับครอบครัวคุณ?</span>
+          <span class="lang-en">Need a Programme Designed Specifically for Your Family?</span>
+        </h2>
+        <p style="font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.6);line-height:1.7;margin-bottom:28px;max-width:520px;">
+          <span class="lang-th">หากไม่มีแพ็กเกจมาตรฐานที่ตรงกับความต้องการของคุณ LINKEDU สามารถออกแบบโปรแกรมแบบกำหนดเองได้ — ครอบคลุมทั้งด้านวิชาการ การสมัคร และการสนับสนุนหลังได้รับการตอบรับ</span>
+          <span class="lang-en">If none of our standard packages fit your situation, LINKEDU can design a fully customised programme — covering academics, admissions, and post-offer support in any combination you need.</span>
+        </p>
+        <a href="https://line.me/ti/p/@linkedu.th" class="btn-primary" target="_blank" rel="noopener">
+          <span class="lang-th">ปรึกษาโปรแกรมส่วนตัว →</span>
+          <span class="lang-en">Discuss a Bespoke Programme →</span>
+        </a>
+      </div>
+      <div style="flex-shrink:0;text-align:center;">
+        <div style="width:140px;height:140px;border-radius:50%;border:1.5px solid rgba(184,150,46,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#B8962E;line-height:1;">∞</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,240,232,0.45);">Bespoke</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <p style="font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(26,26,26,0.45);margin-top:28px;line-height:1.7;">
+      <span class="lang-th">* ราคาทั้งหมดเป็นราคาโดยประมาณ โปรดติดต่อ LINKEDU เพื่อรับใบเสนอราคาที่ถูกต้อง · ราคาในบาทไทย (THB) · ไม่รวมภาษี</span>
+      <span class="lang-en">* All prices are indicative. Please contact LINKEDU for an accurate quote. · Prices in Thai Baht (THB) · Exclusive of applicable taxes.</span>
+    </p>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     COMPARE PACKAGES TABLE
+     ============================================================ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">เปรียบเทียบแพ็กเกจ</span><span class="lang-en">Package Comparison</span></span>
+      <h2 style="color:#f5f0e8;"><span class="lang-th">ดูความแตกต่างในแต่ละแพ็กเกจ</span><span class="lang-en">See What Each Package Includes</span></h2>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:0.82rem;min-width:600px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(184,150,46,0.3);">
+            <th style="text-align:left;padding:14px 16px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;"><span class="lang-th">บริการ</span><span class="lang-en">Feature</span></th>
+            <th style="text-align:center;padding:14px 10px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;">Basic</th>
+            <th style="text-align:center;padding:14px 10px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;background:rgba(184,150,46,0.06);">Mentorship</th>
+            <th style="text-align:center;padding:14px 10px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;">Elite 9–16+</th>
+            <th style="text-align:center;padding:14px 10px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;">Adm. Basic</th>
+            <th style="text-align:center;padding:14px 10px;color:#B8962E;font-weight:600;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;">Adm. Adv.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">1-to-1 ติวเตอร์</span><span class="lang-en">1-to-1 Tutoring</span></td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">จัดการใบสมัคร (5 โรงเรียน)</span><span class="lang-en">Application Management (5 schools)</span></td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">กลยุทธ์ GCSE / A-Level / IB</span><span class="lang-en">GCSE / A-Level / IB Strategy</span></td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">Mentorship Programme</span><span class="lang-en">Mentorship Programme</span></td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">รายงานรายเดือน</span><span class="lang-en">Monthly Progress Reviews</span></td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">ประเมินข้อสอบเข้า</span><span class="lang-en">Admission Test Assessment</span></td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(245,240,232,0.06);">
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">ให้คำปรึกษาใบสมัคร</span><span class="lang-en">Application Consulting</span></td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;background:rgba(184,150,46,0.06);">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:13px 16px;color:rgba(245,240,232,0.7);"><span class="lang-th">Personal Statement</span><span class="lang-en">Personal Statement Support</span></td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;background:rgba(184,150,46,0.06);">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:rgba(245,240,232,0.2);font-size:0.9rem;">—</td>
+            <td style="text-align:center;color:#B8962E;font-size:1rem;">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LINE CTA
+     ============================================================ -->
+<section class="line-cta">
+  <div class="container">
+    <div class="line-cta-eyebrow"><span class="lang-th">ไม่แน่ใจว่าแพ็กเกจไหนเหมาะกับคุณ?</span><span class="lang-en">Not sure which package is right for you?</span></div>
+    <h2>
+      <span class="lang-th">ปรึกษาฟรี — เราแนะนำแพ็กเกจที่เหมาะให้</span>
+      <span class="lang-en">Free Consultation — We'll Recommend the Right Package</span>
+    </h2>
+    <div class="line-cta-handle">LINE: @linkedu.th</div>
+    <p class="line-cta-sub">
+      <span class="lang-th">ปรึกษาฟรี / Free Consultation — ตอบภายใน 24 ชั่วโมง</span>
+      <span class="lang-en">ปรึกษาฟรี / Free Consultation — Response within 24 hours</span>
+    </p>
+    <a href="https://line.me/ti/p/@linkedu.th" class="line-cta-btn" target="_blank" rel="noopener">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0prft{fill:#FFFFFF;}</style><path class="st0prft" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <p class="footer-brand-tagline">
+          <span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย ให้คำปรึกษาฟรีผ่าน LINE</span>
+          <span class="lang-en">Thailand's specialist in UK boarding school placement for Thai families. Free consultation via LINE.</span>
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div>
+        <div class="footer-links">
+          <a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a>
+          <a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare Schools</span></a>
+          <a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+          <a href="fees.html" class="footer-link"><span class="lang-th">ค่าเรียนและทุน</span><span class="lang-en">Fees &amp; Scholarships</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการ</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="pricing.html" class="footer-link"><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></a>
+          <a href="prepare.html" class="footer-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
+          <a href="guides.html" class="footer-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div>
+        <div class="footer-links">
+          <a href="contact.html" class="footer-link">LINE: @linkedu.th</a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+          <a href="guides.html#faq" class="footer-link">FAQ</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div class="footer-line"><span class="lang-th">ติดต่อ: </span><span class="lang-en">LINE: </span><span>@linkedu.th</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.22);margin-top:10px;text-align:center;width:100%;">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

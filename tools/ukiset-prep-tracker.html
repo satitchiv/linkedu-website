@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKISET Preparation Tracker - LINKEDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #111111;
+            --text-color: #e0e0e0;
+            --accent-color: #C9A84C;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --line-cta-bg: #00B900; /* LINE green */
+            --line-cta-text: #ffffff;
+            --max-width: 1200px;
+            --padding-section: 60px 20px;
+            --spacing-large: 40px;
+            --spacing-medium: 20px;
+            --spacing-small: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #0a0a0a;
+            padding: var(--spacing-medium) 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: var(--spacing-small);
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        section {
+            padding: var(--padding-section);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-large);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: var(--accent-color);
+            margin-top: var(--spacing-medium);
+            margin-bottom: var(--spacing-small);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: var(--spacing-small);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 20px;
+            margin-bottom: var(--spacing-medium);
+        }
+
+        li {
+            margin-bottom: var(--spacing-small);
+            position: relative;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .cta-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--line-cta-bg);
+            color: var(--line-cta-text);
+            padding: var(--spacing-medium) var(--spacing-large);
+            border-radius: 8px;
+            text-align: center;
+            margin: var(--spacing-large) auto;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 185, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-line:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 185, 0, 0.6);
+        }
+
+        .cta-line span {
+            display: block;
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: var(--spacing-small);
+        }
+
+        .cta-line small {
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        .cta-line a {
+            color: var(--line-cta-text);
+            text-decoration: none;
+        }
+
+        /* UKISET Test Sections */
+        .test-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-large);
+            margin-top: var(--spacing-large);
+            justify-content: center;
+        }
+
+        .test-card {
+            background-color: var(--card-bg);
+            padding: var(--spacing-medium);
+            border-radius: 8px;
+            flex: 1 1 calc(33% - var(--spacing-large));
+            min-width: 280px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .test-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: var(--spacing-small);
+        }
+
+        .test-card p, .test-card ul {
+            font-size: 0.95em;
+            color: #c0c0c0;
+        }
+
+        .sample-question {
+            background-color: #222;
+            padding: var(--spacing-small);
+            border-left: 4px solid var(--accent-color);
+            margin-top: var(--spacing-small);
+            font-style: italic;
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+
+        /* Score Guide */
+        .score-tiers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-medium);
+            justify-content: center;
+            margin-top: var(--spacing-large);
+        }
+
+        .score-tier-card {
+            background-color: var(--card-bg);
+            padding: var(--spacing-medium);
+            border-radius: 8px;
+            flex: 1 1 calc(25% - var(--spacing-medium));
+            min-width: 220px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-tier-card h4 {
+            color: var(--accent-color);
+            font-size: 1.4em;
+            margin-bottom: var(--spacing-small);
+        }
+        .score-tier-card p {
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        /* School Finder */
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-small);
+            justify-content: center;
+            margin-bottom: var(--spacing-large);
+        }
+
+        .filter-controls label {
+            margin-right: var(--spacing-small);
+            font-weight: 600;
+        }
+
+        .filter-controls select, .filter-controls button {
+            padding: var(--spacing-small) var(--spacing-medium);
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .filter-controls select:focus, .filter-controls button:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.3);
+        }
+
+        .filter-controls button:hover {
+            background-color: #2a2a2a;
+        }
+
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-medium);
+            margin-top: var(--spacing-large);
+        }
+
+        .school-card {
+            background-color: var(--card-bg);
+            padding: var(--spacing-medium);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Pushes footer to bottom */
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .school-card h4 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-bottom: var(--spacing-small);
+        }
+
+        .school-card p {
+            font-size: 0.9em;
+            color: #c0c0c0;
+        }
+
+        .school-card .ukiset-status {
+            font-weight: 600;
+            color: #90d090; /* A slightly lighter green for status */
+            margin-bottom: var(--spacing-small);
+        }
+
+        .school-card .ukiset-status.optional {
+            color: #d0c090; /* A yellowish tint for optional */
+        }
+
+        .school-card .ukiset-status.own-test {
+            color: #d09090; /* A reddish tint for own test */
+        }
+
+        .fee-info {
+            margin-top: var(--spacing-small);
+            font-size: 0.85em;
+            color: #a0a0a0;
+        }
+
+        .vat-note {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: var(--spacing-small);
+            padding: var(--spacing-small);
+            border-left: 3px solid var(--accent-color);
+            background-color: #1a1a1a;
+        }
+
+        /* Timeline */
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-medium);
+            margin-top: var(--spacing-large);
+        }
+
+        .timeline-item {
+            background-color: var(--card-bg);
+            padding: var(--spacing-medium);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .timeline-item h4 {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin-bottom: 0;
+        }
+
+        .timeline-item h4::before {
+            content: '▶';
+            margin-right: var(--spacing-small);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item.open h4::before {
+            content: '▼';
+            transform: rotate(90deg);
+        }
+
+        .timeline-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding-top: 0;
+        }
+
+        .timeline-item.open .timeline-content {
+            max-height: 200px; /* Adjust based on content height */
+            padding-top: var(--spacing-small);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: var(--spacing-medium) 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            margin-bottom: var(--spacing-small);
+        }
+
+        footer a {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            .test-card, .score-tier-card {
+                flex: 1 1 100%;
+            }
+            .cta-line {
+                padding: var(--spacing-medium);
+            }
+            .cta-line span {
+                font-size: 1.4em;
+            }
+            .cta-line small {
+                font-size: 1em;
+            }
+            .filter-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .filter-controls select, .filter-controls button {
+                width: 100%;
+                margin-bottom: var(--spacing-small);
+            }
+            .school-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>UKISET Preparation Tracker</h1>
+            <p>Your guide to UK Independent School Entry Test preparation with <a href="https://th.linkedu.hk" target="_blank">LINKEDU Education Consulting Bangkok</a></p>
+        </div>
+    </header>
+
+    <main>
+        <section id="intro">
+            <div class="container">
+                <h2>What is UKISET? <br> (UKISET คืออะไร?)</h2>
+                <p>The UK Independent Schools' Entry Test (UKISET) is a comprehensive online assessment used by many leading independent schools in the UK to evaluate international students for admission. It assesses a student's academic potential in key areas, along with their English language proficiency.</p>
+                <p>UKISET ช่วยให้โรงเรียนในสหราชอาณาจักรสามารถประเมินความสามารถทางวิชาการและทักษะภาษาอังกฤษของนักเรียนต่างชาติได้อย่างครอบคลุม โดยเฉพาะอย่างยิ่งสำหรับนักเรียนที่ต้องการเข้าเรียนในโรงเรียนเอกชนชั้นนำ</p>
+            </div>
+        </section>
+
+        <section id="what-tests">
+            <div class="container">
+                <h2>What UKISET Tests: English, Maths, Reasoning <br> (UKISET ทดสอบอะไรบ้าง: ภาษาอังกฤษ, คณิตศาสตร์, การคิดวิเคราะห์)</h2>
+                <p>UKISET assesses students across several key modules to provide a holistic view of their abilities:</p>
+                <div class="test-section">
+                    <div class="test-card">
+                        <h3>1. English <br> (ภาษาอังกฤษ)</h3>
+                        <p>Evaluates reading comprehension, grammar, vocabulary, and writing skills. It's crucial for academic success in an English-speaking environment.</p>
+                        <ul>
+                            <li><strong>Reading Comprehension:</strong> Understanding complex texts.</li>
+                            <li><strong>Grammar & Vocabulary:</strong> Correct usage and breadth of words.</li>
+                            <li><strong>Writing:</strong> Ability to express ideas clearly and coherently.</li>
+                        </ul>
+                        <div class="sample-question">
+                            <p><strong>Sample Question:</strong> Read a passage and answer multiple-choice questions about its main idea, supporting details, and author's tone.</p>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <h3>2. Mathematics <br> (คณิตศาสตร์)</h3>
+                        <p>Covers core mathematical concepts appropriate for the student's age group, including arithmetic, algebra, and geometry. Emphasis is on problem-solving.</p>
+                        <ul>
+                            <li><strong>Number:</strong> Arithmetic, fractions, decimals, percentages.</li>
+                            <li><strong>Algebra:</strong> Basic equations, expressions.</li>
+                            <li><strong>Geometry:</strong> Shapes, angles, area, volume.</li>
+                            <li><strong>Data Handling:</strong> Interpreting charts and graphs.</li>
+                        </ul>
+                        <div class="sample-question">
+                            <p><strong>Sample Question:</strong> If a shirt costs £25 and is on sale for 20% off, how much does it cost now?</p>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <h3>3. Reasoning <br> (การคิดวิเคราะห์)</h3>
+                        <p>Assesses logical thinking and problem-solving abilities, independent of learned knowledge. This includes verbal, non-verbal, and spatial reasoning.</p>
+                        <ul>
+                            <li><strong>Verbal Reasoning:</strong> Understanding relationships between words, analogies.</li>
+                            <li><strong>Non-Verbal Reasoning:</strong> Identifying patterns and relationships in abstract figures.</li>
+                            <li><strong>Spatial Reasoning:</strong> Visualising and manipulating shapes in space.</li>
+                        </ul>
+                        <div class="sample-question">
+                            <p><strong>Sample Question:</strong> Which shape comes next in the sequence? (Followed by a series of abstract patterns).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="score-guide">
+            <div class="container">
+                <h2>UKISET Score Guide <br> (แนวทางการประเมินคะแนน UKISET)</h2>
+                <p>UKISET scores are reported as standardised scores and percentiles. While specific school requirements vary, here's a general guide to interpreting scores:</p>
+                <div class="score-tiers">
+                    <div class="score-tier-card">
+                        <h4>Outstanding <br> (ยอดเยี่ยม)</h4>
+                        <p><strong>Percentile: 85-100%</strong><br>Indicates exceptional academic potential and English proficiency. Often sought by highly selective, top-tier schools.</p>
+                    </div>
+                    <div class="score-tier-card">
+                        <h4>Excellent <br> (ดีเลิศ)</h4>
+                        <p><strong>Percentile: 70-84%</strong><br>Demonstrates strong abilities. Suitable for many selective and reputable independent schools.</p>
+                    </div>
+                    <div class="score-tier-card">
+                        <h4>Good <br> (ดี)</h4>
+                        <p><strong>Percentile: 55-69%</strong><br>Shows solid foundational skills. Many good schools will consider students in this range, potentially with additional support for English.</p>
+                    </div>
+                    <div class="score-tier-card">
+                        <h4>Developing <br> (กำลังพัฒนา)</h4>
+                        <p><strong>Percentile: Below 55%</strong><br>Suggests areas for improvement. May require intensive preparation or consideration of schools with less emphasis on UKISET as a primary assessment.</p>
+                    </div>
+                </div>
+                <p class="vat-note" style="margin-top: var(--spacing-large);">
+                    <strong>Note:</strong> UKISET scores are just one part of the application process. Schools also consider school reports, interviews, and other entrance exams.
+                </p>
+            </div>
+        </section>
+
+        <section id="school-finder">
+            <div class="container">
+                <h2>Find Your UK School <br> (ค้นหาโรงเรียนในสหราชอาณาจักร)</h2>
+                <p>Filter through our approved list of UK independent schools based on their typical UKISET requirements. Please note that requirements can vary by year group and specific circumstances.</p>
+                <div class="filter-controls">
+                    <label for="ukiset-filter">UKISET Requirement: (ข้อกำหนด UKISET:)</label>
+                    <select id="ukiset-filter">
+                        <option value="all">All Schools (ทุกโรงเรียน)</option>
+                        <option value="Requires UKISET">Requires UKISET (ต้องใช้ UKISET)</option>
+                        <option value="UKISET Recommended/Optional">UKISET Recommended/Optional (แนะนำ/ทางเลือก)</option>
+                        <option value="Primarily Own Test">Primarily Own Test (เน้นสอบของโรงเรียน)</option>
+                    </select>
+                    <button id="apply-filter">Apply Filter (ใช้ตัวกรอง)</button>
+                </div>
+                <div class="vat-note">
+                    <strong>Important Note on Fees & VAT:</strong> Private school fees are indicative annual boarding fees for 2024. From January 2025, a 20% VAT will be added to private school fees. State boarding schools (typically £10,000 to £19,000 per year) are VAT exempt. All schools listed below are private and will be subject to VAT from 2025.
+                    <br><br>
+                    <strong>หมายเหตุสำคัญเกี่ยวกับค่าธรรมเนียมและ VAT:</strong> ค่าธรรมเนียมโรงเรียนเอกชนเป็นค่าธรรมเนียมการเข้าพักประจำปีโดยประมาณสำหรับปี 2024 ตั้งแต่เดือนมกราคม 2025 จะมีการเพิ่ม VAT 20% ในค่าธรรมเนียมโรงเรียนเอกชน โรงเรียนประจำของรัฐ (โดยทั่วไปอยู่ที่ 10,000 ถึง 19,000 ปอนด์ต่อปี) ได้รับการยกเว้น VAT โรงเรียนทั้งหมดที่ระบุไว้ด้านล่างเป็นโรงเรียนเอกชนและจะต้องเสีย VAT ตั้งแต่ปี 2025
+                </div>
+                <div id="school-list" class="school-grid">
+                    <!-- School cards will be injected here by JavaScript -->
+                </div>
+                <div class="cta-line">
+                    <span>LINE: satitlinkedu</span>
+                    <small>ปรึกษาฟรี (Free Consultation)</small>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">Add LINE (เพิ่มเพื่อนใน LINE)</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="thai-preparation">
+            <div class="container">
+                <h2>How Thai Students Prepare from Bangkok <br> (นักเรียนไทยเตรียมตัวจากกรุงเทพฯ อย่างไร)</h2>
+                <p>For Thai students in Bangkok, preparing for UKISET requires a structured approach. LINKEDU provides tailored support to ensure students are fully ready:</p>
+                <ul>
+                    <li><strong>Diagnostic Assessment:</strong> We start with an initial assessment to identify strengths and weaknesses across all UKISET modules.</li>
+                    <li><strong>Personalised Study Plans:</strong> Based on the diagnostic, we create bespoke preparation plans focusing on areas needing improvement.</li>
+                    <li><strong>Expert Tutoring:</strong> One-on-one or small group tutoring with experienced tutors familiar with UKISET content and strategies.</li>
+                    <li><strong>English Language Enhancement:</strong> Intensive English practice, including academic writing, reading comprehension, and vocabulary building.</li>
+                    <li><strong>Maths & Reasoning Drills:</strong> Targeted practice sessions for quantitative reasoning, problem-solving, and logical thinking.</li>
+                    <li><strong>Mock Tests & Feedback:</strong> Regular full-length mock UKISET tests under timed conditions, followed by detailed feedback and strategy refinement.</li>
+                    <li><strong>Interview Preparation:</strong> Many schools require an interview; we offer coaching to help students articulate their thoughts confidently.</li>
+                    <li><strong>Application Guidance:</strong> Comprehensive support throughout the school application process, including school selection and essay writing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div class="container">
+                <h2>Preparation Timeline: 3-6 Months <br> (แผนการเตรียมตัว: 3-6 เดือน)</h2>
+                <p>A typical UKISET preparation timeline for optimal results:</p>
+                <div class="timeline-steps">
+                    <div class="timeline-item">
+                        <h4 class="timeline-toggle">Months 1-2: Foundation & Diagnostics <br> (เดือนที่ 1-2: สร้างพื้นฐานและวินิจฉัย)</h4>
+                        <div class="timeline-content">
+                            <ul>
+                                <li>Initial UKISET diagnostic test to identify baseline.</li>
+                                <li>Establish personalised study plan with LINKEDU.</li>
+                                <li>Focus on core English grammar, vocabulary, and reading skills.</li>
+                                <li>Review fundamental Maths concepts (arithmetic, basic algebra).</li>
+                                <li>Introduction to Verbal and Non-Verbal Reasoning concepts.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="timeline-toggle">Months 3-4: Targeted Practice & Skill Building <br> (เดือนที่ 3-4: ฝึกฝนเฉพาะจุดและพัฒนาทักษะ)</h4>
+                        <div class="timeline-content">
+                            <ul>
+                                <li>Intensive practice on weaker areas identified in diagnostics.</li>
+                                <li>Work on advanced English comprehension and essay writing techniques.</li>
+                                <li>Solve complex Maths problems and apply concepts.</li>
+                                <li>Regular practice with various reasoning question types.</li>
+                                <li>First full-length mock UKISET test.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="timeline-toggle">Months 5-6: Refinement & Mock Exams <br> (เดือนที่ 5-6: ปรับปรุงและสอบจำลอง)</h4>
+                        <div class="timeline-content">
+                            <ul>
+                                <li>Analyse mock test results for final areas of improvement.</li>
+                                <li>Focus on exam strategies, time management, and accuracy.</li>
+                                <li>Multiple full-length mock UKISET tests under exam conditions.</li>
+                                <li>Review all topics and solidify understanding.</li>
+                                <li>Interview preparation and school application discussions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <div class="container">
+                <h2>Resource List <br> (แหล่งข้อมูล)</h2>
+                <p>Here are some valuable resources for UKISET preparation:</p>
+                <ul>
+                    <li><strong>Official UKISET Website:</strong> <a href="https://www.ukiset.com" target="_blank">www.ukiset.com</a> (for registration, official information, and sample tests).</li>
+                    <li><strong>Practice Books:</strong> Various publishers offer UKISET-style practice books for English, Maths, and Reasoning.</li>
+                    <li><strong>Online Platforms:</strong> Websites offering adaptive practice questions and mock tests.</li>
+                    <li><strong>LINKEDU Consultants:</strong> For personalised guidance, tutoring, and application support. <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></li>
+                </ul>
+                <div class="cta-line">
+                    <span>LINE: satitlinkedu</span>
+                    <small>ปรึกษาฟรี (Free Consultation)</small>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank">Add LINE (เพิ่มเพื่อนใน LINE)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 LINKEDU. All rights reserved.</p>
+            <p>Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+            <p>Crafted by LINKEDU Education Consulting Bangkok</p>
+        </div>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45; // Fixed rate for calculation
+        const VAT_RATE = 0.20; // 20% VAT
+
+        const schools = [
+            { name: "Abbotsholme", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 30000, description: "A rural boarding school known for its outdoor education and strong community spirit." },
+            { name: "Ardingly", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 38000, description: "A leading co-educational boarding and day school with a strong academic and co-curricular program." },
+            { name: "Brighton College", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 48000, description: "One of the UK's top co-educational schools, known for academic excellence and innovation." },
+            { name: "Bromsgrove", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 40000, description: "A large, thriving co-educational school with a global outlook and strong academic results." },
+            { name: "Bryanston", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 45000, description: "A progressive co-educational school offering a broad curriculum and strong focus on individual development." },
+            { name: "Cardiff Sixth Form", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 50000, description: "A highly academic college specializing in A-Levels, attracting ambitious students aiming for top universities." },
+            { name: "Caterham", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 39000, description: "A forward-thinking co-educational school with strong academic results and a focus on digital learning." },
+            { name: "Charterhouse", ukiset: "Requires UKISET", type: "Boys (Co-ed Sixth Form)", feesGBP: 47000, description: "A historic boarding school for boys, with a co-educational Sixth Form, known for its academic rigour." },
+            { name: "Clifton", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 42000, description: "A vibrant co-educational school with a strong emphasis on academic achievement and a wide range of activities." },
+            { name: "Concord", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 45000, description: "A highly academic international school renowned for its science and maths results and university placements." },
+            { name: "D Overbroeks", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 40000, description: "A progressive school in Oxford, offering a flexible and modern approach to education." },
+            { name: "Dulwich", ukiset: "Requires UKISET", type: "Boys", feesGBP: 45000, description: "A prestigious boys' school with a rich history of academic and sporting excellence." },
+            { name: "Epsom", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 43000, description: "A leading co-educational boarding and day school known for its strong academics and pastoral care." },
+            { name: "Eton", ukiset: "Primarily Own Test", type: "Boys", feesGBP: 49000, description: "One of the most famous and prestigious boys' boarding schools in the world, with highly selective entry." },
+            { name: "Harrow", ukiset: "Primarily Own Test", type: "Boys", feesGBP: 49000, description: "A historic and distinguished boys' boarding school, renowned for its traditions and academic standards." },
+            { name: "Lancing", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 38000, description: "A stunning coastal school with a strong spiritual and academic focus, welcoming a diverse student body." },
+            { name: "Loretto", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 35000, description: "Scotland's oldest boarding school, offering a broad education with a strong emphasis on golf and sports." },
+            { name: "Millfield", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 45000, description: "A large, diverse co-educational school famous for its sporting excellence and comprehensive facilities." },
+            { name: "Oakham", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 39000, description: "A friendly and successful co-educational school, offering both A-Levels and the IB Diploma." },
+            { name: "Oundle", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 43000, description: "A large, traditional co-educational boarding school with a strong academic reputation and extensive facilities." },
+            { name: "Oxford International", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 40000, description: "A specialist college providing A-Level courses with a strong focus on international students and university progression." },
+            { name: "Queen Ethelburgas", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 50000, description: "A highly resourced school offering a range of academic pathways and exceptional pastoral care." },
+            { name: "Repton", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 42000, description: "A historic and high-achieving co-educational school, known for its strong community and academic success." },
+            { name: "Roedean", ukiset: "Requires UKISET", type: "Girls", feesGBP: 45000, description: "A leading girls' boarding school on the south coast, with a strong academic record and a vibrant community." },
+            { name: "Rossall", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 32000, description: "A historic co-educational school with a focus on academic achievement and a wide range of extracurriculars." },
+            { name: "Royal Russell", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 36000, description: "A co-educational day and boarding school with a strong academic focus and excellent pastoral care." },
+            { name: "Sedbergh", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 39000, description: "A full boarding co-educational school in the Yorkshire Dales, known for its rugged outdoor education." },
+            { name: "Sevenoaks", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 48000, description: "A highly academic and progressive co-educational school, pioneer of the IB Diploma in the UK." },
+            { name: "Shrewsbury", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 43000, description: "A historic co-educational boarding school with a strong reputation for academic excellence and a broad education." },
+            { name: "Sidcot", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 30000, description: "A Quaker school with a strong emphasis on values, sustainability, and individual development." },
+            { name: "St Leonards", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 32000, description: "A Scottish independent school offering the IB curriculum, with a strong focus on academic and personal growth." },
+            { name: "The Leys", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 38000, description: "A co-educational school in Cambridge, providing a supportive environment and strong academic program." },
+            { name: "NMSC", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 48000, description: "The National Mathematics and Science College, specializing in STEM subjects for ambitious students." },
+            { name: "Tonbridge", ukiset: "Requires UKISET", type: "Boys", feesGBP: 47000, description: "A leading boys' boarding school with a strong academic tradition and excellent facilities." },
+            { name: "Uppingham", ukiset: "Requires UKISET", type: "Co-ed", feesGBP: 43000, description: "A traditional co-educational boarding school known for its all-round education and strong community." },
+            { name: "Wells Cathedral", ukiset: "UKISET Recommended/Optional", type: "Co-ed", feesGBP: 35000, description: "A specialist music school with a strong academic offering, set in a historic city." }
+        ];
+
+        function calculateFees(gbp) {
+            const thb = gbp * GBP_TO_THB_RATE;
+            const gbpVat = gbp * (1 + VAT_RATE);
+            const thbVat = gbpVat * GBP_TO_THB_RATE;
+            return {
+                gbp: gbp.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }),
+                thb: thb.toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }),
+                gbpVat: gbpVat.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }),
+                thbVat: thbVat.toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 })
+            };
+        }
+
+        function renderSchools(filteredSchools) {
+            const schoolListDiv = document.getElementById('school-list');
+            schoolListDiv.innerHTML = ''; // Clear previous results
+
+            filteredSchools.forEach(school => {
+                const fees = calculateFees(school.feesGBP);
+                let statusClass = '';
+                if (school.ukiset === 'Requires UKISET') {
+                    statusClass = 'required';
+                } else if (school.ukiset === 'UKISET Recommended/Optional') {
+                    statusClass = 'optional';
+                } else {
+                    statusClass = 'own-test';
+                }
+
+                const schoolCard = `
+                    <div class="school-card">
+                        <div>
+                            <h4>${school.name}</h4>
+                            <p class="ukiset-status ${statusClass}">UKISET Requirement: ${school.ukiset}</p>
+                            <p><strong>Type:</strong> ${school.type}</p>
+                            <p>${school.description}</p>
+                        </div>
+                        <div class="fee-info">
+                            <p><strong>Indicative Annual Boarding Fees (2024):</strong></p>
+                            <p>${fees.gbp} / ${fees.thb}</p>
+                            <p><strong>From Jan 2025 (incl. 20% VAT):</strong></p>
+                            <p>${fees.gbpVat} / ${fees.thbVat}</p>
+                        </div>
+                    </div>
+                `;
+                schoolListDiv.innerHTML += schoolCard;
+            });
+        }
+
+        // School Filter Logic
+        document.getElementById('apply-filter').addEventListener('click', () => {
+            const filterValue = document.getElementById('ukiset-filter').value;
+            let filteredSchools = schools;
+
+            if (filterValue !== 'all') {
+                filteredSchools = schools.filter(school => school.ukiset === filterValue);
+            }
+            renderSchools(filteredSchools);
+        });
+
+        // Timeline Toggle Logic
+        document.querySelectorAll('.timeline-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const parentItem = toggle.closest('.timeline-item');
+                parentItem.classList.toggle('open');
+                const content = parentItem.querySelector('.timeline-content');
+                if (parentItem.classList.contains('open')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = "0";
+                }
+            });
+        });
+
+        // Initial render of all schools
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSchools(schools);
+        });
+    </script>
+</body>
+</html>

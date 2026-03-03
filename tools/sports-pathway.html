@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="LinkedU Sports Pathway Planner" data-th="LinkedU วางแผนเส้นทางกีฬาสู่โรงเรียนประจำ UK">LinkedU Sports Pathway Planner</title>
+    <style>
+        /* Google Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+        /* CSS Variables for Brand Design System */
+        :root {
+            --dark: #1A1A1A;
+            --navy: #1B3A5C;
+            --gold: #C9A84C;
+            --cream: #F5F0E8;
+            --bg: #FAFAF8;
+            --text: #2D2D2D;
+            --border: #E8E4DC;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Base Styles & Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.75;
+            font-size: 16px; /* Increased for luxury feel */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 300;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 4.5em; } /* Adjust for hero */
+        h2 { font-size: 3.5em; }
+        h3 { font-size: 2.5em; }
+        h4 { font-size: 1.8em; }
+        h5 { font-size: 1.4em; }
+        h6 { font-size: 1.1em; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            h2 { font-size: 2.5em; }
+            h3 { font-size: 2em; }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.7em; }
+            body { font-size: 15px; } /* Slightly smaller for mobile */
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--dark);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .header-logo h1 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            font-size: 24px;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            margin: 0;
+            line-height: 1;
+        }
+        .header-logo span {
+            font-family: var(--font-body);
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.6;
+            letter-spacing: normal;
+            margin-top: 4px;
+        }
+        .lang-toggle {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-toggle button {
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-family: var(--font-body);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px; /* Consistent with cards */
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .lang-toggle button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .lang-toggle button:hover:not(.active) {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 20px;
+            }
+            .header-logo h1 {
+                font-size: 20px;
+            }
+            .header-logo span {
+                font-size: 8px;
+            }
+            .lang-toggle button {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 80px 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+        }
+        .hero .gold-line {
+            width: 40px;
+            height: 4px;
+            background-color: var(--gold);
+            margin: 0 auto 20px auto;
+        }
+        .hero h1 {
+            color: var(--cream);
+            margin-bottom: 20px;
+            font-weight: 300;
+            max-width: 900px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: var(--font-body);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px 36px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .btn-primary:hover {
+            background-color: #b39443; /* Slightly darker gold */
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark);
+            border: 1px solid var(--dark);
+        }
+        .btn-secondary:hover {
+            background-color: var(--dark);
+            color: var(--cream);
+        }
+        .btn-dark {
+            background-color: var(--dark);
+            color: var(--cream);
+        }
+        .btn-dark:hover {
+            background-color: var(--navy);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-dark {
+            background-color: var(--dark);
+            color: var(--cream);
+        }
+        .section-dark h2, .section-dark h3, .section-dark h4 {
+            color: var(--cream);
+        }
+        .section-dark .section-label {
+            color: var(--gold);
+        }
+        .section-dark .btn-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+        .section-dark .btn-primary:hover {
+            background-color: #b39443;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 20px;
+            }
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+        .form-group select,
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            background-color: white;
+            font-family: var(--font-body);
+            font-size: 16px; /* Consistent with body */
+            color: var(--text);
+            appearance: none; /* Remove default arrow for select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232D2D2D%22%20d%3D%22M287%2C197.9L159.2%2C69.2c-4.1-4.1-10.7-4.1-14.8%2C0L5.4%2C197.9c-4.1%2C4.1-4.1%2C10.7%2C0%2C14.8c4.1%2C4.1%2C10.7%2C4.1%2C14.8%2C0l131.5-131.5l131.5%2C131.5c4.1%2C4.1%2C10.7%2C4.1%2C14.8%2C0C291.1%2C208.6%2C291.1%2C202%2C287%2C197.9z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            cursor: pointer;
+            border-radius: 4px; /* Consistent with cards */
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group select:focus,
+        .form-group input[type="number"]:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+            border-radius: 4px;
+            padding: 32px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+        .card h4 {
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .card p {
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .card strong {
+            color: var(--navy);
+        }
+        .card .match-score {
+            font-family: var(--font-heading);
+            font-size: 56px;
+            color: var(--gold);
+            font-weight: 400;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto; /* Make table horizontally scrollable on small screens */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.03);
+            border-radius: 4px;
+            overflow: hidden; /* For border-radius */
+        }
+        .data-table th, .data-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table th {
+            background-color: var(--dark);
+            color: var(--cream);
+            font-family: var(--font-body);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        .data-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Pathway Timeline */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-age {
+            font-family: var(--font-heading);
+            font-size: 3em;
+            color: var(--gold);
+            font-weight: 400;
+            line-height: 1;
+            width: 80px;
+            flex-shrink: 0;
+            text-align: center;
+            margin-right: 20px;
+        }
+        .timeline-content {
+            flex-grow: 1;
+            padding-left: 20px;
+            border-left: 2px solid var(--border);
+        }
+        .timeline-content p {
+            margin: 0;
+            font-size: 16px;
+            color: var(--navy);
+        }
+        .timeline-content small {
+            display: block;
+            margin-top: 5px;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 80px 40px;
+            text-align: center;
+        }
+        .cta-section h2 {
+            color: var(--cream);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+        .cta-section .section-label {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg);
+            padding: 40px 20px;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            opacity: 0.8;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mt-40 { margin-top: 40px; }
+        .mt-20 { margin-top: 20px; }
+        .hidden { display: none !important; }
+
+        /* Chart.js container */
+        .chart-container {
+            position: relative;
+            height: 350px; /* Adjust as needed */
+            width: 100%;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">
+            <h1 data-en="L I N K E D U" data-th="L I N K E D U">L I N K E D U</h1>
+            <span data-en="OVERSEAS EDUCATION" data-th="การศึกษาต่างประเทศ">OVERSEAS EDUCATION</span>
+        </div>
+        <div class="lang-toggle">
+            <button id="lang-en" class="active">EN</button>
+            <button id="lang-th">TH</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="gold-line"></div>
+            <h1 data-en="Chart Your Path to UK Sports Scholarships" data-th="วางแผนเส้นทางสู่ทุนกีฬาโรงเรียนประจำ UK">Chart Your Path to UK Sports Scholarships</h1>
+            <p data-en="Discover elite UK boarding schools offering sports scholarships. Our planner helps you identify the right institutions, understand required levels, and map out your athletic journey." data-th="ค้นพบโรงเรียนประจำชั้นนำในสหราชอาณาจักรที่มอบทุนการศึกษาด้านกีฬา เครื่องมือวางแผนของเราจะช่วยคุณระบุสถาบันที่เหมาะสม ทำความเข้าใจระดับที่ต้องการ และกำหนดเส้นทางกีฬาสู่ความสำเร็จ">Discover elite UK boarding schools offering sports scholarships. Our planner helps you identify the right institutions, understand required levels, and map out your athletic journey.</p>
+            <a href="#planner-section" class="btn btn-primary" data-en="Get Started" data-th="เริ่มต้น">Get Started</a>
+        </section>
+
+        <section id="planner-section" class="section">
+            <span class="section-label" data-en="· SPORTS PATHWAY PLANNER ·" data-th="· วางแผนเส้นทางกีฬา ·">· SPORTS PATHWAY PLANNER ·</span>
+            <h2 class="text-center mb-40" data-en="Find Your Ideal Scholarship Pathway" data-th="ค้นหาเส้นทางทุนการศึกษาในฝันของคุณ">Find Your Ideal Scholarship Pathway</h2>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="sport-select" data-en="Select Your Sport" data-th="เลือกกีฬาของคุณ">Select Your Sport</label>
+                    <select id="sport-select">
+                        <option value="" disabled selected data-en="Choose a sport" data-th="เลือกกีฬา">Choose a sport</option>
+                        <option value="Tennis" data-en="Tennis" data-th="เทนนิส">Tennis</option>
+                        <option value="Football" data-en="Football" data-th="ฟุตบอล">Football</option>
+                        <option value="Swimming" data-en="Swimming" data-th="ว่ายน้ำ">Swimming</option>
+                        <option value="Rugby" data-en="Rugby" data-th="รักบี้">Rugby</option>
+                        <option value="Cricket" data-en="Cricket" data-th="คริกเก็ต">Cricket</option>
+                        <option value="Golf" data-en="Golf" data-th="กอล์ฟ">Golf</option>
+                        <option value="Athletics" data-en="Athletics" data-th="กรีฑา">Athletics</option>
+                        <option value="Rowing" data-en="Rowing" data-th="เรือพาย">Rowing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="level-select" data-en="Your Current Level" data-th="ระดับปัจจุบันของคุณ">Your Current Level</label>
+                    <select id="level-select">
+                        <option value="" disabled selected data-en="Select your level" data-th="เลือกระดับของคุณ">Select your level</option>
+                        <option value="Club" data-en="Club" data-th="ระดับสโมสร">Club</option>
+                        <option value="Regional" data-en="Regional" data-th="ระดับภูมิภาค">Regional</option>
+                        <option value="National" data-en="National" data-th="ระดับประเทศ">National</option>
+                        <option value="International" data-en="International" data-th="ระดับนานาชาติ">International</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age-input" data-en="Your Current Age" data-th="อายุปัจจุบันของคุณ">Your Current Age</label>
+                    <input type="number" id="age-input" min="10" max="18" data-en="e.g., 14" data-th="เช่น 14" placeholder="e.g., 14">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button id="generate-pathway-btn" class="btn btn-primary" data-en="Generate Pathway" data-th="สร้างเส้นทาง">Generate Pathway</button>
+            </div>
+
+            <div id="results-section" class="mt-40 hidden">
+                <h3 class="text-center mb-40" data-en="Your Personalised Sports Pathway" data-th="เส้นทางกีฬาเฉพาะบุคคลของคุณ">Your Personalised Sports Pathway</h3>
+
+                <!-- Pathway Timeline -->
+                <div class="card mb-40">
+                    <h4 data-en="Pathway Timeline: What to Achieve by When" data-th="ไทม์ไลน์เส้นทาง: สิ่งที่ต้องทำให้สำเร็จตามช่วงอายุ">Pathway Timeline: What to Achieve by When</h4>
+                    <div id="pathway-timeline-content" class="mt-20">
+                        <!-- Timeline items will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Top 3 School Recommendations -->
+                <h3 class="text-center mb-40" data-en="Top 3 School Recommendations" data-th="3 อันดับโรงเรียนแนะนำ">Top 3 School Recommendations</h3>
+                <div id="top-schools-container" class="card-grid mb-40">
+                    <!-- Top 3 school cards will be injected here -->
+                </div>
+
+                <!-- Scholarship Chart -->
+                <div class="card mb-40">
+                    <h4 data-en="Scholarship Range Distribution" data-th="การกระจายช่วงทุนการศึกษา">Scholarship Range Distribution</h4>
+                    <div class="chart-container">
+                        <canvas id="scholarshipChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- All Schools with Scholarships -->
+                <h3 class="text-center mb-40" data-en="All Schools Offering Scholarships for Your Sport" data-th="โรงเรียนทั้งหมดที่มอบทุนการศึกษาสำหรับกีฬาของคุณ">All Schools Offering Scholarships for Your Sport</h3>
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-en="School" data-th="โรงเรียน">School</th>
+                                    <th data-en="Scholarship Range" data-th="ช่วงทุนการศึกษา">Scholarship Range</th>
+                                    <th data-en="Level Required" data-th="ระดับที่ต้องการ">Level Required</th>
+                                    <th data-en="Facilities" data-th="สิ่งอำนวยความสะดวก">Facilities</th>
+                                    <th data-en="Alumni Athletes" data-th="ศิษย์เก่านักกีฬา">Alumni Athletes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="all-schools-table-body">
+                                <!-- All schools data will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <span class="section-label" data-en="· CONTACT LINKEDU ·" data-th="· ติดต่อ LINKEDU ·">· CONTACT LINKEDU ·</span>
+            <h2 data-en="Ready to Discuss Your Child's Future?" data-th="พร้อมที่จะพูดคุยเกี่ยวกับอนาคตของบุตรหลานของคุณแล้วหรือยัง?">Ready to Discuss Your Child's Future?</h2>
+            <p data-en="Our expert consultants are here to provide personalised guidance and support for your UK boarding school application." data-th="ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำและการสนับสนุนส่วนบุคคลสำหรับการสมัครโรงเรียนประจำในสหราชอาณาจักรของคุณ">Our expert consultants are here to provide personalised guidance and support for your UK boarding school application.</p>
+            <a href="https://wa.me/66800000000" target="_blank" class="btn btn-primary mt-40" data-en="Chat on WhatsApp" data-th="แชทผ่าน WhatsApp">Chat on WhatsApp</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span data-en="© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand" data-th="© 2026 L I N K E D U · การศึกษาต่างประเทศ · กรุงเทพฯ, ประเทศไทย">© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand</span>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // --- Data Definitions ---
+        const schoolsData = [
+            {
+                name: "Millfield School",
+                location: "Somerset, UK",
+                sports: {
+                    Tennis: { scholarship_range: "20-60%", level_required: "Regional/National" },
+                    Swimming: { scholarship_range: "20-70%", level_required: "National" },
+                    Athletics: { scholarship_range: "15-50%", level_required: "Regional/National" },
+                    Golf: { scholarship_range: "20-60%", level_required: "National" },
+                    Rugby: { scholarship_range: "15-50%", level_required: "Regional" }
+                },
+                facilities: {
+                    en: "Olympic-sized swimming pool, 12 indoor tennis courts, 5 golf courses, athletics track, multiple rugby pitches.",
+                    th: "สระว่ายน้ำขนาดโอลิมปิก, สนามเทนนิสในร่ม 12 คอร์ท, สนามกอล์ฟ 5 แห่ง, ลู่วกรีฑา, สนามรักบี้หลายแห่ง"
+                },
+                alumni: {
+                    en: ["Helen Jenkins (Triathlon, Olympian)", "Chris Robshaw (Rugby, England Captain)", "James Guy (Swimming, Olympic Gold Medallist)"],
+                    th: ["เฮเลน เจนกินส์ (ไตรกีฬา, นักกีฬาโอลิมปิก)", "คริส รอว์ชอว์ (รักบี้, กัปตันทีมชาติอังกฤษ)", "เจมส์ กาย (ว่ายน้ำ, เหรียญทองโอลิมปิก)"]
+                }
+            },
+            {
+                name: "Loughborough Schools Foundation",
+                location: "Leicestershire, UK",
+                sports: {
+                    Football: { scholarship_range: "10-40%", level_required: "Regional" },
+                    Rugby: { scholarship_range: "10-40%", level_required: "Regional" },
+                    Cricket: { scholarship_range: "10-30%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-30%", level_required: "Regional" }
+                },
+                facilities: {
+                    en: "State-of-the-art football pitches, rugby grounds, cricket nets and pitches, 400m athletics track.",
+                    th: "สนามฟุตบอลที่ทันสมัย, สนามรักบี้, ตาข่ายและสนามคริกเก็ต, ลู่วกรีฑา 400 เมตร"
+                },
+                alumni: {
+                    en: ["Jonny May (Rugby, England International)", "Liam Heath (Canoeing, Olympic Gold Medallist)"],
+                    th: ["จอห์นนี่ เมย์ (รักบี้, ทีมชาติอังกฤษ)", "เลียม ฮีธ (เรือแคนู, เหรียญทองโอลิมปิก)"]
+                }
+            },
+            {
+                name: "Bradfield College",
+                location: "Berkshire, UK",
+                sports: {
+                    Football: { scholarship_range: "15-45%", level_required: "Regional" },
+                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Full-size football pitches, cricket pavilion and grounds, indoor tennis centre, strength & conditioning suite.",
+                    th: "สนามฟุตบอลขนาดเต็ม, ศาลาและสนามคริกเก็ต, ศูนย์เทนนิสในร่ม, ห้องฟิตเนสและปรับสภาพร่างกาย"
+                },
+                alumni: {
+                    en: ["Toby Roland-Jones (Cricket, England International)", "Jamie George (Rugby, England International)"],
+                    th: ["โทบี้ โรแลนด์-โจนส์ (คริกเก็ต, ทีมชาติอังกฤษ)", "เจมี่ จอร์จ (รักบี้, ทีมชาติอังกฤษ)"]
+                }
+            },
+            {
+                name: "Sedbergh School",
+                location: "Cumbria, UK",
+                sports: {
+                    Rugby: { scholarship_range: "20-60%", level_required: "Regional/National" },
+                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-30%", level_required: "Club/Regional" },
+                    Netball: { scholarship_range: "10-30%", level_required: "Regional" }
+                },
+                facilities: {
+                    en: "Extensive rugby pitches, cricket squares, modern sports hall, fells for cross-country running.",
+                    th: "สนามรักบี้ขนาดใหญ่, สนามคริกเก็ต, โรงยิมที่ทันสมัย, เนินเขาสำหรับการวิ่งครอสคันทรี"
+                },
+                alumni: {
+                    en: ["Will Carling (Rugby, England Captain)", "John Spencer (Rugby, British & Irish Lion)"],
+                    th: ["วิลล์ คาร์ลิง (รักบี้, กัปตันทีมชาติอังกฤษ)", "จอห์น สเปนเซอร์ (รักบี้, British & Irish Lion)"]
+                }
+            },
+            {
+                name: "Stonyhurst College",
+                location: "Lancashire, UK",
+                sports: {
+                    Rugby: { scholarship_range: "15-45%", level_required: "Regional" },
+                    Football: { scholarship_range: "10-35%", level_required: "Club/Regional" },
+                    Cricket: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Rugby pitches, football pitches, cricket nets, indoor sports centre, gym.",
+                    th: "สนามรักบี้, สนามฟุตบอล, ตาข่ายคริกเก็ต, ศูนย์กีฬาในร่ม, ยิม"
+                },
+                alumni: {
+                    en: ["Joe Ansbro (Rugby, Scotland International)", "Chris O'Donnell (Football, Professional Player)"],
+                    th: ["โจ แอนส์โบร (รักบี้, ทีมชาติสกอตแลนด์)", "คริส โอ'ดอนเนลล์ (ฟุตบอล, นักฟุตบอลอาชีพ)"]
+                }
+            },
+            {
+                name: "Wellington College",
+                location: "Berkshire, UK",
+                sports: {
+                    Rugby: { scholarship_range: "20-50%", level_required: "Regional/National" },
+                    Hockey: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-30%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Multiple rugby pitches, all-weather hockey pitches, athletics track, indoor sports complex, tennis courts.",
+                    th: "สนามรักบี้หลายแห่ง, สนามฮอกกี้ทุกสภาพอากาศ, ลู่วกรีฑา, ศูนย์กีฬาในร่ม, สนามเทนนิส"
+                },
+                alumni: {
+                    en: ["James Haskell (Rugby, England International)", "Marcus Smith (Rugby, England International)"],
+                    th: ["เจมส์ แฮสเคลล์ (รักบี้, ทีมชาติอังกฤษ)", "มาร์คัส สมิธ (รักบี้, ทีมชาติอังกฤษ)"]
+                }
+            },
+            {
+                name: "Ellesmere College",
+                location: "Shropshire, UK",
+                sports: {
+                    Swimming: { scholarship_range: "20-60%", level_required: "Regional/National" },
+                    Golf: { scholarship_range: "15-45%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-35%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "25m swimming pool, 9-hole golf course, indoor tennis dome, modern sports hall.",
+                    th: "สระว่ายน้ำ 25 เมตร, สนามกอล์ฟ 9 หลุม, โดมเทนนิสในร่ม, โรงยิมที่ทันสมัย"
+                },
+                alumni: {
+                    en: ["Freya Anderson (Swimming, Olympic Medallist)", "Alastair Cook (Cricket, England Captain - not direct sports scholar but notable alumni)"],
+                    th: ["เฟรยา แอนเดอร์สัน (ว่ายน้ำ, เหรียญโอลิมปิก)", "อลาสเตอร์ คุก (คริกเก็ต, กัปตันทีมชาติอังกฤษ - ไม่ใช่ทุนกีฬาโดยตรงแต่เป็นศิษย์เก่าที่มีชื่อเสียง)"]
+                }
+            },
+            {
+                name: "Repton School",
+                location: "Derbyshire, UK",
+                sports: {
+                    Football: { scholarship_range: "20-50%", level_required: "Regional/National" },
+                    Hockey: { scholarship_range: "20-50%", level_required: "Regional/National" },
+                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Golf: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Floodlit AstroTurf pitches, football pitches, cricket squares, indoor sports centre, golf course access.",
+                    th: "สนาม AstroTurf มีไฟส่องสว่าง, สนามฟุตบอล, สนามคริกเก็ต, ศูนย์กีฬาในร่ม, การเข้าถึงสนามกอล์ฟ"
+                },
+                alumni: {
+                    en: ["Will Hughes (Football, Premier League Player)", "Georgie Twigg (Hockey, Olympic Gold Medallist)"],
+                    th: ["วิลล์ ฮิวจ์ส (ฟุตบอล, ผู้เล่นพรีเมียร์ลีก)", "จอร์จี้ ทวิกก์ (ฮอกกี้, เหรียญทองโอลิมปิก)"]
+                }
+            },
+            {
+                name: "Shrewsbury School",
+                location: "Shropshire, UK",
+                sports: {
+                    Cricket: { scholarship_range: "20-60%", level_required: "Regional/National" },
+                    Football: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Rowing: { scholarship_range: "15-45%", level_required: "Regional" },
+                    Rugby: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Historic cricket grounds, football pitches, boathouse on River Severn, modern sports hall.",
+                    th: "สนามคริกเก็ตเก่าแก่, สนามฟุตบอล, โรงเก็บเรือริมแม่น้ำเซเวิร์น, โรงยิมที่ทันสมัย"
+                },
+                alumni: {
+                    en: ["James Taylor (Cricket, England International)", "George Mallory (Mountaineer - not sports scholar but notable)"],
+                    th: ["เจมส์ เทย์เลอร์ (คริกเก็ต, ทีมชาติอังกฤษ)", "จอร์จ มัลลอรี่ (นักปีนเขา - ไม่ใช่ทุนกีฬาแต่เป็นศิษย์เก่าที่มีชื่อเสียง)"]
+                }
+            },
+            {
+                name: "Canford School",
+                location: "Dorset, UK",
+                sports: {
+                    Rugby: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Hockey: { scholarship_range: "15-40%", level_required: "Regional" },
+                    Rowing: { scholarship_range: "10-35%", level_required: "Club/Regional" },
+                    Cricket: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                },
+                facilities: {
+                    en: "Rugby pitches, AstroTurf hockey pitches, boathouse on River Stour, cricket squares, indoor sports centre.",
+                    th: "สนามรักบี้, สนามฮอกกี้ AstroTurf, โรงเก็บเรือริมแม่น้ำ Stour, สนามคริกเก็ต, ศูนย์กีฬาในร่ม"
+                },
+                alumni: {
+                    en: ["Alex Davis (Rugby 7s, Olympian)", "Jonny Bairstow (Cricket, England International - attended, not necessarily scholar)"],
+                    th: ["อเล็กซ์ เดวิส (รักบี้ 7 คน, นักกีฬาโอลิมปิก)", "จอห์นนี่ แบร์สโตว์ (คริกเก็ต, ทีมชาติอังกฤษ - เข้าเรียน ไม่จำเป็นต้องเป็นผู้รับทุน)"]
+                }
+            }
+        ];
+
+        const pathwayData = {
+            Tennis: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Consistent tournament play", achievement_th: "เล่นทัวร์นาเมนต์อย่างสม่ำเสมอ" }, { age: 14, achievement_en: "Top 20 in regional rankings", achievement_th: "ติดอันดับ 20 อันดับแรกในระดับภูมิภาค" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Top 10 in regional rankings", achievement_th: "ติดอันดับ 10 อันดับแรกในระดับภูมิภาค" }, { age: 16, achievement_en: "National tournament participation", achievement_th: "เข้าร่วมการแข่งขันระดับประเทศ" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Top 20 in national rankings", achievement_th: "ติดอันดับ 20 อันดับแรกในระดับประเทศ" }, { age: 18, achievement_en: "International junior tournament experience", achievement_th: "มีประสบการณ์การแข่งขันระดับเยาวชนนานาชาติ" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "ITF Junior Circuit participation", achievement_th: "เข้าร่วม ITF Junior Circuit" }, { age: 18, achievement_en: "Consider professional or US college pathway", achievement_th: "พิจารณาเส้นทางอาชีพหรือวิทยาลัยในสหรัฐอเมริกา" }] }
+            ],
+            Football: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Regular starter for a competitive club team", achievement_th: "เป็นผู้เล่นตัวจริงของทีมสโมสรที่แข่งขันสูง" }, { age: 14, achievement_en: "Selected for district/county trials", achievement_th: "ได้รับเลือกให้ทดสอบฝีเท้าในระดับเขต/จังหวัด" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Playing for a regional academy/development squad", achievement_th: "เล่นให้กับทีมอะคาเดมี/พัฒนาฝีเท้าในระดับภูมิภาค" }, { age: 16, achievement_en: "Representing county/region", achievement_th: "เป็นตัวแทนของจังหวัด/ภูมิภาค" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Trialled with professional club academies", achievement_th: "ทดสอบฝีเท้ากับอะคาเดมีสโมสรอาชีพ" }, { age: 18, achievement_en: "Representing national youth teams (U17/U19)", achievement_th: "เป็นตัวแทนทีมชาติเยาวชน (U17/U19)" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Regularly representing national youth teams", achievement_th: "เป็นตัวแทนทีมชาติเยาวชนอย่างสม่ำเสมอ" }, { age: 18, achievement_en: "Professional contract offers or top university recruitment", achievement_th: "ได้รับข้อเสนอสัญญาอาชีพหรือการคัดเลือกเข้ามหาวิทยาลัยชั้นนำ" }] }
+            ],
+            Swimming: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Regularly competing in club/county championships", achievement_th: "แข่งขันในรายการชิงแชมป์สโมสร/จังหวัดอย่างสม่ำเสมอ" }, { age: 14, achievement_en: "Achieving regional qualifying times", achievement_th: "ทำเวลาผ่านเกณฑ์ระดับภูมิภาค" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Competing at regional championships (medallist)", achievement_th: "แข่งขันในรายการชิงแชมป์ระดับภูมิภาค (ได้รับเหรียญรางวัล)" }, { age: 16, achievement_en: "Achieving national qualifying times", achievement_th: "ทำเวลาผ่านเกณฑ์ระดับประเทศ" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Competing at national championships (finalist)", achievement_th: "แข่งขันในรายการชิงแชมป์ระดับประเทศ (เข้ารอบชิงชนะเลิศ)" }, { age: 18, achievement_en: "Considered for national youth squads", achievement_th: "ได้รับการพิจารณาเข้าทีมชาติเยาวชน" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Representing national team at junior international events", achievement_th: "เป็นตัวแทนทีมชาติในการแข่งขันระดับนานาชาติรุ่นเยาวชน" }, { age: 18, achievement_en: "Aim for senior national team or Olympic trials", achievement_th: "ตั้งเป้าหมายทีมชาติชุดใหญ่หรือการคัดเลือกโอลิมปิก" }] }
+            ],
+            Rugby: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Key player in a strong club team", achievement_th: "ผู้เล่นคนสำคัญในทีมสโมสรที่แข็งแกร่ง" }, { age: 14, achievement_en: "Selected for district/county development squads", achievement_th: "ได้รับเลือกเข้าทีมพัฒนาฝีมือระดับเขต/จังหวัด" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Representing county/regional academy", achievement_th: "เป็นตัวแทนจังหวัด/อะคาเดมีระดับภูมิภาค" }, { age: 16, achievement_en: "Participating in national academy pathway programs", achievement_th: "เข้าร่วมโปรแกรมเส้นทางอะคาเดมีระดับประเทศ" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Trialled with professional club academies", achievement_th: "ทดสอบฝีเท้ากับอะคาเดมีสโมสรอาชีพ" }, { age: 18, achievement_en: "Representing national youth teams (U17/U18)", achievement_th: "เป็นตัวแทนทีมชาติเยาวชน (U17/U18)" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Regularly representing national youth teams", achievement_th: "เป็นตัวแทนทีมชาติเยาวชนอย่างสม่ำเสมอ" }, { age: 18, achievement_en: "Professional contract offers or top university recruitment", achievement_th: "ได้รับข้อเสนอสัญญาอาชีพหรือการคัดเลือกเข้ามหาวิทยาลัยชั้นนำ" }] }
+            ],
+            Cricket: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Consistent performer for club junior teams", achievement_th: "ทำผลงานได้ดีอย่างสม่ำเสมอในทีมเยาวชนของสโมสร" }, { age: 14, achievement_en: "Selected for district/county age-group squads", achievement_th: "ได้รับเลือกเข้าทีมรุ่นอายุระดับเขต/จังหวัด" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Representing county age-group teams", achievement_th: "เป็นตัวแทนทีมรุ่นอายุระดับจังหวัด" }, { age: 16, achievement_en: "Participating in regional academy programs", achievement_th: "เข้าร่วมโปรแกรมอะคาเดมีระดับภูมิภาค" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Trialled with professional county academies", achievement_th: "ทดสอบฝีเท้ากับอะคาเดมีสโมสรระดับจังหวัดอาชีพ" }, { age: 18, achievement_en: "Representing national youth teams (U17/U19)", achievement_th: "เป็นตัวแทนทีมชาติเยาวชน (U17/U19)" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Regularly representing national youth teams", achievement_th: "เป็นตัวแทนทีมชาติเยาวชนอย่างสม่ำเสมอ" }, { age: 18, achievement_en: "Professional county contract offers or top university recruitment", achievement_th: "ได้รับข้อเสนอสัญญาอาชีพระดับจังหวัดหรือการคัดเลือกเข้ามหาวิทยาลัยชั้นนำ" }] }
+            ],
+            Golf: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Single-digit handicap", achievement_th: "แฮนดิแคปเลขตัวเดียว" }, { age: 14, achievement_en: "Competing in regional junior tournaments", achievement_th: "แข่งขันในรายการจูเนียร์ระดับภูมิภาค" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Top finishes in regional junior tournaments", achievement_th: "ติดอันดับต้นๆ ในรายการจูเนียร์ระดับภูมิภาค" }, { age: 16, achievement_en: "Representing county/region", achievement_th: "เป็นตัวแทนจังหวัด/ภูมิภาค" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Competing in national junior championships", achievement_th: "แข่งขันในรายการชิงแชมป์จูเนียร์ระดับประเทศ" }, { age: 18, achievement_en: "Considered for national youth squads", achievement_th: "ได้รับการพิจารณาเข้าทีมชาติเยาวชน" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Participating in international junior events", achievement_th: "เข้าร่วมการแข่งขันระดับนานาชาติรุ่นเยาวชน" }, { age: 18, achievement_en: "Aim for professional tour or US college scholarship", achievement_th: "ตั้งเป้าหมายทัวร์อาชีพหรือทุนการศึกษาในวิทยาลัยสหรัฐอเมริกา" }] }
+            ],
+            Athletics: [
+                { level: "Club", age_milestones: [{ age: 12, achievement_en: "Regularly competing in club/county events", achievement_th: "แข่งขันในรายการสโมสร/จังหวัดอย่างสม่ำเสมอ" }, { age: 14, achievement_en: "Achieving regional qualifying standards", achievement_th: "ทำได้ตามมาตรฐานการคัดเลือกระดับภูมิภาค" }] },
+                { level: "Regional", age_milestones: [{ age: 14, achievement_en: "Competing at regional championships (medallist)", achievement_th: "แข่งขันในรายการชิงแชมป์ระดับภูมิภาค (ได้รับเหรียญรางวัล)" }, { age: 16, achievement_en: "Achieving national qualifying standards", achievement_th: "ทำได้ตามมาตรฐานการคัดเลือกระดับประเทศ" }] },
+                { level: "National", age_milestones: [{ age: 16, achievement_en: "Competing at national championships (finalist)", achievement_th: "แข่งขันในรายการชิงแชมป์ระดับประเทศ (เข้ารอบชิงชนะเลิศ)" }, { age: 18, achievement_en: "Considered for national youth squads", achievement_th: "ได้รับการพิจารณาเข้าทีมชาติเยาวชน" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Representing national team at junior international events", achievement_th: "เป็นตัวแทนทีมชาติในการแข่งขันระดับนานาชาติรุ่นเยาวชน" }, { age: 18, achievement_en: "Aim for senior national team or Olympic trials", achievement_th: "ตั้งเป้าหมายทีมชาติชุดใหญ่หรือการคัดเลือกโอลิมปิก" }] }
+            ],
+            Rowing: [
+                { level: "Club", age_milestones: [{ age: 14, achievement_en: "Regularly competing in club regattas", achievement_th: "แข่งขันเรือกรรเชียงของสโมสรอย่างสม่ำเสมอ" }, { age: 16, achievement_en: "Strong ergometer scores for age group", achievement_th: "ทำคะแนนเครื่องกรรเชียงได้ดีสำหรับรุ่นอายุ" }] },
+                { level: "Regional", age_milestones: [{ age: 16, achievement_en: "Competing at regional regattas (medallist)", achievement_th: "แข่งขันในรายการเรือกรรเชียงระดับภูมิภาค (ได้รับเหรียญรางวัล)" }, { age: 17, achievement_en: "Selected for regional development squads", achievement_th: "ได้รับเลือกเข้าทีมพัฒนาฝีมือระดับภูมิภาค" }] },
+                { level: "National", age_milestones: [{ age: 17, achievement_en: "Competing at national junior championships", achievement_th: "แข่งขันในรายการชิงแชมป์เยาวชนระดับประเทศ" }, { age: 18, achievement_en: "Considered for national junior trials", achievement_th: "ได้รับการพิจารณาเข้าร่วมการคัดเลือกทีมชาติเยาวชน" }] },
+                { level: "International", age_milestones: [{ age: 18, achievement_en: "Representing national team at junior international events", achievement_th: "เป็นตัวแทนทีมชาติในการแข่งขันระดับนานาชาติรุ่นเยาวชน" }, { age: 18, achievement_en: "Aim for senior national team or university recruitment", achievement_th: "ตั้งเป้าหมายทีมชาติชุดใหญ่หรือการคัดเลือกเข้ามหาวิทยาลัย" }] }
+            ]
+        };
+
+        const levelOrder = { "Club": 1, "Regional": 2, "National": 3, "International": 4 };
+
+        // --- Translations for dynamic content ---
+        const translations = {
+            en: {
+                sport: "Sport:",
+                scholarshipRange: "Scholarship Range:",
+                levelRequired: "Level Required:",
+                facilities: "Facilities:",
+                alumniAthletes: "Alumni Athletes:",
+                na: "N/A",
+                clubLevel: "Club",
+                regionalLevel: "Regional",
+                nationalLevel: "National",
+                internationalLevel: "International",
+                noTopRecommendations: "No top recommendations found for your criteria.",
+                noSchoolsFound: "No schools found matching your criteria.",
+                noPathwayData: "No specific pathway data available for this sport.",
+                noPathwayForLevel: "Could not find pathway for your current level.",
+                highLevelForAge: "You are already at a high level for your age, focus on maintaining and excelling!",
+                targetForLevel: "Target for {level} level",
+                scholarshipDistribution: "Scholarship Range Distribution for {sport}",
+                averageScholarship: "Average Scholarship %"
+            },
+            th: {
+                sport: "กีฬา:",
+                scholarshipRange: "ช่วงทุนการศึกษา:",
+                levelRequired: "ระดับที่ต้องการ:",
+                facilities: "สิ่งอำนวยความสะดวก:",
+                alumniAthletes: "ศิษย์เก่านักกีฬา:",
+                na: "ไม่มี",
+                clubLevel: "ระดับสโมสร",
+                regionalLevel: "ระดับภูมิภาค",
+                nationalLevel: "ระดับประเทศ",
+                internationalLevel: "ระดับนานาชาติ",
+                noTopRecommendations: "ไม่พบโรงเรียนแนะนำอันดับต้นๆ ตามเกณฑ์ของคุณ",
+                noSchoolsFound: "ไม่พบโรงเรียนที่ตรงกับเกณฑ์ของคุณ",
+                noPathwayData: "ไม่มีข้อมูลเส้นทางเฉพาะสำหรับกีฬานี้",
+                noPathwayForLevel: "ไม่พบเส้นทางสำหรับระดับปัจจุบันของคุณ",
+                highLevelForAge: "คุณอยู่ในระดับที่สูงสำหรับอายุของคุณแล้ว มุ่งเน้นการรักษาและพัฒนาต่อไป!",
+                targetForLevel: "เป้าหมายสำหรับระดับ {level}",
+                scholarshipDistribution: "การกระจายช่วงทุนการศึกษาสำหรับ{sport}",
+                averageScholarship: "เปอร์เซ็นต์ทุนการศึกษาเฉลี่ย"
+            }
+        };
+
+        // --- DOM Elements ---
+        const langEnBtn = document.getElementById('lang-en');
+        const langThBtn = document.getElementById('lang-th');
+        const sportSelect = document.getElementById('sport-select');
+        const levelSelect = document.getElementById('level-select');
+        const ageInput = document.getElementById('age-input');
+        const generateBtn = document.getElementById('generate-pathway-btn');
+        const resultsSection = document.getElementById('results-section');
+        const pathwayTimelineContent = document.getElementById('pathway-timeline-content');
+        const topSchoolsContainer = document.getElementById('top-schools-container');
+        const allSchoolsTableBody = document.getElementById('all-schools-table-body');
+        const titleElement = document.querySelector('title');
+
+        let currentLang = localStorage.getItem('linkedU_lang') || 'en';
+        let scholarshipChartInstance = null; // Global variable for Chart.js instance
+
+        // Get CSS variables for Chart.js
+        const varGold = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim();
+        const varDark = getComputedStyle(document.documentElement).getPropertyValue('--dark').trim();
+        const varText = getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+        const varFontBody = getComputedStyle(document.documentElement).getPropertyValue('--font-body').split(',')[0].trim();
+        const varFontHeading = getComputedStyle(document.documentElement).getPropertyValue('--font-heading').split(',')[0].trim();
+
+
+        // --- Language Switching ---
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('linkedU_lang', lang);
+            document.documentElement.setAttribute('lang', lang); // Set HTML lang attribute
+            titleElement.textContent = titleElement.getAttribute(`data-${lang}`); // Update title
+
+            document.querySelectorAll('[data-en], [data-th]').forEach(element => {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    if (element.hasAttribute(`data-${lang}`)) {
+                        element.placeholder = element.getAttribute(`data-${lang}`);
+                    }
+                } else if (element.tagName === 'OPTION') {
+                    if (element.hasAttribute(`data-${lang}`)) {
+                        element.textContent = element.getAttribute(`data-${lang}`);
+                    }
+                } else {
+                    if (element.hasAttribute(`data-${lang}`)) {
+                        element.textContent = element.getAttribute(`data-${lang}`);
+                    }
+                }
+            });
+
+            // Update active button state
+            langEnBtn.classList.remove('active');
+            langThBtn.classList.remove('active');
+            if (lang === 'en') {
+                langEnBtn.classList.add('active');
+            } else {
+                langThBtn.classList.add('active');
+            }
+
+            // Re-render results if visible to update dynamic text
+            if (!resultsSection.classList.contains('hidden')) {
+                generatePathway();
+            }
+        }
+
+        langEnBtn.addEventListener('click', () => switchLanguage('en'));
+        langThBtn.addEventListener('click', () => switchLanguage('th'));
+
+        // Initialize language on load
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage(currentLang);
+        });
+
+        // --- Pathway Generation Logic ---
+        generateBtn.addEventListener('click', generatePathway);
+
+        function generatePathway() {
+            const selectedSport = sportSelect.value;
+            const selectedLevel = levelSelect.value;
+            const currentAge = parseInt(ageInput.value, 10);
+
+            if (!selectedSport || !selectedLevel || isNaN(currentAge) || currentAge < 10 || currentAge > 18) {
+                alert(currentLang === 'en' ? "Please select a sport, your current level, and a valid age (10-18)." : "กรุณาเลือกกีฬา ระดับปัจจุบัน และอายุที่ถูกต้อง (10-18 ปี)");
+                return;
+            }
+
+            // Filter schools
+            const filteredSchools = schoolsData.filter(school =>
+                school.sports[selectedSport] && levelOrder[school.sports[selectedSport].level_required] <= levelOrder[selectedLevel] + 1 // Allow slightly higher level for aspiration
+            ).sort((a, b) => levelOrder[a.sports[selectedSport].level_required] - levelOrder[b.sports[selectedSport].level_required]); // Sort by level required
+
+            // Generate Pathway Timeline
+            renderPathwayTimeline(selectedSport, selectedLevel, currentAge);
+
+            // Generate Top 3 Recommendations
+            renderTopRecommendations(filteredSchools, selectedSport, selectedLevel, currentAge);
+
+            // Render Scholarship Chart
+            renderScholarshipChart(filteredSchools, selectedSport);
+
+            // Render All Schools Table
+            renderAllSchoolsTable(filteredSchools, selectedSport);
+
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function getTranslatedLevel(level) {
+            switch (level) {
+                case 'Club': return translations[currentLang].clubLevel;
+                case 'Regional': return translations[currentLang].regionalLevel;
+                case 'National': return translations[currentLang].nationalLevel;
+                case 'International': return translations[currentLang].internationalLevel;
+                default: return level;
+            }
+        }
+
+        function renderPathwayTimeline(sport, currentLevel, currentAge) {
+            pathwayTimelineContent.innerHTML = '';
+            const pathway = pathwayData[sport];
+            if (!pathway) {
+                pathwayTimelineContent.innerHTML = `<p>${translations[currentLang].noPathwayData}</p>`;
+                return;
+            }
+
+            const currentLevelIndex = pathway.findIndex(p => p.level === currentLevel);
+            if (currentLevelIndex === -1) {
+                pathwayTimelineContent.innerHTML = `<p>${translations[currentLang].noPathwayForLevel}</p>`;
+                return;
+            }
+
+            let hasFutureMilestones = false;
+            // Display milestones from current level onwards
+            for (let i = currentLevelIndex; i < pathway.length; i++) {
+                const levelPathway = pathway[i];
+                levelPathway.age_milestones.forEach(milestone => {
+                    if (milestone.age >= currentAge) { // Only show future or current age milestones
+                        hasFutureMilestones = true;
+                        const timelineItem = document.createElement('div');
+                        timelineItem.classList.add('timeline-item');
+                        timelineItem.innerHTML = `
+                            <div class="timeline-age">${milestone.age}</div>
+                            <div class="timeline-content">
+                                <p>${milestone[`achievement_${currentLang}`]}</p>
+                                <small>${translations[currentLang].targetForLevel.replace('{level}', getTranslatedLevel(levelPathway.level))}</small>
+                            </div>
+                        `;
+                        pathwayTimelineContent.appendChild(timelineItem);
+                    }
+                });
+            }
+
+            if (!hasFutureMilestones) {
+                pathwayTimelineContent.innerHTML = `<p>${translations[currentLang].highLevelForAge}</p>`;
+            }
+        }
+
+
+        function calculateMatchScore(school, sport, currentLevel, currentAge) {
+            let score = 0;
+            const schoolSportInfo = school.sports[sport];
+
+            if (!schoolSportInfo) return 0; // Should not happen with filtered schools
+
+            // Level match: Higher score for closer match or slightly aspirational
+            const schoolLevel = levelOrder[schoolSportInfo.level_required.split('/')[0]]; // Take first level if multiple
+            const playerLevel = levelOrder[currentLevel];
+
+            if (schoolLevel === playerLevel) score += 40;
+            else if (schoolLevel === playerLevel + 1) score += 30; // Aspirational
+            else if (schoolLevel === playerLevel - 1) score += 20; // Slightly below, still good
+            else if (schoolLevel === playerLevel + 2) score += 10; // Very aspirational
+            else if (schoolLevel === playerLevel - 2) score += 5; // Well below
+
+            // Age factor: Schools prefer younger students for scholarships to develop them
+            // This is a simplified model. Realistically, age-level combination matters.
+            if (currentAge <= 14) score += 20;
+            else if (currentAge <= 16) score += 15;
+            else score += 10;
+
+            // Facilities: Assume good facilities contribute
+            score += 15; // All listed schools have good facilities
+
+            // Alumni: Strong alumni indicates strong program
+            if (school.alumni[currentLang] && school.alumni[currentLang].length > 0) score += 25;
+
+            // Random variation for more natural scores
+            score += Math.floor(Math.random() * 10) - 5; // +/- 5 points
+
+            return Math.min(100, Math.max(50, score)); // Keep score between 50-100
+        }
+
+        function renderTopRecommendations(schools, sport, currentLevel, currentAge) {
+            topSchoolsContainer.innerHTML = '';
+
+            const schoolsWithScores = schools.map(school => ({
+                school,
+                score: calculateMatchScore(school, sport, currentLevel, currentAge)
+            }));
+
+            schoolsWithScores.sort((a, b) => b.score - a.score); // Sort by score descending
+
+            const top3 = schoolsWithScores.slice(0, 3);
+
+            if (top3.length === 0) {
+                topSchoolsContainer.innerHTML = `<p class="text-center">${translations[currentLang].noTopRecommendations}</p>`;
+                return;
+            }
+
+            top3.forEach(item => {
+                const school = item.school;
+                const score = item.score;
+                const schoolSportInfo = school.sports[sport];
+
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.innerHTML = `
+                    <div class="match-score">${score}%</div>
+                    <h4>${school.name}</h4>
+                    <p><strong>${translations[currentLang].sport}</strong> ${sport}</p>
+                    <p><strong>${translations[currentLang].scholarshipRange}</strong> ${schoolSportInfo.scholarship_range}</p>
+                    <p><strong>${translations[currentLang].levelRequired}</strong> ${schoolSportInfo.level_required}</p>
+                    <p><strong>${translations[currentLang].facilities}</strong> ${school.facilities[currentLang] || translations[currentLang].na}</p>
+                    <p><strong>${translations[currentLang].alumniAthletes}</strong> ${school.alumni[currentLang].join(', ') || translations[currentLang].na}</p>
+                `;
+                topSchoolsContainer.appendChild(card);
+            });
+        }
+
+        function renderAllSchoolsTable(schools, sport) {
+            allSchoolsTableBody.innerHTML = '';
+
+            if (schools.length === 0) {
+                allSchoolsTableBody.innerHTML = `<tr><td colspan="5" class="text-center">${translations[currentLang].noSchoolsFound}</td></tr>`;
+                return;
+            }
+
+            schools.forEach(school => {
+                const schoolSportInfo = school.sports[sport];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${school.name}</td>
+                    <td>${schoolSportInfo.scholarship_range}</td>
+                    <td>${schoolSportInfo.level_required}</td>
+                    <td>${school.facilities[currentLang] || translations[currentLang].na}</td>
+                    <td>${school.alumni[currentLang].join(', ') || translations[currentLang].na}</td>
+                `;
+                allSchoolsTableBody.appendChild(row);
+            });
+        }
+
+        function renderScholarshipChart(schools, sport) {
+            const ctx = document.getElementById('scholarshipChart').getContext('2d');
+
+            if (scholarshipChartInstance) {
+                scholarshipChartInstance.destroy();
+            }
+
+            const labels = schools.map(s => s.name);
+            const data = schools.map(s => {
+                const range = s.sports[sport].scholarship_range;
+                const [min, max] = range.replace('%', '').split('-').map(Number);
+                return (min + max) / 2; // Use average of range for chart
+            });
+
+            scholarshipChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: translations[currentLang].averageScholarship,
+                        data: data,
+                        backgroundColor: varGold,
+                        borderColor: varGold,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: varText,
+                                font: {
+                                    family: varFontBody
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: translations[currentLang].scholarshipDistribution.replace('{sport}', sport),
+                            color: varDark,
+                            font: {
+                                family: varFontHeading,
+                                size: 20,
+                                weight: '300'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: translations[currentLang].averageScholarship + ' (%)',
+                                color: varText,
+                                font: {
+                                    family: varFontBody
+                                }
+                            },
+                            ticks: {
+                                color: varText,
+                                font: {
+                                    family: varFontBody
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: varText,
+                                font: {
+                                    family: varFontBody
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Smooth scroll for "Get Started" button
+        document.querySelector('.hero .btn-primary').addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+    </script>
+</body>
+</html>

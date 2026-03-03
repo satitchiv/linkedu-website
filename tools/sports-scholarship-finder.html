@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU Sports Scholarship Finder - ค้นหาทุนกีฬา</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #0a0a0a;
+            --card-background: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #C9A84C;
+            --line-cta-bg: #25D366; /* WhatsApp green */
+            --line-cta-text: #ffffff;
+            --border-color: #333333;
+            --highlight-color: #C9A84C30; /* Lighter accent for highlight */
+            --highlight-border: #C9A84C;
+            --hover-bg: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', 'IBM Plex Sans Thai', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 16px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .intro, .vat-note, .filter-section {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .intro h2, .filter-section h3 {
+            color: var(--accent-color);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .intro p, .vat-note p {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .vat-note {
+            background-color: #402e1c; /* Darker accent shade */
+            border-color: var(--accent-color);
+            font-size: 0.95em;
+            color: #f0e6d6;
+        }
+        .vat-note strong {
+            color: var(--accent-color);
+        }
+
+        .filter-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .filter-section select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 1em;
+            appearance: none; /* Remove default arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23C9A84C%22%20d%3D%22M287%2C114.7L154.7%2C247.1c-2.7%2C2.7-6%2C4.1-9.4%2C4.1s-6.8-1.4-9.4-4.1L5.4%2C114.7c-5.4-5.4-5.4-14.2%2C0-19.6l19.6-19.6c5.4-5.4%2C14.2-5.4%2C19.6%2C0L145.3%2C178.6c2.7%2C2.7%2C6%2C4.1%2C9.4%2C4.1s6.8-1.4%2C9.4-4.1l100.7-100.7c5.4-5.4%2C14.2-5.4%2C19.6%2C0l19.6%2C19.6C292.4%2C100.5%2C292.4%2C109.3%2C287%2C114.7z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+            cursor: pointer;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .filter-section select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+        }
+
+        #results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .school-card {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .school-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            background-color: var(--hover-bg);
+        }
+
+        .school-card.highlight {
+            border: 2px solid var(--highlight-border);
+            background-color: var(--highlight-color);
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.4);
+        }
+        .school-card.highlight:hover {
+            background-color: var(--highlight-color); /* Keep highlight color on hover */
+        }
+
+
+        .school-card h4 {
+            font-size: 1.6em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .school-card p {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .school-card p strong {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .school-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .school-card ul li {
+            background-color: var(--background-color);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9em;
+        }
+
+        .school-card ul li strong {
+            color: var(--accent-color);
+        }
+
+        .line-cta {
+            display: block;
+            width: fit-content;
+            margin: 25px auto 0 auto; /* Center the CTA */
+            padding: 15px 30px;
+            background-color: var(--line-cta-bg);
+            color: var(--line-cta-text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .line-cta:hover {
+            background-color: #1DA84D; /* Darker green on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .line-cta span {
+            display: block;
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        .line-cta .line-id {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.3em;
+            color: var(--text-color);
+            padding: 50px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+            color: #888888;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 2.2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .intro h2, .filter-section h3 {
+                font-size: 1.5em;
+            }
+            .intro p, .vat-note p {
+                font-size: 0.95em;
+            }
+            .school-card {
+                padding: 20px;
+            }
+            .school-card h4 {
+                font-size: 1.4em;
+            }
+            .line-cta {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+            .line-cta span {
+                font-size: 0.75em;
+            }
+            .line-cta .line-id {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            .intro h2, .filter-section h3 {
+                font-size: 1.3em;
+            }
+            .intro, .vat-note, .filter-section {
+                padding: 20px;
+            }
+            .filter-section select {
+                padding: 10px 12px;
+                font-size: 0.95em;
+            }
+            .school-card h4 {
+                font-size: 1.3em;
+            }
+            .school-card p {
+                font-size: 0.9em;
+            }
+            .line-cta {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LINKEDU Sports Scholarship Finder</h1>
+        <h1>LINKEDU ค้นหาทุนการศึกษาด้านกีฬา</h1>
+        <p>Discover UK schools offering scholarships for your athletic talent.</p>
+        <p>ค้นพบโรงเรียนในสหราชอาณาจักรที่มอบทุนการศึกษาสำหรับความสามารถด้านกีฬาของคุณ</p>
+    </header>
+
+    <main>
+        <div class="intro">
+            <h2>Welcome to LINKEDU Sports Scholarship Finder</h2>
+            <h2>ยินดีต้อนรับสู่ LINKEDU ค้นหาทุนการศึกษาด้านกีฬา</h2>
+            <p>
+                Explore a curated list of top UK boarding schools that offer sports scholarships for talented young athletes. 
+                Filter by your sport to find the perfect match for your academic and athletic ambitions.
+            </p>
+            <p>
+                สำรวจรายชื่อโรงเรียนประจำชั้นนำในสหราชอาณาจักรที่คัดสรรมาอย่างดี ซึ่งมอบทุนการศึกษาด้านกีฬาสำหรับนักกีฬาเยาวชนที่มีความสามารถ 
+                กรองตามกีฬาของคุณเพื่อค้นหาสิ่งที่เหมาะสมที่สุดสำหรับความใฝ่ฝันด้านวิชาการและกีฬาของคุณ
+            </p>
+        </div>
+
+        <div class="vat-note">
+            <p>
+                <strong>Important Announcement:</strong> UK private school fees will incur an additional 20% VAT from January 2025. 
+                State boarding schools, with fees typically ranging from <strong>GBP 10,000 - 19,000</strong> per year, are VAT exempt.
+            </p>
+            <p>
+                <strong>ประกาศสำคัญ:</strong> ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป 
+                โรงเรียนประจำของรัฐ (State Boarding Schools) ซึ่งมีค่าธรรมเนียมประมาณ <strong>10,000 - 19,000 ปอนด์</strong>ต่อปี จะได้รับการยกเว้น VAT
+            </p>
+        </div>
+
+        <div class="filter-section">
+            <h3>Filter by Sport / กรองตามกีฬา</h3>
+            <label for="sport-filter">Choose your sport:</label>
+            <select id="sport-filter">
+                <option value="all">All Sports / กีฬาทั้งหมด</option>
+                <option value="tennis">Tennis / เทนนิส</option>
+                <option value="football">Football / ฟุตบอล</option>
+                <option value="swimming">Swimming / ว่ายน้ำ</option>
+                <option value="golf">Golf / กอล์ฟ</option>
+                <option value="cricket">Cricket / คริกเก็ต</option>
+            </select>
+        </div>
+
+        <div id="results-container">
+            <!-- School cards will be dynamically inserted here -->
+        </div>
+
+        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="line-cta" style="margin-top: 50px;">
+            <span class="line-id">LINE: satitlinkedu</span>
+            ปรึกษาฟรี (Free Consultation)
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+        <p>Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> | LINE: satitlinkedu</p>
+    </footer>
+
+    <script>
+        const GBP_TO_THB_RATE = 45; // Exchange rate
+
+        const schoolsData = [
+            {
+                name: "Millfield School",
+                highlight: true,
+                location: "Somerset, UK",
+                feesGBP: 47900, // Example fee, actual fees vary
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 50% of fees",
+                        requirements: "Elite level performance, regional/national representation. Trials required.",
+                        pathwayTips: "Focus on technical skills, tactical understanding, and physical conditioning. Seek opportunities with professional academy links."
+                    },
+                    {
+                        sport: "Swimming",
+                        value: "Discretionary, based on performance",
+                        requirements: "National/International level swimmer. Must meet school's academic standards.",
+                        pathwayTips: "Maintain consistent training, set clear race goals, and work on all strokes. Consider strength and conditioning."
+                    },
+                    {
+                        sport: "Tennis",
+                        value: "Partial scholarships available",
+                        requirements: "LTA rating, strong tournament results. Assessment during visit.",
+                        pathwayTips: "Develop an all-court game, improve serve consistency, and mental toughness. Participate in competitive tournaments regularly."
+                    },
+                    {
+                        sport: "Golf",
+                        value: "Varies, based on handicap and potential",
+                        requirements: "Low handicap, national/regional competition experience. Golf assessment.",
+                        pathwayTips: "Work on all aspects of your game: long game, short game, and putting. Play regularly in competitive events and manage your course strategy."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Up to 30% of fees for exceptional talent",
+                        requirements: "County/regional level player, strong technical skills. Cricket assessment.",
+                        pathwayTips: "Focus on consistent performance in all formats (batting, bowling, fielding). Seek out coaching for specific skills and tactical awareness."
+                    }
+                ]
+            },
+            {
+                name: "Rossall School",
+                highlight: true,
+                location: "Lancashire, UK",
+                feesGBP: 42000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 40% for talented players",
+                        requirements: "Strong club background, trials during assessment day.",
+                        pathwayTips: "Improve your fitness, ball control, and teamwork. Look for opportunities to play in high-level youth leagues."
+                    },
+                    {
+                        sport: "Golf",
+                        value: "Up to 50% for exceptional players",
+                        requirements: "Proven track record in competitions, low handicap. Golf academy entry.",
+                        pathwayTips: "Refine your swing mechanics, short game, and mental approach. Regularly compete and analyze your performance."
+                    }
+                ]
+            },
+            {
+                name: "Ardingly College",
+                highlight: true,
+                location: "West Sussex, UK",
+                feesGBP: 45000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 30% for promising athletes",
+                        requirements: "Strong club experience, potential for elite development. Trials required.",
+                        pathwayTips: "Focus on developing a strong work ethic, improving tactical awareness, and maintaining physical fitness. Engage with professional coaching."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary awards",
+                        requirements: "County level or equivalent, strong all-round skills. Assessment.",
+                        pathwayTips: "Work on technical precision, especially batting and bowling variations. Develop leadership skills and game awareness."
+                    }
+                ]
+            },
+            {
+                name: "Oakham School",
+                highlight: true,
+                location: "Rutland, UK",
+                feesGBP: 43000,
+                sports: [
+                    {
+                        sport: "Rugby", // Adding Rugby as an example for Oakham, though not in the filter.
+                        value: "Up to 30% of fees",
+                        requirements: "Regional/county level, strong physical and tactical ability. Trials.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Up to 25% for high potential",
+                        requirements: "County level representation, strong technical base. Assessment.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    },
+                    {
+                        sport: "Hockey", // Adding Hockey as an example for Oakham
+                        value: "Discretionary awards",
+                        requirements: "Regional/national level, excellent stick skills and game sense. Trials.",
+                        pathwayTips: "Master advanced stick skills, improve positional play, and enhance aerobic fitness. Participate in high-level club hockey."
+                    }
+                ]
+            },
+            {
+                name: "Abbotsholme School",
+                highlight: false,
+                location: "Derbyshire, UK",
+                feesGBP: 36000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 20% of fees",
+                        requirements: "Good club level player, commitment to school teams.",
+                        pathwayTips: "Work on fundamental skills, improve your understanding of team tactics, and maintain a positive attitude."
+                    }
+                ]
+            },
+            {
+                name: "Brighton College",
+                highlight: false,
+                location: "East Sussex, UK",
+                feesGBP: 48000,
+                sports: [
+                    {
+                        sport: "Tennis",
+                        value: "Partial awards",
+                        requirements: "LTA rating, strong competitive record.",
+                        pathwayTips: "Focus on developing a powerful serve, consistent groundstrokes, and strategic court positioning. Train with a professional coach."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary",
+                        requirements: "County age-group representation, technical proficiency.",
+                        pathwayTips: "Improve your batting technique against various bowling types, develop bowling variations, and enhance fielding skills."
+                    }
+                ]
+            },
+            {
+                name: "Bromsgrove School",
+                highlight: false,
+                location: "Worcestershire, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 30% for outstanding players",
+                        requirements: "Regional/national level, strong leadership.",
+                        pathwayTips: "Focus on strength and conditioning, tactical understanding, and communication skills on the field."
+                    },
+                    {
+                        sport: "Hockey",
+                        value: "Discretionary awards",
+                        requirements: "County level, excellent technical skills.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    }
+                ]
+            },
+            {
+                name: "Bryanston School",
+                highlight: false,
+                location: "Dorset, UK",
+                feesGBP: 46500,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 25%",
+                        requirements: "Strong club player, potential for school's elite program.",
+                        pathwayTips: "Work on improving your vision, passing accuracy, and goal-scoring ability. Participate in extra training sessions."
+                    },
+                    {
+                        sport: "Tennis",
+                        value: "Partial scholarships",
+                        requirements: "LTA ranking, commitment to school tennis.",
+                        pathwayTips: "Enhance your footwork, serve placement, and mental resilience during matches. Consider match analysis to improve."
+                    }
+                ]
+            },
+            {
+                name: "Cardiff Sixth Form College",
+                highlight: false,
+                location: "Cardiff, UK",
+                feesGBP: 60000, // Higher academic focus, but some sports
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Limited awards based on academic & sporting merit",
+                        requirements: "High academic achievement, good club level player.",
+                        pathwayTips: "Balance your academic studies with consistent football training. Focus on maintaining a high level of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Caterham School",
+                highlight: false,
+                location: "Surrey, UK",
+                feesGBP: 45000,
+                sports: [
+                    {
+                        sport: "Hockey",
+                        value: "Up to 25%",
+                        requirements: "County/regional level, excellent skill set.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    },
+                    {
+                        sport: "Netball",
+                        value: "Discretionary",
+                        requirements: "Regional level, strong court awareness.",
+                        pathwayTips: "Improve passing accuracy, shooting consistency, and defensive positioning. Focus on teamwork and communication."
+                    }
+                ]
+            },
+            {
+                name: "Charterhouse School",
+                highlight: false,
+                location: "Surrey, UK",
+                feesGBP: 47000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 20%",
+                        requirements: "Strong club experience, potential for 1st XI.",
+                        pathwayTips: "Work on tactical discipline, leadership on the field, and maintaining high levels of fitness."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Partial awards",
+                        requirements: "County age-group, strong all-rounder.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    }
+                ]
+            },
+            {
+                name: "Clifton College",
+                highlight: false,
+                location: "Bristol, UK",
+                feesGBP: 44000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 30%",
+                        requirements: "Regional/county level, strong physical presence.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    },
+                    {
+                        sport: "Hockey",
+                        value: "Discretionary",
+                        requirements: "County level, excellent stick skills and game sense.",
+                        pathwayTips: "Master advanced stick skills, improve positional play, and enhance aerobic fitness. Participate in high-level club hockey."
+                    }
+                ]
+            },
+            {
+                name: "Concord College",
+                highlight: false,
+                location: "Shropshire, UK",
+                feesGBP: 49000,
+                sports: [
+                    {
+                        sport: "Tennis",
+                        value: "Limited awards",
+                        requirements: "Strong local/regional player, academic excellence.",
+                        pathwayTips: "Balance your academic studies with consistent tennis training. Focus on maintaining a high level of fitness."
+                    }
+                ]
+            },
+            {
+                name: "D'Overbroeck's",
+                highlight: false,
+                location: "Oxford, UK",
+                feesGBP: 42000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Partial scholarships",
+                        requirements: "Good club player, commitment to school team.",
+                        pathwayTips: "Work on fundamental skills, improve your understanding of team tactics, and maintain a positive attitude."
+                    }
+                ]
+            },
+            {
+                name: "Dulwich College",
+                highlight: false,
+                location: "London, UK",
+                feesGBP: 47000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 25%",
+                        requirements: "Regional/county level, strong leadership.",
+                        pathwayTips: "Focus on strength and conditioning, tactical understanding, and communication skills on the field."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary",
+                        requirements: "County age-group, strong all-rounder.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    }
+                ]
+            },
+            {
+                name: "Epsom College",
+                highlight: false,
+                location: "Surrey, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Hockey",
+                        value: "Up to 30%",
+                        requirements: "County/regional level, excellent stick skills.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    },
+                    {
+                        sport: "Netball",
+                        value: "Partial awards",
+                        requirements: "Regional level, strong court awareness.",
+                        pathwayTips: "Improve passing accuracy, shooting consistency, and defensive positioning. Focus on teamwork and communication."
+                    }
+                ]
+            },
+            {
+                name: "Eton College",
+                highlight: false,
+                location: "Berkshire, UK",
+                feesGBP: 49000,
+                sports: [
+                    {
+                        sport: "Rowing", // Example sport
+                        value: "Discretionary, for exceptional talent",
+                        requirements: "National/regional level, strong physique and commitment.",
+                        pathwayTips: "Focus on endurance, strength, and technique. Work closely with coaches to improve your stroke and race strategy."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Limited scholarships",
+                        requirements: "County age-group representation, high potential.",
+                        pathwayTips: "Improve your batting technique against various bowling types, develop bowling variations, and enhance fielding skills."
+                    }
+                ]
+            },
+            {
+                name: "Harrow School",
+                highlight: false,
+                location: "London, UK",
+                feesGBP: 49000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Partial awards",
+                        requirements: "Strong club player, potential for 1st XI.",
+                        pathwayTips: "Work on tactical discipline, leadership on the field, and maintaining high levels of fitness."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary",
+                        requirements: "County age-group, strong all-rounder.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    }
+                ]
+            },
+            {
+                name: "Lancing College",
+                highlight: false,
+                location: "West Sussex, UK",
+                feesGBP: 43000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 25%",
+                        requirements: "Strong club experience, potential for elite development. Trials required.",
+                        pathwayTips: "Focus on developing a strong work ethic, improving tactical awareness, and maintaining physical fitness. Engage with professional coaching."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary awards",
+                        requirements: "County level or equivalent, strong all-round skills. Assessment.",
+                        pathwayTips: "Work on technical precision, especially batting and bowling variations. Develop leadership skills and game awareness."
+                    }
+                ]
+            },
+            {
+                name: "Loretto School",
+                highlight: false,
+                location: "East Lothian, Scotland, UK",
+                feesGBP: 42000,
+                sports: [
+                    {
+                        sport: "Golf",
+                        value: "Up to 50% for exceptional players",
+                        requirements: "Proven track record in competitions, low handicap. Golf academy entry.",
+                        pathwayTips: "Refine your swing mechanics, short game, and mental approach. Regularly compete and analyze your performance."
+                    }
+                ]
+            },
+            {
+                name: "Oundle School",
+                highlight: false,
+                location: "Northamptonshire, UK",
+                feesGBP: 45000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 25%",
+                        requirements: "Regional/county level, strong physical and tactical ability. Trials.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    },
+                    {
+                        sport: "Hockey",
+                        value: "Discretionary awards",
+                        requirements: "Regional/national level, excellent stick skills and game sense. Trials.",
+                        pathwayTips: "Master advanced stick skills, improve positional play, and enhance aerobic fitness. Participate in high-level club hockey."
+                    }
+                ]
+            },
+            {
+                name: "Oxford International College",
+                highlight: false,
+                location: "Oxford, UK",
+                feesGBP: 60000, // Primarily academic, limited sports scholarships
+                sports: [
+                    {
+                        sport: "Tennis",
+                        value: "Limited awards based on academic & sporting merit",
+                        requirements: "High academic achievement, good club level player.",
+                        pathwayTips: "Balance your academic studies with consistent tennis training. Focus on maintaining a high level of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Queen Ethelburgas Collegiate",
+                highlight: false,
+                location: "North Yorkshire, UK",
+                feesGBP: 55000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 50% for elite players",
+                        requirements: "Academy level experience, trials required.",
+                        pathwayTips: "Focus on technical proficiency, tactical awareness, and physical conditioning. Seek out opportunities for professional development."
+                    },
+                    {
+                        sport: "Basketball",
+                        value: "Discretionary",
+                        requirements: "Regional/national level, strong court presence.",
+                        pathwayTips: "Develop advanced dribbling, shooting, and defensive skills. Work on court vision and teamwork."
+                    }
+                ]
+            },
+            {
+                name: "Repton School",
+                highlight: false,
+                location: "Derbyshire, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Hockey",
+                        value: "Up to 50% for exceptional talent",
+                        requirements: "National/regional level, outstanding technical and tactical ability.",
+                        pathwayTips: "Master advanced stick skills, improve positional play, and enhance aerobic fitness. Participate in high-level club hockey."
+                    },
+                    {
+                        sport: "Football",
+                        value: "Discretionary",
+                        requirements: "Academy/county level, strong potential.",
+                        pathwayTips: "Work on tactical discipline, leadership on the field, and maintaining high levels of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Roedean School",
+                highlight: false,
+                location: "East Sussex, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Netball",
+                        value: "Up to 25%",
+                        requirements: "Regional level, strong court awareness.",
+                        pathwayTips: "Improve passing accuracy, shooting consistency, and defensive positioning. Focus on teamwork and communication."
+                    },
+                    {
+                        sport: "Swimming",
+                        value: "Partial awards",
+                        requirements: "Regional/county level swimmer, commitment to training.",
+                        pathwayTips: "Maintain consistent training, set clear race goals, and work on all strokes. Consider strength and conditioning."
+                    }
+                ]
+            },
+            {
+                name: "Royal Russell School",
+                highlight: false,
+                location: "Surrey, UK",
+                feesGBP: 42000,
+                sports: [
+                    {
+                        sport: "Football",
+                        value: "Up to 20%",
+                        requirements: "Strong club experience, potential for 1st XI.",
+                        pathwayTips: "Work on tactical discipline, leadership on the field, and maintaining high levels of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Sedbergh School",
+                highlight: false,
+                location: "Cumbria, UK",
+                feesGBP: 48000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 50% for elite players",
+                        requirements: "National/regional level, exceptional talent and leadership.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Discretionary",
+                        requirements: "County age-group, strong all-rounder.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    }
+                ]
+            },
+            {
+                name: "Sevenoaks School",
+                highlight: false,
+                location: "Kent, UK",
+                feesGBP: 45000,
+                sports: [
+                    {
+                        sport: "Hockey",
+                        value: "Up to 25%",
+                        requirements: "County/regional level, excellent stick skills.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    },
+                    {
+                        sport: "Tennis",
+                        value: "Partial awards",
+                        requirements: "LTA ranking, commitment to school tennis.",
+                        pathwayTips: "Enhance your footwork, serve placement, and mental resilience during matches. Consider match analysis to improve."
+                    }
+                ]
+            },
+            {
+                name: "Shrewsbury School",
+                highlight: false,
+                location: "Shropshire, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Cricket",
+                        value: "Up to 30% for exceptional talent",
+                        requirements: "County age-group representation, technical proficiency.",
+                        pathwayTips: "Improve your batting technique against various bowling types, develop bowling variations, and enhance fielding skills."
+                    },
+                    {
+                        sport: "Football",
+                        value: "Discretionary",
+                        requirements: "Strong club experience, potential for 1st XI.",
+                        pathwayTips: "Work on tactical discipline, leadership on the field, and maintaining high levels of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Sidcot School",
+                highlight: false,
+                location: "Somerset, UK",
+                feesGBP: 39000,
+                sports: [
+                    {
+                        sport: "Equestrian", // Example sport
+                        value: "Up to 20%",
+                        requirements: "Proven competition record in dressage, show jumping or eventing.",
+                        pathwayTips: "Focus on consistent training with your horse, seek professional coaching, and gain experience in various competitions."
+                    },
+                    {
+                        sport: "Swimming",
+                        value: "Partial awards",
+                        requirements: "Regional level swimmer, commitment to training.",
+                        pathwayTips: "Maintain consistent training, set clear race goals, and work on all strokes. Consider strength and conditioning."
+                    }
+                ]
+            },
+            {
+                name: "St Leonards School",
+                highlight: false,
+                location: "Fife, Scotland, UK",
+                feesGBP: 38000,
+                sports: [
+                    {
+                        sport: "Golf",
+                        value: "Up to 30%",
+                        requirements: "Low handicap, commitment to golf programme.",
+                        pathwayTips: "Work on all aspects of your game: long game, short game, and putting. Play regularly in competitive events and manage your course strategy."
+                    }
+                ]
+            },
+            {
+                name: "The Leys School",
+                highlight: false,
+                location: "Cambridge, UK",
+                feesGBP: 44000,
+                sports: [
+                    {
+                        sport: "Rugby",
+                        value: "Up to 20%",
+                        requirements: "Regional/county level, strong potential.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    },
+                    {
+                        sport: "Hockey",
+                        value: "Discretionary",
+                        requirements: "County level, good technical skills.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    }
+                ]
+            },
+            {
+                name: "NMSC (National Mathematics and Science College)",
+                highlight: false,
+                location: "Coventry, UK",
+                feesGBP: 55000, // Primarily academic, very limited sports focus
+                sports: [
+                    {
+                        sport: "Badminton", // Example sport
+                        value: "Limited awards based on academic & sporting merit",
+                        requirements: "High academic achievement, good club level player.",
+                        pathwayTips: "Balance your academic studies with consistent badminton training. Focus on maintaining a high level of fitness."
+                    }
+                ]
+            },
+            {
+                name: "Tonbridge School",
+                highlight: false,
+                location: "Kent, UK",
+                feesGBP: 47000,
+                sports: [
+                    {
+                        sport: "Cricket",
+                        value: "Up to 30% for exceptional talent",
+                        requirements: "County age-group representation, technical proficiency.",
+                        pathwayTips: "Improve your batting technique against various bowling types, develop bowling variations, and enhance fielding skills."
+                    },
+                    {
+                        sport: "Rugby",
+                        value: "Discretionary",
+                        requirements: "Regional/county level, strong physical and tactical ability.",
+                        pathwayTips: "Develop strength, speed, and game understanding. Focus on safe tackling and effective decision-making under pressure."
+                    }
+                ]
+            },
+            {
+                name: "Uppingham School",
+                highlight: false,
+                location: "Rutland, UK",
+                feesGBP: 46000,
+                sports: [
+                    {
+                        sport: "Hockey",
+                        value: "Up to 25%",
+                        requirements: "County/regional level, excellent stick skills.",
+                        pathwayTips: "Develop advanced dribbling, passing, and shooting techniques. Understand defensive and offensive strategies."
+                    },
+                    {
+                        sport: "Cricket",
+                        value: "Partial awards",
+                        requirements: "County age-group, strong all-rounder.",
+                        pathwayTips: "Focus on consistent performance, adapting to different match situations, and developing specialist skills (e.g., spin bowling, fast bowling)."
+                    }
+                ]
+            },
+            {
+                name: "Wells Cathedral School",
+                highlight: false,
+                location: "Somerset, UK",
+                feesGBP: 42000,
+                sports: [
+                    {
+                        sport: "Swimming",
+                        value: "Up to 30% for talented swimmers",
+                        requirements: "Regional/national level swimmer, commitment to intensive training.",
+                        pathwayTips: "Maintain consistent training, set clear race goals, and work on all strokes. Consider strength and conditioning."
+                    }
+                ]
+            }
+        ];
+
+        const sportFilter = document.getElementById('sport-filter');
+        const resultsContainer = document.getElementById('results-container');
+
+        function formatCurrency(gbp) {
+            const thb = (gbp * GBP_TO_THB_RATE).toLocaleString('th-TH', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            return `£${gbp.toLocaleString('en-GB')} (~฿${thb})`;
+        }
+
+        function displaySchools(selectedSport) {
+            resultsContainer.innerHTML = '';
+            let filteredSchools = [];
+
+            if (selectedSport === 'all') {
+                schoolsData.forEach(school => {
+                    school.sports.forEach(sportOffer => {
+                        filteredSchools.push({ school: school, sportOffer: sportOffer });
+                    });
+                });
+            } else {
+                schoolsData.forEach(school => {
+                    school.sports.forEach(sportOffer => {
+                        if (sportOffer.sport.toLowerCase() === selectedSport) {
+                            filteredSchools.push({ school: school, sportOffer: sportOffer });
+                        }
+                    });
+                });
+            }
+
+            if (filteredSchools.length === 0) {
+                resultsContainer.innerHTML = `<div class="no-results">
+                    <p>No scholarships found for ${selectedSport.charAt(0).toUpperCase() + selectedSport.slice(1)}.</p>
+                    <p>ไม่พบทุนการศึกษาสำหรับกีฬา ${selectedSport === 'tennis' ? 'เทนนิส' : selectedSport === 'football' ? 'ฟุตบอล' : selectedSport === 'swimming' ? 'ว่ายน้ำ' : selectedSport === 'golf' ? 'กอล์ฟ' : selectedSport === 'cricket' ? 'คริกเก็ต' : 'นี้'}</p>
+                    <p>Please try another sport or contact LINKEDU for personalized advice.</p>
+                    <p>โปรดลองกีฬ่าอื่น หรือติดต่อ LINKEDU เพื่อขอคำแนะนำส่วนตัว</p>
+                </div>`;
+                return;
+            }
+
+            // Group offers by school
+            const schoolsMap = new Map();
+            filteredSchools.forEach(({ school, sportOffer }) => {
+                if (!schoolsMap.has(school.name)) {
+                    schoolsMap.set(school.name, { ...school, scholarshipOffers: [] });
+                }
+                schoolsMap.get(school.name).scholarshipOffers.push(sportOffer);
+            });
+
+            // Convert map back to array for sorting and display
+            const schoolsToDisplay = Array.from(schoolsMap.values());
+
+            // Sort: highlighted schools first, then alphabetically
+            schoolsToDisplay.sort((a, b) => {
+                if (a.highlight && !b.highlight) return -1;
+                if (!a.highlight && b.highlight) return 1;
+                return a.name.localeCompare(b.name);
+            });
+
+            schoolsToDisplay.forEach(school => {
+                const card = document.createElement('div');
+                card.className = `school-card ${school.highlight ? 'highlight' : ''}`;
+
+                let sportsListHtml = school.scholarshipOffers.map(offer => `
+                    <li>
+                        <strong>Sport / กีฬา:</strong> ${offer.sport} (${offer.sport === 'Tennis' ? 'เทนนิส' : offer.sport === 'Football' ? 'ฟุตบอล' : offer.sport === 'Swimming' ? 'ว่ายน้ำ' : offer.sport === 'Golf' ? 'กอล์ฟ' : offer.sport === 'Cricket' ? 'คริกเก็ต' : offer.sport})<br>
+                        <strong>Value / มูลค่า:</strong> ${offer.value}<br>
+                        <strong>Requirements / ข้อกำหนด:</strong> ${offer.requirements}<br>
+                        <strong>Pathway Tips / เคล็ดลับเส้นทาง:</strong> ${offer.pathwayTips}
+                    </li>
+                `).join('');
+                
+                // Add a general placeholder fee if no specific sport fee is given
+                const feesInfo = school.feesGBP ? `<p><strong>Est. Annual Boarding Fees / ค่าธรรมเนียมประจำ (โดยประมาณ):</strong> ${formatCurrency(school.feesGBP)}</p>` : '';
+
+                card.innerHTML = `
+                    <h4>${school.name}</h4>
+                    <p><strong>Location / ที่ตั้ง:</strong> ${school.location}</p>
+                    ${feesInfo}
+                    <p><strong>Scholarship Offers / ข้อเสนอทุนการศึกษา:</strong></p>
+                    <ul>
+                        ${sportsListHtml}
+                    </ul>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="line-cta">
+                        <span class="line-id">LINE: satitlinkedu</span>
+                        ปรึกษาฟรี (Free Consultation)
+                    </a>
+                `;
+                resultsContainer.appendChild(card);
+            });
+        }
+
+        // Initial display
+        displaySchools('all');
+
+        // Event listener for filter change
+        sportFilter.addEventListener('change', (event) => {
+            displaySchools(event.target.value);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LINKEDU Post-Study Visa Pathway Planner for UK boarding school graduates. Understand UK visa options for Thai students after higher education.">
+    <meta name="keywords" content="UK visa, post-study visa, Graduate Visa, Skilled Worker Visa, UK education, Thai students, LINKEDU, boarding school, study abroad UK, visa pathway">
+    <title>LINKEDU - Post-Study Visa Pathway Planner | วางแผนวีซ่าหลังเรียนจบ</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        :root {
+            --dark: #1a1a1a;
+            --cream: #f5f0e8;
+            --gold: #B8962E;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f0e8;
+            --border-light: rgba(0,0,0,0.08);
+            --shadow-subtle: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--cream);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; }
+        h3 { font-size: 2.2rem; line-height: 1.3; }
+        h4 { font-size: 1.8rem; line-height: 1.4; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--dark);
+        }
+
+        /* Language Toggle System */
+        html[lang="en"] .lang-th { display: none; }
+        html[lang="th"] .lang-en { display: none; }
+
+        /* Header */
+        .header {
+            background-color: var(--dark);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-wrap svg {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+        .logo-wrap span {
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            color: var(--text-light);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            margin: 0 20px; /* Add margin to center a bit if nav items exist */
+        }
+        .nav-links a {
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .lang-toggle {
+            display: flex;
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .lang-button {
+            background-color: transparent;
+            color: var(--gold);
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .lang-button.active {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            color: var(--text-light);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            color: rgba(245, 240, 232, 0.8);
+        }
+
+        /* Buttons */
+        .button-primary {
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .button-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .button-secondary {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .button-secondary:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 0 auto 10px auto;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+            background-color: var(--cream);
+        }
+        .content-section.dark-bg {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        .content-section.dark-bg h2, .content-section.dark-bg h3, .content-section.dark-bg h4 {
+            color: var(--text-light);
+        }
+
+        /* Form Styling */
+        .form-card {
+            background-color: var(--cream);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 40px;
+        }
+        .form-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .form-group select,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: white;
+            transition: border-color 0.3s ease;
+        }
+        .form-group select:focus,
+        .form-group input[type="text"]:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--gold); /* Custom color for radio button */
+        }
+        .form-actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Results Section */
+        #results-output {
+            margin-top: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        #results-output.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .result-card {
+            background-color: white;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .result-card h3 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .result-card h4 {
+            color: var(--dark);
+            font-size: 1.4rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .result-card ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        .result-card ul li {
+            margin-bottom: 8px;
+        }
+
+        /* LINE CTA Box after results */
+        .line-cta-inline {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .line-cta-inline .line-handle {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .line-cta-inline p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: rgba(245, 240, 232, 0.8);
+        }
+        .line-cta-inline .button-primary {
+            font-size: 1.1rem;
+            padding: 16px 32px;
+        }
+
+        /* LINE CTA Section (bottom) */
+        .line-cta-section {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .line-cta-section .line-handle {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+        .line-cta-section p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: rgba(245, 240, 232, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: rgba(245, 240, 232, 0.7);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: rgba(245, 240, 232, 0.8);
+        }
+        .footer a:hover {
+            color: var(--gold);
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.8rem; }
+            h4 { font-size: 1.5rem; }
+            .hero { padding: 80px 0; }
+            .hero p { font-size: 1.1rem; }
+            .content-section, .line-cta-section { padding: 60px 0; }
+            .line-cta-section .line-handle { font-size: 2.5rem; }
+            .line-cta-section p { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .nav-links {
+                margin: 0;
+            }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            .hero { padding: 60px 0; }
+            .hero p { font-size: 1rem; }
+            .form-card { padding: 30px; }
+            .result-card { padding: 25px; }
+            .line-cta-inline .line-handle { font-size: 1.8rem; }
+            .line-cta-inline p { font-size: 1rem; }
+            .line-cta-section .line-handle { font-size: 2rem; }
+            .line-cta-section p { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 15px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .header .container { align-items: center; }
+            .lang-toggle { margin-top: 10px; }
+            .hero { padding: 40px 0; }
+            .form-card { padding: 20px; }
+            .form-group label { font-size: 1rem; }
+            .button-primary, .button-secondary { padding: 12px 20px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+                <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+            </div>
+            <nav class="nav-links">
+                <!-- Navigation links can go here if needed, but for this tool, it's minimal -->
+            </nav>
+            <div class="lang-toggle">
+                <button class="lang-button active" data-lang="th">TH</button>
+                <button class="lang-button" data-lang="en">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="lang-th">วางแผนเส้นทางวีซ่าหลังเรียนจบ UK</h1>
+            <h1 class="lang-en">UK Post-Study Visa Pathway Planner</h1>
+            <p class="lang-th">เครื่องมือแบบอินเทอร์แอคทีฟนี้จะช่วยให้ผู้ปกครองชาวไทยเข้าใจตัวเลือกวีซ่าหลังเรียนจบที่เป็นไปได้สำหรับบุตรหลานของท่าน หลังจากสำเร็จการศึกษาจากโรงเรียนประจำในสหราชอาณาจักร โดยขึ้นอยู่กับเส้นทางการศึกษาและอาชีพที่เลือก</p>
+            <p class="lang-en">This interactive tool helps Thai parents understand the potential post-study visa options available for their child after graduating from a UK boarding school, depending on their chosen higher education path and career aspirations.</p>
+            <a href="#planner-tool" class="button-primary lang-th">เริ่มวางแผนของคุณ</a>
+            <a href="#planner-tool" class="button-primary lang-en">Start Your Pathway</a>
+        </div>
+    </section>
+
+    <!-- Main Content - Planner Tool -->
+    <section id="planner-tool" class="content-section">
+        <div class="container">
+            <span class="section-label lang-th">· เครื่องมือวางแผน ·</span>
+            <span class="section-label lang-en">· THE PLANNER TOOL ·</span>
+            <h2 class="lang-th" style="text-align: center;">วางแผนเส้นทางวีซ่าหลังเรียนจบ UK ของบุตรหลานท่าน</h2>
+            <h2 class="lang-en" style="text-align: center;">Plan Your Child's UK Post-Study Visa Pathway</h2>
+
+            <div class="form-card">
+                <form id="visa-planner-form">
+                    <div class="form-group">
+                        <label for="degree-type" class="lang-th">1. บุตรหลานของท่านตั้งใจจะเรียนต่อปริญญาตรี/โท สาขาใด?</label>
+                        <label for="degree-type" class="lang-en">1. What university degree type does your child intend to pursue?</label>
+                        <select id="degree-type" name="degree-type" required>
+                            <option value="" class="lang-th">-- เลือกประเภทสาขา --</option>
+                            <option value="" class="lang-en">-- Select Degree Type --</option>
+                            <option value="STEM" class="lang-th">STEM (วิทยาศาสตร์, เทคโนโลยี, วิศวกรรมศาสตร์, คณิตศาสตร์)</option>
+                            <option value="STEM" class="lang-en">STEM (Science, Technology, Engineering, Mathematics)</option>
+                            <option value="Arts" class="lang-th">ศิลปะและมนุษยศาสตร์ (เช่น วรรณคดี, ประวัติศาสตร์, ศิลปกรรม)</option>
+                            <option value="Arts" class="lang-en">Arts & Humanities (e.g., Literature, History, Fine Arts)</option>
+                            <option value="Business" class="lang-th">ธุรกิจและเศรษฐศาสตร์ (เช่น การเงิน, การตลาด, การจัดการ)</option>
+                            <option value="Business" class="lang-en">Business & Economics (e.g., Finance, Marketing, Management)</option>
+                            <option value="Healthcare" class="lang-th">สุขภาพ (เช่น แพทยศาสตร์, พยาบาลศาสตร์, ทันตแพทยศาสตร์)</option>
+                            <option value="Healthcare" class="lang-en">Healthcare (e.g., Medicine, Nursing, Dentistry)</option>
+                            <option value="Law" class="lang-th">นิติศาสตร์</option>
+                            <option value="Law" class="lang-en">Law</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="career-field" class="lang-th">2. บุตรหลานของท่านต้องการประกอบอาชีพในสาขาใด?</label>
+                        <label for="career-field" class="lang-en">2. What desired career field does your child aspire to work in?</label>
+                        <input type="text" id="career-field" name="career-field" placeholder="เช่น วิศวกรซอฟต์แวร์, นักการเงิน, ศิลปิน, แพทย์" class="lang-th" required>
+                        <input type="text" id="career-field" name="career-field" placeholder="e.g., Software Engineer, Investment Banker, Artist, Doctor" class="lang-en" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="lang-th">3. หลังเรียนจบมหาวิทยาลัย บุตรหลานของท่านตั้งใจจะทำอะไร?</label>
+                        <label class="lang-en">3. After graduating from university, what is your child's intention?</label>
+                        <div class="radio-group">
+                            <label class="lang-th"><input type="radio" name="intention" value="stay-uk" required> อยู่และทำงานต่อในสหราชอาณาจักร</label>
+                            <label class="lang-en"><input type="radio" name="intention" value="stay-uk" required> Stay and work in the UK</label>
+                            <label class="lang-th"><input type="radio" name="intention" value="return-th" required> กลับประเทศไทย</label>
+                            <label class="lang-en"><input type="radio" name="intention" value="return-th" required> Return to Thailand</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button-primary lang-th">ดูเส้นทางวีซ่า</button>
+                        <button type="submit" class="button-primary lang-en">Show Visa Pathway</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Output -->
+            <div id="results-output">
+                <span class="section-label lang-th">· ผลลัพธ์ ·</span>
+                <span class="section-label lang-en">· YOUR RESULTS ·</span>
+                <h2 class="lang-th" style="text-align: center;">เส้นทางวีซ่าส่วนตัวของบุตรหลานท่าน</h2>
+                <h2 class="lang-en" style="text-align: center;">Your Child's Personalised Visa Pathway</h2>
+
+                <div id="pathway-details">
+                    <!-- Dynamic content will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Inline LINE CTA after results -->
+                <div class="line-cta-inline">
+                    <h3 class="line-handle">LINE: satitlinkedu</h3>
+                    <p class="lang-th">ปรึกษาฟรีเกี่ยวกับเส้นทางวีซ่าและการศึกษาต่อใน UK กับผู้เชี่ยวชาญของเรา</p>
+                    <p class="lang-en">Free consultation on UK visa pathways and education with our experts.</p>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="button-primary lang-th">เพิ่ม LINE: satitlinkedu</a>
+                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="button-primary lang-en">Add LINE: satitlinkedu</a>
+                </div>
+
+            </div> <!-- /#results-output -->
+
+        </div>
+    </section>
+
+    <!-- LINE CTA Section (bottom of page) -->
+    <section class="line-cta-section">
+        <div class="container">
+            <h2 class="line-handle">LINE: satitlinkedu</h2>
+            <p class="lang-th">ปรึกษาฟรีเกี่ยวกับโรงเรียนประจำชั้นนำในสหราชอาณาจักรและเส้นทางสู่มหาวิทยาลัย</p>
+            <p class="lang-en">Free consultation on leading UK boarding schools and university pathways.</p>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="button-primary lang-th">เพิ่ม LINE: satitlinkedu</a>
+            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="button-primary lang-en">Add LINE: satitlinkedu</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="lang-th">&copy; 2024 LINKEDU Education Consulting Bangkok. สงวนลิขสิทธิ์. <br> เว็บไซต์: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+            <p class="lang-en">&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved. <br> Website: <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlTag = document.documentElement;
+            const langButtons = document.querySelectorAll('.lang-button');
+            const visaPlannerForm = document.getElementById('visa-planner-form');
+            const resultsOutput = document.getElementById('results-output');
+            const pathwayDetails = document.getElementById('pathway-details');
+
+            // Set default language to Thai
+            htmlTag.setAttribute('lang', 'th');
+
+            // Language Toggle Logic
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    htmlTag.setAttribute('lang', button.dataset.lang);
+                });
+            });
+
+            // Visa Pathway Logic
+            visaPlannerForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const degreeType = document.getElementById('degree-type').value;
+                const careerField = document.getElementById('career-field').value;
+                const intention = document.querySelector('input[name="intention"]:checked').value;
+                const currentLang = htmlTag.getAttribute('lang');
+
+                let pathwayHTML = '';
+
+                // Step 1: Graduate Visa (Common for those staying in UK)
+                let graduateVisaContent_th = `
+                    <div class="result-card">
+                        <h3>เส้นทางที่ 1: Graduate Visa (วีซ่าทำงานหลังเรียนจบ)</h3>
+                        <p>นี่คือจุดเริ่มต้นสำหรับนักเรียนต่างชาติส่วนใหญ่ที่ต้องการทำงานในสหราชอาณาจักรหลังสำเร็จการศึกษา</p>
+                        <h4>คุณสมบัติหลัก:</h4>
+                        <ul>
+                            <li>สำเร็จการศึกษาระดับปริญญาตรีหรือสูงกว่าจากสถาบันการศึกษาในสหราชอาณาจักรที่ได้รับการรับรอง</li>
+                            <li>ต้องยื่นขอวีซ่าจากภายในสหราชอาณาจักร ก่อนที่วีซ่านักเรียนปัจจุบันจะหมดอายุ</li>
+                            <li>ไม่มีข้อกำหนดเรื่องการหาสปอนเซอร์งาน</li>
+                        </ul>
+                        <h4>ระยะเวลา:</h4>
+                        <ul>
+                            <li>2 ปี สำหรับผู้ที่จบปริญญาตรีหรือปริญญาโท</li>
+                            <li>3 ปี สำหรับผู้ที่จบปริญญาเอก</li>
+                        </ul>
+                        <h4>ข้อควรพิจารณา:</h4>
+                        <ul>
+                            <li>เป็นโอกาสในการได้รับประสบการณ์การทำงานในสหราชอาณาจักร</li>
+                            <li>ต้องใช้ช่วงเวลานี้ในการหางานที่อาจนำไปสู่วีซ่าประเภทอื่นในระยะยาว (เช่น Skilled Worker Visa)</li>
+                            <li>ไม่สามารถขยายเวลาวีซ่าประเภทนี้ได้</li>
+                        </ul>
+                    </div>`;
+                let graduateVisaContent_en = `
+                    <div class="result-card">
+                        <h3>Pathway 1: Graduate Visa (Post-Study Work Visa)</h3>
+                        <p>This is the primary starting point for most international students wishing to work in the UK after graduation.</p>
+                        <h4>Key Eligibility:</h4>
+                        <ul>
+                            <li>Successfully completed an eligible UK bachelor's degree or higher from an approved UK higher education provider.</li>
+                            <li>Must apply from within the UK before your current student visa expires.</li>
+                            <li>Does not require a job offer or sponsorship.</li>
+                        </ul>
+                        <h4>Duration:</h4>
+                        <ul>
+                            <li>2 years for Bachelor's and Master's graduates.</li>
+                            <li>3 years for PhD graduates.</li>
+                        </ul>
+                        <h4>Considerations:</h4>
+                        <ul>
+                            <li>Provides an excellent opportunity to gain UK work experience.</li>
+                            <li>Use this period to find a job that could lead to a longer-term sponsored visa (e.g., Skilled Worker Visa).</li>
+                            <li>This visa cannot be extended.</li>
+                        </ul>
+                    </div>`;
+
+                pathwayHTML += currentLang === 'th' ? graduateVisaContent_th : graduateVisaContent_en;
+
+                if (intention === 'stay-uk') {
+                    // Subsequent Visas for staying in UK
+                    let skilledWorkerVisaContent_th = `
+                        <div class="result-card">
+                            <h3>เส้นทางที่ 2: Skilled Worker Visa (วีซ่าแรงงานมีฝีมือ)</h3>
+                            <p>หลังจาก Graduate Visa หากบุตรหลานของท่านต้องการพำนักและทำงานในสหราชอาณาจักรต่อในระยะยาว นี่คือเส้นทางหลัก</p>
+                            <h4>คุณสมบัติหลัก:</h4>
+                            <ul>
+                                <li>ต้องมีข้อเสนองานจากนายจ้างในสหราชอาณาจักรที่ได้รับการรับรอง (licensed sponsor)</li>
+                                <li>งานที่ทำต้องอยู่ในรายการอาชีพที่มีทักษะ (eligible skilled occupations)</li>
+                                <li>ต้องได้รับค่าจ้างตามเกณฑ์ขั้นต่ำที่กำหนด ซึ่งอาจแตกต่างกันไปตามอาชีพและภูมิภาค</li>
+                                <li>ต้องแสดงความสามารถทางภาษาอังกฤษ</li>
+                            </ul>
+                            <h4>ระยะเวลา:</h4>
+                            <ul>
+                                <li>สามารถยื่นขอได้สูงสุด 5 ปี และสามารถต่ออายุได้</li>
+                                <li>เป็นเส้นทางสู่การตั้งถิ่นฐานถาวร (Indefinite Leave to Remain)</li>
+                            </ul>
+                            <h4>ข้อควรพิจารณา:</h4>
+                            <ul>
+                                <li>การแข่งขันสูงในการหานายจ้างที่พร้อมให้การสนับสนุนวีซ่า</li>
+                                <li>สาขา <strong style="color:var(--gold);">STEM, Healthcare, Law และ Business (โดยเฉพาะด้านการเงิน/เทคโนโลยี)</strong> มักจะมีโอกาสที่ดีกว่าในการหางานที่เข้าข่าย</li>
+                                <li><strong style="color:var(--gold);">ประสบการณ์จากโรงเรียนประจำในสหราชอาณาจักร</strong> ช่วยให้บุตรหลานของท่านมีความพร้อมด้านภาษา, ทักษะทางสังคม และความเข้าใจวัฒนธรรมการทำงาน ซึ่งเป็นประโยชน์อย่างยิ่งในการแข่งขันในตลาดแรงงาน</li>
+                            </ul>
+                        </div>`;
+                    let skilledWorkerVisaContent_en = `
+                        <div class="result-card">
+                            <h3>Pathway 2: Skilled Worker Visa</h3>
+                            <p>Following the Graduate Visa, if your child wishes to stay and work long-term in the UK, this is the main route.</p>
+                            <h4>Key Eligibility:</h4>
+                            <ul>
+                                <li>Must have a job offer from a UK employer approved by the Home Office (licensed sponsor).</li>
+                                <li>The job must be in an eligible skilled occupation.</li>
+                                <li>Must be paid a minimum salary, which varies by occupation and region.</li>
+                                <li>Must demonstrate English language ability.</li>
+                            </ul>
+                            <h4>Duration:</h4>
+                            <ul>
+                                <li>Can be granted for up to 5 years and is extendable.</li>
+                                <li>This visa can lead to Indefinite Leave to Remain (ILR).</li>
+                            </ul>
+                            <h4>Considerations:</h4>
+                            <ul>
+                                <li>High competition for jobs with sponsoring employers.</li>
+                                <li><strong style="color:var(--gold);">STEM, Healthcare, Law, and Business (especially finance/tech)</strong> degrees often provide better opportunities for eligible roles.</li>
+                                <li><strong style="color:var(--gold);">A UK boarding school experience</strong> significantly enhances your child's readiness with strong English, social skills, and cultural understanding, which are highly advantageous in a competitive job market.</li>
+                            </ul>
+                        </div>`;
+                    pathwayHTML += currentLang === 'th' ? skilledWorkerVisaContent_th : skilledWorkerVisaContent_en;
+
+                    let otherOptions_th = `
+                        <div class="result-card">
+                            <h3>ตัวเลือกอื่นๆ (กรณีพิเศษ)</h3>
+                            <p>สำหรับผู้ที่มีความสามารถพิเศษหรืออยู่ในสถานการณ์เฉพาะ:</p>
+                            <h4>Global Talent Visa:</h4>
+                            <ul>
+                                <li>สำหรับบุคคลที่มีความสามารถโดดเด่นในสาขาวิทยาศาสตร์, ศิลปะและวัฒนธรรม, หรือเทคโนโลยีดิจิทัล</li>
+                                <li>ต้องได้รับการรับรองจากหน่วยงานที่เกี่ยวข้อง (เช่น UK Research and Innovation, Arts Council England)</li>
+                                <li>เป็นเส้นทางที่ยากกว่าแต่ให้ความยืดหยุ่นสูง</li>
+                            </ul>
+                            <h4>Youth Mobility Scheme (YMS):</h4>
+                            <ul>
+                                <li><strong style="color:red;">หมายเหตุสำคัญ:</strong> โครงการ Youth Mobility Scheme (YMS) ไม่เปิดรับพลเมืองไทยสำหรับสหราชอาณาจักร ณ ปัจจุบัน</li>
+                                <li>เป็นโครงการสำหรับพลเมืองของประเทศที่เข้าร่วมบางประเทศเท่านั้น (อายุ 18-30 ปี)</li>
+                            </ul>
+                        </div>`;
+                    let otherOptions_en = `
+                        <div class="result-card">
+                            <h3>Other Potential Options (Special Cases)</h3>
+                            <p>For exceptionally talented individuals or specific situations:</p>
+                            <h4>Global Talent Visa:</h4>
+                            <ul>
+                                <li>For individuals with exceptional promise or talent in science, engineering, humanities, medicine, digital technology, arts, and culture.</li>
+                                <li>Requires endorsement from a relevant endorsing body (e.g., UK Research and Innovation, Arts Council England).</li>
+                                <li>A more challenging route but offers high flexibility.</li>
+                            </ul>
+                            <h4>Youth Mobility Scheme (YMS):</h4>
+                            <ul>
+                                <li><strong style="color:red;">Important Note:</strong> The Youth Mobility Scheme (YMS) is currently NOT available for Thai nationals for the UK.</li>
+                                <li>This scheme is only open to citizens of certain participating countries (aged 18-30).</li>
+                            </ul>
+                        </div>`;
+                    pathwayHTML += currentLang === 'th' ? otherOptions_th : otherOptions_en;
+
+                } else if (intention === 'return-th') {
+                    // Focus on leveraging UK education in Thailand
+                    let returnToThailandContent_th = `
+                        <div class="result-card">
+                            <h3>เส้นทาง: กลับประเทศไทยและใช้ประโยชน์จากการศึกษาในสหราชอาณาจักร</h3>
+                            <p>แม้ว่าบุตรหลานของท่านจะเลือกกลับมาทำงานที่ประเทศไทย ประสบการณ์การศึกษาจากสหราชอาณาจักรยังคงเป็นสินทรัพย์ที่มีค่าอย่างยิ่ง</p>
+                            <h4>ประโยชน์หลักของการศึกษา UK สำหรับอาชีพในไทย:</h4>
+                            <ul>
+                                <li><strong style="color:var(--gold);">คุณภาพการศึกษาระดับโลก:</strong> ปริญญาจากมหาวิทยาลัยชั้นนำของ UK เป็นที่ยอมรับและมีชื่อเสียงทั่วโลก</li>
+                                <li><strong style="color:var(--gold);">ทักษะภาษาอังกฤษที่ยอดเยี่ยม:</strong> การใช้ชีวิตและการศึกษาใน UK ช่วยพัฒนาทักษะภาษาอังกฤษให้เป็นเลิศ ซึ่งเป็นที่ต้องการสูงในตลาดงานไทยและต่างประเทศ</li>
+                                <li><strong style="color:var(--gold);">ทักษะที่จำเป็นสำหรับศตวรรษที่ 21:</strong> การคิดเชิงวิพากษ์, การแก้ปัญหา, ความคิดสร้างสรรค์ และการทำงานร่วมกัน ซึ่งได้รับการปลูกฝังอย่างดีในระบบการศึกษา UK</li>
+                                <li><strong style="color:var(--gold);">เครือข่ายและความหลากหลายทางวัฒนธรรม:</strong> การเรียนรู้ร่วมกับนักเรียนจากทั่วโลกสร้างมุมมองที่กว้างขึ้นและเครือข่ายเพื่อนร่วมงานในอนาคต</li>
+                                <li><strong style="color:var(--gold);">ความเข้าใจทางวัฒนธรรม:</strong> การปรับตัวเข้ากับสภาพแวดล้อมใหม่ๆ ช่วยเพิ่มความยืดหยุ่นและความเข้าใจในวัฒนธรรมที่แตกต่างกัน</li>
+                            </ul>
+                            <h4>โอกาสในอนาคต:</h4>
+                            <ul>
+                                <li>ผู้สำเร็จการศึกษาจาก UK มักจะได้รับการพิจารณาเป็นพิเศษจากบริษัทข้ามชาติและองค์กรชั้นนำในประเทศไทย</li>
+                                <li>สามารถกลับไปเยี่ยมเยือนหรือทำงานระยะสั้นใน UK ได้ในอนาคตด้วยวีซ่าประเภท Business Visitor หรือวีซ่าทำงานระยะสั้นอื่นๆ ตามความเหมาะสม</li>
+                            </ul>
+                        </div>`;
+                    let returnToThailandContent_en = `
+                        <div class="result-card">
+                            <h3>Pathway: Return to Thailand and Leverage UK Education</h3>
+                            <p>Even if your child chooses to return to work in Thailand, a UK education experience remains an incredibly valuable asset.</p>
+                            <h4>Key Benefits of UK Education for a Career in Thailand:</h4>
+                            <ul>
+                                <li><strong style="color:var(--gold);">World-Class Education:</strong> A degree from a top UK university is globally recognised and highly respected.</li>
+                                <li><strong style="color:var(--gold);">Exceptional English Proficiency:</strong> Living and studying in the UK refines English language skills to an advanced level, highly sought after in both Thai and international job markets.</li>
+                                <li><strong style="color:var(--gold);">21st-Century Skills:</strong> Critical thinking, problem-solving, creativity, and collaboration are strongly fostered within the UK education system.</li>
+                                <li><strong style="color:var(--gold);">Networking & Cultural Diversity:</strong> Studying alongside students from around the world builds a broader perspective and future professional networks.</li>
+                                <li><strong style="color:var(--gold);">Cultural Understanding:</strong> Adapting to a new environment builds resilience and an understanding of diverse cultures.</li>
+                            </ul>
+                            <h4>Future Opportunities:</h4>
+                            <ul>
+                                <li>UK graduates are often highly regarded by multinational companies and leading organisations in Thailand.</li>
+                                <li>Future visits or short-term work opportunities in the UK may be possible via Business Visitor visas or other short-term work routes as applicable.</li>
+                            </ul>
+                        </div>`;
+                    pathwayHTML += currentLang === 'th' ? returnToThailandContent_th : returnToThailandContent_en;
+                }
+
+                // UK Boarding School Experience Benefits (Always included)
+                let boardingSchoolBenefits_th = `
+                    <div class="result-card">
+                        <h3>การศึกษาจากโรงเรียนประจำใน UK: รากฐานที่แข็งแกร่งสำหรับอนาคต</h3>
+                        <p>การที่บุตรหลานของท่านได้เรียนที่โรงเรียนประจำชั้นนำในสหราชอาณาจักรเช่น <strong style="color:var(--gold);">Abbotsholme, Brighton College, Bromsgrove, Charterhouse, Clifton, Concord, Dulwich, Eton, Harrow, Lancing, Millfield, Oundle, Repton, Roedean, Sevenoaks, Shrewsbury, Tonbridge, Uppingham หรือ Wells Cathedral</strong> (และโรงเรียนชั้นนำอื่นๆ ที่ LINKEDU แนะนำ) มอบข้อได้เปรียบที่สำคัญ:</p>
+                        <ul>
+                            <li><strong style="color:var(--gold);">ความเป็นเลิศทางวิชาการ:</strong> ได้รับการเตรียมความพร้อมอย่างเข้มข้นสำหรับการศึกษาในระดับมหาวิทยาลัยในสหราชอาณาจักร</li>
+                            <li><strong style="color:var(--gold);">ทักษะภาษาอังกฤษที่เหนือกว่า:</strong> การใช้ชีวิตในสภาพแวดล้อมที่พูดภาษาอังกฤษตลอดเวลาช่วยให้ภาษาแข็งแกร่งขึ้นอย่างมาก</li>
+                            <li><strong style="color:var(--gold);">การพัฒนาทักษะชีวิต:</strong> ความเป็นอิสระ, ความรับผิดชอบ, และทักษะการเข้าสังคมที่จำเป็นสำหรับการใช้ชีวิตและการทำงานในต่างประเทศ</li>
+                            <li><strong style="color:var(--gold);">ความคุ้นเคยกับวัฒนธรรม UK:</strong> ช่วยให้ปรับตัวเข้ากับชีวิตในมหาวิทยาลัยและสภาพแวดล้อมการทำงานใน UK ได้ง่ายขึ้น</li>
+                            <li><strong style="color:var(--gold);">เครือข่ายศิษย์เก่า:</strong> สร้างความสัมพันธ์กับเพื่อนนักเรียนที่จะเป็นเครือข่ายที่มีคุณค่าในอนาคต</li>
+                        </ul>
+                        <h4><strong style="color:red;">หมายเหตุสำคัญเกี่ยวกับค่าธรรมเนียมโรงเรียน:</strong></h4>
+                        <ul>
+                            <li>ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะมี <strong style="color:red;">ภาษีมูลค่าเพิ่ม (VAT) 20% เพิ่มเติมตั้งแต่เดือนมกราคม 2025</strong></li>
+                            <li>โรงเรียนประจำของรัฐ (State Boarding Schools) ซึ่งมีค่าธรรมเนียมประมาณ GBP 10,000 ถึง 19,000 ต่อปี <strong style="color:green;">ได้รับการยกเว้น VAT</strong></li>
+                            <li>ในการคำนวณค่าใช้จ่าย โปรดใช้ <strong style="color:var(--gold);">อัตราแลกเปลี่ยน 1 GBP ≈ 45 THB</strong> เพื่อประมาณการค่าใช้จ่ายในสกุลเงินบาท</li>
+                        </ul>
+                    </div>`;
+                let boardingSchoolBenefits_en = `
+                    <div class="result-card">
+                        <h3>UK Boarding School Education: A Strong Foundation for the Future</h3>
+                        <p>Your child's education at a leading UK boarding school, such as <strong style="color:var(--gold);">Abbotsholme, Brighton College, Bromsgrove, Bromsgrove, Bryanston, Cardiff Sixth Form, Caterham, Charterhouse, Clifton, Concord, D Overbroeks, Dulwich, Epsom, Eton, Harrow, Lancing, Loretto, Millfield, Oakham, Oundle, Oxford International, Queen Ethelburgas, Repton, Roedean, Rossall, Royal Russell, Sedbergh, Sevenoaks, Shrewsbury, Sidcot, St Leonards, The Leys, NMSC, Tonbridge, Uppingham, or Wells Cathedral</strong> (and other top schools recommended by LINKEDU), provides significant advantages:</p>
+                        <ul>
+                            <li><strong style="color:var(--gold);">Academic Excellence:</strong> Rigorous preparation for higher education in the UK.</li>
+                            <li><strong style="color:var(--gold);">Superior English Proficiency:</strong> Immersion in an English-speaking environment significantly strengthens language skills.</li>
+                            <li><strong style="color:var(--gold);">Development of Life Skills:</strong> Independence, responsibility, and social skills crucial for living and working abroad.</li>
+                            <li><strong style="color:var(--gold);">Familiarity with UK Culture:</strong> Easier adaptation to university life and the UK working environment.</li>
+                            <li><strong style="color:var(--gold);">Alumni Network:</strong> Building connections with peers who will become valuable future contacts.</li>
+                        </ul>
+                        <h4><strong style="color:red;">Important Note on School Fees:</strong></h4>
+                        <ul>
+                            <li>Private school fees in the UK will have an additional <strong style="color:red;">20% VAT added from January 2025</strong>.</li>
+                            <li>State Boarding Schools, with fees typically ranging from GBP 10,000 to 19,000 per year, are <strong style="color:green;">VAT exempt</strong>.</li>
+                            <li>For cost estimation, please use an <strong style="color:var(--gold);">exchange rate of 1 GBP ≈ 45 THB</strong> to approximate costs in Thai Baht.</li>
+                        </ul>
+                    </div>`;
+                pathwayHTML += currentLang === 'th' ? boardingSchoolBenefits_th : boardingSchoolBenefits_en;
+
+                // General Disclaimer
+                let disclaimer_th = `
+                    <div class="result-card">
+                        <h3>ข้อควรพิจารณาทั่วไป</h3>
+                        <p>กฎระเบียบการย้ายถิ่นฐานอาจมีการเปลี่ยนแปลงได้ตลอดเวลา ข้อมูลข้างต้นเป็นแนวทางทั่วไปเท่านั้น และไม่ถือเป็นคำแนะนำทางกฎหมาย วีซ่าแต่ละประเภทมีข้อกำหนดและเงื่อนไขเฉพาะเจาะจง</p>
+                        <p>เราขอแนะนำอย่างยิ่งให้ท่านปรึกษาผู้เชี่ยวชาญด้านการย้ายถิ่นฐานหรือ LINKEDU เพื่อรับคำแนะนำที่ถูกต้องและเป็นปัจจุบันสำหรับสถานการณ์ส่วนบุคคลของบุตรหลานท่าน</p>
+                    </div>`;
+                let disclaimer_en = `
+                    <div class="result-card">
+                        <h3>General Considerations</h3>
+                        <p>Immigration rules can change at any time. The information above is a general guide only and does not constitute legal advice. Each visa type has specific requirements and conditions.</p>
+                        <p>We strongly recommend consulting with an immigration professional or LINKEDU for accurate and up-to-date advice tailored to your child's individual circumstances.</p>
+                    </div>`;
+                pathwayHTML += currentLang === 'th' ? disclaimer_th : disclaimer_en;
+
+
+                pathwayDetails.innerHTML = pathwayHTML;
+                resultsOutput.classList.add('show');
+                resultsOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>

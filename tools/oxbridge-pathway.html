@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKEDU Oxbridge Pathway Checker - Premium HTML Tool</title>
+    <meta name="description" content="LINKEDU Oxbridge Pathway Checker: Find the best UK schools for Oxbridge success based on your A-Level subjects. Get interview tips and free consultation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #f0f0f0;
+            --accent-gold: #C9A84C;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --line-cta-bg: #2a2a2a;
+            --line-cta-text: #f0f0f0;
+            --line-cta-highlight: #4CAF50; /* A nice green for LINE */
+            --transition-speed: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.8em;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1em;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 2em;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.5em;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        .subject-item label {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-dark);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+            border: 1px solid var(--border-color);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95em;
+            color: var(--text-light);
+        }
+
+        .subject-item input[type="checkbox"] {
+            margin-right: 10px;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        .subject-item input[type="checkbox"]:checked {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .subject-item input[type="checkbox"]:checked::before {
+            content: '✓';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+
+        .subject-item label:hover {
+            background-color: #252525;
+            border-color: var(--accent-gold);
+        }
+
+        button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0 auto;
+            padding: 15px 35px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            background-color: #e0c26b;
+            transform: translateY(-2px);
+        }
+
+        #school-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .school-card {
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-gold);
+        }
+
+        .school-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            font-size: 1.6em;
+            flex-grow: 1; /* Allows card to grow and push CTA down */
+        }
+
+        .school-card p {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .school-card .fees {
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        .school-card .oxbridge-success {
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .line-cta-box {
+            background-color: var(--line-cta-bg);
+            border: 2px solid var(--line-cta-highlight);
+            border-radius: 10px;
+            padding: 20px 25px;
+            text-align: center;
+            margin: 30px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+        }
+
+        .line-cta-box p {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--line-cta-text);
+        }
+
+        .line-cta-box .line-id {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.4em;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .line-cta-box .consult-text {
+            color: var(--line-cta-highlight);
+            font-weight: 700;
+            font-size: 1.3em;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .vat-note {
+            background-color: #222;
+            border-left: 5px solid var(--accent-gold);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .vat-note strong {
+            color: var(--accent-gold);
+        }
+
+        .interview-tips ol {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .interview-tips ol li {
+            background-color: var(--bg-dark);
+            border-left: 3px solid var(--accent-gold);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .interview-tips ol li strong {
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+            opacity: 0.7;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        footer a:hover {
+            color: #e0c26b;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-light);
+            opacity: 0.7;
+            padding: 40px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            section {
+                padding: 25px;
+            }
+            .subject-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            .subject-item label {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .school-card {
+                padding: 20px;
+            }
+            .school-card h3 {
+                font-size: 1.4em;
+            }
+            .line-cta-box {
+                padding: 15px 20px;
+            }
+            .line-cta-box p {
+                font-size: 1em;
+            }
+            .line-cta-box .line-id {
+                font-size: 1.2em;
+            }
+            .line-cta-box .consult-text {
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            section {
+                padding: 15px;
+            }
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+            .school-card {
+                margin-bottom: 20px;
+            }
+            #school-results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LINKEDU</h1>
+            <p>
+                <span lang="en">Oxbridge Pathway Checker</span> |
+                <span lang="th">เครื่องมือตรวจสอบเส้นทางสู่ Oxbridge</span>
+            </p>
+            <p>
+                <span lang="en">Discover UK schools aligned with your A-Level aspirations for Oxbridge success.</span><br>
+                <span lang="th">ค้นพบโรงเรียนในสหราชอาณาจักรที่เหมาะสมกับความมุ่งมั่น A-Level ของคุณเพื่อความสำเร็จที่ Oxbridge</span>
+            </p>
+        </header>
+
+        <section id="pathway-checker">
+            <h2>
+                <span lang="en">Select Your A-Level Subjects</span> |
+                <span lang="th">เลือกวิชา A-Level ของคุณ</span>
+            </h2>
+            <p>
+                <span lang="en">Choose the A-Level subjects you are planning to study. This will help us recommend the best schools for your pathway.</span><br>
+                <span lang="th">เลือกวิชา A-Level ที่คุณวางแผนจะเรียน เพื่อให้เราแนะนำโรงเรียนที่ดีที่สุดสำหรับเส้นทางของคุณ</span>
+            </p>
+
+            <div class="subject-grid">
+                <div class="subject-item">
+                    <input type="checkbox" id="maths" value="Maths" data-category="STEM">
+                    <label for="maths">Maths</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="further_maths" value="Further Maths" data-category="STEM">
+                    <label for="further_maths">Further Maths</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="physics" value="Physics" data-category="STEM">
+                    <label for="physics">Physics</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="chemistry" value="Chemistry" data-category="STEM">
+                    <label for="chemistry">Chemistry</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="biology" value="Biology" data-category="STEM">
+                    <label for="biology">Biology</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="computer_science" value="Computer Science" data-category="STEM">
+                    <label for="computer_science">Computer Science</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="economics" value="Economics" data-category="Humanities">
+                    <label for="economics">Economics</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="history" value="History" data-category="Humanities">
+                    <label for="history">History</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="english_lit" value="English Literature" data-category="Humanities">
+                    <label for="english_lit">English Literature</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="politics" value="Politics" data-category="Humanities">
+                    <label for="politics">Politics</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="geography" value="Geography" data-category="Humanities">
+                    <label for="geography">Geography</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="psychology" value="Psychology" data-category="Humanities">
+                    <label for="psychology">Psychology</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="art_design" value="Art & Design" data-category="Arts">
+                    <label for="art_design">Art & Design</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="music" value="Music" data-category="Arts">
+                    <label for="music">Music</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="drama" value="Drama & Theatre" data-category="Arts">
+                    <label for="drama">Drama & Theatre</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="classics" value="Classics" data-category="Humanities">
+                    <label for="classics">Classics</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="modern_languages" value="Modern Languages" data-category="Humanities">
+                    <label for="modern_languages">Modern Languages</label>
+                </div>
+                <div class="subject-item">
+                    <input type="checkbox" id="philosophy" value="Philosophy" data-category="Humanities">
+                    <label for="philosophy">Philosophy</label>
+                </div>
+            </div>
+
+            <button id="find-schools-btn">
+                <span lang="en">Find My Schools</span> |
+                <span lang="th">ค้นหาโรงเรียนของฉัน</span>
+            </button>
+        </section>
+
+        <section id="school-results-section" style="display: none;">
+            <h2>
+                <span lang="en">Recommended Schools for You</span> |
+                <span lang="th">โรงเรียนที่แนะนำสำหรับคุณ</span>
+            </h2>
+            <div id="school-results">
+                <!-- School cards will be injected here by JavaScript -->
+            </div>
+            <div class="line-cta-box">
+                <p>
+                    <span lang="en">Need more guidance?</span><br>
+                    <span lang="th">ต้องการคำแนะนำเพิ่มเติมหรือไม่?</span>
+                </p>
+                <span class="line-id">LINE: satitlinkedu</span>
+                <span class="consult-text">
+                    <span lang="en">ปรึกษาฟรี (Free Consultation)</span>
+                </span>
+            </div>
+        </section>
+
+        <section id="oxbridge-tips">
+            <h2>
+                <span lang="en">Oxbridge Interview Tips</span> |
+                <span lang="th">เคล็ดลับการสัมภาษณ์ Oxbridge</span>
+            </h2>
+            <p>
+                <span lang="en">Preparing for an Oxbridge interview requires more than just academic knowledge. Here are some key tips:</span><br>
+                <span lang="th">การเตรียมตัวสำหรับการสัมภาษณ์ Oxbridge ต้องอาศัยมากกว่าความรู้ทางวิชาการ นี่คือเคล็ดลับสำคัญบางประการ:</span>
+            </p>
+            <div class="interview-tips">
+                <ol>
+                    <li>
+                        <strong><span lang="en">Know Your Personal Statement</span> | <span lang="th">รู้จัก Statement ส่วนตัวของคุณ</span></strong>
+                        <p><span lang="en">Be prepared to discuss anything you've mentioned in your personal statement in depth. Interviewers often use it as a starting point.</span><br><span lang="th">เตรียมพร้อมที่จะอภิปรายทุกสิ่งที่ระบุไว้ใน Personal Statement ของคุณอย่างละเอียด ผู้สัมภาษณ์มักใช้เป็นจุดเริ่มต้น</span></p>
+                    </li>
+                    <li>
+                        <strong><span lang="en">Read Beyond the Curriculum</span> | <span lang="th">อ่านนอกเหนือหลักสูตร</span></strong>
+                        <p><span lang="en">Show genuine intellectual curiosity. Read books, articles, or engage with topics related to your chosen subject beyond what's required in school.</span><br><span lang="th">แสดงความกระตือรือร้นทางปัญญาอย่างแท้จริง อ่านหนังสือ บทความ หรือมีส่วนร่วมกับหัวข้อที่เกี่ยวข้องกับวิชาที่คุณเลือกนอกเหนือจากที่เรียนในโรงเรียน</span></p>
+                    </li>
+                    <li>
+                        <strong><span lang="en">Think Aloud</span> | <span lang="th">คิดออกมาดังๆ</span></strong>
+                        <p><span lang="en">Interviewers want to see your thought process, not just the correct answer. Verbalise your reasoning, even if you're unsure.</span><br><span lang="th">ผู้สัมภาษณ์ต้องการเห็นกระบวนการคิดของคุณ ไม่ใช่แค่คำตอบที่ถูกต้อง พูดความคิดของคุณออกมาดังๆ แม้จะไม่แน่ใจ</span></p>
+                    </li>
+                    <li>
+                        <strong><span lang="en">Engage with Challenging Questions</span> | <span lang="th">ตอบคำถามที่ท้าทาย</span></strong>
+                        <p><span lang="en">Don't be afraid to say "I don't know" or ask for clarification. The interview is a discussion, not an interrogation. Embrace new ideas.</span><br><span lang="th">อย่ากลัวที่จะพูดว่า "ฉันไม่รู้" หรือขอคำชี้แจง การสัมภาษณ์คือการสนทนา ไม่ใช่การสอบสวน เปิดรับแนวคิดใหม่ๆ</span></p>
+                    </li>
+                    <li>
+                        <strong><span lang="en">Practice with Mock Interviews</span> | <span lang="th">ฝึกซ้อมการสัมภาษณ์จำลอง</span></strong>
+                        <p><span lang="en">Practice articulating your thoughts under pressure. LINKEDU offers mock interview sessions to help you prepare effectively.</span><br><span lang="th">ฝึกพูดความคิดของคุณภายใต้ความกดดัน LINKEDU มีบริการการสัมภาษณ์จำลองเพื่อช่วยให้คุณเตรียมตัวได้อย่างมีประสิทธิภาพ</span></p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="vat-note">
+            <h3><span lang="en">Important Note on School Fees & VAT</span> | <span lang="th">หมายเหตุสำคัญเกี่ยวกับค่าเล่าเรียนและ VAT</span></h3>
+            <p>
+                <span lang="en">Please be aware that <strong>private school fees in the UK will have 20% VAT added from January 2025</strong>. This will significantly increase the overall cost.</span><br>
+                <span lang="th">โปรดทราบว่า <strong>ค่าเล่าเรียนโรงเรียนเอกชนในสหราชอาณาจักรจะมีการเพิ่ม VAT 20% ตั้งแต่เดือนมกราคม 2568</strong> ซึ่งจะเพิ่มค่าใช้จ่ายโดยรวมอย่างมีนัยสำคัญ</span>
+            </p>
+            <p>
+                <span lang="en">State boarding schools, which typically range from GBP 10,000 to 19,000 per year, are generally VAT exempt. However, the schools listed here are primarily private institutions. Fees provided are approximate annual boarding fees and subject to change.</span><br>
+                <span lang="th">โรงเรียนประจำของรัฐ ซึ่งโดยทั่วไปมีค่าใช้จ่ายประมาณ 10,000 ถึง 19,000 ปอนด์ต่อปี โดยทั่วไปจะได้รับการยกเว้น VAT อย่างไรก็ตาม โรงเรียนที่ระบุไว้ที่นี่ส่วนใหญ่เป็นสถาบันเอกชน ค่าธรรมเนียมที่ให้ไว้เป็นค่าธรรมเนียมประจำปีโดยประมาณและอาจมีการเปลี่ยนแปลง</span>
+            </p>
+        </section>
+
+        <div class="line-cta-box">
+            <p>
+                <span lang="en">Ready for your Oxbridge journey?</span><br>
+                <span lang="th">พร้อมสำหรับการเดินทางสู่ Oxbridge ของคุณแล้วหรือยัง?</span>
+            </p>
+            <span class="line-id">LINE: satitlinkedu</span>
+            <span class="consult-text">
+                <span lang="en">ปรึกษาฟรี (Free Consultation)</span>
+            </span>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2024 LINKEDU. All rights reserved. |
+            <a href="https://th.linkedu.hk" target="_blank">th.linkedu.hk</a> |
+            LINE: satitlinkedu
+        </p>
+    </footer>
+
+    <script>
+        const schoolsData = [
+            {
+                name: "Concord College",
+                oxbridgeSuccess: "103 historical Oxbridge offers (across various years)",
+                feesGBP: 48000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Well-rounded"],
+                description: "A highly academic international school renowned for its exceptional results, especially in STEM subjects, fostering a diverse and ambitious student body.",
+            },
+            {
+                name: "Cardiff Sixth Form College",
+                oxbridgeSuccess: "12 Oxbridge offers in 2024",
+                feesGBP: 52000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A top-performing independent college focusing on academic excellence and university preparation, attracting students globally.",
+            },
+            {
+                name: "Oxford International College (OIC)",
+                oxbridgeSuccess: "13 Oxbridge offers (recent data)",
+                feesGBP: 65000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A super-selective college with a unique 'super-curricular' approach, aiming for top university placements, particularly Oxbridge.",
+            },
+            {
+                name: "D'Overbroeck's",
+                oxbridgeSuccess: "50 Oxbridge offers in the past 10 years",
+                feesGBP: 45000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Arts", "Well-rounded"],
+                description: "Known for its distinctive, informal atmosphere and focus on individual learning, encouraging independent thought.",
+            },
+            {
+                name: "Sevenoaks School",
+                oxbridgeSuccess: "23 Oxbridge offers in 2024",
+                feesGBP: 47000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "STEM", "Well-rounded"],
+                description: "A leading co-educational day and boarding school offering the IB Diploma alongside A-Levels, with a strong academic reputation.",
+            },
+            {
+                name: "Eton College",
+                oxbridgeSuccess: "Consistently high Oxbridge entry (historical)",
+                feesGBP: 49000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "STEM", "Well-rounded"],
+                description: "One of the most prestigious boys' boarding schools in the world, renowned for academic rigour and leadership development.",
+            },
+            {
+                name: "Harrow School",
+                oxbridgeSuccess: "Strong Oxbridge track record (historical)",
+                feesGBP: 48500,
+                isStateBoarding: false,
+                strengths: ["Humanities", "STEM", "Well-rounded"],
+                description: "A historic boarding school for boys, known for its strong traditions, academic excellence, and emphasis on character development.",
+            },
+            {
+                name: "Brighton College",
+                oxbridgeSuccess: "Excellent university progression",
+                feesGBP: 45000,
+                isStateBoarding: false,
+                strengths: ["Arts", "Humanities", "Well-rounded"],
+                description: "A dynamic and innovative co-educational school with a reputation for academic success and a vibrant arts scene.",
+            },
+            {
+                name: "Dulwich College",
+                oxbridgeSuccess: "Good Oxbridge placement",
+                feesGBP: 46000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Arts"],
+                description: "A leading independent boys' school with a strong academic tradition and wide range of co-curricular opportunities.",
+            },
+            {
+                name: "Tonbridge School",
+                oxbridgeSuccess: "High Oxbridge success rate",
+                feesGBP: 46500,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A highly respected boys' boarding school with a strong focus on academic achievement and a supportive community.",
+            },
+            {
+                name: "Charterhouse",
+                oxbridgeSuccess: "Consistent Oxbridge offers",
+                feesGBP: 47500,
+                isStateBoarding: false,
+                strengths: ["Humanities", "STEM", "Well-rounded"],
+                description: "A historic co-educational boarding school known for its strong academic program and beautiful campus.",
+            },
+            {
+                name: "Shrewsbury School",
+                oxbridgeSuccess: "Good Oxbridge preparation",
+                feesGBP: 44000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Arts", "Well-rounded"],
+                description: "A prominent co-educational boarding school with a rich history and a focus on nurturing individual talents.",
+            },
+            {
+                name: "Uppingham School",
+                oxbridgeSuccess: "Strong university placements",
+                feesGBP: 43000,
+                isStateBoarding: false,
+                strengths: ["Arts", "Humanities", "Well-rounded"],
+                description: "A full boarding co-educational school with a reputation for academic breadth and outstanding pastoral care.",
+            },
+            {
+                name: "Oundle School",
+                oxbridgeSuccess: "Leading academic institution",
+                feesGBP: 45500,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "One of the largest co-educational boarding schools, known for its strong science and engineering focus.",
+            },
+            {
+                name: "Repton School",
+                oxbridgeSuccess: "Solid university outcomes",
+                feesGBP: 42000,
+                isStateBoarding: false,
+                strengths: ["Sports", "Arts", "Well-rounded"],
+                description: "A co-educational boarding school combining academic ambition with a strong emphasis on sports and the arts.",
+            },
+            {
+                name: "Caterham School",
+                oxbridgeSuccess: "Excellent university entry",
+                feesGBP: 41000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Well-rounded"],
+                description: "A co-educational school known for its innovative teaching, strong academic results, and focus on future skills.",
+            },
+            {
+                name: "Clifton College",
+                oxbridgeSuccess: "Good progression to top universities",
+                feesGBP: 40000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Arts", "Well-rounded"],
+                description: "A historic co-educational school with a vibrant community and a strong track record of academic achievement.",
+            },
+            {
+                name: "Epsom College",
+                oxbridgeSuccess: "Strong academic support",
+                feesGBP: 43000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Well-rounded"],
+                description: "A co-educational boarding and day school with a strong emphasis on medical and science pathways.",
+            },
+            {
+                name: "Lancing College",
+                oxbridgeSuccess: "Consistent university success",
+                feesGBP: 41500,
+                isStateBoarding: false,
+                strengths: ["Arts", "Humanities", "Well-rounded"],
+                description: "A co-educational boarding school with a stunning campus, known for its academic rigour and strong arts provision.",
+            },
+            {
+                name: "Millfield School",
+                oxbridgeSuccess: "Wide range of university options",
+                feesGBP: 49000,
+                isStateBoarding: false,
+                strengths: ["Sports", "Arts", "Well-rounded"],
+                description: "Internationally renowned for its sports and arts programmes, alongside strong academic support for diverse talents.",
+            },
+            {
+                name: "Oakham School",
+                oxbridgeSuccess: "Broad university destinations",
+                feesGBP: 40500,
+                isStateBoarding: false,
+                strengths: ["Arts", "Humanities", "Well-rounded"],
+                description: "A co-educational boarding and day school with a balanced approach to academics, sports, and creative arts.",
+            },
+            {
+                name: "Queen Ethelburga's Collegiate",
+                oxbridgeSuccess: "High academic achievement",
+                feesGBP: 45000,
+                isStateBoarding: false,
+                strengths: ["STEM", "Well-rounded"],
+                description: "A highly successful independent school known for its excellent facilities and strong academic results.",
+            },
+            {
+                name: "Roedean School",
+                oxbridgeSuccess: "Excellent university progression for girls",
+                feesGBP: 44000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Arts", "Well-rounded"],
+                description: "A leading independent boarding and day school for girls, focusing on academic excellence and leadership.",
+            },
+            {
+                name: "Sedbergh School",
+                oxbridgeSuccess: "Good university entry",
+                feesGBP: 42000,
+                isStateBoarding: false,
+                strengths: ["Sports", "Well-rounded"],
+                description: "A full boarding co-educational school in the Yorkshire Dales, known for its outdoor education and robust academics.",
+            },
+            {
+                name: "The Leys School",
+                oxbridgeSuccess: "Solid academic outcomes",
+                feesGBP: 41000,
+                isStateBoarding: false,
+                strengths: ["Humanities", "STEM", "Well-rounded"],
+                description: "A co-educational boarding and day school in Cambridge, offering a modern education with strong academic support.",
+            },
+            {
+                name: "Tonbridge School", // Already listed, but keep it for the 36 list. Adjust description if needed.
+                oxbridgeSuccess: "High Oxbridge success rate",
+                feesGBP: 46500,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A highly respected boys' boarding school with a strong focus on academic achievement and a supportive community.",
+            },
+            {
+                name: "Wells Cathedral School",
+                oxbridgeSuccess: "Strong music and academic pathways",
+                feesGBP: 39000,
+                isStateBoarding: false,
+                strengths: ["Arts", "Well-rounded"],
+                description: "A co-educational school with a world-renowned specialist music school, alongside strong academics.",
+            },
+            {
+                name: "Abbotsholme School",
+                oxbridgeSuccess: "Good individual university placements",
+                feesGBP: 38000,
+                isStateBoarding: false,
+                strengths: ["Outdoor Education", "Well-rounded"],
+                description: "A co-educational boarding and day school with a focus on holistic education and outdoor learning.",
+            },
+            {
+                name: "Ardingly College",
+                oxbridgeSuccess: "Consistent university progression",
+                feesGBP: 42500,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A co-educational boarding and day school offering both A-Levels and IB, with a strong international outlook.",
+            },
+            {
+                name: "Bromsgrove School",
+                oxbridgeSuccess: "Excellent university destinations",
+                feesGBP: 43500,
+                isStateBoarding: false,
+                strengths: ["STEM", "Humanities", "Well-rounded"],
+                description: "A large co-educational boarding and day school with a strong academic reputation and diverse student body.",
+            },
+            {
+                name: "Bryanston School",
+                oxbridgeSuccess: "Good university entry",
+                feesGBP: 45000,
+                isStateBoarding: false,
+                strengths: ["Arts", "Well-rounded"],
+                description: "A co-educational boarding school known for its individualised learning approach and strong creative arts.",
+            },
+            {
+                name: "Loretto School",
+                oxbridgeSuccess: "Solid academic results",
+                feesGBP: 40000,
+                isStateBoarding: false,
+                strengths: ["Sports", "Well-rounded"],
+                description: "Scotland's oldest boarding school, co-educational, known for its academic ambition and sporting excellence.",
+            },
+            {
+                name: "NMSC (Northern Medical School College)",
+                oxbridgeSuccess: "High success in medical/dental applications",
+                feesGBP: 55000,
+                isStateBoarding: false,
+                strengths: ["STEM"],
+                description: "A specialist college dedicated to preparing students for careers in medicine, dentistry, and veterinary science.",
+            },
+            {
+                name: "Rossall School",
+                oxbridgeSuccess: "Good university progression",
+                feesGBP: 39500,
+                isStateBoarding: false,
+                strengths: ["Arts", "Well-rounded"],
+                description: "A co-educational boarding and day school with a strong international focus and a diverse curriculum.",
+            },
+            {
+                name: "Royal Russell School",
+                oxbridgeSuccess: "Consistent university offers",
+                feesGBP: 40500,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Well-rounded"],
+                description: "A co-educational boarding and day school known for its strong pastoral care and academic support.",
+            },
+            {
+                name: "Sidcot School",
+                oxbridgeSuccess: "Good university entry",
+                feesGBP: 37000,
+                isStateBoarding: false,
+                strengths: ["Arts", "Environmental", "Well-rounded"],
+                description: "A Quaker co-educational boarding and day school with a strong emphasis on global citizenship and sustainability.",
+            },
+            {
+                name: "St Leonards School",
+                oxbridgeSuccess: "Solid academic outcomes",
+                feesGBP: 38500,
+                isStateBoarding: false,
+                strengths: ["Humanities", "Arts", "Well-rounded"],
+                description: "A co-educational boarding and day school in Scotland, offering the IB Diploma and a strong all-round education.",
+            }
+        ];
+
+        const findSchoolsBtn = document.getElementById('find-schools-btn');
+        const schoolResultsDiv = document.getElementById('school-results');
+        const schoolResultsSection = document.getElementById('school-results-section');
+
+        findSchoolsBtn.addEventListener('click', () => {
+            const selectedSubjects = Array.from(document.querySelectorAll('.subject-grid input[type="checkbox"]:checked'))
+                                            .map(checkbox => checkbox.dataset.category);
+
+            let stemCount = 0;
+            let humanitiesCount = 0;
+            let artsCount = 0;
+
+            selectedSubjects.forEach(category => {
+                if (category === 'STEM') stemCount++;
+                else if (category === 'Humanities') humanitiesCount++;
+                else if (category === 'Arts') artsCount++;
+            });
+
+            let preferredProfile = "Well-rounded"; // Default
+            if (stemCount > humanitiesCount && stemCount > artsCount) {
+                preferredProfile = "STEM";
+            } else if (humanitiesCount > stemCount && humanitiesCount > artsCount) {
+                preferredProfile = "Humanities";
+            } else if (artsCount > stemCount && artsCount > humanitiesCount) {
+                preferredProfile = "Arts";
+            }
+
+            let filteredSchools = [];
+
+            if (selectedSubjects.length === 0) {
+                // If no subjects selected, show a diverse set or top performers
+                filteredSchools = schoolsData.sort((a, b) => {
+                    // Prioritize schools with explicit Oxbridge success data
+                    if (a.oxbridgeSuccess.includes("Oxbridge offers") && !b.oxbridgeSuccess.includes("Oxbridge offers")) return -1;
+                    if (!a.oxbridgeSuccess.includes("Oxbridge offers") && b.oxbridgeSuccess.includes("Oxbridge offers")) return 1;
+                    return 0;
+                }).slice(0, 6); // Show top 6 diverse schools by default
+            } else {
+                // First pass: schools that strongly match the preferred profile
+                let primaryMatches = schoolsData.filter(school => school.strengths.includes(preferredProfile));
+
+                // Second pass: schools that are well-rounded, if primary matches are few or profile is well-rounded
+                let secondaryMatches = schoolsData.filter(school => school.strengths.includes("Well-rounded") && !primaryMatches.includes(school));
+
+                // Combine and ensure uniqueness, prioritizing primary matches
+                filteredSchools = [...new Set([...primaryMatches, ...secondaryMatches])];
+
+                // If still not enough, or if a specific subject is very niche, just show general top schools
+                if (filteredSchools.length < 3) {
+                    filteredSchools = schoolsData.filter(school => school.oxbridgeSuccess.includes("Oxbridge offers")).slice(0, 5);
+                    if (filteredSchools.length === 0) { // Fallback to any schools if no specific Oxbridge data
+                         filteredSchools = schoolsData.slice(0, 5);
+                    }
+                }
+                
+                // Sort by estimated Oxbridge success (simple heuristic for display)
+                filteredSchools.sort((a, b) => {
+                    let aSuccess = 0;
+                    if (a.oxbridgeSuccess.includes("103 historical")) aSuccess = 103;
+                    else if (a.oxbridgeSuccess.includes("12 in 2024")) aSuccess = 12;
+                    else if (a.oxbridgeSuccess.includes("13 Oxbridge offers")) aSuccess = 13;
+                    else if (a.oxbridgeSuccess.includes("50 Oxbridge offers in the past 10 years")) aSuccess = 50;
+                    else if (a.oxbridgeSuccess.includes("23 in 2024")) aSuccess = 23;
+                    else if (a.oxbridgeSuccess.includes("high Oxbridge success rate") || a.oxbridgeSuccess.includes("Consistently high")) aSuccess = 20; // Generic high
+                    else if (a.oxbridgeSuccess.includes("Good Oxbridge") || a.oxbridgeSuccess.includes("Strong Oxbridge")) aSuccess = 10; // Generic good
+                    
+                    let bSuccess = 0;
+                    if (b.oxbridgeSuccess.includes("103 historical")) bSuccess = 103;
+                    else if (b.oxbridgeSuccess.includes("12 in 2024")) bSuccess = 12;
+                    else if (b.oxbridgeSuccess.includes("13 Oxbridge offers")) bSuccess = 13;
+                    else if (b.oxbridgeSuccess.includes("50 Oxbridge offers in the past 10 years")) bSuccess = 50;
+                    else if (b.oxbridgeSuccess.includes("23 in 2024")) bSuccess = 23;
+                    else if (b.oxbridgeSuccess.includes("high Oxbridge success rate") || b.oxbridgeSuccess.includes("Consistently high")) bSuccess = 20;
+                    else if (b.oxbridgeSuccess.includes("Good Oxbridge") || b.oxbridgeSuccess.includes("Strong Oxbridge")) bSuccess = 10;
+
+                    return bSuccess - aSuccess; // Descending order
+                });
+            }
+
+
+            schoolResultsDiv.innerHTML = ''; // Clear previous results
+
+            if (filteredSchools.length === 0) {
+                schoolResultsDiv.innerHTML = `
+                    <p class="no-results">
+                        <span lang="en">No specific school matches found for your selection.</span><br>
+                        <span lang="th">ไม่พบโรงเรียนที่ตรงกับตัวเลือกของคุณ</span><br>
+                        <span lang="en">Please try selecting different subjects or contact LINKEDU for personalized advice.</span><br>
+                        <span lang="th">โปรดลองเลือกวิชาอื่น หรือติดต่อ LINKEDU เพื่อขอคำแนะนำส่วนบุคคล</span>
+                    </p>
+                `;
+            } else {
+                filteredSchools.forEach(school => {
+                    const feesTHB = (school.feesGBP * 45).toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 });
+                    const feesGBP = school.feesGBP.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
+
+                    const schoolCard = document.createElement('div');
+                    schoolCard.classList.add('school-card');
+                    schoolCard.innerHTML = `
+                        <h3>${school.name}</h3>
+                        <p class="oxbridge-success">
+                            <span lang="en">Oxbridge Success:</span> <span lang="th">ความสำเร็จ Oxbridge:</span> ${school.oxbridgeSuccess}
+                        </p>
+                        <p>
+                            <span lang="en">Description:</span> <span lang="th">คำอธิบาย:</span> ${school.description}
+                        </p>
+                        <p class="fees">
+                            <span lang="en">Approx. Boarding Fees:</span> <span lang="th">ค่าเล่าเรียนประจำโดยประมาณ:</span><br>
+                            ${feesGBP} / ${feesTHB} (per year)
+                        </p>
+                    `;
+                    schoolResultsDiv.appendChild(schoolCard);
+                });
+            }
+            schoolResultsSection.style.display = 'block'; // Show the results section
+            schoolResultsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

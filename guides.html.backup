@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย | UK Boarding School Guides — LINKEDU</title>
+  <meta name="description" content="คู่มือโดยละเอียดสำหรับครอบครัวไทยที่ต้องการส่งบุตรหลานเรียนโรงเรียนประจำในอังกฤษ | Comprehensive guides for Thai families considering UK boarding schools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0k{fill:#FFFFFF;}</style><path class="st0k" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item"><a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></div>
+        <div class="nav-item"><a href="find-your-school.html" class="nav-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a></div>
+        <div class="nav-item"><a href="compare.html" class="nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div>
+        <div class="nav-item"><a href="fees.html" class="nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></div>
+        <div class="nav-item"><a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div>
+        <div class="nav-item"><a href="guides.html" class="nav-link active"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle"><button class="lang-btn" data-lang="th">TH</button><button class="lang-btn" data-lang="en">EN</button></div>
+        <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-link"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="contact.html" class="mobile-nav-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    <a href="pricing.html" class="mobile-nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a>
+    <div class="mobile-nav-actions"><a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a></div>
+  </nav>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">LINKEDU</a><span>›</span><span><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></span></div>
+    <div class="page-hero-eyebrow"><span class="lang-th">คู่มือโดยละเอียด</span><span class="lang-en">In-Depth Guides</span></div>
+    <h1>
+      <span class="lang-th">คู่มือโรงเรียนประจำอังกฤษ<br>สำหรับครอบครัวไทย</span>
+      <span class="lang-en">Complete Guides to UK Boarding Schools<br>for Thai Families</span>
+    </h1>
+    <p class="page-hero-sub">
+      <span class="lang-th">คู่มือที่ละเอียดและครบที่สุดในภาษาไทย — เขียนโดยผู้เชี่ยวชาญที่รู้จักโรงเรียนอังกฤษเป็นอย่างดี</span>
+      <span class="lang-en">The most comprehensive guides in Thai — written by experts who know UK boarding schools personally.</span>
+    </p>
+  </div>
+</section>
+
+<!-- FEATURED GUIDE -->
+<section class="section">
+  <div class="container">
+
+    <!-- Featured -->
+    <div style="background:#1a1a1a;border-radius:8px;overflow:hidden;margin-bottom:56px;">
+      <div style="padding:48px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;font-family:'Inter',sans-serif;margin-bottom:14px;"><span class="lang-th">คู่มือแนะนำ</span><span class="lang-en">Featured Guide</span></div>
+        <h2 style="font-family:'Playfair Display',serif;color:#f5f0e8;font-weight:400;font-size:2.2rem;margin-bottom:16px;max-width:640px;line-height:1.25;">
+          <span class="lang-th">คู่มือฉบับสมบูรณ์ — โรงเรียนประจำอังกฤษสำหรับครอบครัวไทย 2026</span>
+          <span class="lang-en">The Complete Guide to UK Boarding Schools for Thai Families 2026</span>
+        </h2>
+        <p style="font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.6);line-height:1.7;max-width:600px;margin-bottom:32px;">
+          <span class="lang-th">ครอบคลุมทุกด้าน — ระบบการศึกษา ค่าใช้จ่าย ทุนการศึกษา กระบวนการสมัคร วีซ่า และชีวิตในโรงเรียน อัปเดต มีนาคม 2026</span>
+          <span class="lang-en">Covers everything — education system, fees, scholarships, application process, visa, and school life. Updated March 2026.</span>
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="#" class="btn-primary"><span class="lang-th">อ่านคู่มือ →</span><span class="lang-en">Read Guide →</span></a>
+          <span style="font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(245,240,232,0.35);align-self:center;"><span class="lang-th">อ่าน 20 นาที</span><span class="lang-en">20 min read</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guides grid -->
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">คู่มือทั้งหมด</span><span class="lang-en">All Guides</span></span>
+      <h2><span class="lang-th">คู่มือแยกตามหัวข้อ</span><span class="lang-en">Guides by Topic</span></h2>
+    </div>
+
+    <div class="guides-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag"><span class="lang-th">พื้นฐาน</span><span class="lang-en">Basics</span></div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">ระบบการศึกษาอังกฤษ — GCSE และ A-Level อธิบายอย่างง่าย</span>
+            <span class="lang-en">UK Education System — GCSE and A-Level Explained Simply</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">เข้าใจความแตกต่างระหว่าง Year 9, GCSE, A-Level และ IB — และเทียบกับระบบการศึกษาไทยอย่างชัดเจน</span>
+          <span class="lang-en">Understand the difference between Year 9, GCSE, A-Level, and IB — clearly compared to the Thai system.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">8 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag"><span class="lang-th">วีซ่า</span><span class="lang-en">Visa</span></div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">วีซ่านักเรียนอังกฤษ — ขั้นตอนสำหรับนักเรียนไทย</span>
+            <span class="lang-en">UK Student Visa — Step-by-Step for Thai Applicants</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">ทุกอย่างที่ต้องรู้เกี่ยวกับวีซ่านักเรียน (Child Student Visa) สำหรับเด็กไทยที่เรียน boarding school</span>
+          <span class="lang-en">Everything you need to know about the Child Student Visa for Thai children attending UK boarding school.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">12 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag"><span class="lang-th">ทุนการศึกษา</span><span class="lang-en">Scholarships</span></div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">ทุนการศึกษา — นักเรียนไทยสามารถขอทุนอะไรได้บ้าง?</span>
+            <span class="lang-en">Scholarships — What Can Thai Students Apply For?</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">ประเภทของทุน วิธีสมัคร และโรงเรียนที่ให้ทุนสูงสุดสำหรับนักเรียนต่างชาติ</span>
+          <span class="lang-en">Types of scholarships, how to apply, and which schools offer the highest remission for international students.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">10 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag"><span class="lang-th">กีฬา</span><span class="lang-en">Sports</span></div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">ทุนกีฬา — สุดยอดคู่มือสำหรับนักกีฬาไทยในอังกฤษ</span>
+            <span class="lang-en">Sports Scholarships — The Ultimate Guide for Thai Athletes</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">โรงเรียนที่มีทุนกีฬา กีฬาที่ได้รับความนิยม และวิธีเตรียมตัวเพื่อให้ได้รับทุน</span>
+          <span class="lang-en">Schools offering sports scholarships, most popular sports, and how to prepare for a successful scholarship application.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">9 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag">Oxbridge</div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">Oxbridge Track — เส้นทางสู่ Oxford และ Cambridge</span>
+            <span class="lang-en">Oxbridge Track — Pathways to Oxford and Cambridge</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">โรงเรียนที่ส่งนักเรียนเข้า Oxbridge มากที่สุด และสิ่งที่ต้องเตรียมตัวตั้งแต่ Year 9</span>
+          <span class="lang-en">Schools with the strongest Oxbridge track record and how to prepare from Year 9.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">11 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-tag"><span class="lang-th">ชีวิตในโรงเรียน</span><span class="lang-en">School Life</span></div>
+          <h3 class="guide-card-title">
+            <span class="lang-th">ชีวิตในโรงเรียนประจำอังกฤษ — สิ่งที่บุตรหลานจะพบ</span>
+            <span class="lang-en">Life at a UK Boarding School — What Your Child Will Experience</span>
+          </h3>
+        </div>
+        <p class="guide-card-desc">
+          <span class="lang-th">ตื่นกี่โมง กินอะไร เรียนอะไร ทำอะไรหลังเลิกเรียน — ชีวิตจริงในโรงเรียนประจำอังกฤษ</span>
+          <span class="lang-en">What time they wake up, what they eat, what they study, what they do after school — real boarding school life.</span>
+        </p>
+        <div class="guide-card-footer">
+          <span class="guide-read-time">7 min read</span>
+          <span class="guide-arrow">Read →</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section-dark" id="faq">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">คำถามที่พบบ่อย</span><span class="lang-en">Frequently Asked Questions</span></span>
+      <h2 style="color:#f5f0e8;"><span class="lang-th">FAQ — โรงเรียนประจำอังกฤษ</span><span class="lang-en">FAQ — UK Boarding Schools</span></h2>
+    </div>
+
+    <div class="faq-list" style="max-width:100%;">
+
+      <div class="faq-item" style="border-color:rgba(245,240,232,0.1);">
+        <div class="faq-question" style="color:#f5f0e8;">
+          <span><span class="lang-th">โรงเรียนประจำอังกฤษเหมาะกับเด็กอายุเท่าไร?</span><span class="lang-en">What age is right for UK boarding school?</span></span>
+          <div class="faq-icon" style="border-color:rgba(245,240,232,0.2);">+</div>
+        </div>
+        <div class="faq-answer" style="color:rgba(245,240,232,0.6);">
+          <span class="lang-th">โดยทั่วไปมี 3 จุดเข้าหลัก: 11+ (Year 7), 13+ (Year 9) และ 16+ (Sixth Form / A-Level) สำหรับนักเรียนไทย จุดเข้าที่นิยมที่สุดคือ 13+ และ 16+ เพราะเด็กมีความสมบูรณ์ทางอารมณ์และภาษามากขึ้น</span>
+          <span class="lang-en">There are 3 main entry points: 11+ (Year 7), 13+ (Year 9), and 16+ (Sixth Form). For Thai students, 13+ and 16+ are most popular as children are more emotionally mature and have stronger English.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="border-color:rgba(245,240,232,0.1);">
+        <div class="faq-question" style="color:#f5f0e8;">
+          <span><span class="lang-th">บุตรหลานจำเป็นต้องมีภาษาอังกฤษระดับใด?</span><span class="lang-en">What level of English is required?</span></span>
+          <div class="faq-icon" style="border-color:rgba(245,240,232,0.2);">+</div>
+        </div>
+        <div class="faq-answer" style="color:rgba(245,240,232,0.6);">
+          <span class="lang-th">ขึ้นอยู่กับโรงเรียน โดยทั่วไปต้องการ IELTS 5.5-6.0 หรือ UKISET ในระดับที่ยอมรับได้ โรงเรียนบางแห่งมีโปรแกรม EAL (English as an Additional Language) รองรับนักเรียนที่ภาษาอังกฤษยังไม่แข็งแกร่ง</span>
+          <span class="lang-en">Varies by school. Typically IELTS 5.5-6.0 or an acceptable UKISET score. Some schools have EAL (English as an Additional Language) programmes to support students still developing their English.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="border-color:rgba(245,240,232,0.1);">
+        <div class="faq-question" style="color:#f5f0e8;">
+          <span><span class="lang-th">นักเรียนไทยต้องมี Guardian ในอังกฤษไหม?</span><span class="lang-en">Do Thai students need a UK Guardian?</span></span>
+          <div class="faq-icon" style="border-color:rgba(245,240,232,0.2);">+</div>
+        </div>
+        <div class="faq-answer" style="color:rgba(245,240,232,0.6);">
+          <span class="lang-th">โรงเรียนส่วนใหญ่กำหนดให้นักเรียนต่างชาติที่อายุต่ำกว่า 18 ปีมี UK Guardian — บุคคลที่อาศัยอยู่ในสหราชอาณาจักรและรับผิดชอบดูแลนักเรียนในช่วง exeat และวันหยุด โดยทั่วไปค่า Guardian อยู่ที่ £2,000-£5,000 ต่อปี</span>
+          <span class="lang-en">Most schools require international students under 18 to have a UK Guardian — someone living in the UK responsible for the student during exeats and holidays. Guardian fees typically run £2,000–£5,000/year.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="border-color:rgba(245,240,232,0.1);">
+        <div class="faq-question" style="color:#f5f0e8;">
+          <span><span class="lang-th">บุตรหลานจะได้กลับไทยช่วงไหนบ้าง?</span><span class="lang-en">When can my child return to Thailand?</span></span>
+          <div class="faq-icon" style="border-color:rgba(245,240,232,0.2);">+</div>
+        </div>
+        <div class="faq-answer" style="color:rgba(245,240,232,0.6);">
+          <span class="lang-th">ปีการศึกษาอังกฤษแบ่งเป็น 3 เทอม มีปิดเทอมหลัก 3 ครั้ง: คริสต์มาส (ธ.ค.-ม.ค.), อีสเตอร์ (มี.ค.-เม.ย.) และฤดูร้อน (มิ.ย.-ก.ย.) นอกจากนี้ยังมี Half-Term Break สั้น ๆ กลางเทอม ซึ่งบางโรงเรียนให้นักเรียนนานาชาติอยู่ต่อได้</span>
+          <span class="lang-en">The UK school year has 3 terms with main holidays: Christmas (Dec-Jan), Easter (Mar-Apr), and Summer (Jun-Sep). There are also short Half-Term breaks mid-term, which some schools allow international students to stay for.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:40px;">
+      <a href="contact.html" class="btn-secondary"><span class="lang-th">ถามคำถามที่ยังอยู่ในใจ →</span><span class="lang-en">Ask Your Remaining Questions →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- LINE CTA -->
+<section class="line-cta">
+  <div class="container">
+    <div class="line-cta-eyebrow"><span class="lang-th">อ่านแล้วยังมีคำถาม?</span><span class="lang-en">Still have questions after reading?</span></div>
+    <h2><span class="lang-th">ปรึกษาผู้เชี่ยวชาญโดยตรง</span><span class="lang-en">Talk Directly to an Expert</span></h2>
+    <div class="line-cta-handle">LINE: @linkedu.th</div>
+    <p class="line-cta-sub"><span class="lang-th">ปรึกษาฟรี / Free Consultation</span><span class="lang-en">ปรึกษาฟรี / Free Consultation</span></p>
+    <a href="https://line.me/ti/p/@linkedu.th" class="line-cta-btn" target="_blank" rel="noopener"><span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">เพิ่ม LINE / Add LINE</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0l{fill:#FFFFFF;}</style><path class="st0l" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <p class="footer-brand-tagline"><span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย</span><span class="lang-en">Thailand's specialist in UK boarding school placement.</span></p>
+      </div>
+      <div><div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div><div class="footer-links"><a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a><a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div></div>
+      <div><div class="footer-heading"><span class="lang-th">เครื่องมือ</span><span class="lang-en">Tools</span></div><div class="footer-links"><a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a><a href="fees.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a><a href="prepare.html" class="footer-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div></div>
+      <div><div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div><div class="footer-links"><a href="contact.html" class="footer-link">LINE: @linkedu.th</a><a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About Us</span></a></div></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education.</div>
+      <div class="footer-line">LINE: <span>@linkedu.th</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.22);margin-top:10px;text-align:center;width:100%;">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
