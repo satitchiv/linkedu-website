@@ -1621,7 +1621,7 @@ function renderStep1() {
     const isPopular = featuredSchools.indexOf(school.name) !== -1;
     if (isPopular) card.classList.add('popular-card');
     const popularBadge = isPopular
-      ? '<div class="popular-badge">Popular</div>'
+      ? '<div class="popular-badge">Featured</div>'
       : '';
 
     card.innerHTML =
