@@ -1,0 +1,3363 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual School Profiles — LINKEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#1a1a1a;
+  --cream:#f5f0e8;
+  --gold:#B8962E;
+  --gold-light:#d4ad4f;
+  --gold-fade:rgba(184,150,46,0.15);
+  --border:#2e2e2e;
+}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--cream);min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+
+/* TOP BAR */
+.top-bar{background:#111;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.back-link{color:var(--cream);opacity:0.7;font-size:13px;display:flex;align-items:center;gap:6px;transition:opacity 0.2s}
+.back-link:hover{opacity:1;text-decoration:none}
+.logo-area{display:flex;flex-direction:column;align-items:center}
+.logo-sub{font-size:8px;letter-spacing:0.25em;color:var(--cream);opacity:0.5;margin-top:4px;text-transform:uppercase}
+.lang-toggle{display:flex;gap:4px}
+.lang-btn{background:transparent;border:1px solid var(--border);color:var(--cream);opacity:0.6;font-size:11px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.lang-btn.active{background:var(--gold);border-color:var(--gold);color:#fff;opacity:1}
+
+/* HERO */
+.page-hero{text-align:center;padding:40px 24px 32px}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);color:var(--cream);line-height:1.2}
+.page-hero p{color:var(--cream);opacity:0.55;font-size:14px;margin-top:8px;max-width:500px;margin-left:auto;margin-right:auto}
+
+/* SCHOOL PICKER AREA */
+.picker-area{max-width:960px;margin:0 auto;padding:0 20px 32px}
+.picker-label{font-size:13px;color:var(--cream);opacity:0.7;margin-bottom:8px;font-weight:500}
+.picker-controls{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:200px}
+.school-search{width:100%;padding:12px 16px;background:#222;border:1px solid #333;border-radius:6px;color:var(--cream);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s}
+.school-search::placeholder{color:#666}
+.school-search:focus{border-color:var(--gold)}
+.add-btn{background:var(--gold);color:#fff;border:none;padding:12px 20px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;white-space:nowrap;transition:background 0.2s}
+.add-btn:hover{background:var(--gold-light)}
+.add-btn:disabled{background:#333;color:#666;cursor:not-allowed}
+.dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#222;border:1px solid #333;border-radius:6px;max-height:240px;overflow-y:auto;z-index:200;display:none}
+.dropdown.open{display:block}
+.dropdown-item{padding:10px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid #2a2a2a;transition:background 0.15s}
+.dropdown-item:last-child{border-bottom:none}
+.dropdown-item:hover,.dropdown-item.focused{background:#2d2d2d;color:var(--gold)}
+.dropdown-item .loc{font-size:11px;color:#888;margin-top:2px}
+.selected-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:flex;align-items:center;gap:6px;background:#222;border:1px solid #333;border-radius:20px;padding:6px 12px;font-size:12px}
+.chip-remove{background:none;border:none;color:#888;cursor:pointer;font-size:13px;padding:0;line-height:1;transition:color 0.2s}
+.chip-remove:hover{color:var(--gold)}
+.hint-text{font-size:12px;color:#666;margin-top:8px}
+
+/* PROFILES GRID */
+.profiles-section{max-width:1240px;margin:0 auto;padding:0 16px 80px}
+.profiles-grid{display:grid;gap:24px}
+.profiles-grid.cols-1{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+.profiles-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.profiles-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){
+  .profiles-grid.cols-3,.profiles-grid.cols-2{grid-template-columns:1fr}
+}
+@media(min-width:600px) and (max-width:900px){
+  .profiles-grid.cols-3{grid-template-columns:repeat(2,1fr)}
+}
+
+/* PROFILE CARD */
+.profile-card{background:#1e1e1e;border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;transition:border-color 0.2s}
+.profile-card:hover{border-color:#444}
+.card-top{padding:22px 22px 16px}
+.card-school-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);line-height:1.2;margin-bottom:8px}
+.card-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.badge-loc{background:#2a2a2a;color:#aaa}
+.badge-coed{background:#1a3a4a;color:#7ad4f5}
+.badge-boys{background:#1a2a4a;color:#7a9df5}
+.badge-girls{background:#4a1a3a;color:#f57ab4}
+.badge-sixth{background:#3a2a1a;color:#f5b47a}
+.badge-public{background:rgba(184,150,46,0.2);color:var(--gold);border:1px solid rgba(184,150,46,0.3)}
+.fee-display{background:var(--gold-fade);border:1px solid rgba(184,150,46,0.25);border-radius:8px;padding:12px 14px;margin-bottom:16px}
+.fee-thb{font-size:22px;font-weight:700;color:var(--gold)}
+.fee-label{font-size:11px;color:var(--cream);opacity:0.5;margin-top:2px}
+.fee-gbp{font-size:12px;color:var(--cream);opacity:0.4;margin-top:2px}
+
+/* RADAR CHART */
+.radar-section{padding:0 22px 16px;display:flex;flex-direction:column;align-items:center}
+.radar-title{font-size:11px;color:var(--cream);opacity:0.4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;align-self:flex-start}
+.radar-wrap{position:relative;width:200px;height:200px}
+
+/* KEY STATS */
+.key-stats{padding:0 22px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kstat{display:flex;flex-direction:column;gap:3px;text-align:center;background:#252525;border-radius:6px;padding:8px 6px}
+.kstat-icon{font-size:18px;line-height:1}
+.kstat-value{font-size:14px;font-weight:700;color:var(--gold)}
+.kstat-label{font-size:10px;color:#888;line-height:1.2}
+
+/* SCHOLARSHIP */
+.schol-bar{padding:0 22px 12px}
+.schol-text{font-size:12px;color:var(--cream);opacity:0.6;line-height:1.5;background:#252525;border-radius:5px;padding:8px 10px;border-left:2px solid var(--gold)}
+
+/* A-LEVELS */
+.alevels-bar{padding:0 22px 14px}
+.alevels-title{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.alevels-list{display:flex;gap:5px;flex-wrap:wrap}
+.alevel-chip{background:#252525;border:1px solid #333;border-radius:4px;padding:3px 8px;font-size:11px;color:var(--cream);opacity:0.8}
+
+/* PERFECT FOR */
+.perfect-for{padding:0 22px 20px}
+.perfect-text{font-size:12px;color:var(--gold);font-style:italic;line-height:1.5}
+
+/* WINNER BADGE */
+.winner-badge{position:absolute;top:14px;right:14px;background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;text-transform:uppercase;letter-spacing:0.05em}
+
+/* REMOVE CARD BTN */
+.remove-card-btn{position:absolute;top:14px;right:14px;background:#2a2a2a;border:1px solid #444;color:#888;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-family:'Inter',sans-serif;transition:all 0.2s}
+.remove-card-btn:hover{border-color:var(--gold);color:var(--gold)}
+.remove-card-btn.has-winner{right:100px}
+
+/* DIMENSION WINNERS */
+.dim-winner-section{max-width:1240px;margin:0 auto;padding:0 16px 32px}
+.dim-winner-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:16px}
+@media(max-width:700px){.dim-winner-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-winner-item{text-align:center;padding:10px}
+.dim-name{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.dim-school{font-size:12px;font-weight:700;color:var(--gold)}
+.dim-score{font-size:11px;color:var(--cream);opacity:0.5;margin-top:2px}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 24px;color:var(--cream);opacity:0.35}
+.empty-state p{font-size:15px;margin-top:12px}
+
+/* LINE CTA */
+.line-cta{background:#06c755;color:#fff;text-align:center;padding:40px 24px}
+.line-cta h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px}
+.line-cta p{font-size:13px;opacity:0.9;margin-bottom:16px}
+.line-btn{display:inline-block;background:#fff;color:#06c755;padding:12px 28px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none}
+.footer{background:#0d0d0d;color:var(--cream);text-align:center;padding:20px;font-size:12px;opacity:0.5}
+
+/* LANG */
+.lang-en{display:none}
+body.en .lang-th{display:none}
+body.en .lang-en{display:inline}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="/compare.html" class="back-link">&#8592; <span class="lang-th">กลับ LINKEDU</span><span class="lang-en">Back to LINKEDU</span></a>
+  <div class="logo-area">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:32px;width:auto;display:block"><style>.st0{fill:#B8962E;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Overseas Education</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="th">TH</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>
+    <span class="lang-th">โปรไฟล์โรงเรียนแบบภาพ</span>
+    <span class="lang-en">Visual School Profiles</span>
+  </h1>
+  <p>
+    <span class="lang-th">เลือกสูงสุด 3 โรงเรียนเพื่อดูโปรไฟล์เปรียบเทียบพร้อมกราฟ Radar</span>
+    <span class="lang-en">Select up to 3 schools to view visual profiles with radar charts</span>
+  </p>
+</div>
+
+<!-- PICKER -->
+<div class="picker-area">
+  <div class="picker-label">
+    <span class="lang-th">ค้นหาโรงเรียน (สูงสุด 3)</span>
+    <span class="lang-en">Search schools (max 3)</span>
+  </div>
+  <div class="picker-controls">
+    <div class="search-wrap">
+      <input type="text" id="schoolSearch" class="school-search"
+        placeholder="พิมพ์ชื่อโรงเรียน... / Type school name..."
+        autocomplete="off">
+      <div class="dropdown" id="dropdown"></div>
+    </div>
+    <button class="add-btn" id="addBtn" disabled>
+      <span class="lang-th">+ เพิ่ม</span>
+      <span class="lang-en">+ Add</span>
+    </button>
+  </div>
+  <div class="selected-chips" id="chipsRow"></div>
+  <div class="hint-text">
+    <span class="lang-th">เพิ่มโรงเรียนแรกก่อนเพื่อดูโปรไฟล์</span>
+    <span class="lang-en">Add your first school to see its profile</span>
+  </div>
+</div>
+
+<!-- DIMENSION WINNERS (shown when 2+ schools) -->
+<div class="dim-winner-section" id="winnerSection" style="display:none">
+  <div style="font-size:12px;color:#888;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">
+    <span class="lang-th">ผู้นำในแต่ละด้าน</span><span class="lang-en">Leaders by Dimension</span>
+  </div>
+  <div class="dim-winner-grid" id="winnerGrid"></div>
+</div>
+
+<!-- PROFILES GRID -->
+<div class="profiles-section">
+  <div id="emptyState" class="empty-state">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+    </svg>
+    <p><span class="lang-th">เลือกโรงเรียนด้านบนเพื่อดูโปรไฟล์</span><span class="lang-en">Select a school above to view its profile</span></p>
+  </div>
+  <div class="profiles-grid" id="profilesGrid"></div>
+</div>
+
+<!-- LINE CTA -->
+<div class="line-cta">
+  <h3><span class="lang-th">ชอบโรงเรียนไหน?</span><span class="lang-en">Found your perfect school?</span></h3>
+  <p><span class="lang-th">ปรึกษาผู้เชี่ยวชาญ LINKEDU ฟรี ทาง LINE</span><span class="lang-en">Get free expert advice from LINKEDU on LINE</span></p>
+  <a href="https://line.me/ti/p/@linkedu.th" class="line-btn">LINE: @linkedu.th</a>
+</div>
+<div class="footer">© 2025 LINKEDU Overseas Education · linkeduth.netlify.app</div>
+
+<script>
+const SCHOOLS = [
+  {
+    "name": "Brooke House College",
+    "location": "Leicester",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 42900,
+    "fee_thb": 1811705,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Partial (% not published) | 16+: Academic, Football",
+    "a_level": 6.0,
+    "oxbridge": 0,
+    "russell": 3,
+    "boarding_ratio": 93.2,
+    "total_students": 234,
+    "sports": "Football, Basketball",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art & Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Small independent sixth form and EFL college in Market Harborough. Football Academy offered. No national competition achievements."
+  },
+  {
+    "name": "Abbey DLD College (Cambridge)",
+    "location": "Cambridge",
+    "type": "Sixth Form",
+    "entry": "Year 10",
+    "fee_gbp": 37600,
+    "fee_thb": 1634276,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: up to 100% at 13+; up to 20% at 16+ | 13+: Academic | 16+: Academic",
+    "a_level": 60.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 33.2,
+    "total_students": 361,
+    "sports": "Football, Basketball",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Tutorial college and sixth form. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Abbey DLD College (London)",
+    "location": "London",
+    "type": "Sixth Form",
+    "entry": "Year 10",
+    "fee_gbp": 37600,
+    "fee_thb": 1634276,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: Alpha 5–50%; College Awards 5–30% | 16+: Academic",
+    "a_level": 40.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 59.6,
+    "total_students": 386,
+    "sports": "Football, Basketball",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Tutorial college and sixth form. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Abbey DLD College (Manchester)",
+    "location": "Manchester",
+    "type": "Sixth Form",
+    "entry": "Year 10",
+    "fee_gbp": null,
+    "fee_thb": null,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: up to 50% | 16+: Academic",
+    "a_level": 38.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 38.6,
+    "total_students": 210,
+    "sports": "Football, Basketball",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Tutorial college and sixth form. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Abbotsholme",
+    "location": "Rochester",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 20985,
+    "fee_thb": 1905669,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Not publicly stated | 11+: Academic, Agriculture, Art, Drama, Equestrian, Music, Sport | 16+: Academic, Agric",
+    "a_level": 46.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 33.3,
+    "total_students": 255,
+    "sports": "Hockey, Cricket, Football, Netball, Rugby, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Agriculture",
+      "Art & Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2023: Girls hockey team topped Pool E unbeaten (1 win, 2 draws) at the England Hockey Notts Sport Girls Schools Championships. Equestrian riders compe"
+  },
+  {
+    "name": "Abingdon School",
+    "location": "Oxfordshire",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 54780,
+    "fee_thb": 2381001,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: £300/yr (nominal) | 13+: Academic, Music | 16+: Academic, Art, Drama, Music, Product Design, Sport",
+    "a_level": 72.1,
+    "oxbridge": 40,
+    "russell": 100,
+    "boarding_ratio": 12.4,
+    "total_students": 1068,
+    "sports": "Rowing, Rugby, Football, Hockey, Cricket",
+    "sports_count": 5,
+    "a_levels_list": [
+      "25 subjects including: Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "Consistent representation at English or British junior international level in rowing every season since 1991. Won Queen Mother Challenge Cup at Nation"
+  },
+  {
+    "name": "Ardingly College",
+    "location": "West Sussex",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 33903,
+    "fee_thb": 1486307,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: 5–25% | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+",
+    "a_level": 60.0,
+    "oxbridge": 36,
+    "russell": 80.0,
+    "boarding_ratio": 29.9,
+    "total_students": 1049,
+    "sports": "Football, Hockey, Cricket, Swimming",
+    "sports_count": 4,
+    "a_levels_list": [
+      "A Level  and IB Diploma. A Level subjects include: Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "Senior swim squad became Sussex Cup Champions. Six relay teams qualified for ESSA National Finals, with two reaching the final. Sports scholarships of"
+  },
+  {
+    "name": "Ashford School",
+    "location": "Kent",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 44685,
+    "fee_thb": null,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 10–50% of day fee | 11+: Academic, Art, Drama, Music, Piano, Sport, Swimming | 13+: Academic, Art, Drama, Mus",
+    "a_level": 40.4,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 9.9,
+    "total_students": 1082,
+    "sports": "Hockey, Rugby, Netball, Cricket, Swimming",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art and Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: Charlie Barker selected for England U18 Netball squad and signed professional terms with Saracens. 2025: 1st XI Netball became National Plate Ch"
+  },
+  {
+    "name": "Ashville College",
+    "location": "North Yorkshire",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 34965,
+    "fee_thb": 1546180,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Fee discount (% not publicly disclosed) | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama",
+    "a_level": 40.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 7.2,
+    "total_students": 800,
+    "sports": "Rugby, Netball, Hockey, Cricket, Athletics, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "20 A Level subjects including: Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2023: U14 girls netball team reached England Netball National Schools Finals at Oundle School, ranking in UK's top 18 for that age group. A pupil was "
+  },
+  {
+    "name": "Badminton School",
+    "location": "Bristol",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 59796,
+    "fee_thb": 2525238,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: 5–10% | 11+: Academic, All-Rounder, Music, Sport, STEM | 13+: Academic, All-Rounder, Art, Music, Sport, STEM ",
+    "a_level": 60.0,
+    "oxbridge": 2,
+    "russell": 30,
+    "boarding_ratio": 30.8,
+    "total_students": 546,
+    "sports": "Hockey, Netball, Tennis, Athletics, Swimming",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art and Design",
+      "Art History",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Teams have participated in international hockey and netball tours (including trips to Barbados). Elite pathways maintained in hockey, netball and swim"
+  },
+  {
+    "name": "Bede's School",
+    "location": "East Sussex",
+    "type": "Co-Ed",
+    "entry": "Year 5",
+    "fee_gbp": 50745,
+    "fee_thb": 2143007,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: Up to 25% | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+: Academic, Art, Dance, Drama, Music, Sport",
+    "a_level": 78.0,
+    "oxbridge": 1,
+    "russell": 30,
+    "boarding_ratio": 49.8,
+    "total_students": 797,
+    "sports": "Football, Cricket, Tennis, Hockey",
+    "sports_count": 4,
+    "a_levels_list": [
+      "39 A Level/BTEC subjects including: Animal Management",
+      "Art and Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Ranked 15th in School Sport magazine's Top 200 Sports Schools. Girls 1st XI Cricket crowned U18 National 100-Ball Champions (2022). EFSA U18 Boys Foot"
+  },
+  {
+    "name": "Bedford School",
+    "location": "Bedfordshire",
+    "type": "Boys",
+    "entry": "Year 5",
+    "fee_gbp": 30057,
+    "fee_thb": 1771963,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Music = free tuition on 2 instruments; other % not specified | 13+: Academic, Art, Computer Science, Drama, G",
+    "a_level": 53.0,
+    "oxbridge": 1,
+    "russell": 88.0,
+    "boarding_ratio": 23.3,
+    "total_students": 1107,
+    "sports": "Rugby Union, Hockey, Cricket, Rowing",
+    "sports_count": 4,
+    "a_levels_list": [
+      "24 A Level subjects: Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024: U16 Hockey boys reached semi-finals of England Schools Championships; Two Upper Sixth players named in England U18 rugby squad for Six Nations F"
+  },
+  {
+    "name": "Benenden School",
+    "location": "Kent",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 56700,
+    "fee_thb": 2394492,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only | 11+: Academic, Art, Creative Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Ar",
+    "a_level": 70.0,
+    "oxbridge": 0,
+    "russell": 80.0,
+    "boarding_ratio": 95.6,
+    "total_students": 543,
+    "sports": "Lacrosse, Netball, Tennis, Swimming, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art and Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023: Won the Rathbones National Schools Lacrosse Championships 1st team title, defeating Lady Eleanor Holles 3-0 in the final; also held the Vivien J"
+  },
+  {
+    "name": "Berkhamsted School",
+    "location": "Near London",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": null,
+    "fee_thb": 2138332,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: ~10% (fixed discount) | 11+: Academic, Drama, Music, Sport | 13+: Academic, Drama, Music, Sport | 16+: Academ",
+    "a_level": 53.0,
+    "oxbridge": 6,
+    "russell": 64.55,
+    "boarding_ratio": 3.7,
+    "total_students": 1340,
+    "sports": "Rugby, Football, Cricket, Netball, Lacrosse, Swimming",
+    "sports_count": 6,
+    "a_levels_list": [
+      "28 A Level subjects including: Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2023: 1st VII Netball crowned National Schools Finals Champions. 2024: U14s won National Netball Schools Finals; U19s crowned SistersnSport U19 Nation"
+  },
+  {
+    "name": "Bishop's Stortford College",
+    "location": "Near Cambridge & London",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 2039612,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 10–20% (Exhibition: up to 5%; Honorary: no remission) | 11+: Academic, Art, Music, Sport | 13+: Academic, Art",
+    "a_level": 94.0,
+    "oxbridge": 0,
+    "russell": 60.0,
+    "boarding_ratio": 14.4,
+    "total_students": 1283,
+    "sports": "Hockey, Rugby, Cricket, Netball, Swimming, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "23 A Level subjects including: Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024-25: Eight pupils selected for England Hockey Talent Academy; U14 Boys Hockey crowned Hertfordshire County Champions (February 2024), progressing "
+  },
+  {
+    "name": "Bloxham School",
+    "location": "Oxfordshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 50670,
+    "fee_thb": 2139839,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: up to 20% | 11+: Academic, Art, Drama, DT, Music | 13+: Academic, Art, Drama, DT, Music, Sport | 16+: Academi",
+    "a_level": 40.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 70.3,
+    "total_students": 549,
+    "sports": "Rugby, Hockey, Cricket, Netball",
+    "sports_count": 4,
+    "a_levels_list": [
+      "20+ A Level subjects: Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: NSEA Eventer Challenge 90 Champions (equestrian). National Clay Pigeon Shooting title winners — current Independent School Clay Pigeon Shooting "
+  },
+  {
+    "name": "Bosworth Independent College",
+    "location": "Northampton",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 42975,
+    "fee_thb": 1814872,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: 50% or 100% (5 full scholarships annually) | 16+: Academic",
+    "a_level": 85.0,
+    "oxbridge": 0,
+    "russell": 83.0,
+    "boarding_ratio": 75.8,
+    "total_students": 330,
+    "sports": "Football, Basketball",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "Independent sixth form college in Northampton. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Bradfield College",
+    "location": "Reading",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 56190,
+    "fee_thb": 2372954,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (no fee reduction) | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music",
+    "a_level": 43.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 90.0,
+    "total_students": 838,
+    "sports": "Football, Hockey, Cricket, Lacrosse, Netball, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A Level: Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2024: Boys 1st XI won Boodles ISFA Cup (retaining from 2023) — only 3rd school to achieve back-to-back wins in 32 years; retained again in 2025 (winni"
+  },
+  {
+    "name": "Brentwood School",
+    "location": "Essex",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52251,
+    "fee_thb": null,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Not publicly specified | 11+: Academic, Art, Chess, Dance, Drama, Music, Sport | 16+: Academic, Art, Chess, D",
+    "a_level": 37.2,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 3.0,
+    "total_students": 1828,
+    "sports": "Football, Rugby, Hockey, Cricket, Netball, Athletics, Swimming, Tennis",
+    "sports_count": 8,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024: Senior boys A and B golf teams both reached ISGA National Finals — believed first time two teams from same school achieved this; Ski team twins "
+  },
+  {
+    "name": "Brighton College",
+    "location": "Brighton",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 65010,
+    "fee_thb": 2826532,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Undisclosed annual award | 11+: Academic, Art, Chess, Choral, Dance, Design Technology, Drama, Music, Sport |",
+    "a_level": 86.0,
+    "oxbridge": 33,
+    "russell": 0,
+    "boarding_ratio": 36.1,
+    "total_students": 1231,
+    "sports": "Rugby Union, Cricket, Hockey, Netball, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2023-2024: Boys and Girls 1st XI Cricket both won the BOWS Cricket Festival. 1st XI Hockey: St George's Sixes Champions, Independent Schools Hockey Cu"
+  },
+  {
+    "name": "Bromsgrove School",
+    "location": "Worcestershire",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 52254,
+    "fee_thb": 2206733,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Sport",
+    "a_level": 39.8,
+    "oxbridge": 2,
+    "russell": 0,
+    "boarding_ratio": 31.9,
+    "total_students": 1766,
+    "sports": "Rugby, Hockey, Cricket, Netball, Swimming, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "End of 2025 TBC"
+    ],
+    "public_school": false,
+    "competition": "Nationally ranked top-five sports school in 2024 (School Sport Magazine Top 200). Regular national finalists in hockey, netball, rugby, swimming and c"
+  },
+  {
+    "name": "Bryanston School",
+    "location": "Dorset",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 56523,
+    "fee_thb": 2498989,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Honorary up to 10% | 13+: Academic, All-Rounder, Art, Design Technology, Music, Performing Arts, Sport | 16+:",
+    "a_level": 33.3,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 73.9,
+    "total_students": 793,
+    "sports": "Rugby, Football, Hockey, Cricket, Netball, Rowing, Tennis",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2024: Jamie Pollock became first Bryanston boy selected for GB U19 World Rowing Championship Team, finishing 6th globally in coxless pair; Seni (Year "
+  },
+  {
+    "name": "Burgess Hill Girls",
+    "location": "West Sussex",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 38745,
+    "fee_thb": 1636236,
+    "scholarship_pct": 40,
+    "scholarship_raw": "Remission: 5–40% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Ar",
+    "a_level": 68.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 12.6,
+    "total_students": 342,
+    "sports": "Hockey, Netball, Football, Cricket, Athletics, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023-24: Intermediate athletics team won their age category at ESAA Regional B Final with 368 points. Equestrian team qualified for and competed at NS"
+  },
+  {
+    "name": "Cardiff Sixth Form College",
+    "location": "Cardiff",
+    "type": "Sixth Form",
+    "entry": "Year 10",
+    "fee_gbp": 62095,
+    "fee_thb": 2699792,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: Up to 100% (domestic day); up to 50% tuition (international) | 16+: Academic",
+    "a_level": 90.7,
+    "oxbridge": 12,
+    "russell": 71.0,
+    "boarding_ratio": 82.6,
+    "total_students": 367,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Independent sixth form college in Cardiff. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Caterham School",
+    "location": "Surrey",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52620,
+    "fee_thb": 2287834,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: Up to 10% (up to 50% exceptional) | 11+: Academic, Art, Chess, Dance, Drama, Innovation, Music, Sport | 13+: ",
+    "a_level": 71.0,
+    "oxbridge": 3,
+    "russell": 100,
+    "boarding_ratio": 16.4,
+    "total_students": 1000,
+    "sports": "Rugby, Hockey, Cricket, Netball, Lacrosse",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "School fields A to E teams across multiple sports and competes in Surrey and regional fixtures. Extensive inter-house and fixture programme in place. "
+  },
+  {
+    "name": "Charterhouse",
+    "location": "Surrey",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 56418,
+    "fee_thb": 2452965,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Honorary (£60 token) | 13+: Academic, Art & Textiles, Dance, Design Engineering, Drama, Music, Performing Art",
+    "a_level": 62.0,
+    "oxbridge": 2,
+    "russell": 98,
+    "boarding_ratio": 96.9,
+    "total_students": 798,
+    "sports": "Football, Hockey, Cricket, Netball, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "Charterhouse competes at national level in football (ISFA) and hockey (national cups). Runs 22 football teams and 19 hockey teams. Historical ISFA tit"
+  },
+  {
+    "name": "Cheltenham College",
+    "location": "Gloucestershire\n\nNear Bristol",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 57780,
+    "fee_thb": 2440101,
+    "scholarship_pct": 15,
+    "scholarship_raw": "Remission: Scholarships up to 15%; Exhibitions up to 10% | 13+: Academic, Art, Choral, Drama, Music, Sport | 16+: Academ",
+    "a_level": 75.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 80.0,
+    "total_students": 736,
+    "sports": "Rugby, Cricket, Hockey, Netball, Tennis",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": true,
+    "competition": "Won SUPA (Schools and Universities Polo Association) Open National Championship in 2023 and 2024; won Intermediate National Championship 2023. Listed "
+  },
+  {
+    "name": "Cheltenham Ladies' College",
+    "location": "Near Oxford & Birmingham",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 55350,
+    "fee_thb": 2337480,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (no fee reduction) | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, A",
+    "a_level": 76.7,
+    "oxbridge": 8,
+    "russell": 66.0,
+    "boarding_ratio": 79.5,
+    "total_students": 884,
+    "sports": "Hockey, Lacrosse, Netball, Tennis, Swimming, Athletics, Rowing",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023: U14 Netball won Gloucestershire County Tournament and qualified for Regional Finals; U14 Lacrosse semi-final of Schools Championship; U15 Lacros"
+  },
+  {
+    "name": "Christ's Hospital School",
+    "location": "West Sussex",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 38790,
+    "fee_thb": 1858455,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Up to 20% of assessed fee, or honorary | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama,",
+    "a_level": 53.0,
+    "oxbridge": 3,
+    "russell": 0,
+    "boarding_ratio": 93.3,
+    "total_students": 900,
+    "sports": "Football, Rugby Union, Hockey, Netball, Cricket, Athletics, Swimming",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Students regularly selected for county and regional squads in hockey, netball, and athletics. Students hold selections for Harlequins rugby academy an"
+  },
+  {
+    "name": "City of London Freeman (Year 7 Day)",
+    "location": "London",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 54570,
+    "fee_thb": 2413036,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 5% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, Art, Design Technology, Dram",
+    "a_level": 72.0,
+    "oxbridge": 4,
+    "russell": 70.0,
+    "boarding_ratio": 7.0,
+    "total_students": 944,
+    "sports": "Rugby, Hockey, Football, Netball, Cricket, Tennis, Athletics",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "Competes in regular fixtures against leading South East independent schools. Coaching partnerships with Surrey Elite Player Programme (netball), Surre"
+  },
+  {
+    "name": "Clifton College",
+    "location": "Bristol",
+    "type": "Co-Ed",
+    "entry": "Year 4",
+    "fee_gbp": 42090,
+    "fee_thb": 1752379,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Music, Per",
+    "a_level": 58.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 57.8,
+    "total_students": 1111,
+    "sports": "Rugby Union, Hockey, Cricket, Netball",
+    "sports_count": 4,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": true,
+    "competition": "2024: Girls 1st XI Hockey runners-up at England Hockey U18 National Finals (Tier 1); runners-up Independent Schools Hockey Cup; U16 Girls Hockey Top 8"
+  },
+  {
+    "name": "Concord College",
+    "location": "Shropshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 61764,
+    "fee_thb": 2608349,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 5–10% (Principal's Scholar up to 50%) | 13+: Academic | 16+: Academic",
+    "a_level": 74.0,
+    "oxbridge": 12,
+    "russell": 69.0,
+    "boarding_ratio": 80.1,
+    "total_students": 592,
+    "sports": "Swimming, Badminton, Netball, Tennis, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023-24: Menna won the Shropshire 300m County Club Championship for the 4th consecutive year; athletics team achieved all-podium results at the Shrops"
+  },
+  {
+    "name": "Culford School",
+    "location": "Suffolk",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 40755,
+    "fee_thb": 1792918,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: up to 10% | 11+: Academic, Art, Sport, Technology | 13+: Academic, Art, DT, Drama, Music, Sport | 16+: Academ",
+    "a_level": 41.0,
+    "oxbridge": 0,
+    "russell": 85.0,
+    "boarding_ratio": 28.3,
+    "total_students": 867,
+    "sports": "Rugby, Hockey, Cricket, Netball, Athletics, Cross Country, Tennis, Golf, Football, Swimming",
+    "sports_count": 10,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2023: U18 Boys Tennis crowned National Champions (LTA ranks Culford the best co-educational school for tennis in the UK). Eastern Junior Regional Perf"
+  },
+  {
+    "name": "D'Overbroeks College",
+    "location": "Oxford",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": null,
+    "fee_thb": 2695264,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: up to 25% of tuition | 16+: Academic, Art, Drama, Media, Music, Sport, Tennis Academy",
+    "a_level": 66.0,
+    "oxbridge": 50,
+    "russell": 0,
+    "boarding_ratio": 38.9,
+    "total_students": 666,
+    "sports": "PE, Football, Basketball",
+    "sports_count": 3,
+    "a_levels_list": [
+      "Accounting",
+      "Ancient History",
+      "Art"
+    ],
+    "public_school": false,
+    "competition": "Independent sixth form college in Oxford. Minimal competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Dean Close School",
+    "location": "Gloucestershire",
+    "type": "Co-Ed",
+    "entry": "2-18 years old",
+    "fee_gbp": 57450,
+    "fee_thb": 2442888,
+    "scholarship_pct": 40,
+    "scholarship_raw": "Remission: Up to 40% (Academic/Music/Sport), up to 20% (Drama), up to 15% (Art/DT) | 11+: Academic, Art, Drama, Music, S",
+    "a_level": 34.0,
+    "oxbridge": 0,
+    "russell": 54.0,
+    "boarding_ratio": 48.0,
+    "total_students": 900,
+    "sports": "Rugby, Hockey, Cricket, Netball, Tennis",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "Hockey: Boys and girls national finalists every year since 2009; 50+ national finals under Gary Tredgett. 2023: U16 Girls won Indoor Schools Super 6s "
+  },
+  {
+    "name": "Dulwich College",
+    "location": "London",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 47949,
+    "fee_thb": 2666227,
+    "scholarship_pct": 33,
+    "scholarship_raw": "Remission: 10–33% | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, Music, Sport",
+    "a_level": 69.0,
+    "oxbridge": 198,
+    "russell": 0,
+    "boarding_ratio": 7.0,
+    "total_students": 1854,
+    "sports": "Rugby, Football, Hockey, Cricket, Athletics, Swimming",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Strong tradition in rowing with Dulwich College Boat Club national titles. An England U16 international football cap for a Year 11 pupil noted in 2024"
+  },
+  {
+    "name": "Earlscliff school",
+    "location": "Folkestone",
+    "type": "Sixth Form",
+    "entry": "Year 11",
+    "fee_gbp": null,
+    "fee_thb": 1567473,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: up to 50% tuition and boarding fees | 16+: Academic",
+    "a_level": 0,
+    "oxbridge": 1,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 0,
+    "sports": "Football, Basketball, Swimming",
+    "sports_count": 3,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "International sixth form college in Folkestone with Wednesday afternoon sports and a dedicated Basketball Academy. No competitive inter-school fixture"
+  },
+  {
+    "name": "Eastbourne College",
+    "location": "East Sussex",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52959,
+    "fee_thb": 2236506,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 5–20% (up to 50% exceptional) | 13+: Academic, All-Rounder, Art, Dance, DT, Drama, Music, Sport | 16+: Academ",
+    "a_level": 50.0,
+    "oxbridge": 3,
+    "russell": 46.0,
+    "boarding_ratio": 43.8,
+    "total_students": 621,
+    "sports": "Rugby Union, Hockey, Cricket, Netball, Tennis, Swimming, Athletics",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": true,
+    "competition": "2024: Boys won the Bath Cup (national independent schools swimming). 2025: Boys retained Bath Cup — only 2nd school in 40 years to win both trophies s"
+  },
+  {
+    "name": "Ellesmere College",
+    "location": "Shropshire",
+    "type": "Co-Ed",
+    "entry": "Year 8",
+    "fee_gbp": 37965,
+    "fee_thb": null,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: up to 50%; Adlard Art Scholarship 50% at 16+ | 13+: Academic, Art, Drama, Music, Organ, Sport | 16+: Academic",
+    "a_level": 98.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 40.0,
+    "total_students": 500,
+    "sports": "Rugby, Hockey, Cricket, Football, Swimming, Shooting, Tennis",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "Swimming Academy athletes have achieved World Senior Medals, International Junior Medals and British Age Group Records. Won the National Arena Junior "
+  },
+  {
+    "name": "Epsom College",
+    "location": "Surrey",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 55158,
+    "fee_thb": 2329371,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: £750–£6,000/yr | 11+: Academic, Drama, Music, Sport | 13+: Academic, Drama, Music, Sport | 16+: Academic, Dra",
+    "a_level": 62.0,
+    "oxbridge": 10,
+    "russell": 77.0,
+    "boarding_ratio": 34.6,
+    "total_students": 890,
+    "sports": "Hockey, Football, Netball, Rugby, Cricket, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024: Girls U14 Hockey National Champions (with two other teams reaching national semi-finals). Boys squash: multiple national titles in 2023 and 2024"
+  },
+  {
+    "name": "Eton College",
+    "location": "Berkshire",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 63300,
+    "fee_thb": 2752656,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: Academic = honorary; Music = free tuition; Orwell Award (16+, state school) = 100% fees | 13+: Academic (King",
+    "a_level": 84.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 100.0,
+    "total_students": 1344,
+    "sports": "Football, Rugby Union, Hockey, Cricket, Rowing, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A-Level and Pre-U options: Ancient Greek",
+      "Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2023: 1st XV rugby invited to World Schools Festival in Thailand (December 2023). Eton Fives National Schools Championships contested at Shrewsbury 20"
+  },
+  {
+    "name": "Haileybury",
+    "location": "Hertfordshire",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 33990,
+    "fee_thb": 1435428,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Not publicly specified | 11+: Academic, Art, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mus",
+    "a_level": 53.0,
+    "oxbridge": 3,
+    "russell": 77.0,
+    "boarding_ratio": 63.9,
+    "total_students": 902,
+    "sports": "Hockey, Rugby, Netball, Cricket",
+    "sports_count": 4,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2023-2024: Three hockey players selected for England Hockey junior squads. 1st Girls Netball won Hertfordshire county title. U19 Netball qualified for"
+  },
+  {
+    "name": "Handcross Park School",
+    "location": "Brighton",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": null,
+    "fee_thb": 2284502,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: N/A | Prep school (ages 2–13); pupils sit external 13+ scholarships to senior schools on leaving",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 11.6,
+    "total_students": 493,
+    "sports": "Football, Rugby, Hockey, Cricket, Athletics, Netball, Swimming",
+    "sports_count": 7,
+    "a_levels_list": [
+      "N/A"
+    ],
+    "public_school": false,
+    "competition": "School enters county, regional and national IAPS tournaments across multiple sports. Hockey has achieved county and regional level competition success"
+  },
+  {
+    "name": "Harrow School",
+    "location": "London",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 61584,
+    "fee_thb": 2678035,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: 5–10% | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+: Academic, Art, Drama, Music, Sport",
+    "a_level": 52.8,
+    "oxbridge": 11,
+    "russell": 0,
+    "boarding_ratio": 100.0,
+    "total_students": 840,
+    "sports": "Cricket, Rugby Union, Football, Harrow Football, Rackets",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Ancient History",
+      "Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Won SOCS Daily Mail Schools Trophy (national rugby, 140+ schools) in both 2022-23 and 2023-24 — back-to-back unbeaten seasons. Won U18 National School"
+  },
+  {
+    "name": "Headington School",
+    "location": "Oxford",
+    "type": "Girls",
+    "entry": "Year 5",
+    "fee_gbp": 50943,
+    "fee_thb": 2151368,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Honorary (standard); 10% (Special Awards at 16+ only) | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+:",
+    "a_level": 61.0,
+    "oxbridge": 6,
+    "russell": 0,
+    "boarding_ratio": 23.4,
+    "total_students": 896,
+    "sports": "Hockey, Netball, Rowing, Athletics, Cricket",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2023 National Schools Regatta: 4 gold medals including J15 Girls Second Eights and J15 Girls First Coxed Quads. Multiple GB U16/U18 rowing squad selec"
+  },
+  {
+    "name": "Hurtwood House",
+    "location": "Surrey",
+    "type": "Sixth Form",
+    "entry": "Year 11",
+    "fee_gbp": 65256,
+    "fee_thb": 2757757,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: Performing Arts 10–50%; Maths/Science £1,000–4,000/term | 16+: Maths/Science, Performing Arts",
+    "a_level": 67.8,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 81.0,
+    "total_students": 363,
+    "sports": "Football, Hockey, Netball, Cricket, Basketball, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "Sport is non-compulsory at Hurtwood House, which is primarily known for performing arts. The school runs inter-school fixtures across football, hockey"
+  },
+  {
+    "name": "Kent College Canterbury",
+    "location": "Kent",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 27978,
+    "fee_thb": null,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: up to 50% tuition; most awards ~20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Design, D",
+    "a_level": 40.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 31.0,
+    "total_students": 490,
+    "sports": "Hockey, Cricket, Rugby, Football, Netball, Tennis, Athletics",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "Hockey programme led by Olympian Alastair Brogdon (150 GB caps); U13 hockey team are National Plate Champions (recent season). 6 current pupils repres"
+  },
+  {
+    "name": "King's College, Taunton",
+    "location": "Somerset",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 41400,
+    "fee_thb": 2363095,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: up to 20% at 13+; up to 50% at 16+ | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, DT, Drama, Musi",
+    "a_level": 47.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 63.8,
+    "total_students": 470,
+    "sports": "Cricket, Rugby, Football, Hockey, Swimming, Tennis, Athletics",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2023: Won the National Schools T20 Cricket Cup double — U18 1st XI won National T20 U18 Cup (at Arundel Castle) for the first time, AND U15 team won N"
+  },
+  {
+    "name": "King's School Canterbury",
+    "location": "Kent",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52344,
+    "fee_thb": 2210534,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Fraction of annual fees (exact % undisclosed) | 13+: Academic, Art, Dance, DT, Drama, Music, Sport | 16+: Aca",
+    "a_level": 51.8,
+    "oxbridge": 9,
+    "russell": 81.0,
+    "boarding_ratio": 77.9,
+    "total_students": 946,
+    "sports": "Rugby, Hockey, Cricket, Netball, Fencing, Rowing",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Ancient Greek",
+      "Art",
+      "Astronomy"
+    ],
+    "public_school": true,
+    "competition": "2024: Boys fencing squad retained team Epee trophy for third consecutive year at Public Schools Fencing Championships; Girls squad runners-up. Fencers"
+  },
+  {
+    "name": "Kingswood School",
+    "location": "Bath",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 32268,
+    "fee_thb": 1772658,
+    "scholarship_pct": 15,
+    "scholarship_raw": "Remission: 5–15% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Art, Design ",
+    "a_level": 67.0,
+    "oxbridge": 192,
+    "russell": 0,
+    "boarding_ratio": 23.4,
+    "total_students": 812,
+    "sports": "Rugby Union, Hockey, Cricket, Netball, Tennis, Athletics, Cross Country",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Fine Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023-2024: U16 Plate winners at Rosslyn Park Rugby 7s Festival. 1st place at Canford Cross Country Relays. Partnership with Bath Rugby Academy produci"
+  },
+  {
+    "name": "Lancing College",
+    "location": "West Sussex",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": null,
+    "fee_thb": 2251709,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: 5–10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Art, Drama, ",
+    "a_level": 52.0,
+    "oxbridge": 0,
+    "russell": 73.83,
+    "boarding_ratio": 55.1,
+    "total_students": 575,
+    "sports": "Hockey, Football, Netball, Tennis, Cricket",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": true,
+    "competition": "2024: Girls Junior swimming championship shield at Sussex County Championships; Senior boys 1st XI Hockey beat Barcelona Hockey Club; Boys 1st team te"
+  },
+  {
+    "name": "Leighton Park School",
+    "location": "Reading",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 34800,
+    "fee_thb": 1854395,
+    "scholarship_pct": 30,
+    "scholarship_raw": "Remission: 5–30%; honorary also awarded | 11+: Academic, Art, Dance, Drama, Ethical Changemaking, Music, Sport, STEAM | ",
+    "a_level": 4100.0,
+    "oxbridge": 0,
+    "russell": 45.0,
+    "boarding_ratio": 31.0,
+    "total_students": 474,
+    "sports": "Football, Hockey, Netball",
+    "sports_count": 3,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024-25: Brothers Oliver and George selected for England Hockey U18 and U16 group squads. U13 and U15 girls football teams won their leagues undefeate"
+  },
+  {
+    "name": "Loretto School\n(Scotland)",
+    "location": "East Lothian",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 40380,
+    "fee_thb": 1744036,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Scholarship 10% day fees; Exhibition 5% day fees | 13+: Academic, Art, Drama, Golf, Music, Piping & Drumming,",
+    "a_level": 33.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 39.0,
+    "total_students": 500,
+    "sports": "Rugby, Hockey, Cricket, Lacrosse, Golf",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2023: Old Lorettonian Golfing Society won Halford Hewitt Cup for third consecutive year (only second team in history to achieve this). Loretto Golf Ac"
+  },
+  {
+    "name": "MPW Birmingham",
+    "location": "Birmingham",
+    "type": "Sixth Form",
+    "entry": "Year 12",
+    "fee_gbp": 59000,
+    "fee_thb": 2491623,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: case-by-case (not publicly published) | 16+: Academic",
+    "a_level": 45.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 25.0,
+    "total_students": 200,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Art and Design"
+    ],
+    "public_school": false,
+    "competition": "MPW (Mander Portman Woodward) is a tutorial and crammer college. No competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "MPW Cambridge",
+    "location": "Cambridge",
+    "type": "Sixth Form",
+    "entry": "Year 12",
+    "fee_gbp": 62450,
+    "fee_thb": 2637319,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: 15–40%; Woodward Scholarship up to 100% | 16+: Academic, Art, Drama, English Literature (Woodward Scholarship",
+    "a_level": 45.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 50.0,
+    "total_students": 250,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Art and Design"
+    ],
+    "public_school": false,
+    "competition": "MPW (Mander Portman Woodward) is a tutorial and crammer college. No competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "MPW London",
+    "location": "London",
+    "type": "Sixth Form",
+    "entry": "Year 10",
+    "fee_gbp": 69750,
+    "fee_thb": 2945605,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: 15–40%; Woodward Scholarship up to 100% | 16+: Academic, Art, Drama, English Literature (Woodward Scholarship",
+    "a_level": 45.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 30.0,
+    "total_students": 600,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Accounting",
+      "Art and Design",
+      "Art and Design"
+    ],
+    "public_school": false,
+    "competition": "MPW (Mander Portman Woodward) is a tutorial and crammer college. No competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Malvern College",
+    "location": "Worcestershire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 41700,
+    "fee_thb": 2384315,
+    "scholarship_pct": 15,
+    "scholarship_raw": "Remission: up to 15% total (cap) | 13+: Academic, Art & Design, Drama, Music, Sport | 16+: Academic, Art & Design, Drama",
+    "a_level": 43.0,
+    "oxbridge": 0,
+    "russell": 67.0,
+    "boarding_ratio": 78.0,
+    "total_students": 640,
+    "sports": "Rugby, Cricket, Hockey, Football, Hockey, Lacrosse, Netball, Tennis, Athletics",
+    "sports_count": 9,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": true,
+    "competition": "Won the national U18 T20 cricket championship 2019 and 2021. Girls football: several players in U18 England national development squad (2023-24). One "
+  },
+  {
+    "name": "Marlborough College",
+    "location": "Marlborough",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 59142,
+    "fee_thb": 2606414,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Honorary; Directors’ Awards up to 20% (Music, Sport) | 13+: Academic, Art, DT, Drama, Music, Sport | 16+: Aca",
+    "a_level": 45.0,
+    "oxbridge": 50,
+    "russell": 80.0,
+    "boarding_ratio": 100.0,
+    "total_students": 1011,
+    "sports": "Hockey, Cricket, Rugby Union, Football, Netball, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art & Design",
+      "Astronomy",
+      "Biology"
+    ],
+    "public_school": true,
+    "competition": "2024: U16A Girls Hockey crowned Tier 2 National Plate Champions at Lee Valley; Boys John Harvey Cup won in 2023 and 2024; Junior Colts won Clark-Willi"
+  },
+  {
+    "name": "Mayfield School",
+    "location": "East Sussex\nNear Kent",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 53910,
+    "fee_thb": 2363414,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: 10–20% | 11+: Academic, Art, Choral, Dance, Drama, Music, Riding, Sport | 13+: Academic, Art, Choral, Dance, ",
+    "a_level": 50.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 40.0,
+    "total_students": 395,
+    "sports": "Hockey, Netball, Cricket, Tennis, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art and Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023-2024: Equestrian team won a record-breaking eight national titles at the NSEA National Schools Championships. Named in The Cricketer's Top 20 All"
+  },
+  {
+    "name": "Merchiston Castle School (Scotland)",
+    "location": "Edinburgh",
+    "type": "Boys",
+    "entry": "Year 7",
+    "fee_gbp": 36288,
+    "fee_thb": 1567300,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 5% of fees | 13+: Academic, All-Rounder, Art & Design, DT, Music (incl. Piping), Sport | 16+: Academic, All-R",
+    "a_level": 59.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 65.0,
+    "total_students": 470,
+    "sports": "Rugby, Cricket, Athletics",
+    "sports_count": 3,
+    "a_levels_list": [
+      "A-Level / Scottish Highers : Art and Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023: Oliver Hairs represented the full Scotland national cricket team while still at school and was part of the Scotland squad that qualified for the"
+  },
+  {
+    "name": "Mill Hill School",
+    "location": "London",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52320,
+    "fee_thb": 2209521,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: up to 10% | 13+: Academic, Art & Design, Drama, DT, Music, Sport | 16+: Academic, Art & Design, Drama, DT, Mu",
+    "a_level": 45.7,
+    "oxbridge": 1,
+    "russell": 0,
+    "boarding_ratio": 22.9,
+    "total_students": 850,
+    "sports": "Rugby, Hockey, Football, Cricket, Netball",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "Named Independent School of the Year for Sporting Achievement 2024-25. Pupils represented England in rugby, England Hockey Talent Academy (6 pupils), "
+  },
+  {
+    "name": "Millfield School",
+    "location": "Somerset",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": null,
+    "fee_thb": 2412735,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Up to 10% | 13+: Academic, Art, Chess, Dance, Drama, Music, Product Design, Sport | 16+: Academic, Art, Chess",
+    "a_level": 31.0,
+    "oxbridge": 5,
+    "russell": 100,
+    "boarding_ratio": 74.3,
+    "total_students": 1312,
+    "sports": "Football, Hockey, Rugby, Cricket, Tennis, Athletics, Netball, Basketball",
+    "sports_count": 8,
+    "a_levels_list": [
+      "27 A-level subjects: Art and Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2025 National Football Champions, 2025 Rugby Schools Championship, 2025 National Fencing Champions (12th consecutive), 2025 National Netball Champions"
+  },
+  {
+    "name": "Milton Abbey School",
+    "location": "Near Southampton",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 59745,
+    "fee_thb": 2628337,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: 10% standard; Dorset Award 20% | 13+: Academic, Art, Design, Drama, Music, Performing Arts, Sailing, Sport | ",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 0,
+    "sports": "Football, Hockey, Rugby, Cricket, Netball",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2024-25: First XI reached the ISFA Shield with a 4-3 comeback win; Junior team defeated Marlborough College 2-1 to reach Round 3 of the ISFA U15 Cup ("
+  },
+  {
+    "name": "Moreton Hall",
+    "location": "Near Liverpool",
+    "type": "Co-Ed",
+    "entry": "Year 4",
+    "fee_gbp": 35469,
+    "fee_thb": 1554960,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Up to 20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic",
+    "a_level": 45.0,
+    "oxbridge": 4,
+    "russell": 0,
+    "boarding_ratio": 34.5,
+    "total_students": 417,
+    "sports": "Lacrosse, Hockey, Netball, Tennis, Athletics, Cross Country",
+    "sports_count": 6,
+    "a_levels_list": [
+      "22 A-level subjects: Art and Design",
+      "Art and Design",
+      "Art and Design"
+    ],
+    "public_school": false,
+    "competition": "2024: Won U19 National Schools Lacrosse Championship for the first time in school history, beating Godolphin in the final (March 2024). Three pupils s"
+  },
+  {
+    "name": "Mount Kelly",
+    "location": "England",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 35370,
+    "fee_thb": 1490335,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Up to 10% (Westall Award: full day fee at 16+) | 11+: Academic, Art, Drama, Music, Sport, Swimming | 13+: Aca",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 391,
+    "sports": "Swimming, Rugby, Cricket, Tennis, Athletics, Cross Country",
+    "sports_count": 6,
+    "a_levels_list": [
+      "20 A-level subjects: Art & Design",
+      "Art & Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2023: ESSA National Finals — two national records, three gold medals and four silvers. National Arena Swimming League Cup Final winners (2020, 2022). "
+  },
+  {
+    "name": "Myddelton College",
+    "location": "North Wales",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 45000,
+    "fee_thb": 1924920,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: Up to 100% | 11+: Academic, Art, Drama, ICT, Music, Sport | 13+: Academic, Art, Drama, ICT, Music, Sport | 16",
+    "a_level": 80.0,
+    "oxbridge": 0,
+    "russell": 60.0,
+    "boarding_ratio": 0,
+    "total_students": 300,
+    "sports": "Football, Rugby, Hockey, Netball, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art and Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "College has produced athletes competing in national teams in triathlon, swimming, gymnastics, horse riding, sailing, climbing and ice skating. Footbal"
+  },
+  {
+    "name": "Oakham School",
+    "location": "Rutland",
+    "type": "Co-Ed",
+    "entry": "Year 6",
+    "fee_gbp": 4065053064,
+    "fee_thb": 2326325,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Small/not publicly specified | 11+: Academic, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mu",
+    "a_level": 36.0,
+    "oxbridge": 0,
+    "russell": 8,
+    "boarding_ratio": 47.4,
+    "total_students": 973,
+    "sports": "Rugby, Hockey, Netball, Cricket, Athletics, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "End of 2025 TBC"
+    ],
+    "public_school": false,
+    "competition": "2023: Boys 1st XV won National Schools Rugby Cup (third national title overall). 2024: U16 Boys won Plate at National Schools Rugby Cup; U14 Girls run"
+  },
+  {
+    "name": "Oundle School",
+    "location": "Peterborough",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 59400,
+    "fee_thb": 2629150,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Art,",
+    "a_level": 61.0,
+    "oxbridge": 10,
+    "russell": 75.0,
+    "boarding_ratio": 74.6,
+    "total_students": 1100,
+    "sports": "Rugby, Hockey, Cricket, Rowing, Netball",
+    "sports_count": 5,
+    "a_levels_list": [
+      "29 A-level subjects: Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "2023: 1st XV Rugby won Northamptonshire County Cup with 15-0 unbeaten season; Regained Silver Boot Trophy vs Uppingham; U14 Boys Cricket won County Cu"
+  },
+  {
+    "name": "Oxford International College",
+    "location": "Oxford",
+    "type": "Sixth Form",
+    "entry": "Year 11",
+    "fee_gbp": 33637,
+    "fee_thb": 1420541,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: partial to 100% | 16+: Academic",
+    "a_level": 91.1,
+    "oxbridge": 13,
+    "russell": 85.0,
+    "boarding_ratio": 100.0,
+    "total_students": 360,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "16 A-level subjects: Mathematics",
+      "Further Mathematics",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Sixth form / tutorial college in Oxford. No competitive sports programme. No national competition achievements."
+  },
+  {
+    "name": "Plymouth College",
+    "location": "England",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 42750,
+    "fee_thb": 1801296,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 5–10% standard, up to 50% | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Sport",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 403,
+    "sports": "Rugby, Hockey, Football, Netball, Cricket, Swimming, Diving",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2023: Ollie Heath won Gold for GB at Junior European Fencing/Modern Pentathlon Championships. 2024: Plymouth Diving (with Plymouth Diving Club) claime"
+  },
+  {
+    "name": "Queen Anne's School",
+    "location": "Reading",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 57546,
+    "fee_thb": 2522816,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: £500/yr Academic, free tuition Music, £300/yr others | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: ",
+    "a_level": 36.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 46.5,
+    "total_students": 400,
+    "sports": "Lacrosse, Netball, Tennis, Swimming, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Animation",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2024: Senior Lacrosse competed in National Challenge Cup; Hannah's 4-person rowing team won J18 trophy at Wallingford Regatta. 2025: U19A Lacrosse cro"
+  },
+  {
+    "name": "Queen Ethelburga's Collegiate",
+    "location": "York",
+    "type": "Co-Ed",
+    "entry": "Year 1",
+    "fee_gbp": 69990,
+    "fee_thb": null,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Scholarships withdrawn for new pupils (school absorbed VAT impact); no current merit scholarships available",
+    "a_level": 78.0,
+    "oxbridge": 1,
+    "russell": 60.92,
+    "boarding_ratio": 62.0,
+    "total_students": 866,
+    "sports": "Football, Rugby Union, Cricket, Hockey, Netball, Basketball, Athletics, Swimming",
+    "sports_count": 8,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "2024: Named in The Cricketer Magazine Schools Guide Top 100 Senior Schools for Cricket. 2025: Named in The Cricketer Top 100 again. ISA Senior School "
+  },
+  {
+    "name": "Queenswood School",
+    "location": "Hertfordshire\nNear London",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 1661886,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 10% standard; Sixth Form Academic up to 50% | 11+: Academic, Art, Dance, Drama, Hockey, Music, Sport, Tennis ",
+    "a_level": 67.1,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 27.1,
+    "total_students": 468,
+    "sports": "Hockey, Netball, Tennis, Athletics, Cross Country",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "UK's No. 1 school for girls' tennis (LTA ranking) since 2018. Won the Aberdare Cup (U18 National Schools Tennis Championship) 28th time in 2023 and 29"
+  },
+  {
+    "name": "Radley College",
+    "location": "Oxfordshire",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 57600,
+    "fee_thb": 2432499,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (no fee reduction) | 13+: Academic, Art, Drama, Innovation, Music, Sport",
+    "a_level": 62.0,
+    "oxbridge": 1,
+    "russell": 90.0,
+    "boarding_ratio": 99.0,
+    "total_students": 767,
+    "sports": "Rugby Union, Hockey, Rowing, Cricket, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2023 National Schools Regatta: won 4 gold medals plus silver and bronze. 2024 National Schools Regatta: silver in Open Championship Eight (behind St P"
+  },
+  {
+    "name": "Repton School",
+    "location": "Derbyshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 54825,
+    "fee_thb": 2206986,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Honorary up to 10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic,",
+    "a_level": 42.0,
+    "oxbridge": 0,
+    "russell": 60.0,
+    "boarding_ratio": 67.3,
+    "total_students": 617,
+    "sports": "Football, Hockey, Cricket, Netball, Tennis",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": true,
+    "competition": "Named UK's Best Independent School for Sport in The Week's 2025 Schools Guide. U18 and U16 Girls Hockey both won national titles (2024 and 2025); 57th"
+  },
+  {
+    "name": "Roedean School",
+    "location": "Brighton",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 48375,
+    "fee_thb": 2042919,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: £2,500/yr | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: Academic, Art, Dance, Drama, Music, Sport |",
+    "a_level": 57.2,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 49.2,
+    "total_students": 675,
+    "sports": "Hockey, Netball, Cricket, Swimming",
+    "sports_count": 4,
+    "a_levels_list": [
+      "End of 2025 TBC"
+    ],
+    "public_school": false,
+    "competition": "School competes across approximately 600 fixtures per year in 14 sports. Consistent regional participation in hockey, netball and cricket. No major na"
+  },
+  {
+    "name": "Rossall School",
+    "location": "Lancashire",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 54648,
+    "fee_thb": 2404107,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: Up to 50% (typically 5–20%) | 11+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Spo",
+    "a_level": 44.0,
+    "oxbridge": 59,
+    "russell": 80.0,
+    "boarding_ratio": 38.2,
+    "total_students": 710,
+    "sports": "Football, Hockey, Rugby Union, Cricket, Netball, Golf",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Fine Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2022-2023: Girls Football Academy won ESFA/ISFA national trophy two consecutive years. Golf Academy consistently ranked #1 in the UK by the ISGA. 2024"
+  },
+  {
+    "name": "Royal High School, Bath",
+    "location": "Bath",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 1885912,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: up to 10% | 11+: Academic, Art & Design, Dance, Drama, DT, Music, Sport | 13+: Academic, Art & Design, Dance,",
+    "a_level": 43.0,
+    "oxbridge": 0,
+    "russell": 50.0,
+    "boarding_ratio": 18.8,
+    "total_students": 605,
+    "sports": "Hockey, Netball, Tennis, Cricket, Athletics, Gymnastics, Cross Country, Swimming",
+    "sports_count": 8,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Competes in GDST tournaments, county and regional competitions. Staff include resident netball and hockey internationals. No confirmed national titles"
+  },
+  {
+    "name": "Royal Hospital School",
+    "location": "Suffolk",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 41250,
+    "fee_thb": 1813510,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: Modest (some honorary); De Neumann Maths Award up to 100% | 11+: Academic, Creativity, Drama, Music, Sailing,",
+    "a_level": 41.3,
+    "oxbridge": 1,
+    "russell": 48.0,
+    "boarding_ratio": 63.5,
+    "total_students": 734,
+    "sports": "Sailing, Rugby, Hockey, Cricket, Netball, Athletics, Tennis",
+    "sports_count": 7,
+    "a_levels_list": [
+      "Art (Fine Art",
+      "Photography",
+      "Textiles)"
+    ],
+    "public_school": true,
+    "competition": "2024: Chris Marsh won ILCA 7 gold at RYA Youth National Championships; RHS Blue Team crowned U19 National Champions at RYA Eric Twiname Team Racing Ch"
+  },
+  {
+    "name": "Royal Masonic School for Girls",
+    "location": "Hertfordshire\nNear London",
+    "type": "Girls",
+    "entry": "Year 3",
+    "fee_gbp": null,
+    "fee_thb": 974694,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: up to 25% | 11+: Academic, All-Rounder, Art, Drama, Music, Sport | 16+: Academic, All-Rounder, Art, Drama, Mu",
+    "a_level": 52.0,
+    "oxbridge": 0,
+    "russell": 45.0,
+    "boarding_ratio": 9.6,
+    "total_students": 964,
+    "sports": "Hockey, Netball, Swimming, Gymnastics, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "30 subjects including: Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: Year 10 pupil Katie and Year 13 pupil Issie (sisters) selected to represent Team GB at World Fencing Championships; Year 11 fencer selected for "
+  },
+  {
+    "name": "Royal Russell School",
+    "location": "Surrey",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 51993,
+    "fee_thb": 2195736,
+    "scholarship_pct": 35,
+    "scholarship_raw": "Remission: 5–35% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Ar",
+    "a_level": 56.3,
+    "oxbridge": 2,
+    "russell": 20,
+    "boarding_ratio": 15.5,
+    "total_students": 1182,
+    "sports": "Football, Hockey, Netball, Basketball, Cricket",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": true,
+    "competition": "2023-24: Boys 1st XI crowned ISFA National Champions; Boys 1st XI won ESFA National Championship; ISFA 6-a-side National Championship also won — histo"
+  },
+  {
+    "name": "Rugby School",
+    "location": "Warwickshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 55056,
+    "fee_thb": 2325064,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 5% (all types) | 11+: Music | 13+: Academic, Art, Computing, DT, Drama, Music, Performing Arts, Sport | 16+: ",
+    "a_level": 56.2,
+    "oxbridge": 14,
+    "russell": 0,
+    "boarding_ratio": 75.6,
+    "total_students": 865,
+    "sports": "Rugby Union, Cricket, Hockey, Netball, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "29 subjects: Art",
+      "Art History",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Warwickshire CCC returned to Rugby School for One-Day Cup matches and county age-group festivals (2024). Alumni Jacob Bethell and Maia Bouchier reache"
+  },
+  {
+    "name": "Sedbergh School",
+    "location": "Near York & Leeds",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 49140,
+    "fee_thb": 2075226,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Up to 20% | 13+: Academic, Art, Design Technology, Drama, Equestrian, Music, Sport | 16+: Academic, Art, Desi",
+    "a_level": 34.5,
+    "oxbridge": 0,
+    "russell": 44.0,
+    "boarding_ratio": 97.0,
+    "total_students": 569,
+    "sports": "Rugby Union, Hockey, Cricket, Netball, Athletics, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "End of 2025 TBC"
+    ],
+    "public_school": false,
+    "competition": "2024 Rosslyn Park National Schools Sevens: U16 Boys won National Cup (defeated Trinity College 38-12 in final); U14 Boys won their final (19-17). Inte"
+  },
+  {
+    "name": "Sevenoaks",
+    "location": "Kent",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 56763,
+    "fee_thb": 2397152,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (Music scholars receive free tuition) | 11+: Music | 13+: Academic, Art, Drama, Music, Sport | ",
+    "a_level": 3957.0,
+    "oxbridge": 23,
+    "russell": 0,
+    "boarding_ratio": 35.6,
+    "total_students": 1215,
+    "sports": "Hockey, Cricket, Rugby Union, Netball, Tennis, Cross Country, Athletics",
+    "sports_count": 7,
+    "a_levels_list": [
+      "IB Diploma only . Sixth Form students all take the IB Diploma Programme . Group 1 : English. Group 2 : French",
+      "German",
+      "Spanish"
+    ],
+    "public_school": false,
+    "competition": "2024: Alice Keen and Emily Hancock won the Asbury-Bailey Shield at ISTA Independent Schools Tennis Championships. Josefina Hippe represented England U"
+  },
+  {
+    "name": "Sherborne",
+    "location": "Dorset",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 44775,
+    "fee_thb": 1954206,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Up to 10% | 13+: Academic, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Music, Sport",
+    "a_level": 33.0,
+    "oxbridge": 0,
+    "russell": 60.0,
+    "boarding_ratio": 93.7,
+    "total_students": 585,
+    "sports": "Rugby, Hockey, Football, Cricket, Tennis",
+    "sports_count": 5,
+    "a_levels_list": [
+      "A-level  + 3 BTECs: Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "Listed in The Cricketer magazine Top 100 Schools for two consecutive years (2023 and 2024). 2025: Year 9/10 tennis team reached last 12 nationally in "
+  },
+  {
+    "name": "Sherborne School for Girls",
+    "location": "Dorset\nNear Bristol",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 53640,
+    "fee_thb": 2265265,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (no fee discount) | 11+: Academic, Music | 13+: Academic, Art, Drama, Music, Sport | 16+: Acade",
+    "a_level": 52.0,
+    "oxbridge": 4,
+    "russell": 38.78,
+    "boarding_ratio": 82.8,
+    "total_students": 465,
+    "sports": "Hockey, Lacrosse, Netball, Tennis, Swimming, Cross Country",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A-level : Art & Design (Fine Art",
+      "Photography)",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2025: U14 Hockey 1st XI reached national quarter-final of England Hockey Schools Cup. Students regularly selected for county, regional and national sq"
+  },
+  {
+    "name": "Shrewsbury School",
+    "location": "Shropshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 54222,
+    "fee_thb": 2289843,
+    "scholarship_pct": 30,
+    "scholarship_raw": "Remission: Music up to 30%, Sport up to 20%, others ~10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Mu",
+    "a_level": 58.3,
+    "oxbridge": 50,
+    "russell": 0,
+    "boarding_ratio": 75.8,
+    "total_students": 810,
+    "sports": "Football, Fives, Rugby Union, Cricket, Rowing",
+    "sports_count": 5,
+    "a_levels_list": [
+      "End of 2025 TBC"
+    ],
+    "public_school": false,
+    "competition": "2023: U17 Boys Cricket retained The Cricket Paper U17 National Cup (back-to-back). ISFA National 6s Champions. 2024: Boys 1st XI crowned ESFA U18 Nati"
+  },
+  {
+    "name": "Sidcot School",
+    "location": "North Somerset",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 31350,
+    "fee_thb": 1386043,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: 10% | 11+: Academic, Art, DT, Drama, Equestrian, Music, Peace & Global, Sport | 13+: Academic, Art, DT, Drama",
+    "a_level": 38.0,
+    "oxbridge": 1,
+    "russell": 43.0,
+    "boarding_ratio": 25.6,
+    "total_students": 605,
+    "sports": "Rugby, Football, Cricket, Hockey, Netball, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Exams starting 5th November"
+    ],
+    "public_school": false,
+    "competition": "Equestrian team won national title at NSEA Arena Eventing Championships at Hickstead (2023/24); equestrian team qualified for and competed at NSEA Nat"
+  },
+  {
+    "name": "St Catherine's School, Bramley",
+    "location": "Surrey",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 1966618,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: Honorary or 5%; Music = free instrument tuition | 11+: Academic, Art, Drama, Music, Sport | 16+: Art/Textiles",
+    "a_level": 72.0,
+    "oxbridge": 0,
+    "russell": 76.0,
+    "boarding_ratio": 15.2,
+    "total_students": 833,
+    "sports": "Lacrosse, Netball, Hockey, Cricket, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A-level : Art & Design (Fine Art",
+      "Photography",
+      "Textiles)"
+    ],
+    "public_school": false,
+    "competition": "2023: Won the National Schools Lacrosse Championships U19A title — the first time since 2014. School holds historical reputation as winner of the lacr"
+  },
+  {
+    "name": "St Leonards (Scotland)",
+    "location": "St Andrews",
+    "type": "Co-Ed",
+    "entry": "Year 6",
+    "fee_gbp": 42465,
+    "fee_thb": 1842373,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 5% tuition only (standard); up to 50% Golf (Tom Morris Award) | Yr8: Academic, Art, Drama, Golf, Music, Sport",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 26.0,
+    "total_students": 565600,
+    "sports": "Hockey, Lacrosse, Golf, Rugby, Athletics, Cross Country",
+    "sports_count": 6,
+    "a_levels_list": [
+      "IB Diploma Programme  and IB Career-related Programme . IB DP subjects: Group 1 : English. Group 2 : French",
+      "German",
+      "Spanish"
+    ],
+    "public_school": false,
+    "competition": "Won the ISGA (Independent Schools Golf Association) National Championship 2025. Pupils represented Scotland in ice hockey and rifle shooting. Students"
+  },
+  {
+    "name": "St Mary's School Ascot",
+    "location": "Berkshire\nNear London",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 2668148,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 5% or honorary; Music = free tuition | 11+: Academic, All-Rounder, Art, Music, Sport | 13+: Academic, All-Rou",
+    "a_level": 63.0,
+    "oxbridge": 14,
+    "russell": 87.0,
+    "boarding_ratio": 93.2,
+    "total_students": 397,
+    "sports": "Hockey, Netball, Cricket, Football, Tennis, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A-level : Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "School competes at local, district, county and national level in hockey, netball, tennis, cricket, football, athletics, and swimming, with fixtures ac"
+  },
+  {
+    "name": "St Mary's School, Cambridge",
+    "location": "Cambridge",
+    "type": "Girls",
+    "entry": "Year 5",
+    "fee_gbp": null,
+    "fee_thb": 2009625,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: 5% (up to 20% exceptional) | 11+: Academic, Art, Creative Writing, Dance, Design, Drama, Music, Sport | 13+: ",
+    "a_level": 54.0,
+    "oxbridge": 0,
+    "russell": 64.0,
+    "boarding_ratio": 13.6,
+    "total_students": 578,
+    "sports": "Hockey, Netball, Tennis, Athletics, Rowing",
+    "sports_count": 5,
+    "a_levels_list": [
+      "A-level : Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2024: Hockey 1st XI won the Cambridgeshire County Championship (back-to-back 5-0 wins, then 1-0 semi-final vs Saffron Walden, then 3-0 final win vs Wi"
+  },
+  {
+    "name": "St Swithun's School",
+    "location": "Near Southampton",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 2000682,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: 5–20% | 11+: Academic, Music | 13+: Academic, Art, Drama, Mathematics, Music, Sport | 16+: Academic, Art, Dra",
+    "a_level": 68.0,
+    "oxbridge": 6,
+    "russell": 0,
+    "boarding_ratio": 29.8,
+    "total_students": 717,
+    "sports": "Lacrosse, Netball, Tennis, Athletics, Swimming",
+    "sports_count": 5,
+    "a_levels_list": [
+      "A-level : Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Ranked 1st out of all girls' boarding schools in the country and 4th out of all girls' schools in School Sport Magazine's Top 200 Sporting Schools 202"
+  },
+  {
+    "name": "St. Michael’s School",
+    "location": "Wales",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 37443,
+    "fee_thb": 1613720,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Honorary (Headmaster's discretion) | 11+: Academic",
+    "a_level": 80.0,
+    "oxbridge": 1,
+    "russell": 0,
+    "boarding_ratio": 13.0,
+    "total_students": 422,
+    "sports": "Rugby, Football",
+    "sports_count": 2,
+    "a_levels_list": [
+      "AP Courses : Art History",
+      "Biology",
+      "Calculus AB"
+    ],
+    "public_school": false,
+    "competition": "Small boarding school. No major national competition achievements confirmed."
+  },
+  {
+    "name": "St. Paul's School",
+    "location": "London",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 53,
+    "fee_thb": 2321203,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (£60/yr token) | 13+: Academic, Music | 16+: Academic, Art, Music, Sport",
+    "a_level": 61.0,
+    "oxbridge": 0,
+    "russell": 97.0,
+    "boarding_ratio": 0,
+    "total_students": 0,
+    "sports": "Rugby, Football, Rowing, Cricket",
+    "sports_count": 4,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2024: 1st VIII won Princess Elizabeth Challenge Cup at Henley Royal Regatta; back-to-back wins at Head of the Charles (2024 and 2025); eleven sets of "
+  },
+  {
+    "name": "Stonar School",
+    "location": "Wiltshire",
+    "type": "Co-Ed",
+    "entry": "Year 5",
+    "fee_gbp": 40665,
+    "fee_thb": 1797876,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: Not publicly disclosed | 11+: Academic, Art, Drama, Music, Riding, Sport | 13+: Academic, Art, Drama, Music, ",
+    "a_level": 35.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 28.0,
+    "total_students": 453,
+    "sports": "Equestrian, Hockey, Swimming, Netball, Cricket, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Fine Art",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "Widely regarded as UK's leading equestrian school. Pupils regularly qualify for NSEA National Championships. Junior Champions at Hickstead. Emily rank"
+  },
+  {
+    "name": "Stowe School",
+    "location": "Buckinghamshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 46701,
+    "fee_thb": 2017044,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: 5–25% | 13+: Academic, Art, Chess, Design, Drama, Equestrian, Golf, Music, Sport | 16+: Academic, All-Rounder",
+    "a_level": 65.0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 80.0,
+    "total_students": 920,
+    "sports": "Rugby, Hockey, Cricket, Hockey, Netball, Lacrosse, Tennis, Athletics",
+    "sports_count": 8,
+    "a_levels_list": [
+      "Ancient Greek",
+      "Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2024: Stowe A team won the National Polo Championship at Winter Schools Polo Championships, defeating Harrow, Cheltenham and Rugby School (Luca Natell"
+  },
+  {
+    "name": "Strathallan School",
+    "location": "Scotland",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 37425,
+    "fee_thb": 1576924,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: Up to 10% | 11+: Academic, Art, Music, Performing Arts, Piping, Sport | 13+: Academic, Art, Drama, Music, Per",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 495,
+    "sports": "Rugby, Hockey, Cricket, Tennis, Golf, Shooting",
+    "sports_count": 6,
+    "a_levels_list": [
+      "A Levels and Scottish Highers/Advanced Highers (24 subjects",
+      "student choice of pathway): Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2024 Scottish Schools Boys and Girls Tennis Championships: Girls team won the title (defeated Dunblane High School in the final); Boys team also won a"
+  },
+  {
+    "name": "Taunton School",
+    "location": "Near Bristol",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 52530,
+    "fee_thb": 2160386,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: % not publicly specified | 11+: Academic, Art, Dance, Drama, DT, Music, Sport | 13+: Academic, Art, Drama, DT",
+    "a_level": 40.0,
+    "oxbridge": 1,
+    "russell": 0,
+    "boarding_ratio": 35.9,
+    "total_students": 1054,
+    "sports": "Rugby, Hockey, Netball, Cricket, Athletics, Swimming",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art",
+      "Biology",
+      "Business"
+    ],
+    "public_school": false,
+    "competition": "Ranked 14th in School Sport magazine's Top 200 Sporting Schools 2024. Runs 120 teams across 24 sports playing 918 fixtures per year. Partners with Mar"
+  },
+  {
+    "name": "The Leys School",
+    "location": "Cambridge",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 38832,
+    "fee_thb": 1639910,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: 5%; Choral/Organ = honorary + free lessons | 11+: Academic, Art, Drama, Music, Sport, Technology | 13+: Acade",
+    "a_level": 63.0,
+    "oxbridge": 2,
+    "russell": 77.88,
+    "boarding_ratio": 65.3,
+    "total_students": 576,
+    "sports": "Rugby, Hockey, Swimming, Netball, Cricket",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Ancient History",
+      "Art & Design",
+      "Biology"
+    ],
+    "public_school": true,
+    "competition": "U16 Squash team reached 4th place in the National Finals. Squash 1st team reached Regional Schools Finals. Boys won the inaugural Independent Schools "
+  },
+  {
+    "name": "The National Mathematics and Science College",
+    "location": "England",
+    "type": "Co-Ed",
+    "entry": "Year 11",
+    "fee_gbp": 69984,
+    "fee_thb": 3016173,
+    "scholarship_pct": 100,
+    "scholarship_raw": "Remission: 5–10% (day tuition); up to 100% (local scholarship) | 16+: Academic",
+    "a_level": 86.2,
+    "oxbridge": 1,
+    "russell": 0,
+    "boarding_ratio": 86.2,
+    "total_students": 152,
+    "sports": "PE, Fitness",
+    "sports_count": 2,
+    "a_levels_list": [
+      "Mathematics",
+      "Further Mathematics",
+      "Physics"
+    ],
+    "public_school": false,
+    "competition": "Specialist STEM sixth form college (Coventry). No competitive sports programme. Sport provision is recreational and fitness-based."
+  },
+  {
+    "name": "The Purcell School",
+    "location": "Hertfordshire",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 52175,
+    "fee_thb": 2246372,
+    "scholarship_pct": null,
+    "scholarship_raw": "No merit scholarship programme (DfE-funded specialist music school; MDS financial support is means-tested)",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 0,
+    "sports": "PE and physical well-being",
+    "sports_count": 1,
+    "a_levels_list": [
+      "Music A Level . Two further A Levels chosen from: Music Technology",
+      "English Literature",
+      "Mathematics"
+    ],
+    "public_school": false,
+    "competition": "Specialist music school. Does not offer mainstream competitive team sports. PE is oriented around physical well-being and the physical demands of a mu"
+  },
+  {
+    "name": "Tonbridge School",
+    "location": "Kent",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 59124,
+    "fee_thb": 2496859,
+    "scholarship_pct": null,
+    "scholarship_raw": "Remission: £2,000 off first term (or honorary) | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+: Academ",
+    "a_level": 85.0,
+    "oxbridge": 23,
+    "russell": 95.0,
+    "boarding_ratio": 56.8,
+    "total_students": 801,
+    "sports": "Rugby, Football, Hockey, Cricket, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: West Indies national cricket team used Tonbridge as Test Match training camp (June 2024) — reflecting elite cricket facilities and reputation. 2"
+  },
+  {
+    "name": "Uppingham School",
+    "location": "Rutland",
+    "type": "Co-Ed",
+    "entry": "Year 9",
+    "fee_gbp": 55674,
+    "fee_thb": 2419252,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Up to 5% (Music up to 20%) | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport, Textile",
+    "a_level": 53.0,
+    "oxbridge": 3,
+    "russell": 88.55,
+    "boarding_ratio": 95.8,
+    "total_students": 834,
+    "sports": "Rugby, Hockey, Cricket, Netball, Football, Athletics, Swimming, Tennis, Fives",
+    "sports_count": 9,
+    "a_levels_list": [
+      "Biology",
+      "Business",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "Girls U16 hockey team reached national Tier Two finals at Lee Valley Olympic Park. Four pupils set the world record for the longest game of Eton Fives"
+  },
+  {
+    "name": "Warwick School",
+    "location": "Warwick",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 46998,
+    "fee_thb": 2042246,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: Governor up to 20%; King Henry VIII up to 50% | 11+: Academic (Governor), King Henry VIII, Music | 13+: Acade",
+    "a_level": 66.3,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 4.7,
+    "total_students": 1249,
+    "sports": "Rugby, Hockey, Cricket, Tennis",
+    "sports_count": 4,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: U13 Boys won England Hockey Schools U13 National Championship (May 2024, first national title in school history). 2023: Senior Swim Team achieve"
+  },
+  {
+    "name": "Wellington College",
+    "location": "Berkshire",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 59940,
+    "fee_thb": 2606544,
+    "scholarship_pct": 0,
+    "scholarship_raw": "Remission: Honorary only (Music scholars: free tuition) | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+: Academic",
+    "a_level": 68.1,
+    "oxbridge": 22,
+    "russell": 0,
+    "boarding_ratio": 80.0,
+    "total_students": 1104,
+    "sports": "Rugby, Cricket, Football, Hockey, Netball, Golf, Rackets, Tennis, Squash",
+    "sports_count": 9,
+    "a_levels_list": [
+      "A-Level pathway : Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "2024: U16 Girls Hockey crowned National Champions at Lee Valley; U16 Boys Hockey National Finalists. 2025: Boys U16 National Sevens Rugby winners; Mic"
+  },
+  {
+    "name": "Wells Cathedral School",
+    "location": "Somerset",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 42762,
+    "fee_thb": 1805877,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 10% standard, up to 50% exceptional | 11+: Academic, Art, Drama, Maths, Music, Sport | 13+: Academic, Art, Dr",
+    "a_level": 41.0,
+    "oxbridge": 0,
+    "russell": 70.0,
+    "boarding_ratio": 37.8,
+    "total_students": 767,
+    "sports": "Rugby, Hockey, Cricket, Netball, Football, Tennis",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Music A Level . Music Technology A Level . Options: Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": true,
+    "competition": "2023: Won Muddy Stilettos Best School Award for Inventive Sports Programme. Girls 1st XI Hockey placed second at Sherborne Tournament (2023-24). Matth"
+  },
+  {
+    "name": "Westminster School",
+    "location": "London",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 62985,
+    "fee_thb": 2659913,
+    "scholarship_pct": 10,
+    "scholarship_raw": "Remission: King's Scholar = day fee saving; Music = 10% day fee + free tuition | 13+: Academic (King's Scholarship), Mus",
+    "a_level": 84.0,
+    "oxbridge": 90,
+    "russell": 0,
+    "boarding_ratio": 23.6,
+    "total_students": 771,
+    "sports": "Football, Cricket, Rowing, Fencing, Fives",
+    "sports_count": 5,
+    "a_levels_list": [
+      "Arranged in 4 blocks : Ancient Greek",
+      "Art",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "London Schools U19 Cricket Cup Winners 2024; runners-up in ESCA London U15 T20 Cup 2024 and ESCA London U14 Cup 2024. Won Elgin League 2nd XI Football"
+  },
+  {
+    "name": "Whitgift School",
+    "location": "Surrey",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 57591,
+    "fee_thb": 2432119,
+    "scholarship_pct": 50,
+    "scholarship_raw": "Remission: 5–50% | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+:",
+    "a_level": 92.0,
+    "oxbridge": 11,
+    "russell": 100,
+    "boarding_ratio": 7.3,
+    "total_students": 1465,
+    "sports": "Rugby Union, Football, Hockey, Cricket, Swimming, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Art & Design",
+      "Art Photography",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "2023: 1st XI Hockey crowned England Hockey T1 Outdoor National Champions. 2024: 1st XI Hockey crowned England Hockey U18 Tier 1 National Champions (2n"
+  },
+  {
+    "name": "Winchester College",
+    "location": "Hampshire",
+    "type": "Boys",
+    "entry": "Year 9",
+    "fee_gbp": 62226,
+    "fee_thb": 2705952,
+    "scholarship_pct": 25,
+    "scholarship_raw": "Remission: 25% fees (Founder's Scholar); Academic/Exhibition honorary; Music free tuition; Sport honorary | 13+: Academi",
+    "a_level": 77.9,
+    "oxbridge": 13,
+    "russell": 0,
+    "boarding_ratio": 95.3,
+    "total_students": 762,
+    "sports": "Cricket, Football, Winchester College Football (XVs), Rowing, Hockey, Cross Country",
+    "sports_count": 6,
+    "a_levels_list": [
+      "Three A-Levels plus \"Div\" (History & Philosophy",
+      "non-examined). Options: Ancient Greek",
+      "Art & Design"
+    ],
+    "public_school": false,
+    "competition": "2024: Competed at Princess Elizabeth Challenge Cup at Henley Royal Regatta; Martha Morrow became first Winchester pupil to compete at Women's Henley R"
+  },
+  {
+    "name": "Windermere School",
+    "location": "Cumbria",
+    "type": "Co-Ed",
+    "entry": "Year 3",
+    "fee_gbp": 36000,
+    "fee_thb": 1546070,
+    "scholarship_pct": 75,
+    "scholarship_raw": "Remission: Cumbria Award up to 75%; standard awards % not specified | 11+: Academic | 13+: Academic, Music, Outdoor Educ",
+    "a_level": 0,
+    "oxbridge": 0,
+    "russell": 0,
+    "boarding_ratio": 24.0,
+    "total_students": 308,
+    "sports": "Hockey, Football, Netball, Athletics, Tennis, Sailing",
+    "sports_count": 6,
+    "a_levels_list": [
+      "IB Diploma Programme: Group 1: English A",
+      "Group 2: French B",
+      "Spanish B"
+    ],
+    "public_school": true,
+    "competition": "RYA Champion Club status (first school in the UK to achieve this). RYA British Youth Sailing Recognised Club (one of only 15 nationally, one of only t"
+  },
+  {
+    "name": "Woldingham School",
+    "location": "Surrey",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": 50940,
+    "fee_thb": 2151242,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: 5–20% of day fees | 11+: Academic, Art, Drama, Music, Performing Arts, Sport | 13+: Academic, Art, Drama, Mus",
+    "a_level": 51.0,
+    "oxbridge": 1,
+    "russell": 30,
+    "boarding_ratio": 35.2,
+    "total_students": 541,
+    "sports": "Hockey, Netball, Cricket, Tennis, Athletics",
+    "sports_count": 5,
+    "a_levels_list": [
+      "25 A-Level subjects: Art & Design",
+      "Biology",
+      "Business Studies"
+    ],
+    "public_school": false,
+    "competition": "2024: U14A netball reached 6th place in English Netball National Schools County Round; U14A and U15A both won district netball cups (all four teams un"
+  },
+  {
+    "name": "Woodbridge School",
+    "location": "Suffolk",
+    "type": "Co-Ed",
+    "entry": "Year 7",
+    "fee_gbp": 43290,
+    "fee_thb": 1840777,
+    "scholarship_pct": 20,
+    "scholarship_raw": "Remission: Up to 20% | 11+: Academic, Art, Chess, Drama, Music, Sport | 13+: Academic, Art, Chess, Drama, Music, Sport |",
+    "a_level": 44.0,
+    "oxbridge": 3,
+    "russell": 0,
+    "boarding_ratio": 0,
+    "total_students": 530,
+    "sports": "Rugby, Football, Hockey, Cricket, Netball, Athletics, Cross Country, Tennis",
+    "sports_count": 8,
+    "a_levels_list": [
+      "Art & Design",
+      "Biology",
+      "Chemistry"
+    ],
+    "public_school": false,
+    "competition": "2024: Year 7 boys won the Suffolk County Cricket Championship; Suffolk Schools crowned Anglian Schools Cross Country Champions in 2024 (multiple Woodb"
+  },
+  {
+    "name": "Wycombe Abbey",
+    "location": "Buckinghamshire\nNear London",
+    "type": "Girls",
+    "entry": "Year 7",
+    "fee_gbp": null,
+    "fee_thb": 2567796,
+    "scholarship_pct": 5,
+    "scholarship_raw": "Remission: Academic ~5%; Exhibition £600/yr; Music = free instrument/voice tuition | 11+: Academic, Music | 13+: Academi",
+    "a_level": 42.0,
+    "oxbridge": 17,
+    "russell": 50.0,
+    "boarding_ratio": 91.5,
+    "total_students": 611,
+    "sports": "Hockey, Lacrosse, Netball, Tennis, Cricket, Athletics",
+    "sports_count": 6,
+    "a_levels_list": [
+      "24 A-Level subjects: Ancient Greek",
+      "Art & Design",
+      "Biology"
+    ],
+    "public_school": false,
+    "competition": "Lacrosse: U19 National Schools Lacrosse Champions (England Lacrosse National Championships). Equestrian: Won British Showjumping National Finals (Scho"
+  }
+];
+
+// ── PRE-COMPUTE FEE RANKS FOR VALUE SCORE ─────────────────
+(function() {
+  const fees = SCHOOLS.map(s => s.fee_thb).filter(v => v && v > 0);
+  const minFee = Math.min(...fees);
+  const maxFee = Math.max(...fees);
+  SCHOOLS.forEach(s => {
+    if(s.fee_thb && maxFee > minFee) {
+      s._feeRank = 1 - (s.fee_thb - minFee) / (maxFee - minFee); // 0=most expensive, 1=cheapest
+    } else {
+      s._feeRank = 0.5;
+    }
+  });
+})();
+
+// ── SCORES ────────────────────────────────────────────────
+function getScores(s) {
+  const academics = Math.min(s.a_level, 100);
+  const sport = Math.min(s.sports_count * 15, 100);
+  const scholarshipBonus = s.scholarship_pct ? Math.min(s.scholarship_pct * 0.4, 40) : 0;
+  const value = Math.min(Math.round(s._feeRank * 60 + scholarshipBonus), 100);
+  const oxScore = Math.min(s.oxbridge * 3, 50);
+  const pubScore = s.public_school ? 25 : 0;
+  const russScore = Math.min(s.russell * 0.25, 25);
+  const prestige = Math.min(oxScore + pubScore + russScore, 100);
+  const boardingLife = Math.min(s.boarding_ratio, 100);
+  return {
+    Academics: Math.round(academics),
+    Sport: Math.round(sport),
+    Value: Math.round(value),
+    Prestige: Math.round(prestige),
+    'Boarding': Math.round(boardingLife)
+  };
+}
+
+function getScoresTH(s) {
+  const scores = getScores(s);
+  return {
+    'วิชาการ': scores.Academics,
+    'กีฬา': scores.Sport,
+    'คุ้มค่า': scores.Value,
+    'ชื่อเสียง': scores.Prestige,
+    'ชีวิตประจำ': scores['Boarding']
+  };
+}
+
+function getDimNames() {
+  return document.body.classList.contains('en')
+    ? ['Academics','Sport','Value','Prestige','Boarding']
+    : ['วิชาการ','กีฬา','คุ้มค่า','ชื่อเสียง','ชีวิตประจำ'];
+}
+
+function getBestDim(s) {
+  const scores = getScores(s);
+  const entries = Object.entries(scores);
+  const best = entries.reduce((a,b) => b[1] > a[1] ? b : a, entries[0]);
+  const en2th = {'Academics':'วิชาการ','Sport':'กีฬา','Value':'ความคุ้มค่า','Prestige':'ชื่อเสียง','Boarding':'ชีวิตประจำ'};
+  const en2perfect = {
+    'Academics': {th:'เหมาะกับนักเรียนที่ต้องการ Oxbridge หรือมหาวิทยาลัยชั้นนำ',en:'Perfect for students aiming for Oxbridge or top universities'},
+    'Sport': {th:'เหมาะกับนักกีฬาที่ต้องการเป็นตัวแทนประเทศ',en:'Perfect for athletes with national-level ambitions'},
+    'Value': {th:'เหมาะกับครอบครัวที่ต้องการคุณภาพในราคาที่เหมาะสม',en:'Perfect for families seeking excellent value for money'},
+    'Prestige': {th:'เหมาะกับนักเรียนที่ต้องการโรงเรียนมีชื่อเสียงระดับโลก',en:'Perfect for students who want a globally recognised name'},
+    'Boarding': {th:'เหมาะกับนักเรียนที่ต้องการประสบการณ์ Boarding เต็มรูปแบบ',en:"Perfect for students who want a full boarding school experience"},
+  };
+  return {
+    dim: best[0],
+    score: best[1],
+    perfectTH: en2perfect[best[0]]?.th || '',
+    perfectEN: en2perfect[best[0]]?.en || ''
+  };
+}
+
+// ── SVG RADAR CHART ───────────────────────────────────────
+function drawRadar(scores, color) {
+  const dims = Object.keys(scores);
+  const vals = Object.values(scores);
+  const n = dims.length;
+  const cx = 100, cy = 100, r = 80;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  function point(i, radius) {
+    const angle = startAngle + i * angleStep;
+    return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+  }
+
+  // Grid rings
+  let rings = '';
+  [20,40,60,80,100].forEach(ring => {
+    const pts = dims.map((_,i) => point(i, r * ring/100).join(',')).join(' ');
+    rings += `<polygon points="${pts}" fill="none" stroke="#333" stroke-width="0.5"/>`;
+  });
+
+  // Axes
+  let axes = '';
+  dims.forEach((dim,i) => {
+    const [x,y] = point(i, r);
+    axes += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#333" stroke-width="0.8"/>`;
+    // labels
+    const [lx, ly] = point(i, r + 18);
+    const anchor = lx < cx - 5 ? 'end' : lx > cx + 5 ? 'start' : 'middle';
+    axes += `<text x="${lx}" y="${ly + 4}" text-anchor="${anchor}" font-size="10" fill="#888" font-family="Inter,sans-serif">${dim}</text>`;
+  });
+
+  // Score polygon
+  const scorePts = vals.map((v,i) => point(i, r * v/100).join(',')).join(' ');
+  const scorePoly = `<polygon points="${scorePts}" fill="${color}" fill-opacity="0.15" stroke="${color}" stroke-width="2"/>`;
+
+  // Score dots
+  let dots = '';
+  vals.forEach((v,i) => {
+    const [x,y] = point(i, r * v/100);
+    dots += `<circle cx="${x}" cy="${y}" r="4" fill="${color}" stroke="#1e1e1e" stroke-width="1.5"/>`;
+  });
+
+  return `<svg viewBox="0 0 200 200" width="200" height="200" style="overflow:visible">
+    ${rings}${axes}${scorePoly}${dots}
+  </svg>`;
+}
+
+// ── LANG ─────────────────────────────────────────────────
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if(btn.dataset.lang === 'en') document.body.classList.add('en');
+    else document.body.classList.remove('en');
+    renderProfiles(); // re-render with updated lang
+  });
+});
+
+// ── PICKER ───────────────────────────────────────────────
+let selected = [];
+let pendingSchool = null;
+let focusIdx = -1;
+
+const searchInput = document.getElementById('schoolSearch');
+const dropdown = document.getElementById('dropdown');
+const addBtn = document.getElementById('addBtn');
+const chipsRow = document.getElementById('chipsRow');
+
+function getFiltered(q) {
+  q = q.toLowerCase().trim();
+  if(!q) return [];
+  return SCHOOLS.filter(s => s.name.toLowerCase().includes(q) && !selected.find(sel => sel.name === s.name)).slice(0,12);
+}
+
+function renderDropdown(items) {
+  if(!items.length) { dropdown.classList.remove('open'); return; }
+  dropdown.innerHTML = items.map((s,i) =>
+    `<div class="dropdown-item" data-idx="${i}">
+      <div>${s.name}</div>
+      <div class="loc">${s.location} · ${s.type}</div>
+    </div>`
+  ).join('');
+  dropdown.classList.add('open');
+  focusIdx = -1;
+  dropdown.querySelectorAll('.dropdown-item').forEach((el,i) => {
+    el.addEventListener('mousedown', e => {
+      e.preventDefault();
+      selectItem(items[i]);
+    });
+  });
+}
+
+function selectItem(school) {
+  pendingSchool = school;
+  searchInput.value = school.name;
+  dropdown.classList.remove('open');
+  addBtn.disabled = selected.length >= 3;
+}
+
+searchInput.addEventListener('input', () => {
+  pendingSchool = null;
+  addBtn.disabled = true;
+  renderDropdown(getFiltered(searchInput.value));
+});
+
+searchInput.addEventListener('keydown', e => {
+  const items = dropdown.querySelectorAll('.dropdown-item');
+  if(e.key === 'ArrowDown') {
+    e.preventDefault();
+    focusIdx = Math.min(focusIdx+1, items.length-1);
+    items.forEach((el,i) => el.classList.toggle('focused', i===focusIdx));
+  } else if(e.key === 'ArrowUp') {
+    e.preventDefault();
+    focusIdx = Math.max(focusIdx-1, 0);
+    items.forEach((el,i) => el.classList.toggle('focused', i===focusIdx));
+  } else if(e.key === 'Enter') {
+    if(focusIdx >= 0 && items[focusIdx]) {
+      const name = items[focusIdx].querySelector('div').textContent;
+      const school = SCHOOLS.find(s => s.name === name);
+      if(school) selectItem(school);
+    } else if(pendingSchool) addSchool();
+  } else if(e.key === 'Escape') {
+    dropdown.classList.remove('open');
+  }
+});
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('.search-wrap')) dropdown.classList.remove('open');
+});
+
+addBtn.addEventListener('click', addSchool);
+
+function addSchool() {
+  if(!pendingSchool || selected.length >= 3) return;
+  if(selected.find(s => s.name === pendingSchool.name)) return;
+  selected.push(pendingSchool);
+  pendingSchool = null;
+  searchInput.value = '';
+  addBtn.disabled = true;
+  renderChips();
+  renderProfiles();
+}
+
+function removeSchool(name) {
+  selected = selected.filter(s => s.name !== name);
+  renderChips();
+  renderProfiles();
+}
+
+function renderChips() {
+  chipsRow.innerHTML = selected.map(s =>
+    `<div class="chip">
+      <span>${s.name}</span>
+      <button class="chip-remove" data-name="${s.name}">✕</button>
+    </div>`
+  ).join('');
+  chipsRow.querySelectorAll('.chip-remove').forEach(b => {
+    b.addEventListener('click', () => removeSchool(b.dataset.name));
+  });
+}
+
+// ── PROFILE RENDER ────────────────────────────────────────
+const CARD_COLORS = ['#B8962E','#5ba3c9','#c95b8a'];
+
+function typeBadgeClass(t) {
+  return {'Co-Ed':'badge-coed','Boys':'badge-boys','Girls':'badge-girls','Sixth Form':'badge-sixth'}[t] || 'badge-coed';
+}
+
+function renderProfiles() {
+  const empty = document.getElementById('emptyState');
+  const grid = document.getElementById('profilesGrid');
+  const winnerSec = document.getElementById('winnerSection');
+
+  if(selected.length === 0) {
+    empty.style.display = '';
+    grid.innerHTML = '';
+    winnerSec.style.display = 'none';
+    grid.className = 'profiles-grid';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.className = 'profiles-grid cols-' + Math.min(selected.length, 3);
+
+  const isEN = document.body.classList.contains('en');
+
+  // Compute scores for all selected
+  const allScores = selected.map(s => getScores(s));
+  const dimNames = ['Academics','Sport','Value','Prestige','Boarding'];
+  const dimNamesDisplay = isEN 
+    ? ['Academics','Sport','Value','Prestige','Boarding']
+    : ['วิชาการ','กีฬา','คุ้มค่า','ชื่อเสียง','ชีวิตประจำ'];
+
+  // Per-dimension winners
+  const winners = {}; // dim -> school index
+  dimNames.forEach((dim,di) => {
+    let best = -1, bestIdx = -1;
+    allScores.forEach((sc, si) => {
+      const v = Object.values(sc)[di];
+      if(v > best) { best = v; bestIdx = si; }
+    });
+    winners[di] = { idx: bestIdx, score: best };
+  });
+
+  grid.innerHTML = selected.map((s, si) => {
+    const scores = allScores[si];
+    const scoreVals = Object.values(scores);
+    const color = CARD_COLORS[si];
+    const best = getBestDim(s);
+    const dimsToShow = isEN ? scores : getScoresTH(s);
+    const radar = drawRadar(dimsToShow, color);
+
+    const winnerDims = dimNames.filter((_,di) => winners[di].idx === si && selected.length > 1);
+    const hasWinner = winnerDims.length > 0 && selected.length > 1;
+
+    const scholarText = (() => {
+      if(s.scholarship_pct === null || s.scholarship_pct === undefined) return (isEN ? 'Scholarship details not published' : 'ไม่มีข้อมูลทุน');
+      if(s.scholarship_pct === 0) return (isEN ? 'Honorary scholarships (no fee remission)' : 'ทุนเกียรติยศ (ไม่ลดค่าเทอม)');
+      return (isEN ? `Up to ${s.scholarship_pct}% fee remission available` : `ทุนลดค่าเทอมสูงสุด ${s.scholarship_pct}%`);
+    })();
+
+    return `
+      <div class="profile-card">
+        ${hasWinner ? `<div class="winner-badge">★ ${winnerDims.length > 1 ? winnerDims.length + ' wins' : (isEN ? winnerDims[0] : dimNamesDisplay[dimNames.indexOf(winnerDims[0])])}</div>` : ''}
+        <button class="remove-card-btn ${hasWinner ? 'has-winner' : ''}" data-name="${s.name}">✕ <span class="lang-th">ลบ</span><span class="lang-en">Remove</span></button>
+
+        <div class="card-top">
+          <div class="card-school-name">${s.name}</div>
+          <div class="card-badges">
+            <span class="badge badge-loc">📍 ${s.location}</span>
+            <span class="badge ${typeBadgeClass(s.type)}">${s.type}</span>
+            ${s.public_school ? '<span class="badge badge-public">Public School</span>' : ''}
+          </div>
+          ${s.fee_thb ? `
+          <div class="fee-display">
+            <div class="fee-thb" style="color:${color}">฿${s.fee_thb.toLocaleString()}</div>
+            <div class="fee-label"><span class="lang-th">ต่อปี</span><span class="lang-en">per year</span></div>
+            ${s.fee_gbp ? `<div class="fee-gbp">£${s.fee_gbp.toLocaleString()} GBP</div>` : ''}
+          </div>` : `<div class="fee-display"><div style="font-size:12px;color:#666"><span class="lang-th">ไม่มีข้อมูลค่าเทอม</span><span class="lang-en">Fee not available</span></div></div>`}
+        </div>
+
+        <div class="radar-section">
+          <div class="radar-title"><span class="lang-th">โปรไฟล์ 5 มิติ</span><span class="lang-en">5-Dimension Profile</span></div>
+          <div class="radar-wrap">
+            ${radar}
+          </div>
+        </div>
+
+        <div class="key-stats">
+          <div class="kstat">
+            <div class="kstat-icon">🎓</div>
+            <div class="kstat-value" style="color:${color}">${s.oxbridge || 0}</div>
+            <div class="kstat-label">Oxbridge</div>
+          </div>
+          <div class="kstat">
+            <div class="kstat-icon">🏅</div>
+            <div class="kstat-value" style="color:${color}">${s.scholarship_pct != null && s.scholarship_pct > 0 ? s.scholarship_pct+'%' : (s.scholarship_pct === 0 ? 'Hon.' : '—')}</div>
+            <div class="kstat-label"><span class="lang-th">ทุนสูงสุด</span><span class="lang-en">Max Schol.</span></div>
+          </div>
+          <div class="kstat">
+            <div class="kstat-icon">⚽</div>
+            <div class="kstat-value" style="color:${color}">${s.sports_count}</div>
+            <div class="kstat-label"><span class="lang-th">กีฬา</span><span class="lang-en">Sports</span></div>
+          </div>
+          <div class="kstat">
+            <div class="kstat-icon">📊</div>
+            <div class="kstat-value" style="color:${color}">${s.a_level ? s.a_level + '%' : '—'}</div>
+            <div class="kstat-label">A-Level</div>
+          </div>
+          <div class="kstat">
+            <div class="kstat-icon">👥</div>
+            <div class="kstat-value" style="color:${color}">${s.total_students || '—'}</div>
+            <div class="kstat-label"><span class="lang-th">นักเรียน</span><span class="lang-en">Students</span></div>
+          </div>
+          <div class="kstat">
+            <div class="kstat-icon">🏠</div>
+            <div class="kstat-value" style="color:${color}">${s.boarding_ratio ? s.boarding_ratio + '%' : '—'}</div>
+            <div class="kstat-label"><span class="lang-th">ประจำ</span><span class="lang-en">Boarding</span></div>
+          </div>
+        </div>
+
+        <div class="schol-bar">
+          <div class="schol-text">${scholarText}</div>
+        </div>
+
+        ${s.a_levels_list && s.a_levels_list.length ? `
+        <div class="alevels-bar">
+          <div class="alevels-title"><span class="lang-th">วิชา A-Level ยอดนิยม</span><span class="lang-en">Sample A-Level Subjects</span></div>
+          <div class="alevels-list">
+            ${s.a_levels_list.map(sub => `<span class="alevel-chip">${sub}</span>`).join('')}
+          </div>
+        </div>` : ''}
+
+        <div class="perfect-for">
+          <span class="lang-th">${best.perfectTH}</span>
+          <span class="lang-en">${best.perfectEN}</span>
+        </div>
+
+        <div style="padding:0 22px 20px">
+          <a href="contact.html#inquiry" style="display:block;text-align:center;background:${color};color:#fff;padding:10px;border-radius:5px;font-size:13px;font-weight:700;text-decoration:none">
+            <span class="lang-th">สอบถามเรื่อง ${s.name.split(' ')[0]} →</span>
+            <span class="lang-en">Inquire about ${s.name.split(' ')[0]} →</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Attach remove buttons
+  grid.querySelectorAll('.remove-card-btn').forEach(btn => {
+    btn.addEventListener('click', () => removeSchool(btn.dataset.name));
+  });
+
+  // Winner section
+  if(selected.length >= 2) {
+    winnerSec.style.display = '';
+    document.getElementById('winnerGrid').innerHTML = dimNames.map((dim,di) => {
+      const w = winners[di];
+      const school = selected[w.idx];
+      const dimDisplay = dimNamesDisplay[di];
+      return `<div class="dim-winner-item">
+        <div class="dim-name">${dimDisplay}</div>
+        <div class="dim-school" style="color:${CARD_COLORS[w.idx]}">${school.name.split(' ').slice(0,2).join(' ')}</div>
+        <div class="dim-score">${w.score}/100</div>
+      </div>`;
+    }).join('');
+  } else {
+    winnerSec.style.display = 'none';
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────
+renderProfiles();
+</script>
+</body>
+</html>
