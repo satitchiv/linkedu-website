@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หาโรงเรียนที่ใช่ | Guided School Match — LINKEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+html[lang="en"] .lang-th{display:none}
+html[lang="th"] .lang-en{display:none}
+
+/* ── Progress ── */
+.wiz-progress{background:#1a1a1a;padding:20px 0;border-bottom:1px solid rgba(184,150,46,0.15)}
+.wiz-steps{display:flex;align-items:center;justify-content:center;gap:0}
+.wiz-step-item{display:flex;align-items:center;gap:0}
+.wiz-step-dot{width:32px;height:32px;border-radius:50%;border:2px solid rgba(245,240,232,0.2);background:transparent;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:600;color:rgba(245,240,232,0.3);transition:all 0.3s;flex-shrink:0}
+.wiz-step-dot.done{background:#B8962E;border-color:#B8962E;color:#1a1a1a}
+.wiz-step-dot.active{border-color:#B8962E;color:#B8962E;box-shadow:0 0 0 3px rgba(184,150,46,0.2)}
+.wiz-step-line{width:48px;height:2px;background:rgba(245,240,232,0.1);transition:background 0.3s}
+.wiz-step-line.done{background:#B8962E}
+.wiz-step-label{display:block;font-family:'Inter',sans-serif;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.3);margin-top:4px;text-align:center;max-width:70px}
+.wiz-step-label.active{color:#B8962E}
+.wiz-step-wrapper{display:flex;flex-direction:column;align-items:center}
+@media(max-width:600px){.wiz-step-label{display:none}.wiz-step-line{width:24px}}
+
+/* ── Wizard container ── */
+.wiz-body{background:#f5f0e8;min-height:60vh;padding:60px 0}
+.wiz-panel{display:none;animation:fadeIn 0.35s ease}
+.wiz-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.wiz-question{font-family:'Playfair Display',serif;font-size:2rem;color:#1a1a1a;font-weight:400;margin-bottom:8px;text-align:center}
+.wiz-sub{font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(26,26,26,0.5);text-align:center;margin-bottom:40px;line-height:1.6}
+.wiz-options{display:grid;gap:14px;max-width:680px;margin:0 auto}
+.wiz-options.cols-2{grid-template-columns:1fr 1fr}
+.wiz-options.cols-3{grid-template-columns:1fr 1fr 1fr}
+.wiz-option{background:#fff;border:2px solid rgba(26,26,26,0.08);border-radius:8px;padding:20px 24px;cursor:pointer;transition:all 0.2s;text-align:left;position:relative}
+.wiz-option:hover{border-color:#B8962E;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+.wiz-option.selected{border-color:#B8962E;background:#fffaf3}
+.wiz-option-title{font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.wiz-option-thb{font-family:'Inter',sans-serif;font-size:0.78rem;color:#B8962E;font-weight:600;margin-bottom:4px}
+.wiz-option-sub{font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(26,26,26,0.45);line-height:1.4}
+.wiz-option-check{position:absolute;top:14px;right:14px;width:20px;height:20px;border-radius:50%;background:#B8962E;display:none;align-items:center;justify-content:center;color:#1a1a1a;font-size:0.7rem;font-weight:700}
+.wiz-option.selected .wiz-option-check{display:flex}
+.wiz-nav{display:flex;justify-content:center;gap:12px;margin-top:40px;max-width:680px;margin-left:auto;margin-right:auto}
+.wiz-btn{font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:12px 28px;border-radius:6px;cursor:pointer;transition:all 0.2s;border:none}
+.wiz-btn-next{background:#B8962E;color:#1a1a1a}
+.wiz-btn-next:hover{background:#9a7c25}
+.wiz-btn-back{background:transparent;border:1px solid rgba(26,26,26,0.2);color:rgba(26,26,26,0.5)}
+.wiz-btn-back:hover{border-color:#1a1a1a;color:#1a1a1a}
+
+/* ── Results ── */
+.results-section{background:#f5f0e8;padding:60px 0;display:none}
+.results-header{text-align:center;margin-bottom:40px}
+.results-summary{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+.results-pill{background:#1a1a1a;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.7rem;padding:4px 12px;border-radius:20px}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.res-card{background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:8px;overflow:hidden;transition:all 0.3s;position:relative}
+.res-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.res-card-badge{position:absolute;top:12px;right:12px;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:3px}
+.res-card-top{height:5px;background:#B8962E}
+.res-card-top.boys{background:#4a6fa5}
+.res-card-top.girls{background:#c4769a}
+.res-score-bar{height:4px;background:rgba(26,26,26,0.07);margin:0 16px}
+.res-score-fill{height:100%;background:#B8962E;transition:width 0.6s ease;border-radius:2px}
+.res-card-body{padding:16px}
+.res-name{font-family:'Playfair Display',serif;font-size:1rem;color:#1a1a1a;margin-bottom:3px}
+.res-loc{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.4);margin-bottom:10px}
+.res-fee{font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;color:#1a1a1a;margin-bottom:3px}
+.res-fee span{color:#B8962E;font-size:0.75rem;margin-left:6px}
+.res-note{font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.45);font-style:italic;margin-bottom:14px;line-height:1.5}
+.res-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.res-btn-view{background:#1a1a1a;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;border-radius:4px;text-align:center;text-decoration:none;transition:all 0.2s}
+.res-btn-view:hover{background:#B8962E;color:#1a1a1a}
+.res-btn-enq{background:transparent;border:1px solid #B8962E;color:#B8962E;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;border-radius:4px;cursor:pointer;transition:all 0.2s}
+.res-btn-enq:hover{background:#B8962E;color:#1a1a1a}
+.wiz-restart{background:transparent;border:1px solid rgba(26,26,26,0.2);color:rgba(26,26,26,0.5);font-family:'Inter',sans-serif;font-size:0.75rem;padding:10px 24px;border-radius:5px;cursor:pointer;margin-top:32px;transition:all 0.2s}
+.wiz-restart:hover{border-color:#B8962E;color:#B8962E}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal-box{background:#f5f0e8;border-radius:8px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:36px}
+.modal-close{float:right;background:none;border:none;font-size:1.4rem;cursor:pointer;color:rgba(26,26,26,0.3);line-height:1;margin:-8px -8px 0 0}
+.modal-school{font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#B8962E;margin-bottom:6px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1a1a1a;margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row.full{grid-template-columns:1fr}
+.form-group label{display:block;font-family:'Inter',sans-serif;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,26,26,0.4);margin-bottom:4px}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:#fff;border:1px solid rgba(26,26,26,0.12);color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.82rem;padding:9px 11px;border-radius:5px;outline:none;box-sizing:border-box;transition:border 0.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#B8962E}
+.form-group textarea{height:70px;resize:none}
+.modal-submit{width:100%;margin-top:14px;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:13px;border-radius:6px;border:none;cursor:pointer}
+.modal-submit:hover{background:#9a7c25}
+.modal-line-note{margin-top:10px;text-align:center;font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.38)}
+.modal-line-note a{color:#B8962E;text-decoration:none}
+.modal-success{display:none;text-align:center;padding:20px 0}
+.modal-success-icon{font-size:2.5rem;color:#B8962E;margin-bottom:12px}
+.modal-success h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:8px}
+.modal-success p{font-family:'Inter',sans-serif;font-size:0.82rem;color:rgba(26,26,26,0.5);line-height:1.6}
+
+@media(max-width:600px){
+  .wiz-options.cols-2,.wiz-options.cols-3{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item"><a href="schools.html" class="nav-link active"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></div>
+        <div class="nav-item"><a href="find-your-school.html" class="nav-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a></div>
+        <div class="nav-item"><a href="compare.html" class="nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div>
+        <div class="nav-item"><a href="fees.html" class="nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></div>
+        <div class="nav-item"><a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div>
+        <div class="nav-item"><a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow"><span class="lang-th">คู่มือหาโรงเรียนที่ใช่</span><span class="lang-en">Guided School Match Wizard</span></div>
+    <h1><span class="lang-th">ตอบ 5 คำถาม — เราหาโรงเรียนให้คุณ</span><span class="lang-en">Answer 5 Questions — We'll Match Your School</span></h1>
+    <p class="page-hero-sub"><span class="lang-th">ไม่ต้องรู้ชื่อโรงเรียน บอกแค่งบประมาณ อายุลูก และความต้องการ แล้ว LINKEDU จะจับคู่โรงเรียนที่เหมาะที่สุด</span><span class="lang-en">Don't know which school to pick? Just tell us your budget, your child's age, and priorities — we'll find the best matches.</span></p>
+  </div>
+</section>
+
+<!-- PROGRESS BAR -->
+<div class="wiz-progress">
+  <div class="wiz-steps" id="wizSteps">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- WIZARD BODY -->
+<div class="wiz-body" id="wizBody">
+  <div class="container">
+
+    <!-- Step 1: Budget -->
+    <div class="wiz-panel active" id="step1">
+      <h2 class="wiz-question"><span class="lang-th">งบประมาณค่าเรียนต่อปีของคุณ?</span><span class="lang-en">What is your annual school fee budget?</span></h2>
+      <p class="wiz-sub"><span class="lang-th">โรงเรียนเอกชนอังกฤษมี VAT 20% เพิ่มเติมจากมกราคม 2568 — ตัวเลขด้านล่างแสดงค่าเรียนก่อน VAT</span><span class="lang-en">UK private school fees have +20% VAT from January 2025. Figures below are before VAT.</span></p>
+      <div class="wiz-options">
+        <div class="wiz-option" onclick="select(1,'budget','under36')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ต่ำกว่า £36,000</span><span class="lang-en">Under £36,000</span></div><div class="wiz-option-thb">ต่ำกว่า ฿1.62M / ปี</div><div class="wiz-option-sub"><span class="lang-th">เน้นทุนการศึกษา โรงเรียนมีมูลค่าสูง</span><span class="lang-en">Scholarship-focused, value boarding schools</span></div></div>
+        <div class="wiz-option" onclick="select(1,'budget','36-44')"><div class="wiz-option-check">✓</div><div class="wiz-option-title">£36,000 – £44,000</div><div class="wiz-option-thb">฿1.62M – ฿1.98M / ปี</div><div class="wiz-option-sub"><span class="lang-th">โรงเรียนดีมีคุณภาพ คุ้มค่าสูง</span><span class="lang-en">Good quality schools, excellent value</span></div></div>
+        <div class="wiz-option" onclick="select(1,'budget','44-50')"><div class="wiz-option-check">✓</div><div class="wiz-option-title">£44,000 – £50,000</div><div class="wiz-option-thb">฿1.98M – ฿2.25M / ปี</div><div class="wiz-option-sub"><span class="lang-th">โรงเรียนระดับกลางถึงดี มีชื่อเสียง</span><span class="lang-en">Mid-to-high tier, well-established schools</span></div></div>
+        <div class="wiz-option" onclick="select(1,'budget','50-58')"><div class="wiz-option-check">✓</div><div class="wiz-option-title">£50,000 – £58,000</div><div class="wiz-option-thb">฿2.25M – ฿2.61M / ปี</div><div class="wiz-option-sub"><span class="lang-th">โรงเรียนพรีเมียม มีชื่อเสียงระดับประเทศ</span><span class="lang-en">Premium schools, nationally renowned</span></div></div>
+        <div class="wiz-option" onclick="select(1,'budget','over58')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">มากกว่า £58,000</span><span class="lang-en">Over £58,000</span></div><div class="wiz-option-thb">มากกว่า ฿2.61M / ปี</div><div class="wiz-option-sub"><span class="lang-th">โรงเรียนชั้นนำระดับโลก เช่น Eton, Harrow</span><span class="lang-en">World-class elite schools (Eton, Harrow)</span></div></div>
+      </div>
+      <div class="wiz-nav"><button class="wiz-btn wiz-btn-next" onclick="goNext(1)"><span class="lang-th">ถัดไป</span><span class="lang-en">Next</span> &rarr;</button></div>
+    </div>
+
+    <!-- Step 2: Entry Age -->
+    <div class="wiz-panel" id="step2">
+      <h2 class="wiz-question"><span class="lang-th">ลูกของคุณอายุเท่าไหร่ตอนนี้?</span><span class="lang-en">How old is your child right now?</span></h2>
+      <p class="wiz-sub"><span class="lang-th">ช่วยให้เราหาโรงเรียนที่รับนักเรียนในช่วงอายุที่เหมาะสม</span><span class="lang-en">This helps us find schools with the right entry point for your child.</span></p>
+      <div class="wiz-options cols-2">
+        <div class="wiz-option" onclick="select(2,'age','8-10')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">8–10 ปี</span><span class="lang-en">8–10 years old</span></div><div class="wiz-option-sub"><span class="lang-th">เข้า Year 7 (11+) หรือ Year 9 (13+)</span><span class="lang-en">Entry at Year 7 (11+) or Year 9 (13+)</span></div></div>
+        <div class="wiz-option" onclick="select(2,'age','11-12')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">11–12 ปี</span><span class="lang-en">11–12 years old</span></div><div class="wiz-option-sub"><span class="lang-th">เข้า Year 7 (11+) — เริ่มต้นดี</span><span class="lang-en">Entry at Year 7 (11+) — great start</span></div></div>
+        <div class="wiz-option" onclick="select(2,'age','12-14')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">12–14 ปี</span><span class="lang-en">12–14 years old</span></div><div class="wiz-option-sub"><span class="lang-th">เข้า Year 9 (13+) — พบบ่อยที่สุด</span><span class="lang-en">Entry at Year 9 (13+) — most common</span></div></div>
+        <div class="wiz-option" onclick="select(2,'age','15-16')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">15–16 ปี</span><span class="lang-en">15–16 years old</span></div><div class="wiz-option-sub"><span class="lang-th">เข้า Sixth Form (16+) — A-Level 2 ปี</span><span class="lang-en">Sixth Form entry (16+) — 2-year A-Level</span></div></div>
+      </div>
+      <div class="wiz-nav">
+        <button class="wiz-btn wiz-btn-back" onclick="goBack(2)"><span class="lang-th">ย้อนกลับ</span><span class="lang-en">Back</span></button>
+        <button class="wiz-btn wiz-btn-next" onclick="goNext(2)"><span class="lang-th">ถัดไป</span><span class="lang-en">Next</span> &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Gender -->
+    <div class="wiz-panel" id="step3">
+      <h2 class="wiz-question"><span class="lang-th">คุณต้องการโรงเรียนแบบไหน?</span><span class="lang-en">What type of school do you prefer?</span></h2>
+      <p class="wiz-sub"><span class="lang-th">โรงเรียนชาย-หญิงรวมกัน หรือแยกเพศ — แต่ละแบบมีข้อดีต่างกัน</span><span class="lang-en">Co-educational or single-sex — each has distinct advantages.</span></p>
+      <div class="wiz-options cols-3">
+        <div class="wiz-option" onclick="select(3,'gender','Co-ed')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ชาย-หญิงรวม</span><span class="lang-en">Co-educational</span></div><div class="wiz-option-sub"><span class="lang-th">สังคมหลากหลาย ใกล้เคียงชีวิตจริง</span><span class="lang-en">Mixed social environment, most common</span></div></div>
+        <div class="wiz-option" onclick="select(3,'gender','Boys')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ชายล้วน</span><span class="lang-en">Boys Only</span></div><div class="wiz-option-sub"><span class="lang-th">แบบดั้งเดิม วินัยเข้ม ผลการเรียนสูง</span><span class="lang-en">Traditional, strong discipline, high results</span></div></div>
+        <div class="wiz-option" onclick="select(3,'gender','Girls')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">หญิงล้วน</span><span class="lang-en">Girls Only</span></div><div class="wiz-option-sub"><span class="lang-th">เสริมความมั่นใจ วิชาการแข็งแกร่ง</span><span class="lang-en">Confidence-building, strong academic focus</span></div></div>
+      </div>
+      <div class="wiz-nav">
+        <button class="wiz-btn wiz-btn-back" onclick="goBack(3)"><span class="lang-th">ย้อนกลับ</span><span class="lang-en">Back</span></button>
+        <button class="wiz-btn wiz-btn-next" onclick="goNext(3)"><span class="lang-th">ถัดไป</span><span class="lang-en">Next</span> &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Priority -->
+    <div class="wiz-panel" id="step4">
+      <h2 class="wiz-question"><span class="lang-th">อะไรสำคัญที่สุดสำหรับลูกคุณ?</span><span class="lang-en">What matters most to your child?</span></h2>
+      <p class="wiz-sub"><span class="lang-th">เลือกลำดับความสำคัญหลัก — ส่งผลต่อโรงเรียนที่เราแนะนำ</span><span class="lang-en">Your primary priority shapes which schools we recommend.</span></p>
+      <div class="wiz-options cols-2">
+        <div class="wiz-option" onclick="select(4,'priority','academic')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">วิชาการเป็นเลิศ</span><span class="lang-en">Academic Excellence</span></div><div class="wiz-option-sub"><span class="lang-th">เป้าหมาย Oxbridge หรือ Russell Group A-Level สูง</span><span class="lang-en">Oxbridge / Russell Group target. Top A-Level results.</span></div></div>
+        <div class="wiz-option" onclick="select(4,'priority','sport')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ทุนกีฬา / กีฬาเยี่ยม</span><span class="lang-en">Sports Scholarship</span></div><div class="wiz-option-sub"><span class="lang-th">โค้ชระดับโอลิมปิก โอกาสทุนการศึกษากีฬา</span><span class="lang-en">Olympic-level coaching. Scholarship potential.</span></div></div>
+        <div class="wiz-option" onclick="select(4,'priority','arts')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ดนตรี / ศิลปะ / การแสดง</span><span class="lang-en">Arts &amp; Music</span></div><div class="wiz-option-sub"><span class="lang-th">ความเป็นเลิศด้านสร้างสรรค์ ดนตรี ละคร ทัศนศิลป์</span><span class="lang-en">Creative excellence. Drama, music, visual arts.</span></div></div>
+        <div class="wiz-option" onclick="select(4,'priority','balanced')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">รอบด้าน สมดุล</span><span class="lang-en">All-Round Experience</span></div><div class="wiz-option-sub"><span class="lang-th">สมดุลวิชาการ กีฬา และการพัฒนาตัวตน</span><span class="lang-en">Balance of academics, sport, and personal growth.</span></div></div>
+      </div>
+      <div class="wiz-nav">
+        <button class="wiz-btn wiz-btn-back" onclick="goBack(4)"><span class="lang-th">ย้อนกลับ</span><span class="lang-en">Back</span></button>
+        <button class="wiz-btn wiz-btn-next" onclick="goNext(4)"><span class="lang-th">ถัดไป</span><span class="lang-en">Next</span> &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Boarding -->
+    <div class="wiz-panel" id="step5">
+      <h2 class="wiz-question"><span class="lang-th">คุณต้องการโรงเรียนประจำแบบไหน?</span><span class="lang-en">What boarding arrangement do you need?</span></h2>
+      <p class="wiz-sub"><span class="lang-th">สำหรับครอบครัวในกรุงเทพ โรงเรียนประจำเต็มรูปแบบมักเหมาะสมที่สุด</span><span class="lang-en">For Bangkok families, full boarding is usually the best fit.</span></p>
+      <div class="wiz-options cols-3">
+        <div class="wiz-option" onclick="select(5,'boarding','full')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ประจำเต็มรูปแบบ</span><span class="lang-en">Full Boarding</span></div><div class="wiz-option-sub"><span class="lang-th">อยู่โรงเรียนตลอดเทอม เหมาะกับครอบครัวในกรุงเทพ</span><span class="lang-en">Child lives at school all term. Best for Bangkok families.</span></div></div>
+        <div class="wiz-option" onclick="select(5,'boarding','any')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ยืดหยุ่นได้</span><span class="lang-en">Flexible OK</span></div><div class="wiz-option-sub"><span class="lang-th">ไม่จำเป็นต้องประจำเต็มรูปแบบ</span><span class="lang-en">Day & Boarding options are fine too.</span></div></div>
+        <div class="wiz-option" onclick="select(5,'boarding','london')"><div class="wiz-option-check">✓</div><div class="wiz-option-title"><span class="lang-th">ใกล้ลอนดอน / Heathrow</span><span class="lang-en">Near London</span></div><div class="wiz-option-sub"><span class="lang-th">เดินทางจาก Heathrow สะดวก ภายใน 1 ชั่วโมง</span><span class="lang-en">Easy access from Heathrow — within 1 hour.</span></div></div>
+      </div>
+      <div class="wiz-nav">
+        <button class="wiz-btn wiz-btn-back" onclick="goBack(5)"><span class="lang-th">ย้อนกลับ</span><span class="lang-en">Back</span></button>
+        <button class="wiz-btn wiz-btn-next" onclick="showResults()"><span class="lang-th">ดูผลลัพธ์</span><span class="lang-en">See My Matches</span> &rarr;</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-section" id="resultsSection">
+  <div class="container">
+    <div class="results-header">
+      <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;margin-bottom:12px">· <span class="lang-th">ผลลัพธ์การค้นหา</span><span class="lang-en">YOUR MATCHES</span> ·</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#1a1a1a;font-weight:400;margin-bottom:16px"><span class="lang-th">โรงเรียนที่เหมาะกับคุณ</span><span class="lang-en">Your Best-Matched Schools</span></h2>
+      <div class="results-summary" id="resultsSummary"></div>
+    </div>
+    <div class="results-grid" id="resultsGrid"></div>
+    <div style="text-align:center;margin-top:40px">
+      <button class="wiz-restart" onclick="restart()"><span class="lang-th">เริ่มใหม่อีกครั้ง</span><span class="lang-en">Start Over</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- LINE CTA -->
+<section style="background:#1a1a1a;padding:64px 0;text-align:center">
+  <div class="container">
+    <p style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;margin-bottom:12px">· <span class="lang-th">ต้องการผู้เชี่ยวชาญ?</span><span class="lang-en">WANT EXPERT ADVICE?</span> ·</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#f5f0e8;font-weight:400;margin-bottom:12px"><span class="lang-th">LINKEDU ช่วยเลือกโรงเรียนให้คุณ</span><span class="lang-en">Let LINKEDU guide you</span></h2>
+    <p style="font-family:'Inter',sans-serif;font-size:1rem;color:#B8962E;font-weight:600;margin-bottom:6px">LINE: @linkedu.th</p>
+    <p style="font-family:'Inter',sans-serif;font-size:0.83rem;color:rgba(245,240,232,0.5);margin-bottom:24px">ปรึกษาฟรี / Free Consultation</p>
+    <a href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener" style="display:inline-block;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:14px 32px;border-radius:6px;text-decoration:none"><span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">เพิ่ม LINE / Add LINE</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#1a1a1a;border-top:1px solid rgba(245,240,232,0.06);padding:32px 0 20px">
+  <div class="container" style="text-align:center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:22px;width:auto;display:inline-block;margin-bottom:12px"><style>.st0b{fill:#FFFFFF;}</style><path class="st0b" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <p style="font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(245,240,232,0.4);margin-bottom:6px">© 2026 LINKEDU Overseas Education</p>
+    <p style="font-family:'Inter',sans-serif;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,240,232,0.18)">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="inquiryModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-school" id="modalSchool">Enquiry</div>
+    <h2 class="modal-title"><span class="lang-th">สอบถามข้อมูลโรงเรียน</span><span class="lang-en">School Enquiry</span></h2>
+    <div id="modalForm">
+      <div class="form-row">
+        <div class="form-group"><label><span class="lang-th">ชื่อนักเรียน</span><span class="lang-en">Student Name</span></label><input type="text" placeholder="..."></div>
+        <div class="form-group"><label><span class="lang-th">อายุ</span><span class="lang-en">Age</span></label><input type="number" placeholder="10–18" min="8" max="18"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label><span class="lang-th">เพศ</span><span class="lang-en">Gender</span></label><select><option><span class="lang-th">เลือก</span><span class="lang-en">Select</span></option><option>Male</option><option>Female</option></select></div>
+        <div class="form-group"><label><span class="lang-th">ปีที่ต้องการเข้า</span><span class="lang-en">Entry Year</span></label><select><option>2025</option><option>2026</option><option>2027</option><option>2028</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label><span class="lang-th">ชื่อผู้ปกครอง</span><span class="lang-en">Parent Name</span></label><input type="text" placeholder="..."></div>
+        <div class="form-group"><label>LINE ID</label><input type="text" placeholder="@yourlineid"></div>
+      </div>
+      <div class="form-row full"><div class="form-group"><label>Email</label><input type="email" placeholder="parent@email.com"></div></div>
+      <div class="form-row full"><div class="form-group"><label><span class="lang-th">ข้อความเพิ่มเติม</span><span class="lang-en">Message</span></label><textarea placeholder="..."></textarea></div></div>
+      <button class="modal-submit" onclick="submitModal()"><span class="lang-th">ส่งข้อมูล — ติดต่อกลับใน 24 ชั่วโมง</span><span class="lang-en">Submit — We'll respond within 24 hours</span></button>
+      <p class="modal-line-note"><span class="lang-th">หรือ</span><span class="lang-en">or</span> <a href="https://line.me/ti/p/@linkedu.th" target="_blank">LINE: @linkedu.th</a></p>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="modal-success-icon">✓</div>
+      <h3><span class="lang-th">ส่งข้อมูลเรียบร้อย</span><span class="lang-en">Enquiry Sent!</span></h3>
+      <p><span class="lang-th">LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง</span><span class="lang-en">A LINKEDU advisor will contact you within 24 hours.</span></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+const SCHOOLS=[
+  {id:1,name:"Abbey DLD College (Cambridge)",loc:"Cambridge",type:"Sixth Form",gender:"Co-ed",fee:61850,entry:["13+","16+"],alevel:60,oxbridge:0,priority:"balanced",distLondon:58,note:"Scholarships up to 100% · Specialist: Football, Basketball"},
+  {id:2,name:"Abbey DLD College (London)",loc:"London",type:"Sixth Form",gender:"Co-ed",fee:61850,entry:["13+","16+"],alevel:40,oxbridge:0,priority:"balanced",distLondon:5,note:"Specialist: Football, Basketball"},
+  {id:3,name:"Abbey DLD College (Manchester)",loc:"Manchester",type:"Sixth Form",gender:"Co-ed",fee:0,entry:["13+","16+"],alevel:38,oxbridge:0,priority:"balanced",distLondon:202,note:"Scholarships up to 50% · Specialist: Football, Basketball"},
+  {id:4,name:"Abbotsholme",loc:"Rochester",type:"Full Boarding",gender:"Co-ed",fee:44313,entry:["11+","13+","16+"],alevel:46,oxbridge:0,priority:"sport",distLondon:32,note:"No compulsory exeat · Specialist: Hockey, Cricket"},
+  {id:5,name:"Abingdon School",loc:"Oxfordshire",type:"Full Boarding",gender:"Boys",fee:54780,entry:["13+","16+"],alevel:72,oxbridge:40,priority:"academic",distLondon:58,note:"Specialist: Rowing, Rugby"},
+  {id:6,name:"Ardingly College",loc:"West Sussex",type:"Full Boarding",gender:"Co-ed",fee:48741,entry:["11+","13+","16+"],alevel:60,oxbridge:36,priority:"academic",distLondon:52,note:"Compulsory exeat · Specialist: Football, Hockey"},
+  {id:7,name:"Ashford School",loc:"Kent",type:"Full Boarding",gender:"Co-ed",fee:44685,entry:["11+","13+","16+"],alevel:40,oxbridge:0,priority:"arts",distLondon:40,note:"Specialist: Hockey, Rugby"},
+  {id:8,name:"Ashville College",loc:"North Yorkshire",type:"Full Boarding",gender:"Co-ed",fee:46095,entry:["11+","13+","16+"],alevel:40,oxbridge:0,priority:"sport",distLondon:212,note:"Specialist: Rugby, Netball"},
+  {id:9,name:"Badminton School",loc:"Bristol",type:"Full Boarding",gender:"Girls",fee:59796,entry:["11+","13+","16+"],alevel:60,oxbridge:2,priority:"arts",distLondon:118,note:"Specialist: Hockey, Netball"},
+  {id:10,name:"Bede's School",loc:"East Sussex",type:"Full Boarding",gender:"Co-ed",fee:50745,entry:["11+","13+","16+"],alevel:78,oxbridge:1,priority:"arts",distLondon:58,note:"Scholarships up to 25% · Specialist: Football, Cricket"},
+  {id:11,name:"Bedford School",loc:"Bedfordshire",type:"Full Boarding",gender:"Boys",fee:50322,entry:["11+","13+","16+"],alevel:53,oxbridge:1,priority:"sport",distLondon:52,note:"Specialist: Rugby Union, Hockey"},
+  {id:12,name:"Benenden School",loc:"Kent",type:"Full Boarding",gender:"Girls",fee:56700,entry:["11+","13+","16+"],alevel:70,oxbridge:0,priority:"sport",distLondon:40,note:"No compulsory exeat · Specialist: Lacrosse, Netball"},
+  {id:13,name:"Berkhamsted School",loc:"Near London",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["13+","16+"],alevel:53,oxbridge:6,priority:"sport",distLondon:25,note:"Specialist: Rugby, Football"},
+  {id:14,name:"Bishop's Stortford College",loc:"Near Cambridge & London",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["11+","13+","16+"],alevel:94,oxbridge:0,priority:"academic",distLondon:5,note:"Top academic results (94% A*-A) · Specialist: Hockey, Rugby"},
+  {id:15,name:"Bloxham School",loc:"Oxfordshire",type:"Full Boarding",gender:"Co-ed",fee:50670,entry:["13+","16+"],alevel:40,oxbridge:0,priority:"sport",distLondon:58,note:"Specialist: Rugby, Hockey"},
+  {id:16,name:"Bosworth Independent College",loc:"Northampton",type:"Full Boarding",gender:"Co-ed",fee:42975,entry:["11+","13+","16+"],alevel:85,oxbridge:0,priority:"academic",distLondon:68,note:"Top academic results (85% A*-A) · Specialist: Football, Basketball"},
+  {id:17,name:"Bradfield College",loc:"Reading",type:"Full Boarding",gender:"Co-ed",fee:56190,entry:["13+","16+"],alevel:43,oxbridge:0,priority:"sport",distLondon:42,note:"Compulsory exeat · Specialist: Football, Hockey"},
+  {id:18,name:"Brentwood School",loc:"Essex",type:"Full Boarding",gender:"Co-ed",fee:52251,entry:["13+","16+"],alevel:37,oxbridge:0,priority:"sport",distLondon:32,note:"Specialist: Football, Rugby"},
+  {id:19,name:"Brighton College",loc:"Brighton",type:"Full Boarding",gender:"Co-ed",fee:65010,entry:["13+","16+"],alevel:86,oxbridge:33,priority:"academic",distLondon:52,note:"Top academic results (86% A*-A) · Specialist: Rugby Union, Cricket"},
+  {id:20,name:"Bromsgrove School",loc:"Worcestershire",type:"Full Boarding",gender:"Co-ed",fee:52254,entry:["11+","13+","16+"],alevel:39,oxbridge:2,priority:"sport",distLondon:118,note:"No compulsory exeat · Specialist: Rugby, Hockey"},
+  {id:21,name:"Brooke House College",loc:"Leicester",type:"Full Boarding",gender:"Co-ed",fee:45570,entry:["11+","13+","16+"],alevel:6,oxbridge:0,priority:"balanced",distLondon:102,note:"Specialist: Football, Basketball"},
+  {id:22,name:"Bryanston School",loc:"Dorset",type:"Full Boarding",gender:"Co-ed",fee:56523,entry:["11+","13+","16+"],alevel:33,oxbridge:0,priority:"sport",distLondon:115,note:"Compulsory exeat · Specialist: Rugby, Football"},
+  {id:23,name:"Burgess Hill Girls",loc:"West Sussex",type:"Full Boarding",gender:"Girls",fee:44595,entry:["11+","13+","16+"],alevel:68,oxbridge:0,priority:"arts",distLondon:52,note:"Specialist: Hockey, Netball"},
+  {id:24,name:"Cardiff Sixth Form College",loc:"Cardiff",type:"Sixth Form",gender:"Co-ed",fee:68185,entry:["13+","16+"],alevel:90,oxbridge:12,priority:"academic",distLondon:152,note:"Scholarships up to 100% · Top academic results (91% A*-A)"},
+  {id:25,name:"Caterham School",loc:"Surrey",type:"Full Boarding",gender:"Co-ed",fee:55455,entry:["13+","16+"],alevel:71,oxbridge:3,priority:"sport",distLondon:28,note:"Specialist: Rugby, Hockey"},
+  {id:26,name:"Charterhouse",loc:"Surrey",type:"Full Boarding",gender:"Co-ed",fee:56418,entry:["13+","16+"],alevel:62,oxbridge:2,priority:"sport",distLondon:28,note:"Specialist: Football, Hockey"},
+  {id:27,name:"Cheltenham College",loc:"Gloucestershire, , Near Bristol",type:"Full Boarding",gender:"Co-ed",fee:59310,entry:["11+","13+","16+"],alevel:75,oxbridge:0,priority:"sport",distLondon:100,note:"Specialist: Rugby, Cricket"},
+  {id:28,name:"Cheltenham Ladies' College",loc:"Near Oxford & Birmingham",type:"Full Boarding",gender:"Girls",fee:61470,entry:["11+","13+","16+"],alevel:76,oxbridge:8,priority:"arts",distLondon:58,note:"No compulsory exeat · Specialist: Hockey, Lacrosse"},
+  {id:29,name:"Christ's Hospital School",loc:"West Sussex",type:"Full Boarding",gender:"Co-ed",fee:47085,entry:["11+","13+","16+"],alevel:53,oxbridge:2023,priority:"academic",distLondon:52,note:"Specialist: Football, Rugby Union"},
+  {id:30,name:"City of London Freeman (Year 7 Day)",loc:"London",type:"Full Boarding",gender:"Co-ed",fee:55935,entry:["13+","16+"],alevel:72,oxbridge:4,priority:"sport",distLondon:5,note:"Specialist: Rugby, Hockey"},
+  {id:31,name:"Clifton College",loc:"Bristol",type:"Full Boarding",gender:"Co-ed",fee:55080,entry:["11+","13+","16+"],alevel:58,oxbridge:0,priority:"sport",distLondon:118,note:"Specialist: Rugby Union, Hockey"},
+  {id:32,name:"Concord College",loc:"Shropshire",type:"Full Boarding",gender:"Co-ed",fee:61764,entry:["13+","16+"],alevel:74,oxbridge:12,priority:"academic",distLondon:152,note:"Scholarships up to 50% · No compulsory exeat"},
+  {id:33,name:"Culford School",loc:"Suffolk",type:"Full Boarding",gender:"Co-ed",fee:52515,entry:["11+","13+","16+"],alevel:41,oxbridge:0,priority:"sport",distLondon:82,note:"Specialist: Rugby, Hockey"},
+  {id:34,name:"D'Overbroeks College",loc:"Oxford",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["13+","16+"],alevel:66,oxbridge:50,priority:"academic",distLondon:58,note:"Scholarships up to 25% · Specialist: PE, Football"},
+  {id:35,name:"Dean Close School",loc:"Gloucestershire",type:"Full Boarding",gender:"Co-ed",fee:57450,entry:["13+","16+"],alevel:34,oxbridge:0,priority:"arts",distLondon:100,note:"Scholarships up to 40% · Specialist: Rugby, Hockey"},
+  {id:36,name:"Dulwich College",loc:"London",type:"Full Boarding",gender:"Boys",fee:61323,entry:["13+","16+"],alevel:69,oxbridge:198,priority:"academic",distLondon:5,note:"Compulsory exeat · Specialist: Rugby, Football"},
+  {id:37,name:"Earlscliff school",loc:"Folkestone",type:"Sixth Form",gender:"Co-ed",fee:0,entry:["16+"],alevel:0,oxbridge:1,priority:"sport",distLondon:68,note:"Scholarships up to 50% · Specialist: Football, Basketball"},
+  {id:38,name:"Eastbourne College",loc:"East Sussex",type:"Full Boarding",gender:"Co-ed",fee:53781,entry:["13+","16+"],alevel:50,oxbridge:3,priority:"sport",distLondon:58,note:"Scholarships up to 50% · Specialist: Rugby Union, Hockey"},
+  {id:39,name:"Ellesmere College",loc:"Shropshire",type:"Full Boarding",gender:"Co-ed",fee:37965,entry:["13+","16+"],alevel:98,oxbridge:0,priority:"academic",distLondon:152,note:"Scholarships up to 50% · Top academic results (98% A*-A)"},
+  {id:40,name:"Epsom College",loc:"Surrey",type:"Full Boarding",gender:"Co-ed",fee:55158,entry:["13+","16+"],alevel:62,oxbridge:10,priority:"academic",distLondon:28,note:"No compulsory exeat · Specialist: Hockey, Football"},
+  {id:41,name:"Eton College",loc:"Berkshire",type:"Full Boarding",gender:"Boys",fee:63300,entry:["13+","16+"],alevel:84,oxbridge:0,priority:"sport",distLondon:32,note:"Specialist: Football, Rugby Union"},
+  {id:42,name:"Haileybury",loc:"Hertfordshire",type:"Full Boarding",gender:"Co-ed",fee:53580,entry:["11+","13+","16+"],alevel:53,oxbridge:3,priority:"sport",distLondon:26,note:"Compulsory exeat · Specialist: Hockey, Rugby"},
+  {id:43,name:"Handcross Park School",loc:"Brighton",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["11+","13+","16+"],alevel:0,oxbridge:0,priority:"sport",distLondon:52,note:"Specialist: Football, Rugby"},
+  {id:44,name:"Harrow School",loc:"London",type:"Full Boarding",gender:"Boys",fee:61584,entry:["13+","16+"],alevel:52,oxbridge:11,priority:"academic",distLondon:5,note:"Specialist: Cricket, Rugby Union"},
+  {id:45,name:"Headington School",loc:"Oxford",type:"Full Boarding",gender:"Girls",fee:50943,entry:["11+","13+","16+"],alevel:61,oxbridge:6,priority:"sport",distLondon:58,note:"Specialist: Hockey, Netball"},
+  {id:46,name:"Hurtwood House",loc:"Surrey",type:"Full Boarding",gender:"Co-ed",fee:65256,entry:["16+"],alevel:67,oxbridge:0,priority:"arts",distLondon:28,note:"Specialist: Football, Hockey"},
+  {id:47,name:"Kent College Canterbury",loc:"Kent",type:"Full Boarding",gender:"Co-ed",fee:38649,entry:["11+","13+","16+"],alevel:40,oxbridge:0,priority:"sport",distLondon:40,note:"Scholarships up to 50% · Specialist: Hockey, Cricket"},
+  {id:48,name:"King's College, Taunton",loc:"Somerset",type:"Full Boarding",gender:"Co-ed",fee:54351,entry:["13+","16+"],alevel:47,oxbridge:0,priority:"sport",distLondon:125,note:"Specialist: Cricket, Rugby"},
+  {id:49,name:"King's School Canterbury",loc:"Kent",type:"Full Boarding",gender:"Co-ed",fee:52344,entry:["13+","16+"],alevel:51,oxbridge:9,priority:"sport",distLondon:40,note:"Specialist: Rugby, Hockey"},
+  {id:50,name:"Kingswood School",loc:"Bath",type:"Full Boarding",gender:"Co-ed",fee:48858,entry:["11+","13+","16+"],alevel:67,oxbridge:2024,priority:"academic",distLondon:118,note:"Specialist: Rugby Union, Hockey"},
+  {id:51,name:"Lancing College",loc:"West Sussex",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["13+","16+"],alevel:52,oxbridge:0,priority:"arts",distLondon:52,note:"Specialist: Hockey, Football"},
+  {id:52,name:"Leighton Park School",loc:"Reading",type:"Full Boarding",gender:"Co-ed",fee:42885,entry:["11+","13+","16+"],alevel:4100,oxbridge:0,priority:"academic",distLondon:42,note:"Top academic results (4100% A*-A) · Specialist: Football, Hockey"},
+  {id:53,name:"Loretto School (Scotland)",loc:"East Lothian",type:"Full Boarding",gender:"Co-ed",fee:49632,entry:["11+","13+","16+"],alevel:33,oxbridge:0,priority:"sport",distLondon:408,note:"Specialist: Rugby, Hockey"},
+  {id:54,name:"MPW Birmingham",loc:"Birmingham",type:"Sixth Form",gender:"Co-ed",fee:59000,entry:["16+"],alevel:45,oxbridge:0,priority:"balanced",distLondon:115,note:"Specialist: PE, Fitness"},
+  {id:55,name:"MPW Cambridge",loc:"Cambridge",type:"Sixth Form",gender:"Co-ed",fee:62450,entry:["16+"],alevel:45,oxbridge:0,priority:"balanced",distLondon:58,note:"Scholarships up to 100% · Specialist: PE, Fitness"},
+  {id:56,name:"MPW London",loc:"London",type:"Sixth Form",gender:"Co-ed",fee:69750,entry:["13+","16+"],alevel:45,oxbridge:0,priority:"balanced",distLondon:5,note:"Scholarships up to 100% · Specialist: PE, Fitness"},
+  {id:57,name:"Malvern College",loc:"Worcestershire",type:"Full Boarding",gender:"Co-ed",fee:57285,entry:["13+","16+"],alevel:43,oxbridge:0,priority:"sport",distLondon:118,note:"Specialist: Rugby, Cricket"},
+  {id:58,name:"Marlborough College",loc:"Marlborough",type:"Full Boarding",gender:"Co-ed",fee:59142,entry:["13+","16+"],alevel:45,oxbridge:50,priority:"academic",distLondon:82,note:"Specialist: Hockey, Cricket"},
+  {id:59,name:"Mayfield School",loc:"East Sussex, Near Kent",type:"Full Boarding",gender:"Girls",fee:53910,entry:["11+","13+","16+"],alevel:50,oxbridge:0,priority:"arts",distLondon:40,note:"Specialist: Hockey, Netball"},
+  {id:60,name:"Merchiston Castle School (Scotland)",loc:"Edinburgh",type:"Full Boarding",gender:"Boys",fee:50706,entry:["11+","13+","16+"],alevel:59,oxbridge:0,priority:"sport",distLondon:405,note:"No compulsory exeat · Specialist: Rugby, Cricket"},
+  {id:61,name:"Mill Hill School",loc:"London",type:"Full Boarding",gender:"Co-ed",fee:52320,entry:["13+","16+"],alevel:45,oxbridge:1,priority:"sport",distLondon:5,note:"Specialist: Rugby, Hockey"},
+  {id:62,name:"Millfield School",loc:"Somerset",type:"Full Boarding",gender:"Co-ed",fee:0,entry:["11+","13+","16+"],alevel:31,oxbridge:5,priority:"arts",distLondon:125,note:"Compulsory exeat · Specialist: Football, Hockey"},
+  {id:63,name:"Milton Abbey School",loc:"Near Southampton",type:"Full Boarding",gender:"Co-ed",fee:59745,entry:["13+","16+"],alevel:0,oxbridge:0,priority:"sport",distLondon:75,note:"Specialist: Football, Hockey"},
+  {id:64,name:"Moreton Hall",loc:"Near Liverpool",type:"Full Boarding",gender:"Co-ed",fee:40233,entry:["11+","13+","16+"],alevel:45,oxbridge:4,priority:"sport",distLondon:212,note:"Compulsory exeat · Specialist: Lacrosse, Hockey"},
+  {id:65,name:"Mount Kelly",loc:"England",type:"Full Boarding",gender:"Co-ed",fee:49500,entry:["11+","13+","16+"],alevel:0,oxbridge:0,priority:"sport",distLondon:80,note:"No compulsory exeat · Specialist: Swimming, Rugby"},
+  {id:66,name:"Myddelton College",loc:"North Wales",type:"Full Boarding",gender:"Co-ed",fee:45000,entry:["11+","13+","16+"],alevel:80,oxbridge:0,priority:"arts",distLondon:202,note:"Scholarships up to 100% · No compulsory exeat"},
+  {id:67,name:"Oakham School",loc:"Rutland",type:"Full Boarding",gender:"Co-ed",fee:40650,entry:["11+","13+","16+"],alevel:36,oxbridge:0,priority:"sport",distLondon:105,note:"No compulsory exeat · Specialist: Rugby, Hockey"},
+  {id:68,name:"Oundle School",loc:"Peterborough",type:"Full Boarding",gender:"Co-ed",fee:59400,entry:["11+","13+","16+"],alevel:61,oxbridge:10,priority:"academic",distLondon:82,note:"Compulsory exeat · Specialist: Rugby, Hockey"},
+  {id:69,name:"Oxford International College",loc:"Oxford",type:"Sixth Form",gender:"Co-ed",fee:35075,entry:["16+"],alevel:91,oxbridge:13,priority:"academic",distLondon:58,note:"Top academic results (91% A*-A) · Specialist: PE, Fitness"},
+  {id:70,name:"Plymouth College",loc:"England",type:"Full Boarding",gender:"Co-ed",fee:50100,entry:["11+","13+","16+"],alevel:0,oxbridge:0,priority:"sport",distLondon:80,note:"Scholarships up to 50% · Specialist: Rugby, Hockey"},
+  {id:71,name:"Queen Anne's School",loc:"Reading",type:"Full Boarding",gender:"Girls",fee:57546,entry:["11+","13+","16+"],alevel:36,oxbridge:0,priority:"arts",distLondon:42,note:"Specialist: Lacrosse, Netball"},
+  {id:72,name:"Queen Ethelburga's Collegiate",loc:"York",type:"Full Boarding",gender:"Co-ed",fee:69990,entry:["11+","13+","16+"],alevel:78,oxbridge:1,priority:"sport",distLondon:80,note:"Specialist: Football, Rugby Union"},
+  {id:73,name:"Queenswood School",loc:"Hertfordshire, Near London",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:67,oxbridge:0,priority:"arts",distLondon:5,note:"Scholarships up to 50% · Specialist: Hockey, Netball"},
+  {id:74,name:"Radley College",loc:"Oxfordshire",type:"Full Boarding",gender:"Boys",fee:57600,entry:["13+","16+"],alevel:62,oxbridge:0,priority:"sport",distLondon:58,note:"Specialist: Rugby Union, Hockey"},
+  {id:75,name:"Repton School",loc:"Derbyshire",type:"Full Boarding",gender:"Co-ed",fee:54825,entry:["13+","16+"],alevel:42,oxbridge:0,priority:"sport",distLondon:135,note:"No compulsory exeat · Specialist: Football, Hockey"},
+  {id:76,name:"Roedean School",loc:"Brighton",type:"Full Boarding",gender:"Girls",fee:58050,entry:["11+","13+","16+"],alevel:57,oxbridge:0,priority:"arts",distLondon:52,note:"Compulsory exeat · Specialist: Hockey, Netball"},
+  {id:77,name:"Rossall School",loc:"Lancashire",type:"Full Boarding",gender:"Co-ed",fee:57078,entry:["11+","13+","16+"],alevel:44,oxbridge:2024,priority:"academic",distLondon:222,note:"Scholarships up to 50% · Specialist: Football, Hockey"},
+  {id:78,name:"Royal High School, Bath",loc:"Bath",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:43,oxbridge:0,priority:"arts",distLondon:118,note:"Specialist: Hockey, Netball"},
+  {id:79,name:"Royal Hospital School",loc:"Suffolk",type:"Full Boarding",gender:"Co-ed",fee:52521,entry:["11+","13+","16+"],alevel:41,oxbridge:1,priority:"sport",distLondon:82,note:"Scholarships up to 100% · Specialist: Sailing, Rugby"},
+  {id:80,name:"Royal Masonic School for Girls",loc:"Hertfordshire, Near London",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:52,oxbridge:0,priority:"arts",distLondon:5,note:"Scholarships up to 25% · Specialist: Hockey, Netball"},
+  {id:81,name:"Royal Russell School",loc:"Surrey",type:"Full Boarding",gender:"Co-ed",fee:51993,entry:["11+","13+","16+"],alevel:56,oxbridge:2,priority:"sport",distLondon:28,note:"Specialist: Football, Hockey"},
+  {id:82,name:"Rugby School",loc:"Warwickshire",type:"Full Boarding",gender:"Co-ed",fee:55056,entry:["13+","16+"],alevel:56,oxbridge:14,priority:"academic",distLondon:95,note:"Specialist: Rugby Union, Cricket"},
+  {id:83,name:"Sedbergh School",loc:"Near York & Leeds",type:"Full Boarding",gender:"Co-ed",fee:51195,entry:["13+","16+"],alevel:34,oxbridge:0,priority:"sport",distLondon:198,note:"No compulsory exeat · Specialist: Rugby Union, Hockey"},
+  {id:84,name:"Sevenoaks",loc:"Kent",type:"Full Boarding",gender:"Co-ed",fee:56763,entry:["13+","16+"],alevel:3957,oxbridge:23,priority:"academic",distLondon:40,note:"No compulsory exeat · Top academic results (3957% A*-A)"},
+  {id:85,name:"Sherborne",loc:"Dorset",type:"Full Boarding",gender:"Boys",fee:55386,entry:["13+","16+"],alevel:33,oxbridge:0,priority:"sport",distLondon:115,note:"Specialist: Rugby, Hockey"},
+  {id:86,name:"Sherborne School for Girls",loc:"Dorset, Near Bristol",type:"Full Boarding",gender:"Girls",fee:53640,entry:["11+","13+","16+"],alevel:52,oxbridge:4,priority:"arts",distLondon:115,note:"Compulsory exeat · Specialist: Hockey, Lacrosse"},
+  {id:87,name:"Shrewsbury School",loc:"Shropshire",type:"Full Boarding",gender:"Co-ed",fee:56118,entry:["13+","16+"],alevel:58,oxbridge:50,priority:"academic",distLondon:152,note:"Scholarships up to 30% · Compulsory exeat"},
+  {id:88,name:"Sidcot School",loc:"North Somerset",type:"Full Boarding",gender:"Co-ed",fee:39900,entry:["11+","13+","16+"],alevel:38,oxbridge:1,priority:"arts",distLondon:125,note:"Specialist: Rugby, Football"},
+  {id:89,name:"St Catherine's School, Bramley",loc:"Surrey",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:72,oxbridge:0,priority:"sport",distLondon:28,note:"Specialist: Lacrosse, Netball"},
+  {id:90,name:"St Leonards (Scotland)",loc:"St Andrews",type:"Full Boarding",gender:"Co-ed",fee:54420,entry:["11+","13+","16+"],alevel:35,oxbridge:0,priority:"arts",distLondon:432,note:"Scholarships up to 50% · No compulsory exeat"},
+  {id:91,name:"St Mary's School Ascot",loc:"Berkshire, Near London",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:63,oxbridge:14,priority:"academic",distLondon:5,note:"Specialist: Hockey, Netball"},
+  {id:92,name:"St Mary's School, Cambridge",loc:"Cambridge",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:54,oxbridge:0,priority:"arts",distLondon:58,note:"Specialist: Hockey, Netball"},
+  {id:93,name:"St Swithun's School",loc:"Near Southampton",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:68,oxbridge:6,priority:"sport",distLondon:75,note:"Specialist: Lacrosse, Netball"},
+  {id:94,name:"St. Michael’s School",loc:"Wales",type:"Full Boarding",gender:"Co-ed",fee:41355,entry:["13+","16+"],alevel:80,oxbridge:0,priority:"balanced",distLondon:152,note:"Specialist: Rugby, Football"},
+  {id:95,name:"St. Paul's School",loc:"London",type:"Full Boarding",gender:"Boys",fee:53943,entry:["13+","16+"],alevel:61,oxbridge:0,priority:"sport",distLondon:5,note:"Specialist: Rugby, Football"},
+  {id:96,name:"Stonar School",loc:"Wiltshire",type:"Full Boarding",gender:"Co-ed",fee:54960,entry:["11+","13+","16+"],alevel:35,oxbridge:0,priority:"sport",distLondon:88,note:"Specialist: Equestrian, Hockey"},
+  {id:97,name:"Stowe School",loc:"Buckinghamshire",type:"Full Boarding",gender:"Co-ed",fee:46701,entry:["13+","16+"],alevel:65,oxbridge:0,priority:"sport",distLondon:35,note:"Specialist: Rugby, Hockey"},
+  {id:98,name:"Strathallan School",loc:"Scotland",type:"Full Boarding",gender:"Co-ed",fee:52431,entry:["11+","13+","16+"],alevel:0,oxbridge:0,priority:"sport",distLondon:405,note:"Compulsory exeat · Specialist: Rugby, Hockey"},
+  {id:99,name:"Taunton School",loc:"Near Bristol",type:"Full Boarding",gender:"Co-ed",fee:55875,entry:["11+","13+","16+"],alevel:40,oxbridge:1,priority:"sport",distLondon:118,note:"No compulsory exeat · Specialist: Rugby, Hockey"},
+  {id:100,name:"The Leys School",loc:"Cambridge",type:"Full Boarding",gender:"Co-ed",fee:53235,entry:["11+","13+","16+"],alevel:63,oxbridge:2,priority:"sport",distLondon:58,note:"Specialist: Rugby, Hockey"},
+  {id:101,name:"The National Mathematics and Science College",loc:"England",type:"Full Boarding",gender:"Co-ed",fee:69984,entry:["16+"],alevel:86,oxbridge:0,priority:"academic",distLondon:80,note:"Scholarships up to 100% · Top academic results (86% A*-A)"},
+  {id:102,name:"The Purcell School",loc:"Hertfordshire",type:"Full Boarding",gender:"Co-ed",fee:52175,entry:["13+","16+"],alevel:0,oxbridge:0,priority:"balanced",distLondon:26,note:"Specialist: PE and physical well-being, Physical Education (well-being focused)"},
+  {id:103,name:"Tonbridge School",loc:"Kent",type:"Full Boarding",gender:"Boys",fee:59124,entry:["13+","16+"],alevel:85,oxbridge:23,priority:"academic",distLondon:40,note:"No compulsory exeat · Top academic results (85% A*-A)"},
+  {id:104,name:"Uppingham School",loc:"Rutland",type:"Full Boarding",gender:"Co-ed",fee:55674,entry:["13+","16+"],alevel:53,oxbridge:3,priority:"sport",distLondon:105,note:"Specialist: Rugby, Hockey"},
+  {id:105,name:"Warwick School",loc:"Warwick",type:"Full Boarding",gender:"Boys",fee:46998,entry:["13+","16+"],alevel:66,oxbridge:0,priority:"sport",distLondon:80,note:"Specialist: Rugby, Hockey"},
+  {id:106,name:"Wellington College",loc:"Berkshire",type:"Full Boarding",gender:"Boys",fee:59940,entry:["13+","16+"],alevel:68,oxbridge:22,priority:"academic",distLondon:32,note:"Compulsory exeat · Specialist: Rugby, Cricket"},
+  {id:107,name:"Wells Cathedral School",loc:"Somerset",type:"Full Boarding",gender:"Co-ed",fee:47286,entry:["11+","13+","16+"],alevel:41,oxbridge:0,priority:"sport",distLondon:125,note:"Scholarships up to 50% · Specialist: Rugby, Hockey"},
+  {id:108,name:"Westminster School",loc:"London",type:"Full Boarding",gender:"Boys",fee:62985,entry:["13+","16+"],alevel:84,oxbridge:90,priority:"academic",distLondon:5,note:"Specialist: Football, Cricket"},
+  {id:109,name:"Whitgift School",loc:"Surrey",type:"Full Boarding",gender:"Boys",fee:57591,entry:["13+","16+"],alevel:92,oxbridge:11,priority:"academic",distLondon:28,note:"Top academic results (92% A*-A) · Specialist: Rugby Union, Football"},
+  {id:110,name:"Winchester College",loc:"Hampshire",type:"Full Boarding",gender:"Boys",fee:62226,entry:["13+","16+"],alevel:77,oxbridge:13,priority:"academic",distLondon:68,note:"Compulsory exeat · Specialist: Cricket, Football"},
+  {id:111,name:"Windermere School",loc:"Cumbria",type:"Full Boarding",gender:"Co-ed",fee:47000,entry:["11+","13+","16+"],alevel:33,oxbridge:0,priority:"sport",distLondon:272,note:"Scholarships up to 75% · Specialist: Hockey, Football"},
+  {id:112,name:"Woldingham School",loc:"Surrey",type:"Full Boarding",gender:"Girls",fee:57564,entry:["11+","13+","16+"],alevel:51,oxbridge:1,priority:"sport",distLondon:28,note:"Specialist: Hockey, Netball"},
+  {id:113,name:"Woodbridge School",loc:"Suffolk",type:"Full Boarding",gender:"Co-ed",fee:47286,entry:["11+","13+","16+"],alevel:44,oxbridge:3,priority:"sport",distLondon:82,note:"Specialist: Rugby, Football"},
+  {id:114,name:"Wycombe Abbey",loc:"Buckinghamshire, Near London",type:"Full Boarding",gender:"Girls",fee:0,entry:["11+","13+","16+"],alevel:42,oxbridge:17,priority:"academic",distLondon:5,note:"No compulsory exeat · Specialist: Hockey, Lacrosse"}
+];
+
+const STEP_LABELS = [
+  {en:"Budget",th:"งบประมาณ"},
+  {en:"Age",th:"อายุ"},
+  {en:"Gender",th:"ประเภท"},
+  {en:"Priority",th:"ความสนใจ"},
+  {en:"Boarding",th:"บอร์ดดิ้ง"}
+];
+
+let currentStep = 1;
+let answers = {budget:null, age:null, gender:null, priority:null, boarding:null};
+
+function initProgress() {
+  const steps = document.getElementById('wizSteps');
+  steps.innerHTML = STEP_LABELS.map((lbl, i) => {
+    const n = i + 1;
+    const isLast = n === 5;
+    return `
+    <div class="wiz-step-wrapper">
+      <div class="wiz-step-dot ${n===1?'active':''}" id="dot${n}">${n}</div>
+      <span class="wiz-step-label ${n===1?'active':''}" id="lbl${n}">
+        <span class="lang-th">${lbl.th}</span><span class="lang-en">${lbl.en}</span>
+      </span>
+    </div>
+    ${!isLast ? `<div class="wiz-step-line" id="line${n}"></div>` : ''}`;
+  }).join('');
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= 5; i++) {
+    const dot = document.getElementById('dot'+i);
+    const lbl = document.getElementById('lbl'+i);
+    if (!dot) continue;
+    dot.className = 'wiz-step-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+    if (lbl) lbl.className = 'wiz-step-label' + (i === step ? ' active' : '');
+    if (i < 5) {
+      const line = document.getElementById('line'+i);
+      if (line) line.className = 'wiz-step-line' + (i < step ? ' done' : '');
+    }
+  }
+}
+
+function select(step, key, val) {
+  answers[key] = val;
+  const panel = document.getElementById('step'+step);
+  panel.querySelectorAll('.wiz-option').forEach(opt => opt.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+
+function goNext(step) {
+  const key = ['budget','age','gender','priority','boarding'][step-1];
+  if (!answers[key]) { alert('Please make a selection first.'); return; }
+  const curr = document.getElementById('step'+step);
+  const next = document.getElementById('step'+(step+1));
+  if (!next) return;
+  curr.classList.remove('active');
+  next.classList.add('active');
+  currentStep = step + 1;
+  updateProgress(currentStep);
+  window.scrollTo({top:200, behavior:'smooth'});
+}
+
+function goBack(step) {
+  const curr = document.getElementById('step'+step);
+  const prev = document.getElementById('step'+(step-1));
+  curr.classList.remove('active');
+  prev.classList.add('active');
+  currentStep = step - 1;
+  updateProgress(currentStep);
+}
+
+function showResults() {
+  if (!answers.boarding) { alert('Please make a selection first.'); return; }
+  const BUDGETS = {
+    'under36': [0, 36000],
+    '36-44': [36000, 44000],
+    '44-50': [44000, 50000],
+    '50-58': [50000, 58000],
+    'over58': [58000, 999999]
+  };
+  const AGE_ENTRY = {
+    '8-10': ['11+','13+'],
+    '11-12': ['11+'],
+    '12-14': ['13+'],
+    '15-16': ['16+']
+  };
+
+  const scored = SCHOOLS.map(s => {
+    let score = 0;
+    // Budget (25pts)
+    const [bMin, bMax] = BUDGETS[answers.budget] || [0,999999];
+    if (s.fee >= bMin && s.fee < bMax) score += 25;
+    else if (s.fee < bMin) score += 10;
+    // Entry age (20pts)
+    const wantedEntries = AGE_ENTRY[answers.age] || [];
+    if (wantedEntries.some(e => s.entry.includes(e))) score += 20;
+    // Gender (20pts)
+    if (answers.gender === s.gender) score += 20;
+    else if (answers.gender !== 'Girls' && s.gender === 'Co-ed') score += 12;
+    // Priority (20pts)
+    if (answers.priority === s.priority) score += 20;
+    else if (answers.priority === 'balanced') score += 10;
+    // Boarding (15pts)
+    if (answers.boarding === 'full' && s.type === 'Full Boarding') score += 15;
+    else if (answers.boarding === 'any') score += 15;
+    else if (answers.boarding === 'london' && s.distLondon <= 50) score += 15;
+    else if (answers.boarding === 'london' && s.distLondon <= 100) score += 8;
+    return { ...s, score };
+  });
+
+  scored.sort((a,b) => b.score - a.score);
+  const top = scored.slice(0, 9);
+
+  // Hide wizard, show results
+  document.getElementById('wizBody').style.display = 'none';
+  document.querySelector('.wiz-progress').style.display = 'none';
+  const rs = document.getElementById('resultsSection');
+  rs.style.display = 'block';
+
+  // Summary pills
+  const labels = {
+    budget: answers.budget, age: answers.age,
+    gender: answers.gender, priority: answers.priority, boarding: answers.boarding
+  };
+  document.getElementById('resultsSummary').innerHTML = Object.values(labels)
+    .filter(Boolean).map(v => `<span class="results-pill">${v}</span>`).join('');
+
+  // Render cards
+  const grid = document.getElementById('resultsGrid');
+  grid.innerHTML = top.map((s, i) => {
+    const thb = (s.fee * 45 / 1000000).toFixed(2);
+    const topClass = s.gender === 'Boys' ? 'boys' : s.gender === 'Girls' ? 'girls' : '';
+    const pct = Math.min(100, Math.round(s.score));
+    return `
+    <div class="res-card">
+      ${i < 3 ? '<div class="res-card-badge">LINKEDU Pick</div>' : ''}
+      <div class="res-card-top ${topClass}"></div>
+      <div class="res-score-bar"><div class="res-score-fill" style="width:${pct}%"></div></div>
+      <div class="res-card-body">
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;color:#B8962E;font-weight:600;margin-bottom:4px">${pct}% <span class="lang-th">ตรงกับความต้องการ</span><span class="lang-en">match</span></div>
+        <div class="res-name">${s.name}</div>
+        <div class="res-loc">${s.loc} &middot; ${s.type} &middot; ${s.gender}</div>
+        <div class="res-fee">£${s.fee.toLocaleString()} <span>฿${thb}M/yr</span></div>
+        <div class="res-note">${s.note}</div>
+        <div class="res-actions">
+          <a href="school-template-1.html" class="res-btn-view"><span class="lang-th">ดูโรงเรียน</span><span class="lang-en">View School</span></a>
+          <button class="res-btn-enq" onclick="openModal('${s.name}')"><span class="lang-th">สอบถาม</span><span class="lang-en">Enquire</span></button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  applyLang();
+  rs.scrollIntoView({behavior:'smooth'});
+}
+
+function restart() {
+  answers = {budget:null,age:null,gender:null,priority:null,boarding:null};
+  currentStep = 1;
+  document.querySelectorAll('.wiz-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('step1').classList.add('active');
+  document.querySelectorAll('.wiz-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('wizBody').style.display = 'block';
+  document.querySelector('.wiz-progress').style.display = 'block';
+  document.getElementById('resultsSection').style.display = 'none';
+  updateProgress(1);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function openModal(name) {
+  document.getElementById('modalSchool').textContent = 'Enquiry: ' + name;
+  document.getElementById('modalForm').style.display = 'block';
+  document.getElementById('modalSuccess').style.display = 'none';
+  document.getElementById('inquiryModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('inquiryModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function submitModal() {
+  document.getElementById('modalForm').style.display = 'none';
+  document.getElementById('modalSuccess').style.display = 'block';
+}
+
+function applyLang() {
+  const lang = document.documentElement.lang || 'th';
+  document.querySelectorAll('.lang-th').forEach(el => el.style.display = lang==='th'?'':'none');
+  document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang==='en'?'':'none');
+}
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.documentElement.lang = btn.dataset.lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyLang();
+  });
+});
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+initProgress();
+updateProgress(1);
+</script>
+</body>
+</html>
