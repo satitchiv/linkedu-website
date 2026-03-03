@@ -264,6 +264,8 @@
     background: rgba(26,26,26,0.15);
     outline: none;
     cursor: pointer;
+    min-height: 44px; /* touch target */
+    padding: 20px 0;
   }
   .dark-bg input[type="range"] { background: rgba(245,240,232,0.15); }
   input[type="range"]::-webkit-slider-thumb {
@@ -877,6 +879,7 @@
     .reveal-number { font-size: clamp(3.5rem, 16vw, 6rem); }
     .reveal-school-name { font-size: clamp(1.5rem, 5vw, 2.5rem); }
     .hero { padding: 3rem 1.25rem 2.5rem; }
+    .pill { padding: 0.75rem 0.9rem; } /* 12px vertical touch target */
   }
 
   @media (max-width: 390px) {
@@ -1388,7 +1391,9 @@ const SCHOOLS = [
   {"name":"Hurtwood House","minFee":65256,"maxFee":65256,"remission":"Performing Arts 10–50%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
   {"name":"MPW London","minFee":69750,"maxFee":69750,"remission":"15–40%; Woodward Scholarship up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
   {"name":"The National Mathematics and Science College","minFee":69984,"maxFee":69984,"remission":"5–10%; up to 100% local scholarship","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"No current merit scholarships","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false}
+  {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"No current merit scholarships","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Tonbridge School","minFee":59124,"maxFee":59124,"remission":"£2,000 off first term (honorary)","maxScholPct":0,"scholTypes":"Academic, Art, Drama, DT & Engineering, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Millfield School","minFee":57132,"maxFee":57132,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Chess, Dance, Drama, Music, Product Design, Sport","type":"Co-Ed","isState":false}
 ];
 
 /* ──────────────────────────────────
@@ -1551,14 +1556,14 @@ function revealStep(id) {
    STEP 1 — RENDER
 ────────────────────────────────── */
 const featuredSchools = [
-  "Tonbridge",
-  "Uppingham",
+  "Tonbridge School",
+  "Uppingham School",
   "Millfield School",
-  "Concord",
+  "Concord College",
   "Bromsgrove School",
-  "Queen Ethelburga",
+  "Queen Ethelburga's Collegiate",
   "Rossall School",
-  "Wells Cathedral",
+  "Wells Cathedral School",
 ];
 
 function renderStep1() {
