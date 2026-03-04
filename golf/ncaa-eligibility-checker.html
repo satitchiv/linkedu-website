@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ตรวจสอบคุณสมบัติ NCAA | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:80px 40px 100px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; color:var(--cream); margin-bottom:14px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1rem; color:var(--cream); opacity:0.75; max-width:580px; margin:0 auto; line-height:1.7; }
+    .tool-section { max-width:800px; margin:0 auto; padding:80px 40px; }
+    .form-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .category-header { background:#f8f4ec; border-left:3px solid var(--gold); padding:12px 16px; margin-bottom:20px; margin-top:32px; border-radius:0 6px 6px 0; }
+    .category-header:first-child { margin-top:0; }
+    .category-title { font-size:11px; font-weight:700; letter-spacing:0.12em; color:var(--gold); text-transform:uppercase; }
+    .form-row { margin-bottom:20px; }
+    label { display:block; font-size:14px; font-weight:500; color:var(--dark); margin-bottom:8px; line-height:1.5; }
+    select, input[type="number"], input[type="text"] { width:100%; padding:11px 14px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); background:var(--cream); transition:border 0.3s; }
+    select:focus, input:focus { outline:none; border-color:var(--gold); }
+    .radio-group { display:flex; gap:10px; flex-wrap:wrap; }
+    .radio-label { display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; padding:9px 16px; border:1px solid #ddd; border-radius:6px; transition:all 0.3s; background:var(--cream); }
+    .radio-label.checked { border-color:var(--gold); background:#fdf8ee; }
+    .radio-label input { accent-color:var(--gold); }
+    .btn-primary { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; width:100%; margin-top:24px; }
+    .btn-primary:hover { opacity:0.88; }
+    .results { display:none; margin-top:40px; }
+    .results.visible { display:block; }
+    .eligibility-header { padding:28px 32px; border-radius:8px 8px 0 0; }
+    .eligibility-header.green { background:#1a4a1a; }
+    .eligibility-header.amber { background:#4a3a00; }
+    .eligibility-header.red { background:#4a1a1a; }
+    .elig-status { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:400; color:var(--cream); }
+    .elig-sub { font-size:14px; color:var(--cream); opacity:0.7; margin-top:6px; }
+    .result-body { background:white; border:1px solid rgba(0,0,0,0.08); border-top:none; border-radius:0 0 8px 8px; overflow:hidden; }
+    .check-item { padding:18px 28px; border-bottom:1px solid #f0ebe0; display:flex; align-items:flex-start; gap:16px; }
+    .check-item:last-child { border-bottom:none; }
+    .check-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
+    .check-content h4 { font-size:14px; font-weight:600; color:var(--dark); margin-bottom:4px; }
+    .check-content p { font-size:13px; color:#666; line-height:1.5; }
+    .check-content .fix { font-size:12px; color:var(--gold); font-weight:600; margin-top:6px; }
+    .score-summary { padding:24px 28px; background:#f8f4ec; border-top:1px solid #ede8dd; }
+    .score-bar-label { font-size:12px; color:#888; margin-bottom:8px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+    .score-bar-track { background:#ddd; border-radius:4px; height:10px; overflow:hidden; }
+    .score-bar-fill { height:100%; border-radius:4px; transition:width 0.8s ease; }
+    .fill-green { background:#2d7a2d; }
+    .fill-amber { background:var(--gold); }
+    .fill-red { background:#c53030; }
+    .score-num { font-size:1.4rem; font-weight:700; color:var(--dark); margin-top:8px; }
+    .line-result { margin-top:28px; padding:24px; background:var(--dark); border-radius:8px; text-align:center; }
+    .line-result p { color:var(--cream); opacity:0.8; font-size:14px; margin-bottom:16px; }
+    .btn-line { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:768px) { .hero h1 { font-size:2rem; } .tool-section, .hero { padding:60px 20px; } header { padding:0 20px; } .form-card { padding:24px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;flex-direction:column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 06 ·</div>
+  <div class="section-label lang-en">· TOOL 06 ·</div>
+  <h1 class="lang-th">ตรวจสอบ<br><span>คุณสมบัติ NCAA</span></h1>
+  <h1 class="lang-en">NCAA Eligibility<br><span>Checker</span></h1>
+  <p class="lang-th">ตรวจหาปัญหาคุณสมบัติ NCAA ตั้งแต่เนิ่นๆ — ปัญหาเหล่านี้แก้ได้หากรู้ก่อนเวลา</p>
+  <p class="lang-en">Flag NCAA eligibility issues early — these problems are fixable if you know about them in time.</p>
+</section>
+
+<section class="tool-section">
+  <div class="form-card">
+
+    <div class="category-header">
+      <div class="category-title lang-th">หมวดที่ 1 — วิชาการ</div>
+      <div class="category-title lang-en">Section 1 — Academic</div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">GPA เทียบเท่า (เกรดเฉลี่ยสะสม) — ระบบ 4.0</span><span class="lang-en">GPA Equivalent (Cumulative) — 4.0 scale</span></label>
+      <select id="gpa">
+        <option value="">--</option>
+        <option value="3.5">3.5–4.0 (ดีมาก/Excellent)</option>
+        <option value="3.0">3.0–3.49 (ดี/Good)</option>
+        <option value="2.5">2.5–2.99 (ปานกลาง/Average)</option>
+        <option value="2.0">2.0–2.49 (ต่ำกว่าเกณฑ์/Below threshold)</option>
+        <option value="1.5">ต่ำกว่า 2.0 / Below 2.0</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">จำนวนวิชาหลักที่เรียนแล้ว (Core Courses) ตามมาตรฐาน NCAA</span><span class="lang-en">Number of NCAA Core Courses completed</span></label>
+      <select id="core">
+        <option value="">--</option>
+        <option value="16">16 วิชาขึ้นไป / 16 or more (Full requirement)</option>
+        <option value="12">12–15 วิชา / 12–15 courses</option>
+        <option value="8">8–11 วิชา / 8–11 courses</option>
+        <option value="4">น้อยกว่า 8 วิชา / Fewer than 8</option>
+      </select>
+    </div>
+
+    <div class="category-header">
+      <div class="category-title lang-th">หมวดที่ 2 — ภาษาอังกฤษ</div>
+      <div class="category-title lang-en">Section 2 — English Proficiency</div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">คะแนน TOEFL iBT (ถ้ายังไม่มีให้เลือก "ยังไม่ได้สอบ")</span><span class="lang-en">TOEFL iBT Score (if not taken, select "Not Yet")</span></label>
+      <select id="toefl">
+        <option value="">--</option>
+        <option value="80">80+ (ผ่านเกณฑ์ส่วนใหญ่ / Most schools accept)</option>
+        <option value="61">61–79 (ผ่านบางโรงเรียน / Some schools)</option>
+        <option value="40">40–60 (ต้องพัฒนา / Needs improvement)</option>
+        <option value="0">ต่ำกว่า 40 / Below 40</option>
+        <option value="-1">ยังไม่ได้สอบ / Not yet taken</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">คะแนน SAT/ACT (ถ้ายังไม่ได้สอบให้เลือก "ยังไม่ได้สอบ")</span><span class="lang-en">SAT / ACT Score (select "Not yet" if not taken)</span></label>
+      <select id="sat">
+        <option value="">--</option>
+        <option value="1200">SAT 1200+ / ACT 27+</option>
+        <option value="1100">SAT 1100–1199 / ACT 24–26</option>
+        <option value="950">SAT 950–1099 / ACT 21–23</option>
+        <option value="800">SAT 800–949 / ACT 18–20</option>
+        <option value="-1">ยังไม่ได้สอบ / Not yet taken</option>
+      </select>
+    </div>
+
+    <div class="category-header">
+      <div class="category-title lang-th">หมวดที่ 3 — สถานะสมัครเล่น</div>
+      <div class="category-title lang-en">Section 3 — Amateur Status</div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">เคยรับรางวัลเป็นเงินสดจากการแข่งขันกอล์ฟหรือไม่?</span><span class="lang-en">Has your child ever received prize money from any golf competition?</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-prize-no"><input type="radio" name="prize" value="no"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></label>
+        <label class="radio-label" id="lbl-prize-yes"><input type="radio" name="prize" value="yes"><span class="lang-th">เคย</span><span class="lang-en">Yes</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">เคยทำสัญญากับสปอนเซอร์หรือแบรนด์อุปกรณ์กอล์ฟหรือไม่?</span><span class="lang-en">Has your child signed any sponsorship or equipment deal?</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-spon-no"><input type="radio" name="sponsor" value="no"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></label>
+        <label class="radio-label" id="lbl-spon-yes"><input type="radio" name="sponsor" value="yes"><span class="lang-th">เคย</span><span class="lang-en">Yes</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">เคยรับค่าสอนจากการสอนกอล์ฟหรือไม่? (ในฐานะผู้สอน)</span><span class="lang-en">Has your child received payment for giving golf instruction?</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-inst-no"><input type="radio" name="instructor" value="no"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></label>
+        <label class="radio-label" id="lbl-inst-yes"><input type="radio" name="instructor" value="yes"><span class="lang-th">เคย</span><span class="lang-en">Yes</span></label>
+      </div>
+    </div>
+
+    <div class="category-header">
+      <div class="category-title lang-th">หมวดที่ 4 — ประวัติการแข่งขัน</div>
+      <div class="category-title lang-en">Section 4 — Tournament History</div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">จำนวนทัวร์นาเมนต์จูเนียร์ที่แข่งในปีที่ผ่านมา</span><span class="lang-en">Number of junior tournaments competed in during the past year</span></label>
+      <select id="tournaments">
+        <option value="">--</option>
+        <option value="10">10 รายการขึ้นไป / 10 or more</option>
+        <option value="6">6–9 รายการ / 6–9 events</option>
+        <option value="3">3–5 รายการ / 3–5 events</option>
+        <option value="1">1–2 รายการ / 1–2 events</option>
+        <option value="0">ยังไม่ได้แข่ง / None yet</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">มี official GHIN handicap หรือยัง?</span><span class="lang-en">Does your child have an official GHIN / WHS handicap?</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-ghin-yes"><input type="radio" name="ghin" value="yes"><span class="lang-th">มีแล้ว</span><span class="lang-en">Yes</span></label>
+        <label class="radio-label" id="lbl-ghin-no"><input type="radio" name="ghin" value="no"><span class="lang-th">ยังไม่มี</span><span class="lang-en">Not yet</span></label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">ลงทะเบียน NCAA Eligibility Center แล้วหรือยัง?</span><span class="lang-en">Has your child registered with the NCAA Eligibility Center?</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-elig-yes"><input type="radio" name="eligcenter" value="yes"><span class="lang-th">ลงทะเบียนแล้ว</span><span class="lang-en">Yes, registered</span></label>
+        <label class="radio-label" id="lbl-elig-no"><input type="radio" name="eligcenter" value="no"><span class="lang-th">ยังไม่ได้ลงทะเบียน</span><span class="lang-en">Not yet</span></label>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="checkEligibility()">
+      <span class="lang-th">ตรวจสอบคุณสมบัติ</span>
+      <span class="lang-en">Check My Eligibility</span>
+    </button>
+
+    <div class="results" id="results">
+      <div class="eligibility-header" id="elig-header">
+        <div class="elig-status" id="elig-status">—</div>
+        <div class="elig-sub" id="elig-sub">—</div>
+      </div>
+      <div class="result-body" id="result-body"></div>
+      <div class="score-summary">
+        <div class="score-bar-label lang-th">คะแนนความพร้อมโดยรวม</div>
+        <div class="score-bar-label lang-en">Overall Readiness Score</div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="score-fill" style="width:0%"></div></div>
+        <div class="score-num" id="score-num">0/10</div>
+      </div>
+      <div class="line-result">
+        <p class="lang-th">ส่งผลการตรวจสอบนี้ไปหา LINKEDU เพื่อปรึกษาฟรี</p>
+        <p class="lang-en">Send this eligibility check to LINKEDU for a free consultation</p>
+        <button class="btn-line" onclick="sendToLine()">
+          <span class="lang-th">ส่งผลทาง LINE</span>
+          <span class="lang-en">Send Results via LINE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</h2>
+  <h2 class="lang-en">Free Expert Consultation</h2>
+  <p class="lang-th">LINKEDU ช่วยแก้ไขปัญหาคุณสมบัติ NCAA และเตรียมเอกสารทุกชิ้น</p>
+  <p class="lang-en">LINKEDU helps resolve NCAA eligibility issues and prepare all required documents.</p>
+  <span class="line-handle">LINE: @linkedu.th</span><br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก</a> · ข้อมูลอ้างอิงกฎ NCAA 2024–25 ควรตรวจสอบกับ NCAA Eligibility Center โดยตรง</p>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); });
+  document.querySelectorAll('.radio-label input').forEach(r => r.addEventListener('change', () => { r.closest('.radio-group').querySelectorAll('.radio-label').forEach(l => l.classList.remove('checked')); r.parentElement.classList.add('checked'); }));
+
+  let lastResult = {};
+
+  function checkEligibility() {
+    const lang = html.getAttribute('lang');
+    const gpa = document.getElementById('gpa').value;
+    const core = document.getElementById('core').value;
+    const toefl = document.getElementById('toefl').value;
+    const sat = document.getElementById('sat').value;
+    const prize = document.querySelector('input[name="prize"]:checked')?.value;
+    const sponsor = document.querySelector('input[name="sponsor"]:checked')?.value;
+    const instructor = document.querySelector('input[name="instructor"]:checked')?.value;
+    const tournaments = document.getElementById('tournaments').value;
+    const ghin = document.querySelector('input[name="ghin"]:checked')?.value;
+    const eligcenter = document.querySelector('input[name="eligcenter"]:checked')?.value;
+
+    if (!gpa || !core || !toefl || !sat || !prize || !sponsor || !instructor || !tournaments || !ghin || !eligcenter) {
+      alert(lang==='th'?'กรุณาตอบทุกคำถาม':'Please answer all questions.'); return;
+    }
+
+    let checks = [];
+    let score = 0;
+
+    // GPA
+    const gpaV = parseFloat(gpa);
+    if (gpaV >= 3.0) { score++; checks.push({ ok:true, title_th:'GPA ผ่านเกณฑ์', title_en:'GPA Meets Requirements', body_th:`GPA ${gpaV}+ เป็นไปตามข้อกำหนด NCAA D1 (ขั้นต่ำ 2.3)`, body_en:`GPA ${gpaV}+ meets NCAA D1 requirement (minimum 2.3)` }); }
+    else if (gpaV >= 2.3) { checks.push({ ok:'warn', title_th:'GPA ผ่านขั้นต่ำ D1 แต่อยู่ในเกณฑ์ต่ำ', title_en:'GPA Meets D1 Minimum But Is Low', body_th:'GPA ขั้นต่ำ D1 คือ 2.3 — แต่โปรแกรมชั้นนำส่วนใหญ่ต้องการ 3.0 ขึ้นไป', body_en:'D1 minimum GPA is 2.3 — but most top programs prefer 3.0+', fix_th:'ปรับปรุงเกรดให้ถึง 3.0 โดยเร็ว', fix_en:'Improve grades to 3.0 as soon as possible' }); }
+    else { checks.push({ ok:false, title_th:'GPA ต่ำกว่าขั้นต่ำ NCAA D1', title_en:'GPA Below NCAA D1 Minimum', body_th:'NCAA D1 กำหนด GPA ขั้นต่ำ 2.3 บนสไลดิงสเกล', body_en:'NCAA D1 requires minimum 2.3 GPA on a sliding scale', fix_th:'ต้องเพิ่ม GPA ก่อนสมัคร D1 — พิจารณา D2 ในระหว่างนี้', fix_en:'Must raise GPA before D1 application — consider D2 meanwhile' }); }
+
+    // Core Courses
+    const coreV = parseInt(core);
+    if (coreV >= 16) { score++; checks.push({ ok:true, title_th:'Core Courses ครบ 16 วิชา', title_en:'16 Core Courses Complete', body_th:'ผ่านข้อกำหนด NCAA D1 สำหรับ core courses', body_en:'Meets NCAA D1 core course requirement' }); }
+    else { checks.push({ ok:false, title_th:`Core Courses ยังไม่ครบ (มี ${coreV} วิชา)`, title_en:`Core Courses Incomplete (${coreV} completed)`, body_th:'NCAA D1 ต้องการ 16 core courses ที่ผ่านเกณฑ์', body_en:'NCAA D1 requires 16 qualifying core courses', fix_th:`ต้องเรียนอีก ${16-coreV} วิชาที่ผ่านเกณฑ์ NCAA — ตรวจสอบรายวิชากับโรงเรียน`, fix_en:`Must complete ${16-coreV} more qualifying NCAA core courses — verify with your school` }); }
+
+    // TOEFL
+    const toeflV = parseInt(toefl);
+    if (toeflV >= 80) { score++; checks.push({ ok:true, title_th:'TOEFL ผ่านเกณฑ์ส่วนใหญ่', title_en:'TOEFL Meets Most Requirements', body_th:`TOEFL ${toeflV}+ ผ่านข้อกำหนดของมหาวิทยาลัยส่วนใหญ่`, body_en:`TOEFL ${toeflV}+ meets most university requirements` }); }
+    else if (toeflV >= 61) { checks.push({ ok:'warn', title_th:'TOEFL ผ่านบางโรงเรียน — ต้องพัฒนาสำหรับ top programs', title_en:'TOEFL Acceptable for Some — Needs Improvement for Top Programs', body_th:'Top D1 programs มักต้องการ TOEFL 80+', body_en:'Top D1 programs typically require TOEFL 80+', fix_th:'เตรียมสอบรอบใหม่และตั้งเป้า 80+', fix_en:'Prepare to retake and target 80+' }); }
+    else if (toeflV === -1) { checks.push({ ok:'warn', title_th:'ยังไม่ได้สอบ TOEFL', title_en:'TOEFL Not Yet Taken', body_th:'มหาวิทยาลัย US เกือบทุกแห่งต้องการ TOEFL หรือ IELTS', body_en:'Almost all US universities require TOEFL or IELTS', fix_th:'ลงทะเบียนสอบ TOEFL โดยเร็ว — ตั้งเป้า 80+', fix_en:'Register for TOEFL immediately — target 80+' }); }
+    else { checks.push({ ok:false, title_th:'TOEFL ต่ำกว่าเกณฑ์', title_en:'TOEFL Below Standard', body_th:'คะแนน TOEFL ปัจจุบันต่ำเกินไปสำหรับ NCAA', body_en:'Current TOEFL score is too low for NCAA eligibility', fix_th:'ต้องเตรียมสอบใหม่อย่างจริงจัง — ตั้งเป้า 80+', fix_en:'Must seriously prepare to retake — target 80+' }); }
+
+    // SAT
+    const satV = parseInt(sat);
+    if (satV >= 1100) { score++; checks.push({ ok:true, title_th:'SAT/ACT ผ่านเกณฑ์ D1', title_en:'SAT/ACT Meets D1 Standards', body_th:'คะแนนผ่านข้อกำหนด SAT/ACT ของ NCAA D1 ส่วนใหญ่', body_en:'Score meets most NCAA D1 SAT/ACT requirements' }); }
+    else if (satV >= 950) { checks.push({ ok:'warn', title_th:'SAT/ACT ผ่าน D2 แต่ต่ำสำหรับ D1 ชั้นนำ', title_en:'SAT/ACT OK for D2, Low for Top D1', body_th:'D2 programs ส่วนใหญ่ยอมรับคะแนนนี้ แต่ D1 elite ต้องการมากกว่า', body_en:'Most D2 programs accept this score, but elite D1 requires higher', fix_th:'สอบรอบใหม่และตั้งเป้า SAT 1100+ / ACT 24+', fix_en:'Retake and target SAT 1100+ / ACT 24+' }); }
+    else if (satV === -1) { checks.push({ ok:'warn', title_th:'ยังไม่ได้สอบ SAT/ACT', title_en:'SAT/ACT Not Yet Taken', body_th:'NCAA D1 ต้องการคะแนน SAT หรือ ACT', body_en:'NCAA D1 requires SAT or ACT scores', fix_th:'ลงทะเบียนสอบ SAT โดยเร็ว — ตั้งเป้า 1100+', fix_en:'Register for SAT immediately — target 1100+' }); }
+    else { checks.push({ ok:false, title_th:'SAT/ACT ต่ำกว่าเกณฑ์ NCAA', title_en:'SAT/ACT Below NCAA Threshold', body_th:'คะแนนปัจจุบันต่ำกว่าข้อกำหนด NCAA', body_en:'Current score is below NCAA requirements', fix_th:'ต้องเตรียมสอบใหม่อย่างจริงจัง', fix_en:'Must seriously prepare to retake' }); }
+
+    // Amateur status
+    if (prize === 'no') { score++; checks.push({ ok:true, title_th:'ไม่เคยรับรางวัลเป็นเงิน', title_en:'No Prize Money Received', body_th:'สถานะสมัครเล่นด้านรางวัลผ่าน', body_en:'Amateur status clear regarding prize money' }); }
+    else { checks.push({ ok:false, title_th:'เคยรับรางวัลเป็นเงิน — อาจสูญเสียสถานะสมัครเล่น', title_en:'Prize Money Received — May Have Lost Amateur Status', body_th:'การรับรางวัลเป็นเงินอาจทำให้สูญเสียสถานะสมัครเล่น NCAA', body_en:'Receiving prize money may result in loss of NCAA amateur status', fix_th:'ต้องปรึกษา NCAA Reinstatement Request โดยเร็ว — ติดต่อ LINKEDU', fix_en:'Must file NCAA Reinstatement Request immediately — contact LINKEDU' }); }
+
+    if (sponsor === 'no') { score++; checks.push({ ok:true, title_th:'ไม่มีสัญญาสปอนเซอร์', title_en:'No Sponsorship Contracts', body_th:'สถานะสมัครเล่นด้านสปอนเซอร์ผ่าน', body_en:'Amateur status clear regarding sponsorship' }); }
+    else { checks.push({ ok:false, title_th:'มีสัญญาสปอนเซอร์ — ต้องตรวจสอบทันที', title_en:'Sponsorship Contract Exists — Must Review Immediately', body_th:'สัญญาสปอนเซอร์บางประเภทละเมิดกฎ NCAA amateur status', body_en:'Certain sponsorship contracts violate NCAA amateur status rules', fix_th:'ส่งสัญญาให้ LINKEDU ตรวจสอบก่อนดำเนินการใดๆ', fix_en:'Send contract to LINKEDU for review before taking any action' }); }
+
+    if (instructor === 'no') { score++; checks.push({ ok:true, title_th:'ไม่เคยรับค่าสอนกอล์ฟ', title_en:'No Golf Instruction Payment Received', body_th:'สถานะสมัครเล่นด้านการสอนผ่าน', body_en:'Amateur status clear regarding instruction income' }); }
+    else { checks.push({ ok:'warn', title_th:'เคยรับค่าสอนกอล์ฟ — ต้องตรวจสอบ', title_en:'Received Payment for Golf Instruction — Needs Review', body_th:'ขึ้นอยู่กับจำนวนเงินและเงื่อนไข อาจมีปัญหาได้', body_en:'Depending on amount and circumstances, this may be an issue', fix_th:'แจ้ง LINKEDU เพื่อประเมินความเสี่ยงก่อนสมัคร', fix_en:'Inform LINKEDU to assess risk before applying' }); }
+
+    // Tournament history
+    const tV = parseInt(tournaments);
+    if (tV >= 6) { score++; checks.push({ ok:true, title_th:'ประวัติการแข่งขันดี', title_en:'Strong Tournament History', body_th:`${tV} รายการในปีที่ผ่านมา — โค้ช NCAA ให้ความสนใจ`, body_en:`${tV} events last year — NCAA coaches will take notice` }); }
+    else if (tV >= 3) { checks.push({ ok:'warn', title_th:'ประวัติการแข่งขันน้อย', title_en:'Limited Tournament History', body_th:'โค้ช NCAA ต้องการเห็นอย่างน้อย 6–8 รายการต่อปี', body_en:'NCAA coaches want to see at least 6–8 events per year', fix_th:'ลงแข่งเพิ่มทันที — ดูแผนทัวร์นาเมนต์ใน Tournament Planner', fix_en:'Enter more events immediately — see Tournament Planner tool' }); }
+    else { checks.push({ ok:false, title_th:'ประวัติการแข่งขันน้อยเกินไป', title_en:'Tournament History Insufficient', body_th:'ยังไม่มีประวัติการแข่งขันที่เพียงพอสำหรับ NCAA recruits', body_en:'Not enough competition history for NCAA coaches to evaluate', fix_th:'เริ่มลงแข่งทันที — ใช้ Tournament Planner ของ LINKEDU', fix_en:'Start competing immediately — use LINKEDU Tournament Planner' }); }
+
+    // GHIN
+    if (ghin === 'yes') { score++; checks.push({ ok:true, title_th:'มี Official GHIN Handicap', title_en:'Official GHIN Handicap Registered', body_th:'ผ่าน — official handicap จำเป็นสำหรับ NCAA', body_en:'Clear — official handicap is required for NCAA applications' }); }
+    else { checks.push({ ok:false, title_th:'ยังไม่มี Official Handicap', title_en:'No Official Handicap Yet', body_th:'NCAA ต้องการ official GHIN / WHS handicap', body_en:'NCAA requires an official GHIN / WHS handicap', fix_th:'ลงทะเบียนผ่านสมาคมกอล์ฟไทยหรือสนามที่ได้รับการรับรองโดยเร็ว', fix_en:'Register through Thailand Golf Association or an approved club immediately' }); }
+
+    // Eligibility Center
+    if (eligcenter === 'yes') { score++; checks.push({ ok:true, title_th:'ลงทะเบียน NCAA Eligibility Center แล้ว', title_en:'NCAA Eligibility Center Registered', body_th:'ถูกต้อง — ต้องลงทะเบียนก่อนรับ scholarship ได้', body_en:'Correct — must register before accepting any scholarship' }); }
+    else { checks.push({ ok:false, title_th:'ยังไม่ได้ลงทะเบียน NCAA Eligibility Center', title_en:'NCAA Eligibility Center Not Yet Registered', body_th:'ต้องลงทะเบียนก่อนรับ official scholarship offer ใดๆ', body_en:'Must register before accepting any official scholarship offer', fix_th:'ลงทะเบียนที่ web.ncaa.org/ecwr3 โดยเร็วที่สุด', fix_en:'Register at web.ncaa.org/ecwr3 as soon as possible' }); }
+
+    // Render
+    const body = document.getElementById('result-body');
+    body.innerHTML = '';
+    checks.forEach(c => {
+      const icon = c.ok === true ? '✅' : c.ok === 'warn' ? '⚠️' : '❌';
+      const fix = c.fix_th ? `<div class="fix">${lang==='th'?'→ แก้ไข: '+c.fix_th:'→ Fix: '+c.fix_en}</div>` : '';
+      body.innerHTML += `<div class="check-item"><div class="check-icon">${icon}</div><div class="check-content"><h4>${lang==='th'?c.title_th:c.title_en}</h4><p>${lang==='th'?c.body_th:c.body_en}</p>${fix}</div></div>`;
+    });
+
+    const pct = Math.round((score / 10) * 100);
+    document.getElementById('score-fill').style.width = pct + '%';
+    document.getElementById('score-fill').className = 'score-bar-fill ' + (pct >= 70 ? 'fill-green' : pct >= 50 ? 'fill-amber' : 'fill-red');
+    document.getElementById('score-num').textContent = `${score}/10`;
+
+    const header = document.getElementById('elig-header');
+    if (pct >= 70) { header.className = 'eligibility-header green'; document.getElementById('elig-status').textContent = lang==='th'?'✅ พร้อมสมัคร NCAA':'✅ NCAA Ready'; document.getElementById('elig-sub').textContent = lang==='th'?'ผ่าน 7/10 ด้านขึ้นไป — อยู่ในเส้นทางที่ถูกต้อง':'Passing 7/10+ areas — on the right track'; }
+    else if (pct >= 40) { header.className = 'eligibility-header amber'; document.getElementById('elig-status').textContent = lang==='th'?'⚠️ ต้องแก้ไขบางจุด':'⚠️ Some Issues Need Fixing'; document.getElementById('elig-sub').textContent = lang==='th'?'มีปัญหาที่แก้ได้ — ต้องดำเนินการก่อนสมัคร':'Fixable issues exist — action required before applying'; }
+    else { header.className = 'eligibility-header red'; document.getElementById('elig-status').textContent = lang==='th'?'❌ ต้องแก้ไขก่อนสมัคร':'❌ Significant Issues — Action Required'; document.getElementById('elig-sub').textContent = lang==='th'?'มีปัญหาสำคัญที่ต้องแก้ไขก่อน — ติดต่อ LINKEDU':'Significant issues must be resolved first — contact LINKEDU'; }
+
+    lastResult = { score, pct, checks, lang };
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function sendToLine() {
+    const lang = html.getAttribute('lang');
+    const msg = lang === 'th'
+      ? `ผลตรวจสอบคุณสมบัติ NCAA — LINKEDU\n\nคะแนน: ${lastResult.score}/10 (${lastResult.pct}%)\n\nต้องการปรึกษาผู้เชี่ยวชาญเพื่อแก้ไขปัญหา`
+      : `NCAA Eligibility Check Result — LINKEDU\n\nScore: ${lastResult.score}/10 (${lastResult.pct}%)\n\nRequest expert consultation to resolve issues`;
+    window.open('https://line.me/R/oaMessage/@linkedu.th/?text=' + encodeURIComponent(msg), '_blank');
+  }
+</script>
+</body>
+</html>

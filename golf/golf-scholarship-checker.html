@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Golf Scholarship Eligibility Checker — LinkedU Golf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #222;
+    --surface2: #252525;
+    --cream: #f5f0e8;
+    --gold: #B8962E;
+    --gold-dark: #9a7a24;
+    --muted: rgba(245,240,232,0.5);
+    --border: rgba(184,150,46,0.15);
+    --radius: 8px;
+    --green: #4caf7d;
+    --red: #e05555;
+  }
+
+  html[lang="th"] .lang-en { display: none !important; }
+  html[lang="en"] .lang-th { display: none !important; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    background: #1a1a1a;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .logo-tag {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .lang-toggle { display: flex; gap: 6px; }
+  .lang-btn {
+    padding: 5px 14px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .lang-btn.active { background: var(--gold); color: #1a1a1a; }
+  .lang-btn:not(.active) { background: transparent; color: var(--gold); }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.12); }
+
+  /* MAIN */
+  main { flex: 1; max-width: 900px; margin: 0 auto; width: 100%; padding: 48px 24px 64px; }
+
+  /* HERO */
+  .hero { margin-bottom: 44px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    display: inline-block;
+    padding-top: 6px;
+    margin-bottom: 18px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 22px;
+  }
+
+  /* FORM */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+  }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-field .field-hint {
+    font-size: 11px;
+    color: rgba(245,240,232,0.3);
+    margin-top: 3px;
+  }
+  input[type="number"], select {
+    background: #1a1a1a;
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 6px;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type="number"]:focus, select:focus { border-color: var(--gold); }
+  input[type="number"]::placeholder { color: rgba(245,240,232,0.25); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8962E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  select option { background: #222; color: var(--cream); }
+
+  .gender-row { display: flex; gap: 10px; }
+  .gender-btn {
+    flex: 1;
+    background: #1a1a1a;
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 6px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .gender-btn.selected { border-color: var(--gold); color: var(--gold); background: rgba(184,150,46,0.08); }
+
+  /* SUBMIT BUTTON */
+  .btn-gold {
+    background: var(--gold);
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .btn-gold:hover { background: var(--gold-dark); transform: translateY(-1px); }
+  .btn-gold:active { transform: translateY(0); }
+
+  /* RESULTS */
+  #results-section { display: none; }
+
+  /* YEARS BANNER */
+  .years-banner {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .years-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .years-text { font-size: 14px; color: var(--muted); }
+  .years-text strong { color: var(--cream); }
+
+  /* DIVISION CARDS */
+  .division-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .div-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.3s;
+  }
+  .div-card.eligible {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, rgba(184,150,46,0.07) 0%, var(--surface) 60%);
+  }
+  .div-card.ineligible { opacity: 0.65; }
+  .div-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .div-emoji { font-size: 20px; flex-shrink: 0; }
+  .div-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .div-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+  .div-badge.yes { background: rgba(76,175,125,0.15); color: var(--green); }
+  .div-badge.no  { background: rgba(224,85,85,0.12);  color: var(--red); }
+  .div-scholarship {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .div-detail {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .div-teams {
+    font-size: 11px;
+    color: rgba(245,240,232,0.35);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 8px;
+  }
+
+  /* PATHWAY SECTION */
+  .pathway-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 28px;
+    margin-bottom: 24px;
+  }
+  .pathway-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .pathway-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .pathway-steps { display: flex; flex-direction: column; gap: 12px; }
+  .pathway-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .step-text { font-size: 14px; color: var(--cream); line-height: 1.6; }
+  .step-text .step-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* LINE CTA */
+  .line-cta {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .line-icon {
+    width: 42px; height: 42px;
+    background: #06c755;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .line-cta-text strong { color: var(--cream); font-size: 14px; display: block; margin-bottom: 3px; }
+  .line-cta-text p { color: var(--muted); font-size: 13px; }
+
+  /* ERROR */
+  .error-msg { color: #e05555; font-size: 13px; margin-top: 8px; display: none; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .footer-copy { font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+  .footer-line { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+  .footer-contact { font-size: 11px; color: rgba(245,240,232,0.3); letter-spacing: 0.04em; }
+
+  @media (max-width: 740px) {
+    header { padding: 0 18px; }
+    main { padding: 32px 16px 48px; }
+    .hero h1 { font-size: 26px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .division-grid { grid-template-columns: 1fr 1fr; }
+    .card { padding: 20px 18px; }
+    .line-cta { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .division-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <span class="logo-name">LINKEDU</span>
+    <span class="logo-tag">Golf Scholarships</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-th" onclick="setLang('th')">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>
+      <span class="lang-en">US Golf Scholarship<br>Eligibility Checker</span>
+      <span class="lang-th">ตรวจสอบคุณสมบัติทุนกอล์ฟ USA</span>
+    </h1>
+    <p class="lang-en">Find out which NCAA or NAIA golf scholarship programmes are realistic for your child right now — based on handicap, GPA, and graduation timeline.</p>
+    <p class="lang-th">ค้นหาว่าโปรแกรมทุนกอล์ฟ NCAA หรือ NAIA ใดที่เหมาะกับบุตรหลานของคุณในตอนนี้ — โดยพิจารณาจากแฮนดิแคป GPA และกำหนดการสำเร็จการศึกษา</p>
+  </section>
+
+  <!-- FORM -->
+  <div class="card">
+    <div class="section-label">
+      <span class="lang-en">Your Profile</span>
+      <span class="lang-th">ข้อมูลของคุณ</span>
+    </div>
+    <h2>
+      <span class="lang-en">Enter Student Details</span>
+      <span class="lang-th">ใส่ข้อมูลนักเรียน</span>
+    </h2>
+
+    <div class="form-grid">
+
+      <!-- Age -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">Current Age</span>
+          <span class="lang-th">อายุปัจจุบัน</span>
+        </label>
+        <input type="number" id="f-age" min="12" max="22" placeholder="e.g. 16">
+      </div>
+
+      <!-- Graduation Year -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">High School Graduation Year</span>
+          <span class="lang-th">ปีที่จะสำเร็จการศึกษา (ม.6)</span>
+        </label>
+        <select id="f-grad">
+          <option value="">— Select year —</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+          <option value="2031">2031</option>
+          <option value="2032">2032</option>
+        </select>
+      </div>
+
+      <!-- Handicap -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">Handicap Index</span>
+          <span class="lang-th">Handicap Index</span>
+        </label>
+        <input type="number" id="f-hcp" min="0" max="54" step="0.1" placeholder="e.g. 5.4">
+        <div class="field-hint">
+          <span class="lang-en">Enter 0–54. Use our Handicap Calculator if unsure.</span>
+          <span class="lang-th">ใส่ 0–54 ใช้เครื่องคำนวณแฮนดิแคปของเราหากไม่แน่ใจ</span>
+        </div>
+      </div>
+
+      <!-- GPA -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">GPA (Grade Point Average)</span>
+          <span class="lang-th">เกรดเฉลี่ย (GPA)</span>
+        </label>
+        <select id="f-gpa">
+          <option value="">— Select GPA range —</option>
+          <option value="1.9">&lt; 2.0</option>
+          <option value="2.2">2.0 – 2.4</option>
+          <option value="2.7">2.5 – 2.9</option>
+          <option value="3.2">3.0 – 3.4</option>
+          <option value="3.7">3.5 – 4.0</option>
+        </select>
+      </div>
+
+      <!-- SAT -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">SAT Score (optional)</span>
+          <span class="lang-th">คะแนน SAT (ไม่บังคับ)</span>
+        </label>
+        <input type="number" id="f-sat" min="400" max="1600" placeholder="400 – 1600">
+        <div class="field-hint">
+          <span class="lang-en">Leave blank if not yet taken</span>
+          <span class="lang-th">เว้นว่างหากยังไม่ได้สอบ</span>
+        </div>
+      </div>
+
+      <!-- ACT -->
+      <div class="form-field">
+        <label>
+          <span class="lang-en">ACT Score (optional)</span>
+          <span class="lang-th">คะแนน ACT (ไม่บังคับ)</span>
+        </label>
+        <input type="number" id="f-act" min="1" max="36" placeholder="1 – 36">
+        <div class="field-hint">
+          <span class="lang-en">Leave blank if not yet taken</span>
+          <span class="lang-th">เว้นว่างหากยังไม่ได้สอบ</span>
+        </div>
+      </div>
+
+      <!-- Gender - full width -->
+      <div class="form-field" style="grid-column: 1 / -1;">
+        <label>
+          <span class="lang-en">Gender</span>
+          <span class="lang-th">เพศ</span>
+        </label>
+        <div class="gender-row">
+          <button class="gender-btn selected" id="gender-male" onclick="selectGender('male')">
+            <span class="lang-en">Male</span>
+            <span class="lang-th">ชาย</span>
+          </button>
+          <button class="gender-btn" id="gender-female" onclick="selectGender('female')">
+            <span class="lang-en">Female</span>
+            <span class="lang-th">หญิง</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="error-msg" id="form-error"></div>
+
+    <div style="margin-top:24px;">
+      <button class="btn-gold" onclick="checkEligibility()">
+        <span class="lang-en">Check My Eligibility</span>
+        <span class="lang-th">ตรวจสอบคุณสมบัติของฉัน</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <section id="results-section">
+
+    <!-- Years banner -->
+    <div class="years-banner" id="years-banner">
+      <div class="years-num" id="years-num">—</div>
+      <div class="years-text" id="years-text"></div>
+    </div>
+
+    <!-- Division cards -->
+    <div class="section-label">
+      <span class="lang-en">Division Eligibility</span>
+      <span class="lang-th">คุณสมบัติตามประเภท Division</span>
+    </div>
+    <div class="division-grid" id="division-grid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Pathway -->
+    <div class="pathway-card" id="pathway-card">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- LINE CTA -->
+    <div class="line-cta">
+      <div class="line-icon">💬</div>
+      <div class="line-cta-text">
+        <strong>
+          <span class="lang-en">Get a personalised scholarship roadmap</span>
+          <span class="lang-th">รับแผนทุนการศึกษาที่ปรับแต่งสำหรับคุณ</span>
+        </strong>
+        <p>
+          <span class="lang-en">Chat with LinkedU on LINE <span style="color:var(--gold);font-weight:600;">@linkedu</span> — our specialists match Thai student-athletes to the right US university.</span>
+          <span class="lang-th">ติดต่อ LinkedU ทาง LINE <span style="color:var(--gold);font-weight:600;">@linkedu</span> — ผู้เชี่ยวชาญของเราจับคู่นักกีฬานักเรียนไทยกับมหาวิทยาลัยสหรัฐที่เหมาะสม</span>
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="footer-line">LINE: @linkedu</div>
+  <div class="footer-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+  // ─── Language ───────────────────────────────────────────────
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+    localStorage.setItem('linkedu-lang', lang);
+    // Re-render results if visible
+    if (document.getElementById('results-section').style.display !== 'none') {
+      renderResults(lastResult);
+    }
+  }
+
+  (function initLang() {
+    const saved = localStorage.getItem('linkedu-lang') || 'en';
+    setLang(saved);
+  })();
+
+  // ─── Gender ─────────────────────────────────────────────────
+  let selectedGender = 'male';
+  function selectGender(g) {
+    selectedGender = g;
+    document.getElementById('gender-male').classList.toggle('selected', g === 'male');
+    document.getElementById('gender-female').classList.toggle('selected', g === 'female');
+  }
+
+  // ─── Data ────────────────────────────────────────────────────
+  const DIVISIONS = {
+    d1: {
+      emoji: '🏆',
+      nameEn: 'NCAA Division I',
+      nameTh: 'NCAA Division I',
+      scholarshipType: { en: 'Full Athletic Scholarship', th: 'ทุนกีฬาเต็มจำนวน' },
+      teams: { male: 308, female: 316 },
+      minHcp: { male: 4.0, female: 6.0 },
+      minGpa: 2.3,
+    },
+    d2: {
+      emoji: '🎖️',
+      nameEn: 'NCAA Division II',
+      nameTh: 'NCAA Division II',
+      scholarshipType: { en: 'Partial Athletic Scholarship', th: 'ทุนกีฬาบางส่วน' },
+      teams: { male: 216, female: 222 },
+      minHcp: { male: 7.0, female: 9.0 },
+      minGpa: 2.0,
+    },
+    d3: {
+      emoji: '🎓',
+      nameEn: 'NCAA Division III',
+      nameTh: 'NCAA Division III',
+      scholarshipType: { en: 'Academic Scholarships Only', th: 'ทุนวิชาการเท่านั้น' },
+      teams: { male: 290, female: 248 },
+      minHcp: { male: 10.0, female: 14.0 },
+      minGpa: 2.0,
+      noAthletic: true,
+    },
+    naia: {
+      emoji: '⛳',
+      nameEn: 'NAIA',
+      nameTh: 'NAIA',
+      scholarshipType: { en: 'Partial Athletic Scholarship', th: 'ทุนกีฬาบางส่วน' },
+      teams: { male: 195, female: 188 },
+      minHcp: { male: 8.0, female: 12.0 },
+      minGpa: 2.0,
+    },
+  };
+
+  // ─── Eligibility Logic ───────────────────────────────────────
+  function computeEligibility(hcp, gpa, gender) {
+    const results = {};
+    for (const [key, div] of Object.entries(DIVISIONS)) {
+      const hcpOk = hcp <= div.minHcp[gender];
+      const gpaOk = gpa >= div.minGpa;
+      results[key] = { eligible: hcpOk && gpaOk, hcpOk, gpaOk };
+    }
+    return results;
+  }
+
+  function getPathway(hcp) {
+    if (hcp < 4) return 'd1';
+    if (hcp <= 8) return 'd2naia';
+    if (hcp <= 14) return 'd3gap';
+    return 'focus';
+  }
+
+  // ─── Pathway content ─────────────────────────────────────────
+  const PATHWAYS = {
+    d1: {
+      titleEn: 'Strong Division I Candidate',
+      titleTh: 'ผู้สมัคร Division I ที่แข็งแกร่ง',
+      subtitleEn: 'Your handicap puts you in elite recruiting territory. Focus on academics and visibility.',
+      subtitleTh: 'แฮนดิแคปของคุณอยู่ในระดับชั้นนำ มุ่งเน้นที่วิชาการและการสร้างตัวตน',
+      steps: [
+        {
+          en: 'Build your recruiting profile — upload highlight videos, tournament results, and coach references to platforms like Athleta.io or NCSA.',
+          th: 'สร้างโปรไฟล์การสมัครทุน — อัปโหลดวิดีโอไฮไลท์ ผลการแข่งขัน และเอกสารอ้างอิงจากโค้ชไปยังแพลตฟอร์มอย่าง NCSA',
+        },
+        {
+          en: 'Sit the SAT or ACT early. D1 coaches check academics alongside handicap — a 3.0+ GPA opens conversations with top programmes.',
+          th: 'สอบ SAT หรือ ACT แต่เนิ่นๆ โค้ช D1 ตรวจสอบวิชาการควบคู่กับแฮนดิแคป — GPA 3.0+ เปิดโอกาสสนทนากับโปรแกรมชั้นนำ',
+        },
+        {
+          en: 'Attend US college golf camps and junior invitationals to gain exposure. Contact LinkedU to identify the right 8–12 target schools.',
+          th: 'เข้าร่วมค่ายกอล์ฟมหาวิทยาลัยในสหรัฐและการแข่งขันจูเนียร์เพื่อสร้างการรับรู้ ติดต่อ LinkedU เพื่อระบุโรงเรียนเป้าหมาย 8–12 แห่งที่เหมาะสม',
+        },
+      ],
+    },
+    d2naia: {
+      titleEn: 'Division II / NAIA Target',
+      titleTh: 'เป้าหมาย Division II / NAIA',
+      subtitleEn: 'Great options with scholarship money available. Bring your handicap to under 6 to unlock D1.',
+      subtitleTh: 'ตัวเลือกที่ดีพร้อมเงินทุน การลดแฮนดิแคปให้ต่ำกว่า 6 จะเปิดโอกาส D1',
+      steps: [
+        {
+          en: 'Target 15–20 D2 and NAIA programmes. Both offer real scholarship money — NAIA can sometimes offer equivalent to full D1 packages.',
+          th: 'กำหนดเป้าหมาย 15–20 โปรแกรม D2 และ NAIA ทั้งสองมีเงินทุนจริง — NAIA บางครั้งเสนอเทียบเท่ากับแพ็คเกจ D1 เต็มรูปแบบ',
+        },
+        {
+          en: 'Maintain consistent tournament play and submit scores to your handicap system every round. Coaches check WHS records directly.',
+          th: 'เล่นการแข่งขันอย่างสม่ำเสมอและส่งสกอร์ไปยังระบบแฮนดิแคปทุกรอบ โค้ชตรวจสอบบันทึก WHS โดยตรง',
+        },
+        {
+          en: 'Reach out to coaches from October of your junior year (two years before graduation). LinkedU can draft initial outreach emails for you.',
+          th: 'ติดต่อโค้ชตั้งแต่เดือนตุลาคมของปีจูเนียร์ (สองปีก่อนสำเร็จการศึกษา) LinkedU สามารถร่างอีเมลติดต่อเบื้องต้นให้คุณ',
+        },
+      ],
+    },
+    d3gap: {
+      titleEn: 'Start with D3 or Consider a Gap Year',
+      titleTh: 'เริ่มต้นด้วย D3 หรือพิจารณา Gap Year',
+      subtitleEn: 'D3 offers real college golf without athletic scholarships. A prep year could change everything.',
+      subtitleTh: 'D3 มีกอล์ฟมหาวิทยาลัยจริงโดยไม่มีทุนกีฬา ปีเตรียมความพร้อมอาจเปลี่ยนทุกอย่าง',
+      steps: [
+        {
+          en: 'Consider a US prep school or post-graduate year to bring your handicap under 8. Many Thai students have used this route to earn D2 offers.',
+          th: 'พิจารณาโรงเรียนเตรียม (Prep School) ในสหรัฐหรือปีหลังสำเร็จการศึกษาเพื่อลดแฮนดิแคปให้ต่ำกว่า 8 นักเรียนไทยหลายคนใช้เส้นทางนี้เพื่อรับข้อเสนอ D2',
+        },
+        {
+          en: 'D3 programmes are academically rigorous and often produce strong graduates — target liberal arts colleges with good golf facilities.',
+          th: 'โปรแกรม D3 มีความเข้มข้นทางวิชาการและมักผลิตบัณฑิตที่ดี — กำหนดเป้าหมาย Liberal Arts College ที่มีสิ่งอำนวยความสะดวกด้านกอล์ฟที่ดี',
+        },
+        {
+          en: 'Focus on intensive coaching — aim to reduce handicap by 3–5 strokes over the next 12 months. Speak to LinkedU about Thailand-based D1-certified coaching programmes.',
+          th: 'มุ่งเน้นการฝึกอย่างเข้มข้น — ตั้งเป้าลดแฮนดิแคป 3–5 สโตรกในช่วง 12 เดือนข้างหน้า พูดคุยกับ LinkedU เกี่ยวกับโปรแกรมโค้ชชิ่งที่ผ่านการรับรอง D1 ในประเทศไทย',
+        },
+      ],
+    },
+    focus: {
+      titleEn: 'Focus on Handicap First',
+      titleTh: 'มุ่งเน้นที่แฮนดิแคปก่อน',
+      subtitleEn: 'Scholarship golf requires a handicap under 12. The path is clear — let\'s map it out.',
+      subtitleTh: 'กอล์ฟทุนการศึกษาต้องการแฮนดิแคปต่ำกว่า 12 เส้นทางนั้นชัดเจน — มาวางแผนกันเถอะ',
+      steps: [
+        {
+          en: 'Prioritise golf development above recruiting right now. Aim for a handicap under 12 within 18 months through structured weekly practice and competition.',
+          th: 'ให้ความสำคัญกับการพัฒนาด้านกอล์ฟก่อนการสมัครทุนในตอนนี้ ตั้งเป้าแฮนดิแคปต่ำกว่า 12 ภายใน 18 เดือนผ่านการฝึกซ้อมและการแข่งขันรายสัปดาห์ที่มีโครงสร้าง',
+        },
+        {
+          en: 'Enrol in a nationally ranked junior programme in Thailand. LinkedU has partnerships with PGA-certified coaches who specialise in junior development.',
+          th: 'ลงทะเบียนในโปรแกรมจูเนียร์ที่ได้รับการจัดอันดับระดับชาติในประเทศไทย LinkedU มีความร่วมมือกับโค้ชที่ได้รับการรับรอง PGA ที่เชี่ยวชาญด้านการพัฒนาจูเนียร์',
+        },
+        {
+          en: 'Meanwhile, build your GPA and begin SAT prep. Strong academics mean more options — even if golf opens the door, academics keep it open.',
+          th: 'ในขณะเดียวกัน สร้าง GPA ของคุณและเริ่มเตรียมสอบ SAT วิชาการที่แข็งแกร่งหมายถึงตัวเลือกที่มากขึ้น — แม้กอล์ฟจะเปิดประตู แต่วิชาการจะทำให้ประตูนั้นเปิดอยู่',
+        },
+      ],
+    },
+  };
+
+  // ─── Last result store for re-render on lang change ──────────
+  let lastResult = null;
+
+  // ─── Check ───────────────────────────────────────────────────
+  function checkEligibility() {
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+
+    const age = parseInt(document.getElementById('f-age').value);
+    const grad = parseInt(document.getElementById('f-grad').value);
+    const hcp = parseFloat(document.getElementById('f-hcp').value);
+    const gpa = parseFloat(document.getElementById('f-gpa').value);
+    const sat = document.getElementById('f-sat').value ? parseInt(document.getElementById('f-sat').value) : null;
+    const act = document.getElementById('f-act').value ? parseInt(document.getElementById('f-act').value) : null;
+    const gender = selectedGender;
+    const lang = document.documentElement.lang;
+
+    // Validation
+    if (isNaN(hcp) || hcp < 0 || hcp > 54) {
+      errEl.textContent = lang === 'en' ? 'Please enter a valid Handicap Index (0–54).' : 'กรุณาใส่ Handicap Index ที่ถูกต้อง (0–54)';
+      errEl.style.display = 'block'; return;
+    }
+    if (!gpa) {
+      errEl.textContent = lang === 'en' ? 'Please select a GPA range.' : 'กรุณาเลือกช่วง GPA';
+      errEl.style.display = 'block'; return;
+    }
+    if (!grad) {
+      errEl.textContent = lang === 'en' ? 'Please select your graduation year.' : 'กรุณาเลือกปีที่จะสำเร็จการศึกษา';
+      errEl.style.display = 'block'; return;
+    }
+
+    const currentYear = 2026;
+    const yearsLeft = grad - currentYear;
+    const recruitingYears = Math.max(0, yearsLeft - 2);
+
+    lastResult = { hcp, gpa, gender, grad, yearsLeft, recruitingYears, sat, act };
+    renderResults(lastResult);
+  }
+
+  function renderResults(data) {
+    if (!data) return;
+    const { hcp, gpa, gender, grad, yearsLeft, recruitingYears } = data;
+    const lang = document.documentElement.lang;
+
+    // Years banner
+    const yearsEl = document.getElementById('years-num');
+    const yearsText = document.getElementById('years-text');
+    yearsEl.textContent = recruitingYears;
+
+    if (lang === 'en') {
+      yearsText.innerHTML = `<strong>${recruitingYears} year${recruitingYears !== 1 ? 's' : ''}</strong> to improve before recruiting starts<br><span style="font-size:12px;color:rgba(245,240,232,0.35);">Graduating ${grad} · Recruiting typically begins 2 years prior</span>`;
+    } else {
+      yearsText.innerHTML = `<strong>${recruitingYears} ปี</strong> เพื่อพัฒนาตัวเองก่อนเริ่มกระบวนการสมัครทุน<br><span style="font-size:12px;color:rgba(245,240,232,0.35);">สำเร็จการศึกษา ${grad} · การสมัครทุนปกติเริ่ม 2 ปีก่อน</span>`;
+    }
+
+    // Division cards
+    const eligibility = computeEligibility(hcp, gpa, gender);
+    const grid = document.getElementById('division-grid');
+    grid.innerHTML = '';
+
+    const divOrder = ['d1', 'd2', 'd3', 'naia'];
+    for (const key of divOrder) {
+      const div = DIVISIONS[key];
+      const e = eligibility[key];
+      const teamCount = div.teams[gender];
+
+      let detailEn = '';
+      let detailTh = '';
+
+      if (key === 'd3') {
+        detailEn = `No athletic scholarships — academic & need-based aid available. Competitive target: handicap under ${div.minHcp[gender]}.`;
+        detailTh = `ไม่มีทุนกีฬา — มีทุนวิชาการและทุนตามความต้องการ เป้าหมายที่แข่งขันได้: แฮนดิแคปต่ำกว่า ${div.minHcp[gender]}`;
+      } else {
+        const hcpReq = div.minHcp[gender];
+        const gpaReq = div.minGpa;
+        const hcpStatus = hcp <= hcpReq
+          ? (lang === 'en' ? `Handicap ${hcp} ✓ (need <${hcpReq})` : `แฮนดิแคป ${hcp} ✓ (ต้องการ <${hcpReq})`)
+          : (lang === 'en' ? `Need handicap <${hcpReq} (currently ${hcp})` : `ต้องการแฮนดิแคป <${hcpReq} (ปัจจุบัน ${hcp})`);
+        const gpaStatus = gpa >= gpaReq
+          ? (lang === 'en' ? `GPA ✓ (min ${gpaReq})` : `GPA ✓ (ขั้นต่ำ ${gpaReq})`)
+          : (lang === 'en' ? `GPA below ${gpaReq} minimum` : `GPA ต่ำกว่าขั้นต่ำ ${gpaReq}`);
+        detailEn = `${hcpStatus}. ${gpaStatus}.`;
+        detailTh = hcpStatus + ' ' + gpaStatus;
+      }
+
+      const card = document.createElement('div');
+      card.className = `div-card ${e.eligible ? 'eligible' : 'ineligible'}`;
+      card.innerHTML = `
+        <div class="div-header">
+          <span class="div-emoji">${div.emoji}</span>
+          <div class="div-name">${lang === 'en' ? div.nameEn : div.nameTh}</div>
+        </div>
+        <div class="div-badge ${e.eligible ? 'yes' : 'no'}">
+          ${e.eligible ? '✓' : '✗'}
+          ${e.eligible
+            ? (lang === 'en' ? 'Eligible' : 'มีคุณสมบัติ')
+            : (lang === 'en' ? 'Not yet eligible' : 'ยังไม่มีคุณสมบัติ')}
+        </div>
+        <div class="div-scholarship">${lang === 'en' ? div.scholarshipType.en : div.scholarshipType.th}</div>
+        <div class="div-detail">${lang === 'en' ? detailEn : detailTh}</div>
+        <div class="div-teams">
+          ${lang === 'en'
+            ? `~${teamCount} ${gender === 'male' ? "Men's" : "Women's"} teams nationwide`
+            : `~${teamCount} ทีม${gender === 'male' ? 'ชาย' : 'หญิง'} ทั่วประเทศ`}
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+
+    // Pathway
+    const pathwayKey = getPathway(hcp);
+    const pw = PATHWAYS[pathwayKey];
+    const pathCard = document.getElementById('pathway-card');
+
+    let stepsHtml = pw.steps.map(s => `
+      <div class="pathway-step">
+        <div class="step-dot"></div>
+        <div class="step-text">${lang === 'en' ? s.en : s.th}</div>
+      </div>
+    `).join('');
+
+    pathCard.innerHTML = `
+      <div class="section-label" style="margin-bottom:14px;">
+        <span>${lang === 'en' ? 'Your Recommended Pathway' : 'เส้นทางที่แนะนำสำหรับคุณ'}</span>
+      </div>
+      <div class="pathway-title">${lang === 'en' ? pw.titleEn : pw.titleTh}</div>
+      <div class="pathway-subtitle">${lang === 'en' ? pw.subtitleEn : pw.subtitleTh}</div>
+      <div class="pathway-steps">${stepsHtml}</div>
+    `;
+
+    const sec = document.getElementById('results-section');
+    sec.style.display = 'block';
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>

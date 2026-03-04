@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Scholarship Value Calculator | LinkedU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #222;
+    --surface2: #252525;
+    --cream: #f5f0e8;
+    --gold: #B8962E;
+    --gold-dark: #9a7a24;
+    --muted: rgba(245,240,232,0.5);
+    --border: rgba(184,150,46,0.15);
+    --radius: 8px;
+  }
+
+  html[lang="en"] .lang-th { display: none !important; }
+  html[lang="th"] .lang-en { display: none !important; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a1a;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wordmark-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .wordmark-tag {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .lang-toggle {
+    display: flex;
+    gap: 8px;
+  }
+  .lang-btn {
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: #1a1a1a;
+  }
+  .lang-btn:hover:not(.active) {
+    background: rgba(184,150,46,0.1);
+  }
+
+  /* MAIN */
+  main { flex: 1; padding: 48px 32px 64px; max-width: 900px; margin: 0 auto; width: 100%; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 24px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .tab-btn:hover:not(.active) { color: var(--cream); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  /* FORM ELEMENTS */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group.full { grid-column: 1 / -1; }
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  input[type="text"],
+  input[type="number"],
+  select {
+    background: #2a2a2a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    width: 100%;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8962E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+
+  /* SLIDER */
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .slider-row input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    outline: none;
+    padding: 0;
+    border: none;
+  }
+  .slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+  }
+  .slider-row input[type="number"] {
+    width: 70px;
+    text-align: center;
+  }
+  .slider-label {
+    font-size: 13px;
+    color: var(--cream);
+    min-width: 32px;
+  }
+
+  /* TOGGLE */
+  .toggle-row {
+    display: flex;
+    gap: 8px;
+  }
+  .toggle-opt {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #2a2a2a;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .toggle-opt.active {
+    background: rgba(184,150,46,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* BUTTON */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--gold);
+    color: #1a1a1a;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .btn-outline:hover { background: rgba(184,150,46,0.1); }
+
+  /* RESULTS */
+  .results-section { display: none; }
+  .results-section.visible { display: block; }
+
+  .hero-number {
+    background: linear-gradient(135deg, rgba(184,150,46,0.12), rgba(184,150,46,0.06));
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .hero-number .label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .hero-number .amount {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .hero-number .amount-secondary {
+    font-size: 18px;
+    color: rgba(184,150,46,0.7);
+    margin-top: 6px;
+  }
+
+  /* COMPARISON TABLE */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  .comp-table th {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-table th:first-child { text-align: left; }
+  .comp-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .comp-table td:first-child { color: var(--cream); font-weight: 500; }
+  .comp-table td:not(:first-child) { text-align: right; color: var(--muted); }
+  .comp-table td.saving { color: #4caf50 !important; font-weight: 600; }
+  .comp-table .row-highlight td { background: rgba(184,150,46,0.05); }
+
+  /* MONTHLY BREAKDOWN */
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .monthly-item {
+    background: #2a2a2a;
+    border-radius: 6px;
+    padding: 14px;
+    text-align: center;
+  }
+  .monthly-item .m-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .monthly-item .m-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .monthly-item .m-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* COMPARISON VIEW */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .compare-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .compare-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .c-label { color: var(--muted); }
+  .compare-row .c-value { color: var(--cream); font-weight: 500; }
+
+  .outcome-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 4px;
+  }
+  .outcome-box h4 {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .outcome-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .outcome-item .o-flag {
+    font-size: 18px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  .outcome-item .o-text { color: var(--muted); }
+  .outcome-item .o-text strong { color: var(--cream); display: block; margin-bottom: 2px; }
+
+  /* SHARE */
+  .share-box {
+    background: #2a2a2a;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: pre-wrap;
+    font-family: 'Inter', monospace;
+    min-height: 100px;
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+  .copy-toast {
+    display: inline-block;
+    background: rgba(76,175,80,0.15);
+    color: #4caf50;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .copy-toast.show { opacity: 1; }
+
+  /* RATE NOTE */
+  .rate-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  /* LINE CTA */
+  .line-cta {
+    background: linear-gradient(135deg, rgba(0,179,132,0.1), rgba(0,179,132,0.05));
+    border: 1px solid rgba(0,179,132,0.2);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin-top: 32px;
+  }
+  .line-cta p {
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .line-cta a {
+    color: #00b384;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .line-cta a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  footer .f-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  footer .f-line {
+    color: var(--gold);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  footer .f-contact {
+    font-size: 12px;
+    color: rgba(245,240,232,0.3);
+  }
+
+  @media (max-width: 640px) {
+    main { padding: 32px 16px 48px; }
+    header { padding: 0 16px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .monthly-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="wordmark">
+    <div class="wordmark-name">LINKEDU</div>
+    <div class="wordmark-tag">Golf Scholarships</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('th')" id="btn-th">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="section-label">
+      <span class="lang-en">Tool 7 of 10</span>
+      <span class="lang-th">เครื่องมือที่ 7 จาก 10</span>
+    </div>
+    <h1>
+      <span class="lang-en">Scholarship Value Calculator</span>
+      <span class="lang-th">คำนวณมูลค่าทุนการศึกษา</span>
+    </h1>
+    <p class="subtitle">
+      <span class="lang-en">See the true 4-year value of your golf scholarship offer</span>
+      <span class="lang-th">ดูมูลค่าที่แท้จริงของทุนการศึกษากอล์ฟตลอด 4 ปี</span>
+    </p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('us')">
+      <span class="lang-en">US University</span>
+      <span class="lang-th">มหาวิทยาลัยสหรัฐฯ</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('uk')">
+      <span class="lang-en">UK Boarding School</span>
+      <span class="lang-th">โรงเรียนประจำ UK</span>
+    </button>
+  </div>
+
+  <!-- US TAB -->
+  <div class="tab-panel active" id="tab-us">
+    <div class="card">
+      <div class="card-title">
+        <span class="lang-en">School Details</span>
+        <span class="lang-th">รายละเอียดโรงเรียน</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>
+            <span class="lang-en">University Name (optional)</span>
+            <span class="lang-th">ชื่อมหาวิทยาลัย (ไม่บังคับ)</span>
+          </label>
+          <input type="text" id="us-name" placeholder="e.g. University of Georgia">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Annual Tuition (USD)</span>
+            <span class="lang-th">ค่าเล่าเรียนต่อปี (USD)</span>
+          </label>
+          <input type="number" id="us-tuition" value="55000" oninput="calcUS()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Room &amp; Board (USD/yr)</span>
+            <span class="lang-th">ที่พักและอาหาร (USD/ปี)</span>
+          </label>
+          <input type="number" id="us-room" value="16000" oninput="calcUS()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Books &amp; Fees (USD/yr)</span>
+            <span class="lang-th">หนังสือและค่าธรรมเนียม (USD/ปี)</span>
+          </label>
+          <input type="number" id="us-fees" value="3000" oninput="calcUS()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Additional Academic Scholarship (USD/yr, optional)</span>
+            <span class="lang-th">ทุนวิชาการเพิ่มเติม (USD/ปี)</span>
+          </label>
+          <input type="number" id="us-academic" value="0" oninput="calcUS()">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="lang-en">Scholarship</span>
+        <span class="lang-th">ทุนการศึกษา</span>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>
+          <span class="lang-en">Golf Scholarship % (of tuition)</span>
+          <span class="lang-th">ทุนกอล์ฟ % (ของค่าเล่าเรียน)</span>
+        </label>
+        <div class="slider-row" style="margin-top:8px">
+          <input type="range" id="us-schol-range" min="0" max="100" value="40" oninput="syncSlider('us');calcUS()">
+          <input type="number" id="us-schol-num" min="0" max="100" value="40" oninput="syncNum('us');calcUS()" style="width:70px">
+          <span class="slider-label">%</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Exchange Rate: 1 USD =</span>
+          <span class="lang-th">อัตราแลกเปลี่ยน: 1 USD =</span>
+        </label>
+        <div class="slider-row">
+          <input type="number" id="us-rate" value="35.5" step="0.5" oninput="calcUS()" style="max-width:120px">
+          <span class="slider-label">THB</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-gold" onclick="calcUS()">
+      <span class="lang-en">Calculate Scholarship Value</span>
+      <span class="lang-th">คำนวณมูลค่าทุน</span>
+    </button>
+
+    <!-- US RESULTS -->
+    <div id="us-results" class="results-section" style="margin-top:32px">
+      <div class="hero-number">
+        <div class="label">
+          <span class="lang-en">Your 4-Year Scholarship Value</span>
+          <span class="lang-th">มูลค่าทุนการศึกษา 4 ปีของคุณ</span>
+        </div>
+        <div class="amount" id="us-big-usd">$0</div>
+        <div class="amount-secondary" id="us-big-thb">฿0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="lang-en">Cost Comparison</span>
+          <span class="lang-th">การเปรียบเทียบต้นทุน</span>
+        </div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <span class="lang-en">Without Scholarship</span>
+                <span class="lang-th">ไม่มีทุน</span>
+              </th>
+              <th>
+                <span class="lang-en">With Scholarship</span>
+                <span class="lang-th">มีทุน</span>
+              </th>
+              <th>
+                <span class="lang-en">Saving</span>
+                <span class="lang-th">ประหยัด</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="lang-en">Annual Cost</span>
+                <span class="lang-th">ต้นทุนต่อปี</span>
+              </td>
+              <td id="us-annual-without"></td>
+              <td id="us-annual-with"></td>
+              <td id="us-annual-save" class="saving"></td>
+            </tr>
+            <tr class="row-highlight">
+              <td>
+                <span class="lang-en">4-Year Total (USD)</span>
+                <span class="lang-th">รวม 4 ปี (USD)</span>
+              </td>
+              <td id="us-4yr-without"></td>
+              <td id="us-4yr-with"></td>
+              <td id="us-4yr-save" class="saving"></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="lang-en">4-Year Total (THB)</span>
+                <span class="lang-th">รวม 4 ปี (THB)</span>
+              </td>
+              <td id="us-thb-without"></td>
+              <td id="us-thb-with"></td>
+              <td id="us-thb-save" class="saving"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="lang-en">Monthly Budget Breakdown (After Scholarship)</span>
+          <span class="lang-th">งบประมาณรายเดือน (หลังได้รับทุน)</span>
+        </div>
+        <div class="monthly-grid">
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Tuition / Month</span>
+              <span class="lang-th">ค่าเรียน/เดือน</span>
+            </div>
+            <div class="m-amount" id="us-m-tuition">$0</div>
+            <div class="m-sub">
+              <span class="lang-en">after scholarship</span>
+              <span class="lang-th">หลังหักทุน</span>
+            </div>
+          </div>
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Room &amp; Board / Month</span>
+              <span class="lang-th">ที่พักและอาหาร/เดือน</span>
+            </div>
+            <div class="m-amount" id="us-m-room">$0</div>
+            <div class="m-sub">
+              <span class="lang-en">estimated</span>
+              <span class="lang-th">ประมาณการ</span>
+            </div>
+          </div>
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Books &amp; Fees / Month</span>
+              <span class="lang-th">หนังสือและค่าธรรมเนียม/เดือน</span>
+            </div>
+            <div class="m-amount" id="us-m-fees">$0</div>
+            <div class="m-sub">
+              <span class="lang-en">estimated</span>
+              <span class="lang-th">ประมาณการ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK TAB -->
+  <div class="tab-panel" id="tab-uk">
+    <div class="card">
+      <div class="card-title">
+        <span class="lang-en">School Details</span>
+        <span class="lang-th">รายละเอียดโรงเรียน</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>
+            <span class="lang-en">School Name (optional)</span>
+            <span class="lang-th">ชื่อโรงเรียน (ไม่บังคับ)</span>
+          </label>
+          <input type="text" id="uk-name" placeholder="e.g. Millfield School">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Annual Fees (GBP)</span>
+            <span class="lang-th">ค่าธรรมเนียมต่อปี (GBP)</span>
+          </label>
+          <input type="number" id="uk-fees" value="38000" oninput="calcUK()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Accommodation</span>
+            <span class="lang-th">ที่พัก</span>
+          </label>
+          <div class="toggle-row">
+            <button class="toggle-opt active" onclick="setAccomm('included')" id="accm-yes">
+              <span class="lang-en">Included</span>
+              <span class="lang-th">รวมอยู่แล้ว</span>
+            </button>
+            <button class="toggle-opt" onclick="setAccomm('extra')" id="accm-no">
+              <span class="lang-en">Extra Cost</span>
+              <span class="lang-th">ค่าใช้จ่ายเพิ่มเติม</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Flights &amp; Travel (GBP/yr)</span>
+            <span class="lang-th">ตั๋วเครื่องบินและการเดินทาง (GBP/ปี)</span>
+          </label>
+          <input type="number" id="uk-travel" value="2000" oninput="calcUK()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Spending Money (GBP/month)</span>
+            <span class="lang-th">ค่าใช้จ่ายส่วนตัว (GBP/เดือน)</span>
+          </label>
+          <input type="number" id="uk-spending" value="300" oninput="calcUK()">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="lang-en">Scholarship &amp; Duration</span>
+        <span class="lang-th">ทุนการศึกษาและระยะเวลา</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Scholarship / Bursary</span>
+            <span class="lang-th">ทุนการศึกษา</span>
+          </label>
+          <select id="uk-schol-type" onchange="showUKScholInput();calcUK()">
+            <option value="full">Full Fees</option>
+            <option value="50">50% of fees</option>
+            <option value="30">30% of fees</option>
+            <option value="10000">£10,000 / year</option>
+            <option value="5000">£5,000 / year</option>
+            <option value="other">Other amount</option>
+          </select>
+        </div>
+        <div class="form-group" id="uk-schol-other-group" style="display:none">
+          <label>
+            <span class="lang-en">Scholarship Amount (GBP/yr)</span>
+            <span class="lang-th">จำนวนทุน (GBP/ปี)</span>
+          </label>
+          <input type="number" id="uk-schol-other" value="0" oninput="calcUK()">
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Duration</span>
+            <span class="lang-th">ระยะเวลา</span>
+          </label>
+          <select id="uk-duration" onchange="calcUK()">
+            <option value="2">2 Years (Sixth Form)</option>
+            <option value="5">5 Years (Year 9 entry)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="lang-en">Exchange Rate: 1 GBP =</span>
+            <span class="lang-th">อัตราแลกเปลี่ยน: 1 GBP =</span>
+          </label>
+          <div class="slider-row">
+            <input type="number" id="uk-rate" value="45.5" step="0.5" oninput="calcUK()" style="max-width:120px">
+            <span class="slider-label">THB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-gold" onclick="calcUK()">
+      <span class="lang-en">Calculate Scholarship Value</span>
+      <span class="lang-th">คำนวณมูลค่าทุน</span>
+    </button>
+
+    <!-- UK RESULTS -->
+    <div id="uk-results" class="results-section" style="margin-top:32px">
+      <div class="hero-number">
+        <div class="label">
+          <span class="lang-en">Your Scholarship Value</span>
+          <span class="lang-th">มูลค่าทุนการศึกษาของคุณ</span>
+        </div>
+        <div class="amount" id="uk-big-gbp">£0</div>
+        <div class="amount-secondary" id="uk-big-thb">฿0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="lang-en">Cost Comparison</span>
+          <span class="lang-th">การเปรียบเทียบต้นทุน</span>
+        </div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <span class="lang-en">Without Scholarship</span>
+                <span class="lang-th">ไม่มีทุน</span>
+              </th>
+              <th>
+                <span class="lang-en">With Scholarship</span>
+                <span class="lang-th">มีทุน</span>
+              </th>
+              <th>
+                <span class="lang-en">Saving</span>
+                <span class="lang-th">ประหยัด</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="lang-en">Annual Cost</span>
+                <span class="lang-th">ต้นทุนต่อปี</span>
+              </td>
+              <td id="uk-annual-without"></td>
+              <td id="uk-annual-with"></td>
+              <td id="uk-annual-save" class="saving"></td>
+            </tr>
+            <tr class="row-highlight">
+              <td id="uk-total-label">
+                <span class="lang-en">Total (GBP)</span>
+                <span class="lang-th">รวม (GBP)</span>
+              </td>
+              <td id="uk-total-without"></td>
+              <td id="uk-total-with"></td>
+              <td id="uk-total-save" class="saving"></td>
+            </tr>
+            <tr>
+              <td id="uk-total-label-thb">
+                <span class="lang-en">Total (THB)</span>
+                <span class="lang-th">รวม (THB)</span>
+              </td>
+              <td id="uk-thb-without"></td>
+              <td id="uk-thb-with"></td>
+              <td id="uk-thb-save" class="saving"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="lang-en">Monthly Budget Breakdown (After Scholarship)</span>
+          <span class="lang-th">งบประมาณรายเดือน (หลังได้รับทุน)</span>
+        </div>
+        <div class="monthly-grid">
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Fees / Month</span>
+              <span class="lang-th">ค่าธรรมเนียม/เดือน</span>
+            </div>
+            <div class="m-amount" id="uk-m-fees">£0</div>
+            <div class="m-sub">
+              <span class="lang-en">after scholarship</span>
+              <span class="lang-th">หลังหักทุน</span>
+            </div>
+          </div>
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Travel / Month</span>
+              <span class="lang-th">การเดินทาง/เดือน</span>
+            </div>
+            <div class="m-amount" id="uk-m-travel">£0</div>
+            <div class="m-sub">
+              <span class="lang-en">flights &amp; transport</span>
+              <span class="lang-th">บินและเดินทาง</span>
+            </div>
+          </div>
+          <div class="monthly-item">
+            <div class="m-label">
+              <span class="lang-en">Spending Money</span>
+              <span class="lang-th">ค่าใช้จ่ายส่วนตัว</span>
+            </div>
+            <div class="m-amount" id="uk-m-spending">£0</div>
+            <div class="m-sub">
+              <span class="lang-en">per month</span>
+              <span class="lang-th">ต่อเดือน</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARE SECTION -->
+  <div id="compare-section" style="margin-top:32px; display:none">
+    <button class="btn-outline" onclick="showCompare()" id="compare-btn">
+      <span class="lang-en">US vs UK Side by Side Comparison</span>
+      <span class="lang-th">เปรียบเทียบ US vs UK แบบเคียงกัน</span>
+    </button>
+
+    <div id="compare-view" style="display:none; margin-top:24px">
+      <div class="card-title" style="margin-bottom:16px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); border-top:1px solid var(--gold); padding-top:8px; display:inline-block">
+        <span class="lang-en">Side by Side Comparison</span>
+        <span class="lang-th">เปรียบเทียบแบบเคียงกัน</span>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-panel">
+          <h3>
+            <span class="lang-en">US University</span>
+            <span class="lang-th">มหาวิทยาลัยสหรัฐฯ</span>
+          </h3>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Annual Cost</span><span class="lang-th">ต้นทุนต่อปี</span></span>
+            <span class="c-value" id="cmp-us-annual">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Scholarship Value</span><span class="lang-th">มูลค่าทุน</span></span>
+            <span class="c-value" id="cmp-us-schol">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Total Saving</span><span class="lang-th">ประหยัดทั้งหมด</span></span>
+            <span class="c-value saving" id="cmp-us-save">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">THB Value</span><span class="lang-th">มูลค่า THB</span></span>
+            <span class="c-value" id="cmp-us-thb">—</span>
+          </div>
+        </div>
+        <div class="compare-panel">
+          <h3>
+            <span class="lang-en">UK Boarding School</span>
+            <span class="lang-th">โรงเรียนประจำ UK</span>
+          </h3>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Annual Cost</span><span class="lang-th">ต้นทุนต่อปี</span></span>
+            <span class="c-value" id="cmp-uk-annual">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Scholarship Value</span><span class="lang-th">มูลค่าทุน</span></span>
+            <span class="c-value" id="cmp-uk-schol">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">Total Saving</span><span class="lang-th">ประหยัดทั้งหมด</span></span>
+            <span class="c-value saving" id="cmp-uk-save">—</span>
+          </div>
+          <div class="compare-row">
+            <span class="c-label"><span class="lang-en">THB Value</span><span class="lang-th">มูลค่า THB</span></span>
+            <span class="c-value" id="cmp-uk-thb">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-box">
+        <h4>
+          <span class="lang-en">Academic Outcome Comparison</span>
+          <span class="lang-th">การเปรียบเทียบผลลัพธ์ทางวิชาการ</span>
+        </h4>
+        <div class="outcome-item">
+          <div class="o-flag">🇺🇸</div>
+          <div class="o-text">
+            <strong>
+              <span class="lang-en">US University</span>
+              <span class="lang-th">มหาวิทยาลัยสหรัฐฯ</span>
+            </strong>
+            <span class="lang-en">NCAA Division I/II scholarship — full US bachelor's degree (4 years), collegiate golf team competition, direct path to professional circuit via Q-School. Strong alumni networks.</span>
+            <span class="lang-th">ทุน NCAA Division I/II — ปริญญาตรีจากสหรัฐฯ (4 ปี) แข่งขันกอล์ฟทีมมหาวิทยาลัย เส้นทางสู่การแข่งขันอาชีพ ผ่าน Q-School เครือข่ายศิษย์เก่าที่แข็งแกร่ง</span>
+          </div>
+        </div>
+        <div class="outcome-item">
+          <div class="o-flag">🇬🇧</div>
+          <div class="o-text">
+            <strong>
+              <span class="lang-en">UK Boarding School</span>
+              <span class="lang-th">โรงเรียนประจำ UK</span>
+            </strong>
+            <span class="lang-en">IGSA / R&A pathway — A-Level qualifications, elite golf academy training, European Tour development pathway, access to UK/EU universities. Ideal for ages 14–18.</span>
+            <span class="lang-th">เส้นทาง IGSA/R&A — คุณวุฒิ A-Level ฝึกซ้อมสถาบันกอล์ฟชั้นนำ เส้นทาง European Tour เข้ามหาวิทยาลัย UK/EU เหมาะสำหรับอายุ 14–18 ปี</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARE -->
+  <div class="card" id="share-card" style="margin-top:32px; display:none">
+    <div class="card-title">
+      <span class="lang-en">Share Your Results</span>
+      <span class="lang-th">แชร์ผลลัพธ์ของคุณ</span>
+    </div>
+    <div class="share-box" id="share-text"></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="btn-gold" style="max-width:200px" onclick="copyShare()">
+        <span class="lang-en">Copy to Clipboard</span>
+        <span class="lang-th">คัดลอก</span>
+      </button>
+      <span class="copy-toast" id="copy-toast">
+        <span class="lang-en">Copied!</span>
+        <span class="lang-th">คัดลอกแล้ว!</span>
+      </span>
+    </div>
+    <div class="rate-note">
+      <span class="lang-en">Rates are estimates. Actual rates vary — consult your bank.</span>
+      <span class="lang-th">อัตราเป็นการประมาณการ อัตราจริงอาจแตกต่าง — ปรึกษาธนาคารของคุณ</span>
+    </div>
+  </div>
+
+  <!-- LINE CTA -->
+  <div class="line-cta">
+    <p>
+      <span class="lang-en">Confused by the numbers? Let LinkedU break it down for you.</span>
+      <span class="lang-th">สับสนกับตัวเลข? ให้ LinkedU ช่วยอธิบายให้คุณ</span>
+    </p>
+    <a href="https://line.me/R/ti/p/@linkedu" target="_blank">LINE @linkedu</a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-main">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="f-line">LINE: @linkedu</div>
+  <div class="f-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+// ---- LANG ----
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  localStorage.setItem('linkedu-lang', lang);
+}
+(function(){
+  const saved = localStorage.getItem('linkedu-lang') || 'en';
+  setLang(saved);
+})();
+
+// ---- TABS ----
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn')[tab === 'us' ? 0 : 1].classList.add('active');
+}
+
+// ---- SLIDER SYNC ----
+function syncSlider(prefix) {
+  const r = document.getElementById(prefix + '-schol-range');
+  const n = document.getElementById(prefix + '-schol-num');
+  n.value = r.value;
+}
+function syncNum(prefix) {
+  const r = document.getElementById(prefix + '-schol-range');
+  const n = document.getElementById(prefix + '-schol-num');
+  let v = Math.min(100, Math.max(0, parseInt(n.value) || 0));
+  n.value = v;
+  r.value = v;
+}
+
+// ---- UK SCHOLARSHIP INPUT ----
+function showUKScholInput() {
+  const type = document.getElementById('uk-schol-type').value;
+  document.getElementById('uk-schol-other-group').style.display = type === 'other' ? 'block' : 'none';
+}
+
+// ---- ACCOMMODATION TOGGLE ----
+let accommIncluded = true;
+function setAccomm(val) {
+  accommIncluded = val === 'included';
+  document.getElementById('accm-yes').classList.toggle('active', accommIncluded);
+  document.getElementById('accm-no').classList.toggle('active', !accommIncluded);
+  calcUK();
+}
+
+// ---- FORMAT ----
+function fmtUSD(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+function fmtGBP(n) {
+  return '£' + Math.round(n).toLocaleString('en-US');
+}
+function fmtTHB(n) {
+  return '฿' + Math.round(n).toLocaleString('en-US');
+}
+
+// ---- US CALC ----
+let usData = null;
+function calcUS() {
+  const tuition = parseFloat(document.getElementById('us-tuition').value) || 0;
+  const room    = parseFloat(document.getElementById('us-room').value) || 0;
+  const fees    = parseFloat(document.getElementById('us-fees').value) || 0;
+  const scholPct = parseFloat(document.getElementById('us-schol-num').value) || 0;
+  const academic = parseFloat(document.getElementById('us-academic').value) || 0;
+  const rate    = parseFloat(document.getElementById('us-rate').value) || 35.5;
+
+  const annualWithout = tuition + room + fees;
+  const scholValue    = (tuition * scholPct / 100) + academic;
+  const annualWith    = annualWithout - scholValue;
+  const annualSave    = scholValue;
+
+  const total4Without = annualWithout * 4;
+  const total4With    = annualWith * 4;
+  const total4Save    = scholValue * 4;
+
+  document.getElementById('us-annual-without').textContent = fmtUSD(annualWithout);
+  document.getElementById('us-annual-with').textContent    = fmtUSD(Math.max(0, annualWith));
+  document.getElementById('us-annual-save').textContent    = fmtUSD(annualSave);
+  document.getElementById('us-4yr-without').textContent   = fmtUSD(total4Without);
+  document.getElementById('us-4yr-with').textContent      = fmtUSD(Math.max(0, total4With));
+  document.getElementById('us-4yr-save').textContent      = fmtUSD(total4Save);
+  document.getElementById('us-thb-without').textContent   = fmtTHB(total4Without * rate);
+  document.getElementById('us-thb-with').textContent      = fmtTHB(Math.max(0, total4With) * rate);
+  document.getElementById('us-thb-save').textContent      = fmtTHB(total4Save * rate);
+
+  document.getElementById('us-big-usd').textContent = fmtUSD(total4Save);
+  document.getElementById('us-big-thb').textContent = fmtTHB(total4Save * rate);
+
+  // Monthly
+  const tuitionAfter = Math.max(0, tuition - (tuition * scholPct / 100) - academic);
+  document.getElementById('us-m-tuition').textContent = fmtUSD(tuitionAfter / 12);
+  document.getElementById('us-m-room').textContent    = fmtUSD(room / 12);
+  document.getElementById('us-m-fees').textContent    = fmtUSD(fees / 12);
+
+  document.getElementById('us-results').classList.add('visible');
+  usData = { annualWith: Math.max(0, annualWith), scholValue, total4Save, total4Save_thb: total4Save * rate };
+
+  updateCompareVisibility();
+  updateShareText();
+}
+
+// ---- UK CALC ----
+let ukData = null;
+function calcUK() {
+  const fees     = parseFloat(document.getElementById('uk-fees').value) || 0;
+  const travel   = parseFloat(document.getElementById('uk-travel').value) || 0;
+  const spending = parseFloat(document.getElementById('uk-spending').value) || 0;
+  const rate     = parseFloat(document.getElementById('uk-rate').value) || 45.5;
+  const duration = parseInt(document.getElementById('uk-duration').value) || 2;
+  const scholType = document.getElementById('uk-schol-type').value;
+
+  let scholValue = 0;
+  if (scholType === 'full') scholValue = fees;
+  else if (scholType === 'other') scholValue = parseFloat(document.getElementById('uk-schol-other').value) || 0;
+  else if (['50', '30'].includes(scholType)) scholValue = fees * parseInt(scholType) / 100;
+  else scholValue = parseFloat(scholType) || 0;
+
+  const spendingAnnual = spending * 12;
+  const annualWithout  = fees + travel + spendingAnnual + (accommIncluded ? 0 : 0);
+  const annualWith     = annualWithout - scholValue;
+  const annualSave     = scholValue;
+
+  const totalWithout   = annualWithout * duration;
+  const totalWith      = Math.max(0, annualWith) * duration;
+  const totalSave      = scholValue * duration;
+
+  document.getElementById('uk-annual-without').textContent = fmtGBP(annualWithout);
+  document.getElementById('uk-annual-with').textContent    = fmtGBP(Math.max(0, annualWith));
+  document.getElementById('uk-annual-save').textContent    = fmtGBP(annualSave);
+  document.getElementById('uk-total-without').textContent  = fmtGBP(totalWithout);
+  document.getElementById('uk-total-with').textContent     = fmtGBP(totalWith);
+  document.getElementById('uk-total-save').textContent     = fmtGBP(totalSave);
+  document.getElementById('uk-thb-without').textContent   = fmtTHB(totalWithout * rate);
+  document.getElementById('uk-thb-with').textContent      = fmtTHB(totalWith * rate);
+  document.getElementById('uk-thb-save').textContent      = fmtTHB(totalSave * rate);
+
+  document.getElementById('uk-big-gbp').textContent = fmtGBP(totalSave);
+  document.getElementById('uk-big-thb').textContent = fmtTHB(totalSave * rate);
+
+  // Monthly
+  document.getElementById('uk-m-fees').textContent     = fmtGBP(Math.max(0, (fees - scholValue)) / 12);
+  document.getElementById('uk-m-travel').textContent   = fmtGBP(travel / 12);
+  document.getElementById('uk-m-spending').textContent = fmtGBP(spending);
+
+  document.getElementById('uk-results').classList.add('visible');
+  ukData = { annualWith: Math.max(0, annualWith), scholValue, totalSave, totalSave_thb: totalSave * rate };
+
+  updateCompareVisibility();
+  updateShareText();
+}
+
+function updateCompareVisibility() {
+  const compareSection = document.getElementById('compare-section');
+  if (usData && ukData) {
+    compareSection.style.display = 'block';
+  }
+}
+
+// ---- COMPARE ----
+function showCompare() {
+  if (!usData || !ukData) return;
+  document.getElementById('cmp-us-annual').textContent = fmtUSD(usData.annualWith);
+  document.getElementById('cmp-us-schol').textContent  = fmtUSD(usData.scholValue);
+  document.getElementById('cmp-us-save').textContent   = fmtUSD(usData.total4Save);
+  document.getElementById('cmp-us-thb').textContent    = fmtTHB(usData.total4Save_thb);
+  document.getElementById('cmp-uk-annual').textContent = fmtGBP(ukData.annualWith);
+  document.getElementById('cmp-uk-schol').textContent  = fmtGBP(ukData.scholValue);
+  document.getElementById('cmp-uk-save').textContent   = fmtGBP(ukData.totalSave);
+  document.getElementById('cmp-uk-thb').textContent    = fmtTHB(ukData.totalSave_thb);
+  document.getElementById('compare-view').style.display = 'block';
+  document.getElementById('compare-btn').style.display  = 'none';
+}
+
+// ---- SHARE ----
+function updateShareText() {
+  const shareCard = document.getElementById('share-card');
+  const shareText = document.getElementById('share-text');
+  let text = '--- LinkedU Golf Scholarship Value Calculator ---\n\n';
+  if (usData) {
+    const uName = document.getElementById('us-name').value || 'US University';
+    text += `US UNIVERSITY: ${uName}\n`;
+    text += `Annual cost with scholarship: ${fmtUSD(usData.annualWith)}\n`;
+    text += `Total 4-year scholarship value: ${fmtUSD(usData.total4Save)} (${fmtTHB(usData.total4Save_thb)})\n\n`;
+  }
+  if (ukData) {
+    const ukName = document.getElementById('uk-name').value || 'UK Boarding School';
+    text += `UK BOARDING SCHOOL: ${ukName}\n`;
+    text += `Annual cost with scholarship: ${fmtGBP(ukData.annualWith)}\n`;
+    text += `Total scholarship value: ${fmtGBP(ukData.totalSave)} (${fmtTHB(ukData.totalSave_thb)})\n\n`;
+  }
+  text += 'Calculated with LinkedU Golf Scholarship Value Calculator\nLINE: @linkedu';
+  shareText.textContent = text;
+  shareCard.style.display = 'block';
+}
+
+function copyShare() {
+  const text = document.getElementById('share-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('copy-toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+}
+
+// Init
+calcUS();
+</script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ค้นหาโรงเรียนประจำ UK | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:80px 40px 100px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; color:var(--cream); margin-bottom:14px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1rem; color:var(--cream); opacity:0.75; max-width:580px; margin:0 auto; line-height:1.7; }
+    .tool-section { max-width:800px; margin:0 auto; padding:80px 40px; }
+    .form-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .form-row { margin-bottom:24px; }
+    label { display:block; font-size:13px; font-weight:600; color:var(--dark); margin-bottom:8px; }
+    input[type="number"], select { width:100%; padding:12px 16px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:15px; color:var(--dark); background:var(--cream); transition:border 0.3s; }
+    input:focus, select:focus { outline:none; border-color:var(--gold); }
+    .radio-group { display:flex; gap:12px; flex-wrap:wrap; }
+    .radio-label { display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; padding:10px 18px; border:1px solid #ddd; border-radius:6px; transition:all 0.3s; background:var(--cream); }
+    .radio-label.checked { border-color:var(--gold); background:#fdf8ee; }
+    .radio-label input { accent-color:var(--gold); }
+    .btn-primary { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; width:100%; margin-top:8px; }
+    .btn-primary:hover { opacity:0.88; }
+    .results { display:none; margin-top:40px; }
+    .results.visible { display:block; }
+    .results-title { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:400; color:var(--dark); margin-bottom:24px; text-align:center; }
+    .school-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+    .school-header { background:var(--dark); padding:20px 28px; display:flex; justify-content:space-between; align-items:center; }
+    .school-rank { font-size:11px; font-weight:600; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase; }
+    .school-name { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:400; color:var(--cream); margin-top:4px; }
+    .school-location { font-size:12px; color:var(--cream); opacity:0.5; margin-top:3px; }
+    .match-score { background:var(--gold); color:var(--dark); padding:8px 16px; border-radius:6px; font-weight:700; font-size:1rem; white-space:nowrap; }
+    .school-body { padding:24px 28px; }
+    .school-details { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+    .detail-item .detail-label { font-size:11px; color:#aaa; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px; }
+    .detail-item .detail-value { font-size:14px; color:var(--dark); font-weight:500; }
+    .detail-item .detail-value.gold { color:var(--gold); }
+    .school-note { font-size:13px; color:#666; line-height:1.6; margin-bottom:20px; padding:14px 18px; background:#f8f4ec; border-radius:6px; }
+    .badge-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .badge { display:inline-block; font-size:11px; font-weight:600; padding:4px 10px; border-radius:4px; letter-spacing:0.05em; }
+    .badge-green { background:#e8f4e8; color:#2d7a2d; }
+    .badge-blue { background:#e8eef8; color:#2d4a8a; }
+    .badge-orange { background:#fff0e0; color:#8a4a00; }
+    .school-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-line-sm { background:var(--gold); color:var(--dark); border:none; padding:10px 22px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; }
+    .btn-line-sm:hover { opacity:0.88; }
+    .line-result { margin-top:28px; padding:24px; background:var(--dark); border-radius:8px; text-align:center; }
+    .line-result p { color:var(--cream); opacity:0.8; font-size:14px; margin-bottom:16px; }
+    .btn-line { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:768px) { .hero h1 { font-size:2rem; } .tool-section, .hero { padding:60px 20px; } header { padding:0 20px; } .form-card { padding:24px; } .school-details { grid-template-columns:1fr; } .school-header { flex-direction:column; gap:12px; align-items:flex-start; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;flex-direction:column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 04 ·</div>
+  <div class="section-label lang-en">· TOOL 04 ·</div>
+  <h1 class="lang-th">ค้นหาโรงเรียนประจำ<br><span>UK สำหรับกอล์ฟ</span></h1>
+  <h1 class="lang-en">UK Golf Boarding<br><span>School Matcher</span></h1>
+  <p class="lang-th">ใส่แฮนดิแคป งบประมาณ ขนาดโรงเรียน และเพศ รับโรงเรียนที่เหมาะสมที่สุด 3 อันดับแรกพร้อมข้อมูลทุนการศึกษา</p>
+  <p class="lang-en">Enter handicap, budget, preferred school size, and gender. Get the top 3 matched UK boarding schools with golf programs and scholarship details.</p>
+</section>
+
+<section class="tool-section">
+  <div class="form-card">
+    <div class="section-label lang-th" style="justify-content:flex-start;margin-bottom:32px;">· กรอกข้อมูล ·</div>
+    <div class="section-label lang-en" style="justify-content:flex-start;margin-bottom:32px;">· ENTER DETAILS ·</div>
+
+    <div class="form-row">
+      <label><span class="lang-th">แฮนดิแคปปัจจุบัน (0–36)</span><span class="lang-en">Current Handicap (0–36)</span></label>
+      <input type="number" id="hcp" min="0" max="36" step="0.1" placeholder="e.g. 8">
+    </div>
+    <div class="form-row">
+      <label><span class="lang-th">งบประมาณต่อปี (GBP) — รวมค่าเรียนและที่พัก</span><span class="lang-en">Annual Budget (GBP) — including tuition and boarding</span></label>
+      <select id="budget">
+        <option value="">-- <span class="lang-th">เลือก</span><span class="lang-en">Select</span> --</option>
+        <option value="30000">ต่ำกว่า £30,000 / Under £30,000</option>
+        <option value="38000">£30,000 – £38,000</option>
+        <option value="44000">£38,000 – £44,000</option>
+        <option value="55000">£44,000 – £55,000+</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label><span class="lang-th">ขนาดโรงเรียนที่ชอบ</span><span class="lang-en">Preferred School Size</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-small"><input type="radio" name="size" value="small"><span class="lang-th">เล็ก (&lt;500)</span><span class="lang-en">Small (&lt;500)</span></label>
+        <label class="radio-label" id="lbl-med"><input type="radio" name="size" value="medium"><span class="lang-th">กลาง (500–800)</span><span class="lang-en">Medium (500–800)</span></label>
+        <label class="radio-label" id="lbl-large"><input type="radio" name="size" value="large"><span class="lang-th">ใหญ่ (&gt;800)</span><span class="lang-en">Large (&gt;800)</span></label>
+        <label class="radio-label" id="lbl-any"><input type="radio" name="size" value="any" checked><span class="lang-th">ไม่สำคัญ</span><span class="lang-en">Any Size</span></label>
+      </div>
+    </div>
+    <div class="form-row">
+      <label><span class="lang-th">เพศ</span><span class="lang-en">Gender</span></label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-m"><input type="radio" name="gender" value="male"><span class="lang-th">ชาย</span><span class="lang-en">Male</span></label>
+        <label class="radio-label" id="lbl-f"><input type="radio" name="gender" value="female"><span class="lang-th">หญิง</span><span class="lang-en">Female</span></label>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="findSchools()">
+      <span class="lang-th">ค้นหาโรงเรียนที่เหมาะสม</span>
+      <span class="lang-en">Find Matching Schools</span>
+    </button>
+
+    <div class="results" id="results">
+      <h2 class="results-title lang-th" style="margin-top:36px;">โรงเรียน 3 อันดับที่เหมาะสมที่สุด</h2>
+      <h2 class="results-title lang-en" style="margin-top:36px;">Top 3 Matching Schools</h2>
+      <div id="school-cards"></div>
+      <div class="line-result">
+        <p class="lang-th">ส่งผลลัพธ์นี้ไปหา LINKEDU เพื่อปรึกษาฟรี</p>
+        <p class="lang-en">Send these results to LINKEDU for a free consultation</p>
+        <button class="btn-line" onclick="sendToLine()">
+          <span class="lang-th">ส่งผลลัพธ์ทาง LINE</span>
+          <span class="lang-en">Send Results via LINE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</h2>
+  <h2 class="lang-en">Free Expert Consultation</h2>
+  <p class="lang-th">LINKEDU ช่วยสมัครโรงเรียน UK และเตรียมเอกสารทุกชิ้น</p>
+  <p class="lang-en">LINKEDU helps with UK school applications and all supporting documents.</p>
+  <span class="line-handle">LINE: @linkedu.th</span><br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก</a> · ค่าธรรมเนียมและทุนการศึกษาอ้างอิงปี 2025 (บวก VAT 20% ตั้งแต่ ม.ค. 2025) · อัตราแลกเปลี่ยน GBP/THB ≈ 45</p>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); });
+  document.querySelectorAll('.radio-label input').forEach(r => r.addEventListener('change', () => { r.closest('.radio-group').querySelectorAll('.radio-label').forEach(l => l.classList.remove('checked')); r.parentElement.classList.add('checked'); }));
+  document.querySelector('input[value="any"]').parentElement.classList.add('checked');
+
+  const SCHOOLS = [
+    { name:'Millfield School', location:'Somerset, England', size:'large', hcp_max:14, budget_min:44000, gender:'co-ed', course:true, scholarship_gbp:'£4,000–£12,000', scholarship_thb:'฿180,000–฿540,000', intake_hcp:'0–12', note_th:'โปรแกรมกอล์ฟชื่อดังที่สุดในอังกฤษ มีศูนย์ประสิทธิภาพกีฬาเฉพาะ นักเรียนเปิดตัวใน European Tour หลายคน', note_en:'Most famous golf school in England. Dedicated sports performance centre. Several alumni have launched European Tour careers.', badges:['Golf Academy','On-Site Practice Facility','Sports Scholarship'] },
+    { name:'Loretto School', location:'Edinburgh, Scotland', size:'small', hcp_max:12, budget_min:38000, gender:'co-ed', course:true, scholarship_gbp:'£3,000–£9,000', scholarship_thb:'฿135,000–฿405,000', intake_hcp:'0–10', note_th:'ใกล้สนามกอล์ฟ links ระดับตำนานในสกอตแลนด์ โปรแกรมกอล์ฟแข็งแกร่งมาก ชุมชนเล็กแต่แน่นแฟ้น', note_en:'Close to iconic Scottish links courses. Strong golf programme, small tight-knit community. Access to world-class links golf.', badges:['Links Golf Access','Sports Scholarship','Small Community'] },
+    { name:'Strathallan School', location:'Perthshire, Scotland', size:'medium', hcp_max:16, budget_min:35000, gender:'co-ed', course:false, scholarship_gbp:'£2,000–£7,000', scholarship_thb:'฿90,000–฿315,000', intake_hcp:'0–14', note_th:'ตั้งอยู่ในสกอตแลนด์ที่สวยงาม เข้าถึงสนาม Gleneagles ได้ง่าย โปรแกรมกีฬาครบครัน', note_en:'Set in beautiful Scottish countryside. Easy access to Gleneagles. Comprehensive sports programme alongside strong golf.', badges:['Sports Scholarship','Near Gleneagles','Co-Educational'] },
+    { name:'Glenalmond College', location:'Perthshire, Scotland', size:'small', hcp_max:18, budget_min:37000, gender:'co-ed', course:false, scholarship_gbp:'£2,000–£6,000', scholarship_thb:'฿90,000–฿270,000', intake_hcp:'0–16', note_th:'วิทยาลัยเล็กในสกอตแลนด์ บรรยากาศอบอุ่น กอล์ฟเป็นกีฬาหลัก ใกล้สนาม links ระดับโลก', note_en:'Small Scottish college with a warm atmosphere. Golf is a core sport. Close to world-class links courses.', badges:['Small College','Scotland Links Access','Academic Focus'] },
+    { name:'Canford School', location:'Dorset, England', size:'medium', hcp_max:16, budget_min:42000, gender:'co-ed', course:false, scholarship_gbp:'£2,000–£8,000', scholarship_thb:'฿90,000–฿360,000', intake_hcp:'0–14', note_th:'โรงเรียนชั้นนำในอังกฤษใต้ กอล์ฟเป็นกีฬาหลัก ผลการเรียนดีเยี่ยม สมดุลระหว่างวิชาการและกีฬา', note_en:'Leading school in southern England. Golf is a core sport. Excellent academic results. Good balance of sport and study.', badges:['Sports Scholarship','Strong Academics','South England'] },
+    { name:'Bradfield College', location:'Berkshire, England', size:'medium', hcp_max:20, budget_min:44000, gender:'co-ed', course:true, scholarship_gbp:'£2,000–£6,000', scholarship_thb:'฿90,000–฿270,000', intake_hcp:'0–18', note_th:'มีสนาม 9 หลุมในโรงเรียน ใกล้ London เหมาะสำหรับผู้ที่แฮนดิแคปยังอยู่ระหว่างพัฒนา', note_en:'Has a 9-hole on-site course. Close to London. Good for students whose handicap is still developing.', badges:['9-Hole On-Site Course','Near London','All Abilities Welcome'] },
+    { name:'Stowe School', location:'Buckinghamshire, England', size:'large', hcp_max:16, budget_min:42000, gender:'co-ed', course:true, scholarship_gbp:'£2,500–£8,000', scholarship_thb:'฿112,500–฿360,000', intake_hcp:'0–14', note_th:'โรงเรียนประวัติศาสตร์และงดงามที่สุดในอังกฤษ มีสนาม 9 หลุม โปรแกรมกีฬาแข็งแกร่ง', note_en:'One of England\'s most historic and beautiful schools. 9-hole course. Strong sports programme.', badges:['9-Hole Course','Historic Campus','Sports Scholarship'] },
+    { name:'Wellington College', location:'Berkshire, England', size:'large', hcp_max:14, budget_min:44000, gender:'co-ed', course:false, scholarship_gbp:'£3,000–£10,000', scholarship_thb:'฿135,000–฿450,000', intake_hcp:'0–12', note_th:'โรงเรียนชั้นนำระดับประเทศ ผลการเรียนยอดเยี่ยม กอล์ฟแข็งแกร่ง เส้นทางสู่ Oxbridge และ US universities', note_en:'Nationally top-ranked school. Outstanding academics. Strong golf. Clear pathway to Oxbridge and US universities.', badges:['Top Academic Ranking','Golf Scholarship','Oxbridge Pathway'] },
+    { name:'Clayesmore School', location:'Dorset, England', size:'small', hcp_max:22, budget_min:38000, gender:'co-ed', course:false, scholarship_gbp:'£1,500–£5,000', scholarship_thb:'฿67,500–฿225,000', intake_hcp:'0–20', note_th:'โรงเรียนขนาดเล็กและเป็นกันเอง รับนักกอล์ฟทุกระดับ เน้นพัฒนาทักษะด้านกีฬาและวิชาการไปพร้อมกัน', note_en:'Small, friendly school. Accepts golfers at all levels. Focuses on developing sport and academic skills together.', badges:['All Handicap Levels','Friendly Environment','Good Value'] },
+    { name:'Kelly College', location:'Devon, England', size:'small', hcp_max:22, budget_min:32000, gender:'co-ed', course:false, scholarship_gbp:'£1,000–£4,000', scholarship_thb:'฿45,000–฿180,000', intake_hcp:'0–20', note_th:'งบประมาณที่เข้าถึงได้มากกว่า ในเดวอนที่สวยงาม กอล์ฟเป็นกีฬาหลัก เหมาะสำหรับผู้ที่ต้องการพัฒนาตัวเองก่อนสมัคร US', note_en:'More accessible budget. Beautiful Devon countryside. Golf is core sport. Good for those developing game before US applications.', badges:['Budget Accessible','Devon Location','Development Focus'] },
+  ];
+
+  let matchedSchools = [];
+
+  function calcMatchScore(school, hcp, budgetVal, size, gender) {
+    let score = 0;
+    const hcpN = parseFloat(hcp);
+    const budgetN = parseFloat(budgetVal);
+    if (hcpN <= school.hcp_max) score += 40; else score += Math.max(0, 40 - (hcpN - school.hcp_max) * 5);
+    if (budgetN >= school.budget_min) score += 30; else score += Math.max(0, 30 - ((school.budget_min - budgetN) / 1000) * 5);
+    if (size === 'any' || school.size === size) score += 20;
+    if (school.gender === 'co-ed' || (gender === 'male' && school.gender !== 'girls-only') || (gender === 'female' && school.gender !== 'boys-only')) score += 10;
+    return Math.min(100, score);
+  }
+
+  function findSchools() {
+    const hcp = document.getElementById('hcp').value;
+    const budget = document.getElementById('budget').value;
+    const size = document.querySelector('input[name="size"]:checked')?.value || 'any';
+    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+    const lang = html.getAttribute('lang');
+    if (!hcp || !budget || !gender) { alert(lang==='th'?'กรุณากรอกข้อมูลให้ครบถ้วน':'Please fill in all fields.'); return; }
+
+    const scored = SCHOOLS.map(s => ({ ...s, score: calcMatchScore(s, hcp, budget, size, gender) }));
+    scored.sort((a, b) => b.score - a.score);
+    matchedSchools = scored.slice(0, 3);
+
+    const container = document.getElementById('school-cards');
+    container.innerHTML = '';
+
+    const rankLabels_th = ['อันดับ 1 — เหมาะที่สุด', 'อันดับ 2 — เหมาะมาก', 'อันดับ 3 — น่าพิจารณา'];
+    const rankLabels_en = ['#1 Best Match', '#2 Strong Match', '#3 Good Match'];
+
+    matchedSchools.forEach((school, i) => {
+      const badges = school.badges.map(b => `<span class="badge badge-green">${b}</span>`).join('');
+      const courseIcon = school.course ? (lang==='th'?'✓ มีสนามในโรงเรียน':'✓ On-site course') : (lang==='th'?'✗ ไม่มีสนามในโรงเรียน':'✗ No on-site course');
+
+      container.innerHTML += `
+        <div class="school-card">
+          <div class="school-header">
+            <div>
+              <div class="school-rank">${lang==='th'?rankLabels_th[i]:rankLabels_en[i]}</div>
+              <div class="school-name">${school.name}</div>
+              <div class="school-location">${school.location}</div>
+            </div>
+            <div class="match-score">${school.score}%</div>
+          </div>
+          <div class="school-body">
+            <div class="badge-row">${badges}</div>
+            <div class="school-details">
+              <div class="detail-item">
+                <div class="detail-label lang-th">ช่วงทุนการศึกษา/ปี</div>
+                <div class="detail-label lang-en">Scholarship Range/yr</div>
+                <div class="detail-value gold">${school.scholarship_gbp}</div>
+                <div style="font-size:12px;color:#888;margin-top:2px;">${school.scholarship_thb}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label lang-th">แฮนดิแคปที่รับโดยทั่วไป</div>
+                <div class="detail-label lang-en">Typical Intake Handicap</div>
+                <div class="detail-value">HCP ${school.intake_hcp}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label lang-th">ค่าธรรมเนียมโดยประมาณ/ปี</div>
+                <div class="detail-label lang-en">Approx Fees/yr</div>
+                <div class="detail-value">£${school.budget_min.toLocaleString()}+</div>
+                <div style="font-size:12px;color:#888;margin-top:2px;">฿${(school.budget_min*45).toLocaleString()}+</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label lang-th">สนามกอล์ฟ</div>
+                <div class="detail-label lang-en">Golf Facility</div>
+                <div class="detail-value" style="font-size:13px;">${courseIcon}</div>
+              </div>
+            </div>
+            <div class="school-note">${lang==='th'?school.note_th:school.note_en}</div>
+          </div>
+        </div>`;
+    });
+
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function sendToLine() {
+    const lang = html.getAttribute('lang');
+    const names = matchedSchools.map((s,i) => `${i+1}. ${s.name} (${s.score}%)`).join('\n');
+    const msg = lang==='th'
+      ? `สนใจโรงเรียนประจำ UK สำหรับกอล์ฟ\n\nโรงเรียนที่เหมาะสมจากเครื่องมือ LINKEDU:\n${names}\n\nขอปรึกษาเพิ่มเติม`
+      : `UK Golf Boarding School Interest\n\nTop matches from LINKEDU tool:\n${names}\n\nRequest free consultation`;
+    window.open('https://line.me/R/oaMessage/@linkedu.th/?text=' + encodeURIComponent(msg), '_blank');
+  }
+</script>
+</body>
+</html>

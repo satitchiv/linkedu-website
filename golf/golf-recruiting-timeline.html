@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Recruiting Timeline | LinkedU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+
+  body {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a1a; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+  }
+  .logo-block { display: flex; flex-direction: column; gap: 2px; }
+  .logo-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: #B8962E;
+    letter-spacing: 0.04em; line-height: 1;
+  }
+  .logo-tagline {
+    font-size: 10px; color: rgba(245,240,232,0.5);
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn {
+    padding: 6px 14px; border-radius: 6px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1px solid #B8962E; transition: all 0.2s;
+  }
+  .lang-btn.active { background: #B8962E; color: #1a1a1a; }
+  .lang-btn:not(.active) { background: transparent; color: #B8962E; }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.1); }
+
+  /* HERO */
+  .hero {
+    padding: 60px 32px 48px; text-align: center;
+    background: linear-gradient(180deg, rgba(184,150,46,0.06) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(184,150,46,0.1);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px); font-weight: 700;
+    color: #B8962E; line-height: 1.2; margin-bottom: 12px;
+  }
+  .hero p { font-size: 16px; color: rgba(245,240,232,0.65); max-width: 600px; margin: 0 auto; }
+
+  /* INPUT SECTION */
+  .input-section { background: #252525; border-bottom: 1px solid rgba(184,150,46,0.12); padding: 36px 32px; }
+  .input-inner { max-width: 800px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+    color: #B8962E; font-weight: 500;
+    border-top: 1px solid #B8962E; padding-top: 10px;
+    margin-bottom: 24px; display: inline-block;
+  }
+  .input-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+  .input-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 180px; }
+  .input-label { font-size: 13px; color: rgba(245,240,232,0.6); font-weight: 500; }
+  .input-select {
+    background: #1a1a1a; border: 1px solid rgba(184,150,46,0.25);
+    color: #f5f0e8; border-radius: 6px; padding: 10px 14px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s; width: 100%; cursor: pointer;
+  }
+  .input-select:focus { border-color: #B8962E; }
+  .input-select option { background: #222; }
+  .check-btn {
+    background: #B8962E; color: #1a1a1a; border: none; border-radius: 6px;
+    padding: 10px 28px; font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 14px; cursor: pointer; transition: background 0.2s;
+    white-space: nowrap; height: 44px;
+  }
+  .check-btn:hover { background: #9a7a24; }
+
+  /* PROGRESS */
+  .progress-section { max-width: 800px; margin: 32px auto 0; padding: 0 32px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .progress-label { font-size: 12px; color: rgba(245,240,232,0.5); }
+  .progress-bar-bg {
+    background: #252525; border-radius: 4px; height: 6px;
+    overflow: hidden; border: 1px solid rgba(184,150,46,0.1);
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, #9a7a24, #B8962E);
+    border-radius: 4px; transition: width 0.6s ease;
+  }
+
+  /* TIMELINE */
+  .timeline-section { max-width: 800px; margin: 0 auto; padding: 40px 32px 60px; }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 22px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(180deg, rgba(184,150,46,0.6) 0%, rgba(184,150,46,0.08) 100%);
+  }
+
+  .milestone { position: relative; padding-left: 64px; margin-bottom: 32px; }
+  .milestone:last-child { margin-bottom: 0; }
+
+  .milestone-dot {
+    position: absolute; left: 13px; top: 20px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #252525; border: 2px solid rgba(184,150,46,0.3); z-index: 2;
+  }
+
+  /* complete */
+  .milestone.complete .milestone-dot {
+    background: #9a7a24; border-color: #9a7a24;
+  }
+  .milestone.complete .milestone-dot::after {
+    content: '';
+    position: absolute; top: 3px; left: 6px;
+    width: 5px; height: 9px;
+    border: 2px solid #1a1a1a; border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+  .milestone.complete .milestone-card {
+    opacity: 0.5; border-color: rgba(184,150,46,0.06);
+  }
+
+  /* current */
+  .milestone.current .milestone-dot {
+    background: #B8962E; border-color: #B8962E;
+    animation: pulse 2s infinite;
+  }
+  .milestone.current .milestone-card {
+    border-color: rgba(184,150,46,0.5);
+    box-shadow: 0 4px 32px rgba(184,150,46,0.1);
+  }
+
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(184,150,46,0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(184,150,46,0); }
+    100% { box-shadow: 0 0 0 0 rgba(184,150,46,0); }
+  }
+
+  .milestone-card {
+    background: #222; border: 1px solid rgba(184,150,46,0.12);
+    border-radius: 8px; padding: 20px 22px;
+    transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s;
+  }
+
+  .milestone-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .milestone-age {
+    font-size: 12px; color: #B8962E; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .milestone-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+  .you-are-here {
+    background: rgba(184,150,46,0.2); color: #B8962E;
+    border: 1px solid rgba(184,150,46,0.4); border-radius: 20px;
+    font-size: 11px; font-weight: 600; padding: 2px 10px;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { box-shadow: 0 0 4px rgba(184,150,46,0.2); }
+    to   { box-shadow: 0 0 14px rgba(184,150,46,0.55); }
+  }
+
+  .done-badge {
+    background: rgba(154,122,36,0.15); color: #9a7a24;
+    border: 1px solid rgba(154,122,36,0.2); border-radius: 20px;
+    font-size: 11px; font-weight: 500; padding: 2px 10px;
+  }
+  .handicap-badge {
+    background: rgba(184,150,46,0.1); color: #B8962E;
+    border: 1px solid rgba(184,150,46,0.2); border-radius: 20px;
+    font-size: 11px; font-weight: 500; padding: 2px 10px;
+  }
+
+  .milestone-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 600; color: #f5f0e8;
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .milestone-actions { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .milestone-actions li {
+    font-size: 13px; color: rgba(245,240,232,0.72);
+    padding-left: 16px; position: relative; line-height: 1.5;
+  }
+  .milestone-actions li::before {
+    content: '\203A';
+    position: absolute; left: 0; color: #B8962E; font-weight: 700; font-size: 16px; line-height: 1.25;
+  }
+
+  /* DUAL PATHWAY */
+  .dual-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .pathway-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 600; color: #f5f0e8;
+    margin-bottom: 24px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(184,150,46,0.2);
+  }
+  .pathway-title em { color: #B8962E; font-style: normal; }
+
+  /* ACTIONS BAR */
+  .actions-bar {
+    max-width: 800px; margin: 0 auto 8px; padding: 0 32px;
+    display: flex; justify-content: flex-end;
+  }
+  .print-btn {
+    background: transparent; border: 1px solid rgba(184,150,46,0.3);
+    color: rgba(245,240,232,0.6); border-radius: 6px;
+    padding: 8px 18px; font-family: 'Inter', sans-serif; font-size: 13px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .print-btn:hover { border-color: #B8962E; color: #B8962E; }
+
+  /* BOTTOM CTA */
+  .bottom-cta { background: #252525; border-top: 1px solid rgba(184,150,46,0.12); padding: 48px 32px; text-align: center; }
+  .bottom-cta h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f5f0e8; margin-bottom: 10px; }
+  .bottom-cta p { font-size: 15px; color: rgba(245,240,232,0.6); margin-bottom: 24px; }
+  .cta-btn {
+    display: inline-block; background: #B8962E; color: #1a1a1a;
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px;
+    padding: 12px 28px; border-radius: 6px; text-decoration: none;
+    letter-spacing: 0.03em; transition: background 0.2s;
+  }
+  .cta-btn:hover { background: #9a7a24; }
+
+  /* FOOTER */
+  footer { background: #111; text-align: center; padding: 28px 20px; border-top: 1px solid rgba(184,150,46,0.1); }
+  .footer-copy { font-size: 13px; color: rgba(245,240,232,0.4); margin-bottom: 6px; }
+  .footer-line { font-size: 14px; color: #B8962E; font-weight: 600; margin-bottom: 4px; }
+  .footer-contact { font-size: 12px; color: rgba(245,240,232,0.3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header { padding: 0 16px; }
+    .hero { padding: 40px 16px 32px; }
+    .input-section { padding: 28px 16px; }
+    .input-row { flex-direction: column; }
+    .check-btn { width: 100%; }
+    .progress-section { padding: 0 16px; }
+    .timeline-section { padding: 28px 16px 48px; }
+    .timeline::before { left: 14px; }
+    .milestone { padding-left: 44px; }
+    .milestone-dot { left: 5px; width: 18px; height: 18px; }
+    .dual-columns { grid-template-columns: 1fr; }
+    .actions-bar { padding: 0 16px; }
+    .bottom-cta { padding: 36px 16px; }
+  }
+
+  @media print {
+    header, .input-section, .actions-bar, .bottom-cta, footer { display: none !important; }
+    body { background: white; color: #333; }
+    .milestone-card { border: 1px solid #ccc !important; box-shadow: none !important; opacity: 1 !important; }
+    .milestone.complete .milestone-card { opacity: 1 !important; }
+    .milestone-title { color: #222 !important; }
+    .milestone-age { color: #9a7a24 !important; }
+    .hero { background: none !important; border: none !important; }
+    .hero h1 { color: #9a7a24 !important; }
+    .hero p { color: #555 !important; }
+    .timeline::before { background: #ccc !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-block">
+    <span class="logo-wordmark">LINKEDU</span>
+    <span class="logo-tagline">Golf Scholarships</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-th" onclick="setLang('th')">&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>
+    <span class="lang-en">Golf Recruiting Timeline</span>
+    <span class="lang-th">&#3649;&#3612;&#3609;&#3648;&#3623;&#3621;&#3634;&#3626;&#3617;&#3633;&#3588;&#3619;&#3607;&#3640;&#3609;&#3585;&#3629;&#3621;&#3660;</span>
+  </h1>
+  <p>
+    <span class="lang-en">Know exactly when to do what &mdash; so you never miss a recruiting window</span>
+    <span class="lang-th">&#3619;&#3641;&#3657;&#3623;&#3656;&#3634;&#3605;&#3657;&#3629;&#3591;&#3607;&#3635;&#3629;&#3632;&#3652;&#3619;&#3649;&#3621;&#3632;&#3648;&#3617;&#3639;&#3656;&#3629;&#3652;&#3627;&#3619;&#3656; &#3648;&#3614;&#3639;&#3656;&#3629;&#3652;&#3617;&#3656;&#3614;&#3621;&#3634;&#3604;&#3650;&#3629;&#3585;&#3634;&#3626;&#3585;&#3634;&#3619;&#3626;&#3617;&#3633;&#3588;&#3619;&#3607;&#3640;&#3609;</span>
+  </p>
+</section>
+
+<!-- INPUT SECTION -->
+<div class="input-section">
+  <div class="input-inner">
+    <span class="section-label lang-en">Check Your Timeline</span>
+    <span class="section-label lang-th">&#3605;&#3619;&#3623;&#3592;&#3626;&#3629;&#3610;&#3649;&#3612;&#3609;&#3586;&#3629;&#3591;&#3588;&#3640;&#3603;</span>
+    <div class="input-row">
+      <div class="input-group">
+        <label class="input-label">
+          <span class="lang-en">What year are you in?</span>
+          <span class="lang-th">&#3588;&#3640;&#3603;&#3629;&#3618;&#3641;&#3656;&#3651;&#3609;&#3594;&#3633;&#3657;&#3609;&#3611;&#3637;&#3629;&#3632;&#3652;&#3619;?</span>
+        </label>
+        <select class="input-select" id="select-year">
+          <option value="">-- Select / &#3648;&#3621;&#3639;&#3629;&#3585; --</option>
+          <option value="7">Year 7 / M1 (Age ~12)</option>
+          <option value="8">Year 8 / M2 (Age ~13)</option>
+          <option value="9">Year 9 / M3 (Age ~14)</option>
+          <option value="10">Year 10 / M4 (Age ~15)</option>
+          <option value="11">Year 11 / M5 (Age ~16)</option>
+          <option value="12">Year 12 / M6 (Age ~17)</option>
+          <option value="13">Year 13 / Post-M6 (Age ~18)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label class="input-label">
+          <span class="lang-en">Your target destination?</span>
+          <span class="lang-th">&#3648;&#3611;&#3657;&#3634;&#3627;&#3617;&#3634;&#3618;&#3586;&#3629;&#3591;&#3588;&#3640;&#3603;?</span>
+        </label>
+        <select class="input-select" id="select-destination">
+          <option value="">-- Select / &#3648;&#3621;&#3639;&#3629;&#3585; --</option>
+          <option value="us">US University</option>
+          <option value="uk">UK Boarding School</option>
+          <option value="both">Both / &#3607;&#3633;&#3657;&#3591;&#3626;&#3629;&#3591;</option>
+        </select>
+      </div>
+      <button class="check-btn" onclick="buildTimeline()">
+        <span class="lang-en">Check My Timeline</span>
+        <span class="lang-th">&#3604;&#3641;&#3649;&#3612;&#3609;&#3586;&#3629;&#3591;&#3600;&#3633;&#3609;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-section" id="progress-section" style="display:none;">
+  <div style="height:24px;"></div>
+  <div class="progress-header">
+    <span class="progress-label">
+      <span class="lang-en"><span id="prog-done-en">0</span> of <span id="prog-total-en">0</span> milestones completed</span>
+      <span class="lang-th"><span id="prog-done-th">0</span> &#3592;&#3634;&#3585; <span id="prog-total-th">0</span> &#3648;&#3611;&#3657;&#3634;&#3627;&#3617;&#3634;&#3618;&#3607;&#3637;&#3656;&#3612;&#3656;&#3634;&#3609;&#3649;&#3621;&#3657;&#3623;</span>
+    </span>
+    <span class="progress-label" id="prog-pct" style="color:#B8962E;font-weight:600;"></span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="prog-fill" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- TIMELINE OUTPUT -->
+<div class="timeline-section" id="timeline-output" style="display:none;"></div>
+
+<!-- PRINT BUTTON -->
+<div class="actions-bar" id="actions-bar" style="display:none;">
+  <button class="print-btn" onclick="window.print()">
+    <span class="lang-en">Print / Save PDF</span>
+    <span class="lang-th">&#3614;&#3636;&#3617;&#3614;&#3660; / &#3610;&#3633;&#3609;&#3607;&#3638;&#3585; PDF</span>
+  </button>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>
+    <span class="lang-en">Not sure where to start?</span>
+    <span class="lang-th">&#3652;&#3617;&#3656;&#3649;&#3609;&#3656;&#3651;&#3592;&#3623;&#3656;&#3634;&#3592;&#3632;&#3648;&#3619;&#3636;&#3656;&#3617;&#3605;&#3657;&#3609;&#3629;&#3618;&#3656;&#3634;&#3591;&#3652;&#3619;?</span>
+  </h2>
+  <p>
+    <span class="lang-en">Get a personalised recruitment plan from LinkedU's golf scholarship specialists.</span>
+    <span class="lang-th">&#3619;&#3633;&#3610;&#3649;&#3612;&#3609;&#3585;&#3634;&#3619;&#3626;&#3617;&#3633;&#3588;&#3619;&#3626;&#3656;&#3623;&#3609;&#3605;&#3633;&#3623;&#3592;&#3634;&#3585;&#3612;&#3641;&#3657;&#3648;&#3594;&#3637;&#3656;&#3618;&#3623;&#3594;&#3634;&#3597;&#3607;&#3640;&#3609;&#3585;&#3629;&#3621;&#3660;&#3586;&#3629;&#3591; LinkedU</span>
+  </p>
+  <a href="#" class="cta-btn">
+    <span class="lang-en">LINE @linkedu &mdash; Free Consultation</span>
+    <span class="lang-th">LINE @linkedu &mdash; &#3611;&#3619;&#3638;&#3585;&#3625;&#3634;&#3600;&#3619;&#3637;</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">&copy; 2025 LinkedU &middot; Golf Scholarship Specialists</div>
+  <div class="footer-line">LINE: @linkedu</div>
+  <div class="footer-contact">&#3605;&#3636;&#3604;&#3605;&#3656;&#3629;&#3648;&#3619;&#3634; / Contact Us</div>
+</footer>
+
+<script>
+// Language toggle
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('linkedu-lang', lang);
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+}
+(function() {
+  var saved = localStorage.getItem('linkedu-lang') || 'en';
+  setLang(saved);
+})();
+
+// Timeline data
+var US_MILESTONES = [
+  {
+    yearKey: 7,
+    age: {
+      en: 'Age 12-13 \u00b7 Year 7 / M1',
+      th: '\u0e2d\u0e32\u0e22\u0e38 12-13 \u0e1b\u0e35 \u00b7 \u0e21.1'
+    },
+    title: {
+      en: 'Build Your Game Foundation',
+      th: '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1e\u0e37\u0e49\u0e19\u0e10\u0e32\u0e19\u0e01\u0e2d\u0e25\u0e4c\u0e1f'
+    },
+    actions: {
+      en: [
+        'Obtain an official handicap through Thailand Golf Association',
+        'Play regular competitive rounds and record all scores carefully',
+        'Join your local junior golf club or a coaching academy',
+        'Develop a consistent practice routine (5+ days per week)',
+        'Target: bring your handicap below 20'
+      ],
+      th: [
+        '\u0e02\u0e2d Handicap \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e32\u0e07\u0e01\u0e32\u0e23\u0e08\u0e32\u0e01\u0e2a\u0e21\u0e32\u0e04\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e2b\u0e48\u0e07\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22',
+        '\u0e40\u0e25\u0e48\u0e19\u0e23\u0e2d\u0e1a\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e2a\u0e21\u0e48\u0e33\u0e40\u0e2a\u0e21\u0e2d\u0e41\u0e25\u0e30\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e04\u0e30\u0e41\u0e19\u0e19\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07',
+        '\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21\u0e0a\u0e21\u0e23\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e40\u0e22\u0e32\u0e27\u0e0a\u0e19\u0e2b\u0e23\u0e37\u0e2d Academy \u0e43\u0e19\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48',
+        '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e15\u0e32\u0e23\u0e32\u0e07\u0e1d\u0e36\u0e01\u0e0b\u0e49\u0e2d\u0e21\u0e2a\u0e21\u0e48\u0e33\u0e40\u0e2a\u0e21\u0e2d (5+ \u0e27\u0e31\u0e19/\u0e2a\u0e31\u0e1b\u0e14\u0e32\u0e2b\u0e4c)',
+        '\u0e40\u0e1b\u0e49\u0e32\u0e2b\u0e21\u0e32\u0e22: \u0e25\u0e14 Handicap \u0e43\u0e2b\u0e49\u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 20'
+      ]
+    },
+    handicap: 'Target HCP < 20'
+  },
+  {
+    yearKey: 8,
+    age: {
+      en: 'Age 13-14 \u00b7 Year 8 / M2',
+      th: '\u0e2d\u0e32\u0e22\u0e38 13-14 \u0e1b\u0e35 \u00b7 \u0e21.2'
+    },
+    title: {
+      en: 'Enter the System',
+      th: '\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e01\u0e32\u0e23\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19'
+    },
+    actions: {
+      en: [
+        'Register with JGTA (Junior Golf Tour Asia) and play tour events',
+        'Compete in Thailand Golf Association junior circuit events',
+        'Aim to reduce handicap below 15',
+        'Start academic awareness: learn SAT/ACT structure and timelines',
+        'Begin researching US universities with strong golf programs'
+      ],
+      th: [
+        '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e01\u0e31\u0e1a JGTA \u0e41\u0e25\u0e30\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21\u0e17\u0e31\u0e27\u0e23\u0e4c\u0e19\u0e32\u0e40\u0e21\u0e19\u0e15\u0e4c',
+        '\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e43\u0e19\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e40\u0e22\u0e32\u0e27\u0e0a\u0e19\u0e02\u0e2d\u0e07\u0e2a\u0e21\u0e32\u0e04\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e2b\u0e48\u0e07\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: \u0e25\u0e14 Handicap \u0e43\u0e2b\u0e49\u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 15',
+        '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e14\u0e49\u0e32\u0e19\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e23: \u0e28\u0e36\u0e01\u0e29\u0e32\u0e42\u0e04\u0e23\u0e07\u0e2a\u0e23\u0e49\u0e32\u0e07 SAT/ACT',
+        '\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e2a\u0e2b\u0e23\u0e31\u0e10\u0e2f \u0e17\u0e35\u0e48\u0e21\u0e35\u0e17\u0e35\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e02\u0e47\u0e07\u0e41\u0e01\u0e23\u0e48\u0e07'
+      ]
+    },
+    handicap: 'Target HCP < 15'
+  },
+  {
+    yearKey: 9,
+    age: {
+      en: 'Age 14-15 \u00b7 Year 9 / M3',
+      th: '\u0e2d\u0e32\u0e22\u0e38 14-15 \u0e1b\u0e35 \u00b7 \u0e21.3'
+    },
+    title: {
+      en: 'Get Serious',
+      th: '\u0e40\u0e2d\u0e32\u0e08\u0e23\u0e34\u0e07\u0e40\u0e2d\u0e32\u0e08\u0e31\u0e07'
+    },
+    actions: {
+      en: [
+        'Compete in national-level junior events (TGA, JGTA national series)',
+        'Build a tournament resume with results from multiple events',
+        'Aim to bring handicap below 10',
+        'Create a professional video highlights reel of swing and play',
+        'Shortlist 15-20 target US universities across D1/D2/D3 divisions',
+        'Sit a trial SAT/ACT to identify your current score gap'
+      ],
+      th: [
+        '\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e43\u0e19\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e0a\u0e32\u0e15\u0e34 (TGA, JGTA national series)',
+        '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e17\u0e31\u0e27\u0e23\u0e4c\u0e19\u0e32\u0e40\u0e21\u0e19\u0e15\u0e4c\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e2b\u0e25\u0e32\u0e22\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: \u0e25\u0e14 Handicap \u0e43\u0e2b\u0e49\u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 10',
+        '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e04\u0e25\u0e34\u0e1b\u0e44\u0e2e\u0e44\u0e25\u0e15\u0e4c\u0e21\u0e37\u0e2d\u0e2d\u0e32\u0e0a\u0e35\u0e1e\u0e41\u0e2a\u0e14\u0e07\u0e2a\u0e27\u0e34\u0e07\u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e40\u0e25\u0e48\u0e19',
+        '\u0e17\u0e33 Shortlist \u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e2a\u0e2b\u0e23\u0e31\u0e10\u0e2f 15-20 \u0e41\u0e2b\u0e48\u0e07 (D1/D2/D3)',
+        '\u0e17\u0e14\u0e25\u0e2d\u0e07\u0e2a\u0e2d\u0e1a SAT/ACT \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e1b\u0e23\u0e30\u0e40\u0e21\u0e34\u0e19\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07\u0e04\u0e30\u0e41\u0e19\u0e19'
+      ]
+    },
+    handicap: 'Target HCP < 10'
+  },
+  {
+    yearKey: 10,
+    age: {
+      en: 'Age 15-16 \u00b7 Year 10 / M4',
+      th: '\u0e2d\u0e32\u0e22\u0e38 15-16 \u0e1b\u0e35 \u00b7 \u0e21.4'
+    },
+    title: {
+      en: 'Begin Coach Outreach',
+      th: '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e42\u0e04\u0e49\u0e0a NCAA'
+    },
+    actions: {
+      en: [
+        'Contact NCAA coaches via email with your recruiting profile and video',
+        'Register on NCAA Eligibility Center at ncaa.org',
+        'Attend golf camps or showcases at target universities if possible',
+        'Aim to bring handicap below 6',
+        'Sit official TOEFL and first SAT/ACT exams',
+        'Keep coaches updated with new tournament results monthly'
+      ],
+      th: [
+        '\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e42\u0e04\u0e49\u0e0a NCAA \u0e17\u0e32\u0e07\u0e2d\u0e35\u0e40\u0e21\u0e25\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d',
+        '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e01\u0e31\u0e1a NCAA Eligibility Center (ncaa.org)',
+        '\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21 Golf Camp \u0e2b\u0e23\u0e37\u0e2d Showcase \u0e17\u0e35\u0e48\u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e40\u0e1b\u0e49\u0e32\u0e2b\u0e21\u0e32\u0e22',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: \u0e25\u0e14 Handicap \u0e43\u0e2b\u0e49\u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 6',
+        '\u0e2a\u0e2d\u0e1a TOEFL \u0e41\u0e25\u0e30 SAT/ACT \u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e23\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e32\u0e07\u0e01\u0e32\u0e23',
+        '\u0e2d\u0e31\u0e1e\u0e40\u0e14\u0e15\u0e42\u0e04\u0e49\u0e0a\u0e14\u0e49\u0e27\u0e22\u0e1c\u0e25\u0e01\u0e32\u0e23\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e40\u0e14\u0e37\u0e2d\u0e19'
+      ]
+    },
+    handicap: 'Target HCP < 6'
+  },
+  {
+    yearKey: 11,
+    age: {
+      en: 'Age 16-17 \u00b7 Year 11 / M5',
+      th: '\u0e2d\u0e32\u0e22\u0e38 16-17 \u0e1b\u0e35 \u00b7 \u0e21.5'
+    },
+    title: {
+      en: 'The Critical Year',
+      th: '\u0e1b\u0e35\u0e17\u0e35\u0e48\u0e2a\u0e33\u0e04\u0e31\u0e0d\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14'
+    },
+    actions: {
+      en: [
+        'Take official visits to US campuses (up to 5 paid visits allowed by NCAA)',
+        'Receive verbal offers: evaluate fit, scholarship amount, and academics',
+        'Sign NLI (National Letter of Intent) -- typically the November signing day',
+        'Ensure academic transcripts are translated and officially certified',
+        'Finalise SAT/ACT and TOEFL scores, retake if needed',
+        'Confirm all scholarship terms in writing with the coaching staff'
+      ],
+      th: [
+        '\u0e40\u0e22\u0e37\u0e2d\u0e19 Campus \u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e2a\u0e2b\u0e23\u0e31\u0e10\u0e2f \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e32\u0e07\u0e01\u0e32\u0e23 (\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 5 \u0e41\u0e2b\u0e48\u0e07)',
+        '\u0e23\u0e31\u0e1a\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e19\u0e2d Verbal Offer: \u0e1b\u0e23\u0e30\u0e40\u0e21\u0e34\u0e19\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2b\u0e21\u0e32\u0e30\u0e2a\u0e21, \u0e17\u0e38\u0e19, \u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e23',
+        '\u0e25\u0e07\u0e19\u0e32\u0e21 NLI (National Letter of Intent) -- \u0e42\u0e14\u0e22\u0e1b\u0e01\u0e15\u0e34\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e1e\u0e24\u0e28\u0e08\u0e34\u0e01\u0e32\u0e22\u0e19',
+        '\u0e41\u0e1b\u0e25\u0e41\u0e25\u0e30\u0e23\u0e31\u0e1a\u0e23\u0e2d\u0e07\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e28\u0e36\u0e01\u0e29\u0e32\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e32\u0e07\u0e01\u0e32\u0e23',
+        '\u0e2a\u0e48\u0e07\u0e04\u0e30\u0e41\u0e19\u0e19 SAT/ACT \u0e41\u0e25\u0e30 TOEFL \u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22 -- \u0e2a\u0e2d\u0e1a\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e2b\u0e32\u0e01\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19',
+        '\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e17\u0e38\u0e19\u0e40\u0e1b\u0e47\u0e19\u0e25\u0e32\u0e22\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e01\u0e31\u0e1a\u0e17\u0e35\u0e21\u0e42\u0e04\u0e49\u0e0a'
+      ]
+    },
+    handicap: 'Target HCP < 4'
+  },
+  {
+    yearKey: 12,
+    age: {
+      en: 'Age 17-18 \u00b7 Year 12 / M6',
+      th: '\u0e2d\u0e32\u0e22\u0e38 17-18 \u0e1b\u0e35 \u00b7 \u0e21.6'
+    },
+    title: {
+      en: 'Final Preparations',
+      th: '\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e04\u0e23\u0e31\u0e49\u0e07\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22'
+    },
+    actions: {
+      en: [
+        'Apply for US student visa (F-1): begin process 3-4 months before departure',
+        'Connect with your future college golf team and head coach',
+        'Complete any final academic or language course requirements',
+        'Arrange accommodation, flights, and all logistics',
+        'Continue training to arrive at peak form',
+        'Attend pre-season team camp if invited by the coaching staff'
+      ],
+      th: [
+        '\u0e2a\u0e21\u0e31\u0e04\u0e23\u0e27\u0e35\u0e0b\u0e48\u0e32\u0e19\u0e31\u0e01\u0e40\u0e23\u0e35\u0e22\u0e19 F-1: \u0e40\u0e23\u0e34\u0e48\u0e21\u0e01\u0e23\u0e30\u0e1a\u0e27\u0e19\u0e01\u0e32\u0e23\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32 3-4 \u0e40\u0e14\u0e37\u0e2d\u0e19',
+        '\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e41\u0e25\u0e30\u0e42\u0e04\u0e49\u0e0a\u0e2b\u0e31\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32',
+        '\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e17\u0e32\u0e07\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e23\u0e2b\u0e23\u0e37\u0e2d\u0e04\u0e2d\u0e23\u0e4c\u0e2a\u0e20\u0e32\u0e29\u0e32\u0e17\u0e35\u0e48\u0e22\u0e31\u0e07\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e2d\u0e22\u0e39\u0e48',
+        '\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23\u0e17\u0e35\u0e48\u0e1e\u0e31\u0e01, \u0e40\u0e17\u0e35\u0e48\u0e22\u0e27\u0e1a\u0e34\u0e19, \u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14',
+        '\u0e1d\u0e36\u0e01\u0e0b\u0e49\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e21\u0e32\u0e16\u0e36\u0e07\u0e43\u0e19\u0e1f\u0e2d\u0e23\u0e4c\u0e21\u0e17\u0e35\u0e48\u0e14\u0e35\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14',
+        '\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21 Pre-season Camp \u0e2b\u0e32\u0e01\u0e44\u0e14\u0e49\u0e23\u0e31\u0e1a\u0e40\u0e0a\u0e34\u0e0d\u0e08\u0e32\u0e01\u0e42\u0e04\u0e49\u0e0a'
+      ]
+    },
+    handicap: 'Maintain HCP < 4'
+  }
+];
+
+var UK_MILESTONES = [
+  {
+    yearKey: 7,
+    age: {
+      en: 'Age 12-13 \u00b7 Year 7 / M1',
+      th: '\u0e2d\u0e32\u0e22\u0e38 12-13 \u0e1b\u0e35 \u00b7 \u0e21.1'
+    },
+    title: {
+      en: 'Foundation & School Research',
+      th: '\u0e27\u0e32\u0e07\u0e23\u0e32\u0e01\u0e10\u0e32\u0e19\u0e41\u0e25\u0e30\u0e04\u0e49\u0e19\u0e04\u0e49\u0e27\u0e32\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19'
+    },
+    actions: {
+      en: [
+        'Obtain an official handicap through Thailand Golf Association',
+        'Play regular competitive rounds and record all scores carefully',
+        'Begin researching UK boarding schools with dedicated golf programs',
+        'Target handicap below 20 before applying to schools',
+        'Build a strong English language foundation for assessments and interviews'
+      ],
+      th: [
+        '\u0e02\u0e2d Handicap \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e32\u0e07\u0e01\u0e32\u0e23\u0e08\u0e32\u0e01\u0e2a\u0e21\u0e32\u0e04\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e2b\u0e48\u0e07\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22',
+        '\u0e40\u0e25\u0e48\u0e19\u0e23\u0e2d\u0e1a\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e2a\u0e21\u0e48\u0e33\u0e40\u0e2a\u0e21\u0e2d\u0e41\u0e25\u0e30\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e04\u0e30\u0e41\u0e19\u0e19\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07',
+        '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e04\u0e49\u0e19\u0e04\u0e49\u0e27\u0e32\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e43\u0e19\u0e2a\u0e2b\u0e23\u0e32\u0e0a\u0e2d\u0e32\u0e13\u0e32\u0e08\u0e31\u0e01\u0e23\u0e17\u0e35\u0e48\u0e21\u0e35\u0e42\u0e1b\u0e23\u0e41\u0e01\u0e23\u0e21\u0e01\u0e2d\u0e25\u0e4c\u0e1f',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: Handicap \u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 20 \u0e01\u0e48\u0e2d\u0e19\u0e2a\u0e21\u0e31\u0e04\u0e23',
+        '\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1e\u0e37\u0e49\u0e19\u0e10\u0e32\u0e19\u0e20\u0e32\u0e29\u0e32\u0e2d\u0e31\u0e07\u0e01\u0e24\u0e29\u0e17\u0e35\u0e48\u0e41\u0e02\u0e47\u0e07\u0e41\u0e01\u0e23\u0e48\u0e07\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e1b\u0e23\u0e30\u0e40\u0e21\u0e34\u0e19\u0e41\u0e25\u0e30\u0e2a\u0e31\u0e21\u0e20\u0e32\u0e29\u0e13\u0e4c'
+      ]
+    },
+    handicap: 'Target HCP < 20'
+  },
+  {
+    yearKey: 8,
+    age: {
+      en: 'Age 13-14 \u00b7 Year 8 / M2',
+      th: '\u0e2d\u0e32\u0e22\u0e38 13-14 \u0e1b\u0e35 \u00b7 \u0e21.2'
+    },
+    title: {
+      en: 'Apply for Year 9 Entry',
+      th: '\u0e2a\u0e21\u0e31\u0e04\u0e23\u0e40\u0e02\u0e49\u0e32\u0e1b\u0e35\u0e17\u0e35\u0e48 9'
+    },
+    actions: {
+      en: [
+        'Submit applications to UK schools for Year 9 entry -- deadlines often in January',
+        'Register for ISEB Pre-test or school-specific Common Entrance exam',
+        'Book a Golf Assessment Day at your target schools',
+        'Request a scholarship audition if the school offers sports awards',
+        'Prepare for interview in English -- practise common questions',
+        'Aim for handicap below 18 before your assessment day'
+      ],
+      th: [
+        '\u0e2a\u0e48\u0e07\u0e43\u0e1a\u0e2a\u0e21\u0e31\u0e04\u0e23\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19 UK \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32 Year 9 -- deadline \u0e21\u0e31\u0e01\u0e40\u0e1b\u0e47\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e21\u0e01\u0e23\u0e32\u0e04\u0e21',
+        '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19 ISEB Pre-test \u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e2a\u0e2d\u0e1a\u0e40\u0e02\u0e49\u0e32\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e02\u0e2d\u0e07\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19',
+        '\u0e19\u0e31\u0e14\u0e27\u0e31\u0e19 Golf Assessment Day \u0e17\u0e35\u0e48\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e40\u0e1b\u0e49\u0e32\u0e2b\u0e21\u0e32\u0e22',
+        '\u0e02\u0e2d Scholarship Audition \u0e2b\u0e32\u0e01\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e21\u0e35\u0e23\u0e32\u0e07\u0e27\u0e31\u0e25\u0e01\u0e35\u0e2c\u0e32',
+        '\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e2a\u0e31\u0e21\u0e20\u0e32\u0e29\u0e13\u0e4c\u0e20\u0e32\u0e29\u0e32\u0e2d\u0e31\u0e07\u0e01\u0e24\u0e29 -- \u0e1d\u0e36\u0e01\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: Handicap \u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 18 \u0e01\u0e48\u0e2d\u0e19 Assessment Day'
+      ]
+    },
+    handicap: 'Target HCP < 18'
+  },
+  {
+    yearKey: 9,
+    age: {
+      en: 'Age 14-15 \u00b7 Year 9 / M3',
+      th: '\u0e2d\u0e32\u0e22\u0e38 14-15 \u0e1b\u0e35 \u00b7 \u0e21.3'
+    },
+    title: {
+      en: 'Sixth Form Applications Open',
+      th: '\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e1a\u0e2a\u0e21\u0e31\u0e04\u0e23 Sixth Form'
+    },
+    actions: {
+      en: [
+        'Apply for Year 12 (Sixth Form) entry at top UK golf boarding schools',
+        'Most selective entry point: prepare a strong golf and academic portfolio',
+        'Book UKISET (UK Independent Schools Entry Test) if required',
+        'Visit shortlisted schools January to March -- assess golf facilities in person',
+        'Aim for handicap below 12 to be competitive for scholarships',
+        'Gather academic transcripts and two strong teacher references'
+      ],
+      th: [
+        '\u0e2a\u0e21\u0e31\u0e04\u0e23\u0e40\u0e02\u0e49\u0e32 Year 12 (Sixth Form) \u0e17\u0e35\u0e48\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e0a\u0e31\u0e49\u0e19\u0e19\u0e33\u0e02\u0e2d\u0e07 UK',
+        '\u0e08\u0e38\u0e14\u0e40\u0e02\u0e49\u0e32\u0e17\u0e35\u0e48\u0e21\u0e35\u0e01\u0e32\u0e23\u0e04\u0e31\u0e14\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e2a\u0e39\u0e07\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14: \u0e40\u0e15\u0e23\u0e35\u0e22\u0e21 Portfolio \u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e25\u0e30\u0e27\u0e34\u0e0a\u0e32\u0e01\u0e32\u0e23\u0e17\u0e35\u0e48\u0e41\u0e02\u0e47\u0e07\u0e41\u0e01\u0e23\u0e48\u0e07',
+        '\u0e08\u0e2d\u0e07\u0e2a\u0e2d\u0e1a UKISET \u0e2b\u0e32\u0e01\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e01\u0e33\u0e2b\u0e19\u0e14',
+        '\u0e40\u0e22\u0e35\u0e48\u0e22\u0e21\u0e0a\u0e21\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e21\u0e01\u0e23\u0e32\u0e04\u0e21-\u0e21\u0e35\u0e19\u0e32\u0e04\u0e21 -- \u0e1b\u0e23\u0e30\u0e40\u0e21\u0e34\u0e19\u0e2a\u0e34\u0e48\u0e07\u0e2d\u0e33\u0e19\u0e27\u0e22\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e14\u0e27\u0e01\u0e01\u0e2d\u0e25\u0e4c\u0e1f',
+        '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e49\u0e32: Handicap \u0e15\u0e48\u0e33\u0e01\u0e27\u0e48\u0e32 12 \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e0a\u0e34\u0e07\u0e17\u0e38\u0e19\u0e44\u0e14\u0e49',
+        '\u0e23\u0e27\u0e1a\u0e23\u0e27\u0e21\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e28\u0e36\u0e01\u0e29\u0e32\u0e41\u0e25\u0e30\u0e08\u0e14\u0e2b\u0e21\u0e32\u0e22\u0e2d\u0e49\u0e32\u0e07\u0e2d\u0e34\u0e07\u0e08\u0e32\u0e01\u0e04\u0e23\u0e39 2 \u0e17\u0e48\u0e32\u0e19'
+      ]
+    },
+    handicap: 'Target HCP < 12'
+  },
+  {
+    yearKey: 10,
+    age: {
+      en: 'Age 15-16 \u00b7 Year 10 / M4',
+      th: '\u0e2d\u0e32\u0e22\u0e38 15-16 \u0e1b\u0e35 \u00b7 \u0e21.4'
+    },
+    title: {
+      en: 'Offers & Decision Time',
+      th: '\u0e23\u0e31\u0e1a\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e19\u0e2d\u0e41\u0e25\u0e30\u0e15\u0e31\u0e14\u0e2a\u0e34\u0e19\u0e43\u0e08'
+    },
+    actions: {
+      en: [
+        'Receive conditional offers from UK schools -- typically by April',
+        'Review scholarship award letters and the full financial package',
+        'Accept your first-choice school and pay the registration deposit',
+        'Begin the UK student visa (Tier 4) application process',
+        'Confirm subject choices with your new school (GCSE or IB pathway)',
+        'Maintain handicap progress -- schools will continue to monitor'
+      ],
+      th: [
+        '\u0e23\u0e31\u0e1a Conditional Offer \u0e08\u0e32\u0e01\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19 UK -- \u0e42\u0e14\u0e22\u0e1b\u0e01\u0e15\u0e34\u0e20\u0e32\u0e22\u0e43\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e40\u0e21\u0e29\u0e32\u0e22\u0e19',
+        '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e08\u0e14\u0e2b\u0e21\u0e32\u0e22\u0e17\u0e38\u0e19\u0e41\u0e25\u0e30\u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14\u0e41\u0e1e\u0e47\u0e04\u0e40\u0e01\u0e08\u0e01\u0e32\u0e23\u0e40\u0e07\u0e34\u0e19',
+        '\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e41\u0e25\u0e30\u0e0a\u0e33\u0e23\u0e30\u0e40\u0e07\u0e34\u0e19\u0e21\u0e31\u0e14\u0e08\u0e33\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19',
+        '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e01\u0e23\u0e30\u0e1a\u0e27\u0e19\u0e01\u0e32\u0e23\u0e02\u0e2d\u0e27\u0e35\u0e0b\u0e48\u0e32\u0e19\u0e31\u0e01\u0e40\u0e23\u0e35\u0e22\u0e19 UK (Tier 4)',
+        '\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e27\u0e34\u0e0a\u0e32\u0e17\u0e35\u0e48\u0e40\u0e23\u0e35\u0e22\u0e19\u0e01\u0e31\u0e1a\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e43\u0e2b\u0e21\u0e48 (GCSE \u0e2b\u0e23\u0e37\u0e2d IB)',
+        '\u0e23\u0e31\u0e01\u0e29\u0e32\u0e04\u0e27\u0e32\u0e21\u0e01\u0e49\u0e32\u0e27\u0e2b\u0e19\u0e49\u0e32\u0e02\u0e2d\u0e07 Handicap -- \u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e08\u0e30\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e37\u0e48\u0e2d\u0e07'
+      ]
+    },
+    handicap: 'Target HCP < 10'
+  },
+  {
+    yearKey: 11,
+    age: {
+      en: 'Age 16 \u00b7 Year 11 / M5',
+      th: '\u0e2d\u0e32\u0e22\u0e38 16 \u0e1b\u0e35 \u00b7 \u0e21.5'
+    },
+    title: {
+      en: 'Arrive at UK Boarding School',
+      th: '\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e16\u0e36\u0e07\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33 UK'
+    },
+    actions: {
+      en: [
+        'Arrive at school for September term start -- attend induction week',
+        'Meet your golf coach and join the academy golf programme',
+        'Register with England Golf or Scotland Golf for competition eligibility',
+        'Settle into boarding house life and your academic timetable',
+        'Begin competing in school team matches and county junior events',
+        'Start building a UK-based tournament record for future opportunities'
+      ],
+      th: [
+        '\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e16\u0e36\u0e07\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e21\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e22\u0e32\u0e22\u0e19 -- \u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21 Induction Week',
+        '\u0e1e\u0e1a\u0e42\u0e04\u0e49\u0e0a\u0e01\u0e2d\u0e25\u0e4c\u0e1f\u0e41\u0e25\u0e30\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21\u0e42\u0e1b\u0e23\u0e41\u0e01\u0e23\u0e21 Golf Academy',
+        '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e01\u0e31\u0e1a England Golf \u0e2b\u0e23\u0e37\u0e2d Scotland Golf \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19',
+        '\u0e1b\u0e23\u0e31\u0e1a\u0e15\u0e31\u0e27\u0e01\u0e31\u0e1a\u0e0a\u0e35\u0e27\u0e34\u0e15\u0e1a\u0e49\u0e32\u0e19\u0e1e\u0e31\u0e01\u0e19\u0e31\u0e01\u0e40\u0e23\u0e35\u0e22\u0e19\u0e41\u0e25\u0e30\u0e15\u0e32\u0e23\u0e32\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19',
+        '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e43\u0e19\u0e17\u0e35\u0e21\u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e41\u0e25\u0e30\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e40\u0e22\u0e32\u0e27\u0e0a\u0e19\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e21\u0e13\u0e11\u0e25',
+        '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1b\u0e23\u0e30\u0e27\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e41\u0e02\u0e48\u0e07\u0e02\u0e31\u0e19\u0e43\u0e19 UK \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e42\u0e2d\u0e01\u0e32\u0e2a\u0e43\u0e19\u0e2d\u0e19\u0e32\u0e04\u0e15'
+      ]
+    },
+    handicap: 'Maintain HCP < 8'
+  }
+];
+
+function getStatus(mYear, currentYear) {
+  if (mYear < currentYear) return 'complete';
+  if (mYear === currentYear) return 'current';
+  return 'upcoming';
+}
+
+function renderCard(m, currentYear, lang) {
+  var status = getStatus(m.yearKey, currentYear);
+  var actions = m.actions[lang] || m.actions.en;
+  var ageLabel = m.age[lang] || m.age.en;
+  var title = m.title[lang] || m.title.en;
+
+  var badge = '';
+  if (status === 'current') {
+    var yah = lang === 'th' ? '\u0e04\u0e38\u0e13\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e19\u0e35\u0e48' : 'You Are Here';
+    badge = '<span class="you-are-here">' + yah + '</span>';
+  } else if (status === 'complete') {
+    var done = lang === 'th' ? '\u0e1c\u0e48\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27' : 'Done';
+    badge = '<span class="done-badge">' + done + '</span>';
+  }
+
+  var liHtml = actions.map(function(a) { return '<li>' + a + '</li>'; }).join('');
+
+  return '<div class="milestone ' + status + '">' +
+    '<div class="milestone-dot"></div>' +
+    '<div class="milestone-card">' +
+      '<div class="milestone-top">' +
+        '<span class="milestone-age">' + ageLabel + '</span>' +
+        '<div class="milestone-badges">' + badge +
+          '<span class="handicap-badge">' + m.handicap + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="milestone-title">' + title + '</div>' +
+      '<ul class="milestone-actions">' + liHtml + '</ul>' +
+    '</div>' +
+  '</div>';
+}
+
+function buildTimeline() {
+  var yearVal = parseInt(document.getElementById('select-year').value);
+  var dest = document.getElementById('select-destination').value;
+  if (!yearVal || !dest) {
+    alert('Please select both your year and destination.');
+    return;
+  }
+  var lang = document.documentElement.lang || 'en';
+  var output = document.getElementById('timeline-output');
+  output.style.display = 'block';
+  document.getElementById('actions-bar').style.display = 'flex';
+
+  if (dest === 'both') {
+    renderDual(output, yearVal, lang);
+  } else if (dest === 'us') {
+    renderSingle(output, US_MILESTONES, yearVal, lang, 'us');
+  } else {
+    renderSingle(output, UK_MILESTONES, yearVal, lang, 'uk');
+  }
+
+  updateProgress(dest, yearVal);
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderSingle(container, milestones, currentYear, lang, type) {
+  var label = type === 'us'
+    ? (lang === 'th' ? '\u0e40\u0e2a\u0e49\u0e19\u0e17\u0e32\u0e07: \u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e2a\u0e2b\u0e23\u0e31\u0e10\u0e2d\u0e40\u0e21\u0e23\u0e34\u0e01\u0e32' : 'Pathway: US University')
+    : (lang === 'th' ? '\u0e40\u0e2a\u0e49\u0e19\u0e17\u0e32\u0e07: \u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e2a\u0e2b\u0e23\u0e32\u0e0a\u0e2d\u0e32\u0e13\u0e32\u0e08\u0e31\u0e01\u0e23' : 'Pathway: UK Boarding School');
+
+  var html = '<span class="section-label">' + label + '</span><div class="timeline">';
+  milestones.forEach(function(m) { html += renderCard(m, currentYear, lang); });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderDual(container, currentYear, lang) {
+  var usLabel = lang === 'th' ? '\u0e40\u0e2a\u0e49\u0e19\u0e17\u0e32\u0e07: \u0e21\u0e2b\u0e32\u0e27\u0e34\u0e17\u0e22\u0e32\u0e25\u0e31\u0e22\u0e2a\u0e2b\u0e23\u0e31\u0e10\u0e2f' : 'Pathway: US University';
+  var ukLabel = lang === 'th' ? '\u0e40\u0e2a\u0e49\u0e19\u0e17\u0e32\u0e07: \u0e42\u0e23\u0e07\u0e40\u0e23\u0e35\u0e22\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33 UK' : 'Pathway: UK Boarding School';
+  var usHtml = US_MILESTONES.map(function(m) { return renderCard(m, currentYear, lang); }).join('');
+  var ukHtml = UK_MILESTONES.map(function(m) { return renderCard(m, currentYear, lang); }).join('');
+
+  container.innerHTML = '<div class="dual-columns">' +
+    '<div class="pathway-block"><div class="pathway-title"><em>US</em> ' + usLabel + '</div><div class="timeline">' + usHtml + '</div></div>' +
+    '<div class="pathway-block"><div class="pathway-title"><em>UK</em> ' + ukLabel + '</div><div class="timeline">' + ukHtml + '</div></div>' +
+  '</div>';
+}
+
+function updateProgress(dest, currentYear) {
+  var milestones = dest === 'uk' ? UK_MILESTONES : US_MILESTONES;
+  var total = milestones.length;
+  var done = milestones.filter(function(m) { return m.yearKey < currentYear; }).length;
+  var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('prog-done-en').textContent = done;
+  document.getElementById('prog-total-en').textContent = total;
+  document.getElementById('prog-done-th').textContent = done;
+  document.getElementById('prog-total-th').textContent = total;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('progress-section').style.display = 'block';
+}
+</script>
+</body>
+</html>

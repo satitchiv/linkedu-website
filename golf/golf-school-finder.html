@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Golf School Finder | LinkedU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+
+  body {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a1a;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+  }
+
+  .logo-block { display: flex; flex-direction: column; gap: 2px; }
+  .logo-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #B8962E;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .logo-tagline {
+    font-size: 10px;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #B8962E;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #B8962E; color: #1a1a1a; }
+  .lang-btn:not(.active) { background: transparent; color: #B8962E; }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.1); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 60px 32px 40px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(184,150,46,0.05) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(184,150,46,0.1);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 700;
+    color: #B8962E;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 16px;
+    color: rgba(245,240,232,0.7);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar {
+    position: sticky;
+    top: 68px;
+    z-index: 90;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(184,150,46,0.12);
+    padding: 16px 32px;
+  }
+  .filter-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .filter-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 140px; }
+  .filter-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    font-weight: 500;
+  }
+  .filter-select, .filter-input {
+    background: #222;
+    border: 1px solid rgba(184,150,46,0.2);
+    color: #f5f0e8;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .filter-select:focus, .filter-input:focus { border-color: #B8962E; }
+  .filter-select option { background: #222; }
+
+  .filter-search { flex: 1.5; min-width: 180px; }
+  .result-count {
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    white-space: nowrap;
+    padding-top: 18px;
+  }
+  .result-count span { color: #B8962E; font-weight: 600; }
+
+  /* ─── GRID ─── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+  .school-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* ─── SCHOOL CARD ─── */
+  .school-card {
+    background: #222;
+    border-radius: 8px;
+    border: 1px solid rgba(184,150,46,0.12);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .school-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(184,150,46,0.4);
+    box-shadow: 0 8px 32px rgba(184,150,46,0.08);
+  }
+  .school-card.hidden { display: none; }
+
+  .card-banner { height: 6px; background: #B8962E; }
+
+  .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f5f0e8;
+    line-height: 1.2;
+  }
+
+  .card-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .badge-region {
+    background: rgba(245,240,232,0.06);
+    color: rgba(245,240,232,0.7);
+    border: 1px solid rgba(245,240,232,0.1);
+  }
+  .badge-elite {
+    background: rgba(184,150,46,0.2);
+    color: #B8962E;
+    border: 1px solid rgba(184,150,46,0.3);
+  }
+  .badge-strong {
+    background: rgba(180,180,180,0.1);
+    color: #c8c8c8;
+    border: 1px solid rgba(200,200,200,0.2);
+  }
+  .badge-developing {
+    background: rgba(160,110,60,0.15);
+    color: #c8956a;
+    border: 1px solid rgba(160,110,60,0.25);
+  }
+
+  .card-fees {
+    font-size: 15px;
+    color: #B8962E;
+    font-weight: 600;
+  }
+  .card-fees-label {
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .card-highlights { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .card-highlights li {
+    font-size: 13px;
+    color: rgba(245,240,232,0.7);
+    padding-left: 14px;
+    position: relative;
+  }
+  .card-highlights li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #B8962E;
+    font-weight: 600;
+  }
+
+  .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .card-row-item { color: rgba(245,240,232,0.5); }
+  .card-row-item strong { color: rgba(245,240,232,0.8); }
+
+  .scholarship-yes { color: #6fcf97; }
+  .scholarship-ask { color: #f2c94c; }
+  .scholarship-no { color: rgba(245,240,232,0.4); }
+
+  .card-footer {
+    border-top: 1px solid rgba(184,150,46,0.1);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .card-link {
+    font-size: 13px;
+    color: #B8962E;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .card-link:hover { color: #f5f0e8; }
+
+  /* ─── NO RESULTS ─── */
+  .no-results {
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+    grid-column: 1 / -1;
+  }
+  .no-results.visible { display: block; }
+  .no-results-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+  .no-results h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 8px;
+  }
+  .no-results p { font-size: 14px; color: rgba(245,240,232,0.35); }
+
+  /* ─── BOTTOM CTA ─── */
+  .bottom-cta {
+    background: #252525;
+    border-top: 1px solid rgba(184,150,46,0.12);
+    margin-top: 48px;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .bottom-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #f5f0e8;
+    margin-bottom: 10px;
+  }
+  .bottom-cta p {
+    font-size: 15px;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 24px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: #9a7a24; }
+  .line-handle { color: #B8962E; font-weight: 600; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #111;
+    text-align: center;
+    padding: 28px 20px;
+    border-top: 1px solid rgba(184,150,46,0.1);
+  }
+  .footer-copy { font-size: 13px; color: rgba(245,240,232,0.4); margin-bottom: 6px; }
+  .footer-line { font-size: 14px; color: #B8962E; font-weight: 600; margin-bottom: 4px; }
+  .footer-contact { font-size: 12px; color: rgba(245,240,232,0.3); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    header { padding: 0 16px; }
+    .hero { padding: 40px 16px 28px; }
+    .filter-bar { padding: 12px 16px; top: 68px; }
+    .filter-inner { gap: 8px; }
+    .filter-group { min-width: 120px; }
+    .main { padding: 20px 16px; }
+    .school-grid { grid-template-columns: 1fr; }
+    .bottom-cta { padding: 36px 16px; }
+  }
+
+  @media print {
+    header, .filter-bar, .bottom-cta, footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-block">
+    <span class="logo-wordmark">LINKEDU</span>
+    <span class="logo-tagline">Golf Scholarships</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-th" onclick="setLang('th')">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>
+    <span class="lang-en">UK Golf School Finder</span>
+    <span class="lang-th">ค้นหาโรงเรียนกอล์ฟในสหราชอาณาจักร</span>
+  </h1>
+  <p>
+    <span class="lang-en">Compare UK boarding schools with elite golf programs</span>
+    <span class="lang-th">เปรียบเทียบโรงเรียนประจำในสหราชอาณาจักรที่มีโปรแกรมกอล์ฟระดับแนวหน้า</span>
+  </p>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <div class="filter-group">
+      <span class="filter-label lang-en">Region</span>
+      <span class="filter-label lang-th">ภูมิภาค</span>
+      <select class="filter-select" id="filter-region" onchange="applyFilters()">
+        <option value="all">All / ทั้งหมด</option>
+        <option value="South West">South West</option>
+        <option value="North West">North West</option>
+        <option value="Yorkshire">Yorkshire</option>
+        <option value="East Midlands">East Midlands</option>
+        <option value="West Midlands">West Midlands</option>
+        <option value="Scotland">Scotland</option>
+        <option value="Wales">Wales</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label lang-en">Annual Fees</span>
+      <span class="filter-label lang-th">ค่าเล่าเรียนต่อปี</span>
+      <select class="filter-select" id="filter-fees" onchange="applyFilters()">
+        <option value="all">All / ทั้งหมด</option>
+        <option value="under35">Under £35,000</option>
+        <option value="35to45">£35,000 – £45,000</option>
+        <option value="over45">Over £45,000</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label lang-en">Golf Level</span>
+      <span class="filter-label lang-th">ระดับกอล์ฟ</span>
+      <select class="filter-select" id="filter-level" onchange="applyFilters()">
+        <option value="all">All / ทั้งหมด</option>
+        <option value="Elite Academy">Elite Academy</option>
+        <option value="Strong Programme">Strong Programme</option>
+        <option value="Developing">Developing</option>
+      </select>
+    </div>
+    <div class="filter-group filter-search">
+      <span class="filter-label lang-en">Search School</span>
+      <span class="filter-label lang-th">ค้นหาโรงเรียน</span>
+      <input class="filter-input" id="filter-search" type="text" placeholder="School name..." oninput="applyFilters()">
+    </div>
+    <div class="result-count">
+      <span class="lang-en">Showing <span id="count-num">12</span> of 12 schools</span>
+      <span class="lang-th">แสดง <span id="count-num-th">12</span> จาก 12 โรงเรียน</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="main">
+  <div class="school-grid" id="school-grid">
+
+    <!-- 1. Millfield School -->
+    <div class="school-card"
+         data-region="South West"
+         data-fees-min="47560" data-fees-max="47560"
+         data-level="Elite Academy"
+         data-name="Millfield School">
+      <div class="card-banner"></div>
+      <div class="card-body">
+        <div class="card-name">Millfield School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Somerset, South West</span>
+          <span class="badge badge-elite">★ Elite Academy</span>
+        </div>
+        <div class="card-fees">£47,560<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>18-hole golf course on campus with PGA-qualified coaches</li>
+          <li>Tour-level practice facility — driving range, putting greens, short-game area</li>
+          <li>Accepts handicaps 10–24; strong scholarship track record</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Handicap:</strong> 10–24 accepted</div>
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-yes">Yes ✓</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 2. Rossall School -->
+    <div class="school-card"
+         data-region="North West"
+         data-fees-min="32000" data-fees-max="38000"
+         data-level="Elite Academy"
+         data-name="Rossall School">
+      <div class="card-banner"></div>
+      <div class="card-body">
+        <div class="card-name">Rossall School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Lancashire, North West</span>
+          <span class="badge badge-elite">★ Elite Academy</span>
+        </div>
+        <div class="card-fees">£32,000 – £38,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Dedicated golf academy with 6-hole on-site course</li>
+          <li>Links course partnership nearby for championship experience</li>
+          <li>Golf scholarships available; international students welcome</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-yes">Yes ✓</span></div>
+          <div class="card-row-item"><strong>Intl. Students:</strong> <span class="scholarship-yes">Welcome ✓</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 3. Worksop College -->
+    <div class="school-card"
+         data-region="East Midlands"
+         data-fees-min="34000" data-fees-max="34000"
+         data-level="Strong Programme"
+         data-name="Worksop College">
+      <div class="card-banner" style="background:#aaa;"></div>
+      <div class="card-body">
+        <div class="card-name">Worksop College</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Nottinghamshire, East Midlands</span>
+          <span class="badge badge-strong">◆ Strong Programme</span>
+        </div>
+        <div class="card-fees">£34,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Strong golf heritage with dedicated coaching staff</li>
+          <li>County-level competition pathway for talented juniors</li>
+          <li>Well-regarded all-round sports school</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 4. Denstone College -->
+    <div class="school-card"
+         data-region="East Midlands"
+         data-fees-min="28000" data-fees-max="28000"
+         data-level="Developing"
+         data-name="Denstone College">
+      <div class="card-banner" style="background:#c8956a;"></div>
+      <div class="card-body">
+        <div class="card-name">Denstone College</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Staffordshire, East Midlands</span>
+          <span class="badge badge-developing">▲ Developing</span>
+        </div>
+        <div class="card-fees">£28,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Golf included in the curriculum and sporting programme</li>
+          <li>Links with county golf team for competitive pathways</li>
+          <li>More affordable entry-point to UK boarding</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 5. Ampleforth College -->
+    <div class="school-card"
+         data-region="Yorkshire"
+         data-fees-min="37000" data-fees-max="37000"
+         data-level="Strong Programme"
+         data-name="Ampleforth College">
+      <div class="card-banner" style="background:#aaa;"></div>
+      <div class="card-body">
+        <div class="card-name">Ampleforth College</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Yorkshire</span>
+          <span class="badge badge-strong">◆ Strong Programme</span>
+        </div>
+        <div class="card-fees">£37,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Stunning North Yorkshire setting with excellent golf facilities</li>
+          <li>PGA-qualified coaching staff and active golf programme</li>
+          <li>Strong academic reputation alongside sport</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 6. Stonyhurst College -->
+    <div class="school-card"
+         data-region="North West"
+         data-fees-min="38000" data-fees-max="38000"
+         data-level="Developing"
+         data-name="Stonyhurst College">
+      <div class="card-banner" style="background:#c8956a;"></div>
+      <div class="card-body">
+        <div class="card-name">Stonyhurst College</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Lancashire, North West</span>
+          <span class="badge badge-developing">▲ Developing</span>
+        </div>
+        <div class="card-fees">£38,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Golf offered within a strong sporting ethos</li>
+          <li>Historic school with exceptional pastoral care</li>
+          <li>Competitive sports programme across many disciplines</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 7. Glenalmond College -->
+    <div class="school-card"
+         data-region="Scotland"
+         data-fees-min="34000" data-fees-max="38000"
+         data-level="Elite Academy"
+         data-name="Glenalmond College">
+      <div class="card-banner"></div>
+      <div class="card-body">
+        <div class="card-name">Glenalmond College</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Perthshire, Scotland</span>
+          <span class="badge badge-elite">★ Elite Academy</span>
+        </div>
+        <div class="card-fees">£34,000 – £38,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Dedicated golf academy in the heartland of Scottish golf</li>
+          <li>Access to premium links courses in Perthshire</li>
+          <li>Rich Scottish golf heritage; coaching from PGA professionals</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-yes">Yes ✓</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 8. Loretto School -->
+    <div class="school-card"
+         data-region="Scotland"
+         data-fees-min="34000" data-fees-max="40000"
+         data-level="Elite Academy"
+         data-name="Loretto School">
+      <div class="card-banner"></div>
+      <div class="card-body">
+        <div class="card-name">Loretto School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 East Lothian, Scotland</span>
+          <span class="badge badge-elite">★ Elite Academy</span>
+        </div>
+        <div class="card-fees">£34,000 – £40,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Golf academy minutes from Muirfield and East Lothian links</li>
+          <li>Scholarship programme specifically for talented golfers</li>
+          <li>One of Scotland's oldest independent schools; strong golf culture</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-yes">Yes ✓</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 9. Strathallan School -->
+    <div class="school-card"
+         data-region="Scotland"
+         data-fees-min="34000" data-fees-max="34000"
+         data-level="Strong Programme"
+         data-name="Strathallan School">
+      <div class="card-banner" style="background:#aaa;"></div>
+      <div class="card-body">
+        <div class="card-name">Strathallan School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Perthshire, Scotland</span>
+          <span class="badge badge-strong">◆ Strong Programme</span>
+        </div>
+        <div class="card-fees">£34,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Golf programme with scenic Perthshire setting</li>
+          <li>Active sports culture with strong coaching support</li>
+          <li>Good links to local golf clubs and courses</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 10. Monmouth School -->
+    <div class="school-card"
+         data-region="Wales"
+         data-fees-min="28000" data-fees-max="32000"
+         data-level="Developing"
+         data-name="Monmouth School">
+      <div class="card-banner" style="background:#c8956a;"></div>
+      <div class="card-body">
+        <div class="card-name">Monmouth School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Wales</span>
+          <span class="badge badge-developing">▲ Developing</span>
+        </div>
+        <div class="card-fees">£28,000 – £32,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Good sporting reputation with active golf team</li>
+          <li>Affordable option relative to English counterparts</li>
+          <li>Growing golf programme within a well-rounded school</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 11. Bromsgrove School -->
+    <div class="school-card"
+         data-region="West Midlands"
+         data-fees-min="34000" data-fees-max="38000"
+         data-level="Strong Programme"
+         data-name="Bromsgrove School">
+      <div class="card-banner" style="background:#aaa;"></div>
+      <div class="card-body">
+        <div class="card-name">Bromsgrove School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Worcestershire, West Midlands</span>
+          <span class="badge badge-strong">◆ Strong Programme</span>
+        </div>
+        <div class="card-fees">£34,000 – £38,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Well-regarded sports school with active golf programme</li>
+          <li>Multiple golf teams at different competitive levels</li>
+          <li>Good coaching and access to local courses</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- 12. Uppingham School -->
+    <div class="school-card"
+         data-region="East Midlands"
+         data-fees-min="39000" data-fees-max="39000"
+         data-level="Strong Programme"
+         data-name="Uppingham School">
+      <div class="card-banner" style="background:#aaa;"></div>
+      <div class="card-body">
+        <div class="card-name">Uppingham School</div>
+        <div class="card-meta">
+          <span class="badge badge-region">📍 Rutland, East Midlands</span>
+          <span class="badge badge-strong">◆ Strong Programme</span>
+        </div>
+        <div class="card-fees">£39,000<span class="card-fees-label">/year</span></div>
+        <ul class="card-highlights">
+          <li>Prestigious school with strong sports tradition since 1584</li>
+          <li>Golf available with county-level competition opportunities</li>
+          <li>Excellent pastoral care and academic results</li>
+        </ul>
+        <div class="card-row">
+          <div class="card-row-item"><strong>Scholarships:</strong> <span class="scholarship-ask">Ask ◦</span></div>
+        </div>
+      </div>
+      <div class="card-footer"><a href="#" class="card-link">Learn More →</a></div>
+    </div>
+
+    <!-- NO RESULTS -->
+    <div class="no-results" id="no-results">
+      <div class="no-results-icon">⛳</div>
+      <h3>
+        <span class="lang-en">No schools match your filters</span>
+        <span class="lang-th">ไม่พบโรงเรียนที่ตรงกับเงื่อนไข</span>
+      </h3>
+      <p>
+        <span class="lang-en">Try adjusting your filters to see more options.</span>
+        <span class="lang-th">ลองปรับตัวกรองเพื่อดูตัวเลือกเพิ่มเติม</span>
+      </p>
+    </div>
+
+  </div><!-- /school-grid -->
+</div><!-- /main -->
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>
+    <span class="lang-en">Found your shortlist?</span>
+    <span class="lang-th">เลือกโรงเรียนที่ใช่แล้วใช่ไหม?</span>
+  </h2>
+  <p>
+    <span class="lang-en">Let LinkedU handle the applications — from golf assessments to visa support.</span>
+    <span class="lang-th">ให้ LinkedU ดูแลการสมัครทั้งหมด ตั้งแต่การประเมินกอล์ฟจนถึงการสนับสนุนวีซ่า</span>
+  </p>
+  <a href="#" class="cta-btn">
+    <span class="lang-en">Contact LinkedU on LINE <span class="line-handle">@linkedu</span></span>
+    <span class="lang-th">ติดต่อ LinkedU ทาง LINE <span class="line-handle">@linkedu</span></span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="footer-line">LINE: @linkedu</div>
+  <div class="footer-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+  // Language toggle
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('linkedu-lang', lang);
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  }
+
+  // On load: restore language
+  (function() {
+    const saved = localStorage.getItem('linkedu-lang') || 'en';
+    setLang(saved);
+  })();
+
+  // Filtering
+  function applyFilters() {
+    const region = document.getElementById('filter-region').value;
+    const fees = document.getElementById('filter-fees').value;
+    const level = document.getElementById('filter-level').value;
+    const search = document.getElementById('filter-search').value.toLowerCase().trim();
+
+    const cards = document.querySelectorAll('.school-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+      const cardRegion = card.dataset.region;
+      const cardLevel = card.dataset.level;
+      const cardName = card.dataset.name.toLowerCase();
+      const cardFeesMin = parseInt(card.dataset.feesMin);
+      const cardFeesMax = parseInt(card.dataset.feesMax);
+
+      let show = true;
+
+      if (region !== 'all' && cardRegion !== region) show = false;
+
+      if (fees !== 'all') {
+        if (fees === 'under35' && cardFeesMin >= 35000) show = false;
+        if (fees === 'over45' && cardFeesMax <= 45000) show = false;
+        if (fees === '35to45') {
+          // Show if any part of the fee range overlaps with 35k-45k
+          if (cardFeesMax < 35000 || cardFeesMin > 45000) show = false;
+        }
+      }
+
+      if (level !== 'all' && cardLevel !== level) show = false;
+
+      if (search && !cardName.includes(search)) show = false;
+
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+
+    document.getElementById('count-num').textContent = visible;
+    document.getElementById('count-num-th').textContent = visible;
+
+    const noResults = document.getElementById('no-results');
+    noResults.classList.toggle('visible', visible === 0);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องคำนวณทุนกอล์ฟ | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-wrap { display:flex; flex-direction:column; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s ease; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; transition:opacity 0.3s; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:80px 40px 100px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:3rem; font-weight:400; color:var(--cream); margin-bottom:16px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1.05rem; color:var(--cream); opacity:0.75; max-width:580px; margin:0 auto; line-height:1.7; }
+    .tool-section { max-width:760px; margin:0 auto; padding:80px 40px; }
+    .form-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .form-row { margin-bottom:24px; }
+    label { display:block; font-size:13px; font-weight:600; letter-spacing:0.05em; color:var(--dark); margin-bottom:8px; }
+    label .th { display:block; font-size:12px; color:#888; font-weight:400; margin-top:2px; }
+    input[type="number"], select {
+      width:100%; padding:12px 16px; border:1px solid #ddd; border-radius:6px;
+      font-family:'Inter',sans-serif; font-size:15px; color:var(--dark);
+      background:var(--cream); transition:border 0.3s;
+    }
+    input[type="number"]:focus, select:focus { outline:none; border-color:var(--gold); }
+    .radio-group { display:flex; gap:12px; flex-wrap:wrap; }
+    .radio-label { display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; padding:10px 18px; border:1px solid #ddd; border-radius:6px; transition:all 0.3s; background:var(--cream); }
+    .radio-label:hover { border-color:var(--gold); }
+    .radio-label input[type="radio"] { accent-color:var(--gold); }
+    .radio-label.checked { border-color:var(--gold); background:#fdf8ee; }
+    .btn-primary { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; width:100%; margin-top:8px; }
+    .btn-primary:hover { opacity:0.88; }
+    .results { display:none; margin-top:40px; }
+    .results.visible { display:block; }
+    .result-header { text-align:center; padding:28px; background:var(--dark); border-radius:8px 8px 0 0; }
+    .result-header h3 { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:400; color:var(--cream); }
+    .result-division { font-size:1.1rem; color:var(--gold); margin-top:6px; }
+    .result-body { background:white; border:1px solid rgba(0,0,0,0.08); border-top:none; border-radius:0 0 8px 8px; }
+    .result-row { padding:20px 28px; border-bottom:1px solid #f0ebe0; display:flex; justify-content:space-between; align-items:center; }
+    .result-row:last-child { border-bottom:none; }
+    .result-label { font-size:13px; color:#888; font-weight:500; }
+    .result-value { font-size:1.1rem; font-weight:600; color:var(--dark); }
+    .result-value.gold { color:var(--gold); }
+    .improve-section { margin-top:20px; padding:24px 28px; background:#fff9ee; border:1px solid #f0d88a; border-radius:8px; }
+    .improve-title { font-size:13px; font-weight:600; color:var(--gold); letter-spacing:0.05em; text-transform:uppercase; margin-bottom:12px; }
+    .improve-item { font-size:14px; color:var(--dark); padding:6px 0; padding-left:16px; position:relative; line-height:1.5; }
+    .improve-item::before { content:'→'; position:absolute; left:0; color:var(--gold); }
+    .line-result { margin-top:28px; padding:24px; background:var(--dark); border-radius:8px; text-align:center; }
+    .line-result p { color:var(--cream); opacity:0.8; font-size:14px; margin-bottom:16px; }
+    .btn-line { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; }
+    .btn-line:hover { opacity:0.88; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; margin-top:0; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:768px) { .hero h1 { font-size:2rem; } .tool-section, .hero { padding:60px 20px; } header { padding:0 20px; } .form-card { padding:24px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 01 ·</div>
+  <div class="section-label lang-en">· TOOL 01 ·</div>
+  <h1 class="lang-th">เครื่องคำนวณ<br><span>ทุนกอล์ฟ</span></h1>
+  <h1 class="lang-en">Golf Scholarship<br><span>Calculator</span></h1>
+  <p class="lang-th">ใส่ข้อมูลของลูกเพื่อดูว่าทุน NCAA ระดับใดหรือโรงเรียนประจำ UK ระดับใดที่เป็นไปได้ พร้อมมูลค่าทุนในสกุล USD และ THB</p>
+  <p class="lang-en">Enter your child's details to see which NCAA division or UK boarding school tier is realistic, with estimated scholarship value in USD and THB.</p>
+</section>
+
+<section class="tool-section">
+  <div class="form-card">
+    <div class="section-label lang-th" style="justify-content:flex-start;margin-bottom:32px;">· กรอกข้อมูล ·</div>
+    <div class="section-label lang-en" style="justify-content:flex-start;margin-bottom:32px;">· ENTER DETAILS ·</div>
+
+    <div class="form-row">
+      <label>
+        <span class="lang-th">แฮนดิแคปปัจจุบัน (0–36)</span>
+        <span class="lang-en">Current Handicap (0–36)</span>
+      </label>
+      <input type="number" id="handicap" min="0" max="36" step="0.1" placeholder="e.g. 8">
+    </div>
+
+    <div class="form-row">
+      <label>
+        <span class="lang-th">อายุของลูก</span>
+        <span class="lang-en">Child's Current Age</span>
+      </label>
+      <input type="number" id="age" min="10" max="20" placeholder="e.g. 15">
+    </div>
+
+    <div class="form-row">
+      <label>
+        <span class="lang-th">เพศ</span>
+        <span class="lang-en">Gender</span>
+      </label>
+      <div class="radio-group">
+        <label class="radio-label" id="lbl-male">
+          <input type="radio" name="gender" value="male">
+          <span class="lang-th">ชาย</span><span class="lang-en">Male</span>
+        </label>
+        <label class="radio-label" id="lbl-female">
+          <input type="radio" name="gender" value="female">
+          <span class="lang-th">หญิง</span><span class="lang-en">Female</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>
+        <span class="lang-th">ประเทศเป้าหมาย</span>
+        <span class="lang-en">Target Country</span>
+      </label>
+      <select id="country">
+        <option value="">-- <span class="lang-th">เลือก</span><span class="lang-en">Select</span> --</option>
+        <option value="us" class="lang-th">สหรัฐอเมริกา (NCAA)</option>
+        <option value="us" class="lang-en">United States (NCAA)</option>
+        <option value="uk" class="lang-th">สหราชอาณาจักร (โรงเรียนประจำ)</option>
+        <option value="uk" class="lang-en">United Kingdom (Boarding School)</option>
+        <option value="both">Both / ทั้งสองประเทศ</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" onclick="calculate()">
+      <span class="lang-th">คำนวณทุน</span>
+      <span class="lang-en">Calculate Scholarship</span>
+    </button>
+
+    <!-- RESULTS -->
+    <div class="results" id="results">
+      <div class="result-header">
+        <h3 id="res-division">—</h3>
+        <div class="result-division" id="res-division-sub">—</div>
+      </div>
+      <div class="result-body">
+        <div class="result-row">
+          <span class="result-label lang-th">ทุนโดยประมาณต่อปี (USD)</span>
+          <span class="result-label lang-en">Est. Scholarship / Year (USD)</span>
+          <span class="result-value gold" id="res-usd">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label lang-th">ทุนโดยประมาณต่อปี (THB)</span>
+          <span class="result-label lang-en">Est. Scholarship / Year (THB)</span>
+          <span class="result-value" id="res-thb">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label lang-th">ระดับการแข่งขัน</span>
+          <span class="result-label lang-en">Competitive Level</span>
+          <span class="result-value" id="res-level">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label lang-th">ช่วงเวลาที่เหมาะสม</span>
+          <span class="result-label lang-en">Recruitment Window</span>
+          <span class="result-value" id="res-window">—</span>
+        </div>
+      </div>
+
+      <div class="improve-section" id="improve-section">
+        <div class="improve-title lang-th">สิ่งที่ต้องพัฒนา</div>
+        <div class="improve-title lang-en">What Needs to Improve</div>
+        <div id="improve-items"></div>
+      </div>
+
+      <div class="line-result">
+        <p class="lang-th">ส่งผลลัพธ์นี้ไปหา LINKEDU เพื่อปรึกษาฟรี</p>
+        <p class="lang-en">Send these results to LINKEDU for a free consultation</p>
+        <button class="btn-line" onclick="sendToLine()">
+          <span class="lang-th">ส่งผลลัพธ์ทาง LINE</span>
+          <span class="lang-en">Send Results via LINE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</h2>
+  <h2 class="lang-en">Free Expert Consultation</h2>
+  <p class="lang-th">ทีม LINKEDU พร้อมช่วยวางแผนเส้นทางกอล์ฟให้ลูกของคุณ</p>
+  <p class="lang-en">The LINKEDU team is ready to help plan your child's golf pathway.</p>
+  <span class="line-handle">LINE: @linkedu.th</span>
+  <br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก / Back to Index</a> · อัตราแลกเปลี่ยน USD/THB อ้างอิง ณ วันที่คำนวณ</p>
+</footer>
+
+<script>
+  // Language toggle
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); });
+  document.querySelectorAll('.radio-label input[type="radio"]').forEach(r => {
+    r.addEventListener('change', () => { document.querySelectorAll('.radio-label').forEach(l => l.classList.remove('checked')); r.parentElement.classList.add('checked'); });
+  });
+
+  let lastResult = {};
+
+  function calculate() {
+    const hcp = parseFloat(document.getElementById('handicap').value);
+    const age = parseInt(document.getElementById('age').value);
+    const genderEl = document.querySelector('input[name="gender"]:checked');
+    const country = document.getElementById('country').value;
+    const lang = html.getAttribute('lang');
+
+    if (isNaN(hcp) || isNaN(age) || !genderEl || !country) {
+      alert(lang === 'th' ? 'กรุณากรอกข้อมูลให้ครบถ้วน' : 'Please fill in all fields.');
+      return;
+    }
+
+    const gender = genderEl.value;
+    const usdRate = 35;
+    let division = '', divSub = '', usdMin = 0, usdMax = 0, level = '', window_ = '', improvements = [];
+
+    if (country === 'us' || country === 'both') {
+      if (gender === 'male') {
+        if (hcp <= 2)       { division = 'NCAA Division I'; divSub = lang==='th'?'ระดับสูงสุด — เป็นไปได้':'Top Level — Achievable'; usdMin=35000; usdMax=65000; level=lang==='th'?'ระดับชาติ / WAGR ต้องมีผลงาน':'National / WAGR results required'; }
+        else if (hcp <= 5)  { division = 'NCAA Division I / II'; divSub = lang==='th'?'แข่งขันได้ — ต้องพัฒนาต่อ':'Competitive — Needs improvement'; usdMin=15000; usdMax=40000; level=lang==='th'?'ระดับภูมิภาค':'Regional level'; }
+        else if (hcp <= 9)  { division = 'NCAA Division II'; divSub = lang==='th'?'เป็นไปได้ — เน้น D2':'Realistic — Focus on D2'; usdMin=8000; usdMax=22000; level=lang==='th'?'ระดับรัฐ':'State level'; }
+        else if (hcp <= 14) { division = 'NCAA Division III / NAIA'; divSub = lang==='th'?'ทุนวิชาการหลัก ทุนกีฬาจำกัด':'Academic scholarship primary'; usdMin=3000; usdMax=10000; level=lang==='th'?'ระดับท้องถิ่น':'Local level'; }
+        else                { division = lang==='th'?'ยังไม่พร้อม — Walk-on':'Not Ready — Walk-on only'; divSub = lang==='th'?'ต้องพัฒนาแฮนดิแคปก่อน':'Handicap needs significant work'; usdMin=0; usdMax=0; level='-'; }
+      } else {
+        if (hcp <= 4)       { division = 'NCAA Division I'; divSub = lang==='th'?'ระดับสูงสุด — เป็นไปได้':'Top Level — Achievable'; usdMin=38000; usdMax=70000; level=lang==='th'?'ระดับชาติ':'National level'; }
+        else if (hcp <= 8)  { division = 'NCAA Division I / II'; divSub = lang==='th'?'แข่งขันได้':'Competitive'; usdMin=18000; usdMax=45000; level=lang==='th'?'ระดับภูมิภาค':'Regional level'; }
+        else if (hcp <= 13) { division = 'NCAA Division II'; divSub = lang==='th'?'เป็นไปได้':'Realistic'; usdMin=8000; usdMax=22000; level=lang==='th'?'ระดับรัฐ':'State level'; }
+        else if (hcp <= 18) { division = 'NCAA Division III / NAIA'; divSub = lang==='th'?'ทุนวิชาการหลัก':'Academic primary'; usdMin=3000; usdMax=10000; level='-'; }
+        else                { division = lang==='th'?'ยังไม่พร้อม':'Not Ready — Walk-on only'; divSub = lang==='th'?'ต้องพัฒนาแฮนดิแคปก่อน':'Handicap needs significant work'; usdMin=0; usdMax=0; level='-'; }
+      }
+
+      if (age < 13) window_ = lang==='th'?'ยังเร็วเกินไป — เน้นพัฒนาทักษะก่อน':'Too early — Focus on skill development';
+      else if (age <= 15) window_ = lang==='th'?'กำลังเปิด — เริ่มวางแผน':'Opening — Begin planning now';
+      else if (age <= 17) window_ = lang==='th'?'หน้าต่างหลัก D1 — ต้องติดต่อโค้ชเลย':'Prime D1 window — Contact coaches now';
+      else window_ = lang==='th'?'ใกล้ปิด — D2/NAIA ยังเป็นไปได้':'Closing — D2/NAIA still possible';
+
+      // Improvements
+      if (hcp > 5 && gender === 'male') improvements.push(lang==='th'?'ลด handicap ให้ต่ำกว่า 5 เพื่อ D1 Men':'Reduce handicap below 5 for D1 Men consideration');
+      if (hcp > 8 && gender === 'female') improvements.push(lang==='th'?'ลด handicap ให้ต่ำกว่า 8 เพื่อ D1 Women':'Reduce handicap below 8 for D1 Women consideration');
+      if (hcp > 2) improvements.push(lang==='th'?'ลงแข่ง WAGR-ranked events เพื่อสร้าง world ranking':'Enter WAGR-ranked events to build a world ranking');
+      if (age <= 15) improvements.push(lang==='th'?'ลงทะเบียน NCAA Eligibility Center เมื่ออายุ 16 ปี':'Register with NCAA Eligibility Center at age 16');
+      if (age >= 16) improvements.push(lang==='th'?'ลงทะเบียน NCAA Eligibility Center โดยด่วน':'Register with NCAA Eligibility Center immediately');
+      improvements.push(lang==='th'?'สร้าง highlight video ที่เป็นมืออาชีพ':'Create a professional highlight video');
+      improvements.push(lang==='th'?'ติดต่อโค้ชโดยตรง — อย่ารอให้โค้ชติดต่อมาก่อน':'Contact coaches directly — do not wait for them to reach out');
+    } else if (country === 'uk') {
+      if (hcp <= 6)        { division = lang==='th'?'โรงเรียนกอล์ฟชั้นนำ (Millfield / Loretto)':'Elite Golf Academy School'; divSub = lang==='th'?'ทุนกีฬาเต็มรูปแบบเป็นไปได้':'Full sports scholarship possible'; usdMin=15000; usdMax=30000; }
+      else if (hcp <= 12)  { division = lang==='th'?'โรงเรียนกอล์ฟระดับดี':'Strong Golf Boarding School'; divSub = lang==='th'?'ทุนบางส่วน':'Partial scholarship available'; usdMin=8000; usdMax=18000; }
+      else if (hcp <= 18)  { division = lang==='th'?'โรงเรียนที่มีโปรแกรมกอล์ฟ':'School with Golf Programme'; divSub = lang==='th'?'ทุนจำกัด':'Limited scholarship support'; usdMin=3000; usdMax=10000; }
+      else                  { division = lang==='th'?'โรงเรียนประจำทั่วไป (กอล์ฟเป็นกิจกรรม)':'General Boarding (Golf as activity)'; divSub = lang==='th'?'ไม่มีทุนกีฬา':'No sports scholarship'; usdMin=0; usdMax=0; }
+      level = lang==='th'?'UK Junior Circuit':'UK Junior Circuit';
+      window_ = lang==='th'?'รับนักเรียนปีที่ 9–12 (อายุ 13–18 ปี)':'Intake Year 9–12 (Age 13–18)';
+      if (hcp > 8) improvements.push(lang==='th'?'ลด handicap ให้ต่ำกว่า 8 เพื่อทุนกีฬาที่ดีกว่า':'Reduce handicap below 8 for stronger sports scholarship';);
+      improvements.push(lang==='th'?'เตรียม IELTS หรือ TOEFL — โรงเรียน UK ส่วนใหญ่ต้องการ':'Prepare IELTS or TOEFL — most UK schools require it');
+      improvements.push(lang==='th'?'ติดต่อ Director of Golf ของโรงเรียนโดยตรง':'Contact the school\'s Director of Golf directly');
+      improvements.push(lang==='th'?'เข้าร่วมค่ายทดสอบของโรงเรียน (Golf Assessment Day)':'Attend the school\'s Golf Assessment Day');
+    }
+
+    // GBP conversion for UK
+    let usdText = usdMin === 0 ? (lang==='th'?'ไม่มีทุนกีฬา':'No athletic scholarship') : `$${usdMin.toLocaleString()} – $${usdMax.toLocaleString()}`;
+    let thbText = usdMin === 0 ? '-' : `฿${(usdMin*usdRate).toLocaleString()} – ฿${(usdMax*usdRate).toLocaleString()}`;
+
+    document.getElementById('res-division').textContent = division;
+    document.getElementById('res-division-sub').textContent = divSub;
+    document.getElementById('res-usd').textContent = usdText;
+    document.getElementById('res-thb').textContent = thbText;
+    document.getElementById('res-level').textContent = level;
+    document.getElementById('res-window').textContent = window_;
+
+    const improveEl = document.getElementById('improve-items');
+    improveEl.innerHTML = '';
+    improvements.forEach(i => { const d = document.createElement('div'); d.className = 'improve-item'; d.textContent = i; improveEl.appendChild(d); });
+
+    lastResult = { hcp, age, gender, country, division, usdText, thbText };
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function sendToLine() {
+    const lang = html.getAttribute('lang');
+    const g = lastResult.gender === 'male' ? (lang==='th'?'ชาย':'Male') : (lang==='th'?'หญิง':'Female');
+    const c = lastResult.country === 'us' ? 'US NCAA' : lastResult.country === 'uk' ? 'UK Boarding' : 'US+UK';
+    const msg = lang === 'th'
+      ? `สนใจทุนกอล์ฟ — ข้อมูลจากเครื่องมือ LINKEDU\n\nแฮนดิแคป: ${lastResult.hcp}\nอายุ: ${lastResult.age} ปี\nเพศ: ${g}\nประเทศเป้าหมาย: ${c}\nระดับที่เหมาะสม: ${lastResult.division}\nมูลค่าทุนโดยประมาณ: ${lastResult.usdText}/ปี\n\nขอปรึกษาเพิ่มเติม`
+      : `Golf Scholarship Interest — LINKEDU Tool Result\n\nHandicap: ${lastResult.hcp}\nAge: ${lastResult.age}\nGender: ${g}\nTarget: ${c}\nRealistic Level: ${lastResult.division}\nEst. Scholarship: ${lastResult.usdText}/yr\n\nRequest free consultation`;
+    window.open('https://line.me/R/oaMessage/@linkedu.th/?text=' + encodeURIComponent(msg), '_blank');
+  }
+</script>
+</body>
+</html>

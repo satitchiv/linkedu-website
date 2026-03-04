@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วางแผนทัวร์นาเมนต์จูเนียร์ไทย | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:80px 40px 100px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; color:var(--cream); margin-bottom:14px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1rem; color:var(--cream); opacity:0.75; max-width:600px; margin:0 auto; line-height:1.7; }
+    .note-banner { background:#4a3a00; border:1px solid var(--gold); border-radius:6px; padding:14px 20px; text-align:center; font-size:13px; color:var(--cream); opacity:0.9; max-width:900px; margin:0 auto; }
+    .note-banner span { color:var(--gold); font-weight:600; }
+    .tool-section { max-width:900px; margin:0 auto; padding:60px 40px; }
+    .form-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .form-row { margin-bottom:22px; }
+    label { display:block; font-size:13px; font-weight:600; color:var(--dark); margin-bottom:8px; }
+    select, input[type="number"] { width:100%; padding:11px 14px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); background:var(--cream); transition:border 0.3s; }
+    select:focus, input:focus { outline:none; border-color:var(--gold); }
+    .btn-primary { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; width:100%; margin-top:8px; }
+    .btn-primary:hover { opacity:0.88; }
+    .results { display:none; margin-top:40px; }
+    .results.visible { display:block; }
+    .results-header { background:var(--dark); padding:24px 32px; border-radius:8px 8px 0 0; }
+    .results-header h3 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:400; color:var(--cream); }
+    .results-header p { font-size:13px; color:var(--cream); opacity:0.6; margin-top:6px; }
+    .category-block { background:white; border:1px solid rgba(0,0,0,0.08); border-top:none; }
+    .category-block:last-of-type { border-radius:0 0 8px 8px; }
+    .cat-header { background:#f8f4ec; border-left:4px solid var(--gold); padding:14px 28px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #ede8dd; }
+    .cat-label { font-size:11px; font-weight:700; letter-spacing:0.12em; color:var(--gold); text-transform:uppercase; }
+    .cat-priority { font-size:11px; font-weight:600; padding:3px 8px; border-radius:10px; }
+    .priority-must { background:#e8f4e8; color:#2d7a2d; }
+    .priority-strong { background:#fff0e0; color:#8a4a00; }
+    .priority-good { background:#f0e8f8; color:#5c2d8a; }
+    .tournament-row { padding:18px 28px; border-bottom:1px solid #f0ebe0; display:grid; grid-template-columns:1fr 2fr 1fr 1fr; gap:16px; align-items:start; }
+    .tournament-row:last-child { border-bottom:none; }
+    .t-name { font-weight:600; font-size:14px; color:var(--dark); line-height:1.4; }
+    .t-org { font-size:12px; color:#888; margin-top:2px; }
+    .t-desc { font-size:13px; color:#555; line-height:1.5; }
+    .t-when { font-size:13px; color:var(--dark); }
+    .t-when .month { color:var(--gold); font-weight:600; }
+    .t-wagr { display:inline-block; font-size:11px; font-weight:600; padding:3px 8px; border-radius:3px; }
+    .wagr-yes { background:#e8f0fe; color:#1a56db; }
+    .wagr-no { background:#f3f4f6; color:#888; }
+    .t-register { font-size:12px; }
+    .t-register a { color:var(--gold); text-decoration:none; font-weight:600; }
+    .t-register a:hover { text-decoration:underline; }
+    .csv-note { background:#fff9e8; border:1px solid #f0d88a; border-radius:6px; padding:16px 20px; margin-top:20px; font-size:13px; color:#7a5c00; }
+    .csv-note strong { color:var(--gold); }
+    .line-result { margin-top:24px; padding:24px; background:var(--dark); border-radius:8px; text-align:center; }
+    .line-result p { color:var(--cream); opacity:0.8; font-size:14px; margin-bottom:16px; }
+    .btn-line { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:800px) { .tournament-row { grid-template-columns:1fr 1fr; row-gap:8px; } .hero h1 { font-size:2rem; } .tool-section, .hero { padding:60px 20px; } header { padding:0 20px; } .form-card { padding:24px; } }
+    @media (max-width:500px) { .tournament-row { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;flex-direction:column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 08 ·</div>
+  <div class="section-label lang-en">· TOOL 08 ·</div>
+  <h1 class="lang-th">วางแผนทัวร์นาเมนต์<br><span>จูเนียร์ไทย</span></h1>
+  <h1 class="lang-en">Junior Golf Tournament<br><span>Planner for Thailand</span></h1>
+  <p class="lang-th">รับคำแนะนำทัวร์นาเมนต์ในไทยและเอเชียที่ควรเล่นปีนี้ ตามอายุ แฮนดิแคป และเป้าหมายของลูก</p>
+  <p class="lang-en">Get recommended tournaments in Thailand and Asia to play this year, matched to your child's age, handicap, and target level.</p>
+  <br>
+  <div class="note-banner lang-th"><span>หมายเหตุ:</span> วันที่และลิงก์ลงทะเบียนเป็นข้อมูลโครงสร้างปี 2025 — Satit จะอัปเดตวันที่จริงและลิงก์ลงทะเบียนในรอบถัดไป</div>
+  <div class="note-banner lang-en"><span>Note:</span> Dates and registration links are 2025 reference structure — Satit will update actual dates and registration links in the next update.</div>
+</section>
+
+<section class="tool-section">
+  <div class="form-card">
+    <div class="section-label lang-th" style="justify-content:flex-start;margin-bottom:32px;">· กรอกข้อมูล ·</div>
+    <div class="section-label lang-en" style="justify-content:flex-start;margin-bottom:32px;">· ENTER DETAILS ·</div>
+
+    <div class="form-row">
+      <label><span class="lang-th">อายุของลูก</span><span class="lang-en">Child's Age</span></label>
+      <select id="age">
+        <option value="">--</option>
+        <option value="12">12 ปี / 12 years old</option>
+        <option value="13">13 ปี / 13 years old</option>
+        <option value="14">14 ปี / 14 years old</option>
+        <option value="15">15 ปี / 15 years old</option>
+        <option value="16">16 ปี / 16 years old</option>
+        <option value="17">17 ปี / 17 years old</option>
+        <option value="18">18 ปี / 18 years old</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">แฮนดิแคปปัจจุบัน (0–36)</span><span class="lang-en">Current Handicap (0–36)</span></label>
+      <input type="number" id="hcp" min="0" max="36" step="0.1" placeholder="e.g. 10">
+    </div>
+
+    <div class="form-row">
+      <label><span class="lang-th">ระดับเป้าหมาย</span><span class="lang-en">Target Level</span></label>
+      <select id="target">
+        <option value="">--</option>
+        <option value="d1">NCAA Division I (US)</option>
+        <option value="d2">NCAA Division II (US)</option>
+        <option value="uk">UK Golf Boarding School</option>
+        <option value="national">Thailand National Level</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" onclick="planTournaments()">
+      <span class="lang-th">สร้างแผนทัวร์นาเมนต์</span>
+      <span class="lang-en">Generate Tournament Plan</span>
+    </button>
+
+    <div class="results" id="results">
+      <div class="results-header">
+        <h3 id="plan-title">—</h3>
+        <p id="plan-subtitle">—</p>
+      </div>
+      <div id="tournament-categories"></div>
+
+      <div class="csv-note">
+        <strong class="lang-th">หมายเหตุสำคัญ:</strong>
+        <strong class="lang-en">Important Note:</strong>
+        <span class="lang-th"> วันที่และค่าสมัครจะถูกอัปเดตเมื่อ Satit อัปโหลดข้อมูลจริง กรุณาตรวจสอบเว็บไซต์ทางการของแต่ละรายการก่อนลงทะเบียน</span>
+        <span class="lang-en"> Dates and entry fees will be updated when Satit uploads verified data. Always confirm with the official tournament website before registering.</span>
+      </div>
+
+      <div class="line-result">
+        <p class="lang-th">ส่งแผนทัวร์นาเมนต์นี้ไปหา LINKEDU เพื่อปรึกษาฟรี</p>
+        <p class="lang-en">Send this tournament plan to LINKEDU for a free consultation</p>
+        <button class="btn-line" onclick="sendToLine()">
+          <span class="lang-th">ส่งแผนทาง LINE</span>
+          <span class="lang-en">Send Plan via LINE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</h2>
+  <h2 class="lang-en">Free Expert Consultation</h2>
+  <p class="lang-th">LINKEDU ช่วยวางแผนแคลเลนเดอร์การแข่งขันและทิศทางพัฒนาเด็กทั้งปี</p>
+  <p class="lang-en">LINKEDU helps plan the full competition calendar and year-round development direction.</p>
+  <span class="line-handle">LINE: @linkedu.th</span><br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก</a> · ข้อมูลทัวร์นาเมนต์อ้างอิงปี 2025 — อัปเดตได้ด้วย CSV</p>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); });
+
+  // Tournament data — structure ready for CSV replacement
+  const TOURNAMENTS = [
+    {
+      category_th: 'ระดับ WAGR — รายการสำคัญสูงสุด',
+      category_en: 'WAGR-Ranked — Highest Priority Events',
+      priority: 'must',
+      minHcp: 0, maxHcp: 8,
+      minAge: 14, maxAge: 19,
+      targets: ['d1', 'd2'],
+      items: [
+        { name_th:'Asia-Pacific Amateur Championship', name_en:'Asia-Pacific Amateur Championship', org:'R&A / Asia Pacific Golf Confederation', month:'ตุลาคม / October', wagr:true, desc_th:'รายการสำคัญที่สุดในภูมิภาค ผู้ชนะไปออกัสตา Masters', desc_en:'Most prestigious amateur event in the region. Winner earns Masters invitation.', reg_url:'https://www.asiapacificgolf.org', reg_label:'asiapacificgolf.org' },
+        { name_th:'Thailand Junior Open Championship', name_en:'Thailand Junior Open Championship', org:'Thailand Golf Association (TGA)', month:'มีนาคม / March', wagr:true, desc_th:'รายการ WAGR จัดโดย TGA ต้องลงทุกปี', desc_en:'TGA-sanctioned WAGR event. Must enter every year.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'Toyota Junior Golf World Cup (TGA Qualifier)', name_en:'Toyota Junior Golf World Cup Qualifier', org:'Thailand Golf Association / Toyota', month:'พฤษภาคม / May', wagr:false, desc_th:'ผ่านรอบนี้ไปแข่งระดับโลก — prestigious invitation event', desc_en:'Advance from this to compete at world level — prestigious invitation event.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'JAT Tour (Junior Asian Tour)', name_en:'JAT Tour (Junior Asian Tour)', org:'Junior Asian Tour', month:'ตลอดปี / Year-round', wagr:true, desc_th:'ซีรีส์ทัวร์นาเมนต์ WAGR ทั่วเอเชีย — ลงให้มากที่สุด', desc_en:'WAGR-ranked tournament series across Asia — enter as many as possible.', reg_url:'https://www.juniorasiantour.com', reg_label:'juniorasiantour.com' },
+      ]
+    },
+    {
+      category_th: 'ระดับชาติไทย — รายการบังคับ',
+      category_en: 'Thailand National Circuit — Mandatory Events',
+      priority: 'strong',
+      minHcp: 0, maxHcp: 18,
+      minAge: 12, maxAge: 19,
+      targets: ['d1', 'd2', 'uk', 'national'],
+      items: [
+        { name_th:'Thailand Junior Golf Tour (TGA National Circuit)', name_en:'Thailand Junior Golf Tour', org:'Thailand Golf Association (TGA)', month:'ตลอดปี / Year-round', wagr:false, desc_th:'วงจรจูเนียร์ประจำชาติ — ต้องลงทุกรายการที่ทำได้', desc_en:'National junior circuit — enter every available round.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'TGA National Junior Championship', name_en:'TGA National Junior Championship', org:'Thailand Golf Association (TGA)', month:'กรกฎาคม / July', wagr:false, desc_th:'แชมเปี้ยนชิพระดับชาติ — ผลลัพธ์สำคัญสำหรับการ recruit', desc_en:'National championship — result is critical for recruitment files.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'Singha Junior Golf Championship', name_en:'Singha Junior Golf Championship', org:'Singha / TGA', month:'กุมภาพันธ์ / February', wagr:false, desc_th:'รายการสำคัญที่มีนักกอล์ฟชั้นนำไทยลงแข่ง', desc_en:'Major event featuring Thailand\'s top junior golfers.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'SCG Junior Golf Championship', name_en:'SCG Junior Golf Championship', org:'SCG / TGA', month:'พฤศจิกายน / November', wagr:false, desc_th:'ปลายปี — สร้าง momentum ก่อนสิ้นปี', desc_en:'Year-end event — build momentum heading into the new year.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'King\'s Cup Junior Golf', name_en:'King\'s Cup Junior Golf', org:'Royal Thai Golf Association', month:'ธันวาคม / December', wagr:false, desc_th:'รายการเกียรติยศ — เหมาะสำหรับสร้างโปรไฟล์', desc_en:'Prestigious royal patronage event — excellent for profile building.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+      ]
+    },
+    {
+      category_th: 'ระดับเอเชีย — ขยายโปรไฟล์นอกไทย',
+      category_en: 'Asia-Wide Events — Expand Beyond Thailand',
+      priority: 'good',
+      minHcp: 0, maxHcp: 12,
+      minAge: 13, maxAge: 19,
+      targets: ['d1', 'd2', 'uk'],
+      items: [
+        { name_th:'Asia Pacific Junior Golf Championship', name_en:'Asia Pacific Junior Golf Championship', org:'Asia Pacific Golf Confederation (APGC)', month:'สิงหาคม / August', wagr:true, desc_th:'ระดับเอเชียแปซิฟิก — ต้องผ่าน TGA qualifier ก่อน', desc_en:'Asia-Pacific level — must qualify through TGA first.', reg_url:'https://www.asiapacificgolf.org', reg_label:'asiapacificgolf.org' },
+        { name_th:'HSBC Junior Golf Championship (Thailand)', name_en:'HSBC Junior Golf Championship Thailand', org:'HSBC / TGA', month:'มิถุนายน / June', wagr:false, desc_th:'รายการระดับนานาชาติที่จัดในไทย — สร้างความน่าเชื่อถือ', desc_en:'International-level event hosted in Thailand — builds credibility.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'IMG Academy Junior World Qualifier (Asia)', name_en:'IMG Academy Junior World Qualifier Asia', org:'IMG Academy / Golf Channel', month:'เมษายน / April', wagr:false, desc_th:'ผ่านรอบนี้ไปแข่งใน IMG Junior World ที่สหรัฐฯ — โค้ช NCAA เห็น', desc_en:'Qualify for IMG Junior World in the US — directly watched by NCAA coaches.', reg_url:'https://www.imgacademy.com/junior-world-golf', reg_label:'imgacademy.com' },
+        { name_th:'AJGA International Junior Qualifier', name_en:'AJGA International Junior Qualifier', org:'American Junior Golf Association (AJGA)', month:'มีนาคม–กันยายน / Mar–Sep', wagr:true, desc_th:'เส้นทางตรงสู่สายตาโค้ช NCAA สหรัฐฯ — สำคัญมากสำหรับ D1', desc_en:'Direct pathway into the view of US NCAA coaches — highly important for D1.', reg_url:'https://www.ajga.org', reg_label:'ajga.org' },
+      ]
+    },
+    {
+      category_th: 'รายการในประเทศ — สร้างประสบการณ์',
+      category_en: 'Domestic Development Events — Build Experience',
+      priority: 'good',
+      minHcp: 5, maxHcp: 36,
+      minAge: 12, maxAge: 19,
+      targets: ['d1', 'd2', 'uk', 'national'],
+      items: [
+        { name_th:'Provincial Junior Golf Championships', name_en:'Provincial Junior Golf Championships', org:'TGA Regional Associations', month:'ทุกเดือน / Monthly', wagr:false, desc_th:'รายการระดับจังหวัด — สร้าง competitive experience ก่อนระดับชาติ', desc_en:'Province-level events — build competitive experience before national level.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+        { name_th:'Club Junior Golf Competitions', name_en:'Club Junior Golf Competitions', org:'Various Golf Clubs (TGA Member)', month:'ทุกเดือน / Monthly', wagr:false, desc_th:'รายการของสนามสมาชิก TGA — สร้างประสบการณ์ประจำสัปดาห์', desc_en:'TGA member club events — build weekly competitive experience.', reg_url:'https://www.thailandgolf.org', reg_label:'thailandgolf.org' },
+      ]
+    }
+  ];
+
+  let lastPlanSummary = '';
+
+  function planTournaments() {
+    const age = parseInt(document.getElementById('age').value);
+    const hcp = parseFloat(document.getElementById('hcp').value);
+    const target = document.getElementById('target').value;
+    const lang = html.getAttribute('lang');
+
+    if (!age || isNaN(hcp) || !target) { alert(lang==='th'?'กรุณากรอกข้อมูลให้ครบถ้วน':'Please fill in all fields.'); return; }
+
+    const targetLabels = { d1:'NCAA D1', d2:'NCAA D2', uk:'UK Boarding School', national:'Thailand National' };
+    document.getElementById('plan-title').textContent = lang==='th'
+      ? `แผนทัวร์นาเมนต์สำหรับ: อายุ ${age} ปี | HCP ${hcp} | เป้าหมาย ${targetLabels[target]}`
+      : `Tournament Plan: Age ${age} | HCP ${hcp} | Target ${targetLabels[target]}`;
+    document.getElementById('plan-subtitle').textContent = lang==='th'
+      ? `รายการที่แนะนำสำหรับปี 2025–2026 — เรียงตามความสำคัญ`
+      : `Recommended events for 2025–2026 — ordered by priority`;
+
+    const container = document.getElementById('tournament-categories');
+    container.innerHTML = '';
+
+    const priorityLabel = { must: {th:'บังคับ', en:'Must Enter'}, strong: {th:'สำคัญมาก', en:'Highly Recommended'}, good: {th:'แนะนำ', en:'Recommended'} };
+    const priorityClass = { must:'priority-must', strong:'priority-strong', good:'priority-good' };
+
+    let totalRec = 0;
+    TOURNAMENTS.forEach(cat => {
+      if (!cat.targets.includes(target)) return;
+      if (hcp < cat.minHcp || hcp > cat.maxHcp) return;
+      if (age < cat.minAge || age > cat.maxAge) return;
+
+      const relevantItems = cat.items;
+      if (relevantItems.length === 0) return;
+      totalRec += relevantItems.length;
+
+      const block = document.createElement('div');
+      block.className = 'category-block';
+      const ph = document.createElement('div');
+      ph.className = 'cat-header';
+      ph.innerHTML = `<span class="cat-label">${lang==='th'?cat.category_th:cat.category_en}</span><span class="cat-priority ${priorityClass[cat.priority]}">${lang==='th'?priorityLabel[cat.priority].th:priorityLabel[cat.priority].en}</span>`;
+      block.appendChild(ph);
+
+      relevantItems.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'tournament-row';
+        const wagrBadge = t.wagr
+          ? `<span class="t-wagr wagr-yes">WAGR ✓</span>`
+          : `<span class="t-wagr wagr-no">Non-WAGR</span>`;
+        row.innerHTML = `
+          <div>
+            <div class="t-name">${lang==='th'?t.name_th:t.name_en}</div>
+            <div class="t-org">${t.org}</div>
+            ${wagrBadge}
+          </div>
+          <div class="t-desc">${lang==='th'?t.desc_th:t.desc_en}</div>
+          <div class="t-when"><span class="month">${t.month}</span></div>
+          <div class="t-register">
+            <a href="${t.reg_url}" target="_blank" rel="noopener">${t.reg_label} →</a>
+          </div>`;
+        block.appendChild(row);
+      });
+
+      container.appendChild(block);
+    });
+
+    if (totalRec === 0) {
+      container.innerHTML = `<div style="padding:40px;text-align:center;color:#888;">${lang==='th'?'ไม่พบรายการที่เหมาะสม — ลองปรับแฮนดิแคปหรืออายุ':'No matching events found — try adjusting handicap or age'}</div>`;
+    }
+
+    lastPlanSummary = lang==='th'
+      ? `แผนทัวร์นาเมนต์กอล์ฟจูเนียร์ — LINKEDU\n\nอายุ: ${age} ปี | แฮนดิแคป: ${hcp} | เป้าหมาย: ${targetLabels[target]}\nพบ ${totalRec} รายการที่แนะนำ\n\nขอคำแนะนำเพิ่มเติม`
+      : `Junior Golf Tournament Plan — LINKEDU\n\nAge: ${age} | Handicap: ${hcp} | Target: ${targetLabels[target]}\n${totalRec} recommended events found\n\nRequest additional guidance`;
+
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function sendToLine() {
+    window.open('https://line.me/R/oaMessage/@linkedu.th/?text=' + encodeURIComponent(lastPlanSummary), '_blank');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Coach Email Generator | LinkedU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #222;
+    --surface2: #252525;
+    --cream: #f5f0e8;
+    --gold: #B8962E;
+    --gold-dark: #9a7a24;
+    --muted: rgba(245,240,232,0.5);
+    --border: rgba(184,150,46,0.15);
+    --radius: 8px;
+  }
+
+  html[lang="en"] .lang-th { display: none !important; }
+  html[lang="th"] .lang-en { display: none !important; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a1a;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .wordmark { display: flex; flex-direction: column; gap: 2px; }
+  .wordmark-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .wordmark-tag { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn {
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+  }
+  .lang-btn.active { background: var(--gold); color: #1a1a1a; }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.1); }
+
+  /* MAIN */
+  main { flex: 1; padding: 48px 32px 64px; max-width: 960px; margin: 0 auto; width: 100%; }
+
+  /* HERO */
+  .hero { text-align: center; margin-bottom: 48px; }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle { color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto; }
+
+  /* TYPE SELECTOR */
+  .type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .type-card {
+    background: var(--surface);
+    border: 2px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+  }
+  .type-card:hover { border-color: rgba(184,150,46,0.4); }
+  .type-card.selected { border-color: var(--gold); background: rgba(184,150,46,0.07); }
+  .type-card .tc-icon { font-size: 36px; margin-bottom: 12px; }
+  .type-card .tc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .type-card.selected .tc-title { color: var(--gold); }
+  .type-card .tc-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .type-card .tc-badge {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(184,150,46,0.3);
+    color: var(--muted);
+  }
+  .type-card.selected .tc-badge { background: var(--gold); color: #1a1a1a; border-color: var(--gold); }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  /* FORM */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.05em; }
+  input[type="text"],
+  input[type="number"],
+  input[type="url"],
+  input[type="email"],
+  select,
+  textarea {
+    background: #2a2a2a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    width: 100%;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    resize: vertical;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8962E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+  textarea { min-height: 90px; }
+  .field-optional { font-style: italic; opacity: 0.7; font-size: 11px; }
+
+  /* BUTTON */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--gold);
+    color: #1a1a1a;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* EMAIL PREVIEW */
+  #email-output-section { display: none; margin-top: 40px; }
+  #email-output-section.visible { display: block; }
+
+  .email-preview-wrap {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+  }
+  .email-chrome {
+    background: #2d2d2d;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .email-chrome .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .email-chrome .dot-r { background: #e06b6b; }
+  .email-chrome .dot-y { background: #e0c26b; }
+  .email-chrome .dot-g { background: #6be0a0; }
+  .email-chrome .email-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .email-body {
+    background: #fafaf8;
+    padding: 40px 48px;
+    color: #1a1a1a;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .email-subject-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e0d8;
+    margin-bottom: 28px;
+  }
+  .email-subject-line .sub-label {
+    font-size: 11px;
+    font-weight: 400;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  #email-subject-display {
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  #email-body-display {
+    white-space: pre-wrap;
+    font-size: 15px;
+    color: #2a2320;
+    line-height: 1.9;
+  }
+
+  /* COPY BUTTON ROW */
+  .copy-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .btn-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: #1a1a1a;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-copy:hover { background: var(--gold-dark); }
+  .copy-toast {
+    display: inline-block;
+    background: rgba(76,175,80,0.15);
+    color: #4caf50;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .copy-toast.show { opacity: 1; }
+
+  /* QUALITY SCORE */
+  .quality-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .quality-card h3 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 16px;
+  }
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .score-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 4px;
+    transition: width 0.5s;
+  }
+  .score-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    min-width: 48px;
+    text-align: right;
+  }
+  .quality-items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .quality-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: #2a2a2a;
+  }
+  .quality-item .qi-icon { font-size: 15px; flex-shrink: 0; }
+  .quality-item .qi-text { color: var(--muted); }
+  .quality-item.present .qi-text { color: var(--cream); }
+
+  /* TIPS */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .tip-card .tip-icon { font-size: 22px; margin-bottom: 10px; }
+  .tip-card .tip-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .tip-card .tip-text strong { color: var(--cream); display: block; margin-bottom: 4px; }
+
+  /* LINE CTA */
+  .line-cta {
+    background: linear-gradient(135deg, rgba(0,179,132,0.1), rgba(0,179,132,0.05));
+    border: 1px solid rgba(0,179,132,0.2);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin-top: 32px;
+  }
+  .line-cta p { color: var(--muted); margin-bottom: 8px; font-size: 14px; }
+  .line-cta a { color: #00b384; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .line-cta a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  footer .f-main { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+  footer .f-line { color: var(--gold); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  footer .f-contact { font-size: 12px; color: rgba(245,240,232,0.3); }
+
+  /* NOTICE */
+  .notice {
+    background: rgba(184,150,46,0.07);
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 640px) {
+    main { padding: 32px 16px 48px; }
+    header { padding: 0 16px; }
+    .type-selector { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .quality-items { grid-template-columns: 1fr; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .email-body { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="wordmark">
+    <div class="wordmark-name">LINKEDU</div>
+    <div class="wordmark-tag">Golf Scholarships</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <button class="lang-btn" onclick="setLang('th')" id="btn-th">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="section-label">
+      <span class="lang-en">Tool 8 of 10</span>
+      <span class="lang-th">เครื่องมือที่ 8 จาก 10</span>
+    </div>
+    <h1>
+      <span class="lang-en">Coach Email Generator</span>
+      <span class="lang-th">สร้างอีเมลถึงโค้ช</span>
+    </h1>
+    <p class="subtitle">
+      <span class="lang-en">Generate a professional outreach email that gets responses</span>
+      <span class="lang-th">สร้างอีเมลมืออาชีพที่ได้รับการตอบกลับ</span>
+    </p>
+  </div>
+
+  <!-- TYPE SELECTOR -->
+  <div class="type-selector">
+    <div class="type-card selected" id="type-us" onclick="selectType('us')">
+      <div class="tc-icon">🏫</div>
+      <div class="tc-title">
+        <span class="lang-en">US College Coach</span>
+        <span class="lang-th">โค้ชมหาวิทยาลัยสหรัฐฯ</span>
+      </div>
+      <div class="tc-desc">
+        <span class="lang-en">NCAA Division I, II, or III college golf program recruitment</span>
+        <span class="lang-th">รับสมัครเข้าโปรแกรมกอล์ฟมหาวิทยาลัย NCAA</span>
+      </div>
+      <div class="tc-badge">
+        <span class="lang-en">US NCAA</span>
+        <span class="lang-th">NCAA สหรัฐฯ</span>
+      </div>
+    </div>
+    <div class="type-card" id="type-uk" onclick="selectType('uk')">
+      <div class="tc-icon">🏰</div>
+      <div class="tc-title">
+        <span class="lang-en">UK School Golf Director</span>
+        <span class="lang-th">ผู้อำนวยการกอล์ฟโรงเรียน UK</span>
+      </div>
+      <div class="tc-desc">
+        <span class="lang-en">UK boarding school golf academy director or Director of Sport</span>
+        <span class="lang-th">สถาบันกอล์ฟโรงเรียนประจำ UK หรือผู้อำนวยการกีฬา</span>
+      </div>
+      <div class="tc-badge">
+        <span class="lang-en">UK IGSA / R&amp;A</span>
+        <span class="lang-th">UK IGSA / R&amp;A</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="lang-en">Fill in your details below — fields marked optional can be left blank.</span>
+    <span class="lang-th">กรอกข้อมูลด้านล่าง — ช่องที่ระบุว่าไม่บังคับสามารถเว้นว่างได้</span>
+  </div>
+
+  <!-- COMMON FIELDS -->
+  <div class="card">
+    <div class="card-title">
+      <span class="lang-en">About the Student</span>
+      <span class="lang-th">เกี่ยวกับนักเรียน</span>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>
+          <span class="lang-en">First Name</span>
+          <span class="lang-th">ชื่อ</span>
+        </label>
+        <input type="text" id="s-first" placeholder="e.g. Nattawut">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Last Name</span>
+          <span class="lang-th">นามสกุล</span>
+        </label>
+        <input type="text" id="s-last" placeholder="e.g. Saengkham">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Graduation Year</span>
+          <span class="lang-th">ปีที่จบการศึกษา</span>
+        </label>
+        <select id="s-grad-year">
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+          <option value="2031">2031</option>
+          <option value="2032">2032</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">WHS Handicap Index</span>
+          <span class="lang-th">แฮนดิแคปดัชนี WHS</span>
+        </label>
+        <input type="number" id="s-handicap" placeholder="e.g. 2.1" step="0.1">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">GPA (e.g. 3.8/4.0)</span>
+          <span class="lang-th">เกรดเฉลี่ย (เช่น 3.8/4.0)</span>
+        </label>
+        <input type="text" id="s-gpa" placeholder="3.8/4.0">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">TOEFL Score <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">คะแนน TOEFL <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="number" id="s-toefl" placeholder="e.g. 95">
+      </div>
+      <div class="form-group full">
+        <label>
+          <span class="lang-en">Top Tournament Result</span>
+          <span class="lang-th">ผลการแข่งขันที่ดีที่สุด</span>
+        </label>
+        <input type="text" id="s-result1" placeholder="e.g. Runner-up, Thailand Junior Open 2024">
+      </div>
+      <div class="form-group full">
+        <label>
+          <span class="lang-en">Second Tournament Result <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">ผลการแข่งขันที่ 2 <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="text" id="s-result2" placeholder="e.g. Top 10 finish, Asia-Pacific Junior 2024">
+      </div>
+      <div class="form-group full">
+        <label>
+          <span class="lang-en">Video Highlights URL <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">URL วิดีโอไฮไลท์ <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="url" id="s-video" placeholder="https://youtube.com/...">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Student Email</span>
+          <span class="lang-th">อีเมลนักเรียน</span>
+        </label>
+        <input type="email" id="s-email" placeholder="student@email.com">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Phone / WhatsApp</span>
+          <span class="lang-th">โทรศัพท์ / WhatsApp</span>
+        </label>
+        <input type="text" id="s-phone" placeholder="+66 81 234 5678">
+      </div>
+    </div>
+  </div>
+
+  <!-- US FIELDS -->
+  <div id="us-fields" class="card">
+    <div class="card-title">
+      <span class="lang-en">US University Details</span>
+      <span class="lang-th">รายละเอียดมหาวิทยาลัยสหรัฐฯ</span>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Coach Name <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">ชื่อโค้ช <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="text" id="us-coach" placeholder="e.g. Williams (uses 'Golf Coach' if blank)">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">University Name</span>
+          <span class="lang-th">ชื่อมหาวิทยาลัย</span>
+        </label>
+        <input type="text" id="us-univ" placeholder="e.g. University of Georgia">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Conference <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">คอนเฟอเรนซ์ <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="text" id="us-conf" placeholder="e.g. SEC, Big 10, ACC">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Availability for Visit</span>
+          <span class="lang-th">ความพร้อมในการเยี่ยมชม</span>
+        </label>
+        <select id="us-visit">
+          <option value="visit">I am available to visit campus</option>
+          <option value="video">I am open to a video call</option>
+          <option value="online">Online correspondence only</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>
+          <span class="lang-en">Why this university? <span class="field-optional">(2-3 sentences)</span></span>
+          <span class="lang-th">ทำไมถึงเลือกมหาวิทยาลัยนี้? <span class="field-optional">(2-3 ประโยค)</span></span>
+        </label>
+        <textarea id="us-why" placeholder="e.g. The Georgia golf program has produced PGA Tour players I deeply admire. The combination of SEC competition and the academic reputation of the university aligns perfectly with my goals of competing at the highest level while building a foundation for my future career."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- UK FIELDS -->
+  <div id="uk-fields" class="card" style="display:none">
+    <div class="card-title">
+      <span class="lang-en">UK School Details</span>
+      <span class="lang-th">รายละเอียดโรงเรียน UK</span>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>
+          <span class="lang-en">School Name</span>
+          <span class="lang-th">ชื่อโรงเรียน</span>
+        </label>
+        <input type="text" id="uk-school" placeholder="e.g. Millfield School">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Director / Contact Name <span class="field-optional">(optional)</span></span>
+          <span class="lang-th">ชื่อผู้อำนวยการ <span class="field-optional">(ไม่บังคับ)</span></span>
+        </label>
+        <input type="text" id="uk-director" placeholder="e.g. Mr. Roberts (or leave blank)">
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Entry Year</span>
+          <span class="lang-th">ชั้นปีที่เข้าเรียน</span>
+        </label>
+        <select id="uk-entry-year">
+          <option value="Year 9">Year 9</option>
+          <option value="Year 10">Year 10</option>
+          <option value="Year 12" selected>Year 12</option>
+          <option value="Year 13">Year 13</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>
+          <span class="lang-en">Entry Date</span>
+          <span class="lang-th">วันเข้าเรียน</span>
+        </label>
+        <select id="uk-entry-date">
+          <option value="September 2025">September 2025</option>
+          <option value="January 2026">January 2026</option>
+          <option value="September 2026" selected>September 2026</option>
+          <option value="January 2027">January 2027</option>
+          <option value="September 2027">September 2027</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>
+          <span class="lang-en">Scholarship Interest</span>
+          <span class="lang-th">ความสนใจในทุนการศึกษา</span>
+        </label>
+        <select id="uk-schol">
+          <option value="yes">Yes, I am applying for a golf scholarship</option>
+          <option value="open">Yes, and I am open to discussing bursary options</option>
+          <option value="no">No, enquiring about the golf programme only</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERATE BUTTON -->
+  <button class="btn-gold" id="generate-btn" onclick="generateEmail()">
+    <span style="font-size:18px">&#9993;</span>
+    <span class="lang-en">Generate Email</span>
+    <span class="lang-th">สร้างอีเมล</span>
+  </button>
+
+  <!-- EMAIL OUTPUT -->
+  <div id="email-output-section">
+    <!-- QUALITY SCORE -->
+    <div class="quality-card">
+      <h3>
+        <span class="lang-en">Email Quality Score</span>
+        <span class="lang-th">คะแนนคุณภาพอีเมล</span>
+      </h3>
+      <div class="score-bar-wrap">
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" id="score-bar" style="width:0%"></div>
+        </div>
+        <div class="score-label" id="score-label">0%</div>
+      </div>
+      <div class="quality-items" id="quality-items"></div>
+    </div>
+
+    <!-- EMAIL PREVIEW -->
+    <div class="email-preview-wrap">
+      <div class="email-chrome">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="email-label">Email Preview</span>
+      </div>
+      <div class="email-body">
+        <div class="email-subject-line">
+          <span class="sub-label">Subject</span>
+          <span id="email-subject-display"></span>
+        </div>
+        <div id="email-body-display"></div>
+      </div>
+    </div>
+
+    <!-- COPY ROW -->
+    <div class="copy-row">
+      <button class="btn-copy" onclick="copyEmail()">
+        <span>&#128203;</span>
+        <span class="lang-en">Copy Full Email</span>
+        <span class="lang-th">คัดลอกอีเมลทั้งหมด</span>
+      </button>
+      <span class="copy-toast" id="copy-toast">
+        <span class="lang-en">Copied to clipboard!</span>
+        <span class="lang-th">คัดลอกแล้ว!</span>
+      </span>
+    </div>
+
+    <!-- TIPS -->
+    <div class="card-title" style="display:inline-block; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); border-top:1px solid var(--gold); padding-top:8px; margin-bottom:16px">
+      <span class="lang-en">3 Quick Tips for Success</span>
+      <span class="lang-th">3 เคล็ดลับสู่ความสำเร็จ</span>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">&#128197;</div>
+        <div class="tip-text">
+          <strong>
+            <span class="lang-en">Best Days to Send</span>
+            <span class="lang-th">วันที่ดีที่สุดในการส่ง</span>
+          </strong>
+          <span class="lang-en">Send Tuesday–Thursday for best open rates. Coaches receive the most mail on Mondays. Avoid Fridays and weekends.</span>
+          <span class="lang-th">ส่งวันอังคาร–พฤหัสบดีเพื่ออัตราการเปิดอ่านที่ดีที่สุด โค้ชรับอีเมลมากที่สุดในวันจันทร์ หลีกเลี่ยงวันศุกร์และสุดสัปดาห์</span>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">&#127916;</div>
+        <div class="tip-text">
+          <strong>
+            <span class="lang-en">Attach a Highlight Reel</span>
+            <span class="lang-th">แนบวิดีโอไฮไลท์</span>
+          </strong>
+          <span class="lang-en">Coaches watch highlight reels before reading emails. Keep it under 2 minutes. Show your swing, course management, and competitive moments.</span>
+          <span class="lang-th">โค้ชดูวิดีโอก่อนอ่านอีเมล ควรสั้นกว่า 2 นาที แสดงสวิง การจัดการสนาม และช่วงการแข่งขัน</span>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">&#128338;</div>
+        <div class="tip-text">
+          <strong>
+            <span class="lang-en">Follow Up After 2 Weeks</span>
+            <span class="lang-th">ติดตามหลัง 2 สัปดาห์</span>
+          </strong>
+          <span class="lang-en">If no response after 14 days, send a short, polite follow-up. One follow-up is appropriate — more than two may be counterproductive.</span>
+          <span class="lang-th">หากไม่มีการตอบกลับหลัง 14 วัน ส่งข้อความติดตามสั้นและสุภาพ การติดตามครั้งเดียวเป็นสิ่งที่เหมาะสม</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINE CTA -->
+    <div class="line-cta">
+      <p>
+        <span class="lang-en">Want LinkedU to review your email before you send it?</span>
+        <span class="lang-th">ต้องการให้ LinkedU ตรวจสอบอีเมลก่อนส่งหรือไม่?</span>
+      </p>
+      <a href="https://line.me/R/ti/p/@linkedu" target="_blank">LINE @linkedu</a>
+    </div>
+  </div>
+
+  <!-- LINE CTA (pre-generate) -->
+  <div class="line-cta" style="margin-top:32px" id="pre-cta">
+    <p>
+      <span class="lang-en">Need help writing your golf resume or scholarship application?</span>
+      <span class="lang-th">ต้องการความช่วยเหลือในการเขียนประวัติกอล์ฟหรือใบสมัครทุน?</span>
+    </p>
+    <a href="https://line.me/R/ti/p/@linkedu" target="_blank">LINE @linkedu</a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-main">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="f-line">LINE: @linkedu</div>
+  <div class="f-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+// ---- LANG ----
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  localStorage.setItem('linkedu-lang', lang);
+}
+(function(){
+  const saved = localStorage.getItem('linkedu-lang') || 'en';
+  setLang(saved);
+})();
+
+// ---- TYPE SELECTOR ----
+let currentType = 'us';
+function selectType(type) {
+  currentType = type;
+  document.getElementById('type-us').classList.toggle('selected', type === 'us');
+  document.getElementById('type-uk').classList.toggle('selected', type === 'uk');
+  document.getElementById('us-fields').style.display = type === 'us' ? 'block' : 'none';
+  document.getElementById('uk-fields').style.display = type === 'uk' ? 'block' : 'none';
+  document.getElementById('email-output-section').classList.remove('visible');
+}
+
+// ---- HELPERS ----
+function v(id) { return (document.getElementById(id) || {}).value || ''; }
+function has(id) { return v(id).trim().length > 0; }
+
+// ---- GENERATE EMAIL ----
+function generateEmail() {
+  const type = currentType;
+
+  if (type === 'us') {
+    generateUS();
+  } else {
+    generateUK();
+  }
+
+  document.getElementById('email-output-section').classList.add('visible');
+  document.getElementById('pre-cta').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('email-output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function generateUS() {
+  const firstName   = v('s-first') || 'Your Name';
+  const lastName    = v('s-last');
+  const fullName    = [firstName, lastName].filter(Boolean).join(' ');
+  const gradYear    = v('s-grad-year');
+  const handicap    = v('s-handicap');
+  const gpa         = v('s-gpa');
+  const toefl       = v('s-toefl');
+  const result1     = v('s-result1');
+  const result2     = v('s-result2');
+  const video       = v('s-video');
+  const email       = v('s-email');
+  const phone       = v('s-phone');
+
+  const coachName   = v('us-coach');
+  const univ        = v('us-univ') || '[University Name]';
+  const conf        = v('us-conf');
+  const visitOpt    = v('us-visit');
+  const why         = v('us-why');
+
+  const salutation = coachName ? `Dear Coach ${coachName},` : 'Dear Golf Coach,';
+
+  const visitSentence = visitOpt === 'visit'
+    ? `I would be delighted to arrange a campus visit at a time that suits your schedule.`
+    : visitOpt === 'video'
+    ? `I am very open to an introductory video call at your convenience.`
+    : `As I am based in Thailand, I am happy to correspond online or arrange a video call at your convenience.`;
+
+  const confLine = conf ? ` and the prestige of ${conf} competition` : '';
+
+  let gameBullets = '';
+  if (handicap) gameBullets += `\n• Current WHS Handicap Index: ${handicap}`;
+  if (result1)  gameBullets += `\n• ${result1}`;
+  if (result2)  gameBullets += `\n• ${result2}`;
+  if (video)    gameBullets += `\n• Highlights video: ${video}`;
+
+  let acaLine = `Academically, I maintain a ${gpa || '[GPA]'} GPA`;
+  if (toefl) acaLine += `, and I have achieved a TOEFL score of ${toefl}`;
+  acaLine += '.';
+
+  let whyPara = why || `The ${univ} golf program has an exceptional reputation for developing competitive players, and I believe the combination of elite coaching${confLine} would allow me to reach my full potential both on and off the course.`;
+
+  const subject = `Golf Recruiting Inquiry — ${fullName} | Class of ${gradYear}${handicap ? ' | Handicap ' + handicap : ''}`;
+
+  const body =
+`${salutation}
+
+My name is ${fullName}, a Thai junior golfer currently preparing to join the Class of ${gradYear}. I am writing to express my sincere interest in the ${univ} golf program and to introduce myself as a prospective student-athlete.
+
+About my game:${gameBullets}
+
+${acaLine}
+
+${whyPara}
+
+${visitSentence} I would welcome the opportunity to speak with you about your program and learn more about how I might contribute to the ${univ} golf team.
+
+Thank you very much for your time and consideration. I look forward to the possibility of speaking with you.
+
+Warm regards,
+${fullName}
+${email}${phone ? ' | ' + phone : ''}`;
+
+  document.getElementById('email-subject-display').textContent = subject;
+  document.getElementById('email-body-display').textContent = body;
+
+  calcQuality({
+    name: has('s-first') && has('s-last'),
+    handicap: has('s-handicap'),
+    gpa: has('s-gpa'),
+    toefl: has('s-toefl'),
+    result1: has('s-result1'),
+    result2: has('s-result2'),
+    video: has('s-video'),
+    contact: has('s-email') || has('s-phone'),
+    why: has('us-why'),
+    school: has('us-univ'),
+  });
+}
+
+function generateUK() {
+  const firstName   = v('s-first') || 'Your Name';
+  const lastName    = v('s-last');
+  const fullName    = [firstName, lastName].filter(Boolean).join(' ');
+  const gradYear    = v('s-grad-year');
+  const handicap    = v('s-handicap');
+  const gpa         = v('s-gpa');
+  const toefl       = v('s-toefl');
+  const result1     = v('s-result1');
+  const result2     = v('s-result2');
+  const video       = v('s-video');
+  const email       = v('s-email');
+  const phone       = v('s-phone');
+
+  const school      = v('uk-school') || '[School Name]';
+  const director    = v('uk-director');
+  const entryYear   = v('uk-entry-year');
+  const entryDate   = v('uk-entry-date');
+  const scholOpt    = v('uk-schol');
+
+  const salutation = director
+    ? `Dear ${director},`
+    : `Dear Director of Golf,`;
+
+  let gameBullets = '';
+  if (handicap) gameBullets += `\n• WHS Handicap Index: ${handicap}`;
+  if (result1)  gameBullets += `\n• ${result1}`;
+  if (result2)  gameBullets += `\n• ${result2}`;
+  if (video)    gameBullets += `\n• Highlight reel: ${video}`;
+
+  let acaLine = `Academically, I hold a GPA of ${gpa || '[GPA]'}`;
+  if (toefl) acaLine += ` and have achieved a TOEFL score of ${toefl}`;
+  acaLine += '.';
+
+  let scholLine = '';
+  if (scholOpt === 'yes') {
+    scholLine = `I am writing to enquire about the golf scholarship opportunities available for entry into ${entryYear} in ${entryDate}.`;
+  } else if (scholOpt === 'open') {
+    scholLine = `I am writing to enquire about golf scholarship and bursary opportunities for entry into ${entryYear} in ${entryDate}, and I am open to a full discussion of the options available.`;
+  } else {
+    scholLine = `I am writing to enquire about the Golf Academy programme for entry into ${entryYear} in ${entryDate}.`;
+  }
+
+  const subject = `Golf Academy Enquiry — ${fullName} | ${entryYear} Entry ${entryDate}${handicap ? ' | Handicap ' + handicap : ''}`;
+
+  const body =
+`${salutation}
+
+I am writing to introduce myself and to enquire about joining the Golf Academy at ${school} for ${entryYear} entry in ${entryDate}. My name is ${fullName}, and I am a Thai junior golfer with a strong commitment to both academic excellence and competitive golf.
+
+${scholLine}
+
+About my game:${gameBullets}
+
+${acaLine} I am committed to maintaining the highest academic standards whilst pursuing my golf development through the R&A and IGSA pathways.
+
+I have long admired the reputation of ${school}'s golf programme, and I believe that the combination of elite coaching, a strong academic environment, and the opportunity to compete at the highest junior level in the United Kingdom would be transformative for my development.
+
+I would be very grateful for the opportunity to speak with you further, and I would welcome any information regarding the application process, trial dates, or an introductory call.
+
+Thank you sincerely for your time and consideration.
+
+Yours faithfully,
+${fullName}
+${email}${phone ? ' | ' + phone : ''}`;
+
+  document.getElementById('email-subject-display').textContent = subject;
+  document.getElementById('email-body-display').textContent = body;
+
+  calcQuality({
+    name: has('s-first') && has('s-last'),
+    handicap: has('s-handicap'),
+    gpa: has('s-gpa'),
+    toefl: has('s-toefl'),
+    result1: has('s-result1'),
+    result2: has('s-result2'),
+    video: has('s-video'),
+    contact: has('s-email') || has('s-phone'),
+    why: true,
+    school: has('uk-school'),
+  });
+}
+
+// ---- QUALITY SCORE ----
+function calcQuality(items) {
+  const lang = document.documentElement.lang;
+  const checks = [
+    { key: 'name',      en: 'Full name included',           th: 'ระบุชื่อ-นามสกุล' },
+    { key: 'handicap',  en: 'Handicap index provided',      th: 'ระบุแฮนดิแคปดัชนี' },
+    { key: 'gpa',       en: 'Academic GPA included',        th: 'ระบุเกรดเฉลี่ย' },
+    { key: 'toefl',     en: 'TOEFL score added',            th: 'เพิ่มคะแนน TOEFL' },
+    { key: 'result1',   en: 'Tournament result provided',   th: 'ระบุผลการแข่งขัน' },
+    { key: 'result2',   en: 'Second result added',          th: 'เพิ่มผลการแข่งขันที่ 2' },
+    { key: 'video',     en: 'Video highlights linked',      th: 'เพิ่มลิงก์วิดีโอไฮไลท์' },
+    { key: 'contact',   en: 'Contact details included',     th: 'ระบุข้อมูลติดต่อ' },
+    { key: 'school',    en: 'School / university named',    th: 'ระบุชื่อโรงเรียน/มหาวิทยาลัย' },
+    { key: 'why',       en: 'Personalised reason included', th: 'เพิ่มเหตุผลส่วนตัว' },
+  ];
+
+  const present = checks.filter(c => items[c.key]).length;
+  const score = Math.round((present / checks.length) * 100);
+
+  document.getElementById('score-bar').style.width = score + '%';
+  document.getElementById('score-label').textContent = score + '%';
+
+  const container = document.getElementById('quality-items');
+  container.innerHTML = checks.map(c => {
+    const ok = items[c.key];
+    return `<div class="quality-item ${ok ? 'present' : ''}">
+      <span class="qi-icon">${ok ? '&#10003;' : '&#10007;'}</span>
+      <span class="qi-text">
+        <span class="lang-en">${c.en}</span>
+        <span class="lang-th">${c.th}</span>
+      </span>
+    </div>`;
+  }).join('');
+
+  // Re-apply lang visibility
+  const l = document.documentElement.lang;
+  document.querySelectorAll('.lang-en').forEach(el => el.style.display = l === 'en' ? '' : 'none');
+  document.querySelectorAll('.lang-th').forEach(el => el.style.display = l === 'th' ? '' : 'none');
+}
+
+// ---- COPY ----
+function copyEmail() {
+  const subject = document.getElementById('email-subject-display').textContent;
+  const body    = document.getElementById('email-body-display').textContent;
+  const full    = `Subject: ${subject}\n\n${body}`;
+  navigator.clipboard.writeText(full).then(() => {
+    const t = document.getElementById('copy-toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  });
+}
+</script>
+</body>
+</html>

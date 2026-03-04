@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สร้างบรีฟวิดีโอไฮไลท์กอล์ฟ | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:80px 40px 100px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; color:var(--cream); margin-bottom:14px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1rem; color:var(--cream); opacity:0.75; max-width:580px; margin:0 auto; line-height:1.7; }
+    .tool-section { max-width:760px; margin:0 auto; padding:80px 40px; }
+    .progress-bar { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:20px 28px; margin-bottom:28px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .progress-label { font-size:12px; color:#888; margin-bottom:8px; }
+    .progress-track { background:#eee; border-radius:4px; height:6px; overflow:hidden; }
+    .progress-fill { background:var(--gold); height:100%; border-radius:4px; transition:width 0.4s ease; }
+    .q-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .q-number { font-size:11px; font-weight:600; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; }
+    .q-text { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:400; color:var(--dark); margin-bottom:24px; line-height:1.4; }
+    .q-hint { font-size:13px; color:#888; margin-bottom:20px; line-height:1.6; font-style:italic; }
+    .options-grid { display:grid; gap:12px; }
+    .opt-btn { background:var(--cream); border:1px solid #ddd; border-radius:6px; padding:14px 20px; text-align:left; cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); transition:all 0.3s; }
+    .opt-btn:hover { border-color:var(--gold); background:#fdf8ee; }
+    .opt-btn.selected { border-color:var(--gold); background:#fdf8ee; font-weight:600; }
+    textarea { width:100%; padding:14px 16px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); background:var(--cream); min-height:100px; resize:vertical; transition:border 0.3s; }
+    textarea:focus { outline:none; border-color:var(--gold); }
+    input[type="text"] { width:100%; padding:12px 16px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); background:var(--cream); transition:border 0.3s; }
+    input[type="text"]:focus { outline:none; border-color:var(--gold); }
+    .nav-buttons { display:flex; gap:12px; margin-top:28px; }
+    .btn-next { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; flex:1; }
+    .btn-next:hover { opacity:0.88; }
+    .btn-back { background:transparent; color:var(--dark); border:1px solid #ddd; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; }
+    .btn-back:hover { border-color:var(--gold); color:var(--gold); }
+    .result-doc { display:none; background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .result-doc.visible { display:block; }
+    .doc-header { background:var(--dark); padding:32px; }
+    .doc-header h2 { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:400; color:var(--cream); }
+    .doc-header p { color:var(--cream); opacity:0.6; font-size:13px; margin-top:6px; }
+    .doc-body { padding:32px; }
+    .doc-section { margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid #f0ebe0; }
+    .doc-section:last-child { border-bottom:none; }
+    .doc-section-title { font-size:11px; font-weight:600; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; }
+    .doc-item { padding:10px 0; border-bottom:1px solid #f8f4ec; }
+    .doc-item:last-child { border-bottom:none; }
+    .doc-label { font-size:12px; color:#aaa; font-weight:500; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.04em; }
+    .doc-value { font-size:14px; color:var(--dark); font-weight:500; line-height:1.5; }
+    .shot-item { background:#f8f4ec; border-radius:6px; padding:16px 18px; margin-bottom:10px; }
+    .shot-num { font-size:11px; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px; }
+    .shot-desc { font-size:13px; color:var(--dark); line-height:1.6; }
+    .result-actions { padding:28px 32px; background:#f8f4ec; display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-line-result { background:var(--gold); color:var(--dark); border:none; padding:12px 24px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .btn-print { background:transparent; border:1px solid var(--gold); color:var(--gold); padding:12px 24px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .btn-restart { background:transparent; border:1px solid #ccc; color:#888; padding:12px 24px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:768px) { .hero h1 { font-size:2rem; } .tool-section, .hero { padding:60px 20px; } header { padding:0 20px; } .q-card { padding:24px; } .doc-body { padding:20px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;flex-direction:column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 05 ·</div>
+  <div class="section-label lang-en">· TOOL 05 ·</div>
+  <h1 class="lang-th">สร้างบรีฟ<br><span>วิดีโอไฮไลท์กอล์ฟ</span></h1>
+  <h1 class="lang-en">Golf Highlight<br><span>Video Brief Generator</span></h1>
+  <p class="lang-th">ตอบ 8 คำถาม รับบรีฟการถ่ายทำที่สมบูรณ์แบบ — โค้ช NCAA ต้องการเห็นอะไร และวิดีโอกราฟเฟอร์ต้องถ่ายอะไร</p>
+  <p class="lang-en">Answer 8 questions. Get a complete filming brief — what NCAA coaches need to see and exactly what your videographer needs to capture.</p>
+</section>
+
+<section class="tool-section">
+  <div class="progress-bar">
+    <div class="progress-label lang-th" id="prog-label">คำถามที่ 1 จาก 8</div>
+    <div class="progress-label lang-en" id="prog-label-en">Question 1 of 8</div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:12.5%"></div></div>
+  </div>
+
+  <div class="q-card" id="q-card">
+    <!-- Questions rendered by JS -->
+  </div>
+
+  <div class="result-doc" id="result-doc">
+    <div class="doc-header">
+      <h2 class="lang-th">บรีฟวิดีโอไฮไลท์กอล์ฟ</h2>
+      <h2 class="lang-en">Golf Highlight Video Brief</h2>
+      <p class="lang-th" id="doc-subtitle-th"></p>
+      <p class="lang-en" id="doc-subtitle-en"></p>
+    </div>
+    <div class="doc-body" id="doc-body"></div>
+    <div class="result-actions">
+      <button class="btn-line-result" onclick="sendToLine()">
+        <span class="lang-th">ส่งบรีฟทาง LINE</span>
+        <span class="lang-en">Send Brief via LINE</span>
+      </button>
+      <button class="btn-print" onclick="window.print()">
+        <span class="lang-th">พิมพ์ / บันทึก PDF</span>
+        <span class="lang-en">Print / Save PDF</span>
+      </button>
+      <button class="btn-restart" onclick="restart()">
+        <span class="lang-th">เริ่มใหม่</span>
+        <span class="lang-en">Start Over</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ต้องการวิดีโอกราฟเฟอร์หรือไม่?</h2>
+  <h2 class="lang-en">Need a Videographer?</h2>
+  <p class="lang-th">LINKEDU ช่วยประสานงานทีมถ่ายทำวิดีโอไฮไลท์กอล์ฟมืออาชีพ</p>
+  <p class="lang-en">LINKEDU can connect you with professional golf highlight videographers.</p>
+  <span class="line-handle">LINE: @linkedu.th</span><br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก</a></p>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); renderQuestion(); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); renderQuestion(); });
+
+  let current = 0;
+  const answers = {};
+
+  const QUESTIONS = [
+    {
+      key: 'name',
+      th: { q: 'ชื่อนักกอล์ฟ', hint: 'ชื่อ-นามสกุลเต็มที่จะปรากฏในวิดีโอ', type: 'text', placeholder: 'เช่น นาวา ศรีสุข' },
+      en: { q: "Golfer's Full Name", hint: 'Full name as it will appear in the video.', type: 'text', placeholder: 'e.g. Nava Srisuk' }
+    },
+    {
+      key: 'best_shot',
+      th: { q: 'ช็อตที่ดีที่สุดและสม่ำเสมอที่สุดของลูกคืออะไร?', hint: 'โค้ช NCAA ต้องการเห็นช็อตที่คุณทำได้ดีที่สุดในทุกสถานการณ์', type: 'options', options: ['Drive ระยะไกลและตรง', 'Iron play ความแม่นยำสูง', 'Short game — chip และ pitch', 'Putting ใต้แรงกดดัน', 'Iron approach ใกล้ flag', 'การจัดการ bunker'] },
+      en: { q: "What is your child's strongest and most consistent shot?", hint: 'NCAA coaches want to see your best shots in every situation.', type: 'options', options: ['Long and straight driving', 'Accurate iron play', 'Short game — chip and pitch', 'Putting under pressure', 'Iron approach close to flag', 'Bunker management'] }
+    },
+    {
+      key: 'style',
+      th: { q: 'สไตล์การเล่นของลูกเป็นแบบใด?', hint: 'สไตล์การเล่นที่ชัดเจนช่วยให้โค้ชจินตนาการลูกในทีมได้', type: 'options', options: ['Aggressive — เล่นบุกเสมอ', 'Conservative — จัดการความเสี่ยงดีมาก', 'Strategic — วางแผนรายหลุมอย่างละเอียด', 'Balanced — ปรับตามสถานการณ์', 'Mental — เข้มแข็งภายใต้แรงกดดัน'] },
+      en: { q: "What best describes your child's playing style?", hint: 'A clear playing style helps coaches visualize your child in their team.', type: 'options', options: ['Aggressive — always plays to attack', 'Conservative — excellent risk management', 'Strategic — meticulous hole-by-hole planning', 'Balanced — adapts to any situation', 'Mental — extremely strong under pressure'] }
+    },
+    {
+      key: 'best_score',
+      th: { q: 'ผลสกอร์ที่ดีที่สุดในการแข่งขัน และในทัวร์นาเมนต์ใด?', hint: 'เช่น -4 (68) ในรายการ Thailand Junior Open 2024', type: 'text', placeholder: 'เช่น -3 (69) ใน Thailand Junior Open 2024' },
+      en: { q: "Best competition score and which tournament?", hint: 'e.g. -4 (68) at Thailand Junior Open 2024', type: 'text', placeholder: 'e.g. -3 (69) at Thailand Junior Open 2024' }
+    },
+    {
+      key: 'course_type',
+      th: { q: 'ลูกเล่นได้ดีที่สุดในสนามประเภทใด?', hint: 'ช่วยโค้ชเข้าใจว่าลูกจะเข้ากับสนามของทีมได้ดีแค่ไหน', type: 'options', options: ['Parkland — สนามในป่า', 'Links — สนามริมทะเล', 'Desert — สนามทะเลทราย', 'เล่นได้ดีในทุกสภาพสนาม'] },
+      en: { q: "What course type does your child play best?", hint: "Helps coaches understand how well your child will fit their home course.", type: 'options', options: ['Parkland — tree-lined courses', 'Links — coastal courses', 'Desert — dry and open courses', 'Plays well on any course type'] }
+    },
+    {
+      key: 'open_shot',
+      th: { q: 'อธิบาย 1 ช็อตที่น่าจดจำที่สุดในการแข่งขัน', hint: 'ช็อตนี้จะเป็น "hero moment" ที่เปิดวิดีโอ — โค้ช NCAA จดจำมัน', type: 'textarea', placeholder: 'เช่น ตีเหล็ก 7 ระยะ 165 หลา ลงใกล้ flag 1 เมตร ในรายการ Singha Junior ปีที่แล้ว ทำให้ได้ birdie ตัดสินชนะ' },
+      en: { q: "Describe the most memorable shot in competition", hint: 'This becomes the opening "hero moment" of the video — NCAA coaches remember this.', type: 'textarea', placeholder: 'e.g. Hit 7-iron from 165 yards to within 1 metre of the flag at Singha Junior last year, making the winning birdie.' }
+    },
+    {
+      key: 'skills_highlight',
+      th: { q: 'เลือกทักษะสูงสุด 3 อย่างที่อยากให้วิดีโอเน้น', hint: 'เลือกตามความจริง ไม่ใช่สิ่งที่คิดว่าโค้ชอยากได้ยิน', type: 'options_multi', options: ['Distance off the tee', 'Shot shaping', 'Bunker shots', 'Chipping & pitching', 'Putting (lag and short)', 'Course management', 'Recovery shots', 'Iron accuracy', 'Mental composure'] },
+      en: { q: "Choose the top 3 skills to highlight in the video", hint: 'Choose based on reality — not what you think coaches want to hear.', type: 'options_multi', options: ['Distance off the tee', 'Shot shaping', 'Bunker shots', 'Chipping & pitching', 'Putting (lag and short)', 'Course management', 'Recovery shots', 'Iron accuracy', 'Mental composure'] }
+    },
+    {
+      key: 'target_school',
+      th: { q: 'มหาวิทยาลัยเป้าหมายหรือดิวิชั่นที่ต้องการ', hint: 'ช่วยให้ LINKEDU ปรับบรีฟให้ตรงกับสิ่งที่โค้ชสนใจ', type: 'text', placeholder: 'เช่น Oklahoma State, Stanford, หรือ NCAA D1 ทั่วไป' },
+      en: { q: "Target university or division", hint: 'Helps LINKEDU tailor the brief to exactly what those coaches look for.', type: 'text', placeholder: 'e.g. Oklahoma State, Stanford, or General NCAA D1' }
+    }
+  ];
+
+  let multiSelected = [];
+
+  function renderQuestion() {
+    const lang = html.getAttribute('lang');
+    const q = QUESTIONS[current];
+    const qData = lang === 'th' ? q.th : q.en;
+    const card = document.getElementById('q-card');
+    const pct = Math.round(((current + 1) / QUESTIONS.length) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = `คำถามที่ ${current+1} จาก ${QUESTIONS.length}`;
+    document.getElementById('prog-label-en').textContent = `Question ${current+1} of ${QUESTIONS.length}`;
+
+    let inputHTML = '';
+    if (qData.type === 'text') {
+      inputHTML = `<input type="text" id="q-input" placeholder="${qData.placeholder}" value="${answers[q.key]||''}">`;
+    } else if (qData.type === 'textarea') {
+      inputHTML = `<textarea id="q-input" placeholder="${qData.placeholder}">${answers[q.key]||''}</textarea>`;
+    } else if (qData.type === 'options') {
+      inputHTML = `<div class="options-grid">${qData.options.map(o => `<button class="opt-btn${answers[q.key]===o?' selected':''}" onclick="selectOpt(this,'${o.replace(/'/g,"\\'")}',false)">${o}</button>`).join('')}</div>`;
+    } else if (qData.type === 'options_multi') {
+      multiSelected = answers[q.key] || [];
+      inputHTML = `<div class="options-grid">${qData.options.map(o => `<button class="opt-btn${multiSelected.includes(o)?' selected':''}" onclick="selectOpt(this,'${o.replace(/'/g,"\\'")}',true)">${o}</button>`).join('')}</div>`;
+      inputHTML += `<p style="font-size:12px;color:#aaa;margin-top:12px;" class="lang-th">เลือกสูงสุด 3 ตัวเลือก</p><p style="font-size:12px;color:#aaa;margin-top:12px;" class="lang-en">Select up to 3 options</p>`;
+    }
+
+    card.innerHTML = `
+      <div class="q-number lang-th">คำถามที่ ${current+1} / ${QUESTIONS.length}</div>
+      <div class="q-number lang-en">Question ${current+1} / ${QUESTIONS.length}</div>
+      <div class="q-text">${qData.q}</div>
+      <div class="q-hint">${qData.hint}</div>
+      ${inputHTML}
+      <div class="nav-buttons">
+        ${current > 0 ? '<button class="btn-back" onclick="prevQ()"><span class="lang-th">← ก่อนหน้า</span><span class="lang-en">← Back</span></button>' : ''}
+        <button class="btn-next" onclick="nextQ()">
+          ${current < QUESTIONS.length-1 ? '<span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span>' : '<span class="lang-th">สร้างบรีฟ</span><span class="lang-en">Generate Brief</span>'}
+        </button>
+      </div>`;
+  }
+
+  function selectOpt(btn, val, multi) {
+    if (multi) {
+      if (btn.classList.contains('selected')) {
+        btn.classList.remove('selected');
+        multiSelected = multiSelected.filter(v => v !== val);
+      } else if (multiSelected.length < 3) {
+        btn.classList.add('selected');
+        multiSelected.push(val);
+      }
+    } else {
+      document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[QUESTIONS[current].key] = val;
+    }
+  }
+
+  function getAnswer() {
+    const q = QUESTIONS[current];
+    const qData = (html.getAttribute('lang') === 'th') ? q.th : q.en;
+    if (qData.type === 'text' || qData.type === 'textarea') {
+      const inp = document.getElementById('q-input');
+      if (inp) answers[q.key] = inp.value.trim();
+    } else if (qData.type === 'options_multi') {
+      answers[q.key] = [...multiSelected];
+    }
+    // options single already set on click
+  }
+
+  function nextQ() {
+    getAnswer();
+    const lang = html.getAttribute('lang');
+    const q = QUESTIONS[current];
+    const qData = lang === 'th' ? q.th : q.en;
+    if (!answers[q.key] || (Array.isArray(answers[q.key]) && answers[q.key].length === 0)) {
+      alert(lang==='th'?'กรุณาตอบคำถามนี้ก่อน':'Please answer this question before continuing.');
+      return;
+    }
+    if (current < QUESTIONS.length - 1) { current++; renderQuestion(); }
+    else { generateBrief(); }
+  }
+
+  function prevQ() { getAnswer(); if (current > 0) { current--; renderQuestion(); } }
+
+  function generateBrief() {
+    const lang = html.getAttribute('lang');
+    const name = answers['name'] || (lang==='th'?'นักกอล์ฟ':'Golfer');
+    const skills = Array.isArray(answers['skills_highlight']) ? answers['skills_highlight'].join(', ') : answers['skills_highlight'];
+
+    document.getElementById('doc-subtitle-th').textContent = `จัดทำสำหรับ: ${name} · สร้างโดย LINKEDU Golf Tools`;
+    document.getElementById('doc-subtitle-en').textContent = `Prepared for: ${name} · Generated by LINKEDU Golf Tools`;
+
+    const body = document.getElementById('doc-body');
+    if (lang === 'th') {
+      body.innerHTML = `
+        <div class="doc-section">
+          <div class="doc-section-title">ข้อมูลนักกีฬา</div>
+          <div class="doc-item"><div class="doc-label">ชื่อนักกีฬา</div><div class="doc-value">${answers['name']}</div></div>
+          <div class="doc-item"><div class="doc-label">สกอร์ที่ดีที่สุด</div><div class="doc-value">${answers['best_score']}</div></div>
+          <div class="doc-item"><div class="doc-label">มหาวิทยาลัยเป้าหมาย</div><div class="doc-value">${answers['target_school']}</div></div>
+          <div class="doc-item"><div class="doc-label">สไตล์การเล่น</div><div class="doc-value">${answers['style']}</div></div>
+          <div class="doc-item"><div class="doc-label">ประเภทสนามที่เหมาะที่สุด</div><div class="doc-value">${answers['course_type']}</div></div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-section-title">โครงสร้างวิดีโอ — เรียงตามลำดับ</div>
+          <div class="shot-item"><div class="shot-num">ช็อตที่ 1 (เปิดวิดีโอ — 0:00–0:30)</div><div class="shot-desc">HERO MOMENT: ${answers['open_shot']}<br>ถ่าย: มุมกว้างจากด้านหลัง + slow motion replay + facial reaction หลังช็อต</div></div>
+          <div class="shot-item"><div class="shot-num">ช็อตที่ 2–4 (0:30–1:30) — ช็อตหลัก</div><div class="shot-desc">เน้น: ${answers['best_shot']}<br>ถ่าย 3–4 ช็อตจากมุมที่แตกต่าง: ด้านหน้า, ด้านหลัง, ด้านข้าง<br>ต้องเห็น: setup, takeaway, impact, follow-through</div></div>
+          <div class="shot-item"><div class="shot-num">ช็อตที่ 5–8 (1:30–3:00) — ทักษะรอบด้าน</div><div class="shot-desc">ทักษะที่ต้องเห็น: ${skills}<br>ถ่ายในสภาพการแข่งขันจริง — ไม่ใช่การซ้อม<br>รวม: 2–3 putts, 1–2 bunker shots, recovery shot</div></div>
+          <div class="shot-item"><div class="shot-num">ช็อตสุดท้าย (3:00–4:00) — การจัดการสนาม</div><div class="shot-desc">ถ่าย: กระบวนการวางแผนก่อนตี — มอง flag, คุยกับ caddie, อ่านลม<br>โค้ช NCAA ให้ความสำคัญกับ course management มากกว่าที่คิด</div></div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-section-title">คำแนะนำสำหรับวิดีโอกราฟเฟอร์</div>
+          <div class="doc-item"><div class="doc-label">ความยาววิดีโอ</div><div class="doc-value">3–5 นาที (ไม่เกิน 5 นาที)</div></div>
+          <div class="doc-item"><div class="doc-label">รูปแบบ</div><div class="doc-value">HD 1080p ขั้นต่ำ, 4K ดีที่สุด</div></div>
+          <div class="doc-item"><div class="doc-label">เสียง</div><div class="doc-value">เพลงบรรยากาศเบาๆ — ไม่เสียงดัง ไม่มี beat drop</div></div>
+          <div class="doc-item"><div class="doc-label">สถานที่ถ่ายทำ</div><div class="doc-value">สนามจริงที่ใช้แข่งขัน — ไม่ใช่ driving range</div></div>
+          <div class="doc-item"><div class="doc-label">ชุด</div><div class="doc-value">ชุดกอล์ฟสะอาด ไม่มีโลโก้โรงเรียน — เหมือนนักกีฬามืออาชีพ</div></div>
+          <div class="doc-item"><div class="doc-label">Overlay ที่ต้องใส่</div><div class="doc-value">ชื่อ, อายุ, แฮนดิแคป, มหาวิทยาลัยเป้าหมาย — ที่ต้นวิดีโอ</div></div>
+          <div class="doc-item"><div class="doc-label">สิ่งที่ต้องหลีกเลี่ยง</div><div class="doc-value">ช็อตที่ตีผิด, misses, วิดีโอที่ดูเป็นการซ้อม</div></div>
+        </div>`;
+    } else {
+      body.innerHTML = `
+        <div class="doc-section">
+          <div class="doc-section-title">Athlete Profile</div>
+          <div class="doc-item"><div class="doc-label">Athlete Name</div><div class="doc-value">${answers['name']}</div></div>
+          <div class="doc-item"><div class="doc-label">Best Competition Score</div><div class="doc-value">${answers['best_score']}</div></div>
+          <div class="doc-item"><div class="doc-label">Target University</div><div class="doc-value">${answers['target_school']}</div></div>
+          <div class="doc-item"><div class="doc-label">Playing Style</div><div class="doc-value">${answers['style']}</div></div>
+          <div class="doc-item"><div class="doc-label">Best Course Type</div><div class="doc-value">${answers['course_type']}</div></div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-section-title">Video Structure — Shot by Shot</div>
+          <div class="shot-item"><div class="shot-num">Shot 1 — Opening Hero Moment (0:00–0:30)</div><div class="shot-desc">HERO SHOT: ${answers['open_shot']}<br>Film: wide angle from behind + slow motion replay + facial reaction after the shot</div></div>
+          <div class="shot-item"><div class="shot-num">Shots 2–4 — Core Strength (0:30–1:30)</div><div class="shot-desc">Showcase: ${answers['best_shot']}<br>Film 3–4 shots from different angles: front, behind, side-on<br>Must show: setup, takeaway, impact zone, full follow-through</div></div>
+          <div class="shot-item"><div class="shot-num">Shots 5–8 — All-Round Skills (1:30–3:00)</div><div class="shot-desc">Skills to feature: ${skills}<br>Film in real competition conditions — not practice<br>Include: 2–3 putts, 1–2 bunker shots, at least one recovery shot</div></div>
+          <div class="shot-item"><div class="shot-num">Final Shot — Course Management (3:00–4:00)</div><div class="shot-desc">Film: the pre-shot planning process — reading the flag, discussion with caddie, checking wind<br>NCAA coaches value course management more than most families realise</div></div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-section-title">Instructions for Videographer</div>
+          <div class="doc-item"><div class="doc-label">Target Length</div><div class="doc-value">3–5 minutes (maximum 5 minutes)</div></div>
+          <div class="doc-item"><div class="doc-label">Format</div><div class="doc-value">Minimum HD 1080p, 4K preferred</div></div>
+          <div class="doc-item"><div class="doc-label">Audio</div><div class="doc-value">Subtle background music only — no loud beats or drops</div></div>
+          <div class="doc-item"><div class="doc-label">Location</div><div class="doc-value">Real competition course — never a driving range</div></div>
+          <div class="doc-item"><div class="doc-label">Clothing</div><div class="doc-value">Clean golf attire, no school logo — professional athlete appearance</div></div>
+          <div class="doc-item"><div class="doc-label">Required Overlay</div><div class="doc-value">Name, age, handicap, target university — at the start of video</div></div>
+          <div class="doc-item"><div class="doc-label">What to Avoid</div><div class="doc-value">Missed shots, poor strikes, anything that looks like a practice session</div></div>
+        </div>`;
+    }
+
+    document.getElementById('q-card').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('result-doc').classList.add('visible');
+    document.getElementById('result-doc').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function sendToLine() {
+    const lang = html.getAttribute('lang');
+    const skills = Array.isArray(answers['skills_highlight']) ? answers['skills_highlight'].join(', ') : answers['skills_highlight'];
+    const msg = lang==='th'
+      ? `บรีฟวิดีโอไฮไลท์กอล์ฟ — LINKEDU\n\nนักกีฬา: ${answers['name']}\nสกอร์ดีสุด: ${answers['best_score']}\nเป้าหมาย: ${answers['target_school']}\nสไตล์: ${answers['style']}\nทักษะเด่น: ${skills}\n\nขอปรึกษาเพิ่มเติม`
+      : `Golf Highlight Video Brief — LINKEDU\n\nAthlete: ${answers['name']}\nBest Score: ${answers['best_score']}\nTarget: ${answers['target_school']}\nStyle: ${answers['style']}\nKey Skills: ${skills}\n\nRequest free consultation`;
+    window.open('https://line.me/R/oaMessage/@linkedu.th/?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  function restart() { current = 0; Object.keys(answers).forEach(k => delete answers[k]); multiSelected = []; document.getElementById('q-card').style.display = 'block'; document.querySelector('.progress-bar').style.display = 'block'; document.getElementById('result-doc').classList.remove('visible'); renderQuestion(); }
+
+  renderQuestion();
+</script>
+</body>
+</html>

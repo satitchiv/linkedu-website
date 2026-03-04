@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ค้นหาโปรแกรมกอล์ฟมหาวิทยาลัย US | LINKEDU Golf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#1a1a1a; --cream:#f5f0e8; --gold:#B8962E; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    html[lang="en"] .lang-th { display:none; }
+    html[lang="th"] .lang-en { display:none; }
+    header { background:var(--dark); position:sticky; top:0; z-index:100; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo-sub { font-size:9px; letter-spacing:0.25em; color:var(--cream); opacity:0.6; margin-top:4px; text-transform:uppercase; }
+    .lang-toggle { display:flex; gap:8px; }
+    .lang-btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:6px 12px; cursor:pointer; font-size:12px; font-weight:500; border-radius:4px; transition:all 0.3s; font-family:'Inter',sans-serif; }
+    .lang-btn.active { background:var(--gold); color:var(--dark); }
+    .back-link { color:var(--cream); opacity:0.6; font-size:13px; text-decoration:none; }
+    .back-link:hover { opacity:1; color:var(--gold); }
+    .hero { background:var(--dark); padding:70px 40px 90px; text-align:center; }
+    .section-label { font-size:11px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .section-label::before, .section-label::after { content:''; display:block; height:1px; width:40px; background:var(--gold); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; color:var(--cream); margin-bottom:14px; line-height:1.2; }
+    .hero h1 span { color:var(--gold); }
+    .hero p { font-size:1rem; color:var(--cream); opacity:0.75; max-width:580px; margin:0 auto; line-height:1.7; }
+    .main { max-width:1100px; margin:0 auto; padding:60px 40px; }
+    .filter-bar { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:28px 32px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:32px; display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:16px; align-items:end; }
+    .filter-group label { display:block; font-size:12px; font-weight:600; letter-spacing:0.05em; color:#888; margin-bottom:6px; text-transform:uppercase; }
+    select, input[type="range"] { width:100%; padding:10px 14px; border:1px solid #ddd; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; color:var(--dark); background:var(--cream); }
+    select:focus { outline:none; border-color:var(--gold); }
+    .btn-search { background:var(--gold); color:var(--dark); border:none; padding:12px 28px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; white-space:nowrap; height:44px; transition:all 0.3s; }
+    .btn-search:hover { opacity:0.88; }
+    .results-count { font-size:13px; color:#888; margin-bottom:20px; }
+    .results-count span { color:var(--gold); font-weight:600; }
+    .program-grid { display:grid; gap:20px; }
+    .program-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:28px; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition:all 0.3s; }
+    .program-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.09); border-color:var(--gold); }
+    .program-top { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; margin-bottom:16px; }
+    .program-name { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:400; color:var(--dark); }
+    .program-state { font-size:12px; color:#888; margin-top:3px; }
+    .division-badge { display:inline-block; font-size:11px; font-weight:600; padding:4px 10px; border-radius:4px; letter-spacing:0.06em; white-space:nowrap; }
+    .badge-d1 { background:#e8f0fe; color:#1a56db; }
+    .badge-d2 { background:#def7ec; color:#057a55; }
+    .badge-d3 { background:#f3f4f6; color:#555; }
+    .badge-naia { background:#fdf2f2; color:#c53030; }
+    .program-details { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+    .detail-item { }
+    .detail-label { font-size:11px; color:#aaa; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:3px; }
+    .detail-value { font-size:14px; color:var(--dark); font-weight:500; }
+    .detail-value.gold { color:var(--gold); }
+    .program-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-email { background:var(--gold); color:var(--dark); border:none; padding:10px 22px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; text-decoration:none; display:inline-block; }
+    .btn-email:hover { opacity:0.88; }
+    .btn-line-small { background:transparent; color:var(--gold); border:1px solid var(--gold); padding:10px 22px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border-radius:6px; cursor:pointer; transition:all 0.3s; }
+    .btn-line-small:hover { background:var(--gold); color:var(--dark); }
+    .no-results { text-align:center; padding:60px 20px; color:#888; font-size:15px; }
+    .line-cta { background:var(--dark); padding:80px 40px; text-align:center; }
+    .line-cta h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .line-cta p { color:var(--cream); opacity:0.7; margin-bottom:8px; }
+    .line-handle { font-size:1.3rem; color:var(--gold); font-weight:600; margin-bottom:28px; display:block; }
+    .btn-add-line { background:var(--gold); color:var(--dark); border:none; padding:14px 36px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:6px; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.3s; }
+    .btn-add-line:hover { opacity:0.88; transform:translateY(-2px); }
+    footer { background:var(--dark); border-top:1px solid #2a2a2a; padding:28px 40px; text-align:center; }
+    footer p { font-size:13px; color:var(--cream); opacity:0.4; }
+    footer a { color:var(--gold); text-decoration:none; }
+    @media (max-width:900px) { .filter-bar { grid-template-columns:1fr 1fr; } .program-details { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) { .filter-bar { grid-template-columns:1fr; } .program-details { grid-template-columns:1fr; } .hero h1 { font-size:2rem; } .main, .hero { padding:40px 20px; } header { padding:0 20px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;flex-direction:column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span class="logo-sub">Golf Division</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="golf-tools-index.html" class="back-link lang-th">← กลับ</a>
+    <a href="golf-tools-index.html" class="back-link lang-en">← Back</a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en">EN</button>
+      <button class="lang-btn active" id="btn-th">TH</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="section-label lang-th">· เครื่องมือที่ 02 ·</div>
+  <div class="section-label lang-en">· TOOL 02 ·</div>
+  <h1 class="lang-th">ค้นหาโปรแกรมกอล์ฟ<br><span>มหาวิทยาลัยสหรัฐฯ</span></h1>
+  <h1 class="lang-en">US College<br><span>Golf Program Finder</span></h1>
+  <p class="lang-th">ค้นหาโปรแกรม NCAA กรองตามดิวิชั่น รัฐ และแฮนดิแคปทีม พร้อมแม่แบบอีเมลติดต่อโค้ชโดยตรง</p>
+  <p class="lang-en">Search NCAA golf programs filtered by division, state, and team handicap. Includes a one-click email template to contact the coach directly.</p>
+</section>
+
+<section class="main">
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label class="lang-th">ดิวิชั่น</label>
+      <label class="lang-en">Division</label>
+      <select id="f-div">
+        <option value="all">All Divisions</option>
+        <option value="D1">NCAA Division I</option>
+        <option value="D2">NCAA Division II</option>
+        <option value="D3">NCAA Division III</option>
+        <option value="NAIA">NAIA</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="lang-th">รัฐ</label>
+      <label class="lang-en">State</label>
+      <select id="f-state">
+        <option value="all">All States</option>
+        <option>Alabama</option><option>Arizona</option><option>Arkansas</option><option>California</option>
+        <option>Colorado</option><option>Florida</option><option>Georgia</option><option>Illinois</option>
+        <option>Louisiana</option><option>Michigan</option><option>Mississippi</option><option>Missouri</option>
+        <option>Nevada</option><option>New Jersey</option><option>North Carolina</option><option>Ohio</option>
+        <option>Oklahoma</option><option>South Carolina</option><option>Tennessee</option><option>Texas</option>
+        <option>Virginia</option><option>Washington</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="lang-th">แฮนดิแคปทีมสูงสุด</label>
+      <label class="lang-en">Max Team Handicap</label>
+      <select id="f-hcp">
+        <option value="all">Any</option>
+        <option value="3">≤ 3 (Elite D1)</option>
+        <option value="6">≤ 6 (Strong D1)</option>
+        <option value="10">≤ 10 (D1/D2)</option>
+        <option value="15">≤ 15 (D2/D3)</option>
+      </select>
+    </div>
+    <button class="btn-search" onclick="filterPrograms()">
+      <span class="lang-th">ค้นหา</span>
+      <span class="lang-en">Search</span>
+    </button>
+  </div>
+
+  <div class="results-count" id="results-count"></div>
+  <div class="program-grid" id="program-grid"></div>
+</section>
+
+<section class="line-cta">
+  <div class="section-label">· LINE ·</div>
+  <h2 class="lang-th">ต้องการความช่วยเหลือ?</h2>
+  <h2 class="lang-en">Need Help?</h2>
+  <p class="lang-th">LINKEDU ช่วยวางแผนการติดต่อโค้ชและเตรียมใบสมัครทั้งหมด</p>
+  <p class="lang-en">LINKEDU helps plan your coach outreach and prepare all application materials.</p>
+  <span class="line-handle">LINE: @linkedu.th</span><br>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="btn-add-line">
+    <span class="lang-th">เพิ่ม LINE · ปรึกษาฟรี</span>
+    <span class="lang-en">Add LINE · Free Consultation</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Golf Division · <a href="golf-tools-index.html">← กลับหน้าหลัก</a> · ข้อมูลโปรแกรมอ้างอิง ณ ปี 2025 ควรตรวจสอบกับโรงเรียนโดยตรง</p>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  document.getElementById('btn-en').addEventListener('click', () => { html.setAttribute('lang','en'); document.getElementById('btn-en').classList.add('active'); document.getElementById('btn-th').classList.remove('active'); filterPrograms(); });
+  document.getElementById('btn-th').addEventListener('click', () => { html.setAttribute('lang','th'); document.getElementById('btn-th').classList.add('active'); document.getElementById('btn-en').classList.remove('active'); filterPrograms(); });
+
+  const PROGRAMS = [
+    { name:'Oklahoma State University', state:'Oklahoma', div:'D1', hcp:1.5, coach:'Alan Bratton', scholarship:true, notable:'#1-ranked D1 program historically. Very competitive.' },
+    { name:'University of Texas', state:'Texas', div:'D1', hcp:2.0, coach:'John Fields', scholarship:true, notable:'Elite academic + golf combination.' },
+    { name:'Stanford University', state:'California', div:'D1', hcp:1.8, coach:'Conrad Ray', scholarship:true, notable:'Top academics + golf. Very selective intake.' },
+    { name:'Duke University', state:'North Carolina', div:'D1', hcp:2.5, coach:'Jamie Green', scholarship:true, notable:'Strong academic profile required.' },
+    { name:'Wake Forest University', state:'North Carolina', div:'D1', hcp:2.2, coach:'Jerry Haas', scholarship:true, notable:'Consistently top-10 program.' },
+    { name:'University of Alabama', state:'Alabama', div:'D1', hcp:2.0, coach:'Jay Seawell', scholarship:true, notable:'SEC powerhouse.' },
+    { name:'University of Georgia', state:'Georgia', div:'D1', hcp:2.3, coach:'Chris Haack', scholarship:true, notable:'Strong SEC conference program.' },
+    { name:'University of Florida', state:'Florida', div:'D1', hcp:2.1, coach:'JC Deacon', scholarship:true, notable:'Consistent top-25 program.' },
+    { name:'LSU', state:'Louisiana', div:'D1', hcp:3.0, coach:'Chuck Winstead', scholarship:true, notable:'Rising SEC program.' },
+    { name:'University of Southern California', state:'California', div:'D1', hcp:2.4, coach:'Chris Zambri', scholarship:true, notable:'LA location, strong alumni network.' },
+    { name:'UCLA', state:'California', div:'D1', hcp:3.2, coach:'Derek Freeman', scholarship:true, notable:'Pac-12, good for international students.' },
+    { name:'Pepperdine University', state:'California', div:'D1', hcp:3.5, coach:'Michael Beard', scholarship:true, notable:'Malibu campus, Christian university.' },
+    { name:'UNLV', state:'Nevada', div:'D1', hcp:3.8, coach:'Dwight Fickes', scholarship:true, notable:'Las Vegas — access to world-class courses.' },
+    { name:'University of Illinois', state:'Illinois', div:'D1', hcp:4.0, coach:'Mike Small', scholarship:true, notable:'Big Ten, strong academics.' },
+    { name:'University of Michigan', state:'Michigan', div:'D1', hcp:4.2, coach:'Andrew Sapp', scholarship:true, notable:'Elite academic reputation.' },
+    { name:'Vanderbilt University', state:'Tennessee', div:'D1', hcp:3.0, coach:'Scott Limbaugh', scholarship:true, notable:'Top academics in SEC.' },
+    { name:'University of Tennessee', state:'Tennessee', div:'D1', hcp:4.5, coach:'Brennan Webb', scholarship:true, notable:'SEC program, growing rapidly.' },
+    { name:'Mississippi State', state:'Mississippi', div:'D1', hcp:5.0, coach:'Brian Adair', scholarship:true, notable:'More accessible D1 option.' },
+    { name:'University of Arkansas', state:'Arkansas', div:'D1', hcp:4.8, coach:'Brad McMakin', scholarship:true, notable:'SEC — accessible for international recruits.' },
+    { name:'Texas A&M', state:'Texas', div:'D1', hcp:3.5, coach:'J.T. Higgins', scholarship:true, notable:'Big 12, strong golf tradition.' },
+    { name:'San José State University', state:'California', div:'D1', hcp:6.0, coach:'John Kennaday', scholarship:true, notable:'More accessible D1 entry point.' },
+    { name:'Augusta University', state:'Georgia', div:'D2', hcp:3.0, coach:'Josh Gregory', scholarship:true, notable:'D2 powerhouse — competes with D1 programs.' },
+    { name:'Central Missouri State', state:'Missouri', div:'D2', hcp:5.0, coach:'Jack Ross', scholarship:true, notable:'Top D2 program, strong track record.' },
+    { name:'Barry University', state:'Florida', div:'D2', hcp:6.0, coach:'Horacio Carbonell', scholarship:true, notable:'Florida location, warm weather year-round.' },
+    { name:'Columbus State University', state:'Georgia', div:'D2', hcp:5.5, coach:'Gareth Jones', scholarship:true, notable:'Consistent D2 national contender.' },
+    { name:'Chico State', state:'California', div:'D2', hcp:7.0, coach:'Chris Doyle', scholarship:true, notable:'Affordable, good academics, solid program.' },
+    { name:'Drury University', state:'Missouri', div:'D2', hcp:7.5, coach:'TJ Gowing', scholarship:true, notable:'Small liberal arts, strong golf culture.' },
+    { name:'University of the Southwest', state:'New Mexico', div:'NAIA', hcp:8.0, coach:'Staff TBC', scholarship:true, notable:'Very accessible, good for development.' },
+    { name:'Georgetown College', state:'Kentucky', div:'NAIA', hcp:9.0, coach:'Staff TBC', scholarship:true, notable:'Christian liberal arts, solid golf program.' },
+    { name:'Trevecca Nazarene University', state:'Tennessee', div:'NAIA', hcp:9.5, coach:'Staff TBC', scholarship:true, notable:'Nashville, NAIA scholarship opportunities.' },
+  ];
+
+  function filterPrograms() {
+    const div = document.getElementById('f-div').value;
+    const state = document.getElementById('f-state').value;
+    const hcpMax = document.getElementById('f-hcp').value;
+    const lang = html.getAttribute('lang');
+
+    let filtered = PROGRAMS.filter(p => {
+      if (div !== 'all' && p.div !== div) return false;
+      if (state !== 'all' && p.state !== state) return false;
+      if (hcpMax !== 'all' && p.hcp > parseFloat(hcpMax)) return false;
+      return true;
+    });
+
+    const grid = document.getElementById('program-grid');
+    const countEl = document.getElementById('results-count');
+    countEl.innerHTML = lang === 'th'
+      ? `พบ <span>${filtered.length}</span> โปรแกรมที่ตรงกับเงื่อนไข`
+      : `Found <span>${filtered.length}</span> programs matching your filters`;
+
+    grid.innerHTML = '';
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="no-results">${lang==='th'?'ไม่พบโปรแกรมที่ตรงกัน — ลองปรับเงื่อนไขการค้นหา':'No programs found — try adjusting your filters'}</div>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const badgeClass = { D1:'badge-d1', D2:'badge-d2', D3:'badge-d3', NAIA:'badge-naia' }[p.div];
+      const emailSubject = encodeURIComponent(`Golf Scholarship Inquiry — International Prospect from Thailand`);
+      const emailBody = encodeURIComponent(`Dear Coach ${p.coach},\n\nMy name is [CHILD'S NAME], a junior golfer from Thailand. I am [AGE] years old with a current handicap of [HCP].\n\nI am interested in your golf program at ${p.name} and would love to learn more about scholarship opportunities for international students.\n\nI have attached my golf resume and highlight video for your review.\n\nThank you for your time.\n\nBest regards,\n[CHILD'S NAME]\n[PARENT'S CONTACT]\n[LINKEDIN / SOCIAL PROFILE]`);
+      const lineMsg = encodeURIComponent(lang==='th'
+        ? `สนใจโปรแกรมกอล์ฟ: ${p.name} (${p.div})\nรัฐ: ${p.state} | โค้ช: ${p.coach}\nขอปรึกษา LINKEDU`
+        : `Interested in: ${p.name} (${p.div})\nState: ${p.state} | Coach: ${p.coach}\nRequest LINKEDU consultation`);
+
+      const schText_th = p.scholarship ? 'มีทุนกีฬา' : 'ไม่มีทุนกีฬา (วิชาการ)';
+      const schText_en = p.scholarship ? 'Athletic Scholarships Available' : 'No Athletic Scholarship (Academic only)';
+
+      grid.innerHTML += `
+        <div class="program-card">
+          <div class="program-top">
+            <div>
+              <div class="program-name">${p.name}</div>
+              <div class="program-state">${p.state}</div>
+            </div>
+            <span class="division-badge ${badgeClass}">${p.div}</span>
+          </div>
+          <div class="program-details">
+            <div class="detail-item">
+              <div class="detail-label lang-th">หัวหน้าโค้ช</div>
+              <div class="detail-label lang-en">Head Coach</div>
+              <div class="detail-value">${p.coach}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label lang-th">แฮนดิแคปทีมโดยเฉลี่ย</div>
+              <div class="detail-label lang-en">Avg Team Handicap</div>
+              <div class="detail-value gold">${p.hcp.toFixed(1)}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label lang-th">ทุนการศึกษา</div>
+              <div class="detail-label lang-en">Scholarship</div>
+              <div class="detail-value" style="${p.scholarship?'color:green':'color:#888'}">${lang==='th'?schText_th:schText_en}</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:#666;margin-bottom:18px;">${p.notable}</p>
+          <div class="program-actions">
+            <a href="mailto:?subject=${emailSubject}&body=${emailBody}" class="btn-email">
+              <span class="lang-th">ส่งอีเมลหาโค้ช</span>
+              <span class="lang-en">Email Coach Template</span>
+            </a>
+            <button class="btn-line-small" onclick="window.open('https://line.me/R/oaMessage/@linkedu.th/?text=${lineMsg}','_blank')">
+              <span class="lang-th">ถามผ่าน LINE</span>
+              <span class="lang-en">Ask via LINE</span>
+            </button>
+          </div>
+        </div>`;
+    });
+  }
+
+  // Show all on load
+  filterPrograms();
+</script>
+</body>
+</html>

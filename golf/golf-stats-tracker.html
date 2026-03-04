@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Performance Tracker | LinkedU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #222;
+    --surface2: #252525;
+    --cream: #f5f0e8;
+    --gold: #B8962E;
+    --gold-dark: #9a7a24;
+    --muted: rgba(245,240,232,0.5);
+    --border: rgba(184,150,46,0.15);
+    --radius: 8px;
+    --red: #e05555;
+    --green: #4caf7a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-brand { display: flex; flex-direction: column; }
+  .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .tagline {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn {
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+  }
+  .lang-btn.active { background: var(--gold); color: var(--bg); }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.1); }
+
+  html[lang="en"] .lang-th { display: none !important; }
+  html[lang="th"] .lang-en { display: none !important; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 64px 32px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--gold);
+    display: inline-block;
+    padding-top: 8px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero p { font-size: 16px; color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+
+  /* FORM */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .form-grid.two-col { grid-template-columns: 1fr 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 100%;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+  input::placeholder, textarea::placeholder { color: rgba(245,240,232,0.2); }
+  select option { background: var(--bg); color: var(--cream); }
+  textarea { resize: vertical; min-height: 72px; }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-gold:active { transform: scale(0.98); }
+
+  .btn-danger {
+    background: transparent;
+    border: 1px solid rgba(224,85,85,0.4);
+    color: rgba(224,85,85,0.8);
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-danger:hover { border-color: var(--red); color: var(--red); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(245,240,232,0.15);
+    color: var(--muted);
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(245,240,232,0.4); color: var(--cream); }
+
+  /* STAT CARDS */
+  .stat-cards {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .stat-card .s-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .s-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ROUNDS TABLE */
+  .rounds-table-wrap { overflow-x: auto; }
+  table.rounds-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 720px;
+  }
+  table.rounds-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  table.rounds-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  table.rounds-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .score-to-par.positive { color: var(--red); }
+  .score-to-par.negative { color: var(--green); }
+  .score-to-par.even { color: var(--gold); }
+
+  .btn-delete-row {
+    background: none;
+    border: none;
+    color: rgba(224,85,85,0.5);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .btn-delete-row:hover { color: var(--red); }
+
+  /* CHART */
+  .chart-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .chart-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--gold);
+    padding-top: 8px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  canvas#scoreChart {
+    width: 100% !important;
+    max-height: 220px;
+  }
+
+  /* COACH SUMMARY */
+  .coach-summary-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-size: 14px;
+    color: var(--cream);
+    line-height: 1.8;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* BENCHMARK */
+  .benchmark-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 4px 0;
+    user-select: none;
+  }
+  .benchmark-toggle:hover .benchmark-arrow { color: var(--gold); }
+  .benchmark-arrow {
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.2s, color 0.2s;
+  }
+  .benchmark-body { display: none; margin-top: 20px; }
+  .benchmark-body.open { display: block; }
+
+  .benchmark-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .bench-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .bench-card .b-tier {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .bench-card .b-range {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+    font-family: 'Playfair Display', serif;
+  }
+  .bench-card .b-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .bench-card .b-note {
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    line-height: 1.5;
+  }
+
+  .your-avg-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .your-avg-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+
+  /* LINE CTA */
+  .line-cta {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    text-align: center;
+    margin-top: 32px;
+  }
+  .line-cta p { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .line-cta .line-handle { color: var(--gold); font-size: 16px; font-weight: 600; }
+
+  /* HIDDEN */
+  .hidden { display: none !important; }
+
+  /* NAME INPUT */
+  .name-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .name-row label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .name-row input {
+    width: 240px;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 80px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 32px;
+    text-align: center;
+  }
+  footer .footer-copy { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  footer .footer-line { font-size: 15px; color: var(--gold); font-weight: 600; }
+  footer .footer-contact { font-size: 12px; color: rgba(245,240,232,0.3); margin-top: 4px; }
+
+  @media (max-width: 768px) {
+    .stat-cards { grid-template-columns: repeat(3, 1fr); }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid.two-col { grid-template-columns: 1fr; }
+    .benchmark-grid { grid-template-columns: 1fr 1fr; }
+    header { padding: 0 16px; }
+    .container { padding: 32px 16px; }
+    .card { padding: 20px 16px; }
+  }
+  @media (max-width: 480px) {
+    .stat-cards { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .benchmark-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-brand">
+    <span class="wordmark">LINKEDU</span>
+    <span class="tagline">Golf Scholarships</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-th" onclick="setLang('th')">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">
+    <span class="lang-en">Tool 6 of 6</span>
+    <span class="lang-th">เครื่องมือที่ 6 จาก 6</span>
+  </div>
+  <h1>
+    <span class="lang-en">Golf <span class="gold">Performance Tracker</span></span>
+    <span class="lang-th"><span class="gold">ติดตามสถิติ</span>กอล์ฟ</span>
+  </h1>
+  <p>
+    <span class="lang-en">Track every round, understand your game, show coaches what you can do</span>
+    <span class="lang-th">บันทึกทุกรอบ เข้าใจเกมของคุณ แสดงความสามารถให้โค้ชเห็น</span>
+  </p>
+</section>
+
+<div class="container">
+
+  <!-- PLAYER NAME -->
+  <div class="name-row">
+    <label>
+      <span class="lang-en">Your Name:</span>
+      <span class="lang-th">ชื่อของคุณ:</span>
+    </label>
+    <input type="text" id="playerName" placeholder="e.g. Thanakorn S." oninput="savePlayerName()">
+  </div>
+
+  <!-- ADD ROUND FORM -->
+  <div class="card">
+    <div class="section-label">
+      <span class="lang-en">Add a Round</span>
+      <span class="lang-th">เพิ่มรอบการแข่งขัน</span>
+    </div>
+
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label><span class="lang-en">Date</span><span class="lang-th">วันที่</span></label>
+        <input type="date" id="r-date">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Course Name</span><span class="lang-th">ชื่อสนาม</span></label>
+        <input type="text" id="r-course" placeholder="e.g. Royal Gems Golf City">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Course Par</span><span class="lang-th">พาร์สนาม</span></label>
+        <select id="r-par">
+          <option value="70">70</option>
+          <option value="71">71</option>
+          <option value="72" selected>72</option>
+          <option value="73">73</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Course Rating</span><span class="lang-th">Course Rating</span></label>
+        <input type="number" id="r-rating" step="0.1" min="60" max="80" placeholder="e.g. 71.5">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Slope Rating</span><span class="lang-th">Slope Rating</span></label>
+        <input type="number" id="r-slope" min="55" max="155" placeholder="e.g. 125">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Gross Score</span><span class="lang-th">สกอร์รวม</span></label>
+        <input type="number" id="r-gross" min="55" max="140" placeholder="e.g. 74">
+      </div>
+    </div>
+
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="form-group">
+        <label><span class="lang-en">Fairways Hit</span><span class="lang-th">ตีถูกแฟร์เวย์</span></label>
+        <input type="number" id="r-fwy-hit" min="0" max="14" placeholder="e.g. 9">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Fairways Available</span><span class="lang-th">แฟร์เวย์ทั้งหมด</span></label>
+        <input type="number" id="r-fwy-total" min="1" max="14" value="14">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Greens in Regulation (GIR)</span><span class="lang-th">กรีนในระเบียบ (GIR)</span></label>
+        <input type="number" id="r-gir" min="0" max="18" placeholder="e.g. 11">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Total Putts</span><span class="lang-th">จำนวนพัตต์</span></label>
+        <input type="number" id="r-putts" min="0" max="72" placeholder="e.g. 32">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Sand Saves (optional)</span><span class="lang-th">Sand Saves (ไม่บังคับ)</span></label>
+        <input type="number" id="r-sand-saves" min="0" max="18" placeholder="e.g. 2">
+      </div>
+      <div class="form-group">
+        <label><span class="lang-en">Sand Attempts (optional)</span><span class="lang-th">Sand Attempts (ไม่บังคับ)</span></label>
+        <input type="number" id="r-sand-att" min="0" max="18" placeholder="e.g. 3">
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px;">
+      <label><span class="lang-en">Notes (optional)</span><span class="lang-th">หมายเหตุ (ไม่บังคับ)</span></label>
+      <textarea id="r-notes" placeholder="Weather conditions, memorable moments, areas to work on..."></textarea>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <button class="btn-gold" onclick="addRound()">
+        <span class="lang-en">Add Round</span>
+        <span class="lang-th">เพิ่มรอบ</span>
+      </button>
+      <span id="round-feedback" style="font-size:13px;color:var(--green);opacity:0;transition:opacity 0.5s;">
+        <span class="lang-en">Round added!</span>
+        <span class="lang-th">เพิ่มรอบแล้ว!</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- DASHBOARD (hidden until rounds exist) -->
+  <div id="dashboard" class="hidden">
+
+    <!-- STAT CARDS -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="s-val" id="stat-avg">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">Scoring Avg</span>
+          <span class="lang-th">สกอร์เฉลี่ย</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="s-val" id="stat-topar">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">Avg vs Par</span>
+          <span class="lang-th">เทียบพาร์เฉลี่ย</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="s-val" id="stat-fwy">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">Fairway %</span>
+          <span class="lang-th">แฟร์เวย์ %</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="s-val" id="stat-gir">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">GIR %</span>
+          <span class="lang-th">GIR %</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="s-val" id="stat-putts">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">Avg Putts</span>
+          <span class="lang-th">พัตต์เฉลี่ย</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="s-val" id="stat-best">—</div>
+        <div class="s-lbl">
+          <span class="lang-en">Best Round</span>
+          <span class="lang-th">สกอร์ดีที่สุด</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-wrap">
+      <div class="chart-title">
+        <span class="lang-en">Score Trend</span>
+        <span class="lang-th">แนวโน้มสกอร์</span>
+      </div>
+      <canvas id="scoreChart"></canvas>
+    </div>
+
+    <!-- ROUNDS TABLE -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+        <div class="section-label" style="margin-bottom:0;">
+          <span class="lang-en">Round History</span>
+          <span class="lang-th">ประวัติรอบการแข่งขัน</span>
+        </div>
+        <button class="btn-danger" onclick="clearAllData()">
+          <span class="lang-en">Clear All Data</span>
+          <span class="lang-th">ลบข้อมูลทั้งหมด</span>
+        </button>
+      </div>
+      <div class="rounds-table-wrap">
+        <table class="rounds-table">
+          <thead>
+            <tr>
+              <th><span class="lang-en">Date</span><span class="lang-th">วันที่</span></th>
+              <th><span class="lang-en">Course</span><span class="lang-th">สนาม</span></th>
+              <th><span class="lang-en">Score</span><span class="lang-th">สกอร์</span></th>
+              <th><span class="lang-en">+/- Par</span><span class="lang-th">+/- พาร์</span></th>
+              <th><span class="lang-en">FWY %</span><span class="lang-th">FWY %</span></th>
+              <th><span class="lang-en">GIR %</span><span class="lang-th">GIR %</span></th>
+              <th><span class="lang-en">Putts</span><span class="lang-th">พัตต์</span></th>
+              <th><span class="lang-en">Differential</span><span class="lang-th">ดิฟเฟอเรนเชียล</span></th>
+              <th><span class="lang-en">Sand%</span><span class="lang-th">ทราย%</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="roundsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COACH SUMMARY -->
+    <div class="card">
+      <div class="section-label">
+        <span class="lang-en">Coach Summary</span>
+        <span class="lang-th">สรุปสำหรับโค้ช</span>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+        <span class="lang-en">Auto-generated paragraph you can copy and paste into emails to coaches.</span>
+        <span class="lang-th">ย่อหน้าที่สร้างอัตโนมัติ คุณสามารถคัดลอกและวางลงในอีเมลถึงโค้ชได้</span>
+      </p>
+      <div class="coach-summary-box" id="coachSummaryText"></div>
+      <button class="btn-ghost" onclick="copySummary()">
+        <span class="lang-en">Copy to Clipboard</span>
+        <span class="lang-th">คัดลอกข้อความ</span>
+      </button>
+      <span id="copy-confirm" style="font-size:13px;color:var(--green);margin-left:12px;opacity:0;transition:opacity 0.5s;"></span>
+    </div>
+
+    <!-- BENCHMARK PANEL -->
+    <div class="card">
+      <div class="benchmark-toggle" onclick="toggleBenchmark()">
+        <div class="section-label" style="margin-bottom:0;">
+          <span class="lang-en">Recruiting Benchmarks</span>
+          <span class="lang-th">เกณฑ์มาตรฐานการรับสมัคร</span>
+        </div>
+        <span class="benchmark-arrow" id="benchArrow">&#9660;</span>
+      </div>
+      <div class="benchmark-body" id="benchmarkBody">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">
+          <span class="lang-en">What scoring averages top collegiate golf programs look for. Your current average is shown.</span>
+          <span class="lang-th">ค่าเฉลี่ยสกอร์ที่โปรแกรมกอล์ฟระดับมหาวิทยาลัยชั้นนำต้องการ</span>
+        </p>
+        <div class="benchmark-grid">
+          <div class="bench-card">
+            <div class="b-tier">NCAA Division I</div>
+            <div class="b-range">70 – 74</div>
+            <div class="b-label">
+              <span class="lang-en">Avg gross score</span>
+              <span class="lang-th">สกอร์รวมเฉลี่ย</span>
+            </div>
+            <div class="b-note">
+              <span class="lang-en">67–72 on difficult rated courses. Top programs recruit +2 to +4 handicap.</span>
+              <span class="lang-th">67–72 บนสนามที่ยาก โปรแกรมชั้นนำรับแฮนดิแคป +2 ถึง +4</span>
+            </div>
+            <div class="your-avg-bar"><div class="your-avg-fill" id="bench-d1-bar" style="width:0%"></div></div>
+          </div>
+          <div class="bench-card">
+            <div class="b-tier">NCAA Division II</div>
+            <div class="b-range">74 – 78</div>
+            <div class="b-label">
+              <span class="lang-en">Avg gross score</span>
+              <span class="lang-th">สกอร์รวมเฉลี่ย</span>
+            </div>
+            <div class="b-note">
+              <span class="lang-en">Highly competitive. Scholarships available. Scratch to +2 handicap typical.</span>
+              <span class="lang-th">การแข่งขันสูง มีทุนการศึกษา แฮนดิแคปทั่วไป Scratch ถึง +2</span>
+            </div>
+            <div class="your-avg-bar"><div class="your-avg-fill" id="bench-d2-bar" style="width:0%"></div></div>
+          </div>
+          <div class="bench-card">
+            <div class="b-tier">NAIA</div>
+            <div class="b-range">76 – 80</div>
+            <div class="b-label">
+              <span class="lang-en">Avg gross score</span>
+              <span class="lang-th">สกอร์รวมเฉลี่ย</span>
+            </div>
+            <div class="b-note">
+              <span class="lang-en">Good opportunity for developing players. Financial aid widely available.</span>
+              <span class="lang-th">โอกาสดีสำหรับนักกีฬาที่กำลังพัฒนา มีความช่วยเหลือทางการเงิน</span>
+            </div>
+            <div class="your-avg-bar"><div class="your-avg-fill" id="bench-naia-bar" style="width:0%"></div></div>
+          </div>
+          <div class="bench-card">
+            <div class="b-tier">UK Academy</div>
+            <div class="b-range">Scratch – +4</div>
+            <div class="b-label">
+              <span class="lang-en">Handicap Index target</span>
+              <span class="lang-th">แฮนดิแคปเป้าหมาย</span>
+            </div>
+            <div class="b-note">
+              <span class="lang-en">UK boarding schools and academies. Competitive entry from scratch level.</span>
+              <span class="lang-th">โรงเรียนประจำและสถาบันในสหราชอาณาจักร รับสมัครตั้งแต่ระดับ Scratch</span>
+            </div>
+            <div class="your-avg-bar"><div class="your-avg-fill" id="bench-uk-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+        <p id="bench-your-avg-note" style="font-size:12px;color:var(--muted);margin-top:16px;"></p>
+      </div>
+    </div>
+
+  </div><!-- /dashboard -->
+
+  <!-- LINE CTA -->
+  <div class="line-cta">
+    <p>
+      <span class="lang-en">Ready to talk scholarships? LinkedU coaches are here to help.</span>
+      <span class="lang-th">พร้อมที่จะพูดคุยเรื่องทุนการศึกษา? โค้ช LinkedU พร้อมให้ความช่วยเหลือ</span>
+    </p>
+    <div class="line-handle">LINE: @linkedu</div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="footer-line">LINE: @linkedu</div>
+  <div class="footer-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+// ── LANGUAGE TOGGLE ──────────────────────────────
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  localStorage.setItem('linkedu-lang', lang);
+}
+(function() {
+  const saved = localStorage.getItem('linkedu-lang') || 'en';
+  setLang(saved);
+})();
+
+// ── DATA ─────────────────────────────────────────
+let rounds = [];
+
+function saveData() {
+  localStorage.setItem('linkedu-golf-rounds', JSON.stringify(rounds));
+}
+
+function loadData() {
+  const raw = localStorage.getItem('linkedu-golf-rounds');
+  rounds = raw ? JSON.parse(raw) : [];
+  const playerName = localStorage.getItem('linkedu-golf-name') || '';
+  document.getElementById('playerName').value = playerName;
+  renderAll();
+}
+
+function savePlayerName() {
+  localStorage.setItem('linkedu-golf-name', document.getElementById('playerName').value.trim());
+  if (rounds.length > 0) generateCoachSummary();
+}
+
+// ── ADD ROUND ─────────────────────────────────────
+function addRound() {
+  const date = document.getElementById('r-date').value;
+  const course = document.getElementById('r-course').value.trim();
+  const par = parseInt(document.getElementById('r-par').value);
+  const rating = parseFloat(document.getElementById('r-rating').value) || par;
+  const slope = parseInt(document.getElementById('r-slope').value) || 113;
+  const gross = parseInt(document.getElementById('r-gross').value);
+
+  if (!date || !course || !gross) {
+    alert(document.documentElement.lang === 'th'
+      ? 'กรุณากรอกวันที่ ชื่อสนาม และสกอร์รวม'
+      : 'Please fill in Date, Course Name, and Gross Score.');
+    return;
+  }
+
+  const fwyHit = parseInt(document.getElementById('r-fwy-hit').value) || null;
+  const fwyTotal = parseInt(document.getElementById('r-fwy-total').value) || 14;
+  const gir = parseInt(document.getElementById('r-gir').value);
+  const putts = parseInt(document.getElementById('r-putts').value) || null;
+  const sandSaves = parseInt(document.getElementById('r-sand-saves').value);
+  const sandAtt = parseInt(document.getElementById('r-sand-att').value);
+  const notes = document.getElementById('r-notes').value.trim();
+
+  const scoreToPar = gross - par;
+  const fwyPct = (fwyHit !== null && !isNaN(fwyHit)) ? Math.round(fwyHit / fwyTotal * 100) : null;
+  const girPct = (!isNaN(gir) && gir >= 0) ? Math.round(gir / 18 * 100) : null;
+  const puttsPerGir = (putts && gir > 0) ? (putts / gir).toFixed(2) : null;
+  const differential = ((gross - rating) * 113 / slope).toFixed(1);
+  const sandPct = (!isNaN(sandSaves) && !isNaN(sandAtt) && sandAtt > 0)
+    ? Math.round(sandSaves / sandAtt * 100) : null;
+
+  rounds.push({
+    id: Date.now(),
+    date, course, par, rating, slope, gross,
+    fwyHit, fwyTotal, gir: !isNaN(gir) ? gir : null,
+    putts, sandSaves: !isNaN(sandSaves) ? sandSaves : null,
+    sandAtt: !isNaN(sandAtt) ? sandAtt : null, notes,
+    // computed
+    scoreToPar, fwyPct, girPct, puttsPerGir, differential, sandPct
+  });
+
+  saveData();
+  clearRoundForm();
+  renderAll();
+
+  const fb = document.getElementById('round-feedback');
+  fb.style.opacity = '1';
+  setTimeout(() => fb.style.opacity = '0', 2000);
+}
+
+function clearRoundForm() {
+  ['r-date','r-course','r-rating','r-slope','r-gross','r-fwy-hit','r-gir','r-putts','r-sand-saves','r-sand-att','r-notes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('r-fwy-total').value = '14';
+  document.getElementById('r-par').value = '72';
+}
+
+function deleteRound(id) {
+  rounds = rounds.filter(r => r.id !== id);
+  saveData();
+  renderAll();
+}
+
+function clearAllData() {
+  const msg = document.documentElement.lang === 'th'
+    ? 'ลบข้อมูลรอบทั้งหมดหรือไม่? ไม่สามารถยกเลิกได้'
+    : 'Delete all round data? This cannot be undone.';
+  if (!confirm(msg)) return;
+  rounds = [];
+  saveData();
+  renderAll();
+}
+
+// ── RENDER ────────────────────────────────────────
+function renderAll() {
+  const dashboard = document.getElementById('dashboard');
+  if (rounds.length === 0) {
+    dashboard.classList.add('hidden');
+    return;
+  }
+  dashboard.classList.remove('hidden');
+  renderStatCards();
+  renderRoundsTable();
+  renderChart();
+  generateCoachSummary();
+  updateBenchmarkBars();
+}
+
+function avg(arr) {
+  const valid = arr.filter(v => v !== null && !isNaN(v));
+  return valid.length ? valid.reduce((a,b) => a+b, 0) / valid.length : null;
+}
+
+function renderStatCards() {
+  const grossScores = rounds.map(r => r.gross);
+  const topars = rounds.map(r => r.scoreToPar);
+  const fwyPcts = rounds.filter(r => r.fwyPct !== null).map(r => r.fwyPct);
+  const girPcts = rounds.filter(r => r.girPct !== null).map(r => r.girPct);
+  const puttsArr = rounds.filter(r => r.putts).map(r => r.putts);
+  const bestGross = Math.min(...grossScores);
+
+  const scoringAvg = avg(grossScores);
+  const avgToPar = avg(topars);
+  const avgFwy = avg(fwyPcts);
+  const avgGir = avg(girPcts);
+  const avgPutts = avg(puttsArr);
+
+  function fmt(v, dec, suffix) {
+    if (v === null || isNaN(v)) return '—';
+    return v.toFixed(dec || 0) + (suffix || '');
+  }
+
+  document.getElementById('stat-avg').textContent = fmt(scoringAvg, 1);
+  const tpEl = document.getElementById('stat-topar');
+  const tpVal = avgToPar;
+  tpEl.textContent = tpVal === null ? '—' : (tpVal > 0 ? '+' : '') + tpVal.toFixed(1);
+  tpEl.style.color = tpVal < 0 ? 'var(--green)' : tpVal > 0 ? 'var(--red)' : 'var(--gold)';
+
+  document.getElementById('stat-fwy').textContent = fmt(avgFwy, 0, '%');
+  document.getElementById('stat-gir').textContent = fmt(avgGir, 0, '%');
+  document.getElementById('stat-putts').textContent = fmt(avgPutts, 1);
+  document.getElementById('stat-best').textContent = isFinite(bestGross) ? bestGross : '—';
+}
+
+function renderRoundsTable() {
+  const tbody = document.getElementById('roundsTableBody');
+  const sorted = [...rounds].sort((a,b) => new Date(b.date) - new Date(a.date));
+  tbody.innerHTML = sorted.map(r => {
+    const dateStr = r.date ? new Date(r.date + 'T00:00:00').toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+    const parSign = r.scoreToPar > 0 ? '+' : '';
+    const parClass = r.scoreToPar < 0 ? 'negative' : r.scoreToPar > 0 ? 'positive' : 'even';
+    return `<tr>
+      <td>${dateStr}</td>
+      <td>${r.course}</td>
+      <td style="font-weight:600;">${r.gross}</td>
+      <td><span class="score-to-par ${parClass}">${parSign}${r.scoreToPar}</span></td>
+      <td>${r.fwyPct !== null ? r.fwyPct + '%' : '—'}</td>
+      <td>${r.girPct !== null ? r.girPct + '%' : '—'}</td>
+      <td>${r.putts || '—'}</td>
+      <td>${r.differential}</td>
+      <td>${r.sandPct !== null ? r.sandPct + '%' : '—'}</td>
+      <td><button class="btn-delete-row" onclick="deleteRound(${r.id})" title="Delete">&#10005;</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── CANVAS CHART ──────────────────────────────────
+function renderChart() {
+  const canvas = document.getElementById('scoreChart');
+  const ctx = canvas.getContext('2d');
+
+  // Sort chronologically
+  const sorted = [...rounds].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const scores = sorted.map(r => r.gross);
+  const labels = sorted.map(r => {
+    if (!r.date) return '';
+    const d = new Date(r.date + 'T00:00:00');
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  });
+
+  // Responsive sizing
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const W = rect.width - 48;
+  const H = 220;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+
+  const PAD = { top: 20, right: 24, bottom: 40, left: 48 };
+  const chartW = W - PAD.left - PAD.right;
+  const chartH = H - PAD.top - PAD.bottom;
+
+  const minScore = Math.min(...scores) - 2;
+  const maxScore = Math.max(...scores) + 2;
+  const scoreRange = maxScore - minScore || 1;
+
+  function xPos(i) { return PAD.left + (i / Math.max(scores.length - 1, 1)) * chartW; }
+  function yPos(s) { return PAD.top + (1 - (s - minScore) / scoreRange) * chartH; }
+
+  // Clear
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = PAD.top + (chartH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, y);
+    ctx.lineTo(PAD.left + chartW, y);
+    ctx.stroke();
+    const gridVal = Math.round(maxScore - (scoreRange / 4) * i);
+    ctx.fillStyle = 'rgba(245,240,232,0.3)';
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(gridVal, PAD.left - 8, y + 4);
+  }
+
+  // Average line
+  const avgScore = scores.reduce((a,b) => a+b, 0) / scores.length;
+  const avgY = yPos(avgScore);
+  ctx.strokeStyle = 'rgba(184,150,46,0.3)';
+  ctx.setLineDash([4, 4]);
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD.left, avgY);
+  ctx.lineTo(PAD.left + chartW, avgY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(184,150,46,0.6)';
+  ctx.font = '10px Inter, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('avg ' + avgScore.toFixed(1), PAD.left + chartW + 4, avgY + 4);
+
+  if (scores.length > 1) {
+    // Area fill
+    const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + chartH);
+    grad.addColorStop(0, 'rgba(184,150,46,0.18)');
+    grad.addColorStop(1, 'rgba(184,150,46,0.02)');
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(scores[0]));
+    for (let i = 1; i < scores.length; i++) {
+      ctx.lineTo(xPos(i), yPos(scores[i]));
+    }
+    ctx.lineTo(xPos(scores.length - 1), PAD.top + chartH);
+    ctx.lineTo(xPos(0), PAD.top + chartH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(scores[0]));
+    for (let i = 1; i < scores.length; i++) {
+      ctx.lineTo(xPos(i), yPos(scores[i]));
+    }
+    ctx.strokeStyle = '#B8962E';
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+  }
+
+  // Points + labels
+  scores.forEach((s, i) => {
+    const x = xPos(i);
+    const y = yPos(s);
+
+    // X axis label
+    ctx.fillStyle = 'rgba(245,240,232,0.4)';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(labels[i], x, H - PAD.bottom + 18);
+
+    // Dot
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = s === Math.min(...scores) ? '#4caf7a' : '#B8962E';
+    ctx.fill();
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Score label
+    ctx.fillStyle = 'rgba(245,240,232,0.85)';
+    ctx.font = 'bold 11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(s, x, y - 10);
+  });
+}
+
+// ── COACH SUMMARY ─────────────────────────────────
+function generateCoachSummary() {
+  const name = document.getElementById('playerName').value.trim() || 'The player';
+  const n = rounds.length;
+  if (n === 0) return;
+
+  const sorted = [...rounds].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const scores = sorted.map(r => r.gross);
+  const avgScore = (scores.reduce((a,b) => a+b, 0) / n).toFixed(1);
+  const bestGross = Math.min(...scores);
+  const bestRound = sorted.find(r => r.gross === bestGross);
+  const bestCourse = bestRound ? bestRound.course : '';
+
+  const fwyVals = rounds.filter(r => r.fwyPct !== null).map(r => r.fwyPct);
+  const girVals = rounds.filter(r => r.girPct !== null).map(r => r.girPct);
+  const avgFwy = fwyVals.length ? Math.round(fwyVals.reduce((a,b) => a+b,0) / fwyVals.length) : null;
+  const avgGir = girVals.length ? Math.round(girVals.reduce((a,b) => a+b,0) / girVals.length) : null;
+
+  const diffVals = sorted.map(r => parseFloat(r.differential));
+  const avgDiff = (diffVals.reduce((a,b) => a+b, 0) / diffVals.length).toFixed(1);
+
+  // Trend analysis
+  let trendStr = '';
+  if (scores.length >= 4) {
+    const firstHalf = scores.slice(0, Math.floor(n/2));
+    const secondHalf = scores.slice(Math.floor(n/2));
+    const avg1 = firstHalf.reduce((a,b) => a+b,0) / firstHalf.length;
+    const avg2 = secondHalf.reduce((a,b) => a+b,0) / secondHalf.length;
+    const diff = avg1 - avg2;
+    if (diff > 1) trendStr = `Scoring is trending lower (improving by ~${diff.toFixed(1)} strokes over the tracked period).`;
+    else if (diff < -1) trendStr = `Some fluctuation in recent rounds — consistency is an area of focus.`;
+    else trendStr = 'Scoring has been consistent throughout the tracked period.';
+  }
+
+  // Strengths
+  const strengths = [];
+  if (avgFwy !== null && avgFwy >= 65) strengths.push(`strong tee-to-fairway accuracy (${avgFwy}% fairways hit)`);
+  if (avgGir !== null && avgGir >= 60) strengths.push(`solid approach play (${avgGir}% greens in regulation)`);
+  if (parseFloat(avgDiff) < 2) strengths.push('competitive handicap differential');
+
+  let summaryText = `Over ${n} round${n > 1 ? 's' : ''} tracked, ${name}'s scoring average is ${avgScore}, `;
+  if (avgFwy !== null) summaryText += `with ${avgFwy}% fairways `;
+  if (avgGir !== null) summaryText += `and ${avgGir}% greens in regulation. `;
+  summaryText += `Best round: ${bestGross}${bestCourse ? ' at ' + bestCourse : ''}. `;
+  summaryText += `Handicap differential average: ${avgDiff}. `;
+  if (strengths.length) summaryText += `Strengths include ${strengths.join(' and ')}. `;
+  if (trendStr) summaryText += trendStr;
+
+  document.getElementById('coachSummaryText').textContent = summaryText;
+}
+
+function copySummary() {
+  const text = document.getElementById('coachSummaryText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('copy-confirm');
+    const isEn = document.documentElement.lang === 'en';
+    el.textContent = isEn ? 'Copied!' : 'คัดลอกแล้ว!';
+    el.style.opacity = '1';
+    setTimeout(() => el.style.opacity = '0', 2000);
+  });
+}
+
+// ── BENCHMARK BARS ────────────────────────────────
+function updateBenchmarkBars() {
+  if (rounds.length === 0) return;
+  const scores = rounds.map(r => r.gross);
+  const userAvg = scores.reduce((a,b) => a+b,0) / scores.length;
+
+  // Each tier: if user avg <= midpoint, fill 100%. Scale from 100% at best to 0% way above range
+  function barWidth(low, high) {
+    const mid = (low + high) / 2;
+    // How close is user avg to this tier's midpoint?
+    const dist = Math.abs(userAvg - mid);
+    const pct = Math.max(0, Math.min(100, 100 - (dist / 6) * 100));
+    return pct.toFixed(0) + '%';
+  }
+
+  document.getElementById('bench-d1-bar').style.width = barWidth(70, 74);
+  document.getElementById('bench-d2-bar').style.width = barWidth(74, 78);
+  document.getElementById('bench-naia-bar').style.width = barWidth(76, 80);
+
+  const noteEl = document.getElementById('bench-your-avg-note');
+  const isEn = document.documentElement.lang === 'en';
+  const avgStr = (scores.reduce((a,b) => a+b,0) / scores.length).toFixed(1);
+
+  let tier = '';
+  if (userAvg <= 74) tier = isEn ? 'NCAA Division I range' : 'ช่วง NCAA Division I';
+  else if (userAvg <= 78) tier = isEn ? 'NCAA Division II range' : 'ช่วง NCAA Division II';
+  else if (userAvg <= 82) tier = isEn ? 'NAIA range' : 'ช่วง NAIA';
+  else tier = isEn ? 'developing — keep improving!' : 'กำลังพัฒนา — สู้ต่อไป!';
+
+  noteEl.textContent = isEn
+    ? `Your current scoring average is ${avgStr} — placing you in the ${tier}.`
+    : `ค่าเฉลี่ยสกอร์ปัจจุบันของคุณคือ ${avgStr} — อยู่ใน${tier}`;
+}
+
+// ── BENCHMARK TOGGLE ──────────────────────────────
+let benchOpen = false;
+function toggleBenchmark() {
+  benchOpen = !benchOpen;
+  document.getElementById('benchmarkBody').classList.toggle('open', benchOpen);
+  document.getElementById('benchArrow').style.transform = benchOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+// ── INIT ──────────────────────────────────────────
+// Set today's date as default
+(function() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  document.getElementById('r-date').value = `${yyyy}-${mm}-${dd}`;
+})();
+
+loadData();
+
+// Resize chart on window resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (rounds.length > 0) renderChart();
+  }, 200);
+});
+</script>
+</body>
+</html>

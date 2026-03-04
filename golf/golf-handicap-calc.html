@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handicap Index Calculator — LinkedU Golf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #222;
+    --surface2: #252525;
+    --cream: #f5f0e8;
+    --gold: #B8962E;
+    --gold-dark: #9a7a24;
+    --muted: rgba(245,240,232,0.5);
+    --border: rgba(184,150,46,0.15);
+    --radius: 8px;
+  }
+
+  html[lang="th"] .lang-en { display: none !important; }
+  html[lang="en"] .lang-th { display: none !important; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    background: #1a1a1a;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .logo-tag {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .lang-toggle { display: flex; gap: 6px; }
+  .lang-btn {
+    padding: 5px 14px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .lang-btn.active { background: var(--gold); color: #1a1a1a; }
+  .lang-btn:not(.active) { background: transparent; color: var(--gold); }
+  .lang-btn:hover:not(.active) { background: rgba(184,150,46,0.12); }
+
+  /* MAIN */
+  main { flex: 1; max-width: 860px; margin: 0 auto; width: 100%; padding: 48px 24px 64px; }
+
+  /* HERO */
+  .hero { margin-bottom: 48px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-top: 1px solid var(--gold);
+    display: inline-block;
+    padding-top: 6px;
+    margin-bottom: 18px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin-bottom: 22px;
+    line-height: 1.65;
+  }
+  .formula-box {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 22px;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  /* ROUND INPUTS */
+  .rounds-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .round-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 40px;
+    gap: 10px;
+    align-items: center;
+  }
+  .round-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+  input[type="number"] {
+    background: #1a1a1a;
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 6px;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  input[type="number"]:focus { border-color: var(--gold); }
+  input[type="number"]::placeholder { color: rgba(245,240,232,0.25); }
+  .remove-btn {
+    background: transparent;
+    border: none;
+    color: rgba(245,240,232,0.3);
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .remove-btn:hover { color: #e05; background: rgba(238,0,85,0.08); }
+
+  .row-actions { display: flex; gap: 10px; margin-top: 4px; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-outline:hover { background: rgba(184,150,46,0.1); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(245,240,232,0.15);
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(245,240,232,0.3); color: var(--cream); }
+
+  /* CALCULATE BUTTON */
+  .btn-gold {
+    background: var(--gold);
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.03em;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold-dark); transform: translateY(-1px); }
+  .btn-gold:active { transform: translateY(0); }
+
+  /* RESULT */
+  #result-section { display: none; }
+  .result-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .result-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .result-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 10px;
+    transition: color 0.4s;
+  }
+  .result-number.green  { color: #4caf7d; }
+  .result-number.blue   { color: #5b9cf6; }
+  .result-number.amber  { color: #e8a020; }
+  .result-number.red    { color: #e05555; }
+  .result-sub {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* BENCHMARK TABLE */
+  .benchmark-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .benchmark-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--cream);
+  }
+  .bench-table { width: 100%; border-collapse: collapse; }
+  .bench-table th {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 24px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .bench-table td {
+    padding: 11px 24px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--cream);
+  }
+  .bench-table tr:last-child td { border-bottom: none; }
+  .bench-table tr.highlight td { color: var(--gold); font-weight: 600; background: rgba(184,150,46,0.07); }
+  .bench-hcp { color: var(--gold); font-weight: 600; font-family: 'Playfair Display', serif; font-size: 15px; }
+  .bench-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* LINE CTA */
+  .line-cta {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .line-icon {
+    width: 42px; height: 42px;
+    background: #06c755;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .line-cta-text strong { color: var(--cream); font-size: 14px; display: block; margin-bottom: 3px; }
+  .line-cta-text span { color: var(--gold); font-weight: 600; }
+  .line-cta-text p { color: var(--muted); font-size: 13px; }
+
+  /* FAQ ACCORDION */
+  .faq-section { margin-top: 8px; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 18px 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.2s;
+  }
+  .faq-question:hover { color: var(--gold); }
+  .faq-chevron {
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 0;
+  }
+  .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 18px; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .footer-copy { font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+  .footer-line { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+  .footer-contact { font-size: 11px; color: rgba(245,240,232,0.3); letter-spacing: 0.04em; }
+
+  @media (max-width: 600px) {
+    header { padding: 0 18px; }
+    main { padding: 32px 16px 48px; }
+    .hero h1 { font-size: 28px; }
+    .card { padding: 20px 18px; }
+    .round-row { grid-template-columns: 72px 1fr 36px; gap: 8px; }
+    .result-number { font-size: 52px; }
+    .bench-table td, .bench-table th { padding: 10px 16px; }
+    .line-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <span class="logo-name">LINKEDU</span>
+    <span class="logo-tag">Golf Scholarships</span>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-th" onclick="setLang('th')">ภาษาไทย</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>
+      <span class="lang-en">Handicap Index Calculator</span>
+      <span class="lang-th">คำนวณ Handicap Index</span>
+    </h1>
+    <p class="lang-en">Calculate your official WHS Handicap Index and discover which US university and UK boarding school golf programs are within your reach. Enter your score differentials from recent rounds to get started.</p>
+    <p class="lang-th">คำนวณ Handicap Index ตามระบบ WHS อย่างเป็นทางการ และดูว่าโปรแกรมกอล์ฟของมหาวิทยาลัยสหรัฐหรือโรงเรียนประจำในสหราชอาณาจักรใดที่เหมาะกับระดับของคุณ ใส่ค่า Score Differential จากรอบล่าสุดเพื่อเริ่มต้น</p>
+  </section>
+
+  <!-- STEP 1 -->
+  <div class="card">
+    <div class="section-label">
+      <span class="lang-en">Step 1 — Score Differentials</span>
+      <span class="lang-th">ขั้นตอนที่ 1 — Score Differential</span>
+    </div>
+    <h2>
+      <span class="lang-en">Enter Your Recent Rounds</span>
+      <span class="lang-th">ใส่ข้อมูลรอบล่าสุดของคุณ</span>
+    </h2>
+    <p class="card-desc lang-en">A Score Differential measures how you played relative to the course difficulty. Find it on your scorecard or golf app, or calculate it yourself using the formula below.</p>
+    <p class="card-desc lang-th">Score Differential คือตัวเลขที่วัดว่าคุณเล่นได้ดีแค่ไหนเมื่อเทียบกับความยากของสนาม หาได้จากบัตรสกอร์หรือแอปกอล์ฟ หรือคำนวณเองโดยใช้สูตรด้านล่าง</p>
+
+    <div class="formula-box">
+      Score Differential = (Adjusted Gross Score − Course Rating) × 113 ÷ Slope Rating
+    </div>
+
+    <p class="card-desc lang-en" style="margin-bottom:18px;">Enter up to 20 score differentials. Use your most recent rounds for the most accurate result. Minimum 3 rounds required.</p>
+    <p class="card-desc lang-th" style="margin-bottom:18px;">ใส่ค่า Score Differential ได้สูงสุด 20 รอบ ใช้รอบล่าสุดเพื่อความแม่นยำสูงสุด ต้องการอย่างน้อย 3 รอบ</p>
+
+    <div class="rounds-list" id="rounds-list"></div>
+
+    <div class="row-actions">
+      <button class="btn-outline" onclick="addRound()">
+        <span class="lang-en">+ Add Round</span>
+        <span class="lang-th">+ เพิ่มรอบ</span>
+      </button>
+      <button class="btn-ghost" onclick="clearAll()">
+        <span class="lang-en">Clear All</span>
+        <span class="lang-th">ล้างทั้งหมด</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card" style="text-align:center;">
+    <div class="section-label" style="display:block;margin-bottom:16px;">
+      <span class="lang-en">Step 2 — Calculate</span>
+      <span class="lang-th">ขั้นตอนที่ 2 — คำนวณ</span>
+    </div>
+    <h2 style="margin-bottom:10px;">
+      <span class="lang-en">Get Your Handicap Index</span>
+      <span class="lang-th">รับค่า Handicap Index ของคุณ</span>
+    </h2>
+    <p class="card-desc lang-en" style="max-width:520px;margin:0 auto 22px;">Uses the official WHS formula — best score differentials selected by number of rounds, multiplied by 0.96.</p>
+    <p class="card-desc lang-th" style="max-width:520px;margin:0 auto 22px;">ใช้สูตร WHS อย่างเป็นทางการ — เลือก Score Differential ที่ดีที่สุดตามจำนวนรอบที่เล่น แล้วคูณด้วย 0.96</p>
+    <div id="error-msg" style="color:#e05555;font-size:13px;margin-bottom:14px;display:none;"></div>
+    <button class="btn-gold" onclick="calculate()">
+      <span class="lang-en">Calculate My Handicap Index</span>
+      <span class="lang-th">คำนวณ Handicap Index ของฉัน</span>
+    </button>
+  </div>
+
+  <!-- RESULT SECTION -->
+  <section id="result-section">
+
+    <!-- Big number result -->
+    <div class="result-card">
+      <div class="result-label">
+        <span class="lang-en">Your Handicap Index</span>
+        <span class="lang-th">Handicap Index ของคุณ</span>
+      </div>
+      <div class="result-number" id="result-number">—</div>
+      <div class="result-sub" id="result-sub"></div>
+    </div>
+
+    <!-- Benchmark table -->
+    <div class="benchmark-card">
+      <h3>
+        <span class="lang-en">Recruiting Benchmarks</span>
+        <span class="lang-th">เกณฑ์มาตรฐานการสมัครทุน</span>
+      </h3>
+      <table class="bench-table" id="bench-table">
+        <thead>
+          <tr>
+            <th><span class="lang-en">Handicap</span><span class="lang-th">แฮนดิแคป</span></th>
+            <th><span class="lang-en">Level / Program</span><span class="lang-th">ระดับ / โปรแกรม</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-min="-999" data-max="2">
+            <td><span class="bench-hcp">Under 2</span></td>
+            <td>
+              <div><span class="lang-en">NCAA Division I — Top Programs</span><span class="lang-th">NCAA Division I — โปรแกรมชั้นนำ</span></div>
+              <div class="bench-sub"><span class="lang-en">Full athletic scholarships, elite competition</span><span class="lang-th">ทุนกีฬาเต็มจำนวน การแข่งขันระดับชั้นนำ</span></div>
+            </td>
+          </tr>
+          <tr data-min="2" data-max="4">
+            <td><span class="bench-hcp">2 – 4</span></td>
+            <td>
+              <div><span class="lang-en">NCAA Division I</span><span class="lang-th">NCAA Division I</span></div>
+              <div class="bench-sub"><span class="lang-en">Partial to full athletic scholarships</span><span class="lang-th">ทุนกีฬาบางส่วนถึงเต็มจำนวน</span></div>
+            </td>
+          </tr>
+          <tr data-min="4" data-max="7">
+            <td><span class="bench-hcp">4 – 7</span></td>
+            <td>
+              <div><span class="lang-en">NCAA Division II / Strong NAIA</span><span class="lang-th">NCAA Division II / NAIA ระดับดี</span></div>
+              <div class="bench-sub"><span class="lang-en">Partial athletic scholarships available</span><span class="lang-th">ทุนกีฬาบางส่วน</span></div>
+            </td>
+          </tr>
+          <tr data-min="7" data-max="12">
+            <td><span class="bench-hcp">7 – 12</span></td>
+            <td>
+              <div><span class="lang-en">NCAA Division III / NAIA</span><span class="lang-th">NCAA Division III / NAIA</span></div>
+              <div class="bench-sub"><span class="lang-en">Academic scholarships, competitive teams</span><span class="lang-th">ทุนวิชาการ ทีมแข่งขัน</span></div>
+            </td>
+          </tr>
+          <tr data-min="12" data-max="18">
+            <td><span class="bench-hcp">12 – 18</span></td>
+            <td>
+              <div><span class="lang-en">UK Boarding School Team</span><span class="lang-th">ทีมโรงเรียนประจำในสหราชอาณาจักร</span></div>
+              <div class="bench-sub"><span class="lang-en">School golf teams, competitive pathway</span><span class="lang-th">ทีมกอล์ฟโรงเรียน เส้นทางการแข่งขัน</span></div>
+            </td>
+          </tr>
+          <tr data-min="18" data-max="999">
+            <td><span class="bench-hcp">18+</span></td>
+            <td>
+              <div><span class="lang-en">Keep Practicing — Target Under 10</span><span class="lang-th">ฝึกต่อไป — เป้าหมายต่ำกว่า 10</span></div>
+              <div class="bench-sub"><span class="lang-en">Focus on improvement before recruiting</span><span class="lang-th">มุ่งเน้นการพัฒนาก่อนสมัครทุน</span></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- LINE CTA -->
+    <div class="line-cta">
+      <div class="line-icon">💬</div>
+      <div class="line-cta-text">
+        <strong>
+          <span class="lang-en">Ready to find your perfect school?</span>
+          <span class="lang-th">พร้อมหาโรงเรียนที่ใช่แล้วหรือยัง?</span>
+        </strong>
+        <p>
+          <span class="lang-en">Chat with LinkedU on LINE <span style="color:var(--gold);font-weight:600;">@linkedu</span> — we match Thai students to the right programs.</span>
+          <span class="lang-th">ติดต่อ LinkedU ทาง LINE <span style="color:var(--gold);font-weight:600;">@linkedu</span> — เราจับคู่นักเรียนไทยกับโปรแกรมที่เหมาะสม</span>
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FAQ -->
+  <div style="margin-top:12px;">
+    <div class="section-label">
+      <span class="lang-en">Frequently Asked Questions</span>
+      <span class="lang-th">คำถามที่พบบ่อย</span>
+    </div>
+    <div class="faq-section">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>
+            <span class="lang-en">What is the World Handicap System (WHS)?</span>
+            <span class="lang-th">ระบบ WHS (World Handicap System) คืออะไร?</span>
+          </span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <span class="lang-en">The World Handicap System (WHS) is the universal golf handicapping system used globally since 2020. It standardises how handicaps are calculated across different courses and countries, so a handicap earned in Thailand is recognised in the USA and UK. It replaces multiple legacy systems including the USGA and CONGU systems.</span>
+          <span class="lang-th">ระบบ WHS (World Handicap System) คือระบบคำนวณแฮนดิแคปกอล์ฟสากลที่ใช้ทั่วโลกตั้งแต่ปี 2020 โดยมาตรฐานวิธีคำนวณแฮนดิแคปในสนามและประเทศต่างๆ ทำให้แฮนดิแคปที่ได้รับในประเทศไทยได้รับการยอมรับในสหรัฐอเมริกาและสหราชอาณาจักร</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>
+            <span class="lang-en">How often does my Handicap Index update?</span>
+            <span class="lang-th">Handicap Index อัปเดตบ่อยแค่ไหน?</span>
+          </span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <span class="lang-en">Under WHS, your Handicap Index is recalculated daily (or after each round is posted, depending on your club software). It is based on the best 8 of your last 20 Score Differentials. As you play more rounds, older rounds drop off and newer ones are added, keeping your index current and accurate.</span>
+          <span class="lang-th">ภายใต้ระบบ WHS Handicap Index ของคุณจะถูกคำนวณใหม่ทุกวัน (หรือหลังจากส่งสกอร์แต่ละรอบ ขึ้นอยู่กับซอฟต์แวร์ของสโมสร) โดยอิงจาก Score Differential ที่ดีที่สุด 8 รายการจาก 20 รอบล่าสุด</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>
+            <span class="lang-en">What handicap do top UK boarding schools want?</span>
+            <span class="lang-th">โรงเรียนประจำชั้นนำในสหราชอาณาจักรต้องการแฮนดิแคปเท่าไหร่?</span>
+          </span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <span class="lang-en">Requirements vary by school. Schools with strong golf programmes (such as Millfield, Stowe, or Monmouth) typically look for handicaps under 10 for their competitive squad. For general school golf teams, a handicap under 18 is usually sufficient. UK schools do not offer US-style athletic scholarships, but golf ability can support scholarship applications on merit.</span>
+          <span class="lang-th">ข้อกำหนดแตกต่างกันไปตามโรงเรียน โรงเรียนที่มีโปรแกรมกอล์ฟที่แข็งแกร่ง (เช่น Millfield, Stowe, หรือ Monmouth) มักมองหาแฮนดิแคปต่ำกว่า 10 สำหรับทีมแข่งขัน สำหรับทีมกอล์ฟโรงเรียนทั่วไป แฮนดิแคปต่ำกว่า 18 มักเพียงพอ</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 LinkedU · Golf Scholarship Specialists</div>
+  <div class="footer-line">LINE: @linkedu</div>
+  <div class="footer-contact">ติดต่อเรา / Contact Us</div>
+</footer>
+
+<script>
+  // ─── Language ───────────────────────────────────────────────
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+    localStorage.setItem('linkedu-lang', lang);
+  }
+
+  (function initLang() {
+    const saved = localStorage.getItem('linkedu-lang') || 'en';
+    setLang(saved);
+  })();
+
+  // ─── Rounds ─────────────────────────────────────────────────
+  let roundCount = 0;
+  const MAX_ROUNDS = 20;
+
+  function addRound() {
+    if (roundCount >= MAX_ROUNDS) return;
+    roundCount++;
+    const list = document.getElementById('rounds-list');
+    const row = document.createElement('div');
+    row.className = 'round-row';
+    row.dataset.id = roundCount;
+    row.innerHTML = `
+      <div class="round-label">
+        <span class="lang-en">Round ${roundCount}</span>
+        <span class="lang-th">รอบที่ ${roundCount}</span>
+      </div>
+      <input type="number" step="0.1" min="-10" max="60" placeholder="e.g. 14.2" id="diff-${roundCount}">
+      <button class="remove-btn" onclick="removeRound(this)" title="Remove">&times;</button>
+    `;
+    list.appendChild(row);
+    applyLangToNewRow(row);
+    row.querySelector('input').focus();
+  }
+
+  function applyLangToNewRow(row) {
+    const lang = document.documentElement.lang;
+    row.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+    row.querySelectorAll('.lang-th').forEach(el => el.style.display = lang === 'th' ? '' : 'none');
+  }
+
+  function removeRound(btn) {
+    const row = btn.closest('.round-row');
+    row.remove();
+    renumberRounds();
+  }
+
+  function renumberRounds() {
+    const rows = document.querySelectorAll('.round-row');
+    roundCount = 0;
+    rows.forEach((row, i) => {
+      roundCount = i + 1;
+      row.dataset.id = roundCount;
+      const enSpan = row.querySelector('.lang-en');
+      const thSpan = row.querySelector('.lang-th');
+      if (enSpan) enSpan.textContent = `Round ${roundCount}`;
+      if (thSpan) thSpan.textContent = `รอบที่ ${roundCount}`;
+      const input = row.querySelector('input');
+      if (input) input.id = `diff-${roundCount}`;
+    });
+  }
+
+  function clearAll() {
+    document.getElementById('rounds-list').innerHTML = '';
+    roundCount = 0;
+    document.getElementById('result-section').style.display = 'none';
+    addRound(); addRound(); addRound(); addRound(); addRound();
+  }
+
+  // Initial 5 rounds
+  for (let i = 0; i < 5; i++) addRound();
+
+  // ─── WHS Calculation ────────────────────────────────────────
+  function getWHSAdjustment(n, sorted) {
+    // sorted: ascending (best = lowest first)
+    // Returns { diffs: [], adjustment: number }
+    if (n < 3) return null; // need at least 3
+    const rules = [
+      { min: 3,  max: 3,  take: 1,  adj: -2.0 },
+      { min: 4,  max: 4,  take: 1,  adj: -1.0 },
+      { min: 5,  max: 5,  take: 1,  adj:  0.0 },
+      { min: 6,  max: 6,  take: 2,  adj: -1.0 },
+      { min: 7,  max: 8,  take: 2,  adj:  0.0 },
+      { min: 9,  max: 11, take: 3,  adj:  0.0 },
+      { min: 12, max: 14, take: 4,  adj:  0.0 },
+      { min: 15, max: 16, take: 5,  adj:  0.0 },
+      { min: 17, max: 18, take: 6,  adj:  0.0 },
+      { min: 19, max: 19, take: 7,  adj:  0.0 },
+      { min: 20, max: 20, take: 8,  adj:  0.0 },
+    ];
+    for (const rule of rules) {
+      if (n >= rule.min && n <= rule.max) {
+        const best = sorted.slice(0, rule.take);
+        const avg = best.reduce((a, b) => a + b, 0) / best.length;
+        return { avg, adj: rule.adj, take: rule.take };
+      }
+    }
+    return null;
+  }
+
+  function calculate() {
+    const errEl = document.getElementById('error-msg');
+    errEl.style.display = 'none';
+
+    const inputs = document.querySelectorAll('#rounds-list input[type="number"]');
+    const diffs = [];
+    inputs.forEach(inp => {
+      const val = parseFloat(inp.value);
+      if (!isNaN(val)) diffs.push(val);
+    });
+
+    if (diffs.length < 3) {
+      errEl.textContent = document.documentElement.lang === 'en'
+        ? 'Please enter at least 3 score differentials.'
+        : 'กรุณาใส่ Score Differential อย่างน้อย 3 รอบ';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const sorted = [...diffs].sort((a, b) => a - b);
+    const n = Math.min(diffs.length, 20);
+    const result = getWHSAdjustment(n, sorted);
+
+    if (!result) {
+      errEl.textContent = 'Calculation error. Please check your inputs.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    let index = (result.avg + result.adj) * 0.96;
+    index = Math.min(54.0, index);
+    index = Math.max(0, index);
+    index = Math.round(index * 10) / 10;
+
+    showResult(index, diffs.length);
+  }
+
+  function showResult(index, rounds) {
+    const numEl = document.getElementById('result-number');
+    const subEl = document.getElementById('result-sub');
+
+    numEl.textContent = index.toFixed(1);
+
+    // Color coding
+    numEl.className = 'result-number';
+    if (index < 5) numEl.classList.add('green');
+    else if (index < 10) numEl.classList.add('blue');
+    else if (index <= 18) numEl.classList.add('amber');
+    else numEl.classList.add('red');
+
+    const lang = document.documentElement.lang;
+    subEl.textContent = lang === 'en'
+      ? `Based on ${rounds} round${rounds !== 1 ? 's' : ''} entered`
+      : `คำนวณจาก ${rounds} รอบที่ใส่`;
+
+    // Highlight matching benchmark row
+    document.querySelectorAll('#bench-table tbody tr').forEach(row => {
+      row.classList.remove('highlight');
+      const min = parseFloat(row.dataset.min);
+      const max = parseFloat(row.dataset.max);
+      if (index >= min && index < max) row.classList.add('highlight');
+    });
+
+    const sec = document.getElementById('result-section');
+    sec.style.display = 'block';
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ─── FAQ ────────────────────────────────────────────────────
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
