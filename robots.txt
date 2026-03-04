@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Disallow: /build-blog.py
+Disallow: /server.py
+
+# AI crawlers — explicitly welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+Sitemap: https://linkeduth.netlify.app/sitemap.xml
