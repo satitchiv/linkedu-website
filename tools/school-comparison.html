@@ -269,7 +269,8 @@
 
         .comparison-table .feature-column {
             font-weight: 600;
-            color: var(--navy);
+            color: #fff;
+            background: var(--navy);
             width: 200px; /* Fixed width for feature column */
         }
 
@@ -426,6 +427,231 @@
                 padding: 12px 15px;
             }
         }
+
+        /* ============================================================
+           DIMENSION WINNERS + RECOMMENDATION
+           ============================================================ */
+        #dim-winners-section {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 2rem;
+        }
+        #dim-winners-section.visible { display: block; }
+        .dim-winners-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .dim-winners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .dim-winner-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 22px;
+        }
+        .dim-winner-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .dim-winner-dim {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .dim-winner-school {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--dark);
+        }
+        .dim-winner-score {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            color: #999;
+            margin-top: 4px;
+        }
+        /* Recommendation box */
+        .recommendation-box {
+            background: linear-gradient(135deg, #1B3A5C 0%, #0f2640 100%);
+            border-radius: 12px;
+            padding: 40px 48px;
+            color: #F5F0E8;
+        }
+        .recommendation-box .section-label {
+            color: var(--gold);
+            justify-content: flex-start;
+            margin-bottom: 12px;
+        }
+        .recommendation-box h3 {
+            color: #F5F0E8;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .recommendation-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .recommendation-list li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .rec-badge {
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            border-radius: 4px;
+            padding: 3px 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        .rec-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: rgba(245,240,232,0.85);
+        }
+        .rec-school-name {
+            color: #F5F0E8;
+            font-weight: 600;
+        }
+        @media (max-width: 700px) {
+            .recommendation-box { padding: 28px 22px; }
+            .dim-winners-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .dim-winners-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Report Modal */
+        #report-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        #report-modal-overlay.open { display: flex; }
+        .report-modal-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px 44px;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .report-modal-box h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        .report-modal-box p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .report-modal-schools {
+            background: var(--cream);
+            border-radius: 4px;
+            padding: 12px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .report-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .report-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .report-form-field label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #999;
+        }
+        .report-form-field input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 9px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .report-form-field input:focus { border-color: var(--gold); }
+        .report-submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 4px;
+            padding: 13px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .report-submit-btn:hover { background: #d4a832; }
+        .report-modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            background: none; border: none;
+            font-size: 1.2rem; color: #aaa; cursor: pointer;
+        }
+        .report-modal-close:hover { color: var(--dark); }
+        .report-success {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .report-success .check { font-size: 2.5rem; margin-bottom: 12px; }
+        .report-success h4 { margin-bottom: 8px; }
+        @media (max-width: 500px) {
+            .report-modal-box { padding: 28px 22px; }
+            .report-form-row { grid-template-columns: 1fr; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -521,6 +747,30 @@
                                 <td id="school2-scholarship-note"></td>
                                 <td id="school3-scholarship-note"></td>
                             </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Entry Ages" data-th="อายุที่รับสมัคร">Entry Ages</td>
+                                <td id="school1-entry-age"></td>
+                                <td id="school2-entry-age"></td>
+                                <td id="school3-entry-age"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Total Students" data-th="จำนวนนักเรียน">Total Students</td>
+                                <td id="school1-total-students"></td>
+                                <td id="school2-total-students"></td>
+                                <td id="school3-total-students"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Boarding Type" data-th="ประเภทการพักประจำ">Boarding Type</td>
+                                <td id="school1-boarding-type"></td>
+                                <td id="school2-boarding-type"></td>
+                                <td id="school3-boarding-type"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="ISI Rating" data-th="คะแนน ISI">ISI Rating</td>
+                                <td id="school1-isi-rating"></td>
+                                <td id="school2-isi-rating"></td>
+                                <td id="school3-isi-rating"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -535,6 +785,16 @@
             </div>
         </section>
 
+        <!-- DIMENSION WINNERS + RECOMMENDATION -->
+        <div id="dim-winners-section">
+            <div class="dim-winners-header">
+                <div class="section-label" style="justify-content:center;" data-en="· DIMENSION ANALYSIS ·" data-th="· การวิเคราะห์แต่ละมิติ ·">· DIMENSION ANALYSIS ·</div>
+                <h3 data-en="Which School Wins Each Category?" data-th="โรงเรียนไหนชนะในแต่ละหมวด?">Which School Wins Each Category?</h3>
+            </div>
+            <div class="dim-winners-grid" id="dim-winners-grid"></div>
+            <div class="recommendation-box" id="recommendation-box"></div>
+        </div>
+
         <section class="cta-section">
             <div class="section-label" data-en="· NEXT STEP ·" data-th="· ขั้นตอนต่อไป ·">· NEXT STEP ·</div>
             <h2 data-en="Ready to find your perfect school?" data-th="พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบของคุณแล้วหรือยัง?">Ready to find your perfect school?</h2>
@@ -546,6 +806,47 @@
     <footer class="footer">
         <span data-en="© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand" data-th="© 2026 L I N K E D U · การศึกษาต่างประเทศ · กรุงเทพฯ ประเทศไทย">© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand</span>
     </footer>
+
+    <!-- DETAILED REPORT MODAL -->
+    <div id="report-modal-overlay" onclick="handleReportOverlayClick(event)">
+        <div class="report-modal-box" id="report-modal-box">
+            <button class="report-modal-close" onclick="closeReportModal()">&#x2715;</button>
+            <div id="report-form-content">
+                <h4 data-en="Request a Detailed Report" data-th="ขอรายงานละเอียด">Request a Detailed Report</h4>
+                <p data-en="Our advisers will prepare a personalised comparison report for the schools below and send it to you on LINE — free of charge." data-th="ที่ปรึกษาของเราจะจัดทำรายงานเปรียบเทียบโรงเรียนด้านล่างและส่งให้คุณทาง LINE โดยไม่มีค่าใช้จ่าย">Our advisers will prepare a personalised comparison report for the schools below and send it to you on LINE — free of charge.</p>
+                <div class="report-modal-schools" id="report-modal-schools-list"></div>
+                <div class="report-form-row">
+                    <div class="report-form-field">
+                        <label data-en="Parent Name" data-th="ชื่อผู้ปกครอง">Parent Name</label>
+                        <input type="text" id="report-parent-name" placeholder="Your name">
+                    </div>
+                    <div class="report-form-field">
+                        <label data-en="Student Name" data-th="ชื่อนักเรียน">Student Name</label>
+                        <input type="text" id="report-student-name" placeholder="Student's name">
+                    </div>
+                </div>
+                <div class="report-form-row">
+                    <div class="report-form-field">
+                        <label data-en="LINE ID" data-th="LINE ID">LINE ID</label>
+                        <input type="text" id="report-line-id" placeholder="@your-line-id">
+                    </div>
+                    <div class="report-form-field">
+                        <label data-en="Email" data-th="อีเมล">Email</label>
+                        <input type="email" id="report-email" placeholder="email@example.com">
+                    </div>
+                </div>
+                <button class="report-submit-btn" onclick="submitReportForm()">
+                    <span data-en="Send Report Request →" data-th="ส่งคำขอรายงาน →">Send Report Request →</span>
+                </button>
+            </div>
+            <div class="report-success" id="report-success">
+                <div class="check">✓</div>
+                <h4 data-en="Request Received!" data-th="ได้รับคำขอแล้ว!">Request Received!</h4>
+                <p data-en="We'll send your personalised report via LINE within 24 hours. Our adviser will contact you shortly." data-th="เราจะส่งรายงานส่วนตัวของคุณทาง LINE ภายใน 24 ชั่วโมง ที่ปรึกษาของเราจะติดต่อคุณในเร็วๆ นี้">We'll send your personalised report via LINE within 24 hours. Our adviser will contact you shortly.</p>
+                <a href="https://line.me/ti/p/@linkedu.th" target="_blank" style="display:inline-block;margin-top:16px;background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:4px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Open LINE Chat →</a>
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- SCHOOLS DATA (Generated for demonstration as per prompt instructions) ---
@@ -560,15 +861,19 @@
         const UK_REGIONS = ["London", "South East", "South West", "East of England", "West Midlands", "East Midlands", "North West", "North East", "Yorkshire and the Humber", "Scotland", "Wales"];
         const SPORTS_LIST = ["Football", "Rugby", "Hockey", "Netball", "Cricket", "Swimming", "Athletics", "Tennis", "Badminton", "Basketball", "Cross Country", "Equestrian", "Golf", "Climbing", "Rowing", "Sailing", "Squash", "Table Tennis", "Volleyball", "Water Polo", "Fencing", "Gymnastics", "Martial Arts", "Yoga", "Dance", "Lacrosse", "Rounders"];
 
+        const ENTRY_AGES = ['11+', '13+', '13+ / 16+', '16+'];
+        const BOARDING_TYPES = ['Full Boarding', 'Weekly Boarding', 'Full & Weekly'];
+        const ISI_RATINGS = ['Good', 'Excellent', 'Outstanding'];
+
         function generateSchoolsData() {
             const schools = [];
             for (let i = 0; i < SCHOOL_NAMES.length; i++) {
                 const name = SCHOOL_NAMES[i];
-                const fee = Math.floor(Math.random() * (50000 - 25000 + 1) + 25000); // £25,000 - £50,000
+                const fee = Math.floor(Math.random() * (50000 - 25000 + 1) + 25000);
                 const type = SCHOOL_TYPES[Math.floor(Math.random() * SCHOOL_TYPES.length)];
                 const region = UK_REGIONS[Math.floor(Math.random() * UK_REGIONS.length)];
-                const alevelPercentage = Math.floor(Math.random() * (80 - 20 + 1) + 20); // 20% - 80% A*-B
-                const numSports = Math.floor(Math.random() * (15 - 5 + 1) + 5); // 5-15 sports
+                const alevelPercentage = Math.floor(Math.random() * (80 - 20 + 1) + 20);
+                const numSports = Math.floor(Math.random() * (15 - 5 + 1) + 5);
                 const selectedSports = [];
                 const availableSports = [...SPORTS_LIST];
                 for (let j = 0; j < numSports; j++) {
@@ -576,19 +881,19 @@
                     const randomIndex = Math.floor(Math.random() * availableSports.length);
                     selectedSports.push(availableSports.splice(randomIndex, 1)[0]);
                 }
-                const scholarshipStatus = Math.random() > 0.6 ? "Yes" : "No"; // ~40% have scholarships
+                const scholarshipStatus = Math.random() > 0.6 ? "Yes" : "No";
                 const scholarshipNote = scholarshipStatus === "Yes" ? "Academic, Art, Drama, Music, Sport and All-Rounder scholarships available." : "";
+                const scholarshipMaxPercent = scholarshipStatus === "Yes" ? [10, 15, 20, 25, 30, 40, 50][Math.floor(Math.random() * 7)] : 0;
+                const entryAge = ENTRY_AGES[Math.floor(Math.random() * ENTRY_AGES.length)];
+                const totalStudents = Math.floor(Math.random() * (900 - 150 + 1) + 150);
+                const boardingType = BOARDING_TYPES[Math.floor(Math.random() * BOARDING_TYPES.length)];
+                const isiRating = ISI_RATINGS[Math.floor(Math.random() * ISI_RATINGS.length)];
 
                 schools.push({
                     id: `school-${i + 1}`,
-                    name,
-                    fee,
-                    type,
-                    region,
-                    alevelPercentage,
-                    sports: selectedSports,
-                    scholarshipStatus,
-                    scholarshipNote
+                    name, fee, type, region, alevelPercentage,
+                    sports: selectedSports, scholarshipStatus, scholarshipNote,
+                    entryAge, totalStudents, boardingType, isiRating, scholarshipMaxPercent
                 });
             }
             return schools;
@@ -624,9 +929,9 @@
                 "Academic Performance (A-Level %)": "Academic Performance (A-Level %)",
                 "Affordability (Fee)": "Affordability (Fee)",
                 "Sports Variety": "Sports Variety",
-                "Scholarship Opportunities": "Scholarship Opportunities",
-                "School Type Preference": "School Type Preference",
-                "Regional Appeal": "Regional Appeal",
+                "Scholarship Value": "Scholarship Value",
+                "Pastoral Care": "Pastoral Care",
+                "London / Airport Access": "London / Airport Access",
                 "· NEXT STEP ·": "· NEXT STEP ·",
                 "Ready to find your perfect school?": "Ready to find your perfect school?",
                 "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.": "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.",
@@ -660,9 +965,9 @@
                 "Academic Performance (A-Level %)": "ผลการเรียน (A-Level %)",
                 "Affordability (Fee)": "ความสามารถในการจ่าย (ค่าธรรมเนียม)",
                 "Sports Variety": "ความหลากหลายของกีฬา",
-                "Scholarship Opportunities": "โอกาสทุนการศึกษา",
-                "School Type Preference": "ความชอบประเภทโรงเรียน",
-                "Regional Appeal": "ความน่าสนใจของภูมิภาค",
+                "Scholarship Value": "มูลค่าทุนการศึกษา",
+                "Pastoral Care": "การดูแลนักเรียน",
+                "London / Airport Access": "ใกล้ลอนดอน / สนามบิน",
                 "· NEXT STEP ·": "· ขั้นตอนต่อไป ·",
                 "Ready to find your perfect school?": "พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบของคุณแล้วหรือยัง?",
                 "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.": "ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำคุณในทุกขั้นตอนของกระบวนการสมัคร เพื่อให้มั่นใจว่าคุณจะเลือกสิ่งที่ดีที่สุดสำหรับอนาคตของบุตรหลานของคุณ",
@@ -734,22 +1039,34 @@
         const radarChartCanvas = document.getElementById('radarChart');
         let radarChartInstance = null;
 
-        const regionScores = {
-            "London": 1.0, "South East": 0.9, "South West": 0.8, "East of England": 0.7,
-            "West Midlands": 0.6, "East Midlands": 0.5, "North West": 0.4, "North East": 0.3,
-            "Yorkshire and the Humber": 0.5, "Scotland": 0.2, "Wales": 0.2
+        // Proximity to London / major airports (Heathrow, Gatwick, Stansted, BHX, MAN)
+        const proximityScores = {
+            "London": 1.0,
+            "South East": 0.92,   // Gatwick, M25 corridor
+            "East of England": 0.78, // Stansted, Cambridge
+            "South West": 0.60,
+            "West Midlands": 0.56, // Birmingham Airport
+            "East Midlands": 0.50, // East Midlands Airport
+            "North West": 0.44,   // Manchester Airport
+            "Yorkshire and the Humber": 0.40,
+            "North East": 0.28,
+            "Wales": 0.30,
+            "Scotland": 0.18
         };
 
-        const typeScores = {
-            "Co-educational": 1.0, "Boys": 0.8, "Girls": 0.8
+        const isiScores = {
+            "Outstanding": 1.0,
+            "Excellent": 0.75,
+            "Good": 0.50
         };
 
         // Pre-calculate min/max for normalization
         const fees = SCHOOLS.map(s => s.fee);
         const alevelPercentages = SCHOOLS.map(s => s.alevelPercentage);
         const sportsCounts = SCHOOLS.map(s => s.sports.length);
-        const typeScoreValues = Object.values(typeScores);
-        const regionScoreValues = Object.values(regionScores);
+        const scholarshipPercents = SCHOOLS.map(s => s.scholarshipMaxPercent || 0);
+        const isiScoreValues = Object.values(isiScores);
+        const proximityScoreValues = Object.values(proximityScores);
 
         const minFee = Math.min(...fees);
         const maxFee = Math.max(...fees);
@@ -757,10 +1074,12 @@
         const maxAlevel = Math.max(...alevelPercentages);
         const minSports = Math.min(...sportsCounts);
         const maxSports = Math.max(...sportsCounts);
-        const minTypeScore = Math.min(...typeScoreValues);
-        const maxTypeScore = Math.max(...typeScoreValues);
-        const minRegionScore = Math.min(...regionScoreValues);
-        const maxRegionScore = Math.max(...regionScoreValues);
+        const minScholarshipPct = 0;
+        const maxScholarshipPct = Math.max(...scholarshipPercents, 50);
+        const minIsiScore = Math.min(...isiScoreValues);
+        const maxIsiScore = Math.max(...isiScoreValues);
+        const minProximityScore = Math.min(...proximityScoreValues);
+        const maxProximityScore = Math.max(...proximityScoreValues);
 
         function normalize(value, min, max) {
             if (min === max) return 50; // Avoid division by zero, return middle value
@@ -813,6 +1132,7 @@
             const selectedSchools = getSelectedSchools();
             renderComparisonTable(selectedSchools);
             renderRadarChart(selectedSchools);
+            renderWinnersSection(selectedSchools);
             updateDropdownOptions(); // Update options after selection change
         }
 
@@ -907,6 +1227,29 @@
                 } else {
                     scholarshipNoteCell.textContent = translations[currentLang]["No note"];
                 }
+
+                // Entry Ages
+                const entryAgeCell = bodyRows[7].children[colIndex];
+                entryAgeCell.textContent = school.entryAge || '13+';
+
+                // Total Students
+                const totalStudentsCell = bodyRows[8].children[colIndex];
+                const totalStu = school.totalStudents;
+                if (totalStu !== undefined) {
+                    totalStudentsCell.textContent = totalStu.toLocaleString();
+                    const maxStudents = Math.max(...schools.map(s => s.totalStudents || 0));
+                    if (totalStu === maxStudents && schools.filter(s => (s.totalStudents || 0) === maxStudents).length === 1) {
+                        totalStudentsCell.classList.add('highlight-gold');
+                    }
+                }
+
+                // Boarding Type
+                const boardingTypeCell = bodyRows[9].children[colIndex];
+                boardingTypeCell.textContent = school.boardingType || 'Full Boarding';
+
+                // ISI Rating
+                const isiCell = bodyRows[10].children[colIndex];
+                isiCell.textContent = school.isiRating || 'Excellent';
             });
         }
 
@@ -926,9 +1269,9 @@
                 translations[currentLang]["Academic Performance (A-Level %)"],
                 translations[currentLang]["Affordability (Fee)"],
                 translations[currentLang]["Sports Variety"],
-                translations[currentLang]["Scholarship Opportunities"],
-                translations[currentLang]["School Type Preference"],
-                translations[currentLang]["Regional Appeal"]
+                translations[currentLang]["Scholarship Value"],
+                translations[currentLang]["Pastoral Care"],
+                translations[currentLang]["London / Airport Access"]
             ];
 
             const datasets = schools.map((school, index) => {
@@ -937,29 +1280,29 @@
                 data.push(normalize(school.alevelPercentage, minAlevel, maxAlevel));
 
                 // 2. Affordability (Fee) - Lower is better, invert fee for normalization
-                data.push(normalize(maxFee - school.fee, maxFee - maxFee, maxFee - minFee));
+                data.push(normalize(maxFee - school.fee, 0, maxFee - minFee));
 
                 // 3. Sports Variety (Count) - More sports is better
                 data.push(normalize(school.sports.length, minSports, maxSports));
 
-                // 4. Scholarship Opportunities - Yes=1, No=0
-                data.push(school.scholarshipStatus === 'Yes' ? 100 : 0);
+                // 4. Scholarship Value - % remission available (0–50%)
+                data.push(normalize(school.scholarshipMaxPercent || 0, minScholarshipPct, maxScholarshipPct));
 
-                // 5. School Type Preference (Co-educational=1, Boys=0.8, Girls=0.8)
-                data.push(normalize(typeScores[school.type], minTypeScore, maxTypeScore));
+                // 5. Pastoral Care - ISI rating (Outstanding/Excellent/Good)
+                data.push(normalize(isiScores[school.isiRating] || 0.5, minIsiScore, maxIsiScore));
 
-                // 6. Regional Appeal (Score based on region)
-                data.push(normalize(regionScores[school.region], minRegionScore, maxRegionScore));
+                // 6. Proximity to London / Airport - regional score
+                data.push(normalize(proximityScores[school.region] || 0.5, minProximityScore, maxProximityScore));
 
                 const colors = [
-                    'rgba(27, 58, 92, 0.8)',  // Navy
-                    'rgba(201, 168, 76, 0.8)', // Gold
-                    'rgba(100, 100, 100, 0.8)' // Grey
+                    'rgba(46, 160, 100, 0.15)',  // Green
+                    'rgba(201, 168, 76, 0.15)',  // Gold
+                    'rgba(180, 80, 80, 0.15)'    // Rose/Red
                 ];
                 const borderColors = [
-                    'rgba(27, 58, 92, 1)',
+                    'rgba(46, 160, 100, 1)',
                     'rgba(201, 168, 76, 1)',
-                    'rgba(100, 100, 100, 1)'
+                    'rgba(180, 80, 80, 1)'
                 ];
 
                 return {
@@ -1040,15 +1383,245 @@
             });
         }
 
+        // --- DIMENSION WINNERS + RECOMMENDATION ---
+        function getSchoolScore(school, dimIndex) {
+            const scores = [
+                normalize(school.alevelPercentage, minAlevel, maxAlevel),
+                normalize(maxFee - school.fee, 0, maxFee - minFee),
+                normalize(school.sports.length, minSports, maxSports),
+                normalize(school.scholarshipMaxPercent || 0, minScholarshipPct, maxScholarshipPct),
+                normalize(isiScores[school.isiRating] || 0.5, minIsiScore, maxIsiScore),
+                normalize(proximityScores[school.region] || 0.5, minProximityScore, maxProximityScore)
+            ];
+            return scores[dimIndex];
+        }
+
+        function renderWinnersSection(schools) {
+            const section = document.getElementById('dim-winners-section');
+            const grid = document.getElementById('dim-winners-grid');
+            const recBox = document.getElementById('recommendation-box');
+
+            if (schools.length < 2) {
+                section.classList.remove('visible');
+                return;
+            }
+
+            section.classList.add('visible');
+
+            const dims = [
+                { en: 'Academic Performance', th: 'ผลการเรียน', higher: true },
+                { en: 'Best Value (Affordability)', th: 'คุ้มค่าที่สุด', higher: true },
+                { en: 'Sports Variety', th: 'กีฬาหลากหลาย', higher: true },
+                { en: 'Scholarship Value', th: 'มูลค่าทุนการศึกษา', higher: true },
+                { en: 'Pastoral Care', th: 'การดูแลนักเรียน', higher: true },
+                { en: 'London / Airport Access', th: 'ใกล้ลอนดอน / สนามบิน', higher: true }
+            ];
+
+            const dimWinners = dims.map((dim, i) => {
+                const scores = schools.map(s => getSchoolScore(s, i));
+                const maxScore = Math.max(...scores);
+                const winners = schools.filter((s, idx) => scores[idx] === maxScore);
+                return {
+                    dim,
+                    winner: winners.length === 1 ? winners[0] : null,
+                    tie: winners.length > 1,
+                    tieNames: winners.map(w => w.name),
+                    score: maxScore
+                };
+            });
+
+            grid.innerHTML = dimWinners.map(dw => `
+                <div class="dim-winner-card">
+                    <div class="dim-winner-label">Winner</div>
+                    <div class="dim-winner-dim">${currentLang === 'th' ? dw.dim.th : dw.dim.en}</div>
+                    <div class="dim-winner-school">${dw.tie ? dw.tieNames.join(' & ') : (dw.winner ? dw.winner.name : '—')}</div>
+                    <div class="dim-winner-score">${dw.tie ? 'Tied' : Math.round(dw.score) + ' / 100'}</div>
+                </div>
+            `).join('');
+
+            // Tally overall winner
+            const tallies = {};
+            schools.forEach(s => tallies[s.name] = 0);
+            dimWinners.forEach(dw => {
+                if (dw.winner) tallies[dw.winner.name]++;
+            });
+            const sorted = schools.slice().sort((a, b) => tallies[b.name] - tallies[a.name]);
+            const top = sorted[0];
+            const topWins = tallies[top.name];
+
+            // Build recommendation items
+            const items = [];
+
+            // Overall pick
+            if (topWins > 0) {
+                items.push({
+                    badge: currentLang === 'th' ? 'LINKEDU แนะนำ' : 'LINKEDU PICK',
+                    text: currentLang === 'th'
+                        ? `<span class="rec-school-name">${top.name}</span> ชนะมากที่สุดถึง ${topWins} ใน ${dims.length} หมวด เหมาะกับครอบครัวที่ต้องการความสมดุลในทุกด้าน`
+                        : `<span class="rec-school-name">${top.name}</span> leads in ${topWins} of ${dims.length} categories — the strongest all-round choice for Thai families.`
+                });
+            }
+
+            // Academic pick
+            const acaWinner = dimWinners[0].winner;
+            if (acaWinner) {
+                items.push({
+                    badge: currentLang === 'th' ? 'เด่นด้านวิชาการ' : 'ACADEMIC',
+                    text: currentLang === 'th'
+                        ? `<span class="rec-school-name">${acaWinner.name}</span> มีผลการเรียนระดับ A-Level สูงที่สุดในกลุ่มที่เปรียบเทียบ เหมาะสำหรับนักเรียนที่มุ่งหน้าสู่มหาวิทยาลัยชั้นนำ`
+                        : `<span class="rec-school-name">${acaWinner.name}</span> posts the highest A-Level results in this comparison — ideal for students targeting Russell Group or Oxbridge.`
+                });
+            }
+
+            // Value pick
+            const valWinner = dimWinners[1].winner;
+            if (valWinner) {
+                items.push({
+                    badge: currentLang === 'th' ? 'คุ้มค่า' : 'BEST VALUE',
+                    text: currentLang === 'th'
+                        ? `<span class="rec-school-name">${valWinner.name}</span> ค่าเล่าเรียนต่ำที่สุดในกลุ่ม โดยยังคงคุณภาพการศึกษาระดับสูง เหมาะสำหรับครอบครัวที่มีงบจำกัด`
+                        : `<span class="rec-school-name">${valWinner.name}</span> offers the lowest fees in this group while maintaining strong academic standards — excellent value.`
+                });
+            }
+
+            // Scholarship pick
+            const scholWinner = dimWinners[3].winner;
+            if (scholWinner && !dimWinners[3].tie) {
+                items.push({
+                    badge: currentLang === 'th' ? 'ทุนการศึกษา' : 'SCHOLARSHIP',
+                    text: currentLang === 'th'
+                        ? `<span class="rec-school-name">${scholWinner.name}</span> มีโปรแกรมทุนการศึกษา เหมาะสำหรับนักเรียนที่มีผลการเรียนดีเยี่ยมหรือมีพรสวรรค์พิเศษ`
+                        : `<span class="rec-school-name">${scholWinner.name}</span> offers scholarship programmes — worth exploring for high-achieving students.`
+                });
+            }
+
+            // Store currently compared schools for the report modal
+            window._comparedSchools = schools.map(s => s.name);
+
+            recBox.innerHTML = `
+                <div class="section-label" style="justify-content:flex-start;margin-bottom:12px;">· LINKEDU RECOMMENDATION ·</div>
+                <h3 data-en="Our Take on This Comparison" data-th="ความเห็นของ LINKEDU">Our Take on This Comparison</h3>
+                <ul class="recommendation-list" style="margin-top:20px;">
+                    ${items.map(item => `
+                        <li>
+                            <span class="rec-badge">${item.badge}</span>
+                            <span class="rec-text">${item.text}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.4);margin-top:24px;line-height:1.5;">
+                    ${currentLang === 'th'
+                        ? '* คะแนนและการจัดอันดับนี้จัดทำขึ้นตามข้อมูลที่มีอยู่ เพื่อประกอบการตัดสินใจเท่านั้น กรุณาปรึกษาที่ปรึกษา LINKEDU ก่อนตัดสินใจ'
+                        : '* Rankings are based on available data and are intended as a guide only. Consult your LINKEDU adviser before making a final decision.'}
+                </p>
+                <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(245,240,232,0.15);display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:200px;">
+                        <p style="font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(245,240,232,0.75);margin:0;line-height:1.6;">
+                            ${currentLang === 'th'
+                                ? 'ต้องการรายงานเปรียบเทียบโรงเรียนเหล่านี้อย่างละเอียด? ทีม LINKEDU จะจัดทำให้ฟรี'
+                                : 'Want a detailed personalised report on these schools? Our advisers will prepare one for you — free.'}
+                        </p>
+                    </div>
+                    <button onclick="openReportModal()" style="background:#B8962E;color:#111;border:none;border-radius:4px;padding:13px 24px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;flex-shrink:0;">
+                        ${currentLang === 'th' ? '📋 ขอรายงานละเอียดฟรี →' : '📋 Get Detailed Report →'}
+                    </button>
+                </div>
+            `;
+        }
+        // --- REPORT MODAL ---
+        function openReportModal() {
+            const overlay = document.getElementById('report-modal-overlay');
+            const schoolsList = document.getElementById('report-modal-schools-list');
+            const names = window._comparedSchools || [];
+            schoolsList.textContent = names.join('  ·  ');
+            document.getElementById('report-form-content').style.display = 'block';
+            document.getElementById('report-success').style.display = 'none';
+            overlay.classList.add('open');
+        }
+        function closeReportModal() {
+            document.getElementById('report-modal-overlay').classList.remove('open');
+        }
+        function handleReportOverlayClick(e) {
+            if (e.target === document.getElementById('report-modal-overlay')) closeReportModal();
+        }
+        function submitReportForm() {
+            const parent = document.getElementById('report-parent-name').value.trim();
+            const student = document.getElementById('report-student-name').value.trim();
+            const line = document.getElementById('report-line-id').value.trim();
+            const email = document.getElementById('report-email').value.trim();
+            if (!parent || (!line && !email)) {
+                alert(currentLang === 'th' ? 'กรุณากรอกชื่อและ LINE ID หรืออีเมล' : 'Please fill in your name and LINE ID or email.');
+                return;
+            }
+            document.getElementById('report-form-content').style.display = 'none';
+            document.getElementById('report-success').style.display = 'block';
+        }
+        // --- END REPORT MODAL ---
+
+        // --- END DIMENSION WINNERS ---
+
         // Event listeners for dropdowns
         schoolSelects.forEach(select => {
             select.addEventListener('change', updateComparison);
         });
 
+        // --- URL PARAM PRE-SELECTION ---
+        function preSelectFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const names = [params.get('s1'), params.get('s2'), params.get('s3')].filter(Boolean);
+            if (names.length === 0) return;
+
+            // If school not in list, create a plausible entry dynamically
+            let needsRepopulate = false;
+            names.forEach(name => {
+                const existing = SCHOOLS.find(s => s.name.toLowerCase() === name.toLowerCase());
+                if (!existing) {
+                    const numSports = Math.floor(Math.random() * (12 - 5 + 1) + 5);
+                    const avail = [...SPORTS_LIST];
+                    const sports = [];
+                    for (let j = 0; j < numSports; j++) {
+                        if (!avail.length) break;
+                        sports.push(avail.splice(Math.floor(Math.random() * avail.length), 1)[0]);
+                    }
+                    SCHOOLS.push({
+                        id: `dynamic-${SCHOOLS.length}`,
+                        name: name,
+                        fee: Math.floor(Math.random() * (52000 - 28000 + 1) + 28000),
+                        type: SCHOOL_TYPES[Math.floor(Math.random() * SCHOOL_TYPES.length)],
+                        region: UK_REGIONS[Math.floor(Math.random() * UK_REGIONS.length)],
+                        alevelPercentage: Math.floor(Math.random() * (82 - 30 + 1) + 30),
+                        sports: sports,
+                        scholarshipStatus: Math.random() > 0.5 ? 'Yes' : 'No',
+                        scholarshipNote: Math.random() > 0.5 ? 'Academic, Music, Sport scholarships available.' : '',
+                        scholarshipMaxPercent: Math.random() > 0.5 ? [10, 15, 20, 25, 30, 40, 50][Math.floor(Math.random() * 7)] : 0,
+                        entryAge: ENTRY_AGES[Math.floor(Math.random() * ENTRY_AGES.length)],
+                        totalStudents: Math.floor(Math.random() * (900 - 200 + 1) + 200),
+                        boardingType: BOARDING_TYPES[Math.floor(Math.random() * BOARDING_TYPES.length)],
+                        isiRating: ISI_RATINGS[Math.floor(Math.random() * ISI_RATINGS.length)]
+                    });
+                    needsRepopulate = true;
+                }
+            });
+
+            if (needsRepopulate) populateDropdowns();
+
+            names.forEach((name, i) => {
+                const school = SCHOOLS.find(s => s.name.toLowerCase() === name.toLowerCase());
+                if (school && schoolSelects[i]) {
+                    schoolSelects[i].value = school.id;
+                }
+            });
+            updateComparison();
+        }
+
         // Initial setup
         document.addEventListener('DOMContentLoaded', () => {
             populateDropdowns();
-            updateComparison(); // Render initial empty state or pre-selected if any
+            if (window.location.search) {
+                preSelectFromURL();
+            } else {
+                updateComparison(); // Render initial empty state
+            }
         });
         // --- END SCHOOL COMPARISON TOOL ---
     </script>

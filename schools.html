@@ -543,7 +543,7 @@
     /* Action buttons */
     .scard-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       border-top: 1px solid rgba(26,26,26,0.07);
       flex-shrink: 0;
     }
@@ -572,6 +572,96 @@
       border-left: 1px solid rgba(26,26,26,0.07);
     }
     .scard-btn-enquire:hover { background: rgba(184,150,46,0.08); }
+    .scard-btn-compare {
+      background: transparent;
+      color: #888;
+      border-left: 1px solid rgba(26,26,26,0.07);
+      font-size: 0.63rem;
+    }
+    .scard-btn-compare:hover { background: rgba(184,150,46,0.06); color: #B8962E; }
+    .scard-btn-compare.selected {
+      background: rgba(184,150,46,0.12);
+      color: #B8962E;
+    }
+
+    /* ============================================================
+       COMPARE TRAY
+       ============================================================ */
+    #compare-tray {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9000;
+      background: #111;
+      border-top: 1px solid #B8962E;
+      padding: 14px 24px;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+    }
+    #compare-tray.active { display: flex; }
+    .compare-tray-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B8962E;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+    .compare-tray-schools {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+    .compare-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: #eee;
+      white-space: nowrap;
+    }
+    .compare-chip-remove {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0;
+      line-height: 1;
+    }
+    .compare-chip-remove:hover { color: #fff; }
+    .compare-now-btn {
+      background: #B8962E;
+      color: #111;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .compare-now-btn:hover { background: #d4a832; }
+    .compare-now-btn:disabled { background: #444; color: #777; cursor: not-allowed; }
+    @media (max-width: 600px) {
+      #compare-tray { flex-wrap: wrap; }
+      .compare-tray-label { width: 100%; }
+    }
 
     /* ============================================================
        MODAL
@@ -1129,6 +1219,19 @@
   </footer>
 
   <!-- ============================================================
+       COMPARE TRAY
+       ============================================================ -->
+  <div id="compare-tray">
+    <span class="compare-tray-label">
+      <span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span>
+    </span>
+    <div class="compare-tray-schools" id="compare-chips"></div>
+    <button class="compare-now-btn" id="compare-now-btn" onclick="openCompare()" disabled>
+      <span class="lang-th">เปรียบเทียบเลย →</span><span class="lang-en">Compare Now →</span>
+    </button>
+  </div>
+
+  <!-- ============================================================
        INQUIRY MODAL
        ============================================================ -->
   <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
@@ -1492,6 +1595,9 @@
     <button class="scard-btn scard-btn-enquire" onclick="openModal('${s.name.replace(/'/g, "\\'")}')">
       <span class="lang-th">สอบถาม</span><span class="lang-en">Enquire</span>
     </button>
+    <button class="scard-btn scard-btn-compare" id="compare-btn-${s.name.replace(/[^a-z0-9]/gi,'_')}" onclick="toggleCompare('${s.name.replace(/'/g, "\\'")}')">
+      <span class="lang-th">+ เปรียบ</span><span class="lang-en">+ Compare</span>
+    </button>
   </div>
 </article>`;
     }
@@ -1633,6 +1739,57 @@
       this.classList.toggle('open');
       document.getElementById('mobileNavMenu').classList.toggle('open');
     });
+
+    /* ----------------------------------------------------------
+       COMPARE TRAY
+    ---------------------------------------------------------- */
+    let compareSelected = [];
+
+    function toggleCompare(name) {
+      const idx = compareSelected.indexOf(name);
+      if (idx > -1) {
+        compareSelected.splice(idx, 1);
+      } else {
+        if (compareSelected.length >= 3) return; // max 3
+        compareSelected.push(name);
+      }
+      updateCompareTray();
+      // Update button state for all rendered cards
+      document.querySelectorAll('[id^="compare-btn-"]').forEach(btn => {
+        const btnName = btn.id.replace('compare-btn-', '').replace(/_/g, ' ');
+        // Try to match against compareSelected (names may have spaces)
+        const isSelected = compareSelected.some(n => n.replace(/[^a-z0-9]/gi,'_') === btn.id.replace('compare-btn-',''));
+        btn.classList.toggle('selected', isSelected);
+      });
+    }
+
+    function updateCompareTray() {
+      const tray = document.getElementById('compare-tray');
+      const chips = document.getElementById('compare-chips');
+      const btn = document.getElementById('compare-now-btn');
+
+      if (compareSelected.length === 0) {
+        tray.classList.remove('active');
+        chips.innerHTML = '';
+        return;
+      }
+
+      tray.classList.add('active');
+      chips.innerHTML = compareSelected.map(name => `
+        <span class="compare-chip">
+          ${name}
+          <button class="compare-chip-remove" onclick="toggleCompare('${name.replace(/'/g, "\\'")}')">×</button>
+        </span>
+      `).join('');
+
+      btn.disabled = compareSelected.length < 2;
+    }
+
+    function openCompare() {
+      if (compareSelected.length < 2) return;
+      const params = compareSelected.map((name, i) => `s${i+1}=${encodeURIComponent(name)}`).join('&');
+      window.open(`tools/school-comparison.html?${params}`, '_blank');
+    }
 
     /* ----------------------------------------------------------
        INIT
