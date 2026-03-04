@@ -3,7 +3,7 @@
 > Website: https://linkeduth.netlify.app
 > Contact: LINE @linkedu.th | Telegram for appointments
 > Member of Beacon Group (HKEX:1775)
-> Updated: 2026-03-04
+> Updated: 2026-03-05
 
 ## About LINKEDU
 
@@ -28,7 +28,15 @@ All guides on this site are written from direct experience with UK schools and T
 
 ## Blog Posts & Guides
 
-Total articles: 32
+Total articles: 33
+
+### Brighton College Review: Consistently Top UK Boarding School
+URL: https://linkeduth.netlify.app/blog/brighton-college-review-top-uk-boarding-school
+Category: Boarding Schools
+Language: English
+Published: 2026-03-04
+Read time: 6 min
+Summary: Brighton College review — consistently ranked among the best UK boarding schools
 
 ### รีวิว Brighton College โรงเรียนประจำอันดับ 1 ในอังกฤษหลายปี
 URL: https://linkeduth.netlify.app/blog/brighton-college-review-top-ranked-boarding-school-uk
