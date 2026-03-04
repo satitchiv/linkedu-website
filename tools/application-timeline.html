@@ -510,9 +510,42 @@
                 width: 100%;
             }
         }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 3px;
+        }
+        .lang-toggle button {
+            background: none;
+            border: none;
+            color: rgba(245,240,232,0.6);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            padding: 4px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lang-toggle button.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .lang-toggle button:hover:not(.active) {
+            color: var(--cream);
+        }
+        /* Language visibility */
+        body.lang-en .lang-th { display: none !important; }
+        body.lang-th .lang-en { display: none !important; }
+
     </style>
 </head>
-<body>
+<body class="lang-en">
 
     <header class="header">
         <div class="container">
@@ -522,32 +555,36 @@
                 <a href="#fees-vat">Fees & VAT</a>
                 <a href="#travel-planning">Travel</a>
                 <a href="https://th.linkedu.hk" target="_blank">Website</a>
+                <div class="lang-toggle">
+                    <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+                    <button id="btn-th" onclick="setLang('th')">TH</button>
+                </div>
             </nav>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>UK Boarding School Application Timeline</h1>
-            <h1>ตารางเวลาการสมัครโรงเรียนประจำสหราชอาณาจักร</h1>
-            <p>Navigate the journey from Bangkok to a top UK boarding school with our interactive timeline. Choose your entry year to see a detailed application path.</p>
-            <p>สำรวจเส้นทางจากกรุงเทพฯ สู่โรงเรียนประจำชั้นนำในสหราชอาณาจักรด้วยตารางเวลาแบบโต้ตอบของเรา เลือกปีที่ต้องการเข้าศึกษาเพื่อดูรายละเอียดเส้นทางการสมัคร</p>
+            <h1 class="lang-en">UK Boarding School Application Timeline</h1>
+            <h1 class="lang-th">ตารางเวลาการสมัครโรงเรียนประจำสหราชอาณาจักร</h1>
+            <p class="lang-en">Navigate the journey from Bangkok to a top UK boarding school with our interactive timeline. Choose your entry year to see a detailed application path.</p>
+            <p class="lang-th">สำรวจเส้นทางจากกรุงเทพฯ สู่โรงเรียนประจำชั้นนำในสหราชอาณาจักรด้วยตารางเวลาแบบโต้ตอบของเรา เลือกปีที่ต้องการเข้าศึกษาเพื่อดูรายละเอียดเส้นทางการสมัคร</p>
 
             <div class="toggle-switch" id="timeline-selection">
                 <input type="radio" id="year9" name="entryYear" value="year9" checked>
-                <label for="year9">Year 9 Entry (Age 13) | เข้าเรียน Year 9 (อายุ 13 ปี)</label>
+                <label for="year9"><span class="lang-en">Year 9 Entry (Age 13)</span><span class="lang-th">เข้าเรียน Year 9 (อายุ 13 ปี)</span></label>
 
                 <input type="radio" id="year12" name="entryYear" value="year12">
-                <label for="year12">Year 12 Entry (Age 16) | เข้าเรียน Year 12 (อายุ 16 ปี)</label>
+                <label for="year12"><span class="lang-en">Year 12 Entry (Age 16)</span><span class="lang-th">เข้าเรียน Year 12 (อายุ 16 ปี)</span></label>
             </div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
-            <h2 class="text-center">Your Application Journey | เส้นทางการสมัครของคุณ</h2>
-            <p class="text-center" style="margin-bottom: 40px;">Select your preferred entry year above to view the tailored timeline.</p>
-            <p class="text-center" style="margin-bottom: 40px;">เลือกปีที่ต้องการเข้าศึกษาด้านบนเพื่อดูตารางเวลาที่ปรับแต่งแล้ว</p>
+            <h2 class="text-center"><span class="lang-en">Your Application Journey</span><span class="lang-th">เส้นทางการสมัครของคุณ</span></h2>
+            <p class="text-center lang-en" style="margin-bottom: 40px;">Select your preferred entry year above to view the tailored timeline.</p>
+            <p class="text-center lang-th" style="margin-bottom: 40px;">เลือกปีที่ต้องการเข้าศึกษาด้านบนเพื่อดูตารางเวลาที่ปรับแต่งแล้ว</p>
 
             <!-- Year 9 Timeline -->
             <div id="timeline-year9" class="timeline-path">
@@ -669,13 +706,14 @@
 
             <div class="line-cta">
                 <h3>LINE: satitlinkedu</h3>
-                <p>ปรึกษาฟรี (Free Consultation)</p>
-                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy">Add LINE for Consultation | เพิ่ม LINE เพื่อปรึกษา</a>
+                <p class="lang-en">Free Consultation</p>
+                <p class="lang-th">ปรึกษาฟรี</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy"><span class="lang-en">Add LINE for Consultation</span><span class="lang-th">เพิ่ม LINE เพื่อปรึกษา</span></a>
             </div>
 
             <h3 class="text-center" style="margin-top: 60px; margin-bottom: 30px; color: var(--navy);">School-Specific Deadlines & Information</h3>
-            <p class="text-center">While general timelines are helpful, specific school deadlines vary. Select a school below for general guidance.</p>
-            <p class="text-center">แม้ตารางเวลาทั่วไปจะมีประโยชน์ แต่กำหนดเวลาเฉพาะของแต่ละโรงเรียนแตกต่างกัน เลือกโรงเรียนด้านล่างเพื่อดูคำแนะนำทั่วไป</p>
+            <p class="text-center lang-en">While general timelines are helpful, specific school deadlines vary. Select a school below for general guidance.</p>
+            <p class="text-center lang-th">แม้ตารางเวลาทั่วไปจะมีประโยชน์ แต่กำหนดเวลาเฉพาะของแต่ละโรงเรียนแตกต่างกัน เลือกโรงเรียนด้านล่างเพื่อดูคำแนะนำทั่วไป</p>
 
             <div class="school-select-wrapper">
                 <select id="schoolSelector">
@@ -727,21 +765,21 @@
 
     <section class="section" id="fees-vat">
         <div class="container">
-            <h2 class="text-center">Fees, VAT & Currency | ค่าธรรมเนียม, VAT และสกุลเงิน</h2>
+            <h2 class="text-center"><span class="lang-en">Fees, VAT & Currency</span><span class="lang-th">ค่าธรรมเนียม, VAT และสกุลเงิน</span></h2>
             <div class="info-box">
-                <h4>Understanding UK Boarding School Fees | ทำความเข้าใจค่าธรรมเนียมโรงเรียนประจำในสหราชอาณาจักร</h4>
-                <p>Annual boarding fees for private UK schools typically range from <strong>£30,000 to £50,000 per year</strong>. State boarding schools offer a more affordable option, with fees usually between <strong>£10,000 to £19,000 per year</strong> (covering boarding costs only, tuition is state-funded).</p>
-                <p>ค่าธรรมเนียมการเข้าเรียนประจำปีสำหรับโรงเรียนเอกชนในสหราชอาณาจักรโดยทั่วไปจะอยู่ระหว่าง <strong>30,000 ถึง 50,000 ปอนด์ต่อปี</strong> โรงเรียนประจำของรัฐเสนอทางเลือกที่ประหยัดกว่า โดยมีค่าธรรมเนียมปกติระหว่าง <strong>10,000 ถึง 19,000 ปอนด์ต่อปี</strong> (ครอบคลุมเฉพาะค่าที่พัก ค่าเล่าเรียนได้รับการสนับสนุนจากรัฐ)</p>
+                <h4><span class="lang-en">Understanding UK Boarding School Fees</span><span class="lang-th">ทำความเข้าใจค่าธรรมเนียมโรงเรียนประจำในสหราชอาณาจักร</span></h4>
+                <p class="lang-en">Annual boarding fees for private UK schools typically range from <strong>£30,000 to £50,000 per year</strong>. State boarding schools offer a more affordable option, with fees usually between <strong>£10,000 to £19,000 per year</strong> (covering boarding costs only, tuition is state-funded).</p>
+                <p class="lang-th">ค่าธรรมเนียมการเข้าเรียนประจำปีสำหรับโรงเรียนเอกชนในสหราชอาณาจักรโดยทั่วไปจะอยู่ระหว่าง <strong>30,000 ถึง 50,000 ปอนด์ต่อปี</strong> โรงเรียนประจำของรัฐเสนอทางเลือกที่ประหยัดกว่า โดยมีค่าธรรมเนียมปกติระหว่าง <strong>10,000 ถึง 19,000 ปอนด์ต่อปี</strong> (ครอบคลุมเฉพาะค่าที่พัก ค่าเล่าเรียนได้รับการสนับสนุนจากรัฐ)</p>
             </div>
             <div class="info-box">
-                <h4>VAT Changes from January 2025 | การเปลี่ยนแปลง VAT ตั้งแต่เดือนมกราคม 2568</h4>
-                <p><strong>Important Note:</strong> From January 2025, a <strong>20% VAT (Value Added Tax) will be added to private school fees</strong> in the UK. This means fees will effectively increase by 20% for private schools. <strong>State boarding schools are exempt from this VAT increase.</strong></p>
-                <p><strong>ข้อสำคัญ:</strong> ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป <strong>ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะถูกเพิ่ม VAT (ภาษีมูลค่าเพิ่ม) 20%</strong> ซึ่งหมายความว่าค่าธรรมเนียมจะเพิ่มขึ้น 20% สำหรับโรงเรียนเอกชน <strong>โรงเรียนประจำของรัฐจะได้รับการยกเว้นจากการเพิ่ม VAT นี้</strong></p>
+                <h4><span class="lang-en">VAT Changes from January 2025</span><span class="lang-th">การเปลี่ยนแปลง VAT ตั้งแต่เดือนมกราคม 2568</span></h4>
+                <p class="lang-en"><strong>Important Note:</strong> From January 2025, a <strong>20% VAT (Value Added Tax) will be added to private school fees</strong> in the UK. This means fees will effectively increase by 20% for private schools. <strong>State boarding schools are exempt from this VAT increase.</strong></p>
+                <p class="lang-th"><strong>ข้อสำคัญ:</strong> ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป <strong>ค่าธรรมเนียมโรงเรียนเอกชนในสหราชอาณาจักรจะถูกเพิ่ม VAT (ภาษีมูลค่าเพิ่ม) 20%</strong> ซึ่งหมายความว่าค่าธรรมเนียมจะเพิ่มขึ้น 20% สำหรับโรงเรียนเอกชน <strong>โรงเรียนประจำของรัฐจะได้รับการยกเว้นจากการเพิ่ม VAT นี้</strong></p>
             </div>
             <div class="info-box">
-                <h4>Dual Currency Conversion | การแปลงสกุลเงินคู่</h4>
-                <p>For your convenience, we provide estimated fees in both GBP (Great British Pounds) and THB (Thai Baht). We use an approximate conversion rate of <strong>1 GBP = 45 THB</strong>. Please note that exchange rates fluctuate daily.</p>
-                <p>เพื่อความสะดวกของคุณ เราประมาณการค่าธรรมเนียมเป็นทั้ง GBP (ปอนด์อังกฤษ) และ THB (บาทไทย) เราใช้อัตราแลกเปลี่ยนโดยประมาณที่ <strong>1 GBP = 45 THB</strong> โปรดทราบว่าอัตราแลกเปลี่ยนมีการผันผวนทุกวัน</p>
+                <h4><span class="lang-en">Dual Currency Conversion</span><span class="lang-th">การแปลงสกุลเงินคู่</span></h4>
+                <p class="lang-en">For your convenience, we provide estimated fees in both GBP (Great British Pounds) and THB (Thai Baht). We use an approximate conversion rate of <strong>1 GBP = 45 THB</strong>. Please note that exchange rates fluctuate daily.</p>
+                <p class="lang-th">เพื่อความสะดวกของคุณ เราประมาณการค่าธรรมเนียมเป็นทั้ง GBP (ปอนด์อังกฤษ) และ THB (บาทไทย) เราใช้อัตราแลกเปลี่ยนโดยประมาณที่ <strong>1 GBP = 45 THB</strong> โปรดทราบว่าอัตราแลกเปลี่ยนมีการผันผวนทุกวัน</p>
                 <p><strong>Example Private School Fee (post-Jan 2025):</strong><br>
                 £40,000 (pre-VAT) + 20% VAT = <strong>£48,000 per year</strong><br>
                 Equivalent in THB: 48,000 x 45 = <strong>2,160,000 THB per year</strong></p>
@@ -754,26 +792,27 @@
 
     <section class="section" id="travel-planning">
         <div class="container">
-            <h2 class="text-center">Bangkok to UK Travel Planning | การวางแผนการเดินทางจากกรุงเทพฯ ไปยังสหราชอาณาจักร</h2>
+            <h2 class="text-center"><span class="lang-en">Bangkok to UK Travel Planning</span><span class="lang-th">การวางแผนการเดินทางจากกรุงเทพฯ ไปยังสหราชอาณาจักร</span></h2>
             <div class="card">
-                <h4>Visa Application | การยื่นคำขอวีซ่า</h4>
-                <p>Thai students requiring a visa for study in the UK will need to apply for a <strong>Child Student Visa</strong> (for under 18s) or a <strong>Student Visa</strong> (for 18+). Begin this process well in advance (3-6 months before departure) as processing times can vary. LINKEDU provides guidance and support for visa applications.</p>
-                <p>นักเรียนไทยที่ต้องการวีซ่าเพื่อศึกษาต่อในสหราชอาณาจักรจะต้องยื่นขอ <strong>Child Student Visa</strong> (สำหรับผู้ที่อายุต่ำกว่า 18 ปี) หรือ <strong>Student Visa</strong> (สำหรับผู้ที่อายุ 18 ปีขึ้นไป) ควรเริ่มกระบวนการนี้ล่วงหน้า (3-6 เดือนก่อนเดินทาง) เนื่องจากเวลาดำเนินการอาจแตกต่างกัน LINKEDU ให้คำแนะนำและสนับสนุนในการยื่นคำขอวีซ่า</p>
+                <h4><span class="lang-en">Visa Application</span><span class="lang-th">การยื่นคำขอวีซ่า</span></h4>
+                <p class="lang-en">Thai students requiring a visa for study in the UK will need to apply for a <strong>Child Student Visa</strong> (for under 18s) or a <strong>Student Visa</strong> (for 18+). Begin this process well in advance (3-6 months before departure) as processing times can vary. LINKEDU provides guidance and support for visa applications.</p>
+                <p class="lang-th">นักเรียนไทยที่ต้องการวีซ่าเพื่อศึกษาต่อในสหราชอาณาจักรจะต้องยื่นขอ <strong>Child Student Visa</strong> (สำหรับผู้ที่อายุต่ำกว่า 18 ปี) หรือ <strong>Student Visa</strong> (สำหรับผู้ที่อายุ 18 ปีขึ้นไป) ควรเริ่มกระบวนการนี้ล่วงหน้า (3-6 เดือนก่อนเดินทาง) เนื่องจากเวลาดำเนินการอาจแตกต่างกัน LINKEDU ให้คำแนะนำและสนับสนุนในการยื่นคำขอวีซ่า</p>
             </div>
             <div class="card">
-                <h4>Flights & Airports | เที่ยวบินและสนามบิน</h4>
-                <p>Direct flights from Bangkok (BKK) to London (LHR) are available. Many boarding schools are located outside London, requiring onward travel by train or school-arranged transport. Consider booking flights for peak times (start/end of terms) well in advance.</p>
-                <p>มีเที่ยวบินตรงจากกรุงเทพฯ (BKK) ไปยังลอนดอน (LHR) โรงเรียนประจำหลายแห่งตั้งอยู่นอกลอนดอน ซึ่งต้องเดินทางต่อด้วยรถไฟหรือรถรับส่งที่โรงเรียนจัดเตรียมไว้ ควรจองเที่ยวบินในช่วงเวลาที่มีผู้โดยสารหนาแน่น (ช่วงเริ่มต้น/สิ้นสุดภาคเรียน) ล่วงหน้า</p>
+                <h4><span class="lang-en">Flights & Airports</span><span class="lang-th">เที่ยวบินและสนามบิน</span></h4>
+                <p class="lang-en">Direct flights from Bangkok (BKK) to London (LHR) are available. Many boarding schools are located outside London, requiring onward travel by train or school-arranged transport. Consider booking flights for peak times (start/end of terms) well in advance.</p>
+                <p class="lang-th">มีเที่ยวบินตรงจากกรุงเทพฯ (BKK) ไปยังลอนดอน (LHR) โรงเรียนประจำหลายแห่งตั้งอยู่นอกลอนดอน ซึ่งต้องเดินทางต่อด้วยรถไฟหรือรถรับส่งที่โรงเรียนจัดเตรียมไว้ ควรจองเที่ยวบินในช่วงเวลาที่มีผู้โดยสารหนาแน่น (ช่วงเริ่มต้น/สิ้นสุดภาคเรียน) ล่วงหน้า</p>
             </div>
             <div class="card">
-                <h4>Arrival & Transfers | การเดินทางถึงและรถรับส่ง</h4>
-                <p>Schools often arrange airport transfers for international students, especially for younger pupils. Confirm these arrangements with the school directly. LINKEDU can help coordinate arrival logistics.</p>
-                <p>โรงเรียนมักจะจัดรถรับส่งจากสนามบินสำหรับนักเรียนต่างชาติ โดยเฉพาะอย่างยิ่งสำหรับนักเรียนที่อายุน้อยกว่า ยืนยันการจัดเตรียมเหล่านี้กับโรงเรียนโดยตรง LINKEDU สามารถช่วยประสานงานด้านการเดินทางถึงได้</p>
+                <h4><span class="lang-en">Arrival & Transfers</span><span class="lang-th">การเดินทางถึงและรถรับส่ง</span></h4>
+                <p class="lang-en">Schools often arrange airport transfers for international students, especially for younger pupils. Confirm these arrangements with the school directly. LINKEDU can help coordinate arrival logistics.</p>
+                <p class="lang-th">โรงเรียนมักจะจัดรถรับส่งจากสนามบินสำหรับนักเรียนต่างชาติ โดยเฉพาะอย่างยิ่งสำหรับนักเรียนที่อายุน้อยกว่า ยืนยันการจัดเตรียมเหล่านี้กับโรงเรียนโดยตรง LINKEDU สามารถช่วยประสานงานด้านการเดินทางถึงได้</p>
             </div>
             <div class="line-cta">
                 <h3>LINE: satitlinkedu</h3>
-                <p>ปรึกษาฟรี (Free Consultation)</p>
-                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy">Add LINE for Consultation | เพิ่ม LINE เพื่อปรึกษา</a>
+                <p class="lang-en">Free Consultation</p>
+                <p class="lang-th">ปรึกษาฟรี</p>
+                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn btn-navy"><span class="lang-en">Add LINE for Consultation</span><span class="lang-th">เพิ่ม LINE เพื่อปรึกษา</span></a>
             </div>
         </div>
     </section>
@@ -786,6 +825,17 @@
     </footer>
 
     <script>
+
+        function setLang(lang) {
+            document.body.className = document.body.className
+                .replace(/\blang-\w+\b/g, '')
+                .trim();
+            document.body.classList.add('lang-' + lang);
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+            localStorage.setItem('linkedu-lang', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const year9Radio = document.getElementById('year9');
             const year12Radio = document.getElementById('year12');
@@ -1116,6 +1166,10 @@
             function formatNumber(num) {
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
+
+            // Restore saved language preference
+            const savedLang = localStorage.getItem('linkedu-lang') || 'en';
+            setLang(savedLang);
         });
     </script>
 </body>
