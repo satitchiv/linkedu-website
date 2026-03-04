@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>โรงเรียนพาร์ทเนอร์ — LINKEDU Golf Pathways</title>
+  <meta name="description" content="UK Boarding Schools และ US NCAA Colleges ที่เราทำงานด้วยและส่งนักกอล์ฟไทยไปแล้ว — LINKEDU Golf Pathways" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ============================================================
+       SCHOOLS PAGE — Page-level styles
+       ============================================================ */
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    /* ---- Nav mobile menu ------------------------------------ */
+    #nav-menu {
+      display: none;
+    }
+    #nav-menu.open {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ---- Hamburger ----------------------------------------- */
+    #nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    #nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    #nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #nav-toggle.open span:nth-child(2) { opacity: 0; }
+    #nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ---- Scroll reveal ------------------------------------- */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- Logo ---------------------------------------------- */
+    .logo-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+    .logo-brand em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .logo-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(184,150,46,0.7);
+      margin-top: 1px;
+    }
+
+    /* ---- Section labels ------------------------------------ */
+    .dark-section-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(184,150,46,0.4);
+      width: fit-content;
+    }
+    .dark-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .dark-section-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(245,240,232,0.55);
+      max-width: 580px;
+      line-height: 1.75;
+    }
+
+    /* ---- Page Hero ----------------------------------------- */
+    .page-hero {
+      background: #0a0a0a;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(184,150,46,0.12);
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(184,150,46,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(184,150,46,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .page-hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .page-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: var(--cream);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .page-hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: rgba(245,240,232,0.6);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .page-hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .page-hero-stat {
+      text-align: left;
+    }
+    .page-hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .page-hero-stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ---- Tab Switcher -------------------------------------- */
+    .tab-section {
+      background: var(--dark);
+      padding: 60px 0 0;
+    }
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(184,150,46,0.15);
+      margin-bottom: 0;
+    }
+    .tab-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(245,240,232,0.4);
+      padding: 18px 36px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.03em;
+      position: relative;
+      bottom: -1px;
+    }
+    .tab-btn:hover {
+      color: rgba(245,240,232,0.7);
+    }
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ---- Schools Section ----------------------------------- */
+    .schools-section {
+      background: var(--dark);
+      padding: 60px 0 96px;
+    }
+    .schools-section.hidden {
+      display: none;
+    }
+
+    /* ---- Filter Bar ---------------------------------------- */
+    .filter-bar {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      padding: 24px 28px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(184,150,46,0.12);
+      border-radius: 10px;
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .filter-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(184,150,46,0.7);
+    }
+    .filter-btns {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(245,240,232,0.5);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,240,232,0.1);
+      border-radius: 20px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      color: var(--cream);
+      border-color: rgba(184,150,46,0.3);
+    }
+    .filter-btn.active {
+      color: var(--gold);
+      background: rgba(184,150,46,0.1);
+      border-color: rgba(184,150,46,0.4);
+    }
+
+    /* ---- School Cards Grid --------------------------------- */
+    .schools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ---- School Card --------------------------------------- */
+    .school-card {
+      background: rgba(245,240,232,0.03);
+      border: 1px solid rgba(184,150,46,0.15);
+      border-radius: 12px;
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .school-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(184,150,46,0.2));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .school-card:hover {
+      background: rgba(245,240,232,0.055);
+      border-color: rgba(184,150,46,0.32);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .school-card:hover::before {
+      opacity: 1;
+    }
+
+    /* hidden state when filtered out */
+    .school-card.filtered-out {
+      display: none;
+    }
+
+    .school-card-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .badge-region {
+      color: var(--gold);
+      background: rgba(184,150,46,0.1);
+      border: 1px solid rgba(184,150,46,0.25);
+    }
+    .badge-elite {
+      color: var(--gold);
+      background: rgba(184,150,46,0.12);
+      border: 1px solid rgba(184,150,46,0.3);
+    }
+    .badge-strong {
+      color: #7ab87a;
+      background: rgba(122,184,122,0.1);
+      border: 1px solid rgba(122,184,122,0.25);
+    }
+    .badge-good {
+      color: rgba(245,240,232,0.55);
+      background: rgba(245,240,232,0.05);
+      border: 1px solid rgba(245,240,232,0.12);
+    }
+    .badge-d1 {
+      color: var(--gold);
+      background: rgba(184,150,46,0.12);
+      border: 1px solid rgba(184,150,46,0.3);
+    }
+    .badge-d2 {
+      color: #7ab87a;
+      background: rgba(122,184,122,0.1);
+      border: 1px solid rgba(122,184,122,0.25);
+    }
+    .badge-d3 {
+      color: #8ab4d4;
+      background: rgba(138,180,212,0.1);
+      border: 1px solid rgba(138,180,212,0.25);
+    }
+    .badge-naia {
+      color: #d4a87a;
+      background: rgba(212,168,122,0.1);
+      border: 1px solid rgba(212,168,122,0.25);
+    }
+    .badge-full {
+      color: var(--gold);
+      background: rgba(184,150,46,0.1);
+      border: 1px solid rgba(184,150,46,0.25);
+    }
+    .badge-partial {
+      color: #7ab87a;
+      background: rgba(122,184,122,0.08);
+      border: 1px solid rgba(122,184,122,0.2);
+    }
+    .badge-academic {
+      color: rgba(245,240,232,0.5);
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(245,240,232,0.1);
+    }
+
+    .school-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--cream);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .school-location {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.38);
+      margin-bottom: 18px;
+    }
+
+    .school-fees {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .school-fees-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.74rem;
+      color: rgba(245,240,232,0.35);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .school-scholarship {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(184,150,46,0.8);
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .school-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .school-features li {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+    .school-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(184,150,46,0.5);
+    }
+
+    .school-handicap {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.76rem;
+      color: rgba(245,240,232,0.35);
+      margin-bottom: 20px;
+      padding: 8px 12px;
+      background: rgba(184,150,46,0.04);
+      border: 1px solid rgba(184,150,46,0.08);
+      border-radius: 6px;
+    }
+    .school-handicap strong {
+      color: rgba(245,240,232,0.55);
+    }
+
+    .school-cta {
+      margin-top: auto;
+    }
+    .school-cta a {
+      display: block;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184,150,46,0.3);
+      border-radius: 6px;
+      padding: 10px 16px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .school-cta a:hover {
+      background: rgba(184,150,46,0.1);
+      border-color: var(--gold);
+      color: var(--cream);
+    }
+
+    /* ---- No Results Message -------------------------------- */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(245,240,232,0.35);
+    }
+    .no-results.visible {
+      display: block;
+    }
+
+    /* ---- Tool Card Below Grid ------------------------------ */
+    .tool-callout {
+      margin-top: 48px;
+      background: rgba(184,150,46,0.05);
+      border: 1px solid rgba(184,150,46,0.2);
+      border-radius: 12px;
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .tool-callout-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .tool-callout-icon {
+      font-size: 2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .tool-callout-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .tool-callout-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.6;
+    }
+    .tool-callout-btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--gold);
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    .tool-callout-btn:hover {
+      background: #c9a830;
+      box-shadow: 0 6px 24px rgba(184,150,46,0.3);
+    }
+
+    /* ---- Can't Find Box ------------------------------------ */
+    .cant-find-section {
+      background: var(--dark);
+      padding: 0 0 80px;
+    }
+    .cant-find-box {
+      border: 1px solid rgba(184,150,46,0.3);
+      border-radius: 12px;
+      padding: 48px 52px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      background: rgba(184,150,46,0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .cant-find-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), rgba(184,150,46,0.3));
+    }
+    .cant-find-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: rgba(184,150,46,0.15);
+      font-weight: 400;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .cant-find-content {
+      flex: 1;
+    }
+    .cant-find-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .cant-find-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(245,240,232,0.55);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ---- CTA Section --------------------------------------- */
+    .cta-section {
+      background: #0a0a0a;
+      padding: 96px 0;
+      text-align: center;
+      border-top: 1px solid rgba(184,150,46,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(184,150,46,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section-inner { position: relative; z-index: 1; }
+    .cta-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+      margin-bottom: 20px;
+    }
+    .cta-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .cta-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(245,240,232,0.5);
+      max-width: 420px;
+      margin: 0 auto 20px;
+      line-height: 1.7;
+    }
+    .cta-line-handle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      margin-bottom: 32px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Mobile nav links ---------------------------------- */
+    #nav-menu .mobile-nav-link {
+      display: block;
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--cream);
+      border-bottom: 1px solid rgba(245,240,232,0.06);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    #nav-menu .mobile-nav-link:hover { color: var(--gold); }
+    #nav-menu .mobile-nav-actions {
+      padding: 20px 24px 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Footer sub-brand ---------------------------------- */
+    .site-footer .footer-sub-brand {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(184,150,46,0.6);
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 968px) {
+      #nav-toggle { display: flex; }
+      .desktop-nav { display: none; }
+      .desktop-actions { display: none; }
+      .schools-grid { grid-template-columns: repeat(2, 1fr); }
+      .cant-find-box { flex-direction: column; gap: 24px; padding: 36px 28px; }
+      .cant-find-number { font-size: 2.5rem; }
+      .tab-btn { padding: 14px 20px; font-size: 0.85rem; }
+      .filter-bar { gap: 16px; padding: 18px 20px; }
+    }
+    @media (max-width: 640px) {
+      .schools-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 12px 16px; font-size: 0.82rem; }
+      .tool-callout { flex-direction: column; align-items: flex-start; padding: 24px 22px; }
+      .page-hero { padding: 100px 0 60px; }
+      .page-hero-stats { gap: 24px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .filter-bar { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+
+        <!-- Logo -->
+        <div class="logo-wrap">
+          <a href="index.html">
+            <div class="logo-brand"><em>LINKEDU</em></div>
+            <div class="logo-sub">Golf Pathways</div>
+          </a>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="site-nav desktop-nav">
+          <div class="nav-item">
+            <a href="index.html" class="nav-link">
+              <span class="lang-th">หน้าหลัก</span>
+              <span class="lang-en">Home</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="journey.html" class="nav-link">
+              <span class="lang-th">เส้นทาง</span>
+              <span class="lang-en">The Journey</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="pathways.html" class="nav-link">
+              <span class="lang-th">Pathways</span>
+              <span class="lang-en">Pathways</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="scholarships.html" class="nav-link">
+              <span class="lang-th">ทุนการศึกษา</span>
+              <span class="lang-en">Scholarships</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="schools.html" class="nav-link active">
+              <span class="lang-th">โรงเรียน</span>
+              <span class="lang-en">Schools</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="tools.html" class="nav-link">
+              <span class="lang-th">เครื่องมือ</span>
+              <span class="lang-en">Tools</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="th">TH</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <a href="start.html" class="header-line-btn desktop-actions">
+            <span class="lang-th">เริ่มต้น</span>
+            <span class="lang-en">Get Started</span>
+          </a>
+          <!-- Mobile hamburger -->
+          <button id="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Nav Menu -->
+    <div id="nav-menu">
+      <a href="index.html" class="mobile-nav-link">
+        <span class="lang-th">หน้าหลัก</span>
+        <span class="lang-en">Home</span>
+      </a>
+      <a href="journey.html" class="mobile-nav-link">
+        <span class="lang-th">เส้นทาง</span>
+        <span class="lang-en">The Journey</span>
+      </a>
+      <a href="pathways.html" class="mobile-nav-link">
+        <span class="lang-th">Pathways</span>
+        <span class="lang-en">Pathways</span>
+      </a>
+      <a href="scholarships.html" class="mobile-nav-link">
+        <span class="lang-th">ทุนการศึกษา</span>
+        <span class="lang-en">Scholarships</span>
+      </a>
+      <a href="schools.html" class="mobile-nav-link" style="color:var(--gold);">
+        <span class="lang-th">โรงเรียน</span>
+        <span class="lang-en">Schools</span>
+      </a>
+      <a href="tools.html" class="mobile-nav-link">
+        <span class="lang-th">เครื่องมือ</span>
+        <span class="lang-en">Tools</span>
+      </a>
+      <div class="mobile-nav-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="start.html" class="btn-primary">
+          <span class="lang-th">เริ่มต้นวันนี้</span>
+          <span class="lang-en">Get Started</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       PAGE HERO
+       ============================================================ -->
+  <section class="page-hero" data-reveal>
+    <div class="container">
+      <div class="page-hero-inner">
+
+        <div class="page-hero-eyebrow">
+          <span class="lang-th">LINKEDU Golf Pathways — โรงเรียนพาร์ทเนอร์</span>
+          <span class="lang-en">LINKEDU Golf Pathways — Partner Schools</span>
+        </div>
+
+        <h1 class="page-hero-title">
+          <span class="lang-th">โรงเรียน<em>พาร์ทเนอร์ของเรา</em></span>
+          <span class="lang-en">Our <em>Partner Schools</em></span>
+        </h1>
+
+        <p class="page-hero-sub">
+          <span class="lang-th">UK Boarding Schools และ US Colleges ที่เราทำงานด้วยและส่งนักกอล์ฟไทยไปแล้ว</span>
+          <span class="lang-en">UK Boarding Schools and US Colleges we work with and have placed Thai golfers at.</span>
+        </p>
+
+        <div class="page-hero-stats">
+          <div class="page-hero-stat">
+            <div class="page-hero-stat-num">600+</div>
+            <div class="page-hero-stat-label lang-th">สถาบันพาร์ทเนอร์</div>
+            <div class="page-hero-stat-label lang-en">Partner Institutions</div>
+          </div>
+          <div class="page-hero-stat">
+            <div class="page-hero-stat-num">12</div>
+            <div class="page-hero-stat-label lang-th">UK Schools แนะนำ</div>
+            <div class="page-hero-stat-label lang-en">Featured UK Schools</div>
+          </div>
+          <div class="page-hero-stat">
+            <div class="page-hero-stat-num">12</div>
+            <div class="page-hero-stat-label lang-th">US Colleges แนะนำ</div>
+            <div class="page-hero-stat-label lang-en">Featured US Colleges</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       TAB SWITCHER + SCHOOLS SECTIONS
+       ============================================================ -->
+  <section class="tab-section">
+    <div class="container">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="uk-schools">
+          🏴󠁧󠁢󠁥󠁮󠁧󠁿 UK Boarding Schools
+        </button>
+        <button class="tab-btn" data-tab="us-schools">
+          🇺🇸 US NCAA Colleges
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       UK SCHOOLS SECTION
+       ============================================================ -->
+  <section id="uk-schools" class="schools-section" data-reveal>
+    <div class="container">
+
+      <!-- UK Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="filter-label lang-th">ภูมิภาค</div>
+          <div class="filter-label lang-en">Region</div>
+          <div class="filter-btns" data-filter-group="uk-region">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="england">England</button>
+            <button class="filter-btn" data-value="scotland">Scotland</button>
+            <button class="filter-btn" data-value="wales">Wales</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label lang-th">ระดับกอล์ฟ</div>
+          <div class="filter-label lang-en">Golf Level</div>
+          <div class="filter-btns" data-filter-group="uk-golf-level">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="elite">Elite</button>
+            <button class="filter-btn" data-value="strong">Strong</button>
+            <button class="filter-btn" data-value="good">Good</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label lang-th">ค่าเทอม/ปี</div>
+          <div class="filter-label lang-en">Annual Fees</div>
+          <div class="filter-btns" data-filter-group="uk-fees">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="under40k">Under £40k</button>
+            <button class="filter-btn" data-value="40k-50k">£40k–£50k</button>
+            <button class="filter-btn" data-value="over50k">Over £50k</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- UK Schools Grid -->
+      <div class="schools-grid" id="uk-cards-grid">
+
+        <!-- 1. Millfield School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="elite"
+          data-fees="over50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Somerset, England</span>
+            <span class="badge badge-elite">Elite Golf</span>
+          </div>
+          <h3 class="school-name">Millfield School</h3>
+          <div class="school-location">Street, Somerset</div>
+          <div class="school-fees">£57,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 50%</span>
+            <span class="lang-en">Scholarship up to 50%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">สนามกอล์ฟมาตรฐาน PGA พร้อมโค้ชเฉพาะทาง</span>
+              <span class="lang-en">PGA-standard facility, dedicated golf coach</span>
+            </li>
+            <li>
+              <span class="lang-th">เส้นทางการแข่งขันระดับสูง</span>
+              <span class="lang-en">Competition pathway at elite level</span>
+            </li>
+            <li>
+              <span class="lang-th">โรงเรียนกีฬาชั้นนำของ UK</span>
+              <span class="lang-en">UK's leading sports boarding school</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            4–16 (M) / 8–22 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Stowe School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="elite"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Buckinghamshire, England</span>
+            <span class="badge badge-elite">Elite Golf</span>
+          </div>
+          <h3 class="school-name">Stowe School</h3>
+          <div class="school-location">Buckingham, Buckinghamshire</div>
+          <div class="school-fees">£47,500</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 30%</span>
+            <span class="lang-en">Scholarship up to 30%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">สนาม 27 หลุมในบริเวณโรงเรียน</span>
+              <span class="lang-en">27-hole course on school grounds</span>
+            </li>
+            <li>
+              <span class="lang-th">Golf Academy พร้อมวิชาการเข้มแข็ง</span>
+              <span class="lang-en">Golf academy with strong academics</span>
+            </li>
+            <li>
+              <span class="lang-th">พระราชวังเก่า บรรยากาศพิเศษ</span>
+              <span class="lang-en">Iconic stately home campus</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            6–18 (M) / 10–24 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Glenalmond College -->
+        <div class="school-card"
+          data-region="scotland"
+          data-golf-level="elite"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Perthshire, Scotland</span>
+            <span class="badge badge-elite">Elite Golf</span>
+          </div>
+          <h3 class="school-name">Glenalmond College</h3>
+          <div class="school-location">Perthshire, Scotland</div>
+          <div class="school-fees">£42,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 35%</span>
+            <span class="lang-en">Scholarship up to 35%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ติดกับสนามกอล์ฟชั้นนำของสกอตแลนด์</span>
+              <span class="lang-en">Adjacent to top Scottish golf courses</span>
+            </li>
+            <li>
+              <span class="lang-th">ประเพณีกอล์ฟที่ยาวนาน</span>
+              <span class="lang-en">Strong and proud golf tradition</span>
+            </li>
+            <li>
+              <span class="lang-th">ระบบ Boarding ที่ยอดเยี่ยม</span>
+              <span class="lang-en">Boarding excellence in stunning setting</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            6–18 (M) / 10–24 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Loretto School -->
+        <div class="school-card"
+          data-region="scotland"
+          data-golf-level="strong"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">East Lothian, Scotland</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Loretto School</h3>
+          <div class="school-location">Musselburgh, East Lothian</div>
+          <div class="school-fees">£43,500</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 30%</span>
+            <span class="lang-en">Scholarship up to 30%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ใกล้ Muirfield สนามระดับโลก</span>
+              <span class="lang-en">Near Muirfield, world-class course</span>
+            </li>
+            <li>
+              <span class="lang-th">วัฒนธรรมกอล์ฟเข้มแข็ง</span>
+              <span class="lang-en">Strong golf culture throughout school</span>
+            </li>
+            <li>
+              <span class="lang-th">โรงเรียนขนาดเล็ก บรรยากาศอบอุ่น</span>
+              <span class="lang-en">Small intimate school community</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            8–20 (M) / 12–26 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Worksop College -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="strong"
+          data-fees="under40k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Nottinghamshire, England</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Worksop College</h3>
+          <div class="school-location">Worksop, Nottinghamshire</div>
+          <div class="school-fees">£38,500</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 25%</span>
+            <span class="lang-en">Scholarship up to 25%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">เข้าถึงสนาม Links-style ชั้นนำ</span>
+              <span class="lang-en">Access to links-style course</span>
+            </li>
+            <li>
+              <span class="lang-th">เส้นทางตัวแทนระดับ County</span>
+              <span class="lang-en">County representative pathway</span>
+            </li>
+            <li>
+              <span class="lang-th">คุ้มค่าเยี่ยม งบประมาณสมเหตุสมผล</span>
+              <span class="lang-en">Excellent value for money</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            8–22 (M) / 14–28 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Bromsgrove School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="strong"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Worcestershire, England</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Bromsgrove School</h3>
+          <div class="school-location">Bromsgrove, Worcestershire</div>
+          <div class="school-fees">£44,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 25%</span>
+            <span class="lang-en">Scholarship up to 25%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">โปรแกรมกีฬาเข้มแข็ง</span>
+              <span class="lang-en">Strong all-round sports programme</span>
+            </li>
+            <li>
+              <span class="lang-th">ผลการเรียนดีเยี่ยม</span>
+              <span class="lang-en">Good academic track record</span>
+            </li>
+            <li>
+              <span class="lang-th">ชุมชนนานาชาติ เป็นมิตรกับนักเรียนไทย</span>
+              <span class="lang-en">International community, Thai-friendly</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            8–20 (M) / 12–26 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. Oundle School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="strong"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Northamptonshire, England</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Oundle School</h3>
+          <div class="school-location">Oundle, Northamptonshire</div>
+          <div class="school-fees">£49,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 20%</span>
+            <span class="lang-en">Scholarship up to 20%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">เข้มแข็งด้าน STEM และศิลปะ</span>
+              <span class="lang-en">Strong STEM and arts programmes</span>
+            </li>
+            <li>
+              <span class="lang-th">โปรแกรมกอล์ฟที่ดี</span>
+              <span class="lang-en">Good and growing golf programme</span>
+            </li>
+            <li>
+              <span class="lang-th">วิชาการระดับสูง เน้นมหาวิทยาลัยชั้นนำ</span>
+              <span class="lang-en">Highly academic, Oxbridge pathway</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            8–20 (M) / 12–24 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Bryanston School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="strong"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Dorset, England</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Bryanston School</h3>
+          <div class="school-location">Blandford Forum, Dorset</div>
+          <div class="school-fees">£46,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 20%</span>
+            <span class="lang-en">Scholarship up to 20%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">โรงเรียนสร้างสรรค์ เสรี เน้นพัฒนาตัวตน</span>
+              <span class="lang-en">Creative, liberal educational ethos</span>
+            </li>
+            <li>
+              <span class="lang-th">ทิวเขา Purbeck สถานที่สวยงาม</span>
+              <span class="lang-en">Beautiful Purbeck hills setting</span>
+            </li>
+            <li>
+              <span class="lang-th">กอล์ฟกำลังเติบโตอย่างแข็งแกร่ง</span>
+              <span class="lang-en">Growing and improving golf provision</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            10–22 (M) / 14–28 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 9. Shrewsbury School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="good"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Shropshire, England</span>
+            <span class="badge badge-good">Good Golf</span>
+          </div>
+          <h3 class="school-name">Shrewsbury School</h3>
+          <div class="school-location">Shrewsbury, Shropshire</div>
+          <div class="school-fees">£41,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 15%</span>
+            <span class="lang-en">Scholarship up to 15%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">วิชาการเข้มแข็ง ชื่อเสียงระดับชาติ</span>
+              <span class="lang-en">Strong academic reputation</span>
+            </li>
+            <li>
+              <span class="lang-th">สิ่งอำนวยความสะดวกกีฬาดีเยี่ยม</span>
+              <span class="lang-en">Good all-round sports facilities</span>
+            </li>
+            <li>
+              <span class="lang-th">โปรไฟล์กอล์ฟกำลังเติบโต</span>
+              <span class="lang-en">Growing golf profile and investment</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            10–24 (M) / 16–30 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 10. Strathallan School -->
+        <div class="school-card"
+          data-region="scotland"
+          data-golf-level="strong"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Perthshire, Scotland</span>
+            <span class="badge badge-strong">Strong Golf</span>
+          </div>
+          <h3 class="school-name">Strathallan School</h3>
+          <div class="school-location">Forgandenny, Perthshire</div>
+          <div class="school-fees">£40,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 25%</span>
+            <span class="lang-en">Scholarship up to 25%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">วิทยาเขตสกอตแลนด์สวยงาม</span>
+              <span class="lang-en">Beautiful Scottish countryside campus</span>
+            </li>
+            <li>
+              <span class="lang-th">เข้าถึงสนามกอล์ฟสกอตแลนด์ชั้นนำ</span>
+              <span class="lang-en">Access to premier Scottish golf courses</span>
+            </li>
+            <li>
+              <span class="lang-th">การดูแลนักเรียนที่ยอดเยี่ยม</span>
+              <span class="lang-en">Strong pastoral care and support</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            8–22 (M) / 12–28 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 11. Monkton Combe School -->
+        <div class="school-card"
+          data-region="england"
+          data-golf-level="good"
+          data-fees="under40k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Somerset, England</span>
+            <span class="badge badge-good">Good Golf</span>
+          </div>
+          <h3 class="school-name">Monkton Combe School</h3>
+          <div class="school-location">Monkton Combe, Somerset</div>
+          <div class="school-fees">£37,500</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 15%</span>
+            <span class="lang-en">Scholarship up to 15%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ราคาคุ้มค่า เหมาะกับงบประมาณ</span>
+              <span class="lang-en">Great value, budget-friendly option</span>
+            </li>
+            <li>
+              <span class="lang-th">ชุมชนอบอุ่น ดูแลใกล้ชิด</span>
+              <span class="lang-en">Strong, warm school community</span>
+            </li>
+            <li>
+              <span class="lang-th">โปรแกรมกอล์ฟกำลังพัฒนา</span>
+              <span class="lang-en">Improving golf provision year on year</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            12–26 (M) / 16–30 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 12. Gordonstoun -->
+        <div class="school-card"
+          data-region="scotland"
+          data-golf-level="good"
+          data-fees="40k-50k">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Moray, Scotland</span>
+            <span class="badge badge-good">Good Golf</span>
+          </div>
+          <h3 class="school-name">Gordonstoun</h3>
+          <div class="school-location">Elgin, Moray, Scotland</div>
+          <div class="school-fees">£44,000</div>
+          <div class="school-fees-label lang-th">ต่อปีการศึกษา</div>
+          <div class="school-fees-label lang-en">per academic year</div>
+          <div class="school-scholarship">
+            <span class="lang-th">ทุนการศึกษาสูงถึง 20%</span>
+            <span class="lang-en">Scholarship up to 20%</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ปรัชญาการศึกษากลางแจ้งอันโด่งดัง</span>
+              <span class="lang-en">Famous outdoor education ethos</span>
+            </li>
+            <li>
+              <span class="lang-th">สร้างบุคลิกภาพและความกล้าหาญ</span>
+              <span class="lang-en">Character building, adventurous spirit</span>
+            </li>
+            <li>
+              <span class="lang-th">เข้าถึงสนามกอล์ฟสกอตแลนด์ชั้นเลิศ</span>
+              <span class="lang-en">Access to exceptional Scottish golf</span>
+            </li>
+          </ul>
+          <div class="school-handicap">
+            <strong>
+              <span class="lang-th">แฮนดิแคป:</span>
+              <span class="lang-en">Handicap Req:</span>
+            </strong>
+            10–24 (M) / 14–28 (F)
+          </div>
+          <div class="school-cta">
+            <a href="../golf/golf-boarding-school-matcher.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /uk-cards-grid -->
+
+      <!-- No results message -->
+      <div class="no-results" id="uk-no-results">
+        <span class="lang-th">ไม่พบโรงเรียนที่ตรงกับตัวกรองที่เลือก กรุณาลองเปลี่ยนตัวกรอง</span>
+        <span class="lang-en">No schools match your selected filters. Try adjusting your criteria.</span>
+      </div>
+
+      <!-- UK Tool Callout -->
+      <div class="tool-callout">
+        <div class="tool-callout-left">
+          <div class="tool-callout-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+          <div>
+            <div class="tool-callout-title">
+              <span class="lang-th">ค้นหาโรงเรียน UK ที่เหมาะกับลูกคุณ</span>
+              <span class="lang-en">Find Your UK Match</span>
+            </div>
+            <div class="tool-callout-desc">
+              <span class="lang-th">ป้อนแฮนดิแคปและงบประมาณ รับโรงเรียน UK ที่เหมาะสม 3 อันดับแรก</span>
+              <span class="lang-en">Enter handicap and budget, get your top 3 matched UK schools</span>
+            </div>
+          </div>
+        </div>
+        <a href="../golf/golf-boarding-school-matcher.html" target="_blank" class="tool-callout-btn">
+          <span class="lang-th">เริ่มจับคู่โรงเรียน →</span>
+          <span class="lang-en">Match My School →</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       US SCHOOLS SECTION
+       ============================================================ -->
+  <section id="us-schools" class="schools-section hidden" data-reveal>
+    <div class="container">
+
+      <!-- US Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="filter-label">Division</div>
+          <div class="filter-btns" data-filter-group="us-division">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="d1">D1</button>
+            <button class="filter-btn" data-value="d2">D2</button>
+            <button class="filter-btn" data-value="d3">D3</button>
+            <button class="filter-btn" data-value="naia">NAIA</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label lang-th">ภูมิภาค</div>
+          <div class="filter-label lang-en">Region</div>
+          <div class="filter-btns" data-filter-group="us-region">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="northeast">Northeast</button>
+            <button class="filter-btn" data-value="southeast">Southeast</button>
+            <button class="filter-btn" data-value="midwest">Midwest</button>
+            <button class="filter-btn" data-value="west">West</button>
+            <button class="filter-btn" data-value="south">South</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label lang-th">ทุนการศึกษา</div>
+          <div class="filter-label lang-en">Scholarship</div>
+          <div class="filter-btns" data-filter-group="us-scholarship">
+            <button class="filter-btn active" data-value="all">
+              <span class="lang-th">ทั้งหมด</span>
+              <span class="lang-en">All</span>
+            </button>
+            <button class="filter-btn" data-value="full">
+              <span class="lang-th">ทุนเต็ม</span>
+              <span class="lang-en">Full Ride</span>
+            </button>
+            <button class="filter-btn" data-value="partial">
+              <span class="lang-th">ทุนบางส่วน</span>
+              <span class="lang-en">Partial</span>
+            </button>
+            <button class="filter-btn" data-value="academic">
+              <span class="lang-th">ทุนวิชาการ</span>
+              <span class="lang-en">Academic Only</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- US Colleges Grid -->
+      <div class="schools-grid" id="us-cards-grid">
+
+        <!-- 1. University of Alabama -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Alabama</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">University of Alabama</h3>
+          <div class="school-location">Tuscaloosa, Alabama</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: Scratch–2</span>
+            <span class="lang-en">Team HCP: Scratch–2</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">โปรแกรมกอล์ฟระดับท็อปของประเทศ</span>
+              <span class="lang-en">Top-ranked national golf program</span>
+            </li>
+            <li>
+              <span class="lang-th">6 แชมป์แห่งชาติ โค้ชระดับ Elite</span>
+              <span class="lang-en">6 national championships, elite coaching</span>
+            </li>
+            <li>
+              <span class="lang-th">สิ่งอำนวยความสะดวกชั้นหนึ่ง</span>
+              <span class="lang-en">World-class training facilities</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Stanford University -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="west"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">California</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">Stanford University</h3>
+          <div class="school-location">Stanford, California</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: +2–2</span>
+            <span class="lang-en">Team HCP: +2–2</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">กอล์ฟระดับ Elite + วิชาการโลกชั้นหนึ่ง</span>
+              <span class="lang-en">Elite golf + world-class academics</span>
+            </li>
+            <li>
+              <span class="lang-th">ศิษย์เก่า Tiger Woods</span>
+              <span class="lang-en">Tiger Woods alumni school</span>
+            </li>
+            <li>
+              <span class="lang-th">Silicon Valley โอกาสอาชีพไม่มีขีดจำกัด</span>
+              <span class="lang-en">Silicon Valley career opportunities</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. University of Florida -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Florida</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">University of Florida</h3>
+          <div class="school-location">Gainesville, Florida</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: Scratch–3</span>
+            <span class="lang-en">Team HCP: Scratch–3</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">SEC Conference โปรแกรมแข็งแกร่งมาก</span>
+              <span class="lang-en">Strong SEC conference golf program</span>
+            </li>
+            <li>
+              <span class="lang-th">อากาศอบอุ่นตลอดปี ฝึกซ้อมได้ทุกวัน</span>
+              <span class="lang-en">Warm weather for year-round golf</span>
+            </li>
+            <li>
+              <span class="lang-th">วิทยาเขตใหญ่ สิ่งอำนวยความสะดวกครบ</span>
+              <span class="lang-en">Top-tier campus and facilities</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Wake Forest University -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">North Carolina</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">Wake Forest University</h3>
+          <div class="school-location">Winston-Salem, North Carolina</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: +1–3</span>
+            <span class="lang-en">Team HCP: +1–3</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">วิชาการระดับสูงสุด ชื่อเสียงระดับชาติ</span>
+              <span class="lang-en">Academic powerhouse, national ranking</span>
+            </li>
+            <li>
+              <span class="lang-th">ประเพณีกอล์ฟยอดเยี่ยม</span>
+              <span class="lang-en">Outstanding golf tradition and history</span>
+            </li>
+            <li>
+              <span class="lang-th">ศิษย์เก่า Arnold Palmer</span>
+              <span class="lang-en">Arnold Palmer alumni connection</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. University of Georgia -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Georgia</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">University of Georgia</h3>
+          <div class="school-location">Athens, Georgia</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: Scratch–3</span>
+            <span class="lang-en">Team HCP: Scratch–3</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">SEC Conference โปรแกรมกอล์ฟแข็งแกร่ง</span>
+              <span class="lang-en">Strong SEC golf program</span>
+            </li>
+            <li>
+              <span class="lang-th">สิ่งอำนวยความสะดวกฝึกซ้อมระดับเยี่ยม</span>
+              <span class="lang-en">Excellent training facilities</span>
+            </li>
+            <li>
+              <span class="lang-th">อากาศอบอุ่น เอื้อต่อการฝึกซ้อมตลอดปี</span>
+              <span class="lang-en">Warm climate ideal for golf year-round</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Florida State University -->
+        <div class="school-card"
+          data-division="d1"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Florida</span>
+            <span class="badge badge-d1">NCAA D1</span>
+            <span class="badge badge-full">Full Ride</span>
+          </div>
+          <h3 class="school-name">Florida State University</h3>
+          <div class="school-location">Tallahassee, Florida</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนเต็ม</span>
+            <span class="lang-en">Full Ride Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 1–4</span>
+            <span class="lang-en">Team HCP: 1–4</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ACC Conference โปรแกรมแข็งแกร่ง</span>
+              <span class="lang-en">Strong ACC conference program</span>
+            </li>
+            <li>
+              <span class="lang-th">ทำเลดีเยี่ยม อากาศเหมาะกับกอล์ฟ</span>
+              <span class="lang-en">Excellent location and golf climate</span>
+            </li>
+            <li>
+              <span class="lang-th">ทุน Athletic เต็มในระดับ D1</span>
+              <span class="lang-en">Full D1 athletic scholarship available</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. University of Denver -->
+        <div class="school-card"
+          data-division="d2"
+          data-region-us="west"
+          data-scholarship="partial">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Colorado</span>
+            <span class="badge badge-d2">NCAA D2</span>
+            <span class="badge badge-partial">50–75%</span>
+          </div>
+          <h3 class="school-name">University of Denver</h3>
+          <div class="school-location">Denver, Colorado</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุน 50–75%</span>
+            <span class="lang-en">50–75% Scholarship</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 2–6</span>
+            <span class="lang-en">Team HCP: 2–6</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">วิชาการ + กอล์ฟ สมดุลดีเยี่ยม</span>
+              <span class="lang-en">Strong academics and golf balance</span>
+            </li>
+            <li>
+              <span class="lang-th">ทิวเขา Rocky Mountain สวยงาม</span>
+              <span class="lang-en">Beautiful mountain setting in Denver</span>
+            </li>
+            <li>
+              <span class="lang-th">โปรแกรม D2 ระดับท็อป สม่ำเสมอ</span>
+              <span class="lang-en">Consistently top D2 golf program</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Barry University -->
+        <div class="school-card"
+          data-division="d2"
+          data-region-us="southeast"
+          data-scholarship="partial">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Florida</span>
+            <span class="badge badge-d2">NCAA D2</span>
+            <span class="badge badge-partial">50–75%</span>
+          </div>
+          <h3 class="school-name">Barry University</h3>
+          <div class="school-location">Miami Shores, Florida</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุน 50–75%</span>
+            <span class="lang-en">50–75% Scholarship</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 2–7</span>
+            <span class="lang-en">Team HCP: 2–7</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">ผู้ท้าชิงแชมป์ D2 อย่างสม่ำเสมอ</span>
+              <span class="lang-en">Consistent D2 title contender</span>
+            </li>
+            <li>
+              <span class="lang-th">อากาศฟลอริดา ฝึกซ้อมได้ทั้งปี</span>
+              <span class="lang-en">Florida weather, year-round golf</span>
+            </li>
+            <li>
+              <span class="lang-th">คุ้มค่า เป็นมิตรกับนักเรียนต่างชาติ</span>
+              <span class="lang-en">Good value, international-friendly</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 9. Rollins College -->
+        <div class="school-card"
+          data-division="d2"
+          data-region-us="southeast"
+          data-scholarship="partial">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Florida</span>
+            <span class="badge badge-d2">NCAA D2</span>
+            <span class="badge badge-partial">50–75%</span>
+          </div>
+          <h3 class="school-name">Rollins College</h3>
+          <div class="school-location">Winter Park, Florida</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุน 50–75%</span>
+            <span class="lang-en">50–75% Scholarship</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 3–8</span>
+            <span class="lang-en">Team HCP: 3–8</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">Liberal Arts + กอล์ฟ สมดุลชีวิตดีเยี่ยม</span>
+              <span class="lang-en">Liberal arts education plus golf</span>
+            </li>
+            <li>
+              <span class="lang-th">วิทยาเขตสวยงามในฟลอริดา</span>
+              <span class="lang-en">Gorgeous lakeside Florida campus</span>
+            </li>
+            <li>
+              <span class="lang-th">วิชาการดีเยี่ยม อนาคตสดใส</span>
+              <span class="lang-en">Strong academics, excellent outcomes</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 10. Emory University -->
+        <div class="school-card"
+          data-division="d3"
+          data-region-us="southeast"
+          data-scholarship="academic">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Georgia</span>
+            <span class="badge badge-d3">NCAA D3</span>
+            <span class="badge badge-academic">Academic Aid</span>
+          </div>
+          <h3 class="school-name">Emory University</h3>
+          <div class="school-location">Atlanta, Georgia</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนวิชาการ</span>
+            <span class="lang-en">Academic Aid Available</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 4–10</span>
+            <span class="lang-en">Team HCP: 4–10</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">มหาวิทยาลัยอันดับท็อป 20 ของสหรัฐฯ</span>
+              <span class="lang-en">Top-20 ranked US university</span>
+            </li>
+            <li>
+              <span class="lang-th">กอล์ฟยอดเยี่ยม + ผลลัพธ์อาชีพดีมาก</span>
+              <span class="lang-en">Excellent golf and career outcomes</span>
+            </li>
+            <li>
+              <span class="lang-th">เหมาะนักกอล์ฟที่ต้องการมหาวิทยาลัยชั้นนำ</span>
+              <span class="lang-en">Ideal for academically-driven golfers</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 11. Methodist University -->
+        <div class="school-card"
+          data-division="naia"
+          data-region-us="southeast"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">North Carolina</span>
+            <span class="badge badge-naia">NAIA</span>
+            <span class="badge badge-full">Up to Full</span>
+          </div>
+          <h3 class="school-name">Methodist University</h3>
+          <div class="school-location">Fayetteville, North Carolina</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนสูงสุดเต็มจำนวน</span>
+            <span class="lang-en">Up to Full Scholarship</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 2–8</span>
+            <span class="lang-en">Team HCP: 2–8</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">แชมป์ NAIA อย่างต่อเนื่อง</span>
+              <span class="lang-en">Consistent NAIA champion program</span>
+            </li>
+            <li>
+              <span class="lang-th">ค่าใช้จ่ายเหมาะสม คุ้มค่ามาก</span>
+              <span class="lang-en">Affordable and excellent value</span>
+            </li>
+            <li>
+              <span class="lang-th">เน้นกอล์ฟเป็นหลัก สร้างนักกอล์ฟอาชีพ</span>
+              <span class="lang-en">Strong golf-first focus and development</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 12. Lindsey Wilson College -->
+        <div class="school-card"
+          data-division="naia"
+          data-region-us="midwest"
+          data-scholarship="full">
+          <div class="school-card-badges">
+            <span class="badge badge-region">Kentucky</span>
+            <span class="badge badge-naia">NAIA</span>
+            <span class="badge badge-full">Up to Full</span>
+          </div>
+          <h3 class="school-name">Lindsey Wilson College</h3>
+          <div class="school-location">Columbia, Kentucky</div>
+          <div class="school-fees" style="font-size:1.2rem; margin-bottom:6px;">
+            <span class="lang-th">ทุนสูงสุดเต็มจำนวน</span>
+            <span class="lang-en">Up to Full Scholarship</span>
+          </div>
+          <div class="school-scholarship">
+            <span class="lang-th">แฮนดิแคปทีม: 3–10</span>
+            <span class="lang-en">Team HCP: 3–10</span>
+          </div>
+          <ul class="school-features">
+            <li>
+              <span class="lang-th">โปรแกรม NAIA เข้มแข็ง สม่ำเสมอ</span>
+              <span class="lang-en">Strong, consistent NAIA program</span>
+            </li>
+            <li>
+              <span class="lang-th">งบประมาณเหมาะสม เข้าถึงได้</span>
+              <span class="lang-en">Affordable pathway for families</span>
+            </li>
+            <li>
+              <span class="lang-th">เป็นมิตรกับนักเรียนนานาชาติมาก</span>
+              <span class="lang-en">Very welcoming to international students</span>
+            </li>
+          </ul>
+          <div class="school-cta">
+            <a href="../golf/golf-college-finder.html" target="_blank">
+              <span class="lang-th">ดูข้อมูล</span>
+              <span class="lang-en">Learn More</span>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /us-cards-grid -->
+
+      <!-- No results message -->
+      <div class="no-results" id="us-no-results">
+        <span class="lang-th">ไม่พบวิทยาลัยที่ตรงกับตัวกรองที่เลือก กรุณาลองเปลี่ยนตัวกรอง</span>
+        <span class="lang-en">No colleges match your selected filters. Try adjusting your criteria.</span>
+      </div>
+
+      <!-- US Tool Callout -->
+      <div class="tool-callout">
+        <div class="tool-callout-left">
+          <div class="tool-callout-icon">🇺🇸</div>
+          <div>
+            <div class="tool-callout-title">
+              <span class="lang-th">ค้นหาโปรแกรม NCAA ที่เหมาะกับลูกคุณ</span>
+              <span class="lang-en">Find US College Programs</span>
+            </div>
+            <div class="tool-callout-desc">
+              <span class="lang-th">ค้นหาโปรแกรม NCAA กรองตามดิวิชั่นและรัฐ</span>
+              <span class="lang-en">Search NCAA programs filtered by division and state</span>
+            </div>
+          </div>
+        </div>
+        <a href="../golf/golf-college-finder.html" target="_blank" class="tool-callout-btn">
+          <span class="lang-th">ค้นหาโปรแกรม NCAA →</span>
+          <span class="lang-en">Search NCAA Programs →</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CAN'T FIND WHAT YOU'RE LOOKING FOR
+       ============================================================ -->
+  <section class="cant-find-section" data-reveal>
+    <div class="container">
+      <div class="cant-find-box">
+        <div class="cant-find-number">600+</div>
+        <div class="cant-find-content">
+          <h3 class="cant-find-title">
+            <span class="lang-th">ไม่เห็นโรงเรียนที่ใช่? เราทำงานกับสถาบันมากกว่า 600 แห่ง</span>
+            <span class="lang-en">Don't see the right school? We work with 600+ institutions.</span>
+          </h3>
+          <p class="cant-find-desc">
+            <span class="lang-th">ติดต่อเราและเราจะค้นหาโรงเรียนที่เหมาะกับโปรไฟล์ของลูกคุณโดยเฉพาะ ทั้งแฮนดิแคป งบประมาณ และเป้าหมายทางวิชาการ</span>
+            <span class="lang-en">Contact us and we'll find the school that fits your child's specific profile — handicap, budget, and academic goals combined.</span>
+          </p>
+          <a href="start.html" class="btn-primary">
+            <span class="lang-th">ติดต่อเราวันนี้</span>
+            <span class="lang-en">Contact Us Today</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CTA SECTION
+       ============================================================ -->
+  <section class="cta-section" data-reveal>
+    <div class="container">
+      <div class="cta-section-inner">
+
+        <p class="cta-eyebrow">
+          <span class="lang-th">ต้องการข้อมูลเพิ่มเติม</span>
+          <span class="lang-en">Need More Information</span>
+        </p>
+
+        <h2 class="cta-heading">
+          <span class="lang-th">ต้องการข้อมูลเพิ่มเติม<br>เกี่ยวกับโรงเรียนใดโรงเรียนหนึ่ง?</span>
+          <span class="lang-en">Want more information<br>about a specific school?</span>
+        </h2>
+
+        <p class="cta-sub">
+          <span class="lang-th">ปรึกษาฟรีผ่าน LINE วันนี้ เราให้ข้อมูลเชิงลึกและประสบการณ์จริงจากการส่งนักเรียนไทยไปแล้ว</span>
+          <span class="lang-en">Free consultation via LINE today. We share in-depth insight from real experience placing Thai students.</span>
+        </p>
+
+        <div class="cta-line-handle">LINE: @linkedu.th</div>
+
+        <div class="cta-buttons">
+          <a href="start.html" class="btn-primary" style="font-size:0.95rem; padding:16px 36px;">
+            <span class="lang-th">ขอคำปรึกษาฟรี</span>
+            <span class="lang-en">Free Consultation</span>
+          </a>
+          <a href="tools.html" class="btn-secondary">
+            <span class="lang-th">ดูเครื่องมือฟรี</span>
+            <span class="lang-en">Explore Free Tools</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <div style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cream); letter-spacing:0.04em;">
+            <span style="color:var(--gold);">LINKEDU</span>
+          </div>
+          <div class="footer-sub-brand">Golf Pathways</div>
+          <p class="footer-brand-tagline">
+            <span class="lang-th">ที่ปรึกษาเฉพาะทางด้านทุนกอล์ฟสำหรับครอบครัวไทย</span>
+            <span class="lang-en">Specialist golf scholarship consultants for Thai families.</span>
+          </p>
+        </div>
+
+        <!-- Pathways Column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">เส้นทาง</span>
+            <span class="lang-en">Pathways</span>
+          </div>
+          <ul class="footer-links">
+            <li>
+              <a href="pathways.html" class="footer-link">
+                <span class="lang-th">UK Boarding School</span>
+                <span class="lang-en">UK Boarding School</span>
+              </a>
+            </li>
+            <li>
+              <a href="pathways.html" class="footer-link">
+                <span class="lang-th">ทุน NCAA สหรัฐฯ</span>
+                <span class="lang-en">US NCAA Scholarship</span>
+              </a>
+            </li>
+            <li>
+              <a href="scholarships.html" class="footer-link">
+                <span class="lang-th">ทุนการศึกษา</span>
+                <span class="lang-en">Scholarships</span>
+              </a>
+            </li>
+            <li>
+              <a href="schools.html" class="footer-link" style="color:var(--gold);">
+                <span class="lang-th">โรงเรียนพาร์ทเนอร์</span>
+                <span class="lang-en">Partner Schools</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tools Column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">เครื่องมือ</span>
+            <span class="lang-en">Tools</span>
+          </div>
+          <ul class="footer-links">
+            <li>
+              <a href="tools.html" class="footer-link">
+                <span class="lang-th">เครื่องมือทั้งหมด</span>
+                <span class="lang-en">All Tools</span>
+              </a>
+            </li>
+            <li>
+              <a href="../golf/golf-school-finder.html" target="_blank" class="footer-link">School Finder</a>
+            </li>
+            <li>
+              <a href="../golf/golf-boarding-school-matcher.html" target="_blank" class="footer-link">UK School Matcher</a>
+            </li>
+            <li>
+              <a href="../golf/golf-college-finder.html" target="_blank" class="footer-link">US College Finder</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">ติดต่อ</span>
+            <span class="lang-en">Contact</span>
+          </div>
+          <ul class="footer-links">
+            <li>
+              <span class="footer-link" style="color:var(--gold); font-weight:600;">LINE: @linkedu.th</span>
+            </li>
+            <li>
+              <a href="start.html" class="footer-link">
+                <span class="lang-th">ปรึกษาฟรี</span>
+                <span class="lang-en">Free Consult</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://linkeduth.netlify.app" target="_blank" class="footer-link">
+                <span class="lang-th">LINKEDU หลัก</span>
+                <span class="lang-en">LINKEDU Main Site</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 LINKEDU Golf Pathways · Sub-brand of LINKEDU Overseas Education</p>
+        <p class="footer-copy">LINE: @linkedu.th</p>
+        <p class="footer-copy">MEMBER OF BEACON GROUP · HKEX:1775</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script src="js/main.js"></script>
+  <script>
+    /* ============================================================
+       MOBILE NAV TOGGLE
+       ============================================================ */
+    (function () {
+      var btn = document.getElementById('nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          btn.classList.remove('open');
+          menu.classList.remove('open');
+        }
+      });
+    })();
+
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    (function () {
+      var items = document.querySelectorAll('[data-reveal]');
+      if (!items.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+
+      items.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+
+
+    /* ============================================================
+       LANGUAGE TOGGLE
+       ============================================================ */
+    (function () {
+      var langBtns = document.querySelectorAll('.lang-btn');
+      var currentLang = 'th';
+
+      function applyLang(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+
+        var thEls = document.querySelectorAll('.lang-th');
+        var enEls = document.querySelectorAll('.lang-en');
+
+        thEls.forEach(function (el) {
+          el.style.display = lang === 'th' ? '' : 'none';
+        });
+        enEls.forEach(function (el) {
+          el.style.display = lang === 'en' ? '' : 'none';
+        });
+
+        langBtns.forEach(function (btn) {
+          btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+      }
+
+      langBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyLang(btn.dataset.lang);
+        });
+      });
+
+      // Init: hide English on load (Thai default)
+      applyLang('th');
+    })();
+
+
+    /* ============================================================
+       TAB SWITCHER — UK / US
+       ============================================================ */
+    (function () {
+      var tabBtns = document.querySelectorAll('.tab-btn');
+      var ukSection = document.getElementById('uk-schools');
+      var usSection = document.getElementById('us-schools');
+
+      tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = btn.dataset.tab;
+
+          // Update button states
+          tabBtns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          // Show/hide sections
+          if (target === 'uk-schools') {
+            ukSection.classList.remove('hidden');
+            usSection.classList.add('hidden');
+          } else {
+            usSection.classList.remove('hidden');
+            ukSection.classList.add('hidden');
+            // Trigger reveal for newly visible section
+            usSection.classList.add('revealed');
+          }
+        });
+      });
+    })();
+
+
+    /* ============================================================
+       UK SCHOOL FILTER
+       ============================================================ */
+    (function () {
+      // Active filter state
+      var ukFilters = {
+        'uk-region': 'all',
+        'uk-golf-level': 'all',
+        'uk-fees': 'all'
+      };
+
+      // Map filter group name -> card data attribute
+      var ukAttrMap = {
+        'uk-region': 'data-region',
+        'uk-golf-level': 'data-golf-level',
+        'uk-fees': 'data-fees'
+      };
+
+      var ukGrid = document.getElementById('uk-cards-grid');
+      var ukNoResults = document.getElementById('uk-no-results');
+
+      function applyUKFilters() {
+        var cards = ukGrid.querySelectorAll('.school-card');
+        var visibleCount = 0;
+
+        cards.forEach(function (card) {
+          var show = true;
+
+          Object.keys(ukFilters).forEach(function (group) {
+            var val = ukFilters[group];
+            if (val === 'all') return;
+            var attr = ukAttrMap[group];
+            var cardVal = card.getAttribute(attr.replace('data-', '').split('-').join('-'));
+            // getAttribute with the full attribute name
+            var cardData = card.dataset[attrToDataKey(attr)];
+            if (cardData !== val) {
+              show = false;
+            }
+          });
+
+          if (show) {
+            card.classList.remove('filtered-out');
+            visibleCount++;
+          } else {
+            card.classList.add('filtered-out');
+          }
+        });
+
+        if (visibleCount === 0) {
+          ukNoResults.classList.add('visible');
+        } else {
+          ukNoResults.classList.remove('visible');
+        }
+      }
+
+      // Helper: convert data-foo-bar to fooBar for dataset access
+      function attrToDataKey(attr) {
+        // attr like "data-golf-level" -> "golfLevel"
+        var key = attr.replace('data-', '');
+        return key.replace(/-([a-z])/g, function (m, c) { return c.toUpperCase(); });
+      }
+
+      // Attach listeners to UK filter groups
+      var ukFilterGroups = document.querySelectorAll('#uk-schools [data-filter-group]');
+      ukFilterGroups.forEach(function (group) {
+        var groupName = group.dataset.filterGroup;
+        var btns = group.querySelectorAll('.filter-btn');
+
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            // Update active state
+            btns.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            // Update filter state
+            ukFilters[groupName] = btn.dataset.value;
+            applyUKFilters();
+          });
+        });
+      });
+    })();
+
+
+    /* ============================================================
+       US COLLEGE FILTER
+       ============================================================ */
+    (function () {
+      var usFilters = {
+        'us-division': 'all',
+        'us-region': 'all',
+        'us-scholarship': 'all'
+      };
+
+      // Map filter group -> card data attribute key (dataset camelCase)
+      var usAttrMap = {
+        'us-division': 'division',
+        'us-region': 'regionUs',
+        'us-scholarship': 'scholarship'
+      };
+
+      var usGrid = document.getElementById('us-cards-grid');
+      var usNoResults = document.getElementById('us-no-results');
+
+      function applyUSFilters() {
+        var cards = usGrid.querySelectorAll('.school-card');
+        var visibleCount = 0;
+
+        cards.forEach(function (card) {
+          var show = true;
+
+          Object.keys(usFilters).forEach(function (group) {
+            var val = usFilters[group];
+            if (val === 'all') return;
+            var dataKey = usAttrMap[group];
+            var cardVal = card.dataset[dataKey];
+            if (cardVal !== val) {
+              show = false;
+            }
+          });
+
+          if (show) {
+            card.classList.remove('filtered-out');
+            visibleCount++;
+          } else {
+            card.classList.add('filtered-out');
+          }
+        });
+
+        if (visibleCount === 0) {
+          usNoResults.classList.add('visible');
+        } else {
+          usNoResults.classList.remove('visible');
+        }
+      }
+
+      var usFilterGroups = document.querySelectorAll('#us-schools [data-filter-group]');
+      usFilterGroups.forEach(function (group) {
+        var groupName = group.dataset.filterGroup;
+        var btns = group.querySelectorAll('.filter-btn');
+
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            btns.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            usFilters[groupName] = btn.dataset.value;
+            applyUSFilters();
+          });
+        });
+      });
+    })();
+
+  </script>
+
+</body>
+</html>

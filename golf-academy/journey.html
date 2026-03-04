@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Journey — LINKEDU Golf Pathways</title>
+  <meta name="description" content="5 ขั้นตอนที่ชัดเจนในการพา junior golfer ไทยสู่ทุนการศึกษาโรงเรียนกอล์ฟชั้นนำ UK และ US NCAA" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ── REVEAL ANIMATION ── */
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+    /* ── JOURNEY TIMELINE ── */
+    .journey-timeline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      padding: 40px 0 8px;
+      gap: 0;
+    }
+    .journey-timeline::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: calc(10% + 12px);
+      right: calc(10% + 12px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(184,150,46,0.3) 100%);
+    }
+    .timeline-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      cursor: pointer;
+      transition: var(--trans);
+      text-decoration: none;
+      padding: 0 8px;
+    }
+    .timeline-stage:hover .timeline-dot { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 20px rgba(184,150,46,0.4); }
+    .timeline-stage:hover .timeline-num { color: var(--gold); }
+    .timeline-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+      transition: var(--trans);
+    }
+    .timeline-dot-inner {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .timeline-stage.active .timeline-dot { background: var(--gold); box-shadow: 0 0 20px rgba(184,150,46,0.35); }
+    .timeline-stage.active .timeline-dot .timeline-dot-inner { background: var(--dark); }
+    .timeline-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); transition: var(--trans); }
+    .timeline-label {
+      text-align: center;
+      line-height: 1.3;
+    }
+    .timeline-label-th { font-size: 0.82rem; color: var(--cream); font-weight: 600; display: block; }
+    .timeline-label-en { font-size: 0.72rem; color: var(--muted); display: block; margin-top: 2px; }
+
+    /* ── STAGE SECTION ── */
+    .stage-section { padding: 80px 0; }
+    .stage-header { display: flex; align-items: flex-start; gap: 24px; margin-bottom: 48px; }
+    .stage-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(184,150,46,0.18);
+      font-weight: 400;
+      flex-shrink: 0;
+      min-width: 88px;
+      text-align: right;
+      letter-spacing: -0.02em;
+    }
+    .stage-header-content { flex: 1; }
+    .stage-badge { margin-bottom: 12px; }
+    .stage-title { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--cream); margin-bottom: 14px; }
+    .stage-desc { font-size: 0.97rem; color: var(--muted); max-width: 600px; line-height: 1.75; }
+
+    /* ── TIMEFRAME BADGE ── */
+    .timeframe-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(184,150,46,0.08);
+      border: 1px solid rgba(184,150,46,0.2);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-top: 32px;
+      letter-spacing: 0.04em;
+    }
+    .timeframe-badge::before { content: '⏱'; font-size: 0.85rem; }
+
+    /* ── ASSESS LIST ── */
+    .assess-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .assess-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 10px 14px;
+      background: rgba(245,240,232,0.03);
+      border-left: 2px solid var(--border);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .assess-list li::before {
+      content: '→';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .assess-list li .item-th,
+    .assess-list li .item-en { display: block; }
+    .assess-list li .item-th { color: var(--cream); font-weight: 500; font-size: 0.86rem; }
+    .assess-list li .item-en { color: var(--muted); font-size: 0.78rem; margin-top: 1px; }
+
+    /* ── TOOLS BLOCK ── */
+    .tools-block { margin-top: 32px; }
+    .tools-block-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tools-block-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .tools-grid { display: flex; flex-direction: column; gap: 8px; }
+
+    /* ── PATHWAY CARDS ── */
+    .pathway-card {
+      background: rgba(245,240,232,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pathway-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .pathway-card-flag {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .pathway-card h3 { font-size: 1.15rem; color: var(--cream); margin-bottom: 16px; }
+    .pathway-detail { margin-bottom: 10px; }
+    .pathway-detail-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .pathway-detail p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .pathway-timeline-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-lt);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    /* ── CHECKLIST COLUMNS ── */
+    .checklist-col { display: flex; flex-direction: column; gap: 0; }
+    .checklist-col-header {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.04);
+      font-size: 0.83rem;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.5rem;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .checklist-item .item-th { color: var(--cream); font-weight: 500; display: block; }
+    .checklist-item .item-en { color: var(--muted); font-size: 0.76rem; display: block; margin-top: 1px; }
+
+    /* ── SPLIT RESPONSIBILITY ── */
+    .responsibility-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .responsibility-col { border-radius: var(--radius-lg); padding: 28px; }
+    .responsibility-col.linkedu-col {
+      background: rgba(184,150,46,0.05);
+      border: 1px solid rgba(184,150,46,0.2);
+    }
+    .responsibility-col.family-col {
+      background: rgba(245,240,232,0.02);
+      border: 1px solid var(--border2);
+    }
+    .responsibility-col-header {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .linkedu-col .responsibility-col-header { color: var(--gold); border-color: rgba(184,150,46,0.2); }
+    .family-col .responsibility-col-header { color: var(--muted); border-color: var(--border2); }
+    .responsibility-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .responsibility-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .linkedu-col .responsibility-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .family-col .responsibility-list li::before { content: '●'; color: var(--muted2); font-size: 0.5rem; flex-shrink: 0; margin-top: 6px; }
+    .responsibility-list .r-th { color: var(--cream); font-weight: 500; display: block; }
+    .responsibility-list .r-en { color: var(--muted); font-size: 0.77rem; display: block; }
+
+    /* ── STAGE 5 SPECIAL ── */
+    .placed-list { display: flex; flex-direction: column; gap: 12px; }
+    .placed-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(245,240,232,0.02);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+    }
+    .placed-item-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      opacity: 0.5;
+      flex-shrink: 0;
+      line-height: 1;
+      min-width: 28px;
+    }
+    .placed-item-text .p-th { color: var(--cream); font-weight: 500; font-size: 0.88rem; display: block; }
+    .placed-item-text .p-en { color: var(--muted); font-size: 0.79rem; display: block; margin-top: 2px; }
+
+    .gold-statement {
+      text-align: center;
+      padding: 48px 24px;
+      margin-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .gold-statement p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      color: var(--gold);
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .gold-statement .en-part { color: rgba(184,150,46,0.65); }
+
+    /* ── TOTAL TIMELINE BOX ── */
+    .timeline-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+    }
+    .timeline-box-title { font-size: clamp(1rem, 2vw, 1.3rem); color: var(--cream); margin-bottom: 8px; }
+    .timeline-box-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 36px; }
+    .timeline-variants { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 600px; margin: 0 auto; }
+    .timeline-variant {
+      background: rgba(184,150,46,0.05);
+      border: 1px solid rgba(184,150,46,0.15);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .timeline-variant-age {
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .timeline-variant-duration {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .timeline-variant-label { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── MOBILE NAV ── */
+    .nav-mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: transparent;
+      border: none;
+    }
+    .nav-mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: var(--trans); }
+    #nav-menu { display: flex; align-items: center; gap: 32px; }
+
+    @media (max-width: 1024px) {
+      .nav-mobile-toggle { display: flex; }
+      #nav-menu {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--dark2);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 24px;
+        gap: 16px;
+        z-index: 99;
+      }
+      #nav-menu.open { display: flex; }
+      .nav-links { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+
+    @media (max-width: 768px) {
+      .journey-timeline { flex-direction: column; align-items: flex-start; gap: 0; padding: 0; }
+      .journey-timeline::before { display: none; }
+      .timeline-stage { flex-direction: row; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border2); width: 100%; }
+      .timeline-stage:last-child { border-bottom: none; }
+      .timeline-label { text-align: left; }
+      .stage-header { flex-direction: column; gap: 8px; }
+      .stage-number { font-size: 3rem; min-width: auto; text-align: left; }
+      .responsibility-grid { grid-template-columns: 1fr; }
+      .timeline-variants { grid-template-columns: 1fr; max-width: 100%; }
+      .timeline-box { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-brand-name">LINKEDU</span>
+        <span class="nav-brand-tag">Golf Pathways</span>
+      </a>
+
+      <button class="nav-mobile-toggle" id="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div id="nav-menu">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">
+            <span class="lang-th">หน้าหลัก</span>
+            <span class="lang-en">Home</span>
+          </a>
+          <a href="journey.html" class="nav-link active">
+            <span class="lang-th">เส้นทาง</span>
+            <span class="lang-en">The Journey</span>
+          </a>
+          <a href="pathways.html" class="nav-link">
+            <span class="lang-th">เส้นทางทุน</span>
+            <span class="lang-en">Pathways</span>
+          </a>
+          <a href="scholarships.html" class="nav-link">
+            <span class="lang-th">ทุนการศึกษา</span>
+            <span class="lang-en">Scholarships</span>
+          </a>
+          <a href="schools.html" class="nav-link">
+            <span class="lang-th">โรงเรียน</span>
+            <span class="lang-en">Schools</span>
+          </a>
+          <a href="tools.html" class="nav-link">
+            <span class="lang-th">เครื่องมือ</span>
+            <span class="lang-en">Tools</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <div class="lang-toggle">
+            <button class="lang-btn" data-lang="th">TH</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <a href="start.html" class="nav-cta">
+            <span class="lang-th">เริ่มต้น</span>
+            <span class="lang-en">Get Started</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 1 — PAGE HERO
+  ════════════════════════════════════════ -->
+  <section class="section section--dark2" style="padding: 80px 0 64px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 50%, rgba(184,150,46,0.05) 0%, transparent 60%); pointer-events: none;"></div>
+    <div class="container" style="position: relative; z-index: 1;">
+      <div data-reveal>
+        <div class="eyebrow">
+          <span class="lang-th">เส้นทาง</span>
+          <span class="lang-en">The Journey</span>
+        </div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--cream); max-width: 760px; margin-bottom: 20px; line-height: 1.2;">
+          <span class="lang-th">เส้นทางของลูกคุณ<br><em style="font-style: italic; color: var(--gold);">ตั้งแต่วันนี้ถึงวันรับทุน</em></span>
+          <span class="lang-en">Your Child's Journey<br><em style="font-style: italic; color: var(--gold);">From Today to Scholarship Day</em></span>
+        </h1>
+        <p style="font-size: 1.08rem; color: var(--muted); max-width: 520px; line-height: 1.8; margin-bottom: 40px;">
+          <span class="lang-th">5 ขั้นตอนที่ชัดเจน LINKEDU อยู่เคียงข้างทุกก้าว</span>
+          <span class="lang-en">5 clear stages. LINKEDU by your side at every step.</span>
+        </p>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <a href="#stage-1" class="btn btn-primary">
+            <span class="lang-th">เริ่มที่ขั้นตอนแรก</span>
+            <span class="lang-en">Start at Stage One</span>
+          </a>
+          <a href="start.html" class="btn btn-outline">
+            <span class="lang-th">ปรึกษาฟรี</span>
+            <span class="lang-en">Free Consultation</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 2 — JOURNEY OVERVIEW TIMELINE
+  ════════════════════════════════════════ -->
+  <section class="section section--surface" style="padding: 56px 0;">
+    <div class="container">
+      <div data-reveal>
+        <p style="font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; text-align: center;">
+          <span class="lang-th">5 ขั้นตอนหลัก — คลิกเพื่อเลื่อนไปยังแต่ละขั้นตอน</span>
+          <span class="lang-en">5 Main Stages — Click to jump to each stage</span>
+        </p>
+
+        <nav class="journey-timeline" aria-label="Journey stages">
+
+          <a href="#stage-1" class="timeline-stage" aria-label="Stage 1 — Assess">
+            <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+            <div class="timeline-num">01</div>
+            <div class="timeline-label">
+              <span class="timeline-label-th lang-th">ประเมิน</span>
+              <span class="timeline-label-en lang-en">Assess</span>
+            </div>
+          </a>
+
+          <a href="#stage-2" class="timeline-stage" aria-label="Stage 2 — Plan">
+            <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+            <div class="timeline-num">02</div>
+            <div class="timeline-label">
+              <span class="timeline-label-th lang-th">วางแผน</span>
+              <span class="timeline-label-en lang-en">Plan</span>
+            </div>
+          </a>
+
+          <a href="#stage-3" class="timeline-stage" aria-label="Stage 3 — Build Profile">
+            <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+            <div class="timeline-num">03</div>
+            <div class="timeline-label">
+              <span class="timeline-label-th lang-th">เตรียมโปรไฟล์</span>
+              <span class="timeline-label-en lang-en">Build Profile</span>
+            </div>
+          </a>
+
+          <a href="#stage-4" class="timeline-stage" aria-label="Stage 4 — Apply">
+            <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+            <div class="timeline-num">04</div>
+            <div class="timeline-label">
+              <span class="timeline-label-th lang-th">สมัครและติดต่อ</span>
+              <span class="timeline-label-en lang-en">Apply & Reach Out</span>
+            </div>
+          </a>
+
+          <a href="#stage-5" class="timeline-stage" aria-label="Stage 5 — Placed">
+            <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+            <div class="timeline-num">05</div>
+            <div class="timeline-label">
+              <span class="timeline-label-th lang-th">ได้รับการตอบรับ</span>
+              <span class="timeline-label-en lang-en">Placed</span>
+            </div>
+          </a>
+
+        </nav>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 3 — STAGE 1: ASSESS
+  ════════════════════════════════════════ -->
+  <section id="stage-1" class="stage-section section--dark" style="background: var(--dark); scroll-margin-top: 80px;">
+    <div class="container">
+
+      <div class="stage-header" data-reveal>
+        <div class="stage-number">01</div>
+        <div class="stage-header-content">
+          <div class="stage-badge">
+            <span class="badge badge-gold">Stage 1</span>
+          </div>
+          <h2 class="stage-title">
+            <span class="lang-th">ประเมินระดับปัจจุบัน</span>
+            <span class="lang-en">Assess Current Level</span>
+          </h2>
+          <p class="stage-desc">
+            <span class="lang-th">ก่อนที่จะวางแผนใดๆ เราต้องรู้จุดยืนที่แท้จริงของลูกคุณ ทั้งในด้านกอล์ฟและวิชาการ</span>
+            <span class="lang-en">Before any planning, we need to know exactly where your child stands — in golf and academically.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap: 48px; align-items: start;">
+
+        <!-- LEFT — What we assess -->
+        <div data-reveal>
+          <div class="tools-block-label">
+            <span class="lang-th">สิ่งที่เราประเมิน</span>
+            <span class="lang-en">What we assess</span>
+          </div>
+          <ul class="assess-list">
+            <li>
+              <div>
+                <span class="item-th lang-th">แฮนดิแคปปัจจุบัน</span>
+                <span class="item-en lang-en">Current handicap (WHS index)</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="item-th lang-th">ผลการแข่งขัน</span>
+                <span class="item-en lang-en">Tournament history and competitive record</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="item-th lang-th">ผลการเรียน</span>
+                <span class="item-en lang-en">Academic grades — GPA, IGCSE, or Thai curriculum</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="item-th lang-th">ทักษะภาษาอังกฤษ</span>
+                <span class="item-en lang-en">English language level (spoken and written)</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="item-th lang-th">อายุและเป้าหมายเวลา</span>
+                <span class="item-en lang-en">Age and target entry timeline</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="item-th lang-th">แรงจูงใจและความมุ่งมั่น</span>
+                <span class="item-en lang-en">Motivation and commitment level</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="timeframe-badge">
+            <span class="lang-th">1–2 สัปดาห์</span>
+            <span class="lang-en">1–2 weeks</span>
+          </div>
+        </div>
+
+        <!-- RIGHT — Tools for this stage -->
+        <div data-reveal>
+          <div class="tools-block">
+            <div class="tools-block-label">
+              <span class="lang-th">เครื่องมือฟรีสำหรับขั้นตอนนี้</span>
+              <span class="lang-en">Free tools for this stage</span>
+            </div>
+            <div class="tools-grid">
+
+              <a href="../golf/golf-handicap-calc.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">📊</span>
+                  <div>
+                    <div class="tool-link-card-title">Handicap Index Calculator</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">คำนวณ WHS Index และดูระดับที่เหมาะสม</span>
+                      <span class="lang-en">Calculate WHS Index and see your realistic division</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-stats-tracker.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">📈</span>
+                  <div>
+                    <div class="tool-link-card-title">Golf Performance Tracker</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">บันทึกผลการเล่นและดูแนวโน้มระยะยาว</span>
+                      <span class="lang-en">Log rounds and track long-term performance trends</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-vs-academic.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">⚖️</span>
+                  <div>
+                    <div class="tool-link-card-title">Golf vs Academic Comparison</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">เปรียบเทียบสองเส้นทางตามโปรไฟล์ของลูก</span>
+                      <span class="lang-en">Compare both pathways based on your child's profile</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 4 — STAGE 2: PLAN
+  ════════════════════════════════════════ -->
+  <section id="stage-2" class="stage-section" style="background: var(--surface); scroll-margin-top: 80px;">
+    <div class="container">
+
+      <div class="stage-header" data-reveal>
+        <div class="stage-number">02</div>
+        <div class="stage-header-content">
+          <div class="stage-badge">
+            <span class="badge badge-gold">Stage 2</span>
+          </div>
+          <h2 class="stage-title">
+            <span class="lang-th">เลือกเส้นทางและวางแผน</span>
+            <span class="lang-en">Choose Your Path &amp; Plan</span>
+          </h2>
+          <p class="stage-desc">
+            <span class="lang-th">จากการประเมิน เราร่วมกันเลือกเส้นทางที่เหมาะที่สุด และสร้างแผนงานรายปีที่ชัดเจน</span>
+            <span class="lang-en">Based on your assessment, we choose the best pathway together and build a clear year-by-year plan.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Pathway cards -->
+      <div class="grid-2" data-reveal style="margin-bottom: 40px;">
+
+        <!-- UK Boarding School -->
+        <div class="pathway-card">
+          <span class="pathway-card-flag">🇬🇧</span>
+          <h3>
+            <span class="lang-th">UK Boarding School</span>
+            <span class="lang-en">UK Boarding School</span>
+          </h3>
+          <div class="pathway-detail">
+            <span class="pathway-detail-label">
+              <span class="lang-th">เหมาะสำหรับ</span>
+              <span class="lang-en">Best for</span>
+            </span>
+            <p>
+              <span class="lang-th">อายุ 12–15 ปี · แฮนดิแคป 10–22 · ต้องการสภาพแวดล้อมวิชาการที่ดี</span>
+              <span class="lang-en">Ages 12–15 · Handicap 10–22 · Strong academic environment priority</span>
+            </p>
+          </div>
+          <div class="pathway-detail">
+            <span class="pathway-detail-label">
+              <span class="lang-th">สิ่งที่จะได้รับ</span>
+              <span class="lang-en">What you get</span>
+            </span>
+            <p>
+              <span class="lang-th">การศึกษาระดับโลก สภาพแวดล้อมกอล์ฟระดับสูง และเส้นทางสู่มหาวิทยาลัยชั้นนำของอังกฤษ</span>
+              <span class="lang-en">World-class education, elite golf environment, and a pathway to top UK universities</span>
+            </p>
+          </div>
+          <span class="pathway-timeline-tag">
+            <span class="lang-th">⏱ เริ่มเตรียม 2–3 ปีก่อนเข้าเรียน</span>
+            <span class="lang-en">⏱ Start prep 2–3 years before entry</span>
+          </span>
+        </div>
+
+        <!-- US NCAA -->
+        <div class="pathway-card">
+          <span class="pathway-card-flag">🇺🇸</span>
+          <h3>
+            <span class="lang-th">US NCAA College Golf</span>
+            <span class="lang-en">US NCAA College Golf</span>
+          </h3>
+          <div class="pathway-detail">
+            <span class="pathway-detail-label">
+              <span class="lang-th">เหมาะสำหรับ</span>
+              <span class="lang-en">Best for</span>
+            </span>
+            <p>
+              <span class="lang-th">อายุ 15–17 ปี · แฮนดิแคป 0–12 · มุ่งสู่ทุนเต็มหรือทุนบางส่วน</span>
+              <span class="lang-en">Ages 15–17 · Handicap 0–12 · Targeting full or partial scholarship</span>
+            </p>
+          </div>
+          <div class="pathway-detail">
+            <span class="pathway-detail-label">
+              <span class="lang-th">สิ่งที่จะได้รับ</span>
+              <span class="lang-en">What you get</span>
+            </span>
+            <p>
+              <span class="lang-th">ทุนการศึกษา NCAA มูลค่าสูงถึง $80,000+ ต่อปี และประสบการณ์กอล์ฟระดับมหาวิทยาลัยอเมริกา</span>
+              <span class="lang-en">NCAA scholarship up to $80,000+ per year and elite US collegiate golf experience</span>
+            </p>
+          </div>
+          <span class="pathway-timeline-tag">
+            <span class="lang-th">⏱ เริ่มติดต่อโค้ช 2 ปีก่อน</span>
+            <span class="lang-en">⏱ Begin coach contact 2 years before</span>
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Tools + Timeframe row -->
+      <div class="grid-2" style="gap: 48px; align-items: start;">
+        <div data-reveal>
+          <div class="tools-block">
+            <div class="tools-block-label">
+              <span class="lang-th">เครื่องมือสำหรับขั้นตอนนี้</span>
+              <span class="lang-en">Tools for this stage</span>
+            </div>
+            <div class="tools-grid">
+
+              <a href="../golf/golf-recruiting-timeline.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">📅</span>
+                  <div>
+                    <div class="tool-link-card-title">Recruiting Timeline Builder</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">สร้างไทม์ไลน์การรับสมัครส่วนตัวของลูก</span>
+                      <span class="lang-en">Build your child's personalised recruiting timeline</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-vs-academic.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">⚖️</span>
+                  <div>
+                    <div class="tool-link-card-title">Golf vs Academic Comparison</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">เปรียบเทียบเส้นทาง UK กับ US ตามโปรไฟล์</span>
+                      <span class="lang-en">Compare UK vs US pathways based on your child's profile</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal style="padding-top: 8px;">
+          <div class="timeframe-badge" style="margin-top: 0;">
+            <span class="lang-th">2–4 สัปดาห์</span>
+            <span class="lang-en">2–4 weeks</span>
+          </div>
+          <p style="margin-top: 20px; font-size: 0.85rem; color: var(--muted); line-height: 1.7;">
+            <span class="lang-th">เมื่อเลือกเส้นทางแล้ว LINKEDU จะสร้างแผนรายปีที่ครอบคลุมทั้งเป้าหมายกอล์ฟ วิชาการ และการแข่งขัน</span>
+            <span class="lang-en">Once the pathway is chosen, LINKEDU creates a detailed year-by-year plan covering golf, academic, and tournament targets.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 5 — STAGE 3: BUILD PROFILE
+  ════════════════════════════════════════ -->
+  <section id="stage-3" class="stage-section section--dark" style="background: var(--dark); scroll-margin-top: 80px;">
+    <div class="container">
+
+      <div class="stage-header" data-reveal>
+        <div class="stage-number">03</div>
+        <div class="stage-header-content">
+          <div class="stage-badge">
+            <span class="badge badge-gold">Stage 3</span>
+          </div>
+          <h2 class="stage-title">
+            <span class="lang-th">สร้างโปรไฟล์นักกอล์ฟ</span>
+            <span class="lang-en">Build the Player Profile</span>
+          </h2>
+          <p class="stage-desc">
+            <span class="lang-th">โค้ชและโรงเรียนต้องการหลักฐาน ไม่ใช่แค่คำบอกเล่า เราช่วยสร้างโปรไฟล์ที่น่าเชื่อถือและโดดเด่น</span>
+            <span class="lang-en">Coaches and schools want evidence, not just words. We help build a credible and compelling profile.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 3-column checklist -->
+      <div class="grid-3" data-reveal style="margin-bottom: 40px; gap: 32px;">
+
+        <!-- Col 1: Competitive Record -->
+        <div class="checklist-col">
+          <div class="checklist-col-header">
+            <span class="lang-th">การแข่งขัน</span>
+            <span class="lang-en">Competitive Record</span>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">ลงแข่งในทัวร์นาเมนต์ WAGR</span>
+              <span class="item-en lang-en">Enter WAGR-ranked tournaments</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">บันทึกผลทุกรอบอย่างเป็นทางการ</span>
+              <span class="item-en lang-en">Record every official round</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">เป้าหมายแฮนดิแคปตามไทม์ไลน์</span>
+              <span class="item-en lang-en">Hit handicap targets on schedule</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">สร้างประวัติผลงานที่สม่ำเสมอ</span>
+              <span class="item-en lang-en">Build a consistent performance history</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: Application Materials -->
+        <div class="checklist-col">
+          <div class="checklist-col-header">
+            <span class="lang-th">เอกสารสมัคร</span>
+            <span class="lang-en">Application Materials</span>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">Golf Recruiting Resume</span>
+              <span class="item-en lang-en">Professional golf recruiting resume</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">บรีฟวิดีโอไฮไลท์</span>
+              <span class="item-en lang-en">Highlight video brief and production</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">ผลการเรียนอย่างเป็นทางการ</span>
+              <span class="item-en lang-en">Official academic transcripts</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">คะแนนภาษาอังกฤษ</span>
+              <span class="item-en lang-en">English language test scores</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Academics -->
+        <div class="checklist-col">
+          <div class="checklist-col-header">
+            <span class="lang-th">วิชาการ</span>
+            <span class="lang-en">Academics</span>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">รักษาเกรดให้อยู่ในเกณฑ์ที่ต้องการ</span>
+              <span class="item-en lang-en">Maintain required academic grades</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">เตรียม TOEFL/IELTS (US) หรือ UKISET (UK)</span>
+              <span class="item-en lang-en">Prep for TOEFL/IELTS or UKISET</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">เข้าร่วม prep programmes หากจำเป็น</span>
+              <span class="item-en lang-en">Join prep programmes if needed</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div>
+              <span class="item-th lang-th">วางแผนหลักสูตรให้ตรงกับข้อกำหนด</span>
+              <span class="item-en lang-en">Align curriculum with school requirements</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tools + Timeframe -->
+      <div class="grid-2" style="gap: 48px; align-items: start;">
+        <div data-reveal>
+          <div class="tools-block">
+            <div class="tools-block-label">
+              <span class="lang-th">เครื่องมือสำหรับขั้นตอนนี้</span>
+              <span class="lang-en">Tools for this stage</span>
+            </div>
+            <div class="tools-grid">
+
+              <a href="../golf/golf-resume-builder.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">📄</span>
+                  <div>
+                    <div class="tool-link-card-title">Golf Resume Builder</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">สร้าง resume กอล์ฟระดับมืออาชีพสำหรับส่งโค้ช</span>
+                      <span class="lang-en">Build a professional golf resume to send to coaches</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/tournament-planner.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">🏆</span>
+                  <div>
+                    <div class="tool-link-card-title">Tournament Planner</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">วางแผนตารางการแข่งขันทั้งปี</span>
+                      <span class="lang-en">Plan your full-year competitive tournament schedule</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-stats-tracker.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">📈</span>
+                  <div>
+                    <div class="tool-link-card-title">Stats Tracker</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">บันทึกสถิติและพิสูจน์ความก้าวหน้า</span>
+                      <span class="lang-en">Record stats and prove consistent improvement</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal style="padding-top: 8px;">
+          <div class="timeframe-badge" style="margin-top: 0;">
+            <span class="lang-th">6–18 เดือน</span>
+            <span class="lang-en">6–18 months</span>
+          </div>
+          <p style="margin-top: 20px; font-size: 0.85rem; color: var(--muted); line-height: 1.7;">
+            <span class="lang-th">นี่คือขั้นตอนที่ยาวที่สุด และสำคัญที่สุด คุณภาพของโปรไฟล์จะเป็นตัวกำหนดว่าลูกคุณจะได้รับการพิจารณาจากโรงเรียนและโค้ชชั้นนำหรือไม่</span>
+            <span class="lang-en">This is the longest and most critical stage. The quality of the profile directly determines whether your child gets considered by elite schools and coaches.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 6 — STAGE 4: APPLY & REACH OUT
+  ════════════════════════════════════════ -->
+  <section id="stage-4" class="stage-section" style="background: var(--surface); scroll-margin-top: 80px;">
+    <div class="container">
+
+      <div class="stage-header" data-reveal>
+        <div class="stage-number">04</div>
+        <div class="stage-header-content">
+          <div class="stage-badge">
+            <span class="badge badge-gold">Stage 4</span>
+          </div>
+          <h2 class="stage-title">
+            <span class="lang-th">ติดต่อโรงเรียนและโค้ช</span>
+            <span class="lang-en">Approach Schools &amp; Coaches</span>
+          </h2>
+          <p class="stage-desc">
+            <span class="lang-th">นี่คือขั้นตอนที่หลายครอบครัวทำพลาด LINKEDU ดูแลกระบวนการทั้งหมดอย่างเป็นระบบ</span>
+            <span class="lang-en">This is where most families go wrong. LINKEDU manages the entire process systematically.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Responsibility split -->
+      <div class="responsibility-grid" data-reveal>
+
+        <!-- LINKEDU column -->
+        <div class="responsibility-col linkedu-col">
+          <div class="responsibility-col-header">
+            <span>◆</span>
+            <span>
+              <span class="lang-th">LINKEDU ดูแล</span>
+              <span class="lang-en">LINKEDU handles</span>
+            </span>
+          </div>
+          <ul class="responsibility-list">
+            <li>
+              <div>
+                <span class="r-th lang-th">ระบุโรงเรียนและโค้ชที่เหมาะสม</span>
+                <span class="r-en lang-en">Identify the right schools and coaches</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">ร่างอีเมลติดต่อที่ได้ผล</span>
+                <span class="r-en lang-en">Draft outreach emails that get responses</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">ติดตามและจัดการการโต้ตอบทั้งหมด</span>
+                <span class="r-en lang-en">Follow up and manage all communication</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">เตรียมเอกสารสมัครทั้งหมด</span>
+                <span class="r-en lang-en">Prepare all application documents</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">เจรจาเงื่อนไขทุนการศึกษา</span>
+                <span class="r-en lang-en">Negotiate scholarship terms</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Family column -->
+        <div class="responsibility-col family-col">
+          <div class="responsibility-col-header">
+            <span>
+              <span class="lang-th">ครอบครัวดูแล</span>
+              <span class="lang-en">Family handles</span>
+            </span>
+          </div>
+          <ul class="responsibility-list">
+            <li>
+              <div>
+                <span class="r-th lang-th">เข้าร่วมทัวร์นาเมนต์ตามแผน</span>
+                <span class="r-en lang-en">Compete in planned tournaments</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">รักษาผลการเรียนให้อยู่ในเกณฑ์</span>
+                <span class="r-en lang-en">Maintain academic performance</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">เตรียมพร้อมสำหรับการสัมภาษณ์</span>
+                <span class="r-en lang-en">Prepare for interviews</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span class="r-th lang-th">ตัดสินใจขั้นสุดท้าย</span>
+                <span class="r-en lang-en">Make final decisions</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Tools + Timeframe -->
+      <div class="grid-2" style="gap: 48px; align-items: start;">
+        <div data-reveal>
+          <div class="tools-block">
+            <div class="tools-block-label">
+              <span class="lang-th">เครื่องมือสำหรับขั้นตอนนี้</span>
+              <span class="lang-en">Tools for this stage</span>
+            </div>
+            <div class="tools-grid">
+
+              <a href="../golf/golf-coach-email-generator.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">✉️</span>
+                  <div>
+                    <div class="tool-link-card-title">Coach Email Generator</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">สร้างอีเมลติดต่อโค้ชที่มีประสิทธิภาพ</span>
+                      <span class="lang-en">Generate effective coach outreach emails</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-college-finder.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">🏫</span>
+                  <div>
+                    <div class="tool-link-card-title">US College Golf Finder</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">ค้นหามหาวิทยาลัย NCAA ที่เหมาะกับโปรไฟล์ลูก</span>
+                      <span class="lang-en">Find NCAA programs that match your child's profile</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/golf-school-finder.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">🏌️</span>
+                  <div>
+                    <div class="tool-link-card-title">UK Golf School Finder</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">ค้นหาโรงเรียน Boarding ในอังกฤษที่มีทีมกอล์ฟ</span>
+                      <span class="lang-en">Find UK boarding schools with strong golf programmes</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+              <a href="../golf/ncaa-eligibility-checker.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">✅</span>
+                  <div>
+                    <div class="tool-link-card-title">NCAA Eligibility Checker</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">ตรวจสอบความเหมาะสมสำหรับทุน NCAA</span>
+                      <span class="lang-en">Check eligibility requirements for NCAA scholarships</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal style="padding-top: 8px;">
+          <div class="timeframe-badge" style="margin-top: 0;">
+            <span class="lang-th">3–12 เดือน</span>
+            <span class="lang-en">3–12 months</span>
+          </div>
+          <p style="margin-top: 20px; font-size: 0.85rem; color: var(--muted); line-height: 1.7;">
+            <span class="lang-th">ครอบครัวส่วนใหญ่ส่งอีเมลไปโดยไม่มีกลยุทธ์ ไม่ติดตาม และไม่รู้ว่าโค้ชต้องการอะไร LINKEDU ดูแลทั้งหมดนี้อย่างเป็นระบบ</span>
+            <span class="lang-en">Most families email without strategy, don't follow up, and don't know what coaches want to see. LINKEDU handles all of this systematically.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 7 — STAGE 5: PLACED
+  ════════════════════════════════════════ -->
+  <section id="stage-5" class="stage-section section--dark" style="background: var(--dark); scroll-margin-top: 80px;">
+    <div class="container">
+
+      <div class="stage-header" data-reveal>
+        <div class="stage-number">05</div>
+        <div class="stage-header-content">
+          <div class="stage-badge">
+            <span class="badge badge-gold">Stage 5 · The Goal</span>
+          </div>
+          <h2 class="stage-title">
+            <span class="lang-th">ได้รับการตอบรับและวางแผนต่อไป</span>
+            <span class="lang-en">Placed &amp; Planning What Comes Next</span>
+          </h2>
+          <p class="stage-desc">
+            <span class="lang-th">เมื่อลูกคุณได้รับการตอบรับ LINKEDU ยังคงอยู่เคียงข้างเพื่อการเตรียมตัวก่อนเดินทาง</span>
+            <span class="lang-en">When your child receives their offer, LINKEDU stays involved to ensure a smooth transition.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap: 48px; align-items: start;">
+
+        <!-- What happens next -->
+        <div data-reveal>
+          <div class="tools-block-label">
+            <span class="lang-th">ขั้นตอนหลังได้รับการตอบรับ</span>
+            <span class="lang-en">What happens after placement</span>
+          </div>
+          <div class="placed-list">
+            <div class="placed-item">
+              <div class="placed-item-num">1</div>
+              <div class="placed-item-text">
+                <span class="p-th lang-th">ยืนยันการตอบรับและเซ็นสัญญา</span>
+                <span class="p-en lang-en">Confirm offer and sign the acceptance contract</span>
+              </div>
+            </div>
+            <div class="placed-item">
+              <div class="placed-item-num">2</div>
+              <div class="placed-item-text">
+                <span class="p-th lang-th">วางแผนค่าใช้จ่ายและการเงิน</span>
+                <span class="p-en lang-en">Plan finances, fees, and budget for the full programme</span>
+              </div>
+            </div>
+            <div class="placed-item">
+              <div class="placed-item-num">3</div>
+              <div class="placed-item-text">
+                <span class="p-th lang-th">เตรียมความพร้อมด้านวัฒนธรรมและการใช้ชีวิต</span>
+                <span class="p-en lang-en">Cultural, pastoral, and life preparation for boarding</span>
+              </div>
+            </div>
+            <div class="placed-item">
+              <div class="placed-item-num">4</div>
+              <div class="placed-item-text">
+                <span class="p-th lang-th">การสนับสนุนในปีแรก</span>
+                <span class="p-en lang-en">Ongoing first-year support and check-ins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool + statement -->
+        <div data-reveal>
+          <div class="tools-block">
+            <div class="tools-block-label">
+              <span class="lang-th">เครื่องมือสำหรับขั้นตอนนี้</span>
+              <span class="lang-en">Tool for this stage</span>
+            </div>
+            <div class="tools-grid">
+              <a href="../golf/golf-scholarship-value-calc.html" target="_blank" class="tool-link-card">
+                <div class="tool-link-card-left">
+                  <span class="tool-link-card-icon">💰</span>
+                  <div>
+                    <div class="tool-link-card-title">Scholarship Value Calculator</div>
+                    <div class="tool-link-card-desc">
+                      <span class="lang-th">คำนวณมูลค่าทุนจริงและเปรียบเทียบข้อเสนอ</span>
+                      <span class="lang-en">Calculate true scholarship value and compare offers</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="tool-link-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div style="margin-top: 28px; padding: 24px; background: rgba(184,150,46,0.05); border: 1px solid rgba(184,150,46,0.15); border-radius: var(--radius-lg);">
+            <div style="font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">
+              <span class="lang-th">ความจริงที่น่าภูมิใจ</span>
+              <span class="lang-en">The reality</span>
+            </div>
+            <p style="font-size: 0.83rem; color: var(--muted); line-height: 1.7;">
+              <span class="lang-th">ทุนการศึกษา NCAA อาจครอบคลุมค่าเล่าเรียน ที่พัก อาหาร และค่าใช้จ่ายอื่นๆ รวมมูลค่าสูงถึง $320,000 ตลอด 4 ปี</span>
+              <span class="lang-en">NCAA scholarships can cover tuition, housing, meals, and more — worth up to $320,000 over 4 years.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Gold statement -->
+      <div class="gold-statement" data-reveal>
+        <p>
+          <span class="lang-th">"จากครอบครัวไทยธรรมดา ถึงโรงเรียนชั้นนำของโลก"</span>
+          <span class="lang-en">"From a Thai family to a world-class school."</span>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 8 — TOTAL TIMELINE BOX
+  ════════════════════════════════════════ -->
+  <section class="section section--surface" style="padding: 64px 0;">
+    <div class="container">
+      <div class="timeline-box" data-reveal>
+
+        <div style="font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">
+          <span class="lang-th">ภาพรวมระยะเวลา</span>
+          <span class="lang-en">Timeline Overview</span>
+        </div>
+
+        <h2 class="timeline-box-title">
+          <span class="lang-th">ระยะเวลาโดยรวม: 1–4 ปี</span>
+          <span class="lang-en">Total timeline: 1–4 years</span>
+        </h2>
+        <p class="timeline-box-sub">
+          <span class="lang-th">ขึ้นอยู่กับอายุและระดับปัจจุบันของลูก</span>
+          <span class="lang-en">Depending on your child's current age and level.</span>
+        </p>
+
+        <div class="timeline-variants">
+
+          <div class="timeline-variant">
+            <span class="timeline-variant-age">
+              <span class="lang-th">เริ่มอายุ 10–12 ปี</span>
+              <span class="lang-en">Starting age 10–12</span>
+            </span>
+            <div class="timeline-variant-duration">3–4 <span style="font-size: 1rem; color: var(--muted);">
+              <span class="lang-th">ปี</span>
+              <span class="lang-en">years</span>
+            </span></div>
+            <div class="timeline-variant-label">
+              <span class="lang-th">มีเวลาพัฒนาระดับกอล์ฟและวิชาการอย่างเต็มที่</span>
+              <span class="lang-en">Full time to develop golf and academic profile</span>
+            </div>
+          </div>
+
+          <div class="timeline-variant">
+            <span class="timeline-variant-age">
+              <span class="lang-th">เริ่มอายุ 14–16 ปี</span>
+              <span class="lang-en">Starting age 14–16</span>
+            </span>
+            <div class="timeline-variant-duration">1–2 <span style="font-size: 1rem; color: var(--muted);">
+              <span class="lang-th">ปี</span>
+              <span class="lang-en">years</span>
+            </span></div>
+            <div class="timeline-variant-label">
+              <span class="lang-th">เข้มข้นกว่า แต่ยังเป็นไปได้หากโปรไฟล์พร้อม</span>
+              <span class="lang-en">More intensive, but achievable with the right profile</span>
+            </div>
+          </div>
+
+        </div>
+
+        <p style="margin-top: 28px; font-size: 0.8rem; color: var(--muted2); max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.65;">
+          <span class="lang-th">ยิ่งเริ่มเร็ว ยิ่งมีตัวเลือกมากขึ้น และความกดดันน้อยลง LINKEDU จะบอกคุณตรงๆ ว่าเส้นทางไหนเป็นไปได้จริงสำหรับลูกของคุณ</span>
+          <span class="lang-en">The earlier you start, the more options and less pressure. LINKEDU will tell you honestly which pathway is genuinely realistic for your child.</span>
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SECTION 9 — CTA
+  ════════════════════════════════════════ -->
+  <section class="cta-section" data-reveal>
+    <div class="container">
+      <div style="font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">
+        <span class="lang-th">เริ่มต้นวันนี้</span>
+        <span class="lang-en">Start Today</span>
+      </div>
+      <h2>
+        <span class="lang-th">อยากรู้ว่าลูกของคุณอยู่ที่ขั้นไหน?</span>
+        <span class="lang-en">Want to know which stage your child is at?</span>
+      </h2>
+      <p>
+        <span class="lang-th">คุยกับทีม LINKEDU Golf Pathways ฟรี ไม่มีข้อผูกมัด เราจะประเมินโปรไฟล์ลูกคุณและแนะนำขั้นตอนที่เหมาะสมที่สุด</span>
+        <span class="lang-en">Talk to the LINKEDU Golf Pathways team — free, no obligation. We'll assess your child's profile and recommend the right starting point.</span>
+      </p>
+      <div class="line-id">LINE: @linkedugolf</div>
+      <div class="cta-actions">
+        <a href="start.html" class="btn btn-primary">
+          <span class="lang-th">ปรึกษาฟรีวันนี้</span>
+          <span class="lang-en">Free Consultation Today</span>
+        </a>
+        <a href="tools.html" class="btn btn-outline">
+          <span class="lang-th">ลองเครื่องมือฟรีก่อน</span>
+          <span class="lang-en">Try Free Tools First</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+
+        <!-- Brand column -->
+        <div>
+          <div class="footer-brand-name">LINKEDU</div>
+          <div class="footer-brand-tag">Golf Pathways</div>
+          <p class="footer-brand-desc">
+            <span class="lang-th">ที่ปรึกษาเฉพาะทางสำหรับครอบครัวไทยที่ต้องการพา junior golfer สู่โรงเรียน Boarding ชั้นนำในอังกฤษและทุน NCAA ในสหรัฐอเมริกา</span>
+            <span class="lang-en">Specialist consultant helping Thai families place junior golfers into UK boarding schools and US NCAA colleges via golf scholarships.</span>
+          </p>
+        </div>
+
+        <!-- Journey column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">เส้นทาง</span>
+            <span class="lang-en">The Journey</span>
+          </div>
+          <div class="footer-links">
+            <a href="#stage-1" class="footer-link">
+              <span class="lang-th">ขั้นที่ 1 — ประเมิน</span>
+              <span class="lang-en">Stage 1 — Assess</span>
+            </a>
+            <a href="#stage-2" class="footer-link">
+              <span class="lang-th">ขั้นที่ 2 — วางแผน</span>
+              <span class="lang-en">Stage 2 — Plan</span>
+            </a>
+            <a href="#stage-3" class="footer-link">
+              <span class="lang-th">ขั้นที่ 3 — สร้างโปรไฟล์</span>
+              <span class="lang-en">Stage 3 — Build Profile</span>
+            </a>
+            <a href="#stage-4" class="footer-link">
+              <span class="lang-th">ขั้นที่ 4 — สมัคร</span>
+              <span class="lang-en">Stage 4 — Apply</span>
+            </a>
+            <a href="#stage-5" class="footer-link">
+              <span class="lang-th">ขั้นที่ 5 — ได้รับทุน</span>
+              <span class="lang-en">Stage 5 — Placed</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pages column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">หน้าหลัก</span>
+            <span class="lang-en">Pages</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">
+              <span class="lang-th">หน้าหลัก</span>
+              <span class="lang-en">Home</span>
+            </a>
+            <a href="pathways.html" class="footer-link">
+              <span class="lang-th">เส้นทางทุน</span>
+              <span class="lang-en">Pathways</span>
+            </a>
+            <a href="scholarships.html" class="footer-link">
+              <span class="lang-th">ทุนการศึกษา</span>
+              <span class="lang-en">Scholarships</span>
+            </a>
+            <a href="schools.html" class="footer-link">
+              <span class="lang-th">โรงเรียน</span>
+              <span class="lang-en">Schools</span>
+            </a>
+            <a href="tools.html" class="footer-link">
+              <span class="lang-th">เครื่องมือฟรี</span>
+              <span class="lang-en">Free Tools</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact column -->
+        <div>
+          <div class="footer-heading">
+            <span class="lang-th">ติดต่อ</span>
+            <span class="lang-en">Contact</span>
+          </div>
+          <div class="footer-links">
+            <a href="start.html" class="footer-link">
+              <span class="lang-th">ปรึกษาฟรี</span>
+              <span class="lang-en">Free Consultation</span>
+            </a>
+            <span class="footer-link" style="cursor: default;">LINE: @linkedugolf</span>
+            <span class="footer-link" style="cursor: default;">
+              <span class="lang-th">กรุงเทพมหานคร, ประเทศไทย</span>
+              <span class="lang-en">Bangkok, Thailand</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          <span class="lang-th">&copy; 2026 LINKEDU Golf Pathways. สงวนลิขสิทธิ์ทั้งหมด</span>
+          <span class="lang-en">&copy; 2026 LINKEDU Golf Pathways. All rights reserved.</span>
+        </div>
+        <div class="footer-line-id">
+          LINE <span>@linkedugolf</span>
+        </div>
+      </div>
+
+      <div class="footer-beacon">LINKEDU Golf Pathways — Sub-brand of LINKEDU</div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       JS
+  ════════════════════════════════════════ -->
+  <script src="js/main.js"></script>
+
+  <script>
+    // Highlight active timeline dot on scroll
+    (function() {
+      const stages = ['stage-1', 'stage-2', 'stage-3', 'stage-4', 'stage-5'];
+      const dots = document.querySelectorAll('.timeline-stage');
+
+      function updateActiveDot() {
+        let currentStage = '';
+        stages.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) currentStage = id;
+        });
+
+        dots.forEach(dot => {
+          const href = dot.getAttribute('href').replace('#', '');
+          dot.classList.toggle('active', href === currentStage);
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveDot, { passive: true });
+      updateActiveDot();
+    })();
+  </script>
+
+</body>
+</html>
