@@ -1461,22 +1461,19 @@
     /* ----------------------------------------------------------
        FORMAT HELPERS
     ---------------------------------------------------------- */
-    // Schools that have individual pages built
-    const BUILT_SCHOOLS = new Set([
-      "Abbotsholme","Brighton College","Bromsgrove School","Bryanston School",
-      "Cardiff Sixth Form College","Caterham School","Charterhouse","Clifton College",
-      "Concord College","Epsom College","Harrow School","Loretto School",
-      "Millfield School","Oakham School","Oundle School","Queen Ethelburga's Collegiate",
-      "Rossall School","Shrewsbury School","St Leonards","The Leys School",
-      "The National Mathematics and Science College","Tonbridge School",
-      "Uppingham School","Wells Cathedral School"
+    // Slugs of schools that have individual detail pages built
+    const BUILT_SLUGS = new Set([
+      "abbotsholme","brighton-college","bromsgrove-school","bryanston-school",
+      "cardiff-sixth-form-college","caterham-school","charterhouse","clifton-college",
+      "concord-college","epsom-college","harrow-school","loretto-school-scotland",
+      "millfield-school","oakham-school","oundle-school","queen-ethelburgas-collegiate",
+      "rossall-school","shrewsbury-school","st-leonards-scotland","the-leys-school",
+      "the-national-mathematics-and-science-college","tonbridge-school",
+      "uppingham-school","wells-cathedral-school"
     ]);
-    function slugify(name) {
-      return name.toLowerCase().replace(/'/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-    }
-    function schoolPageLink(name) {
-      if (BUILT_SCHOOLS.has(name)) {
-        return '<a href="schools/' + slugify(name) + '.html" class="scard-btn scard-btn-view"><span class="lang-th">ดูโรงเรียน</span><span class="lang-en">View School</span></a>';
+    function schoolPageLink(slug) {
+      if (BUILT_SLUGS.has(slug)) {
+        return '<a href="schools/' + slug + '.html" class="scard-btn scard-btn-view"><span class="lang-th">ดูโรงเรียน</span><span class="lang-en">View School</span></a>';
       }
       return '<span class="scard-btn scard-btn-view" style="opacity:.4;cursor:default;pointer-events:none"><span class="lang-th">เร็วๆ นี้</span><span class="lang-en">Coming Soon</span></span>';
     }
@@ -1561,7 +1558,7 @@
     <div class="scard-note">${s.note}</div>
   </div>
   <div class="scard-actions">
-    ${schoolPageLink(s.name)}
+    ${schoolPageLink(s.slug)}
     <button class="scard-btn scard-btn-enquire" onclick="openModal('${s.name.replace(/'/g, "\\'")}')">
       <span class="lang-th">สอบถาม</span><span class="lang-en">Enquire</span>
     </button>
