@@ -785,21 +785,51 @@ p { font-size: 1rem; color: inherit; }
   border-top: 1px solid rgba(184,150,46,0.12);
 }
 
+/* Footer CTA strip */
+.footer-cta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(184,150,46,0.18);
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.footer-cta-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+.footer-cta-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(245,240,232,0.45);
+}
+.footer-cta-btn {
+  flex-shrink: 0;
+  display: inline-block;
+  background: #B8962E;
+  color: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: var(--trans);
+}
+.footer-cta-btn:hover { background: #caa93a; }
+
 .footer-top {
   display: grid;
-  grid-template-columns: 280px 1fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(245,240,232,0.08);
-}
-
-.footer-brand {}
-.footer-brand-tagline {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
-  color: rgba(245,240,232,0.45);
-  line-height: 1.7;
-  margin-top: 16px;
 }
 
 .footer-heading {
@@ -815,11 +845,35 @@ p { font-size: 1rem; color: inherit; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
 .footer-link {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: rgba(245,240,232,0.55);
+  font-size: 0.85rem;
+  color: rgba(245,240,232,0.5);
   transition: var(--trans);
+  text-decoration: none;
 }
 .footer-link:hover { color: var(--cream); }
+.footer-link-highlight {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 4px;
+  transition: var(--trans);
+}
+.footer-link-highlight:hover { color: #caa93a; }
+
+/* Social links */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer-social svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: var(--trans);
+}
+.footer-social:hover svg { opacity: 1; }
 
 .footer-bottom {
   display: flex;
@@ -835,13 +889,6 @@ p { font-size: 1rem; color: inherit; }
   font-size: 0.78rem;
   color: rgba(245,240,232,0.3);
 }
-
-.footer-line {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(245,240,232,0.4);
-}
-.footer-line span { color: var(--gold); }
 
 /* ============================================================
    GUIDE CARDS
@@ -1269,6 +1316,7 @@ p { font-size: 1rem; color: inherit; }
   .guides-grid { grid-template-columns: 1fr 1fr; }
   .compare-grid { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-cta-strip { flex-direction: column; align-items: flex-start; }
   .about-story { grid-template-columns: 1fr; gap: 40px; }
   .values-grid { grid-template-columns: 1fr 1fr; }
   .hero-stat-strip { gap: 32px; }

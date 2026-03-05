@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LINKEDU — The Reveal: UK Fee Planner | เครื่องมือวางแผนค่าใช้จ่าย</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -34,45 +37,7 @@
   html[lang="th"] .lang-en { display: none !important; }
   html[lang="en"] .lang-th { display: none !important; }
 
-  /* ── HEADER ── */
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 900;
-    background: var(--dark);
-    border-bottom: 1px solid rgba(184,150,46,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    height: 60px;
-  }
-  .header-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-  .header-nav { display: flex; align-items: center; gap: 1.5rem; }
-  .header-nav a {
-    color: var(--cream);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-  }
-  .header-nav a:hover { opacity: 1; color: var(--gold); }
-  .lang-toggle {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 0.3rem 0.8rem;
-    font-size: 0.78rem;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    border-radius: 3px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    transition: background 0.2s, color 0.2s;
-  }
-  .lang-toggle:hover { background: var(--gold); color: var(--dark); }
+  /* header styles from css/style.css */
 
   /* ── PROGRESS BAR (sticky below header) ── */
   .progress-bar {
@@ -147,13 +112,16 @@
     color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 1rem;
+    display: block;
+    text-align: center;
   }
+  .hero-eyebrow::before { display: none; }
   .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
     color: var(--cream);
     line-height: 1.15;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem;
   }
   .hero h1 span { color: var(--gold); }
   .hero-sub {
@@ -887,9 +855,7 @@
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
-    .site-header { padding: 0 1rem; }
-    .header-nav { gap: 0.75rem; }
-    .header-nav a { display: none; }
+    /* nav media query styles moved to override block */
     .progress-bar { padding: 0.5rem 1rem; }
     .progress-step-label { display: none; }
     .progress-connector { width: 30px; margin: 0 0.35rem; }
@@ -969,6 +935,217 @@
     margin-bottom: 0.75rem;
   }
 </style>
+<style>
+
+/* === LINKEDU Main Nav Override === */
+:root {
+  --dark:    #1a1a1a;
+  --cream:   #f5f0e8;
+  --gold:    #B8962E;
+  --gold-dk: #9a7a24;
+  --radius:  8px;
+  --trans:   all 0.3s ease;
+  --shadow:  0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+  --max:     1200px;
+}
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+/* ============================================================
+   HEADER / NAVIGATION
+   ============================================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.15);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 32px;
+}
+
+/* Logo */
+.logo-wrap { display: flex; flex-direction: column; gap: 0; flex-shrink: 0; }
+.logo-wrap a { display: flex; flex-direction: column; gap: 0; }
+
+/* Nav */
+.site-nav { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; }
+
+.nav-item { position: relative; }
+
+.nav-link {
+  display: block;
+  padding: 8px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cream);
+  border-radius: 6px;
+  transition: var(--trans);
+  white-space: nowrap;
+}
+.nav-link:hover, .nav-link.active { color: var(--gold); }
+
+/* Dropdown */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  background: var(--dark);
+  border: 1px solid rgba(184,150,46,0.2);
+  border-radius: var(--radius);
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--trans);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-item:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-link {
+  display: block;
+  padding: 10px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(245,240,232,0.8);
+  transition: var(--trans);
+}
+.dropdown-link:hover { color: var(--gold); background: rgba(184,150,46,0.08); }
+
+/* Header Actions */
+.header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+
+
+/* LINE CTA in header */
+.header-line-btn {
+  padding: 8px 16px;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius);
+  transition: var(--trans);
+  white-space: nowrap;
+}
+.header-line-btn:hover { background: var(--gold-dk); transform: translateY(-1px); }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); border-radius: 2px; transition: var(--trans); }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile Nav */
+.mobile-nav {
+  display: none;
+  background: var(--dark);
+  border-top: 1px solid rgba(184,150,46,0.15);
+  padding: 16px 24px 24px;
+}
+.mobile-nav.open { display: block; }
+.mobile-nav-link {
+  display: block;
+  padding: 12px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cream);
+  border-bottom: 1px solid rgba(245,240,232,0.08);
+  transition: var(--trans);
+}
+.mobile-nav-link:hover { color: var(--gold); }
+.mobile-nav-actions { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+  background: var(--dark);
+  padding: 64px 0 32px;
+  border-top: 1px solid rgba(184,150,46,0.12);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 280px 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(245,240,232,0.08);
+}
+
+.footer-brand {}
+.footer-brand-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(245,240,232,0.45);
+  line-height: 1.7;
+  margin-top: 16px;
+}
+
+.footer-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(245,240,232,0.55);
+  transition: var(--trans);
+}
+.footer-link:hover { color: var(--cream); }
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(245,240,232,0.3);
+}
+
+.footer-line {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(245,240,232,0.4);
+}
+.footer-line span { color: var(--gold); }
+
+</style>
 </head>
 <body>
 
@@ -976,14 +1153,73 @@
      HEADER
 ══════════════════════════════════ -->
 <header class="site-header">
-  <a class="header-logo" href="../index.html">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:26px;width:auto;display:block"><style>.st0vC{fill:#FFFFFF;}</style><path class="st0vC" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
-  </a>
-  <nav class="header-nav">
-    <a href="../fees.html"><span class="lang-th">ค่าใช้จ่าย</span> / <span class="lang-en">Fees</span></a>
-    <a href="../schools.html"><span class="lang-th">โรงเรียน</span> / <span class="lang-en">Schools</span></a>
-    <a href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener"><span class="lang-th">ติดต่อ</span> / <span class="lang-en">Contact</span></a>
-    <button class="lang-toggle" id="langToggle">EN</button>
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <div class="logo-wrap">
+        <a href="../index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+
+      <!-- Nav -->
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="../prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="../schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="../schools.html" class="dropdown-link"><span class="lang-th">โรงเรียนทั้งหมด</span><span class="lang-en">All Schools</span></a>
+            <a href="../find-your-school.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+            <a href="../compare.html" class="dropdown-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+            <a href="../tools/fees-calculator-v2c.html" class="dropdown-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="../guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="../tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="../summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="../about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+        </div>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <a href="../prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+    <a href="../schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../find-your-school.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+    <a href="../compare.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+    <a href="../tools/fees-calculator-v2c.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+    <a href="../guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="../tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="../summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <a href="../about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <div class="mobile-nav-actions">
+      <a href="../contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
   </nav>
 </header>
 
@@ -1222,28 +1458,110 @@
 <!-- ══════════════════════════════════
      LINE CTA
 ══════════════════════════════════ -->
-<div class="line-cta">
-  <h2>
-    <span class="lang-th">รับรายงานโรงเรียนส่วนตัวของลูกคุณ —<span> ฟรี</span></span>
-    <span class="lang-en">Get Your Child's Personal School Report —<span> Free</span></span>
-  </h2>
-  <p>
-    <span class="lang-th">ภายใน 2 นาที เราส่งรายงานโรงเรียนส่วนตัว 3 แห่งที่เหมาะกับลูกคุณโดยเฉพาะ</span>
-    <span class="lang-en">Within 2 minutes, we send a personalised report of 3 schools matched to your child</span>
-  </p>
-  <a class="line-btn" href="https://line.me/ti/p/@linkedu.th" target="_blank" rel="noopener">
-    <span class="lang-th">รับรายงานฟรี ผ่าน LINE</span>
-    <span class="lang-en">Get Free Report on LINE</span>
-  </a>
-</div>
 
+<!-- ══════════════════════════════════
+     ENQUIRY FORM CTA
+══════════════════════════════════ -->
+<section id="contact-form" style="background:#f5f0e8;padding:72px 0;border-top:4px solid #B8962E;">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;margin-bottom:12px;"><span class="lang-th">ปรึกษาฟรี — ไม่มีค่าใช้จ่าย</span><span class="lang-en">FREE CONSULTATION — NO CHARGE</span></div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:#1a1a1a;line-height:1.2;margin-bottom:16px;">
+          <span class="lang-th">คุยกับผู้เชี่ยวชาญของเรา</span>
+          <span class="lang-en">Talk to Our Experts</span>
+        </h2>
+        <p style="font-family:'Inter',sans-serif;font-size:1rem;color:rgba(26,26,26,0.65);max-width:520px;margin:0 auto;">
+          <span class="lang-th">เรามีผู้เชี่ยวชาญที่พูดภาษาไทย ช่วยเลือกโรงเรียนที่เหมาะสมกับลูกคุณโดยเฉพาะ บริการฟรีทุกขั้นตอน</span>
+          <span class="lang-en">Our Thai-speaking specialists will find the perfect school for your child. Completely free service.</span>
+        </p>
+      </div>
+      <!-- Trust signals -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-bottom:40px;">
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">บริการฟรี 100%</span><span class="lang-en">100% Free service</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">40,000+ นักเรียนที่เราดูแล</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">600+ โรงเรียนพันธมิตร</span><span class="lang-en">600+ partner schools</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">ทีมผู้เชี่ยวชาญระดับโลก</span><span class="lang-en">Global expert team</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hrs</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.6);display:flex;align-items:center;gap:6px;"><span style="color:#B8962E;font-weight:700;">✓</span> <span class="lang-th">วางใจตั้งแต่ปี 2015</span><span class="lang-en">Trusted since 2015</span></span>
+      </div>
+      <!-- Form card -->
+      <div style="background:#1a1a1a;border-radius:8px;padding:36px;box-shadow:0 12px 48px rgba(0,0,0,0.15);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดนักเรียน</span><span class="lang-en">Child's Date of Birth</span></label><input type="date" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นเรียนปัจจุบัน</span><span class="lang-en">Current Grade</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>Year 6</option><option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option></select></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        </div>
+        <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Switzerland</option></select></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการเข้าเรียน</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+        </div>
+        <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ข้อความเพิ่มเติม</span><span class="lang-en">Additional Message</span></label><textarea rows="3" placeholder="บอกเราเพิ่มเติมเกี่ยวกับลูกคุณ ความสนใจ หรือข้อกังวล..." style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;resize:vertical;"></textarea></div>
+        <button onclick="alert('ขอบคุณครับ/ค่ะ!
+LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง')" style="width:100%;background:#B8962E;color:#fff;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:22px;">
+          <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี &rarr;</span>
+          <span class="lang-en">Send Enquiry — Free Consultation &rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- Footer -->
 <footer class="site-footer">
-  <p style="margin-bottom:0.35rem;">
-    <span class="lang-th">เครื่องมือนี้จัดทำโดย <strong style="color:var(--gold);">LINKEDU</strong> — ที่ปรึกษาการศึกษา UK สำหรับครอบครัวไทย</span>
-    <span class="lang-en">This tool is provided by <strong style="color:var(--gold);">LINKEDU</strong> — UK Education Consultants for Thai Families</span>
-  </p>
-  <p>LINKEDU &copy; 2025 &nbsp;|&nbsp; <a href="https://line.me/ti/p/@linkedu.th" target="_blank">LINE @linkedu.th</a></p>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <p class="footer-brand-tagline">
+          <span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย ให้คำปรึกษาฟรีผ่าน LINE</span>
+          <span class="lang-en">Thailand's specialist in UK boarding school placement for Thai families. Free consultation via LINE.</span>
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div>
+        <div class="footer-links">
+          <a href="../schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a>
+          <a href="../compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+          <a href="../find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+          <a href="../tools/fees-calculator-v2c.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></div>
+        <div class="footer-links">
+          <a href="../prepare.html" class="footer-link"><span class="lang-th">ไทม์ไลน์สมัครเรียน</span><span class="lang-en">Application Timeline</span></a>
+          <a href="../prepare.html#interview" class="footer-link"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep</span></a>
+          <a href="../prepare.html#culture" class="footer-link"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Readiness</span></a>
+          <a href="../guides.html" class="footer-link"><span class="lang-th">คู่มือครอบครัวไทย</span><span class="lang-en">Guides for Thai Families</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div>
+        <div class="footer-links">
+          <a href="../golf/golf-tools-index.html" class="footer-link" style="color:#B8962E;font-weight:600;"><span class="lang-en">⛳ LINKEDU Golf Academy</span><span class="lang-th">⛳ LINKEDU Golf Academy</span></a>
+          <a href="../contact.html" class="footer-link">LINE: @linkedu.th</a>
+          <a href="../about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="../contact.html" class="footer-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+          <a href="../guides.html#faq" class="footer-link">FAQ</a>
+          <a href="../pricing.html" class="footer-link"><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div class="footer-line"><span class="lang-th">ติดต่อ: </span><span class="lang-en">LINE: </span><span>@linkedu.th</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.22);margin-top:10px;text-align:center;width:100%;">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
 </footer>
 
 <!-- ══════════════════════════════════
@@ -1320,101 +1638,120 @@
    SCHOOLS DATA
 ────────────────────────────────── */
 const SCHOOLS = [
-  {"name":"Abbotsholme","minFee":20985,"maxFee":44313,"remission":"Not publicly stated","maxScholPct":0,"scholTypes":"Academic","type":"Co Ed","isState":true},
-  {"name":"Kent College Canterbury","minFee":27978,"maxFee":38649,"remission":"up to 50% tuition; most awards ~20%","maxScholPct":50,"scholTypes":"Academic, Art, Design, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Bedford School","minFee":30057,"maxFee":50322,"remission":"Music = free tuition on 2 instruments","maxScholPct":0,"scholTypes":"Academic, Art, Computer Science, Drama, Golf, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Kingswood School","minFee":32268,"maxFee":48858,"remission":"5–15%","maxScholPct":15,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Oxford International College","minFee":33637,"maxFee":35075,"remission":"partial to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Ardingly College","minFee":33903,"maxFee":48741,"remission":"5–25%","maxScholPct":25,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Haileybury","minFee":33990,"maxFee":53580,"remission":"Not publicly specified","maxScholPct":0,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Leighton Park School","minFee":34800,"maxFee":52905,"remission":"5–30%","maxScholPct":30,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport, STEAM","type":"Co-Ed","isState":false},
-  {"name":"Ashville College","minFee":34965,"maxFee":46095,"remission":"Fee discount not disclosed","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Mount Kelly","minFee":35370,"maxFee":49500,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Choral, Design Technology, Drama, Music, Sport, Swimming","type":"Co Ed","isState":false},
-  {"name":"Windermere School","minFee":36000,"maxFee":47000,"remission":"Cumbria Award up to 75%","maxScholPct":75,"scholTypes":"Academic, Music, Outdoor Education, Performing Arts, Sailing, Sport, Visual Arts","type":"Co-ed","isState":false},
-  {"name":"Merchiston Castle School","minFee":36288,"maxFee":50706,"remission":"5% of fees","maxScholPct":5,"scholTypes":"Academic, All-Rounder, Art and Design, DT, Music, Sport","type":"Boy school","isState":false},
-  {"name":"Strathallan School","minFee":37425,"maxFee":52431,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Drama, Music, Performing Arts, Piping, Sport","type":"Co Ed","isState":false},
-  {"name":"St. Michael's School","minFee":37443,"maxFee":41355,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Abbey DLD College Cambridge","minFee":37600,"maxFee":61850,"remission":"up to 100% at 13+; up to 20% at 16+","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Abbey DLD College London","minFee":37600,"maxFee":61850,"remission":"Alpha 5–50%; College Awards 5–30%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Queenswood School","minFee":37908,"maxFee":37908,"remission":"10% standard; up to 50% Sixth Form","maxScholPct":50,"scholTypes":"Academic, Art, Dance, Drama, DT, Hockey, Music, Sport, Tennis","type":"Girls School","isState":false},
-  {"name":"Ellesmere College","minFee":37965,"maxFee":37965,"remission":"up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Organ, Sport","type":"Co-Ed","isState":false},
-  {"name":"Burgess Hill Girls","minFee":38745,"maxFee":44595,"remission":"5–40%","maxScholPct":40,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Christ's Hospital School","minFee":38790,"maxFee":47085,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"The Leys School","minFee":38832,"maxFee":53235,"remission":"5%","maxScholPct":5,"scholTypes":"Academic, Choral, Music, Organ, STEM","type":"Co-Ed","isState":false},
-  {"name":"Loretto School","minFee":40380,"maxFee":49632,"remission":"Scholarship 10% day fees","maxScholPct":10,"scholTypes":"Academic, Art, Drama, Golf, Music, Sport","type":"Co-ed","isState":false},
-  {"name":"Stonar School","minFee":40665,"maxFee":54960,"remission":"Not disclosed","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Riding, Sport","type":"Co-Ed","isState":false},
-  {"name":"Culford School","minFee":40755,"maxFee":52515,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Royal Hospital School","minFee":41250,"maxFee":52521,"remission":"De Neumann Maths Award up to 100%","maxScholPct":100,"scholTypes":"Academic, Creativity, Drama, Music, Sailing, Sport","type":"Co-Ed","isState":false},
-  {"name":"King's College Taunton","minFee":41400,"maxFee":54351,"remission":"up to 20% at 13+; up to 50% at 16+","maxScholPct":50,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Malvern College","minFee":41700,"maxFee":57285,"remission":"up to 15%","maxScholPct":15,"scholTypes":"Academic, Art and Design, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Clifton College","minFee":42090,"maxFee":55080,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
-  {"name":"St Leonards Scotland","minFee":42465,"maxFee":54420,"remission":"5% tuition; up to 50% Golf","maxScholPct":50,"scholTypes":"Academic","type":"Co-ed","isState":false},
-  {"name":"Plymouth College","minFee":42750,"maxFee":50100,"remission":"5–10% standard, up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Wells Cathedral School","minFee":42762,"maxFee":47286,"remission":"10% standard, up to 50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Maths, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Brooke House College","minFee":42900,"maxFee":45570,"remission":"Partial not published","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Royal High School Bath","minFee":43018,"maxFee":43018,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art and Design, Dance, Drama, DT, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Woodbridge School","minFee":43290,"maxFee":47286,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Chess, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Ashford School","minFee":44685,"maxFee":44685,"remission":"10–50% of day fee","maxScholPct":50,"scholTypes":"Academic, Art, Drama, Music, Piano, Sport, Swimming","type":"Co-Ed","isState":false},
-  {"name":"Sherborne","minFee":44775,"maxFee":55386,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Boys School","isState":false},
-  {"name":"St Catherine's School Bramley","minFee":44859,"maxFee":44859,"remission":"Honorary or 5%","maxScholPct":5,"scholTypes":"Academic","type":"Girls School","isState":false},
-  {"name":"St Swithun's School","minFee":45636,"maxFee":45636,"remission":"5–20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Mathematics, Music, Sport","type":"Girls School","isState":false},
-  {"name":"St Mary's School Cambridge","minFee":45840,"maxFee":45840,"remission":"5% (up to 20% exceptional)","maxScholPct":20,"scholTypes":"Academic, Art, Creative Writing, Dance, Design, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Stowe School","minFee":46701,"maxFee":46701,"remission":"5–25%","maxScholPct":25,"scholTypes":"Academic, Art, Chess, Design, Drama, Equestrian, Golf, Music, Sport","type":"Co-ed","isState":false},
-  {"name":"Warwick School","minFee":46998,"maxFee":46998,"remission":"Governor up to 20%; King Henry VIII up to 50%","maxScholPct":50,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
-  {"name":"Earlscliff School","minFee":47000,"maxFee":47000,"remission":"up to 50%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Roedean School","minFee":48375,"maxFee":58050,"remission":"2500 GBP per year","maxScholPct":0,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Sedbergh School","minFee":49140,"maxFee":51195,"remission":"Up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Design Technology, Drama, Equestrian, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Berkhamsted School","minFee":49173,"maxFee":49173,"remission":"~10%","maxScholPct":10,"scholTypes":"Academic, Drama, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Bloxham School","minFee":50670,"maxFee":50670,"remission":"up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, Drama, DT, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Bede's School","minFee":50745,"maxFee":50745,"remission":"Up to 25%","maxScholPct":25,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Woldingham School","minFee":50940,"maxFee":57564,"remission":"5–20% of day fees","maxScholPct":20,"scholTypes":"Academic, Art, Drama, Music, Performing Arts, Sport","type":"Girls School","isState":false},
-  {"name":"Headington School","minFee":50943,"maxFee":50943,"remission":"Honorary; 10% Special Awards at 16+","maxScholPct":10,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Royal Russell School","minFee":51993,"maxFee":51993,"remission":"5–35%","maxScholPct":35,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Brentwood School","minFee":52251,"maxFee":52251,"remission":"Not publicly specified","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Bromsgrove School","minFee":52254,"maxFee":52254,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Mill Hill School","minFee":52320,"maxFee":52320,"remission":"up to 10%","maxScholPct":10,"scholTypes":"Academic, Art and Design, Drama, DT, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"King's School Canterbury","minFee":52344,"maxFee":52344,"remission":"Fraction of annual fees","maxScholPct":0,"scholTypes":"Academic, Art, Dance, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Bishop's Stortford College","minFee":52479,"maxFee":52479,"remission":"10–20%","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Caterham School","minFee":52620,"maxFee":55455,"remission":"Up to 10%; up to 50% exceptional","maxScholPct":50,"scholTypes":"Academic, Art, Chess, Dance, Drama, Innovation, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Eton College","minFee":52749,"maxFee":63300,"remission":"Orwell Award 100% fees","maxScholPct":100,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
-  {"name":"Eastbourne College","minFee":52959,"maxFee":53781,"remission":"5–20%; up to 50% exceptional","maxScholPct":50,"scholTypes":"Academic, All-Rounder, Art, Dance, DT, Drama, Music, Sport","type":"Co Ed","isState":false},
-  {"name":"Lancing College","minFee":53319,"maxFee":53319,"remission":"5–10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Sherborne School for Girls","minFee":53640,"maxFee":53640,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"St Paul's School","minFee":53943,"maxFee":53943,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Music","type":"Boy School","isState":false},
-  {"name":"Shrewsbury School","minFee":54222,"maxFee":56118,"remission":"Music up to 30%, Sport up to 20%","maxScholPct":30,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Rossall School","minFee":54648,"maxFee":57078,"remission":"Up to 50%","maxScholPct":50,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Abingdon School","minFee":54780,"maxFee":54780,"remission":"300 GBP nominal","maxScholPct":0,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
-  {"name":"Repton School","minFee":54825,"maxFee":54825,"remission":"Honorary up to 10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Rugby School","minFee":55056,"maxFee":55056,"remission":"5% all types","maxScholPct":5,"scholTypes":"Academic, Art, Computing, DT, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
-  {"name":"Cheltenham Ladies College","minFee":55350,"maxFee":61470,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Uppingham School","minFee":55674,"maxFee":55674,"remission":"Up to 5%; Music up to 20%","maxScholPct":20,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport, Textiles","type":"Co-Ed","isState":false},
-  {"name":"Charterhouse","minFee":56418,"maxFee":56418,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art and Textiles, Dance, Design Engineering, Drama, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
-  {"name":"Bryanston School","minFee":56523,"maxFee":56523,"remission":"Honorary up to 10%","maxScholPct":10,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Music, Performing Arts, Sport","type":"Co-Ed","isState":false},
-  {"name":"Benenden School","minFee":56700,"maxFee":56700,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, All-Rounder, Art, Creative Technology, Drama, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Sevenoaks","minFee":56763,"maxFee":56763,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Dean Close School","minFee":57450,"maxFee":57450,"remission":"Up to 40%","maxScholPct":40,"scholTypes":"Academic, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Whitgift School","minFee":57591,"maxFee":57591,"remission":"5–50%","maxScholPct":50,"scholTypes":"Academic, Art, Drama, DT and Engineering, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Radley College","minFee":57600,"maxFee":57600,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Drama, Innovation, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Cheltenham College","minFee":57780,"maxFee":59310,"remission":"Up to 15%","maxScholPct":15,"scholTypes":"Academic, Art, Choral, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Wycombe Abbey","minFee":58572,"maxFee":58572,"remission":"Academic ~5%","maxScholPct":5,"scholTypes":"Academic, Music","type":"Girls School","isState":false},
-  {"name":"Marlborough College","minFee":59142,"maxFee":59142,"remission":"Directors Awards up to 20%","maxScholPct":20,"scholTypes":"Academic, Art, DT, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Oundle School","minFee":59400,"maxFee":59400,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Milton Abbey School","minFee":59745,"maxFee":59745,"remission":"10% standard; Dorset Award 20%","maxScholPct":20,"scholTypes":"Academic, Art, Design, Drama, Music, Performing Arts, Sailing, Sport","type":"Co-ed","isState":false},
-  {"name":"Wellington College","minFee":59940,"maxFee":59940,"remission":"Honorary only","maxScholPct":0,"scholTypes":"Academic, Art, Dance, Drama, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Harrow School","minFee":61584,"maxFee":61584,"remission":"5–10%","maxScholPct":10,"scholTypes":"Academic, Art, Drama, DT and Engineering, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Concord College","minFee":61764,"maxFee":61764,"remission":"5–10%; Principal Scholar up to 50%","maxScholPct":50,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Cardiff Sixth Form College","minFee":62095,"maxFee":68185,"remission":"Up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Winchester College","minFee":62226,"maxFee":62226,"remission":"25% fees Founder Scholar","maxScholPct":25,"scholTypes":"Academic, Music, Sport","type":"Boys School","isState":false},
-  {"name":"MPW Cambridge","minFee":62450,"maxFee":62450,"remission":"15–40%; Woodward Scholarship up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Westminster School","minFee":62985,"maxFee":62985,"remission":"King Scholar day fee saving; Music 10%","maxScholPct":10,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
-  {"name":"St Mary's School Ascot","minFee":63180,"maxFee":63180,"remission":"5% or honorary","maxScholPct":5,"scholTypes":"Academic, All-Rounder, Art, Music, Sport","type":"Girls School","isState":false},
-  {"name":"Brighton College","minFee":65010,"maxFee":68520,"remission":"Undisclosed annual award","maxScholPct":0,"scholTypes":"Academic, Art, Chess, Choral, Dance, Design Technology, Drama, Music, Sport","type":"Co-Ed","isState":false},
-  {"name":"Hurtwood House","minFee":65256,"maxFee":65256,"remission":"Performing Arts 10–50%","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"MPW London","minFee":69750,"maxFee":69750,"remission":"15–40%; Woodward Scholarship up to 100%","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"The National Mathematics and Science College","minFee":69984,"maxFee":69984,"remission":"5–10%; up to 100% local scholarship","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"No current merit scholarships","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
-  {"name":"Tonbridge School","minFee":59124,"maxFee":59124,"remission":"£2,000 off first term (honorary)","maxScholPct":0,"scholTypes":"Academic, Art, Drama, DT & Engineering, Music, Sport","type":"Boys School","isState":false},
-  {"name":"Millfield School","minFee":57132,"maxFee":57132,"remission":"Up to 10%","maxScholPct":10,"scholTypes":"Academic, Art, Chess, Dance, Drama, Music, Product Design, Sport","type":"Co-Ed","isState":false}
+  {"name":"Abbotsholme","minFee":20985,"maxFee":44313,"remission":"Remission: Not publicly stated | 11+: Academic, Agriculture, Art, Drama, Equestrian, Music, Sport | 16+: Academic, Agric","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Royal Masonic School for Girls","minFee":22233,"maxFee":22233,"remission":"Remission: up to 25% | 11+: Academic, All-Rounder, Art, Drama, Music, Sport | 16+: Academic, All-Rounder, Art, Drama, Mu","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Girls School","isState":false},
+  {"name":"D'Overbroeks College","minFee":25080,"maxFee":278106196538415,"remission":"Remission: up to 25% of tuition | 16+: Academic, Art, Drama, Media, Music, Sport, Tennis Academy","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Kent College Canterbury","minFee":27978,"maxFee":38649,"remission":"Remission: up to 50% tuition; most awards ~20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Design, D","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bedford School","minFee":30057,"maxFee":3711340755,"remission":"Remission: Music = free tuition on 2 instruments; other % not specified | 13+: Academic, Art, Computer Science, Drama, G","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
+  {"name":"Sidcot School","minFee":31350,"maxFee":39900,"remission":"Remission: 10% | 11+: Academic, Art, DT, Drama, Equestrian, Music, Peace & Global, Sport | 13+: Academic, Art, DT, Drama","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Kingswood School","minFee":32268,"maxFee":3840640794,"remission":"Remission: 5–15% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Art, Design ","maxScholPct":15,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Oxford International College","minFee":33637,"maxFee":35075,"remission":"Remission: partial to 100% | 16+: Academic","maxScholPct":100,"scholTypes":"Academic, Art","type":"Sixth Form College","isState":false},
+  {"name":"Ardingly College","minFee":33903,"maxFee":48741,"remission":"Remission: 5–25% | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Haileybury","minFee":33990,"maxFee":53580,"remission":"Remission: Not publicly specified | 11+: Academic, Art, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mus","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Leighton Park School","minFee":34800,"maxFee":4288542675,"remission":"Remission: 5–30%; honorary also awarded | 11+: Academic, Art, Dance, Drama, Ethical Changemaking, Music, Sport, STEAM | ","maxScholPct":30,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Ashville College","minFee":34965,"maxFee":46095,"remission":"Remission: Fee discount (% not publicly disclosed) | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Mount Kelly","minFee":35370,"maxFee":49500,"remission":"Remission: Up to 10% (Westall Award: full day fee at 16+) | 11+: Academic, Art, Drama, Music, Sport, Swimming | 13+: Aca","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Moreton Hall","minFee":35469,"maxFee":40233,"remission":"Remission: Up to 20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Windermere School","minFee":36000,"maxFee":47000,"remission":"Remission: Cumbria Award up to 75%; standard awards % not specified | 11+: Academic | 13+: Academic, Music, Outdoor Educ","maxScholPct":75,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Merchiston Castle School (Scotland)","minFee":36288,"maxFee":50706,"remission":"Remission: 5% of fees | 13+: Academic, All-Rounder, Art & Design, DT, Music (incl. Piping), Sport | 16+: Academic, All-R","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, All-Rounder","type":"Boys School","isState":false},
+  {"name":"Strathallan School","minFee":37425,"maxFee":52431,"remission":"Remission: Up to 10% | 11+: Academic, Art, Music, Performing Arts, Piping, Sport | 13+: Academic, Art, Drama, Music, Per","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"St. Michael’s School","minFee":37443,"maxFee":41355,"remission":"Remission: Honorary (Headmaster's discretion) | 11+: Academic","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Abbey DLD College (Cambridge)","minFee":37600,"maxFee":61850,"remission":"Remission: up to 100% at 13+; up to 20% at 16+ | 13+: Academic | 16+: Academic","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Abbey DLD College (London)","minFee":37600,"maxFee":61850,"remission":"Remission: Alpha 5–50%; College Awards 5–30% | 16+: Academic","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Queenswood School","minFee":37908,"maxFee":37908,"remission":"Remission: 10% standard; Sixth Form Academic up to 50% | 11+: Academic, Art, Dance, Drama, Hockey, Music, Sport, Tennis ","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Ellesmere College","minFee":37965,"maxFee":37965,"remission":"Remission: up to 50%; Adlard Art Scholarship 50% at 16+ | 13+: Academic, Art, Drama, Music, Organ, Sport | 16+: Academic","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Co-Ed","isState":false},
+  {"name":"Burgess Hill Girls","minFee":38745,"maxFee":44595,"remission":"Remission: 5–40% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Ar","maxScholPct":40,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Girls School","isState":false},
+  {"name":"Christ's Hospital School","minFee":38790,"maxFee":47085,"remission":"Remission: Up to 20% of assessed fee, or honorary | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama,","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"The Leys School","minFee":38832,"maxFee":53235,"remission":"Remission: 5%; Choral/Organ = honorary + free lessons | 11+: Academic, Art, Drama, Music, Sport, Technology | 13+: Acade","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Loretto School (Scotland)","minFee":40380,"maxFee":49632,"remission":"Remission: Scholarship 10% day fees; Exhibition 5% day fees | 13+: Academic, Art, Drama, Golf, Music, Piping & Drumming,","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Stonar School","minFee":40665,"maxFee":54960,"remission":"Remission: Not publicly disclosed | 11+: Academic, Art, Drama, Music, Riding, Sport | 13+: Academic, Art, Drama, Music, ","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Culford School","minFee":40755,"maxFee":52515,"remission":"Remission: up to 10% | 11+: Academic, Art, Sport, Technology | 13+: Academic, Art, DT, Drama, Music, Sport | 16+: Academ","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Royal Hospital School","minFee":41250,"maxFee":52521,"remission":"Remission: Modest (some honorary); De Neumann Maths Award up to 100% | 11+: Academic, Creativity, Drama, Music, Sailing,","maxScholPct":100,"scholTypes":"Academic, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"King's College, Taunton","minFee":41400,"maxFee":54351,"remission":"Remission: up to 20% at 13+; up to 50% at 16+ | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, DT, Drama, Musi","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Malvern College","minFee":41700,"maxFee":57285,"remission":"Remission: up to 15% total (cap) | 13+: Academic, Art & Design, Drama, Music, Sport | 16+: Academic, Art & Design, Drama","maxScholPct":15,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Clifton College","minFee":42090,"maxFee":55080,"remission":"Remission: Honorary only | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Music, Per","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"St Leonards (Scotland)","minFee":42465,"maxFee":54420,"remission":"Remission: 5% tuition only (standard); up to 50% Golf (Tom Morris Award) | Yr8: Academic, Art, Drama, Golf, Music, Sport","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Plymouth College","minFee":42750,"maxFee":50100,"remission":"Remission: 5–10% standard, up to 50% | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Sport","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Wells Cathedral School","minFee":42762,"maxFee":47286,"remission":"Remission: 10% standard, up to 50% exceptional | 11+: Academic, Art, Drama, Maths, Music, Sport | 13+: Academic, Art, Dr","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Brooke House College","minFee":42900,"maxFee":45570,"remission":"Remission: Partial (% not published) | 16+: Academic, Football","maxScholPct":0,"scholTypes":"Academic, Art","type":"Co-Ed","isState":false},
+  {"name":"Bosworth Independent College","minFee":42975,"maxFee":42975,"remission":"Remission: 50% or 100% (5 full scholarships annually) | 16+: Academic","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Royal High School, Bath","minFee":43018,"maxFee":43018,"remission":"Remission: up to 10% | 11+: Academic, Art & Design, Dance, Drama, DT, Music, Sport | 13+: Academic, Art & Design, Dance,","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Woodbridge School","minFee":43290,"maxFee":47286,"remission":"Remission: Up to 20% | 11+: Academic, Art, Chess, Drama, Music, Sport | 13+: Academic, Art, Chess, Drama, Music, Sport |","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Ashford School","minFee":44685,"maxFee":44685,"remission":"Remission: 10–50% of day fee | 11+: Academic, Art, Drama, Music, Piano, Sport, Swimming | 13+: Academic, Art, Drama, Mus","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"St Catherine's School, Bramley","minFee":44859,"maxFee":44859,"remission":"Remission: Honorary or 5%; Music = free instrument tuition | 11+: Academic, Art, Drama, Music, Sport | 16+: Art/Textiles","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Myddelton College","minFee":45000,"maxFee":45000,"remission":"Remission: Up to 100% | 11+: Academic, Art, Drama, ICT, Music, Sport | 13+: Academic, Art, Drama, ICT, Music, Sport | 16","maxScholPct":100,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"St Swithun's School","minFee":45636,"maxFee":45636,"remission":"Remission: 5–20% | 11+: Academic, Music | 13+: Academic, Art, Drama, Mathematics, Music, Sport | 16+: Academic, Art, Dra","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Girls School","isState":false},
+  {"name":"St Mary's School, Cambridge","minFee":45840,"maxFee":45840,"remission":"Remission: 5% (up to 20% exceptional) | 11+: Academic, Art, Creative Writing, Dance, Design, Drama, Music, Sport | 13+: ","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Stowe School","minFee":46701,"maxFee":46701,"remission":"Remission: 5–25% | 13+: Academic, Art, Chess, Design, Drama, Equestrian, Golf, Music, Sport | 16+: Academic, All-Rounder","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Co-Ed","isState":false},
+  {"name":"Warwick School","minFee":46998,"maxFee":46998,"remission":"Remission: Governor up to 20%; King Henry VIII up to 50% | 11+: Academic (Governor), King Henry VIII, Music | 13+: Acade","maxScholPct":50,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"Earlscliff school","minFee":47000,"maxFee":47000,"remission":"Remission: up to 50% tuition and boarding fees | 16+: Academic","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Roedean School","minFee":48375,"maxFee":58050,"remission":"Remission: £2,500/yr | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: Academic, Art, Dance, Drama, Music, Sport |","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Sedbergh School","minFee":49140,"maxFee":51195,"remission":"Remission: Up to 20% | 13+: Academic, Art, Design Technology, Drama, Equestrian, Music, Sport | 16+: Academic, Art, Desi","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Berkhamsted School","minFee":49173,"maxFee":49173,"remission":"Remission: ~10% (fixed discount) | 11+: Academic, Drama, Music, Sport | 13+: Academic, Drama, Music, Sport | 16+: Academ","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bloxham School","minFee":50670,"maxFee":50670,"remission":"Remission: up to 20% | 11+: Academic, Art, Drama, DT, Music | 13+: Academic, Art, Drama, DT, Music, Sport | 16+: Academi","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bede's School","minFee":50745,"maxFee":50745,"remission":"Remission: Up to 25% | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+: Academic, Art, Dance, Drama, Music, Sport","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Woldingham School","minFee":50940,"maxFee":57564,"remission":"Remission: 5–20% of day fees | 11+: Academic, Art, Drama, Music, Performing Arts, Sport | 13+: Academic, Art, Drama, Mus","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Girls School","isState":false},
+  {"name":"Headington School","minFee":50943,"maxFee":50943,"remission":"Remission: Honorary (standard); 10% (Special Awards at 16+ only) | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+:","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Royal Russell School","minFee":51993,"maxFee":51993,"remission":"Remission: 5–35% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Ar","maxScholPct":35,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Handcross Park School","minFee":52110,"maxFee":52110,"remission":"Remission: N/A | Prep school (ages 2–13); pupils sit external 13+ scholarships to senior schools on leaving","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"The Purcell School","minFee":52175,"maxFee":52175,"remission":"No merit scholarship programme (DfE-funded specialist music school; MDS financial support is means-tested)","maxScholPct":0,"scholTypes":"Music","type":"Co-Ed","isState":false},
+  {"name":"Brentwood School","minFee":52251,"maxFee":52251,"remission":"Remission: Not publicly specified | 11+: Academic, Art, Chess, Dance, Drama, Music, Sport | 16+: Academic, Art, Chess, D","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bromsgrove School","minFee":52254,"maxFee":52254,"remission":"Remission: Honorary only | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Sport","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Mill Hill School","minFee":52320,"maxFee":52320,"remission":"Remission: up to 10% | 13+: Academic, Art & Design, Drama, DT, Music, Sport | 16+: Academic, Art & Design, Drama, DT, Mu","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"King's School Canterbury","minFee":52344,"maxFee":52344,"remission":"Remission: Fraction of annual fees (exact % undisclosed) | 13+: Academic, Art, Dance, DT, Drama, Music, Sport | 16+: Aca","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bishop's Stortford College","minFee":52479,"maxFee":52479,"remission":"Remission: 10–20% (Exhibition: up to 5%; Honorary: no remission) | 11+: Academic, Art, Music, Sport | 13+: Academic, Art","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Taunton School","minFee":52530,"maxFee":5587512,"remission":"Remission: % not publicly specified | 11+: Academic, Art, Dance, Drama, DT, Music, Sport | 13+: Academic, Art, Drama, DT","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Caterham School","minFee":52620,"maxFee":55455,"remission":"Remission: Up to 10% (up to 50% exceptional) | 11+: Academic, Art, Chess, Dance, Drama, Innovation, Music, Sport | 13+: ","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Eton College","minFee":52749,"maxFee":202563300,"remission":"Remission: Academic = honorary; Music = free tuition; Orwell Award (16+, state school) = 100% fees | 13+: Academic (King","maxScholPct":100,"scholTypes":"Academic, Music, Drama","type":"Boys School","isState":false},
+  {"name":"Eastbourne College","minFee":52959,"maxFee":53781,"remission":"Remission: 5–20% (up to 50% exceptional) | 13+: Academic, All-Rounder, Art, Dance, DT, Drama, Music, Sport | 16+: Academ","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Co-Ed","isState":false},
+  {"name":"Lancing College","minFee":53319,"maxFee":53319,"remission":"Remission: 5–10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Art, Drama, ","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Sherborne School for Girls","minFee":53640,"maxFee":53640,"remission":"Remission: Honorary only (no fee discount) | 11+: Academic, Music | 13+: Academic, Art, Drama, Music, Sport | 16+: Acade","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Mayfield School","minFee":53910,"maxFee":53910,"remission":"Remission: 10–20% | 11+: Academic, Art, Choral, Dance, Drama, Music, Riding, Sport | 13+: Academic, Art, Choral, Dance, ","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"St. Paul's School","minFee":53943,"maxFee":53943,"remission":"Remission: Honorary only (£60/yr token) | 13+: Academic, Music | 16+: Academic, Art, Music, Sport","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport","type":"Boys School","isState":false},
+  {"name":"Shrewsbury School","minFee":54222,"maxFee":56118,"remission":"Remission: Music up to 30%, Sport up to 20%, others ~10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Mu","maxScholPct":30,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"City of London Freeman (Year 7 Day)","minFee":54570,"maxFee":55935,"remission":"Remission: 5% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, Art, Design Technology, Dram","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Rossall School","minFee":54648,"maxFee":57078,"remission":"Remission: Up to 50% (typically 5–20%) | 11+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music, Spo","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Abingdon School","minFee":54780,"maxFee":54780,"remission":"Remission: £300/yr (nominal) | 13+: Academic, Music | 16+: Academic, Art, Drama, Music, Product Design, Sport","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Repton School","minFee":54825,"maxFee":54825,"remission":"Remission: Honorary up to 10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic,","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Rugby School","minFee":55056,"maxFee":55056,"remission":"Remission: 5% (all types) | 11+: Music | 13+: Academic, Art, Computing, DT, Drama, Music, Performing Arts, Sport | 16+: ","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Epsom College","minFee":55158,"maxFee":55158,"remission":"Remission: £750–£6,000/yr | 11+: Academic, Drama, Music, Sport | 13+: Academic, Drama, Music, Sport | 16+: Academic, Dra","maxScholPct":0,"scholTypes":"Academic, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Cheltenham Ladies' College","minFee":55350,"maxFee":61470,"remission":"Remission: Honorary only (no fee reduction) | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, A","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport","type":"Girls School","isState":false},
+  {"name":"Uppingham School","minFee":55674,"maxFee":55674,"remission":"Remission: Up to 5% (Music up to 20%) | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport, Textile","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Bradfield College","minFee":56190,"maxFee":56190,"remission":"Remission: Honorary only (no fee reduction) | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic, Art, Drama, Music","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Charterhouse","minFee":56418,"maxFee":56418,"remission":"Remission: Honorary (£60 token) | 13+: Academic, Art & Textiles, Dance, Design Engineering, Drama, Music, Performing Art","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Bryanston School","minFee":56523,"maxFee":56523,"remission":"Remission: Honorary up to 10% | 13+: Academic, All-Rounder, Art, Design Technology, Music, Performing Arts, Sport | 16+:","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Benenden School","minFee":56700,"maxFee":56700,"remission":"Remission: Honorary only | 11+: Academic, Art, Creative Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Ar","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Girls School","isState":false},
+  {"name":"Sevenoaks","minFee":56763,"maxFee":56763,"remission":"Remission: Honorary only (Music scholars receive free tuition) | 11+: Music | 13+: Academic, Art, Drama, Music, Sport | ","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Millfield School","minFee":57132,"maxFee":57132,"remission":"Remission: Up to 10% | 13+: Academic, Art, Chess, Dance, Drama, Music, Product Design, Sport | 16+: Academic, Art, Chess","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Dean Close School","minFee":57450,"maxFee":57450,"remission":"Remission: Up to 40% (Academic/Music/Sport), up to 20% (Drama), up to 15% (Art/DT) | 11+: Academic, Art, Drama, Music, S","maxScholPct":40,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Queen Anne's School","minFee":57546,"maxFee":57546,"remission":"Remission: £500/yr Academic, free tuition Music, £300/yr others | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: ","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
+  {"name":"Whitgift School","minFee":57591,"maxFee":57591,"remission":"Remission: 5–50% | 11+: Academic, Drama, Music, Sport | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+:","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Radley College","minFee":57600,"maxFee":57600,"remission":"Remission: Honorary only (no fee reduction) | 13+: Academic, Art, Drama, Innovation, Music, Sport","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Cheltenham College","minFee":57780,"maxFee":59310,"remission":"Remission: Scholarships up to 15%; Exhibitions up to 10% | 13+: Academic, Art, Choral, Drama, Music, Sport | 16+: Academ","maxScholPct":15,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Wycombe Abbey","minFee":58572,"maxFee":58572,"remission":"Remission: Academic ~5%; Exhibition £600/yr; Music = free instrument/voice tuition | 11+: Academic, Music | 13+: Academi","maxScholPct":5,"scholTypes":"Academic, Music","type":"Girls School","isState":false},
+  {"name":"MPW Birmingham","minFee":59000,"maxFee":59000,"remission":"Remission: case-by-case (not publicly published) | 16+: Academic","maxScholPct":0,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Tonbridge School","minFee":59124,"maxFee":59124,"remission":"Remission: £2,000 off first term (or honorary) | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+: Academ","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Marlborough College","minFee":59142,"maxFee":59142,"remission":"Remission: Honorary; Directors’ Awards up to 20% (Music, Sport) | 13+: Academic, Art, DT, Drama, Music, Sport | 16+: Aca","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Oundle School","minFee":59400,"maxFee":59400,"remission":"Remission: Honorary only | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Art,","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Milton Abbey School","minFee":59745,"maxFee":59745,"remission":"Remission: 10% standard; Dorset Award 20% | 13+: Academic, Art, Design, Drama, Music, Performing Arts, Sailing, Sport | ","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Badminton School","minFee":59796,"maxFee":59796,"remission":"Remission: 5–10% | 11+: Academic, All-Rounder, Music, Sport, STEM | 13+: Academic, All-Rounder, Art, Music, Sport, STEM ","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, All-Rounder, STEM","type":"Girls School","isState":false},
+  {"name":"Wellington College","minFee":59940,"maxFee":59940,"remission":"Remission: Honorary only (Music scholars: free tuition) | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+: Academic","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Harrow School","minFee":61584,"maxFee":61584,"remission":"Remission: 5–10% | 13+: Academic, Art, Drama, DT & Engineering, Music, Sport | 16+: Academic, Art, Drama, Music, Sport","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Boys School","isState":false},
+  {"name":"Concord College","minFee":61764,"maxFee":61764,"remission":"Remission: 5–10% (Principal's Scholar up to 50%) | 13+: Academic | 16+: Academic","maxScholPct":50,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Cardiff Sixth Form College","minFee":62095,"maxFee":68185,"remission":"Remission: Up to 100% (domestic day); up to 50% tuition (international) | 16+: Academic","maxScholPct":100,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Winchester College","minFee":62226,"maxFee":62226,"remission":"Remission: 25% fees (Founder's Scholar); Academic/Exhibition honorary; Music free tuition; Sport honorary | 13+: Academi","maxScholPct":25,"scholTypes":"Academic, Music, Sport","type":"Boys School","isState":false},
+  {"name":"MPW Cambridge","minFee":62450,"maxFee":62450,"remission":"Remission: 15–40%; Woodward Scholarship up to 100% | 16+: Academic, Art, Drama, English Literature (Woodward Scholarship","maxScholPct":100,"scholTypes":"Academic, Art, Music, Drama","type":"Sixth Form College","isState":false},
+  {"name":"Westminster School","minFee":62985,"maxFee":62985,"remission":"Remission: King's Scholar = day fee saving; Music = 10% day fee + free tuition | 13+: Academic (King's Scholarship), Mus","maxScholPct":10,"scholTypes":"Academic, Music","type":"Boys School","isState":false},
+  {"name":"St Mary's School Ascot","minFee":63180,"maxFee":63180,"remission":"Remission: 5% or honorary; Music = free tuition | 11+: Academic, All-Rounder, Art, Music, Sport | 13+: Academic, All-Rou","maxScholPct":5,"scholTypes":"Academic, Art, Music, Sport, All-Rounder","type":"Girls School","isState":false},
+  {"name":"Brighton College","minFee":65010,"maxFee":68520,"remission":"Remission: Undisclosed annual award | 11+: Academic, Art, Chess, Choral, Dance, Design Technology, Drama, Music, Sport |","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Hurtwood House","minFee":65256,"maxFee":65256,"remission":"Remission: Performing Arts 10–50%; Maths/Science £1,000–4,000/term | 16+: Maths/Science, Performing Arts","maxScholPct":50,"scholTypes":"Art, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"MPW London","minFee":69750,"maxFee":69750,"remission":"Remission: 15–40%; Woodward Scholarship up to 100% | 16+: Academic, Art, Drama, English Literature (Woodward Scholarship","maxScholPct":100,"scholTypes":"Academic, Art, Music, Drama","type":"Sixth Form College","isState":false},
+  {"name":"The National Mathematics and Science College","minFee":69984,"maxFee":69984,"remission":"Remission: 5–10% (day tuition); up to 100% (local scholarship) | 16+: Academic","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"Remission: Scholarships withdrawn for new pupils (school absorbed VAT impact); no current merit scholarships available","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
+  {"name":"Abbey DLD College (Manchester)","minFee":0,"maxFee":0,"remission":"Remission: up to 50% | 16+: Academic","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
+  {"name":"Oakham School","minFee":4065053064,"maxFee":4065053064,"remission":"Remission: Small/not publicly specified | 11+: Academic, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mu","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Sherborne","minFee":4477555386,"maxFee":4477555386,"remission":"Remission: Up to 10% | 13+: Academic, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
+  {"name":"Dulwich College","minFee":4794961323,"maxFee":4794961323,"remission":"Remission: 10–33% | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":33,"scholTypes":"Academic, Art, Music, Sport","type":"Boys School","isState":false}
 ];
 
 /* ──────────────────────────────────
@@ -1443,16 +1780,7 @@ const state = {
 /* ──────────────────────────────────
    LANGUAGE TOGGLE
 ────────────────────────────────── */
-document.getElementById('langToggle').addEventListener('click', function() {
-  const html = document.documentElement;
-  if (html.lang === 'th') {
-    html.lang = 'en';
-    this.textContent = 'TH';
-  } else {
-    html.lang = 'th';
-    this.textContent = 'EN';
-  }
-});
+// Lang toggle handled by main.js via localStorage
 
 /* ──────────────────────────────────
    ANIMATED COUNTER
@@ -2121,5 +2449,68 @@ renderStep3();
 document.getElementById('step2').classList.add('step-hidden');
 document.getElementById('step3').classList.add('step-hidden');
 </script>
+<script src="../js/main.js"></script>
+
+<!-- GLOBAL ENQUIRY MODAL -->
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:6px;"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#f5f0e8;line-height:1.15;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      </div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">&times;</button>
+    </div>
+    <div style="background:#222;padding:10px 28px;display:flex;flex-wrap:wrap;gap:8px 20px;border-bottom:1px solid rgba(184,150,46,0.15);">
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">40,000+ นักเรียน</span><span class="lang-en">40,000+ students placed</span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">600+ โรงเรียนพันธมิตร</span><span class="lang-en">600+ partner schools</span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+    </div>
+    <div style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Switzerland</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      <button onclick="alert('ขอบคุณครับ/ค่ะ!\nLINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง'); closeEqModal();" style="width:100%;background:#B8962E;color:#fff;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี &rarr;</span>
+        <span class="lang-en">Send Enquiry — Free Consultation &rarr;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CONSULT BUTTON -->
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="openEqModal()" style="background:#B8962E;color:#fff;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);">
+    <span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span>
+  </button>
+</div>
+
+<script>
+  function openEqModal() {
+    document.getElementById('eqOverlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeEqModal() {
+    document.getElementById('eqOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function consultAction() {
+    var f = document.getElementById('contact-form');
+    if (f) { f.scrollIntoView({behavior:'smooth',block:'start'}); }
+    else { openEqModal(); }
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeEqModal(); });
+</script>
+
 </body>
 </html>

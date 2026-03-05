@@ -1,14 +1,329 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
+<head><script>(function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เตรียมตัวสมัครโรงเรียนประจำอังกฤษ | Prepare for UK Boarding School — LINKEDU</title>
-  <meta name="description" content="เครื่องมือเตรียมตัวสมัครโรงเรียนประจำอังกฤษ — ไทม์ไลน์ เตรียมสัมภาษณ์ UKISET ความพร้อมทางวัฒนธรรม | Application timeline, interview prep, UKISET, culture readiness tools.">
+  <title>เตรียมตัวสมัครโรงเรียนประจำอังกฤษ | LINKEDU — แผนทีละขั้นตอน</title>
+  <meta name="description" content="แผนเตรียมตัวสมัครโรงเรียนประจำอังกฤษทีละขั้นตอน ตั้งแต่ 2 ปีก่อนจนถึงวันเดินทาง — สำหรับครอบครัวไทย">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── V6: Month-by-Month Roadmap ── */
+
+    /* Hero with "where are you now" selector */
+    .hero-where {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(245,240,232,0.1);
+    }
+    .hero-where-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+      margin-bottom: 12px;
+    }
+    .stage-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .stage-pill {
+      padding: 9px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(184,150,46,0.3);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(245,240,232,0.5);
+      background: none;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .stage-pill:hover, .stage-pill.active {
+      background: #B8962E;
+      color: #1a1a1a;
+      border-color: #B8962E;
+    }
+
+    /* Progress track */
+    .progress-track {
+      background: white;
+      border: 1px solid rgba(26,26,26,0.08);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .track-step {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      position: relative;
+    }
+    .track-step::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 14px;
+      width: 50%; height: 2px;
+      background: rgba(26,26,26,0.1);
+      z-index: 0;
+    }
+    .track-step::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 14px;
+      width: 50%; height: 2px;
+      background: rgba(26,26,26,0.1);
+      z-index: 0;
+    }
+    .track-step:first-child::before { display: none; }
+    .track-step:last-child::after { display: none; }
+    .track-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(26,26,26,0.08);
+      border: 2px solid rgba(26,26,26,0.12);
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(26,26,26,0.3);
+      font-family: 'Inter', sans-serif;
+    }
+    .track-step.active .track-dot {
+      background: #B8962E;
+      border-color: #B8962E;
+      color: #1a1a1a;
+      box-shadow: 0 0 0 4px rgba(184,150,46,0.15);
+    }
+    .track-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(26,26,26,0.4);
+      line-height: 1.3;
+    }
+    .track-step.active .track-label { color: #B8962E; font-weight: 600; }
+
+    /* Milestone sections */
+    .milestone {
+      margin-bottom: 0;
+      scroll-margin-top: 100px;
+    }
+    .milestone-inner {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      padding: 72px 0;
+      border-bottom: 1px solid rgba(26,26,26,0.08);
+      align-items: start;
+    }
+    .milestone:last-child .milestone-inner { border-bottom: none; }
+    .milestone.dark-milestone .milestone-inner {
+      background: #1a1a1a;
+      padding: 72px 48px;
+      border-radius: 8px;
+      margin: 0 0 0 0;
+      border-bottom: none;
+    }
+
+    /* Milestone sidebar */
+    .milestone-marker {
+      position: sticky;
+      top: 96px;
+      text-align: right;
+    }
+    .milestone-timing {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: #B8962E;
+      margin-bottom: 4px;
+    }
+    .dark-milestone .milestone-timing { color: #B8962E; }
+    .milestone-timing-unit {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(26,26,26,0.35);
+    }
+    .dark-milestone .milestone-timing-unit { color: rgba(245,240,232,0.3); }
+    .milestone-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: rgba(26,26,26,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+    .dark-milestone .milestone-title { color: rgba(245,240,232,0.4); }
+
+    /* Milestone content */
+    .milestone-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #1a1a1a;
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .dark-milestone .milestone-content h3 { color: #f5f0e8; }
+
+    .milestone-content p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(26,26,26,0.7);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .milestone-content p:last-of-type { margin-bottom: 0; }
+    .dark-milestone .milestone-content p { color: rgba(245,240,232,0.55); }
+
+    /* Know / Do split within milestone */
+    .know-do-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .know-box, .do-box {
+      padding: 20px;
+      border-radius: 6px;
+    }
+    .know-box {
+      background: rgba(184,150,46,0.05);
+      border: 1px solid rgba(184,150,46,0.15);
+    }
+    .do-box {
+      background: rgba(26,26,26,0.03);
+      border: 1px solid rgba(26,26,26,0.08);
+    }
+    .dark-milestone .know-box {
+      background: rgba(184,150,46,0.06);
+      border-color: rgba(184,150,46,0.2);
+    }
+    .dark-milestone .do-box {
+      background: rgba(245,240,232,0.04);
+      border-color: rgba(245,240,232,0.08);
+    }
+    .box-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 12px;
+    }
+    .do-box .box-label { color: rgba(26,26,26,0.4); }
+    .dark-milestone .do-box .box-label { color: rgba(245,240,232,0.35); }
+    .box-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .box-item:last-child { margin-bottom: 0; }
+    .box-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #B8962E;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .do-box .box-bullet { background: rgba(26,26,26,0.3); }
+    .dark-milestone .do-box .box-bullet { background: rgba(245,240,232,0.3); }
+    .box-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(26,26,26,0.7);
+      line-height: 1.55;
+    }
+    .dark-milestone .box-text { color: rgba(245,240,232,0.55); }
+    .dark-milestone .know-box .box-text { color: rgba(245,240,232,0.6); }
+
+    /* Inline tool link */
+    .milestone-tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid rgba(184,150,46,0.3);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #B8962E;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      transition: all 0.25s;
+      margin-top: 16px;
+      margin-right: 8px;
+    }
+    .milestone-tool:hover { background: #B8962E; color: #1a1a1a; }
+    .milestone-tool::before { content: '→'; }
+
+    /* Form */
+    .consult-form-section { background: #1a1a1a; padding: 96px 0; }
+    .consult-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .consult-form-info h2 { color: #f5f0e8; margin-bottom: 16px; }
+    .consult-form-info p { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(245,240,232,0.55); line-height: 1.75; margin-bottom: 32px; }
+    .consult-detail-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(245,240,232,0.07); }
+    .consult-detail-row:last-child { border-bottom: none; }
+    .consult-detail-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .consult-detail-label { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #B8962E; margin-bottom: 2px; }
+    .consult-detail-value { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: rgba(245,240,232,0.7); }
+    .consult-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.5); }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 13px 16px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #f5f0e8; background: rgba(245,240,232,0.06); border: 1px solid rgba(245,240,232,0.12); border-radius: 6px; transition: all 0.25s ease; outline: none; -webkit-appearance: none; }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.25); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #B8962E; background: rgba(245,240,232,0.09); }
+    .form-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5f0e8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-color: rgba(245,240,232,0.06); padding-right: 40px; }
+    .form-select option { background: #1a1a1a; color: #f5f0e8; }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form-submit { margin-top: 8px; padding: 16px 36px; background: #B8962E; color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; border: none; border-radius: 6px; cursor: pointer; transition: all 0.25s ease; width: 100%; }
+    .form-submit:hover { background: #9a7a24; transform: translateY(-1px); }
+    .form-note { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(245,240,232,0.3); text-align: center; margin-top: 4px; }
+
+    @media (max-width: 968px) {
+      .milestone-inner { grid-template-columns: 1fr; gap: 24px; }
+      .milestone-marker { position: static; text-align: left; }
+      .dark-milestone .milestone-inner { padding: 40px 24px; }
+      .know-do-grid { grid-template-columns: 1fr; }
+      .progress-track { gap: 0; }
+      .track-step { min-width: 90px; }
+      .consult-form-grid { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .stage-pills { gap: 6px; }
+      .stage-pill { font-size: 0.72rem; padding: 8px 12px; }
+      .track-label { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,33 +333,44 @@
     <div class="header-inner">
       <div class="logo-wrap">
         <a href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0i{fill:#FFFFFF;}</style><path class="st0i" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
           <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
         </a>
       </div>
       <nav class="site-nav">
-        <div class="nav-item"><a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></div>
-        <div class="nav-item"><a href="find-your-school.html" class="nav-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a></div>
-        <div class="nav-item"><a href="compare.html" class="nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div>
-        <div class="nav-item"><a href="fees.html" class="nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></div>
-        <div class="nav-item"><a href="prepare.html" class="nav-link active"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div>
+        <div class="nav-item"><a href="prepare.html" class="nav-link active"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Preparation</span></a></div>
+        <div class="nav-item">
+          <a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="schools.html" class="dropdown-link"><span class="lang-th">โรงเรียนทั้งหมด</span><span class="lang-en">All Schools</span></a>
+            <a href="find-your-school.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+            <a href="compare.html" class="dropdown-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+            <a href="tools/fees-calculator-v2c.html" class="dropdown-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          </div>
+        </div>
         <div class="nav-item"><a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a></div>
-        <div class="nav-item"><a href="pricing.html" class="nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></div>
+        <div class="nav-item"><a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a></div>
+        <div class="nav-item"><a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a></div>
         <div class="nav-item"><a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></div>
       </nav>
       <div class="header-actions">
-        <div class="lang-toggle"><button class="lang-btn" data-lang="th">TH</button><button class="lang-btn" data-lang="en">EN</button></div>
-        <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
-        <button class="hamburger"><span></span><span></span><span></span></button>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#consult" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </div>
   <nav class="mobile-nav">
-    <a href="index.html" class="mobile-nav-link"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
-    <a href="prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
-    <a href="contact.html" class="mobile-nav-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
-    <a href="pricing.html" class="mobile-nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a>
-    <div class="mobile-nav-actions"><a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a></div>
+    <a href="prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Preparation</span></a>
+    <a href="schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <div class="mobile-nav-actions">
+      <a href="#consult" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
   </nav>
 </header>
 
@@ -52,124 +378,340 @@
 <section class="page-hero">
   <div class="container page-hero-inner">
     <div class="breadcrumb"><a href="index.html">LINKEDU</a><span>›</span><span><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></span></div>
-    <div class="page-hero-eyebrow"><span class="lang-th">เตรียมตัวก่อนสมัคร</span><span class="lang-en">Application Preparation</span></div>
+    <div class="page-hero-eyebrow"><span class="lang-th">แผนทีละขั้นตอน</span><span class="lang-en">The Step-by-Step Plan</span></div>
     <h1>
-      <span class="lang-th">เตรียมตัวให้พร้อม<br>ก่อนสมัครโรงเรียนในอังกฤษ</span>
-      <span class="lang-en">Prepare Your Child<br>for UK Boarding School</span>
+      <span class="lang-th">คุณอยู่ที่ไหน<br>ในเส้นทางนี้?</span>
+      <span class="lang-en">Where Are You<br>in This Journey?</span>
     </h1>
     <p class="page-hero-sub">
-      <span class="lang-th">เครื่องมือและคู่มือครบถ้วน — ตั้งแต่ไทม์ไลน์การสมัครไปจนถึงการเตรียมความพร้อมทางวัฒนธรรม</span>
-      <span class="lang-en">Complete tools and guides — from application timeline to cultural readiness assessment.</span>
+      <span class="lang-th">ทุกขั้นตอนมีสิ่งที่ต้องรู้และต้องทำ — อ่านตั้งแต่จุดที่คุณอยู่ตอนนี้</span>
+      <span class="lang-en">Every stage has things to know and things to do — read from wherever you are right now.</span>
     </p>
+    <div class="hero-where">
+      <div class="hero-where-label"><span class="lang-th">เริ่มอ่านจากขั้นตอนของคุณ:</span><span class="lang-en">Jump to your stage:</span></div>
+      <div class="stage-pills">
+        <a href="#m1" class="stage-pill"><span class="lang-th">เพิ่งเริ่มคิด</span><span class="lang-en">Just Starting</span></a>
+        <a href="#m2" class="stage-pill"><span class="lang-th">วิจัยโรงเรียนแล้ว</span><span class="lang-en">Researching Schools</span></a>
+        <a href="#m3" class="stage-pill"><span class="lang-th">เตรียมสมัคร</span><span class="lang-en">Ready to Apply</span></a>
+        <a href="#m4" class="stage-pill"><span class="lang-th">รอสัมภาษณ์</span><span class="lang-en">Awaiting Interview</span></a>
+        <a href="#m5" class="stage-pill"><span class="lang-th">ได้รับใบตอบรับแล้ว</span><span class="lang-en">Offer Received</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- TIMELINE FEATURE -->
-<section class="section" id="timeline">
+<!-- PROGRESS TRACK -->
+<div style="background:#f5f0e8;padding:24px 0;border-bottom:1px solid rgba(26,26,26,0.07);">
+  <div class="container">
+    <div class="progress-track">
+      <div class="track-step active">
+        <div class="track-dot">01</div>
+        <div class="track-label"><span class="lang-th">เริ่มต้น<br>2 ปีก่อน</span><span class="lang-en">Discovery<br>2 yrs before</span></div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot">02</div>
+        <div class="track-label"><span class="lang-th">วิจัย<br>18–24 เดือนก่อน</span><span class="lang-en">Research<br>18–24 mo before</span></div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot">03</div>
+        <div class="track-label"><span class="lang-th">สมัคร<br>12–18 เดือนก่อน</span><span class="lang-en">Apply<br>12–18 mo before</span></div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot">04</div>
+        <div class="track-label"><span class="lang-th">สัมภาษณ์<br>9–12 เดือนก่อน</span><span class="lang-en">Interview<br>9–12 mo before</span></div>
+      </div>
+      <div class="track-step">
+        <div class="track-dot">✓</div>
+        <div class="track-label"><span class="lang-th">ก่อนเดินทาง<br>8–10 เดือนก่อน</span><span class="lang-en">Pre-Departure<br>8–10 mo before</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MILESTONES -->
+<div style="background:#f5f0e8;">
   <div class="container">
 
-    <div style="background:#1a1a1a;border-radius:8px;padding:48px;margin-bottom:64px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;flex-wrap:wrap;">
+    <!-- MILESTONE 1: Discovery -->
+    <div class="milestone" id="m1">
+      <div class="milestone-inner">
+        <div class="milestone-marker">
+          <div class="milestone-timing"><span class="lang-th">2 ปี</span><span class="lang-en">2 Years</span></div>
+          <div class="milestone-timing-unit"><span class="lang-th">ก่อนเข้าเรียน</span><span class="lang-en">Before Entry</span></div>
+          <div class="milestone-title"><span class="lang-th">ระยะ<br>ค้นพบ</span><span class="lang-en">Discovery<br>Stage</span></div>
+        </div>
+        <div class="milestone-content">
+          <h3><span class="lang-th">คุณเพิ่งเริ่มคิดถึงโรงเรียนในอังกฤษ</span><span class="lang-en">You've Just Started Thinking About a UK School</span></h3>
+          <p><span class="lang-th">ความรู้สึกตอนนี้อาจเป็น "มีความเป็นไปได้ แต่ยังไม่รู้จะเริ่มจากตรงไหน" นั่นคือสัญญาณที่ถูกต้อง ครอบครัวที่ประสบความสำเร็จเกือบทุกครอบครัวเริ่มต้นจากจุดเดียวกัน</span><span class="lang-en">Right now you might feel "this seems possible, but I don't know where to begin." That's exactly the right feeling. Almost every successful family started from the same point.</span></p>
+          <p><span class="lang-th">สิ่งที่สำคัญที่สุดในระยะนี้ไม่ใช่การเลือกโรงเรียน — มันคือการทำความเข้าใจว่าระบบการศึกษาอังกฤษทำงานอย่างไร และบุตรหลานของคุณอยู่ตรงไหนในระบบนั้น</span><span class="lang-en">The most important thing at this stage is not choosing a school — it's understanding how the UK system works and where your child sits within it.</span></p>
+          <div class="know-do-grid">
+            <div class="know-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรรู้</span><span class="lang-en">What to Know</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">Year 9 (อายุ 13) คือจุดเข้าที่นิยมที่สุดสำหรับนักเรียนไทย</span><span class="lang-en">Year 9 (age 13) is the most popular entry point for Thai students</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">โรงเรียนเปิดรับสมัครล่วงหน้า 12–48 เดือน ขึ้นอยู่กับโรงเรียน</span><span class="lang-en">Schools open applications 12–48 months in advance depending on the school</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ค่าใช้จ่ายจริงสูงกว่าค่าเทอมที่โฆษณาประมาณ 25-35%</span><span class="lang-en">True costs run 25–35% above advertised fees</span></div></div>
+            </div>
+            <div class="do-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรทำ</span><span class="lang-en">What to Do</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">เปรียบเทียบระบบการศึกษาไทย vs อังกฤษ</span><span class="lang-en">Compare the Thai vs UK education system</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ประเมินระดับภาษาอังกฤษปัจจุบันของบุตรหลาน</span><span class="lang-en">Assess your child's current English level</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">กำหนดปีที่ต้องการเข้าเรียนและดูไทม์ไลน์</span><span class="lang-en">Set a target entry year and review your timeline</span></div></div>
+            </div>
+          </div>
+          <a href="#contact-form" class="milestone-tool"><span class="lang-th">ระบบ ไทย vs อังกฤษ</span><span class="lang-en">UK vs Thailand System</span></a>
+          <a href="#contact-form" class="milestone-tool"><span class="lang-th">ประเมินระดับภาษา</span><span class="lang-en">Assess English Level</span></a>
+          <a href="#contact-form" class="milestone-tool"><span class="lang-th">ดูไทม์ไลน์</span><span class="lang-en">View Timeline</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MILESTONE 2: Research (dark) -->
+    <div class="milestone dark-milestone" id="m2" style="padding: 0 0 48px 0;">
+      <div class="milestone-inner">
+        <div class="milestone-marker">
+          <div class="milestone-timing" style="color:#B8962E;"><span class="lang-th">18–24 เดือน</span><span class="lang-en">18–24 Months</span></div>
+          <div class="milestone-timing-unit"><span class="lang-th">ก่อนเข้าเรียน</span><span class="lang-en">Before Entry</span></div>
+          <div class="milestone-title"><span class="lang-th">ระยะ<br>วิจัยโรงเรียน</span><span class="lang-en">School<br>Research Stage</span></div>
+        </div>
+        <div class="milestone-content">
+          <h3><span class="lang-th">คุณกำลังสร้าง shortlist และเริ่มรู้จักระบบ</span><span class="lang-en">You're Building a Shortlist and Understanding the System</span></h3>
+          <p><span class="lang-th">ตอนนี้คุณเริ่มดูโรงเรียนต่างๆ รู้สึกสับสนเพราะมีตัวเลือกมากกว่าร้อยโรงเรียน และกำลังพยายามแยกแยะว่าอะไรต่างกันจริงๆ นั่นคือเรื่องปกติ ความแตกต่างระหว่างโรงเรียนที่ดูเหมือนกันมักอยู่ในวัฒนธรรม ขนาด และความเชี่ยวชาญ ไม่ใช่ชื่อเสียง</span><span class="lang-en">You're now looking at schools, feeling overwhelmed by over a hundred options, and trying to work out what actually differs between them. This is normal. The real differences between similarly-ranked schools usually lie in culture, size, and specialism — not just name recognition.</span></p>
+          <p><span class="lang-th">ระยะนี้ยังเป็นช่วงที่ต้องเริ่มเตรียม UKISET ซึ่งต้องใช้เวลาอย่างน้อย 6 เดือนในการเตรียมอย่างจริงจัง นักเรียนที่เริ่มต้นเร็วกว่ามักทำคะแนนได้ดีกว่าอย่างมีนัยสำคัญ</span><span class="lang-en">This stage is also when to start UKISET preparation, which requires at least 6 months of serious practice. Students who start earlier consistently score meaningfully higher than those who begin last-minute.</span></p>
+          <div class="know-do-grid">
+            <div class="know-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรรู้</span><span class="lang-en">What to Know</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">UKISET ทดสอบความสามารถในการคิด ไม่ใช่ความรู้วิชาการ</span><span class="lang-en">UKISET tests thinking ability, not academic knowledge</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">คะแนนเฉลี่ยของนักเรียน UK independent school คือ 111, โรงเรียน selective ชั้นนำต้องการ 125+</span><span class="lang-en">Average for UK independent school students is 111; top selective schools expect 125+</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">ทุนการศึกษาส่วนใหญ่ลดค่าเทอมได้ 10–30% (bursary เพิ่มเติมช่วยได้อีก)</span><span class="lang-en">Scholarships typically reduce fees by 10–30%; financial bursaries can add further support</span></div></div>
+            </div>
+            <div class="do-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรทำ</span><span class="lang-en">What to Do</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">สมัคร UKISET และเริ่มฝึกอย่างมีระบบ</span><span class="lang-en">Register for UKISET and begin structured practice</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">เยี่ยมชมโรงเรียน 3-5 แห่งที่สนใจ (virtual หรือ in-person)</span><span class="lang-en">Visit 3–5 shortlisted schools (virtual or in-person)</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">ตรวจสอบสิทธิ์ทุนการศึกษาที่เกี่ยวข้อง</span><span class="lang-en">Check relevant scholarship eligibility</span></div></div>
+            </div>
+          </div>
+          <a href="#contact-form" class="milestone-tool" style="border-color:rgba(184,150,46,0.4);color:#B8962E;"><span class="lang-th">เตรียม UKISET</span><span class="lang-en">Prep UKISET</span></a>
+          <a href="#contact-form" class="milestone-tool" style="border-color:rgba(184,150,46,0.4);color:#B8962E;"><span class="lang-th">ตรวจสอบทุน</span><span class="lang-en">Check Scholarships</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MILESTONE 3: Apply -->
+    <div class="milestone" id="m3">
+      <div class="milestone-inner">
+        <div class="milestone-marker">
+          <div class="milestone-timing"><span class="lang-th">12–18 เดือน</span><span class="lang-en">12–18 Months</span></div>
+          <div class="milestone-timing-unit"><span class="lang-th">ก่อนเข้าเรียน</span><span class="lang-en">Before Entry</span></div>
+          <div class="milestone-title"><span class="lang-th">ระยะ<br>ยื่นใบสมัคร</span><span class="lang-en">Application<br>Stage</span></div>
+        </div>
+        <div class="milestone-content">
+          <h3><span class="lang-th">ถึงเวลายื่นใบสมัครและเตรียมสอบ</span><span class="lang-en">Time to Submit Applications and Take Tests</span></h3>
+          <p><span class="lang-th">นี่คือช่วงที่ยุ่งที่สุดในกระบวนการ ใบสมัครของโรงเรียนส่วนใหญ่ต้องการ: แบบฟอร์มออนไลน์, รายงานจากโรงเรียนเดิม, จดหมายแนะนำ 2 ฉบับ, statement ของนักเรียน (สั้นๆ) และผล UKISET ซึ่งส่งโดยตรง แต่ละโรงเรียนมีขั้นตอนที่แตกต่างกันเล็กน้อย</span><span class="lang-en">This is the busiest phase of the process. Most school applications require: an online form, a current school report, 2 reference letters, a student statement (short), and UKISET results which are sent directly. Each school has slightly different requirements.</span></p>
+          <p><span class="lang-th">กำหนดเส้นตายสำคัญที่ต้องจำ: โรงเรียนส่วนใหญ่ปิดรับสมัครระหว่าง <strong>ตุลาคม–มกราคม</strong> ก่อนเดือนกันยายนที่ต้องการเข้าเรียน ถ้าต้องการเข้าเรียนเดือนกันยายน 2026 กำหนดส่งใบสมัครส่วนใหญ่คือ ปลายปี 2025</span><span class="lang-en">The key deadline: most schools close applications between <strong>October–January</strong> before the target September entry. If aiming for September 2026, most application deadlines fall in late 2025.</span></p>
+          <div class="know-do-grid">
+            <div class="know-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรรู้</span><span class="lang-en">What to Know</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">สมัครโรงเรียน 3-5 แห่งพร้อมกัน (ไม่ใช่แห่งเดียว)</span><span class="lang-en">Apply to 3–5 schools simultaneously, not just one</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">จดหมายแนะนำที่ดีต้องมาจากครูที่รู้จักนักเรียนดีจริงๆ</span><span class="lang-en">Strong references must come from teachers who genuinely know the student</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ค่าสมัครแต่ละโรงเรียนอยู่ที่ £50–£200</span><span class="lang-en">Application fee per school is £50–£200</span></div></div>
+            </div>
+            <div class="do-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรทำ</span><span class="lang-en">What to Do</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ยื่นใบสมัครพร้อมเอกสารครบถ้วนก่อนกำหนด</span><span class="lang-en">Submit complete applications before each deadline</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">สอบ UKISET และระบุโรงเรียนที่สมัครทุกแห่ง</span><span class="lang-en">Sit UKISET and nominate all schools applied to</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">จัด guardian service ที่ได้รับการรับรอง AEGIS ก่อนยืนยันการสมัคร</span><span class="lang-en">Arrange an AEGIS-accredited guardian service before confirming applications</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MILESTONE 4: Interview (dark) -->
+    <div class="milestone dark-milestone" id="m4" style="padding: 0 0 48px 0;">
+      <div class="milestone-inner">
+        <div class="milestone-marker">
+          <div class="milestone-timing" style="color:#B8962E;"><span class="lang-th">9–12 เดือน</span><span class="lang-en">9–12 Months</span></div>
+          <div class="milestone-timing-unit"><span class="lang-th">ก่อนเข้าเรียน</span><span class="lang-en">Before Entry</span></div>
+          <div class="milestone-title"><span class="lang-th">ระยะ<br>สัมภาษณ์</span><span class="lang-en">Interview<br>Stage</span></div>
+        </div>
+        <div class="milestone-content">
+          <h3><span class="lang-th">การสัมภาษณ์ — จุดที่โรงเรียนได้เห็นตัวตนของบุตรหลาน</span><span class="lang-en">The Interview — Where Schools See Your Child as a Person</span></h3>
+          <p><span class="lang-th">ได้รับคำเชิญสัมภาษณ์ นั่นหมายความว่าโรงเรียนสนใจบุตรหลานของคุณแล้ว ตอนนี้คือโอกาสของบุตรหลานที่จะแสดงตัวตนที่แท้จริง ไม่ใช่ performance</span><span class="lang-en">You've received an interview invitation — that means the school is already interested in your child. Now is the chance to show who they really are, not a performance.</span></p>
+          <p><span class="lang-th">โรงเรียนสัมภาษณ์นักเรียนต่างชาติหลายร้อยคนต่อปี พวกเขารู้ทันทีเมื่อนักเรียนกำลัง recite คำตอบที่ท่อง สิ่งที่โรงเรียนจำได้คือนักเรียนที่พูดจริงเกี่ยวกับสิ่งที่รักจริง — ไม่ว่าจะเป็น astronomy, Thai cooking, football หรืออะไรก็ตาม</span><span class="lang-en">Schools interview hundreds of international students each year. They immediately recognise when a student is reciting prepared answers. What schools remember is a student who speaks genuinely about something they truly love — whether that's astronomy, Thai cooking, football, or anything else.</span></p>
+          <div class="know-do-grid">
+            <div class="know-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรรู้</span><span class="lang-en">What to Know</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">การสัมภาษณ์ส่วนใหญ่ใช้เวลา 20-30 นาที ทาง Zoom</span><span class="lang-en">Most interviews are 20–30 minutes via Zoom</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">โรงเรียนไม่ได้ต้องการ English สมบูรณ์แบบ แต่ต้องการความจริงใจ</span><span class="lang-en">Schools don't want perfect English — they want genuine personality</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.6);"><span class="lang-th">การศึกษาโรงเรียนล่วงหน้าสร้างความประทับใจได้มาก</span><span class="lang-en">Showing knowledge of the specific school impresses interviewers</span></div></div>
+            </div>
+            <div class="do-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรทำ</span><span class="lang-en">What to Do</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">ฝึกสนทนาเกี่ยวกับ 3-5 เรื่องที่ชอบจริงๆ เป็นภาษาอังกฤษ</span><span class="lang-en">Practise discussing 3–5 genuine interests in English</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">ศึกษาโรงเรียนที่จะสัมภาษณ์ — sports, clubs, ประวัติ</span><span class="lang-en">Research the interview school — sports, clubs, history</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text" style="color:rgba(245,240,232,0.4);"><span class="lang-th">ทดสอบ Zoom connection และเลือก background ที่เหมาะสม</span><span class="lang-en">Test Zoom connection and choose an appropriate background</span></div></div>
+            </div>
+          </div>
+          <a href="tools/interview-prep-guide.html" class="milestone-tool" style="border-color:rgba(184,150,46,0.4);color:#B8962E;"><span class="lang-th">คำถามสัมภาษณ์จริง</span><span class="lang-en">Real Interview Questions</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MILESTONE 5: Pre-Departure -->
+    <div class="milestone" id="m5">
+      <div class="milestone-inner">
+        <div class="milestone-marker">
+          <div class="milestone-timing"><span class="lang-th">8–10 เดือน</span><span class="lang-en">8–10 Months</span></div>
+          <div class="milestone-timing-unit"><span class="lang-th">ก่อนเดินทาง</span><span class="lang-en">Before Departure</span></div>
+          <div class="milestone-title"><span class="lang-th">ระยะก่อน<br>เดินทาง</span><span class="lang-en">Pre-<br>Departure</span></div>
+        </div>
+        <div class="milestone-content">
+          <h3><span class="lang-th">ใบตอบรับมาแล้ว — ตอนนี้เตรียมตัวที่แท้จริง</span><span class="lang-en">The Offer Has Arrived — Now the Real Preparation Begins</span></h3>
+          <p><span class="lang-th">ช่วงนี้หลายครอบครัวมัวแต่ยุ่งกับเอกสารและการจัดสัมภาระ จนลืมเตรียมตัวทางจิตใจที่สำคัญกว่ามาก บุตรหลานของคุณกำลังจะเจอการเปลี่ยนแปลงที่ใหญ่ที่สุดในชีวิตของเขา/เธอ และการเตรียมตัวสำหรับเรื่องนี้ต้องใช้เวลา</span><span class="lang-en">Many families at this stage are so busy with paperwork and packing that they overlook far more important emotional preparation. Your child is about to experience the biggest change of their life, and preparation for that takes time.</span></p>
+          <p><span class="lang-th">สิ่งที่ช่วยได้มากที่สุดในระยะนี้คือการพูดคุยกับบุตรหลานอย่างตรงไปตรงมาเกี่ยวกับสิ่งที่อาจยากในช่วงแรก — ความเหงา อาหารที่ไม่คุ้น อากาศหนาว — และวางแผนรับมือด้วยกัน แทนที่จะพยายามทำให้ฟังดูน่ากลัวน้อยลง</span><span class="lang-en">The most helpful thing at this stage is an honest conversation with your child about what may be hard in the beginning — loneliness, unfamiliar food, cold weather — and planning for those things together, rather than trying to make them sound less daunting.</span></p>
+          <div class="know-do-grid">
+            <div class="know-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรรู้</span><span class="lang-en">What to Know</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">6-8 สัปดาห์แรกคือช่วงที่ยากที่สุด — หลังจากนั้นจะดีขึ้นมาก</span><span class="lang-en">The first 6–8 weeks are the hardest — things improve significantly after</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">Housemaster/Housemistress ตรวจสอบนักเรียนทุกวัน</span><span class="lang-en">Housemaster/Housemistress checks on students daily</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">วีซ่านักเรียนอายุต่ำกว่า 16 ปีต้องใช้ Child Student Visa</span><span class="lang-en">Students under 16 need a Child Student Visa</span></div></div>
+            </div>
+            <div class="do-box">
+              <div class="box-label"><span class="lang-th">สิ่งที่ควรทำ</span><span class="lang-en">What to Do</span></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ยื่นขอวีซ่า Child Student Visa ล่วงหน้าอย่างน้อย 8 สัปดาห์</span><span class="lang-en">Apply for Child Student Visa at least 8 weeks in advance</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">ทำแบบทดสอบ culture readiness และ culture fit</span><span class="lang-en">Complete culture readiness and culture fit assessments</span></div></div>
+              <div class="box-item"><div class="box-bullet"></div><div class="box-text"><span class="lang-th">เตรียมสัมภาระตามรายการสำหรับนักเรียนไทยโดยเฉพาะ</span><span class="lang-en">Pack using the checklist designed specifically for Thai students</span></div></div>
+            </div>
+          </div>
+          <a href="#contact-form" class="milestone-tool"><span class="lang-th">ประเมิน Culture Readiness</span><span class="lang-en">Culture Readiness</span></a>
+          <a href="#contact-form" class="milestone-tool"><span class="lang-th">รายการสัมภาระ</span><span class="lang-en">Packing Guide</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</div><!-- /milestones bg -->
+
+<!-- ENQUIRY SECTION -->
+<section id="contact-form" style="background:#f5f0e8;padding:88px 40px;border-top:4px solid #B8962E;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B8962E;margin-bottom:16px;"><span class="lang-th">ปรึกษาฟรี · ไม่มีข้อผูกมัด</span><span class="lang-en">Free Consultation · No Obligation</span></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#1a1a1a;line-height:1.15;margin:0 0 16px 0;">
+        <span class="lang-th">พาลูกสู่<br><em style="color:#B8962E;">โรงเรียน<br>ที่ใช่</em></span>
+        <span class="lang-en">Find the<br><em style="color:#B8962E;">Right School</em><br>for Your Child</span>
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(26,26,26,0.6);line-height:1.7;margin:0;">
+        <span class="lang-th">กรอกข้อมูลด้านขวา — เราจะส่งรายชื่อโรงเรียนที่เหมาะสม พร้อมค่าเรียน ทุนการศึกษา และขั้นตอนการสมัครให้ภายใน 24 ชั่วโมง</span>
+        <span class="lang-en">Fill the form and we'll send tailored school recommendations, fee details, scholarship options, and a clear application plan within 24 hours.</span>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">บริการฟรี 100%</span><span class="lang-en">Completely free</span></strong><span class="lang-th">ไม่คิดค่าบริการจากครอบครัว</span><span class="lang-en">No charge to families, ever</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></strong><span class="lang-th">ออกไปเรียนต่างประเทศทั่วโลก</span><span class="lang-en">Studying abroad worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">พันธมิตร 600+ โรงเรียน</span><span class="lang-en">600+ partner schools</span></strong><span class="lang-th">ทั่วสหราชอาณาจักรและยุโรป</span><span class="lang-en">Across the UK &amp; Europe</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ทีมงานระดับโลก</span><span class="lang-en">Global expert team</span></strong><span class="lang-th">ที่ปรึกษาพูดภาษาไทยทุกคน</span><span class="lang-en">Thai-speaking advisors worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hours</span></strong><span class="lang-th">ผ่าน LINE หรืออีเมล</span><span class="lang-en">Via LINE or email</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#fff;font-weight:700;margin-top:2px;">✓</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ไว้ใจได้ตั้งแต่ปี 2558</span><span class="lang-en">Trusted since 2015</span></strong><span class="lang-th">ดูแลครอบครัวไทยมากกว่า 10 ปี</span><span class="lang-en">10+ years with Thai families</span></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:20px 24px;background:#1a1a1a;border-radius:6px;display:flex;align-items:center;gap:16px;">
         <div>
-          <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#B8962E;font-family:'Inter',sans-serif;margin-bottom:14px;"><span class="lang-th">เครื่องมือหลัก</span><span class="lang-en">Essential Tool</span></div>
-          <h2 style="font-family:'Playfair Display',serif;color:#f5f0e8;font-weight:400;margin-bottom:16px;"><span class="lang-th">ไทม์ไลน์การสมัครเรียน</span><span class="lang-en">Application Timeline</span></h2>
-          <p style="font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.6);line-height:1.7;margin-bottom:28px;"><span class="lang-th">รู้ว่าต้องทำอะไรและเมื่อไร — ตั้งแต่เริ่มคิดจนถึงวันรับใบตอบรับ ป้อนปีที่ต้องการเข้าเรียน และรับแผนที่กำหนดเองทันที</span><span class="lang-en">Know exactly what to do and when — from first thought to offer letter. Enter your target entry year and get a custom roadmap instantly.</span></p>
-          <a href="tools/application-timeline.html" class="btn-primary"><span class="lang-th">ดูไทม์ไลน์ →</span><span class="lang-en">View My Timeline →</span></a>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:4px;">LINE</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#f5f0e8;">@linkedu.th</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:50%;background:#B8962E;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;color:#1a1a1a;flex-shrink:0;">1</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;color:#f5f0e8;margin-bottom:4px;"><span class="lang-th">2 ปีก่อน — เริ่มวิจัย</span><span class="lang-en">2 Years Before — Begin Research</span></div>
-              <div style="font-size:0.78rem;color:rgba(245,240,232,0.45);line-height:1.5;"><span class="lang-th">ทำแบบทดสอบ สร้าง shortlist เยี่ยมชมโรงเรียน</span><span class="lang-en">Take quizzes, build shortlist, visit schools</span></div>
-            </div>
+        <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" style="margin-left:auto;background:#B8962E;color:#fff;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;padding:10px 20px;border-radius:3px;text-decoration:none;white-space:nowrap;"><span class="lang-th">เพิ่ม LINE</span><span class="lang-en">Add LINE</span></a>
+      </div>
+    </div>
+    <div style="background:#1a1a1a;border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(26,26,26,0.15);">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">✓ <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">✓ <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">✓ <span class="lang-th">600+ โรงเรียนพันธมิตร</span><span class="lang-en">600+ partner schools</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">✓ <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+      </div>
+      <form name="prepare-roadmap-consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="prepare-roadmap-consultation">
+        <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label>
+            <input type="text" name="first_name" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'" required>
           </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:50%;background:#B8962E;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;color:#1a1a1a;flex-shrink:0;">2</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;color:#f5f0e8;margin-bottom:4px;"><span class="lang-th">18 เดือนก่อน — ลงทะเบียน UKISET</span><span class="lang-en">18 Months Before — Register for UKISET</span></div>
-              <div style="font-size:0.78rem;color:rgba(245,240,232,0.45);line-height:1.5;"><span class="lang-th">สอบ UKISET เตรียม portfolio</span><span class="lang-en">Sit UKISET, prepare portfolio</span></div>
-            </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label>
+            <input type="text" name="last_name" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:50%;background:#B8962E;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;color:#1a1a1a;flex-shrink:0;">3</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;color:#f5f0e8;margin-bottom:4px;"><span class="lang-th">12 เดือนก่อน — ยื่นใบสมัคร</span><span class="lang-en">12 Months Before — Submit Applications</span></div>
-              <div style="font-size:0.78rem;color:rgba(245,240,232,0.45);line-height:1.5;"><span class="lang-th">ส่งใบสมัคร รอสอบสัมภาษณ์</span><span class="lang-en">Submit applications, await interview invitations</span></div>
-            </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label>
+            <input type="date" name="child_dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:32px;height:32px;border-radius:50%;background:rgba(184,150,46,0.3);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;color:#B8962E;flex-shrink:0;">✓</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;color:rgba(245,240,232,0.5);margin-bottom:4px;"><span class="lang-th">รับใบตอบรับ</span><span class="lang-en">Receive Offer</span></div>
-              <div style="font-size:0.78rem;color:rgba(245,240,232,0.35);"><span class="lang-th">ยืนยัน เตรียมวีซ่า พร้อมเดินทาง</span><span class="lang-en">Confirm, arrange visa, prepare to depart</span></div>
-            </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label>
+            <select name="current_year" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <option value="">-- เลือก --</option>
+              <option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option>
+              <option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option>
+              <option>Year 12 / ม.6</option><option>อื่นๆ</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label>
+            <input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+          </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label>
+            <input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'" required>
           </div>
         </div>
-      </div>
+        <div style="margin-top:14px;">
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label>
+          <input type="text" name="line_id" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label>
+            <select name="country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <option value="">-- เลือก --</option>
+              <option selected>United Kingdom</option><option>United States</option>
+              <option>Australia</option><option>Canada</option><option>Switzerland</option><option>อื่นๆ</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Intended Entry Year</span></label>
+            <select name="entry_year" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <option value="">-- เลือก --</option>
+              <option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label>
+          <input type="text" name="schools" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <button type="submit" style="width:100%;background:#B8962E;color:#fff;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+          <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
+          <span class="lang-en">Send Enquiry — Free Consultation →</span>
+        </button>
+      </form>
     </div>
-
-    <!-- All prep tools -->
-    <div class="section-header">
-      <span class="section-label"><span class="lang-th">เครื่องมือทั้งหมด</span><span class="lang-en">All Preparation Tools</span></span>
-      <h2><span class="lang-th">เตรียมตัวให้ครบทุกด้าน</span><span class="lang-en">Prepare Every Aspect</span></h2>
-    </div>
-
-    <div class="tools-grid" id="interview">
-      <div class="tool-card">
-        <div class="tool-card-icon">🎤</div>
-        <div class="tool-card-title"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep Guide</span></div>
-        <p class="tool-card-desc"><span class="lang-th">คำถามสัมภาษณ์จริงจากโรงเรียนชั้นนำ พร้อมคำแนะนำวิธีตอบที่น่าประทับใจ</span><span class="lang-en">Real interview questions from top schools with guidance on how to answer impressively.</span></p>
-        <a href="tools/interview-prep-guide.html" class="tool-card-link"><span class="lang-th">เตรียมเลย</span><span class="lang-en">Start Prep</span></a>
-      </div>
-
-      <div class="tool-card" id="ukiset">
-        <div class="tool-card-icon">📝</div>
-        <div class="tool-card-title"><span class="lang-th">UKISET Tracker</span><span class="lang-en">UKISET Preparation Tracker</span></div>
-        <p class="tool-card-desc"><span class="lang-th">ติดตามความคืบหน้าการเตรียม UKISET — วิชาที่ต้องเน้น ระยะเวลา และคะแนนเป้าหมาย</span><span class="lang-en">Track UKISET preparation progress — subjects to focus on, timeline, and target scores.</span></p>
-        <a href="tools/ukiset-prep-tracker.html" class="tool-card-link"><span class="lang-th">เริ่มติดตาม</span><span class="lang-en">Start Tracking</span></a>
-      </div>
-
-      <div class="tool-card">
-        <div class="tool-card-icon">🌐</div>
-        <div class="tool-card-title"><span class="lang-th">ประเมินระดับภาษาอังกฤษ</span><span class="lang-en">English Level Self-Assessment</span></div>
-        <p class="tool-card-desc"><span class="lang-th">ประเมินระดับภาษาอังกฤษของบุตรหลาน และรู้ว่าต้องเตรียมเพิ่มเติมก่อนสมัครอีกเท่าไร</span><span class="lang-en">Assess your child's English level and understand what preparation is needed before applying.</span></p>
-        <a href="tools/english-assessment.html" class="tool-card-link"><span class="lang-th">ประเมินเลย</span><span class="lang-en">Assess Now</span></a>
-      </div>
-
-      <div class="tool-card" id="culture">
-        <div class="tool-card-icon">🌍</div>
-        <div class="tool-card-title"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Shock Readiness Quiz</span></div>
-        <p class="tool-card-desc"><span class="lang-th">บุตรหลานของคุณพร้อมสำหรับชีวิตในอังกฤษแค่ไหน? รู้จุดที่ต้องเตรียมก่อนเดินทาง</span><span class="lang-en">How ready is your child for life in the UK? Identify areas to prepare before departure.</span></p>
-        <a href="tools/culture-shock-readiness-quiz.html" class="tool-card-link"><span class="lang-th">ทำแบบทดสอบ</span><span class="lang-en">Take Quiz</span></a>
-      </div>
-
-      <div class="tool-card">
-        <div class="tool-card-icon">🎒</div>
-        <div class="tool-card-title"><span class="lang-th">คู่มือสัมภาระ</span><span class="lang-en">Packing Guide</span></div>
-        <p class="tool-card-desc"><span class="lang-th">รายการสัมภาระฉบับสมบูรณ์สำหรับนักเรียนไทยที่ไปเรียน boarding school — แบ่งตามฤดูกาลและโรงเรียน</span><span class="lang-en">Complete packing list for Thai students going to boarding school — by season and school type.</span></p>
-        <a href="tools/packing-guide.html" class="tool-card-link"><span class="lang-th">ดูรายการ</span><span class="lang-en">View List</span></a>
-      </div>
-
-      <div class="tool-card">
-        <div class="tool-card-icon">🔄</div>
-        <div class="tool-card-title"><span class="lang-th">ระบบการศึกษา ไทย vs อังกฤษ</span><span class="lang-en">UK vs Thailand Education</span></div>
-        <p class="tool-card-desc"><span class="lang-th">เข้าใจความแตกต่างของระบบการศึกษา GCSE A-Level และการเทียบเคียงกับระบบไทย</span><span class="lang-en">Understand the difference between Thai and UK systems — GCSE, A-Level explained simply.</span></p>
-        <a href="tools/uk-vs-thailand.html" class="tool-card-link"><span class="lang-th">เรียนรู้เพิ่มเติม</span><span class="lang-en">Learn More</span></a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- LINE CTA -->
-<section class="line-cta">
-  <div class="container">
-    <div class="line-cta-eyebrow"><span class="lang-th">ต้องการความช่วยเหลือส่วนตัว?</span><span class="lang-en">Need personal guidance?</span></div>
-    <h2><span class="lang-th">LINKEDU ดูแลทุกขั้นตอนการสมัคร</span><span class="lang-en">LINKEDU Handles Every Step of the Application</span></h2>
-    <div class="line-cta-handle">LINE: @linkedu.th</div>
-    <p class="line-cta-sub"><span class="lang-th">ปรึกษาฟรี / Free Consultation</span><span class="lang-en">ปรึกษาฟรี / Free Consultation</span></p>
-    <a href="https://line.me/ti/p/@linkedu.th" class="line-cta-btn" target="_blank" rel="noopener"><span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">เพิ่ม LINE / Add LINE</span></a>
   </div>
 </section>
 
@@ -178,17 +720,42 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0j{fill:#FFFFFF;}</style><path class="st0j" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
-        <p class="footer-brand-tagline"><span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย</span><span class="lang-en">Thailand's specialist in UK boarding school placement.</span></p>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <p class="footer-brand-tagline">
+          <span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย</span>
+          <span class="lang-en">Thailand's specialist in UK boarding school placement for Thai families.</span>
+        </p>
       </div>
-      <div><div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div><div class="footer-links"><a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a><a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div></div>
-      <div><div class="footer-heading"><span class="lang-th">เครื่องมือ</span><span class="lang-en">Tools</span></div><div class="footer-links"><a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a><a href="fees.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a></div></div>
-      <div><div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div><div class="footer-links"><a href="golf/golf-tools-index.html" class="footer-link" style="color:#B8962E;font-weight:600;"><span class="lang-en">⛳ LINKEDU Golf Academy</span><span class="lang-th">⛳ LINKEDU Golf Academy</span></a>
-          <a href="contact.html" class="footer-link">LINE: @linkedu.th</a><a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About Us</span></a></div></div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div>
+        <div class="footer-links">
+          <a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a>
+          <a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+          <a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">แผนการเตรียมตัว</span><span class="lang-en">The Roadmap</span></div>
+        <div class="footer-links">
+          <a href="#m1" class="footer-link"><span class="lang-th">ระยะเริ่มต้น</span><span class="lang-en">Discovery Stage</span></a>
+          <a href="#m2" class="footer-link"><span class="lang-th">วิจัยและ UKISET</span><span class="lang-en">Research &amp; UKISET</span></a>
+          <a href="#m3" class="footer-link"><span class="lang-th">ยื่นสมัคร</span><span class="lang-en">Application</span></a>
+          <a href="#m5" class="footer-link"><span class="lang-th">ก่อนเดินทาง</span><span class="lang-en">Pre-Departure</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/ti/p/@linkedu.th" class="footer-link" target="_blank">LINE: @linkedu.th</a>
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="#consult" class="footer-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+          <a href="pricing.html" class="footer-link"><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></a>
+        </div>
+      </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 LINKEDU Overseas Education.</div>
-      <div class="footer-line">LINE: <span>@linkedu.th</span></div>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div class="footer-line"><span class="lang-th">ติดต่อ: </span><span class="lang-en">LINE: </span><span>@linkedu.th</span></div>
       <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.22);margin-top:10px;text-align:center;width:100%;">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
     </div>
   </div>

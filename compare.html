@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เปรียบเทียบโรงเรียนประจำอังกฤษ | Compare UK Boarding Schools — LINKEDU</title>
@@ -16,36 +18,71 @@
 <header class="site-header">
   <div class="container">
     <div class="header-inner">
+
+      <!-- Logo -->
       <div class="logo-wrap">
         <a href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0e{fill:#FFFFFF;}</style><path class="st0e" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
           <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
         </a>
       </div>
+
+      <!-- Nav -->
       <nav class="site-nav">
-        <div class="nav-item"><a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></div>
-        <div class="nav-item"><a href="find-your-school.html" class="nav-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a></div>
-        <div class="nav-item"><a href="compare.html" class="nav-link active"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div>
-        <div class="nav-item"><a href="fees.html" class="nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></div>
-        <div class="nav-item"><a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a></div>
-        <div class="nav-item"><a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a></div>
-        <div class="nav-item"><a href="pricing.html" class="nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></div>
-        <div class="nav-item"><a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></div>
+        <div class="nav-item">
+          <a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="schools.html" class="dropdown-link"><span class="lang-th">โรงเรียนทั้งหมด</span><span class="lang-en">All Schools</span></a>
+            <a href="find-your-school.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+            <a href="compare.html" class="dropdown-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+            <a href="tools/fees-calculator-v2c.html" class="dropdown-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+        </div>
       </nav>
+
+      <!-- Actions -->
       <div class="header-actions">
-        <div class="lang-toggle"><button class="lang-btn" data-lang="th">TH</button><button class="lang-btn" data-lang="en">EN</button></div>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
         <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
-        <button class="hamburger"><span></span><span></span><span></span></button>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- Mobile Nav -->
   <nav class="mobile-nav">
-    <a href="index.html" class="mobile-nav-link"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
     <a href="schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
-    <a href="compare.html" class="mobile-nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a>
-    <a href="contact.html" class="mobile-nav-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
-    <a href="pricing.html" class="mobile-nav-link"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a>
-    <div class="mobile-nav-actions"><a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a></div>
+    <a href="find-your-school.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+    <a href="compare.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+    <a href="tools/fees-calculator-v2c.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+    <a href="guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <a href="about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <div class="mobile-nav-actions">
+      <a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
   </nav>
 </header>
 
@@ -184,17 +221,49 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0f{fill:#FFFFFF;}</style><path class="st0f" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
-        <p class="footer-brand-tagline"><span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย</span><span class="lang-en">Thailand's specialist in UK boarding school placement.</span></p>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:24px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <p class="footer-brand-tagline">
+          <span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย ให้คำปรึกษาฟรีผ่าน LINE</span>
+          <span class="lang-en">Thailand's specialist in UK boarding school placement for Thai families. Free consultation via LINE.</span>
+        </p>
       </div>
-      <div><div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div><div class="footer-links"><a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a><a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Compare</span></a></div></div>
-      <div><div class="footer-heading"><span class="lang-th">เครื่องมือ</span><span class="lang-en">Tools</span></div><div class="footer-links"><a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a><a href="fees.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a></div></div>
-      <div><div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div><div class="footer-links"><a href="golf/golf-tools-index.html" class="footer-link" style="color:#B8962E;font-weight:600;"><span class="lang-en">⛳ LINKEDU Golf Academy</span><span class="lang-th">⛳ LINKEDU Golf Academy</span></a>
-          <a href="contact.html" class="footer-link">LINE: @linkedu.th</a><a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About Us</span></a></div></div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div>
+        <div class="footer-links">
+          <a href="schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse Schools</span></a>
+          <a href="compare.html" class="footer-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+          <a href="find-your-school.html" class="footer-link"><span class="lang-th">หาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+          <a href="tools/fees-calculator-v2c.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></div>
+        <div class="footer-links">
+          <a href="prepare.html" class="footer-link"><span class="lang-th">ไทม์ไลน์สมัครเรียน</span><span class="lang-en">Application Timeline</span></a>
+          <a href="prepare.html#interview" class="footer-link"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep</span></a>
+          <a href="prepare.html#culture" class="footer-link"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Readiness</span></a>
+          <a href="guides.html" class="footer-link"><span class="lang-th">คู่มือครอบครัวไทย</span><span class="lang-en">Guides for Thai Families</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></div>
+        <div class="footer-links">
+          <a href="golf/golf-tools-index.html" class="footer-link" style="color:#B8962E;font-weight:600;"><span class="lang-en">⛳ LINKEDU Golf Academy</span><span class="lang-th">⛳ LINKEDU Golf Academy</span></a>
+          <a href="contact.html" class="footer-link">LINE: @linkedu.th</a>
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+          <a href="guides.html#faq" class="footer-link">FAQ</a>
+          <a href="pricing.html" class="footer-link"><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></a>
+        </div>
+      </div>
     </div>
+
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 LINKEDU Overseas Education.</div>
-      <div class="footer-line">LINE: <span>@linkedu.th</span></div>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div class="footer-line"><span class="lang-th">ติดต่อ: </span><span class="lang-en">LINE: </span><span>@linkedu.th</span></div>
       <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.22);margin-top:10px;text-align:center;width:100%;">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
     </div>
   </div>

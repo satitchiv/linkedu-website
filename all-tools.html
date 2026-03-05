@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องมือฟรีทั้งหมด | All Free Tools — LINKEDU</title>
+  <meta name="description" content="เครื่องมือออนไลน์ฟรีสำหรับครอบครัวไทย — ค้นหาโรงเรียน ติวเตอร์ และเตรียมตัวสมัครเรียนอังกฤษ | Free interactive tools for Thai families — school search, tutoring, and UK boarding school preparation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    html[lang="en"] .lang-th { display: none; }
+    html[lang="th"] .lang-en { display: none; }
+
+    /* ── Category section ── */
+    .tools-category {
+      padding: 72px 0 48px;
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+    }
+    .tools-category:last-child { border-bottom: none; }
+    .tools-category-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 8px;
+    }
+    .tools-category-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #f5f0e8;
+      font-weight: 400;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .tools-category-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.55);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* ── Tool cards grid ── */
+    .all-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .all-tool-card {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(245,240,232,0.1);
+      border-radius: 8px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+    .all-tool-card:hover {
+      border-color: rgba(184,150,46,0.45);
+      background: rgba(184,150,46,0.05);
+    }
+    .all-tool-card-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B8962E;
+    }
+    .all-tool-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f5f0e8;
+      line-height: 1.35;
+    }
+    .all-tool-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .all-tool-card-cta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #B8962E;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* ── Beta badge ── */
+    .beta-badge {
+      display: inline-block;
+      background: rgba(184,150,46,0.15);
+      border: 1px solid rgba(184,150,46,0.3);
+      color: #B8962E;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    /* ── Sticky category nav ── */
+    .tools-cat-nav {
+      position: sticky;
+      top: 72px;
+      z-index: 10;
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(184,150,46,0.15);
+      padding: 0;
+    }
+    .tools-cat-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tools-cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.45);
+      padding: 14px 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .cat-nav-link:hover {
+      color: #f5f0e8;
+      border-bottom-color: #B8962E;
+    }
+
+    @media (max-width: 600px) {
+      .all-tools-grid { grid-template-columns: 1fr; }
+      .tools-category-title { font-size: 1.5rem; }
+      .cat-nav-link { padding: 12px 14px; font-size: 0.68rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      <div class="logo-wrap">
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="schools.html" class="dropdown-link"><span class="lang-th">โรงเรียนทั้งหมด</span><span class="lang-en">All Schools</span></a>
+            <a href="find-your-school.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+            <a href="compare.html" class="dropdown-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+            <a href="tools/fees-calculator-v2c.html" class="dropdown-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="contact.html" class="header-line-btn"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-nav">
+    <a href="prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+    <a href="schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="find-your-school.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+    <a href="compare.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+    <a href="tools/fees-calculator-v2c.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+    <a href="guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <a href="about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <div class="mobile-nav-actions">
+      <a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" style="padding:80px 0 64px;">
+  <div class="container hero-inner">
+    <div class="hero-eyebrow">
+      <span class="lang-th">เครื่องมือออนไลน์ฟรี</span>
+      <span class="lang-en">Free Interactive Tools</span>
+    </div>
+    <h1 style="max-width:680px;">
+      <span class="lang-th">เครื่องมือทั้งหมดของ LINKEDU</span>
+      <span class="lang-en">All LINKEDU <em>Free Tools</em></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="lang-th">เครื่องมือออนไลน์ฟรีมากกว่า 10 รายการ — ออกแบบมาเพื่อช่วยครอบครัวไทยตัดสินใจเรื่องการศึกษาอังกฤษได้อย่างมั่นใจ</span>
+      <span class="lang-en">10+ free tools designed to help Thai families make confident, well-informed decisions about UK education.</span>
+    </p>
+    <div class="hero-stat-strip" style="margin-top:40px;padding-top:32px;">
+      <div>
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label"><span class="lang-th">เครื่องมือฟรี</span><span class="lang-en">Free Tools</span></div>
+      </div>
+      <div style="width:1px;background:rgba(245,240,232,0.18);align-self:stretch;margin:0 4px;"></div>
+      <div>
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label"><span class="lang-th">หมวดหมู่</span><span class="lang-en">Categories</span></div>
+      </div>
+      <div style="width:1px;background:rgba(245,240,232,0.18);align-self:stretch;margin:0 4px;"></div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label"><span class="lang-th">ฟรีทุกรายการ</span><span class="lang-en">Completely Free</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STICKY CATEGORY NAV
+     ============================================================ -->
+<nav class="tools-cat-nav">
+  <div class="container">
+    <div class="tools-cat-nav-inner">
+      <a href="#school-search" class="cat-nav-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">School Search</span></a>
+      <a href="#fees-finance" class="cat-nav-link"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees &amp; Finance</span></a>
+      <a href="#prepare-apply" class="cat-nav-link"><span class="lang-th">เตรียมสมัคร</span><span class="lang-en">Prepare &amp; Apply</span></a>
+      <a href="#tutoring-tools" class="cat-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+      <a href="#compare-schools" class="cat-nav-link"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Comparisons</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     ALL TOOLS — DARK BACKGROUND
+     ============================================================ -->
+<div style="background:#1a1a1a;">
+  <div class="container">
+
+    <!-- ── CATEGORY 1: School Search ── -->
+    <section class="tools-category" id="school-search">
+      <div class="tools-category-label">
+        <span class="lang-th">01 — ค้นหาโรงเรียน</span>
+        <span class="lang-en">01 — School Search</span>
+      </div>
+      <div class="tools-category-title">
+        <span class="lang-th">ค้นหาโรงเรียนที่ใช่</span>
+        <span class="lang-en">Find the Right School</span>
+      </div>
+      <p class="tools-category-desc">
+        <span class="lang-th">เครื่องมือช่วยค้นหา จับคู่ และเปรียบเทียบโรงเรียนประจำอังกฤษจากฐานข้อมูล 114 โรงเรียน</span>
+        <span class="lang-en">Tools to search, match, and compare UK boarding schools from our database of 114 schools.</span>
+      </p>
+      <div class="all-tools-grid">
+
+        <a href="tools/school-match-quiz.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">แบบทดสอบ</span><span class="lang-en">Quiz</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">แบบทดสอบหาโรงเรียน</span><span class="lang-en">School Match Quiz</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ตอบ 10 คำถามแล้วรับโรงเรียนที่เหมาะกับบุตรหลาน</span><span class="lang-en">Answer 10 questions and get matched to schools that fit your child perfectly.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เริ่มทดสอบ →</span><span class="lang-en">Start Quiz →</span></div>
+        </a>
+
+        <a href="tools/school-comparison.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Comparison</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">School Comparison Tool</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบโรงเรียนแบบเคียงข้างกัน — ค่าเรียน กีฬา ทุน</span><span class="lang-en">Compare schools side by side — fees, sports, scholarships and more.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare Now →</span></div>
+        </a>
+
+        <a href="tools/personality-match.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">บุคลิกภาพ</span><span class="lang-en">Personality</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">จับคู่บุคลิกภาพ</span><span class="lang-en">Personality School Match</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ค้นหาโรงเรียนที่ตรงกับบุคลิกภาพและความสนใจของบุตรหลาน</span><span class="lang-en">Find schools that match your child's personality and interests.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เริ่มเลย →</span><span class="lang-en">Start →</span></div>
+        </a>
+
+        <a href="tools/boarding-school-culture-fit-assessor.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ประเมิน</span><span class="lang-en">Assessment</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">ประเมินความเหมาะสมกับ Boarding</span><span class="lang-en">Boarding Culture Fit Assessor</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ประเมินว่าบุตรหลานพร้อมใช้ชีวิต boarding school หรือไม่</span><span class="lang-en">Assess whether your child is ready for boarding school life.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ประเมินเลย →</span><span class="lang-en">Assess Now →</span></div>
+        </a>
+
+        <a href="tools/uk-vs-thailand.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Comparison</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">UK กับ ไทย</span><span class="lang-en">UK vs Thailand Education</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบระบบการศึกษาไทยและอังกฤษแบบเคียงข้างกัน</span><span class="lang-en">Compare the Thai and UK education systems side by side.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+        <a href="tools/private-vs-state-boarding.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">เปรียบเทียบ</span><span class="lang-en">Comparison</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">Private กับ State Boarding</span><span class="lang-en">Private vs State Boarding</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">เข้าใจความแตกต่างระหว่างโรงเรียนเอกชนและ state boarding</span><span class="lang-en">Understand the difference between private and state boarding schools.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เรียนรู้ →</span><span class="lang-en">Learn More →</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── CATEGORY 2: Fees & Finance ── -->
+    <section class="tools-category" id="fees-finance">
+      <div class="tools-category-label">
+        <span class="lang-th">02 — ค่าใช้จ่ายและการเงิน</span>
+        <span class="lang-en">02 — Fees &amp; Finance</span>
+      </div>
+      <div class="tools-category-title">
+        <span class="lang-th">วางแผนค่าใช้จ่าย</span>
+        <span class="lang-en">Plan Your Finances</span>
+      </div>
+      <p class="tools-category-desc">
+        <span class="lang-th">คำนวณค่าเรียน ค่าครองชีพ และตรวจสอบสิทธิ์ทุนการศึกษา</span>
+        <span class="lang-en">Calculate fees, living costs, and check scholarship and bursary eligibility.</span>
+      </p>
+      <div class="all-tools-grid">
+
+        <a href="tools/fees-calculator-v2c.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">คำนวณ</span><span class="lang-en">Calculator</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">คำนวณค่าใช้จ่ายรวมใน GBP และ THB พร้อมค่า VAT 20%</span><span class="lang-en">Calculate total costs in GBP and THB including the 20% VAT from 2025.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">คำนวณเลย →</span><span class="lang-en">Calculate Now →</span></div>
+        </a>
+
+        <a href="tools/cost-of-living-calc.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">คำนวณ</span><span class="lang-en">Calculator</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">คำนวณค่าครองชีพ</span><span class="lang-en">Cost of Living Calculator</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ประมาณค่าใช้จ่ายในชีวิตประจำวันของนักเรียนในอังกฤษ</span><span class="lang-en">Estimate your child's day-to-day living costs in the UK.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">คำนวณ →</span><span class="lang-en">Calculate →</span></div>
+        </a>
+
+        <a href="tools/scholarship-checklist.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ตรวจสอบ</span><span class="lang-en">Checklist</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">รายการตรวจสอบทุนการศึกษา</span><span class="lang-en">Scholarship Checklist</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ตรวจสอบว่าบุตรหลานพร้อมสมัครทุนการศึกษาหรือไม่</span><span class="lang-en">Check whether your child is ready to apply for a scholarship.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ตรวจสอบ →</span><span class="lang-en">Check Now →</span></div>
+        </a>
+
+        <a href="tools/sports-pathway.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">กีฬา</span><span class="lang-en">Sports</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">เส้นทางทุนกีฬา</span><span class="lang-en">Sports Pathway Planner</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">วางแผนเส้นทางทุนกีฬาสำหรับบุตรหลานของคุณ</span><span class="lang-en">Plan the sports scholarship pathway for your child.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">วางแผน →</span><span class="lang-en">Plan Now →</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── CATEGORY 3: Prepare & Apply ── -->
+    <section class="tools-category" id="prepare-apply">
+      <div class="tools-category-label">
+        <span class="lang-th">03 — เตรียมตัวและสมัครเรียน</span>
+        <span class="lang-en">03 — Prepare &amp; Apply</span>
+      </div>
+      <div class="tools-category-title">
+        <span class="lang-th">เตรียมพร้อมก่อนสมัคร</span>
+        <span class="lang-en">Get Ready to Apply</span>
+      </div>
+      <p class="tools-category-desc">
+        <span class="lang-th">เครื่องมือช่วยเตรียมตัว — ตั้งแต่สัมภาษณ์ วัฒนธรรม จนถึงการเดินทาง</span>
+        <span class="lang-en">Tools to help you prepare — from interview practice and culture readiness to packing for departure.</span>
+      </p>
+      <div class="all-tools-grid">
+
+        <a href="tools/interview-prep-guide.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">สัมภาษณ์</span><span class="lang-en">Interview</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">คู่มือเตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep Guide</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">เตรียมบุตรหลานสำหรับการสัมภาษณ์เข้าโรงเรียนอังกฤษ</span><span class="lang-en">Prepare your child for UK boarding school entrance interviews.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เตรียมสัมภาษณ์ →</span><span class="lang-en">Prepare Now →</span></div>
+        </a>
+
+        <a href="tools/culture-shock-readiness-quiz.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">วัฒนธรรม</span><span class="lang-en">Culture</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">แบบทดสอบความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Shock Readiness Quiz</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ประเมินความพร้อมของบุตรหลานในการปรับตัวกับวัฒนธรรมอังกฤษ</span><span class="lang-en">Assess how ready your child is to adapt to UK culture.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ทดสอบ →</span><span class="lang-en">Take Quiz →</span></div>
+        </a>
+
+        <a href="tools/ukiset-prep-tracker.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ข้อสอบ</span><span class="lang-en">Exam</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">เตรียมสอบ UKISET</span><span class="lang-en">UKISET Prep Tracker</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ติดตามการเตรียมตัวสอบ UKISET อย่างเป็นระบบ</span><span class="lang-en">Track your UKISET preparation systematically.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เริ่มเตรียม →</span><span class="lang-en">Start Tracking →</span></div>
+        </a>
+
+        <a href="tools/english-assessment.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ภาษาอังกฤษ</span><span class="lang-en">English</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">ประเมินระดับภาษาอังกฤษ</span><span class="lang-en">English Level Assessment</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ประเมินระดับภาษาอังกฤษของบุตรหลานก่อนสมัครเรียน</span><span class="lang-en">Assess your child's English level before applying to school.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ประเมิน →</span><span class="lang-en">Assess Now →</span></div>
+        </a>
+
+        <a href="tools/packing-guide.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">เดินทาง</span><span class="lang-en">Travel</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">คู่มือแพ็คกระเป๋า</span><span class="lang-en">Packing Guide</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">รายการสิ่งของที่ต้องเตรียมก่อนเดินทางไปอังกฤษ</span><span class="lang-en">Everything your child needs to pack before heading to the UK.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ดูรายการ →</span><span class="lang-en">View Guide →</span></div>
+        </a>
+
+        <a href="tools/post-study-visa-pathway.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">วีซ่า</span><span class="lang-en">Visa</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">เส้นทางวีซ่าหลังเรียนจบ</span><span class="lang-en">Post-Study Visa Pathway</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">วางแผนเส้นทางวีซ่าหลังจากเรียนจบในอังกฤษ</span><span class="lang-en">Plan your visa pathway after graduating from a UK institution.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">วางแผน →</span><span class="lang-en">Plan →</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── CATEGORY 4: Tutoring Tools ── -->
+    <section class="tools-category" id="tutoring-tools">
+      <div class="tools-category-label">
+        <span class="lang-th">04 — เครื่องมือติวเตอร์ (เบต้า)</span>
+        <span class="lang-en">04 — Tutoring Tools (Beta)</span>
+      </div>
+      <div class="tools-category-title">
+        <span class="lang-th">เครื่องมือสำหรับนักเรียนและผู้ปกครอง</span>
+        <span class="lang-en">Tools for Students &amp; Parents</span>
+      </div>
+      <p class="tools-category-desc">
+        <span class="lang-th">เครื่องมือฟรีสำหรับวางแผนการเรียน ค้นหาสไตล์ และติดตามความก้าวหน้า</span>
+        <span class="lang-en">Free tools to plan learning, discover learning styles, and track academic progress.</span>
+      </p>
+      <div class="all-tools-grid">
+
+        <a href="tools/tutoring/tutoring-readiness-checker.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ประเมิน</span><span class="lang-en">Assessment</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">ตรวจสอบความพร้อมติวเตอร์</span><span class="lang-en">Tutoring Readiness Checker</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">เช็กว่าลูกพร้อมรับการติวเตอร์แบบไหน และควรเริ่มต้นที่ใด</span><span class="lang-en">Find out if your child is ready for tutoring and where to start.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ตรวจสอบ →</span><span class="lang-en">Check Now →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-learning-style.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">สไตล์การเรียน</span><span class="lang-en">Learning Style</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">ค้นหาสไตล์การเรียนรู้</span><span class="lang-en">Learning Style Finder</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ค้นหาสไตล์การเรียนรู้เพื่อจับคู่กับติวเตอร์ที่เหมาะที่สุด</span><span class="lang-en">Discover your child's learning style and match to the right tutor.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ค้นหา →</span><span class="lang-en">Find Style →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-career-path-quiz.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">อาชีพ</span><span class="lang-en">Career</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">อาชีพใดเหมาะกับลูก?</span><span class="lang-en">Career Path Quiz</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ค้นหาเส้นทางอาชีพที่เหมาะสมกับบุตรหลานของคุณ</span><span class="lang-en">Discover the career path that suits your child's strengths.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">ทำแบบทดสอบ →</span><span class="lang-en">Take Quiz →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-subject-career-match.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">จับคู่</span><span class="lang-en">Match</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">จับคู่วิชาและอาชีพ</span><span class="lang-en">Subject &amp; Career Match</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">จับคู่วิชาที่ลูกชอบกับอาชีพในอนาคตที่เหมาะสม</span><span class="lang-en">Match your child's favourite subjects to the right future career.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">จับคู่เลย →</span><span class="lang-en">Match Now →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-score-tracker.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">ติดตามผล</span><span class="lang-en">Tracking</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">ติดตามคะแนนสอบจำลอง</span><span class="lang-en">Mock Score Tracker</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">บันทึกและติดตามคะแนนสอบจำลองในแต่ละวิชา — จำข้อมูลในเบราว์เซอร์นี้</span><span class="lang-en">Log and track mock exam scores across subjects — saved in this browser.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เริ่มติดตาม →</span><span class="lang-en">Track Scores →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-hours-calculator.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">คำนวณ</span><span class="lang-en">Calculator</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">คำนวณชั่วโมงติวเตอร์</span><span class="lang-en">Tutoring Hours Calculator</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">คำนวณจำนวนชั่วโมงติวเตอร์ที่เหมาะสมตามเป้าหมาย</span><span class="lang-en">Calculate the right number of tutoring hours based on goals and timeline.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">คำนวณ →</span><span class="lang-en">Calculate →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-oxbridge-profile.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">Oxbridge</span><span class="lang-en">Oxbridge</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">สร้างโปรไฟล์ Oxbridge</span><span class="lang-en">Oxbridge Profile Builder</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">สร้างโปรไฟล์นักเรียนสำหรับสมัคร Oxford หรือ Cambridge</span><span class="lang-en">Build a strong student profile tailored for Oxford or Cambridge.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">สร้างโปรไฟล์ →</span><span class="lang-en">Build Profile →</span></div>
+        </a>
+
+        <a href="tools/tutoring/tutoring-curriculum-gap-map.html" class="all-tool-card">
+          <div class="all-tool-card-tag"><span class="lang-th">วิเคราะห์</span><span class="lang-en">Analysis</span> <span class="beta-badge">Beta</span></div>
+          <div class="all-tool-card-title"><span class="lang-th">วิเคราะห์ช่องว่างหลักสูตร</span><span class="lang-en">Curriculum Gap Map</span></div>
+          <p class="all-tool-card-desc"><span class="lang-th">ระบุช่องว่างในหลักสูตรของลูก เพื่อวางแผนการเรียนได้อย่างตรงจุด</span><span class="lang-en">Identify gaps in your child's curriculum to plan targeted learning.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">วิเคราะห์ →</span><span class="lang-en">Analyse Now →</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── CATEGORY 5: School Comparisons ── -->
+    <section class="tools-category" id="compare-schools">
+      <div class="tools-category-label">
+        <span class="lang-th">05 — เปรียบเทียบโรงเรียนเฉพาะ</span>
+        <span class="lang-en">05 — Head-to-Head Comparisons</span>
+      </div>
+      <div class="tools-category-title">
+        <span class="lang-th">เปรียบเทียบโรงเรียนแบบ Head-to-Head</span>
+        <span class="lang-en">School Head-to-Head Comparisons</span>
+      </div>
+      <p class="tools-category-desc">
+        <span class="lang-th">เปรียบเทียบโรงเรียนยอดนิยมแบบเจาะลึก — ช่วยให้ตัดสินใจได้ง่ายขึ้น</span>
+        <span class="lang-en">In-depth comparisons of popular schools — making your shortlist decision easier.</span>
+      </p>
+      <div class="all-tools-grid">
+
+        <a href="tools/harrow-vs-eton.html" class="all-tool-card">
+          <div class="all-tool-card-tag">Head-to-Head</div>
+          <div class="all-tool-card-title">Harrow vs Eton</div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบ Harrow School กับ Eton College แบบเจาะลึก</span><span class="lang-en">An in-depth comparison of Harrow School and Eton College.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+        <a href="tools/bromsgrove-vs-rossall.html" class="all-tool-card">
+          <div class="all-tool-card-tag">Head-to-Head</div>
+          <div class="all-tool-card-title">Bromsgrove vs Rossall</div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบ Bromsgrove School กับ Rossall School</span><span class="lang-en">Compare Bromsgrove School and Rossall School side by side.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+        <a href="tools/millfield-vs-rossall-sports.html" class="all-tool-card">
+          <div class="all-tool-card-tag">Head-to-Head · Sports</div>
+          <div class="all-tool-card-title">Millfield vs Rossall (Sports)</div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบด้านกีฬาระหว่าง Millfield และ Rossall</span><span class="lang-en">Sports-focused comparison between Millfield and Rossall.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+        <a href="tools/concord-vs-cardiff.html" class="all-tool-card">
+          <div class="all-tool-card-tag">Head-to-Head</div>
+          <div class="all-tool-card-title">Concord vs Cardiff</div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบ Concord College กับ Cardiff Sixth Form</span><span class="lang-en">Compare Concord College and Cardiff Sixth Form College.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+        <a href="tools/oic-vs-cardiff-vs-concord.html" class="all-tool-card">
+          <div class="all-tool-card-tag">Three-Way</div>
+          <div class="all-tool-card-title">OIC vs Cardiff vs Concord</div>
+          <p class="all-tool-card-desc"><span class="lang-th">เปรียบเทียบสามโรงเรียน Sixth Form ชั้นนำ</span><span class="lang-en">Three-way comparison of the top Sixth Form colleges.</span></p>
+          <div class="all-tool-card-cta"><span class="lang-th">เปรียบเทียบ →</span><span class="lang-en">Compare →</span></div>
+        </a>
+
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     LINE CTA
+     ============================================================ -->
+<section class="line-cta">
+  <div class="container">
+    <div class="line-cta-eyebrow"><span class="lang-th">คำปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></div>
+    <h2>
+      <span class="lang-th">ไม่รู้จะเริ่มจากตรงไหน?</span>
+      <span class="lang-en">Not Sure Where to Start?</span>
+    </h2>
+    <div class="line-cta-handle">LINE: @linkedu.th</div>
+    <p class="line-cta-sub">
+      <span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรีผ่าน LINE — ตอบภายใน 24 ชั่วโมง</span>
+      <span class="lang-en">Talk to an expert free via LINE — Response within 24 hours</span>
+    </p>
+    <a href="https://line.me/ti/p/@linkedu.th" class="line-cta-btn" target="_blank" rel="noopener">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-cta-strip">
+      <div>
+        <div class="footer-cta-tagline">
+          <span class="lang-th">ที่ปรึกษาผู้เชี่ยวชาญด้านโรงเรียนประจำอังกฤษสำหรับครอบครัวไทย</span>
+          <span class="lang-en">Thailand's specialist in UK boarding school placement</span>
+        </div>
+        <div class="footer-cta-sub">
+          <span class="lang-th">ปรึกษาฟรี — ตอบภายใน 24 ชั่วโมง</span>
+          <span class="lang-en">Free consultation — Response within 24 hours</span>
+        </div>
+      </div>
+      <a href="https://line.me/R/ti/p/@linkedu.th" class="footer-cta-btn" target="_blank" rel="noopener">
+        <span class="lang-th">เพิ่ม LINE @linkedu.th</span>
+        <span class="lang-en">Add LINE @linkedu.th</span>
+      </a>
+    </div>
+
+    <div class="footer-top">
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียนแนะนำ</span><span class="lang-en">Featured Schools</span></div>
+        <div class="footer-links">
+          <a href="schools/tonbridge-school.html" class="footer-link">Tonbridge School</a>
+          <a href="schools/charterhouse.html" class="footer-link">Charterhouse</a>
+          <a href="schools/eton-college.html" class="footer-link">Eton College</a>
+          <a href="schools/caterham-school.html" class="footer-link">Caterham School</a>
+          <a href="schools/queen-ethelburgas-collegiate.html" class="footer-link">Queen Ethelburga's</a>
+          <a href="schools/harrow-school.html" class="footer-link">Harrow School</a>
+          <a href="schools/millfield-school.html" class="footer-link">Millfield School</a>
+          <a href="schools/brighton-college.html" class="footer-link">Brighton College</a>
+          <a href="schools.html" class="footer-link-highlight"><span class="lang-th">ดูโรงเรียนทั้งหมด 114 แห่ง →</span><span class="lang-en">Browse All 114 Schools →</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการของเรา</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="find-your-school.html" class="footer-link"><span class="lang-th">ที่ปรึกษาโรงเรียนประจำ</span><span class="lang-en">Boarding School Consulting</span></a>
+          <a href="tutoring.html" class="footer-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+          <a href="summer-camps.html" class="footer-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+          <a href="guides.html" class="footer-link"><span class="lang-th">คู่มือครอบครัวไทย</span><span class="lang-en">Guides</span></a>
+          <a href="pricing.html" class="footer-link"><span class="lang-th">ราคาบริการ</span><span class="lang-en">Pricing</span></a>
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">เครื่องมือฟรี (เบต้า)</span><span class="lang-en">Free Tools (Beta)</span></div>
+        <div class="footer-links">
+          <a href="tools/school-match-quiz.html" class="footer-link"><span class="lang-th">แบบทดสอบหาโรงเรียน</span><span class="lang-en">School Match Quiz</span></a>
+          <a href="tools/fees-calculator-v2c.html" class="footer-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          <a href="tools/school-comparison.html" class="footer-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">School Comparison</span></a>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(184,150,46,0.5);margin-top:8px;margin-bottom:2px;">Tutoring Tools</div>
+          <a href="tools/tutoring/tutoring-readiness-checker.html" class="footer-link"><span class="lang-th">ตรวจสอบความพร้อมติวเตอร์</span><span class="lang-en">Tutoring Readiness Checker</span></a>
+          <a href="tools/tutoring/tutoring-learning-style.html" class="footer-link"><span class="lang-th">สไตล์การเรียนรู้</span><span class="lang-en">Learning Style Finder</span></a>
+          <a href="tools/tutoring/tutoring-career-path-quiz.html" class="footer-link"><span class="lang-th">อาชีพใดเหมาะกับลูก?</span><span class="lang-en">Career Path Quiz</span></a>
+          <a href="tools/tutoring/tutoring-subject-career-match.html" class="footer-link"><span class="lang-th">จับคู่วิชาและอาชีพ</span><span class="lang-en">Subject &amp; Career Match</span></a>
+          <a href="tools/tutoring/tutoring-score-tracker.html" class="footer-link"><span class="lang-th">ติดตามคะแนนสอบจำลอง</span><span class="lang-en">Mock Score Tracker</span></a>
+          <a href="tools/tutoring/tutoring-hours-calculator.html" class="footer-link"><span class="lang-th">คำนวณชั่วโมงติวเตอร์</span><span class="lang-en">Tutoring Hours Calculator</span></a>
+          <a href="tools/tutoring/tutoring-oxbridge-profile.html" class="footer-link"><span class="lang-th">สร้างโปรไฟล์ Oxbridge</span><span class="lang-en">Oxbridge Profile Builder</span></a>
+          <a href="tools/tutoring/tutoring-curriculum-gap-map.html" class="footer-link"><span class="lang-th">วิเคราะห์ช่องว่างหลักสูตร</span><span class="lang-en">Curriculum Gap Map</span></a>
+          <a href="all-tools.html" class="footer-link-highlight"><span class="lang-th">ดูเครื่องมือทั้งหมด →</span><span class="lang-en">See All Free Tools →</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดตามเรา</span><span class="lang-en">Follow Us</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/R/ti/p/@linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.070 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            LINE: @linkedu.th
+          </a>
+          <a href="https://facebook.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            FB: @linkedu.th
+          </a>
+          <a href="https://instagram.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            IG: @linkedu.th
+          </a>
+          <a href="https://tiktok.com/@linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            TikTok: @linkedu.th
+          </a>
+          <a href="https://youtube.com/@linkeduthailand" class="footer-link footer-social" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            YouTube: @linkeduthailand
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:20px;width:auto;display:block;opacity:0.5"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.2);">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

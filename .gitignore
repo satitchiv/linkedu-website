@@ -2,3 +2,19 @@
 *.bak
 .DS_Store
 server.py
+__pycache__/
+# Build scripts
+build-blog.py
+build-schools.py
+bake-schools-data.py
+# Version/draft files
+prepare-v*.html
+summer-camps-v*.html
+school-template-1.html
+school-template-2.html
+school-template-3.html
+schools-v1.html
+schools-v3.html
+schools-v2.html
+# Misc leftovers
+guides.html.blog-backup

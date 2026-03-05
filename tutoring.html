@@ -7,26 +7,11 @@
   <meta name="description" content="ติวเตอร์หลักสูตรอังกฤษโดยผู้เชี่ยวชาญ สำหรับนักเรียนไทยในโรงเรียนประจำ UK | Expert UK curriculum tutoring for Thai boarding school students">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --dark: #1a1a1a; --cream: #f5f0e8; --gold: #B8962E; }
     body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--dark); -webkit-font-smoothing: antialiased; }
-
-    /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; background: var(--dark); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; border-bottom: 1px solid rgba(184,150,46,0.2); }
-    .logo-wrap { text-decoration: none; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { color: var(--cream); font-size: 0.875rem; text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
-    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .lang-toggle { display: flex; gap: 6px; }
-    .lang-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 0.72rem; padding: 4px 10px; cursor: pointer; border-radius: 3px; transition: all 0.2s; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
-    .lang-btn.active { background: var(--gold); color: var(--dark); }
-    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
-    .mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); }
-    .mobile-nav { display: none; background: var(--dark); padding: 16px 40px 24px; border-top: 1px solid rgba(184,150,46,0.15); }
-    .mobile-nav a { display: block; color: var(--cream); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(245,240,232,0.07); font-size: 0.95rem; }
-
     /* LANG */
     html[lang="en"] .lang-th { display: none; }
     html[lang="th"] .lang-en { display: none; }
@@ -186,13 +171,36 @@
     .footer-links a { color: rgba(245,240,232,0.45); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--cream); }
 
+    /* STATS BAR */
+    .stats-bar { display: flex; align-items: stretch; max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .stat-item { flex: 1; text-align: center; padding: 32px 20px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 400; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 0.78rem; color: rgba(245,240,232,0.55); line-height: 1.5; }
+    .stat-divider { width: 1px; background: rgba(184,150,46,0.15); margin: 20px 0; flex-shrink: 0; }
+
+    /* TUTOR CARDS */
+    .tutors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .tutors-more-label { text-align: center; margin-top: 24px; font-size: 0.78rem; color: rgba(26,26,26,0.4); letter-spacing: 0.06em; }
+    .tutor-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 32px 28px; text-align: center; transition: box-shadow 0.2s; }
+    .tutor-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+    .tutor-avatar { width: 64px; height: 64px; border-radius: 50%; background: rgba(26,26,26,0.07); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: rgba(26,26,26,0.4); margin: 0 auto 12px; }
+    .tutor-uni-badge { display: inline-block; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(26,26,26,0.05); color: rgba(26,26,26,0.5); border: 1px solid rgba(26,26,26,0.12); padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+    .tutor-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; color: var(--dark); margin-bottom: 4px; }
+    .tutor-subjects { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+    .tutor-bio { font-size: 0.845rem; color: rgba(26,26,26,0.65); line-height: 1.7; margin-bottom: 16px; text-align: left; }
+    .tutor-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .tutor-tag { font-size: 0.7rem; background: rgba(184,150,46,0.08); color: var(--gold); border: 1px solid rgba(184,150,46,0.2); padding: 3px 10px; border-radius: 4px; }
+
     @media (max-width: 960px) {
-      .nav-links { display: none; }
-      .mobile-toggle { display: flex; }
       .finder-row { grid-template-columns: 1fr; }
       .gap-card-inner { grid-template-columns: 1fr; }
       .pkgs-grid, .outcomes-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2.6rem; }
+      .stats-bar { flex-wrap: wrap; }
+      .stat-divider { display: none; }
+      .stat-item { min-width: 50%; }
+
+      .tutors-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
       .hero { padding: 72px 24px 0; }
@@ -200,8 +208,6 @@
       .finder-widget { padding: 24px 20px; }
       .section { padding: 60px 24px; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
-      .site-header { padding: 0 24px; }
-      .mobile-nav { padding: 16px 24px 20px; }
       .journey-steps::before { display: none; }
     }
   </style>
@@ -210,27 +216,65 @@
 
 <!-- HEADER -->
 <header class="site-header">
-  <a href="index.html" class="logo-wrap">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.lstu3{fill:#FFFFFF;}</style><path class="lstu3" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
-    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></li>
-    <li><a href="find-your-school.html"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Find School</span></a></li>
-    <li><a href="fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></li>
-    <li><a href="#" class="active"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a></li>
-    <li><a href="pricing.html"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></li>
-    <li><a href="about.html"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></li>
-  </ul>
-  <div class="header-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.lstu_nav{fill:#FFFFFF;}</style><path class="lstu_nav" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="prepare.html" class="nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="schools.html" class="dropdown-link"><span class="lang-th">โรงเรียนทั้งหมด</span><span class="lang-en">All Schools</span></a>
+            <a href="find-your-school.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+            <a href="compare.html" class="dropdown-link"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+            <a href="tools/fees-calculator-v2c.html" class="dropdown-link"><span class="lang-th">คำนวณค่าเรียน</span><span class="lang-en">Fee Calculator</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="guides.html" class="nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <button class="mobile-toggle" id="mobileToggle" onclick="toggleMobile()">
-      <span></span><span></span><span></span>
-    </button>
   </div>
+  <nav class="mobile-nav">
+    <a href="prepare.html" class="mobile-nav-link"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Your Journey</span></a>
+    <a href="schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="find-your-school.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">ค้นหาโรงเรียนที่ใช่</span><span class="lang-en">Find Your School</span></a>
+    <a href="compare.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">เปรียบเทียบโรงเรียน</span><span class="lang-en">Compare Schools</span></a>
+    <a href="guides.html" class="mobile-nav-link"><span class="lang-th">คู่มือ</span><span class="lang-en">Guides</span></a>
+    <a href="tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <a href="about.html" class="mobile-nav-link"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a>
+    <div class="mobile-nav-actions">
+      <a href="contact.html" class="btn-primary"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
 </header>
 <div class="mobile-nav" id="mobileNav">
   <a href="schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
@@ -302,82 +346,65 @@
   </div>
 </section>
 
-<!-- SECTION 1: THE GAP -->
+<!-- STATS BAR -->
+<section style="background: var(--dark); border-bottom: 1px solid rgba(184,150,46,0.12);">
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">94%</div>
+      <div class="stat-label"><span class="lang-th">นักเรียนพัฒนาเกรดอย่างน้อย 1 ระดับ</span><span class="lang-en">of students improve at least 1 grade band</span></div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">1–2</div>
+      <div class="stat-label"><span class="lang-th">สัปดาห์ถึงบทเรียนแรก</span><span class="lang-en">weeks to your first session after contact</span></div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">1:1</div>
+      <div class="stat-label"><span class="lang-th">ทุกบทเรียน ไม่ใช่ชั้นเรียนกลุ่ม</span><span class="lang-en">every session — never a group class</span></div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label"><span class="lang-th">Exam Boards ครอบคลุม (Edexcel, AQA, OCR, Cambridge)</span><span class="lang-en">exam boards covered — Edexcel, AQA, OCR, Cambridge</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: LIFE INSIDE UK BOARDING -->
 <section class="section" style="background: var(--cream);">
   <div class="section-inner">
     <div class="gap-header">
       <div class="section-label" style="justify-content:center;">
-        <span class="lang-th">· วิเคราะห์ช่องว่างรายวิชา ·</span>
-        <span class="lang-en">· Subject-by-subject gap analysis ·</span>
+        <span class="lang-th">· ชีวิตในโรงเรียนประจำอังกฤษ ·</span>
+        <span class="lang-en">· Life inside UK boarding ·</span>
       </div>
       <h2>
-        <span class="lang-th">โรงเรียนนานาชาติสอนอะไร —<br><em>UK Boarding ต้องการอะไรเพิ่ม</em></span>
-        <span class="lang-en">What international schools teach —<br><em>what UK boarding adds on top</em></span>
+        <span class="lang-th">ไม่ใช่แค่วิชาที่ต่างกัน —<br><em>เป็นโลกที่ต่างกันโดยสิ้นเชิง</em></span>
+        <span class="lang-en">It's not just the curriculum —<br><em>it's a completely different world</em></span>
       </h2>
       <p>
-        <span class="lang-th">คลิกวิชาที่ต้องการดูเพื่อเปิดรายละเอียด — และดูว่า LINKEDU ช่วยปิดช่องว่างนั้นได้อย่างไร</span>
-        <span class="lang-en">Click any subject to see the full gap — and how LINKEDU bridges it.</span>
+        <span class="lang-th">โรงเรียนดีๆ ทั่วโลกสอนวิชาดีๆ เหมือนกัน สิ่งที่ไม่มีใครเตรียมลูกคุณได้คือ วัฒนธรรม ประเพณี และกฎที่ไม่มีในตำราของ UK Boarding — คลิกเพื่อดูว่าลูกคุณจะเจออะไร</span>
+        <span class="lang-en">Great schools everywhere teach great academics. What no school in Bangkok can fully prepare your child for is the invisible world of UK boarding — the culture, traditions, and unwritten rules. Click each to explore what awaits.</span>
       </p>
     </div>
     <div class="subject-gaps">
 
-      <!-- Maths -->
-      <div class="gap-card" id="gc-maths">
-        <div class="gap-card-header" onclick="toggleGap('gc-maths')">
+      <!-- Card 1: House System -->
+      <div class="gap-card" id="gc-house">
+        <div class="gap-card-header" onclick="toggleGap('gc-house')">
           <div class="gap-card-left">
-            <div class="gap-subject-icon">∑</div>
+            <div class="gap-subject-icon" style="font-size:0.82rem;">H</div>
             <div>
-              <div class="gap-subject-name"><span class="lang-th">คณิตศาสตร์</span><span class="lang-en">Mathematics</span></div>
-              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA, Cambridge</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="gap-difficulty">
-              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
-              <span class="gap-diff-label lang-th">ช่องว่างปานกลาง</span>
-              <span class="gap-diff-label lang-en">Medium gap</span>
-            </div>
-            <span class="gap-toggle">+</span>
-          </div>
-        </div>
-        <div class="gap-card-body">
-          <div class="gap-card-inner">
-            <div class="gap-col-wrap gap-col-before">
-              <h4><span class="lang-th">โรงเรียนนานาชาติ (IB/American)</span><span class="lang-en">International School (IB/American)</span></h4>
-              <ul>
-                <li><span class="lang-th">Coursework และโครงงานเป็นส่วนสำคัญของเกรด</span><span class="lang-en">Coursework and projects count toward final grade</span></li>
-                <li><span class="lang-th">Calculator อนุญาตในส่วนใหญ่</span><span class="lang-en">Calculator permitted in most assessments</span></li>
-                <li><span class="lang-th">เน้นการประยุกต์ใช้ในโลกจริง</span><span class="lang-en">Emphasis on real-world application</span></li>
-              </ul>
-            </div>
-            <div class="gap-col-wrap gap-col-after">
-              <h4><span class="lang-th">UK Boarding (GCSE/A-Level)</span><span class="lang-en">UK Boarding (GCSE/A-Level)</span></h4>
-              <ul>
-                <li><span class="lang-th">100% จากการสอบปลายภาค — ไม่มี coursework</span><span class="lang-en">100% from final exams — no coursework safety net</span></li>
-                <li><span class="lang-th">Non-calculator sections เป็นส่วนสำคัญ</span><span class="lang-en">Non-calculator sections are heavily weighted</span></li>
-                <li><span class="lang-th">ต้องแสดง method อย่างชัดเจนในทุกข้อ</span><span class="lang-en">Method marks require explicit working for every step</span></li>
-              </ul>
-            </div>
-            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">ฝึกข้อสอบจริงตาม Board ของโรงเรียน เน้นการแสดง method ที่ถูกต้อง และฝึก non-calculator section โดยเฉพาะ</span><span class="lang-en">We drill real past papers by your child's board, focusing on correct method presentation and dedicated non-calculator practice.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- English -->
-      <div class="gap-card" id="gc-english">
-        <div class="gap-card-header" onclick="toggleGap('gc-english')">
-          <div class="gap-card-left">
-            <div class="gap-subject-icon" style="font-size:0.85rem;letter-spacing:-0.05em;">Eng</div>
-            <div>
-              <div class="gap-subject-name"><span class="lang-th">ภาษาอังกฤษ / วรรณคดี</span><span class="lang-en">English Language / Literature</span></div>
-              <div class="gap-subject-sub">GCSE / A-Level · All boards</div>
+              <div class="gap-subject-name"><span class="lang-th">ระบบ House — บ้านหลังที่สอง</span><span class="lang-en">The House System</span></div>
+              <div class="gap-subject-sub"><span class="lang-th">ชีวิต · ความภักดี · การแข่งขัน</span><span class="lang-en">Living · Loyalty · Belonging</span></div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="gap-difficulty">
               <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot filled"></div></div>
-              <span class="gap-diff-label lang-th">ช่องว่างสูง</span>
-              <span class="gap-diff-label lang-en">High gap</span>
+              <span class="gap-diff-label lang-th">ปรับตัวสูง</span>
+              <span class="gap-diff-label lang-en">Challenging</span>
             </div>
             <span class="gap-toggle">+</span>
           </div>
@@ -385,81 +412,41 @@
         <div class="gap-card-body">
           <div class="gap-card-inner">
             <div class="gap-col-wrap gap-col-before">
-              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
+              <h4><span class="lang-th">สิ่งที่คุณน่าจะจินตนาการ</span><span class="lang-en">What you might imagine</span></h4>
               <ul>
-                <li><span class="lang-th">เน้น creative writing และ personal response</span><span class="lang-en">Creative writing and personal response valued</span></li>
-                <li><span class="lang-th">ครูให้ feedback ต่อเนื่อง นักเรียนรู้ว่าถูกทิศทาง</span><span class="lang-en">Continuous feedback from teacher throughout the year</span></li>
-                <li><span class="lang-th">โครงสร้างเรียงความชัดเจน ตาม template</span><span class="lang-en">Essays follow clear taught templates</span></li>
+                <li><span class="lang-th">โรงเรียนประจำ = โรงเรียน + หอพัก</span><span class="lang-en">Boarding school = school plus a dormitory</span></li>
+                <li><span class="lang-th">เพื่อนจะค่อยๆ เกิดขึ้นเองตามธรรมชาติ</span><span class="lang-en">Friendships will form naturally in your own time</span></li>
+                <li><span class="lang-th">ชีวิตสังคมขึ้นอยู่กับตัวเด็กเอง</span><span class="lang-en">Social life is mostly self-directed</span></li>
               </ul>
             </div>
             <div class="gap-col-wrap gap-col-after">
-              <h4><span class="lang-th">UK Boarding (GCSE/A-Level)</span><span class="lang-en">UK Boarding (GCSE/A-Level)</span></h4>
+              <h4><span class="lang-th">ความจริงที่รอลูกคุณอยู่</span><span class="lang-en">The reality inside</span></h4>
               <ul>
-                <li><span class="lang-th">ต้องวิเคราะห์ข้อความและโต้แย้งอย่างมีหลักฐาน</span><span class="lang-en">Textual analysis and evidence-based argument required</span></li>
-                <li><span class="lang-th">ใช้ quotation อย่างแม่นยำ ตีความ และประเมินผล</span><span class="lang-en">Precise quotation, interpretation and evaluation expected</span></li>
-                <li><span class="lang-th">สอบใต้แรงกดดันโดยไม่มี notes หรือ internet</span><span class="lang-en">Closed-book exam under time pressure — no notes or aids</span></li>
+                <li><span class="lang-th">House คือครอบครัว — คุณกิน อยู่ แข่ง และชนะด้วยกันตลอด 5 ปี</span><span class="lang-en">Your House IS your family — you eat, live, compete and win together for 5 years</span></li>
+                <li><span class="lang-th">การแข่งขันระหว่าง House ในกีฬา ดนตรี ละคร เกิดขึ้นทุกเทอม — House ต้องการคุณ</span><span class="lang-en">Inter-House competitions in sport, music and drama happen every term — your House needs you</span></li>
+                <li><span class="lang-th">ชื่อ House ของคุณบอก identity บนวิทยาเขตทั้งหมด ก่อนที่ใครจะรู้จักคุณด้วยซ้ำ</span><span class="lang-en">Your House identity precedes you across the whole campus before anyone even knows your name</span></li>
               </ul>
             </div>
-            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">สอนรูปแบบเรียงความวิเคราะห์ที่ UK Boarding ต้องการโดยเฉพาะ ฝึกเลือกและตีความ quotation ตาม marking scheme จริง</span><span class="lang-en">We teach the specific analytical essay format UK boarding rewards, and practise selecting and interpreting quotations against real mark schemes.</span></div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">เราแนะนำนักเรียนเข้าสู่ระบบ House ของโรงเรียนเป้าหมาย ก่อนไป — เพื่อให้รู้สึกเป็นส่วนหนึ่งตั้งแต่วันแรก ไม่ใช่แค่หน้าใหม่ที่ยังงง</span><span class="lang-en">We introduce students to their specific school's House system before they arrive — so they feel at home from day one, not like a newcomer who doesn't understand the world around them.</span></div>
           </div>
         </div>
       </div>
 
-      <!-- Sciences -->
-      <div class="gap-card" id="gc-science">
-        <div class="gap-card-header" onclick="toggleGap('gc-science')">
+      <!-- Card 2: British Communication -->
+      <div class="gap-card" id="gc-comms">
+        <div class="gap-card-header" onclick="toggleGap('gc-comms')">
           <div class="gap-card-left">
-            <div class="gap-subject-icon" style="font-size:0.82rem;">Sci</div>
+            <div class="gap-subject-icon" style="font-size:0.72rem;letter-spacing:-0.02em;">B</div>
             <div>
-              <div class="gap-subject-name"><span class="lang-th">วิทยาศาสตร์ (ฟิสิกส์/เคมี/ชีววิทยา)</span><span class="lang-en">Sciences (Physics / Chemistry / Biology)</span></div>
-              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA, OCR</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div class="gap-difficulty">
-              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
-              <span class="gap-diff-label lang-th">ช่องว่างปานกลาง</span>
-              <span class="gap-diff-label lang-en">Medium gap</span>
-            </div>
-            <span class="gap-toggle">+</span>
-          </div>
-        </div>
-        <div class="gap-card-body">
-          <div class="gap-card-inner">
-            <div class="gap-col-wrap gap-col-before">
-              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
-              <ul>
-                <li><span class="lang-th">Lab work และ lab reports เป็นส่วนสำคัญของเกรด</span><span class="lang-en">Lab work and lab reports are graded components</span></li>
-                <li><span class="lang-th">เน้นการสืบเสาะและ inquiry-based learning</span><span class="lang-en">Inquiry-based learning and exploration</span></li>
-              </ul>
-            </div>
-            <div class="gap-col-wrap gap-col-after">
-              <h4><span class="lang-th">UK Boarding</span><span class="lang-en">UK Boarding</span></h4>
-              <ul>
-                <li><span class="lang-th">เกรดมาจากการสอบเป็นหลัก ต้องจำ equations และ definitions ได้แม่นยำ</span><span class="lang-en">Grades come from exams — equations and definitions must be memorised precisely</span></li>
-                <li><span class="lang-th">ต้องเขียน extended answer ในรูปแบบที่ตรงกับ mark scheme</span><span class="lang-en">Extended written answers must match mark scheme language exactly</span></li>
-              </ul>
-            </div>
-            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">ฝึก exam technique เฉพาะวิทยาศาสตร์ ทั้งการจำ equations, การเขียน answer ตาม mark scheme และการทำข้อสอบ past paper จริง</span><span class="lang-en">We train science exam technique specifically — memorisation systems for equations, mark-scheme aligned written answers, and real past paper practice.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Economics/Business -->
-      <div class="gap-card" id="gc-econ">
-        <div class="gap-card-header" onclick="toggleGap('gc-econ')">
-          <div class="gap-card-left">
-            <div class="gap-subject-icon" style="font-size:0.82rem;">Eco</div>
-            <div>
-              <div class="gap-subject-name"><span class="lang-th">เศรษฐศาสตร์ / ธุรกิจ</span><span class="lang-en">Economics / Business Studies</span></div>
-              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA</div>
+              <div class="gap-subject-name"><span class="lang-th">การสื่อสารแบบอังกฤษแท้ๆ</span><span class="lang-en">British Communication Style</span></div>
+              <div class="gap-subject-sub"><span class="lang-th">พูดตรง แต่ไม่ได้หมายความนั้น</span><span class="lang-en">Saying everything except what you mean</span></div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="gap-difficulty">
               <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot filled"></div></div>
-              <span class="gap-diff-label lang-th">ช่องว่างสูง</span>
-              <span class="gap-diff-label lang-en">High gap</span>
+              <span class="gap-diff-label lang-th">ปรับตัวสูง</span>
+              <span class="gap-diff-label lang-en">Challenging</span>
             </div>
             <span class="gap-toggle">+</span>
           </div>
@@ -467,20 +454,148 @@
         <div class="gap-card-body">
           <div class="gap-card-inner">
             <div class="gap-col-wrap gap-col-before">
-              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
+              <h4><span class="lang-th">สิ่งที่คุณน่าจะจินตนาการ</span><span class="lang-en">What you might imagine</span></h4>
               <ul>
-                <li><span class="lang-th">Business Plan, case studies และ presentations</span><span class="lang-en">Business plans, case studies and presentations</span></li>
-                <li><span class="lang-th">เน้นความคิดสร้างสรรค์และการนำไปใช้จริง</span><span class="lang-en">Creative thinking and real-world application</span></li>
+                <li><span class="lang-th">คนอังกฤษสุภาพและพูดตรงๆ ถ้ามีปัญหาก็จะบอก</span><span class="lang-en">British people are polite — if there's a problem, they'll say so</span></li>
+                <li><span class="lang-th">ภาษาอังกฤษจากโรงเรียนนานาชาติเพียงพอสำหรับทุกสถานการณ์</span><span class="lang-en">International school English is enough for every social situation</span></li>
+                <li><span class="lang-th">ยิ้มและพยักหน้าเพื่อแสดงความเคารพ = สัมพันธภาพที่ดี</span><span class="lang-en">Smiling and nodding to show respect = good relationship</span></li>
               </ul>
             </div>
             <div class="gap-col-wrap gap-col-after">
-              <h4><span class="lang-th">UK Boarding</span><span class="lang-en">UK Boarding</span></h4>
+              <h4><span class="lang-th">ความจริงที่รอลูกคุณอยู่</span><span class="lang-en">The reality inside</span></h4>
               <ul>
-                <li><span class="lang-th">ต้องสร้างและโต้แย้ง argument ทางเศรษฐศาสตร์อย่างเป็นระบบ</span><span class="lang-en">Must construct and counter structured economic arguments</span></li>
-                <li><span class="lang-th">ใช้ diagram (เช่น AD/AS, PPF) อย่างถูกต้องในคำตอบ</span><span class="lang-en">Diagrams (AD/AS, PPF etc.) must be used correctly in answers</span></li>
+                <li><span class="lang-th">"That's quite interesting" มักหมายถึง "ฉันไม่เห็นด้วย" — ต้องเรียนรู้การ understatement</span><span class="lang-en">"That's quite interesting" often means "I disagree" — understatement is the native language</span></li>
+                <li><span class="lang-th">Sarcasm และ dry humour ใช้ตลอดเวลา โดยไม่มีสัญญาณเตือน</span><span class="lang-en">Sarcasm and dry humour are constant — used without any warning signal</span></li>
+                <li><span class="lang-th">ยิ้มพยักหน้าเงียบๆ อาจถูกมองว่า "ไม่มีความเห็น" ไม่ใช่ "สุภาพ"</span><span class="lang-en">Silent smiling and nodding can read as "no opinion" — not politeness</span></li>
               </ul>
             </div>
-            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">สอนรูปแบบการเขียน 4-mark และ 25-mark answer ที่ตรงกับ marking criteria โดยเฉพาะ พร้อมฝึกการวาด diagram อย่างถูกต้อง</span><span class="lang-en">We teach the exact 4-mark and 25-mark answer formats the mark schemes reward, with specific diagram drawing practice.</span></div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">เราฝึกนักเรียนให้อ่าน tone ของคนอังกฤษ เข้าใจ understatement และสร้าง social confidence ในการพูดคุยกับเพื่อนและครูชาวอังกฤษ ก่อนที่จะต้องเจอสถานการณ์จริง</span><span class="lang-en">We coach students in reading British tone, understanding understatement, and building the social confidence to connect with British peers and teachers — before they face these situations alone.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Independence -->
+      <div class="gap-card" id="gc-indep">
+        <div class="gap-card-header" onclick="toggleGap('gc-indep')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.75rem;">≠</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">อิสระที่คุณต้องรับผิดชอบเอง</span><span class="lang-en">Total Independence</span></div>
+              <div class="gap-subject-sub"><span class="lang-th">ไม่มีแม่ ไม่มีเตือน ไม่มีคนช่วยจัดการ</span><span class="lang-en">No parents, no reminders, no rescue</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot filled"></div></div>
+              <span class="gap-diff-label lang-th">ปรับตัวสูงมาก</span>
+              <span class="gap-diff-label lang-en">Very challenging</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">สิ่งที่คุณน่าจะจินตนาการ</span><span class="lang-en">What you might imagine</span></h4>
+              <ul>
+                <li><span class="lang-th">โรงเรียนจะมีโครงสร้าง ครูจะดูแลและเตือนตลอด</span><span class="lang-en">The school will have structure — teachers will guide and remind</span></li>
+                <li><span class="lang-th">ลูกเคยเรียนดีมาตลอด จะจัดการตัวเองได้</span><span class="lang-en">Your child has always been a good student — they'll manage fine</span></li>
+                <li><span class="lang-th">ถ้ามีปัญหา ลูกสามารถโทรหาพ่อแม่ได้ตลอดเวลา</span><span class="lang-en">If there's a problem, they can always call home</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">ความจริงที่รอลูกคุณอยู่</span><span class="lang-en">The reality inside</span></h4>
+              <ul>
+                <li><span class="lang-th">ตารางเรียน การซักผ้า การวางแผนสุดสัปดาห์ — ลูกต้องจัดการทั้งหมดด้วยตัวเอง</span><span class="lang-en">Study schedule, laundry, weekend plans — all managed alone, by the student</span></li>
+                <li><span class="lang-th">Deadline ไม่ได้รับการเตือนสองครั้ง — เรียงความที่พลาดหนึ่งชิ้นส่งผลต่อเทอมทั้งเทอม</span><span class="lang-en">Deadlines don't get reminded twice — one missed essay can affect the whole term grade</span></li>
+                <li><span class="lang-th">ความคิดถึงบ้านรุนแรงที่สุดในสัปดาห์ที่ 3 ไม่ใช่สัปดาห์แรก — เมื่อความตื่นเต้นหมดลง</span><span class="lang-en">Homesickness peaks at week 3, not week 1 — when the novelty wears off and reality sets in</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">เราสร้างทักษะการจัดการตัวเองและวินัยการเรียนก่อนเด็กออกจากกรุงเทพฯ และยังคงติดต่อสนับสนุนนักเรียนในเทอมแรกที่ UK</span><span class="lang-en">We build self-management skills and study routines before students leave Bangkok — and stay in contact to support them through Term 1 in the UK.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Traditions -->
+      <div class="gap-card" id="gc-traditions">
+        <div class="gap-card-header" onclick="toggleGap('gc-traditions')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.72rem;">✦</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">ประเพณีที่ไม่มีในไทย</span><span class="lang-en">Rituals &amp; Traditions</span></div>
+              <div class="gap-subject-sub"><span class="lang-th">200 ปีของกฎที่ไม่มีใครบอก</span><span class="lang-en">200 years of unwritten rules</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
+              <span class="gap-diff-label lang-th">ปรับตัวปานกลาง</span>
+              <span class="gap-diff-label lang-en">Moderate</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">สิ่งที่คุณน่าจะจินตนาการ</span><span class="lang-en">What you might imagine</span></h4>
+              <ul>
+                <li><span class="lang-th">ประเพณีของ UK น่าสนใจ แต่คงเป็นแค่กิจกรรมเสริม</span><span class="lang-en">UK traditions sound interesting — but probably just optional extras</span></li>
+                <li><span class="lang-th">คล้ายโรงเรียนนานาชาติ แค่อยู่ในอังกฤษ</span><span class="lang-en">It'll be similar to international school, just located in England</span></li>
+                <li><span class="lang-th">จะค่อยๆ เรียนรู้เองได้ ไม่น่าเป็นเรื่องใหญ่</span><span class="lang-en">You'll pick things up as you go — it can't be that complicated</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">ความจริงที่รอลูกคุณอยู่</span><span class="lang-en">The reality inside</span></h4>
+              <ul>
+                <li><span class="lang-th">Chapel หรือ assembly ทุกวัน, Games afternoon 3 ครั้ง/สัปดาห์, Speech Day, Founder's Day — เหล่านี้คือชีวิต ไม่ใช่กิจกรรมเสริม</span><span class="lang-en">Chapel or assembly daily, Games afternoon 3x/week, Speech Day, Founder's Day — these are the heartbeat of school life, not extras</span></li>
+                <li><span class="lang-th">การไม่เข้าร่วมถูกสังเกตและจดจำโดยเพื่อนและครู</span><span class="lang-en">Not participating is noticed and remembered by both peers and staff</span></li>
+                <li><span class="lang-th">Dress code สำหรับมื้อค่ำ chapel และ formal events — นักเรียนใหม่ที่ไม่รู้จะโดดเด่นทันทีในแบบที่ไม่ดี</span><span class="lang-en">Specific dress codes for dinner, chapel and formal events — first-termers who don't know stand out immediately</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">เราพานักเรียนผ่านประเพณีหลักของโรงเรียนเป้าหมายก่อนวันเดินทาง — เพื่อไม่มีสัปดาห์แรกที่น่าอาย เพราะไม่รู้กฎที่คนอื่นรู้ทั้งหมด</span><span class="lang-en">We walk students through the key traditions of their specific school before departure — so there's no awkward first week of not knowing the rules everyone else already knows.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Teacher dynamic -->
+      <div class="gap-card" id="gc-teachers">
+        <div class="gap-card-header" onclick="toggleGap('gc-teachers')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.72rem;">↑↓</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">ครูที่คาดหวังให้คุณโต้เถียง</span><span class="lang-en">Teachers Who Expect You to Disagree</span></div>
+              <div class="gap-subject-sub"><span class="lang-th">การโต้แย้ง = ความเคารพ ไม่ใช่ความหยาบคาย</span><span class="lang-en">Debate is respect, not rudeness</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
+              <span class="gap-diff-label lang-th">ปรับตัวปานกลาง</span>
+              <span class="gap-diff-label lang-en">Moderate</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">สิ่งที่คุณน่าจะจินตนาการ</span><span class="lang-en">What you might imagine</span></h4>
+              <ul>
+                <li><span class="lang-th">เคารพครู = นั่งเงียบ ฟัง และไม่โต้แย้ง</span><span class="lang-en">Respecting a teacher means sitting quietly, listening, never challenging</span></li>
+                <li><span class="lang-th">ครูอังกฤษยังคงเป็น authority figure เหมือนในไทย</span><span class="lang-en">British teachers are still authority figures — similar to Thailand</span></li>
+                <li><span class="lang-th">เด็กดีคือเด็กที่ส่งงานตรงเวลาและตั้งใจฟัง</span><span class="lang-en">A "good student" is one who submits work on time and pays attention</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">ความจริงที่รอลูกคุณอยู่</span><span class="lang-en">The reality inside</span></h4>
+              <ul>
+                <li><span class="lang-th">ครู UK คาดหวังให้นักเรียนโต้แย้ง ตั้งคำถาม และไม่เห็นด้วย — นั่นคือสัญญาณว่าคุณกำลังเรียนรู้</span><span class="lang-en">UK teachers actively expect students to challenge, question and disagree — that signals intellectual engagement</span></li>
+                <li><span class="lang-th">การอภิปรายในชั้นเรียนถูกประเมิน นักเรียนเงียบๆ ถูกมองว่า "ไม่ engage" ไม่ใช่ "สุภาพ"</span><span class="lang-en">Classroom discussion is assessed — a silent, obedient student reads as "disengaged", not polite</span></li>
+                <li><span class="lang-th">บางโรงเรียนเรียกครูว่า first name ระดับความ formal ขึ้นอยู่กับครู แต่น้อยกว่าไทยเสมอ</span><span class="lang-en">Some schools use first names — the formality level is set by the teacher, but always less formal than Thai school</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">เราสร้างความมั่นใจในการมีส่วนร่วมทางความคิด — นักเรียนมาถึงห้องเรียนพร้อมพูด อภิปราย และสร้างความประทับใจ ไม่ใช่แค่นั่งเงียบๆ</span><span class="lang-en">We build confident intellectual participation — so students arrive ready to discuss, debate and impress in class, not just sit quietly and hope for the best.</span></div>
           </div>
         </div>
       </div>
@@ -553,6 +668,97 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TUTOR PROFILES -->
+<section class="section" style="background: var(--cream); padding-bottom: 40px;">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <div class="section-label" style="justify-content:center;">
+        <span class="lang-th">· ทีมติวเตอร์ ·</span>
+        <span class="lang-en">· Meet some of our tutors ·</span>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:400; color:var(--dark); line-height:1.2;">
+        <span class="lang-th">ติวเตอร์จากมหาวิทยาลัย<em style="font-style:italic;color:var(--gold);">ชั้นนำโลก</em></span>
+        <span class="lang-en">Tutors from <em style="font-style:italic;color:var(--gold);">world-leading universities</em></span>
+      </h2>
+      <p style="font-size:0.93rem; color:rgba(26,26,26,0.6); max-width:520px; margin:14px auto 0; line-height:1.75;">
+        <span class="lang-th">ทุกคนผ่านการคัดเลือก 3 ขั้น — เชี่ยวชาญหลักสูตรอังกฤษ และเข้าใจวิธีคิดของนักเรียนไทย</span>
+        <span class="lang-en">Every tutor passes a 3-stage selection — UK curriculum specialists who understand how Thai students learn.</span>
+      </p>
+    </div>
+  </div>
+  <div class="section-inner">
+  <div class="tutors-grid">
+
+    <!-- Tutor 1: Oxford -->
+    <div class="tutor-card">
+      <div class="tutor-avatar">JH</div>
+      <div><span class="tutor-uni-badge">University of Oxford</span></div>
+      <div class="tutor-name">James H.</div>
+      <div class="tutor-subjects">Mathematics · Economics</div>
+      <div class="tutor-bio">
+        <span class="lang-th">สำเร็จการศึกษาจาก Oxford ด้านคณิตศาสตร์ เชี่ยวชาญ A-Level และ GCSE (Edexcel, AQA) มีประสบการณ์กว่า 6 ปีกับนักเรียนนานาชาติจากทั่วเอเชีย เน้นการฝึก exam technique ที่ตรงกับ mark scheme จริง</span>
+        <span class="lang-en">Oxford Mathematics graduate. A-Level and GCSE specialist across Edexcel and AQA. Six years with international students from across Asia, focused on exam technique matched to real mark schemes.</span>
+      </div>
+      <div class="tutor-tags">
+        <span class="tutor-tag">Edexcel · AQA</span>
+        <span class="tutor-tag">A-Level</span>
+        <span class="tutor-tag">Online &amp; Bangkok</span>
+      </div>
+    </div>
+
+    <!-- Tutor 2: Harvard -->
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:rgba(184,150,46,0.1);color:var(--gold);">SR</div>
+      <div><span class="tutor-uni-badge" style="background:rgba(184,150,46,0.08);color:var(--gold);border-color:rgba(184,150,46,0.25);">Harvard University</span></div>
+      <div class="tutor-name">Sarah R.</div>
+      <div class="tutor-subjects">English Literature · History</div>
+      <div class="tutor-bio">
+        <span class="lang-th">จบจาก Harvard ด้านภาษาอังกฤษและวรรณคดี เชี่ยวชาญการสอน analytical essay writing และ close reading ตามมาตรฐาน UK Boarding เข้าใจช่องว่างที่นักเรียนไทยพบบ่อยที่สุด</span>
+        <span class="lang-en">Harvard English Literature graduate. Specialist in analytical essay writing and close reading to UK boarding standards. Experienced with the gaps Thai students face most.</span>
+      </div>
+      <div class="tutor-tags">
+        <span class="tutor-tag">AQA · OCR</span>
+        <span class="tutor-tag">GCSE &amp; A-Level</span>
+        <span class="tutor-tag">Online</span>
+      </div>
+    </div>
+
+    <!-- Tutor 3: HKU -->
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:rgba(26,26,26,0.06);color:rgba(26,26,26,0.4);">KL</div>
+      <div><span class="tutor-uni-badge">Univ. of Hong Kong</span></div>
+      <div class="tutor-name">Kevin L.</div>
+      <div class="tutor-subjects">Physics · Chemistry · Biology</div>
+      <div class="tutor-bio">
+        <span class="lang-th">จบจาก University of Hong Kong ด้านฟิสิกส์ เชี่ยวชาญ A-Level Sciences และ IGCSE Cambridge คุ้นเคยระบบการศึกษาทั้งเอเชียและ UK เน้น equations mastery และการเขียน answer ตาม mark scheme อย่างแม่นยำ</span>
+        <span class="lang-en">HKU Physics graduate. A-Level Sciences and IGCSE Cambridge specialist. Familiar with both Asian and UK systems, with a focus on equations mastery and mark-scheme-precise written answers.</span>
+      </div>
+      <div class="tutor-tags">
+        <span class="tutor-tag">Cambridge IGCSE</span>
+        <span class="tutor-tag">A-Level Sciences</span>
+        <span class="tutor-tag">Online &amp; Bangkok</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- "More tutors" note -->
+  <div style="margin-top: 36px; padding: 20px 28px; background: rgba(184,150,46,0.06); border: 1px solid rgba(184,150,46,0.18); border-radius: 8px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+    <div style="font-size: 1.4rem; color: var(--gold); flex-shrink:0;">+</div>
+    <div style="flex:1; min-width: 200px;">
+      <div style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--dark); margin-bottom:4px;">
+        <span class="lang-th">นี่เป็นเพียงตัวอย่างติวเตอร์บางส่วนของเรา</span>
+        <span class="lang-en">These are just a few examples from our tutor network</span>
+      </div>
+      <div style="font-size:0.82rem; color:rgba(26,26,26,0.55); line-height:1.6;">
+        <span class="lang-th">เรามีติวเตอร์จากมหาวิทยาลัยชั้นนำทั่วโลก ครอบคลุมทุกวิชาและทุก Exam Board — หลังการประเมินเบื้องต้น เราจะจับคู่ติวเตอร์ที่เหมาะกับลูกคุณโดยเฉพาะ</span>
+        <span class="lang-en">We have tutors from world-leading universities across Oxford, Cambridge, Harvard, LSE, Imperial, HKU, NUS and more — covering every subject and exam board. After your free assessment, we match the right tutor for your child specifically.</span>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
 
@@ -697,6 +903,30 @@
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- FREE ASSESSMENT CTA STRIP -->
+<section style="background: var(--gold); padding: 52px 40px;">
+  <div style="max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 260px;">
+      <div style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,26,26,0.55); margin-bottom: 10px;">
+        <span class="lang-th">· ไม่มีข้อผูกมัด ·</span>
+        <span class="lang-en">· No commitment required ·</span>
+      </div>
+      <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; color:var(--dark); line-height:1.2; margin-bottom:10px;">
+        <span class="lang-th">ประเมินฟรี 1 ชั่วโมง</span>
+        <span class="lang-en">Free 1-hour assessment</span>
+      </div>
+      <div style="font-size:0.88rem; color:rgba(26,26,26,0.68); line-height:1.7; max-width:480px;">
+        <span class="lang-th">เราวิเคราะห์ระดับปัจจุบัน แนะนำแพ็กเกจที่เหมาะ และตอบทุกคำถามของผู้ปกครอง — ก่อนตัดสินใจใดๆ ทั้งสิ้น</span>
+        <span class="lang-en">We map the student's current level, recommend the right programme, and answer every parent question — before any decision is made.</span>
+      </div>
+    </div>
+    <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" style="display:inline-block; background:var(--dark); color:var(--cream); font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:18px 40px; border-radius:6px; text-decoration:none; white-space:nowrap; flex-shrink:0; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.82'" onmouseout="this.style.opacity='1'">
+      <span class="lang-th">จองประเมินฟรี → LINE</span>
+      <span class="lang-en">Book Free Assessment → LINE</span>
+    </a>
   </div>
 </section>
 
@@ -891,10 +1121,6 @@
         <div style="font-family:'Inter',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:#B8962E; text-transform:uppercase; margin-bottom:6px;">06 · <span class="lang-th">ติดตามผล</span><span class="lang-en">Tracking</span></div>
         <div style="font-family:'Inter',sans-serif; font-size:0.82rem; color:#f5f0e8; line-height:1.4;"><span class="lang-th">ติดตามคะแนนสอบจำลอง</span><span class="lang-en">Mock Score Tracker</span></div>
       </a>
-      <a href="tools/tutoring/tutoring-summer-planner.html" style="display:block; background:rgba(245,240,232,0.05); border:1px solid rgba(184,150,46,0.2); border-radius:6px; padding:14px 16px; text-decoration:none; transition: border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='#B8962E';this.style.background='rgba(184,150,46,0.08)'" onmouseout="this.style.borderColor='rgba(184,150,46,0.2)';this.style.background='rgba(245,240,232,0.05)'">
-        <div style="font-family:'Inter',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:#B8962E; text-transform:uppercase; margin-bottom:6px;">07 · <span class="lang-th">วางแผน</span><span class="lang-en">Planning</span></div>
-        <div style="font-family:'Inter',sans-serif; font-size:0.82rem; color:#f5f0e8; line-height:1.4;"><span class="lang-th">วางแผนติวเข้มช่วงปิดเทอม</span><span class="lang-en">Summer Intensive Planner</span></div>
-      </a>
       <a href="tools/tutoring/tutoring-career-path-quiz.html" style="display:block; background:rgba(245,240,232,0.05); border:1px solid rgba(184,150,46,0.2); border-radius:6px; padding:14px 16px; text-decoration:none; transition: border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='#B8962E';this.style.background='rgba(184,150,46,0.08)'" onmouseout="this.style.borderColor='rgba(184,150,46,0.2)';this.style.background='rgba(245,240,232,0.05)'">
         <div style="font-family:'Inter',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:#B8962E; text-transform:uppercase; margin-bottom:6px;">08 · <span class="lang-th">อาชีพ</span><span class="lang-en">Career</span></div>
         <div style="font-family:'Inter',sans-serif; font-size:0.82rem; color:#f5f0e8; line-height:1.4;"><span class="lang-th">อาชีพใดเหมาะกับลูก?</span><span class="lang-en">Career Path Quiz</span></div>
@@ -910,10 +1136,6 @@
       <a href="tools/tutoring/tutoring-learning-style.html" style="display:block; background:rgba(245,240,232,0.05); border:1px solid rgba(184,150,46,0.2); border-radius:6px; padding:14px 16px; text-decoration:none; transition: border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='#B8962E';this.style.background='rgba(184,150,46,0.08)'" onmouseout="this.style.borderColor='rgba(184,150,46,0.2)';this.style.background='rgba(245,240,232,0.05)'">
         <div style="font-family:'Inter',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:#B8962E; text-transform:uppercase; margin-bottom:6px;">11 · <span class="lang-th">สไตล์การเรียน</span><span class="lang-en">Learning Style</span></div>
         <div style="font-family:'Inter',sans-serif; font-size:0.82rem; color:#f5f0e8; line-height:1.4;"><span class="lang-th">ค้นหาสไตล์และจับคู่ติวเตอร์</span><span class="lang-en">Style & Tutor Match</span></div>
-      </a>
-      <a href="tools/tutoring/tutoring-gifted-checker.html" style="display:block; background:rgba(245,240,232,0.05); border:1px solid rgba(184,150,46,0.2); border-radius:6px; padding:14px 16px; text-decoration:none; transition: border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='#B8962E';this.style.background='rgba(184,150,46,0.08)'" onmouseout="this.style.borderColor='rgba(184,150,46,0.2)';this.style.background='rgba(245,240,232,0.05)'">
-        <div style="font-family:'Inter',sans-serif; font-size:0.65rem; letter-spacing:0.1em; color:#B8962E; text-transform:uppercase; margin-bottom:6px;">12 · <span class="lang-th">ศักยภาพ</span><span class="lang-en">Potential</span></div>
-        <div style="font-family:'Inter',sans-serif; font-size:0.82rem; color:#f5f0e8; line-height:1.4;"><span class="lang-th">ลูกมีความสามารถพิเศษ?</span><span class="lang-en">Gifted Academic Checker</span></div>
       </a>
     </div>
     <div style="margin-top:20px; text-align:right;">
@@ -1039,8 +1261,71 @@
     });
   }
 
-  setLang('th');
+  setLang(localStorage.getItem('linkedu-lang') || 'th');
 </script>
+<script src="js/main.js"></script>
+
+<!-- GLOBAL ENQUIRY MODAL -->
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:6px;"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#f5f0e8;line-height:1.15;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      </div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">&times;</button>
+    </div>
+    <div style="background:#222;padding:10px 28px;display:flex;flex-wrap:wrap;gap:8px 20px;border-bottom:1px solid rgba(184,150,46,0.15);">
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">40,000+ นักเรียน</span><span class="lang-en">40,000+ students placed</span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">600+ โรงเรียนพันธมิตร</span><span class="lang-en">600+ partner schools</span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+    </div>
+    <div style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Switzerland</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+      <button onclick="alert('ขอบคุณครับ/ค่ะ!\nLINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง'); closeEqModal();" style="width:100%;background:#B8962E;color:#fff;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี &rarr;</span>
+        <span class="lang-en">Send Enquiry — Free Consultation &rarr;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CONSULT BUTTON -->
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="openEqModal()" style="background:#B8962E;color:#fff;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);">
+    <span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span>
+  </button>
+</div>
+
+<script>
+  function openEqModal() {
+    document.getElementById('eqOverlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeEqModal() {
+    document.getElementById('eqOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function consultAction() {
+    var f = document.getElementById('contact-form');
+    if (f) { f.scrollIntoView({behavior:'smooth',block:'start'}); }
+    else { openEqModal(); }
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeEqModal(); });
+</script>
+
 </body>
 </html>
 <!-- tutoring-v3: The Journey Map — interactive finder, gap visualisation, step-by-step roadmap, long FAQ -->

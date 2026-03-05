@@ -482,37 +482,47 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
-<div class="modal" id="modal">
-  <button class="modal-close" onclick="closeModal()">×</button>
-  <div class="modal-header">
-    <div class="modal-header-label"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
-    <div class="modal-header-sub" id="modalSchoolName">Bryanston School</div>
-  </div>
-  <div class="modal-body">
-    <div class="modal-section">
-      <div class="modal-section-title"><span class="lang-th">ข้อมูลนักเรียน</span><span class="lang-en">Student Details</span></div>
-      <div class="modal-row">
-        <div class="modal-field"><label class="modal-label"><span class="lang-th">ชื่อนักเรียน</span><span class="lang-en">Student Name</span></label><input type="text" class="modal-input" placeholder="e.g. Nong Suparat"></div>
-        <div class="modal-field"><label class="modal-label"><span class="lang-th">อายุ</span><span class="lang-en">Age</span></label><input type="number" class="modal-input" min="8" max="18" placeholder="e.g. 13"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" id="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-header-label"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
+        <div class="modal-header-sub" id="modalSchoolName">Bryanston School</div>
       </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
     </div>
-    <div class="modal-section">
-      <div class="modal-section-title"><span class="lang-th">ข้อมูลผู้ปกครอง</span><span class="lang-en">Parent Details</span></div>
-      <div class="modal-field"><label class="modal-label"><span class="lang-th">ชื่อผู้ปกครอง</span><span class="lang-en">Parent Name</span></label><input type="text" class="modal-input" placeholder="e.g. Khun Somchai"></div>
-      <div class="modal-row">
-        <div class="modal-field"><label class="modal-label">LINE ID</label><input type="text" class="modal-input" placeholder="@your.line.id"></div>
-        <div class="modal-field"><label class="modal-label">Email</label><input type="email" class="modal-input" placeholder="your@email.com"></div>
+    <div style="background:#222;padding:12px 28px;display:flex;flex-wrap:wrap;gap:8px 20px;border-bottom:1px solid rgba(184,150,46,0.2);">
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">✓ <span style="color:var(--gold);font-weight:600;">Free service</span> — no fees to you, ever</span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">✓ Reply within 24 hrs via LINE or email</span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">✓ We apply directly to the school for you</span>
+      <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.75);white-space:nowrap;">✓ Trusted by families since 2015</span>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-row">
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" class="modal-input" placeholder="เช่น สุภรัตน์"></div>
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" class="modal-input" placeholder="เช่น วงศ์สมบูรณ์"></div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">วันเกิด</span><span class="lang-en">Date of Birth</span></label><input type="date" class="modal-input"></div>
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label><select class="modal-input"><option value="">-- เลือก --</option><option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option><option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option><option>Year 12 / ม.6</option><option>Year 13 / ม.6 (ปลาย)</option><option>อื่นๆ</option></select></div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" class="modal-input" placeholder="+66 81 234 5678"></div>
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" class="modal-input" placeholder="your@email.com"></div>
+        </div>
+        <div class="modal-field"><label class="modal-label"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" class="modal-input" placeholder="@your.line.id"></div>
+        <div class="modal-row">
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label><select class="modal-input"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Canada</option><option>Switzerland</option><option>อื่นๆ</option></select></div>
+          <div class="modal-field"><label class="modal-label"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Intended Entry Year</span></label><select class="modal-input"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+        </div>
+        <div class="modal-field"><label class="modal-label"><span class="lang-th">โรงเรียนที่สนใจ</span><span class="lang-en">Schools of Interest</span></label><input type="text" class="modal-input" value="Bryanston School" placeholder="เช่น Harrow, Bromsgrove, Millfield"></div>
       </div>
+      <button class="btn-primary" style="width:100%;padding:14px;font-size:0.88rem;color:#fff;" onclick="submitModal()">
+        <span class="lang-th">ส่งข้อมูล / ปรึกษาฟรี</span>
+        <span class="lang-en">Send Enquiry / Free Consultation</span>
+      </button>
     </div>
-    <div class="modal-section">
-      <div class="modal-section-title"><span class="lang-th">คำถามเพิ่มเติม</span><span class="lang-en">Additional Questions</span></div>
-      <textarea class="modal-textarea" placeholder="Any specific questions about Bryanston School, scholarships, sports, or the application process..."></textarea>
-    </div>
-    <button class="btn-primary" style="width:100%;padding:14px;font-size:0.88rem;" onclick="submitModal()">
-      <span class="lang-th">ส่งข้อมูล / ปรึกษาฟรี</span>
-      <span class="lang-en">Send Enquiry / Free Consultation</span>
-    </button>
   </div>
 </div>
 
@@ -521,6 +531,7 @@
     document.documentElement.setAttribute('lang', l);
     document.getElementById('btn-th').classList.toggle('active', l === 'th');
     document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    localStorage.setItem('linkedu-lang', l);
   }
   function toggleMobile() {
     const n = document.getElementById('mobileNav');
@@ -528,13 +539,11 @@
   }
   function openModal(name) {
     document.getElementById('modalSchoolName').textContent = name || 'Bryanston School';
-    document.getElementById('modalOverlay').style.display = 'block';
-    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeModal() {
-    document.getElementById('modalOverlay').style.display = 'none';
-    document.getElementById('modal').style.display = 'none';
+    document.getElementById('modalOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
   function submitModal() {
@@ -546,7 +555,7 @@
     const bar = document.getElementById('stickyBar');
     if (bar) bar.classList.toggle('visible', window.scrollY > 600);
   });
-  setLang('th');
+  setLang(localStorage.getItem('linkedu-lang') || 'th');
 </script>
 </body>
 </html>

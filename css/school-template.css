@@ -1,4 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { padding-bottom: 80px; }
 
     :root {
       --dark: #1a1a1a;
@@ -567,9 +568,14 @@
     .modal-header-title {
       font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--cream);
     }
+    .modal-header-label {
+      font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(245,240,232,0.4); margin-bottom: 8px;
+    }
     .modal-header-sub {
-      font-family: 'Inter', sans-serif; font-size: 0.78rem;
-      color: rgba(245,240,232,0.45); margin-top: 4px;
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--gold); line-height: 1.15;
     }
     .modal-close {
       background: none; border: none; color: rgba(245,240,232,0.5);
@@ -579,6 +585,8 @@
     .modal-close:hover { color: var(--gold); }
     .modal-body { padding: 28px; }
     .modal-group { margin-bottom: 18px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-row { margin-bottom: 16px; }
     .modal-label {
       display: block; font-family: 'Inter', sans-serif; font-size: 0.72rem;
       font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
