@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK Tutoring | Subject-by-Subject Preparation | LINKEDU</title>
+  <meta name="description" content="ติวเตอร์เฉพาะวิชาสำหรับนักเรียนโรงเรียนนานาชาติที่เตรียมเข้า UK Boarding | Subject-specific tutoring for international school students entering UK boarding">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --dark: #1a1a1a; --cream: #f5f0e8; --gold: #B8962E; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--dark); -webkit-font-smoothing: antialiased; }
+    html[lang="en"] .lang-th { display: none; }
+    html[lang="th"] .lang-en { display: none; }
+    .site-header { position: sticky; top: 0; z-index: 100; background: var(--dark); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; border-bottom: 1px solid rgba(184,150,46,0.2); }
+    .logo-wrap { text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--cream); font-size: 0.875rem; text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle { display: flex; gap: 6px; }
+    .lang-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 0.72rem; padding: 4px 10px; cursor: pointer; border-radius: 3px; transition: all 0.2s; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
+    .lang-btn.active { background: var(--gold); color: var(--dark); }
+    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+    .mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); }
+    .mobile-nav { display: none; background: var(--dark); padding: 16px 40px 24px; border-top: 1px solid rgba(184,150,46,0.15); }
+    .mobile-nav a { display: block; color: var(--cream); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(245,240,232,0.07); font-size: 0.95rem; }
+    .section-label { font-size: 11px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .section-label::before { content: ''; display: block; height: 1px; width: 32px; background: var(--gold); }
+
+    /* HERO */
+    .hero { background: var(--dark); padding: 88px 40px 0; }
+    .hero-top { max-width: 860px; margin: 0 auto; text-align: center; padding-bottom: 56px; }
+    .hero-eyebrow { font-size: 0.78rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.6rem; font-weight: 400; color: var(--cream); line-height: 1.12; margin-bottom: 20px; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 1rem; color: rgba(245,240,232,0.62); line-height: 1.75; max-width: 600px; margin: 0 auto 48px; }
+
+    /* STATS BAR */
+    .stats-bar { background: rgba(184,150,46,0.1); border-top: 1px solid rgba(184,150,46,0.25); padding: 28px 40px; }
+    .stats-grid { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 16px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.68rem; color: rgba(245,240,232,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; line-height: 1.4; }
+
+    /* FINDER */
+    .finder-widget { background: rgba(245,240,232,0.05); border: 1px solid rgba(184,150,46,0.25); border-bottom: none; border-radius: 12px 12px 0 0; max-width: 880px; margin: 0 auto; padding: 36px 40px 32px; }
+    .finder-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400; color: var(--cream); text-align: center; margin-bottom: 28px; }
+    .finder-title span { color: var(--gold); font-style: italic; }
+    .finder-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    .finder-group label { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 8px; }
+    .finder-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { background: transparent; border: 1px solid rgba(245,240,232,0.18); color: rgba(245,240,232,0.65); font-size: 0.82rem; padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all 0.25s; font-family: 'Inter', sans-serif; }
+    .chip:hover { border-color: rgba(184,150,46,0.5); color: var(--cream); }
+    .chip.selected { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 600; }
+    .finder-result { display: none; text-align: center; padding-top: 4px; }
+    .finder-result.visible { display: block; }
+    .finder-result p { font-size: 0.86rem; color: rgba(245,240,232,0.58); margin-bottom: 8px; }
+    .finder-match { display: inline-block; background: var(--gold); color: var(--dark); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; padding: 8px 20px; border-radius: 6px; }
+    .finder-scroll { background: transparent; border: none; color: var(--gold); font-size: 0.76rem; font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; margin-top: 10px; display: inline-block; }
+
+    /* SECTIONS */
+    .section { padding: 80px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-dark { background: var(--dark); }
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 400; line-height: 1.18; }
+    .section-header p { margin-top: 14px; font-size: 0.93rem; color: rgba(26,26,26,0.6); max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.75; }
+    .section-dark .section-header h2 { color: var(--cream); }
+    .section-dark .section-header p { color: rgba(245,240,232,0.55); }
+
+    /* ── SUBJECT GAP CARDS — the unique visual anchor for V3B ── */
+    .subject-gaps { display: flex; flex-direction: column; gap: 12px; max-width: 900px; margin: 0 auto; }
+    .gap-card { border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; background: white; transition: box-shadow 0.2s; }
+    .gap-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .gap-card-header { padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+    .gap-card-left { display: flex; align-items: center; gap: 16px; }
+    .gap-subject-icon { width: 44px; height: 44px; background: rgba(184,150,46,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold); flex-shrink: 0; }
+    .gap-subject-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; color: var(--dark); }
+    .gap-subject-sub { font-size: 0.75rem; color: rgba(26,26,26,0.45); margin-top: 2px; }
+    .gap-difficulty { display: flex; gap: 4px; align-items: center; }
+    .gap-dot-row { display: flex; gap: 3px; }
+    .gdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(26,26,26,0.12); }
+    .gdot.filled { background: var(--gold); }
+    .gap-diff-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,26,26,0.4); margin-left: 8px; }
+    .gap-toggle { color: var(--gold); font-size: 1.2rem; transition: transform 0.3s; line-height: 1; }
+    .gap-card.open .gap-toggle { transform: rotate(45deg); }
+    .gap-card-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .gap-card-inner { padding: 0 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .gap-col-wrap h4 { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .gap-col-before h4 { color: rgba(26,26,26,0.4); }
+    .gap-col-after h4 { color: var(--gold); }
+    .gap-col-wrap ul { list-style: none; }
+    .gap-col-wrap ul li { font-size: 0.845rem; color: rgba(26,26,26,0.68); padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.04); display: flex; gap: 8px; }
+    .gap-col-before ul li::before { content: '–'; color: rgba(26,26,26,0.25); flex-shrink: 0; }
+    .gap-col-after ul li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+    .gap-linkedu-note { background: rgba(184,150,46,0.06); border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0; padding: 10px 14px; margin-top: 16px; grid-column: 1 / -1; font-size: 0.82rem; color: rgba(26,26,26,0.7); line-height: 1.6; }
+    .gap-linkedu-note strong { color: var(--gold); }
+
+    /* ── PROCESS (condensed) ── */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .process-step { text-align: center; }
+    .process-num { width: 52px; height: 52px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin: 0 auto 16px; background: var(--dark); }
+    .process-step h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: 8px; }
+    .process-step p { font-size: 0.83rem; color: rgba(245,240,232,0.52); line-height: 1.65; }
+
+    /* PACKAGES */
+    .packages-note { display: none; text-align: center; margin-bottom: 20px; }
+    .packages-note.visible { display: block; }
+    .hl-pill { display: inline-block; background: var(--gold); color: var(--dark); font-size: 0.76rem; font-weight: 600; padding: 5px 14px; border-radius: 999px; }
+    .pkgs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .pkg { background: white; border: 1px solid rgba(0,0,0,0.09); border-radius: 8px; padding: 32px 26px; transition: all 0.3s; position: relative; display: flex; flex-direction: column; }
+    .pkg:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .pkg.highlighted { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,150,46,0.15), 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-4px); }
+    .pkg-hl-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--dark); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 999px; display: none; white-space: nowrap; }
+    .pkg.highlighted .pkg-hl-badge { display: block; }
+    .pkg-when { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .pkg-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; color: var(--dark); margin-bottom: 10px; }
+    .pkg-desc { font-size: 0.865rem; color: rgba(26,26,26,0.62); line-height: 1.7; margin-bottom: 22px; flex: 1; }
+    .pkg-price { font-family: 'Playfair Display', serif; font-size: 1.85rem; color: var(--dark); margin-bottom: 3px; }
+    .pkg-price-note { font-size: 0.7rem; color: rgba(26,26,26,0.38); margin-bottom: 20px; }
+    .pkg-list { list-style: none; margin-bottom: 24px; }
+    .pkg-list li { font-size: 0.84rem; color: rgba(26,26,26,0.68); padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; gap: 10px; }
+    .pkg-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+    .pkg-cta { display: block; text-align: center; background: var(--dark); color: var(--cream); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px; border-radius: 6px; text-decoration: none; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+    .pkg.highlighted .pkg-cta { background: var(--gold); color: var(--dark); }
+    .pkg-cta:hover { background: var(--gold); color: var(--dark); }
+
+    /* FAQ */
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid rgba(245,240,232,0.1); }
+    .faq-q { width: 100%; background: none; border: none; text-align: left; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--cream); font-size: 0.92rem; font-weight: 500; font-family: 'Inter', sans-serif; }
+    .faq-icon { color: var(--gold); font-size: 1.4rem; flex-shrink: 0; transition: transform 0.3s; line-height: 1; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-a-inner { padding: 0 0 20px; color: rgba(245,240,232,0.6); font-size: 0.875rem; line-height: 1.8; }
+
+    /* LINE CTA */
+    .line-cta { background: var(--dark); padding: 80px 40px; text-align: center; border-top: 1px solid rgba(184,150,46,0.25); }
+    .line-cta h2 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 400; color: var(--cream); margin-bottom: 12px; }
+    .line-cta-sub { color: rgba(245,240,232,0.6); margin-bottom: 8px; }
+    .line-handle { color: var(--gold); font-size: 1.1rem; font-weight: 600; margin-bottom: 32px; }
+    .line-btn { display: inline-block; background: var(--gold); color: var(--dark); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 40px; border-radius: 6px; text-decoration: none; transition: all 0.3s; }
+    .line-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    footer { background: var(--dark); border-top: 1px solid rgba(245,240,232,0.07); padding: 36px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-tagline { font-size: 0.72rem; color: rgba(245,240,232,0.3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 5px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { color: rgba(245,240,232,0.45); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+      .finder-row, .pkgs-grid, .process-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .gap-card-inner { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.6rem; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 64px 24px 0; }
+      .hero h1 { font-size: 2rem; }
+      .finder-widget { padding: 24px 20px; }
+      .section { padding: 60px 24px; }
+      .stats-bar { padding: 24px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .site-header { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.v3b0{fill:#FFF;}</style><path class="v3b0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1L75,20h-6.5l-5.6-8.3-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></li>
+    <li><a href="find-your-school.html"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Find School</span></a></li>
+    <li><a href="fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></li>
+    <li><a href="#" class="active"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a></li>
+    <li><a href="pricing.html"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></li>
+    <li><a href="about.html"><span class="lang-th">เกี่ยวกับเรา</span><span class="lang-en">About</span></a></li>
+  </ul>
+  <div class="header-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" onclick="toggleMobile()"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+  <a href="find-your-school.html"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Find School</span></a>
+  <a href="fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+  <a href="pricing.html"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a>
+  <a href="contact.html"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Contact</span></a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-eyebrow"><span class="lang-th">· สำหรับนักเรียนโรงเรียนนานาชาติ ·</span><span class="lang-en">· For international school students ·</span></div>
+    <h1>
+      <span class="lang-th">รู้แน่ชัดว่า<br><em>วิชาไหนต้องเตรียมอะไร</em></span>
+      <span class="lang-en">Know exactly which<br>subjects need <em>what preparation</em></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="lang-th">ไม่ใช่การเรียนพิเศษทั่วไป — เราวิเคราะห์ช่องว่างรายวิชาระหว่างโรงเรียนนานาชาติของคุณกับ UK Boarding และสอนเฉพาะจุดที่ขาด</span>
+      <span class="lang-en">Not generic tutoring — we analyse the subject-by-subject gap between your child's international school and UK boarding, then fill precisely what's missing.</span>
+    </p>
+  </div>
+  <div class="finder-widget">
+    <div class="finder-title">
+      <span class="lang-th">ค้นหาว่าลูกคุณ <span>ต้องเสริมอะไร</span></span>
+      <span class="lang-en">Find out what your child <span>needs to strengthen</span></span>
+    </div>
+    <div class="finder-row">
+      <div class="finder-group">
+        <label class="lang-th">ระดับชั้น</label>
+        <label class="lang-en">Year group</label>
+        <div class="finder-chips">
+          <button class="chip" data-group="year" data-val="entry" onclick="selectChip(this)"><span class="lang-th">ก่อนเข้า</span><span class="lang-en">Pre-entry</span></button>
+          <button class="chip" data-group="year" data-val="gcse" onclick="selectChip(this)">Year 9–11</button>
+          <button class="chip" data-group="year" data-val="alevel" onclick="selectChip(this)">Year 12–13</button>
+        </div>
+      </div>
+      <div class="finder-group">
+        <label class="lang-th">ช่องว่างหลัก</label>
+        <label class="lang-en">Biggest gap</label>
+        <div class="finder-chips">
+          <button class="chip" data-group="gap" data-val="essay" onclick="selectChip(this)"><span class="lang-th">เรียงความ</span><span class="lang-en">Essay writing</span></button>
+          <button class="chip" data-group="gap" data-val="maths" onclick="selectChip(this)"><span class="lang-th">วิทย์-คณิต</span><span class="lang-en">Maths-Science</span></button>
+          <button class="chip" data-group="gap" data-val="multiple" onclick="selectChip(this)"><span class="lang-th">หลายวิชา</span><span class="lang-en">Multiple subjects</span></button>
+        </div>
+      </div>
+      <div class="finder-group">
+        <label class="lang-th">ความเร่งด่วน</label>
+        <label class="lang-en">Urgency</label>
+        <div class="finder-chips">
+          <button class="chip" data-group="urgency" data-val="urgent" onclick="selectChip(this)"><span class="lang-th">สอบเร็วๆ นี้</span><span class="lang-en">Exams soon</span></button>
+          <button class="chip" data-group="urgency" data-val="thisyear" onclick="selectChip(this)"><span class="lang-th">ปีการศึกษานี้</span><span class="lang-en">This year</span></button>
+          <button class="chip" data-group="urgency" data-val="planning" onclick="selectChip(this)"><span class="lang-th">วางแผนล่วงหน้า</span><span class="lang-en">Planning ahead</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="finder-result" id="finderResult">
+      <p><span class="lang-th">แพ็กเกจที่เหมาะกับคุณ:</span><span class="lang-en">Programme that fits:</span></p>
+      <div class="finder-match" id="finderMatch"></div><br>
+      <button class="finder-scroll" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <span class="lang-th">ดูรายละเอียด ↓</span><span class="lang-en">See details ↓</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div><div class="stat-num">80+</div><div class="stat-label lang-th">นักเรียนจากโรงเรียนนานาชาติที่ดูแล</div><div class="stat-label lang-en">intl. school students supported</div></div>
+    <div><div class="stat-num">10</div><div class="stat-label lang-th">สัปดาห์เฉลี่ยจนเห็นผล</div><div class="stat-label lang-en">weeks avg. to measurable results</div></div>
+    <div><div class="stat-num">12</div><div class="stat-label lang-th">วิชาหลักที่สอน</div><div class="stat-label lang-en">core subjects covered</div></div>
+    <div><div class="stat-num">4</div><div class="stat-label lang-th">Exam Boards ที่ครอบคลุม</div><div class="stat-label lang-en">exam boards covered</div></div>
+  </div>
+</div>
+
+<!-- SUBJECT GAP CARDS — unique visual anchor for V3B -->
+<section class="section" style="background:var(--cream);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" style="justify-content:center;"><span class="lang-th">· วิเคราะห์ช่องว่างรายวิชา ·</span><span class="lang-en">· Subject-by-subject gap analysis ·</span></div>
+      <h2><span class="lang-th">โรงเรียนนานาชาติสอนอะไร —<br><em>UK Boarding ต้องการอะไรเพิ่ม</em></span><span class="lang-en">What international schools teach —<br><em>what UK boarding adds on top</em></span></h2>
+      <p><span class="lang-th">คลิกวิชาที่ต้องการดูเพื่อเปิดรายละเอียด — และดูว่า LINKEDU ช่วยปิดช่องว่างนั้นได้อย่างไร</span><span class="lang-en">Click any subject to see the full gap — and how LINKEDU bridges it.</span></p>
+    </div>
+    <div class="subject-gaps">
+
+      <!-- Maths -->
+      <div class="gap-card" id="gc-maths">
+        <div class="gap-card-header" onclick="toggleGap('gc-maths')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon">∑</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">คณิตศาสตร์</span><span class="lang-en">Mathematics</span></div>
+              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA, Cambridge</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
+              <span class="gap-diff-label lang-th">ช่องว่างปานกลาง</span>
+              <span class="gap-diff-label lang-en">Medium gap</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">โรงเรียนนานาชาติ (IB/American)</span><span class="lang-en">International School (IB/American)</span></h4>
+              <ul>
+                <li><span class="lang-th">Coursework และโครงงานเป็นส่วนสำคัญของเกรด</span><span class="lang-en">Coursework and projects count toward final grade</span></li>
+                <li><span class="lang-th">Calculator อนุญาตในส่วนใหญ่</span><span class="lang-en">Calculator permitted in most assessments</span></li>
+                <li><span class="lang-th">เน้นการประยุกต์ใช้ในโลกจริง</span><span class="lang-en">Emphasis on real-world application</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">UK Boarding (GCSE/A-Level)</span><span class="lang-en">UK Boarding (GCSE/A-Level)</span></h4>
+              <ul>
+                <li><span class="lang-th">100% จากการสอบปลายภาค — ไม่มี coursework</span><span class="lang-en">100% from final exams — no coursework safety net</span></li>
+                <li><span class="lang-th">Non-calculator sections เป็นส่วนสำคัญ</span><span class="lang-en">Non-calculator sections are heavily weighted</span></li>
+                <li><span class="lang-th">ต้องแสดง method อย่างชัดเจนในทุกข้อ</span><span class="lang-en">Method marks require explicit working for every step</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">ฝึกข้อสอบจริงตาม Board ของโรงเรียน เน้นการแสดง method ที่ถูกต้อง และฝึก non-calculator section โดยเฉพาะ</span><span class="lang-en">We drill real past papers by your child's board, focusing on correct method presentation and dedicated non-calculator practice.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- English -->
+      <div class="gap-card" id="gc-english">
+        <div class="gap-card-header" onclick="toggleGap('gc-english')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.85rem;letter-spacing:-0.05em;">Eng</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">ภาษาอังกฤษ / วรรณคดี</span><span class="lang-en">English Language / Literature</span></div>
+              <div class="gap-subject-sub">GCSE / A-Level · All boards</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot filled"></div></div>
+              <span class="gap-diff-label lang-th">ช่องว่างสูง</span>
+              <span class="gap-diff-label lang-en">High gap</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
+              <ul>
+                <li><span class="lang-th">เน้น creative writing และ personal response</span><span class="lang-en">Creative writing and personal response valued</span></li>
+                <li><span class="lang-th">ครูให้ feedback ต่อเนื่อง นักเรียนรู้ว่าถูกทิศทาง</span><span class="lang-en">Continuous feedback from teacher throughout the year</span></li>
+                <li><span class="lang-th">โครงสร้างเรียงความชัดเจน ตาม template</span><span class="lang-en">Essays follow clear taught templates</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">UK Boarding (GCSE/A-Level)</span><span class="lang-en">UK Boarding (GCSE/A-Level)</span></h4>
+              <ul>
+                <li><span class="lang-th">ต้องวิเคราะห์ข้อความและโต้แย้งอย่างมีหลักฐาน</span><span class="lang-en">Textual analysis and evidence-based argument required</span></li>
+                <li><span class="lang-th">ใช้ quotation อย่างแม่นยำ ตีความ และประเมินผล</span><span class="lang-en">Precise quotation, interpretation and evaluation expected</span></li>
+                <li><span class="lang-th">สอบใต้แรงกดดันโดยไม่มี notes หรือ internet</span><span class="lang-en">Closed-book exam under time pressure — no notes or aids</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">สอนรูปแบบเรียงความวิเคราะห์ที่ UK Boarding ต้องการโดยเฉพาะ ฝึกเลือกและตีความ quotation ตาม marking scheme จริง</span><span class="lang-en">We teach the specific analytical essay format UK boarding rewards, and practise selecting and interpreting quotations against real mark schemes.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sciences -->
+      <div class="gap-card" id="gc-science">
+        <div class="gap-card-header" onclick="toggleGap('gc-science')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.82rem;">Sci</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">วิทยาศาสตร์ (ฟิสิกส์/เคมี/ชีววิทยา)</span><span class="lang-en">Sciences (Physics / Chemistry / Biology)</span></div>
+              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA, OCR</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot"></div></div>
+              <span class="gap-diff-label lang-th">ช่องว่างปานกลาง</span>
+              <span class="gap-diff-label lang-en">Medium gap</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
+              <ul>
+                <li><span class="lang-th">Lab work และ lab reports เป็นส่วนสำคัญของเกรด</span><span class="lang-en">Lab work and lab reports are graded components</span></li>
+                <li><span class="lang-th">เน้นการสืบเสาะและ inquiry-based learning</span><span class="lang-en">Inquiry-based learning and exploration</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">UK Boarding</span><span class="lang-en">UK Boarding</span></h4>
+              <ul>
+                <li><span class="lang-th">เกรดมาจากการสอบเป็นหลัก ต้องจำ equations และ definitions ได้แม่นยำ</span><span class="lang-en">Grades come from exams — equations and definitions must be memorised precisely</span></li>
+                <li><span class="lang-th">ต้องเขียน extended answer ในรูปแบบที่ตรงกับ mark scheme</span><span class="lang-en">Extended written answers must match mark scheme language exactly</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">ฝึก exam technique เฉพาะวิทยาศาสตร์ ทั้งการจำ equations, การเขียน answer ตาม mark scheme และการทำข้อสอบ past paper จริง</span><span class="lang-en">We train science exam technique specifically — memorisation systems for equations, mark-scheme aligned written answers, and real past paper practice.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Economics/Business -->
+      <div class="gap-card" id="gc-econ">
+        <div class="gap-card-header" onclick="toggleGap('gc-econ')">
+          <div class="gap-card-left">
+            <div class="gap-subject-icon" style="font-size:0.82rem;">Eco</div>
+            <div>
+              <div class="gap-subject-name"><span class="lang-th">เศรษฐศาสตร์ / ธุรกิจ</span><span class="lang-en">Economics / Business Studies</span></div>
+              <div class="gap-subject-sub">GCSE / A-Level · Edexcel, AQA</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="gap-difficulty">
+              <div class="gap-dot-row"><div class="gdot filled"></div><div class="gdot filled"></div><div class="gdot filled"></div></div>
+              <span class="gap-diff-label lang-th">ช่องว่างสูง</span>
+              <span class="gap-diff-label lang-en">High gap</span>
+            </div>
+            <span class="gap-toggle">+</span>
+          </div>
+        </div>
+        <div class="gap-card-body">
+          <div class="gap-card-inner">
+            <div class="gap-col-wrap gap-col-before">
+              <h4><span class="lang-th">โรงเรียนนานาชาติ</span><span class="lang-en">International School</span></h4>
+              <ul>
+                <li><span class="lang-th">Business Plan, case studies และ presentations</span><span class="lang-en">Business plans, case studies and presentations</span></li>
+                <li><span class="lang-th">เน้นความคิดสร้างสรรค์และการนำไปใช้จริง</span><span class="lang-en">Creative thinking and real-world application</span></li>
+              </ul>
+            </div>
+            <div class="gap-col-wrap gap-col-after">
+              <h4><span class="lang-th">UK Boarding</span><span class="lang-en">UK Boarding</span></h4>
+              <ul>
+                <li><span class="lang-th">ต้องสร้างและโต้แย้ง argument ทางเศรษฐศาสตร์อย่างเป็นระบบ</span><span class="lang-en">Must construct and counter structured economic arguments</span></li>
+                <li><span class="lang-th">ใช้ diagram (เช่น AD/AS, PPF) อย่างถูกต้องในคำตอบ</span><span class="lang-en">Diagrams (AD/AS, PPF etc.) must be used correctly in answers</span></li>
+              </ul>
+            </div>
+            <div class="gap-linkedu-note"><strong>LINKEDU:</strong> <span class="lang-th">สอนรูปแบบการเขียน 4-mark และ 25-mark answer ที่ตรงกับ marking criteria โดยเฉพาะ พร้อมฝึกการวาด diagram อย่างถูกต้อง</span><span class="lang-en">We teach the exact 4-mark and 25-mark answer formats the mark schemes reward, with specific diagram drawing practice.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS (condensed, dark) -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" style="justify-content:center;"><span class="lang-th">· กระบวนการ ·</span><span class="lang-en">· How it works ·</span></div>
+      <h2><span class="lang-th">4 ขั้นตอนสู่ผลลัพธ์ที่วัดได้</span><span class="lang-en">4 steps to measurable results</span></h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step"><div class="process-num">01</div><h3><span class="lang-th">วิเคราะห์ช่องว่าง</span><span class="lang-en">Gap Analysis</span></h3><p><span class="lang-th">ประเมินระดับปัจจุบันเทียบกับมาตรฐาน UK Boarding ในแต่ละวิชา</span><span class="lang-en">Assess current level vs UK boarding standards in each subject.</span></p></div>
+      <div class="process-step"><div class="process-num">02</div><h3><span class="lang-th">แผนรายวิชา</span><span class="lang-en">Subject Plan</span></h3><p><span class="lang-th">ออกแบบแผนการเรียนรายวิชา ตามหลักสูตรและ Exam Board ของโรงเรียนเป้าหมาย</span><span class="lang-en">Custom plan per subject, mapped to target school's syllabus and board.</span></p></div>
+      <div class="process-step"><div class="process-num">03</div><h3><span class="lang-th">บทเรียน 1-to-1</span><span class="lang-en">1-to-1 Sessions</span></h3><p><span class="lang-th">บทเรียนรายสัปดาห์กับผู้เชี่ยวชาญเฉพาะวิชา เน้น exam technique และ past papers</span><span class="lang-en">Weekly sessions with subject specialists focused on exam technique and past papers.</span></p></div>
+      <div class="process-step"><div class="process-num">04</div><h3><span class="lang-th">ติดตามและปรับแผน</span><span class="lang-en">Track and Adapt</span></h3><p><span class="lang-th">รายงานรายเดือน ปรับแผนตามผล ผู้ปกครองรู้ทุกอย่างตลอดเวลา</span><span class="lang-en">Monthly reports, plan adapts to real results, parents always informed.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section" style="background:var(--cream);" id="packages">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" style="justify-content:center;"><span class="lang-th">· 3 แพ็กเกจ ·</span><span class="lang-en">· 3 programmes ·</span></div>
+      <h2><span class="lang-th">เลือกระดับการสนับสนุนที่เหมาะกับคุณ</span><span class="lang-en">Choose the level of support that fits</span></h2>
+    </div>
+    <div class="packages-note" id="highlightNote">
+      <span class="lang-th">จากคำตอบของคุณ — แนะนำ: </span><span class="lang-en">Based on your answers — recommended: </span>
+      <span class="hl-pill" id="hlPillText"></span>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" id="pkg-hourly">
+        <div class="pkg-hl-badge"><span class="lang-th">เหมาะที่สุด</span><span class="lang-en">Best fit</span></div>
+        <div class="pkg-when lang-th">สำหรับ: 1–2 วิชา / เตรียมสอบเข้า</div>
+        <div class="pkg-when lang-en">For: 1–2 subjects / entry exam</div>
+        <div class="pkg-name lang-th">ติวเตอร์รายชั่วโมง</div>
+        <div class="pkg-name lang-en">Hourly Tutoring</div>
+        <div class="pkg-desc"><span class="lang-th">เสริมวิชาเฉพาะที่ต้องการ ก่อนหรือหลังย้ายโรงเรียน ยืดหยุ่น ไม่ต้องผูกพันระยะยาว</span><span class="lang-en">Targeted subject support before or after the school move. Flexible, no long-term commitment required.</span></div>
+        <div class="pkg-price">฿2,500 <span style="font-size:0.95rem;opacity:0.5;">/hr</span></div>
+        <div class="pkg-price-note lang-th">ขั้นต่ำ 10 ชั่วโมง</div>
+        <div class="pkg-price-note lang-en">10-hour minimum</div>
+        <ul class="pkg-list">
+          <li><span class="lang-th">บทเรียน 1-to-1</span><span class="lang-en">1-to-1 sessions</span></li>
+          <li><span class="lang-th">เฉพาะวิชาที่ต้องการ</span><span class="lang-en">Target subject of choice</span></li>
+          <li><span class="lang-th">Exam technique + past papers</span><span class="lang-en">Exam technique + past papers</span></li>
+        </ul>
+        <a href="#line-cta" class="pkg-cta"><span class="lang-th">เริ่มเลย</span><span class="lang-en">Get started</span></a>
+      </div>
+      <div class="pkg" id="pkg-booster">
+        <div class="pkg-hl-badge"><span class="lang-th">เหมาะที่สุด</span><span class="lang-en">Best fit</span></div>
+        <div class="pkg-when lang-th">สำหรับ: 3+ วิชา / Year 9–11</div>
+        <div class="pkg-when lang-en">For: 3+ subjects / Year 9–11</div>
+        <div class="pkg-name">Academic Booster</div>
+        <div class="pkg-desc"><span class="lang-th">โปรแกรมรายปีครอบคลุมหลายวิชา พร้อมเมนทอร์ส่วนตัวและรายงานรายเดือน</span><span class="lang-en">Annual multi-subject programme with personal mentor and monthly parent reports.</span></div>
+        <div class="pkg-price">฿70,000 <span style="font-size:0.95rem;opacity:0.5;">/yr</span></div>
+        <div class="pkg-price-note lang-th">+ ฿15,000 ต่อวิชาเพิ่ม</div>
+        <div class="pkg-price-note lang-en">+ ฿15,000 per additional subject</div>
+        <ul class="pkg-list">
+          <li><span class="lang-th">ติวเตอร์ 1-to-1 รายสัปดาห์</span><span class="lang-en">Weekly 1-to-1 tutoring</span></li>
+          <li><span class="lang-th">เมนทอร์ส่วนตัว</span><span class="lang-en">Personal mentor</span></li>
+          <li><span class="lang-th">รายงานรายเดือน</span><span class="lang-en">Monthly progress reports</span></li>
+        </ul>
+        <a href="#line-cta" class="pkg-cta"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free consultation</span></a>
+      </div>
+      <div class="pkg" id="pkg-elite">
+        <div class="pkg-hl-badge"><span class="lang-th">เหมาะที่สุด</span><span class="lang-en">Best fit</span></div>
+        <div class="pkg-when lang-th">สำหรับ: ผลลัพธ์สูงสุด + Admissions</div>
+        <div class="pkg-when lang-en">For: Top outcomes + Admissions</div>
+        <div class="pkg-name">Elite 9–16+</div>
+        <div class="pkg-desc"><span class="lang-th">โปรแกรมครอบคลุมสูงสุด รวม Admissions Management สำหรับนักเรียนที่ต้องการผลลัพธ์ดีที่สุดในทุกด้าน</span><span class="lang-en">The most complete programme — academic support plus admissions management for the best possible outcomes.</span></div>
+        <div class="pkg-price">฿160,000 <span style="font-size:0.95rem;opacity:0.5;">/yr</span></div>
+        <div class="pkg-price-note lang-th">Year 9 ถึง A-Level</div>
+        <div class="pkg-price-note lang-en">Year 9 through A-Levels</div>
+        <ul class="pkg-list">
+          <li><span class="lang-th">ทุกอย่างใน Academic Booster</span><span class="lang-en">Everything in Academic Booster</span></li>
+          <li><span class="lang-th">Admissions สูงสุด 5 โรงเรียน</span><span class="lang-en">Admissions for up to 5 schools</span></li>
+          <li><span class="lang-th">วางแผน A-Level + มหาวิทยาลัย</span><span class="lang-en">A-Level + university planning</span></li>
+        </ul>
+        <a href="#line-cta" class="pkg-cta"><span class="lang-th">เริ่มเลย</span><span class="lang-en">Get started</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-dark">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" style="justify-content:center;"><span class="lang-th">· คำถาม ·</span><span class="lang-en">· FAQ ·</span></div>
+      <h2><span class="lang-th">คำถามที่พบบ่อย</span><span class="lang-en">Frequently asked questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="lang-th">วิเคราะห์ช่องว่างรายวิชาของลูกทำอย่างไร?</span><span class="lang-en">How do you analyse the subject gaps for our child?</span></span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><span class="lang-th">เราเริ่มด้วยการประเมินเบื้องต้นฟรี (~1 ชั่วโมง) ซึ่งรวม: (1) การถามข้อมูลจากผู้ปกครองเกี่ยวกับโรงเรียนปัจจุบันและหลักสูตร (2) การทดสอบเบื้องต้นในวิชาหลัก (3) การเปรียบเทียบกับมาตรฐาน UK Boarding ของโรงเรียนเป้าหมาย ผลออกมาเป็น gap report และแผนการเรียนเฉพาะบุคคล</span><span class="lang-en">We start with a free ~1 hour assessment that includes: (1) parent intake about current school and curriculum, (2) initial subject testing, (3) comparison against UK boarding standards of the target school. The output is a gap report and personalised study plan.</span></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="lang-th">ลูกเรียน British International อยู่แล้ว ยังต้องการติวเตอร์ไหม?</span><span class="lang-en">My child is in a British international school already — do they still need tutoring?</span></span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><span class="lang-th">เป็นไปได้ว่าช่องว่างน้อยกว่า แต่ UK Boarding ยังคงเข้มข้นกว่ามาก โดยเฉพาะเรื่องการสอบ — ไม่มี coursework, ไม่มี retakes, สอบปลายปีเพียงครั้งเดียว นักเรียนจาก British international หลายคนพบว่า exam technique และการบริหารเวลาในสนามสอบยังต้องฝึกเพิ่ม</span><span class="lang-en">The gap is likely smaller, but UK boarding is still significantly more demanding — especially in assessment. No coursework, no retakes, one set of final exams. Many students from British international schools find exam technique and timed exam management still need specific practice.</span></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="lang-th">ครอบคลุม Exam Board อะไรบ้าง?</span><span class="lang-en">Which exam boards do you cover?</span></span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><span class="lang-th">Edexcel, AQA, OCR และ Cambridge (IGCSE/A-Level) เราจับคู่บทเรียนให้ตรงกับ Board ของโรงเรียนนักเรียนโดยเฉพาะ ไม่ใช่สอนแบบกลางๆ</span><span class="lang-en">Edexcel, AQA, OCR and Cambridge (IGCSE/A-Level). Materials are matched specifically to your child's school board, not taught generically.</span></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span><span class="lang-th">สอนออนไลน์หรือพบตัว?</span><span class="lang-en">Online or in-person?</span></span><span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><span class="lang-th">ทั้งสองแบบ พบตัวในกรุงเทพฯ สำหรับนักเรียนที่ยังอยู่ในไทย และออนไลน์ผ่าน Zoom สำหรับนักเรียนที่อยู่ในอังกฤษแล้ว</span><span class="lang-en">Both. In-person in Bangkok for students still in Thailand, and online via Zoom for students already in the UK.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="line-cta" id="line-cta">
+  <h2><span class="lang-th">เริ่มด้วยการวิเคราะห์ช่องว่างฟรี</span><span class="lang-en">Start with a free gap analysis</span></h2>
+  <p class="line-cta-sub"><span class="lang-th">บอกเราว่าลูกเรียนที่ไหน และกำลังจะไปโรงเรียนอะไร — เราจะบอกว่าต้องเตรียมอะไรรายวิชา</span><span class="lang-en">Tell us where your child studies now and which UK school they're targeting. We'll tell you the exact subject preparation needed.</span></p>
+  <div class="line-handle">LINE: @linkedu.th</div>
+  <a href="https://line.me/R/ti/p/@linkedu.th" target="_blank" class="line-btn"><span class="lang-th">เพิ่ม LINE / ปรึกษาฟรี</span><span class="lang-en">Add LINE / Free Consultation</span></a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:22px;width:auto;display:block"><style>.v3bf{fill:#FFF;}</style><path class="v3bf" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1L75,20h-6.5l-5.6-8.3-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-tagline">A Beacon Group Company</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a></li>
+      <li><a href="fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a></li>
+      <li><a href="pricing.html"><span class="lang-th">ราคา</span><span class="lang-en">Pricing</span></a></li>
+      <li><a href="contact.html"><span class="lang-th">ติดต่อ</span><span class="lang-en">Contact</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const sel={year:null,gap:null,urgency:null};
+  function setLang(l){document.documentElement.setAttribute('lang',l);document.getElementById('btn-th').classList.toggle('active',l==='th');document.getElementById('btn-en').classList.toggle('active',l==='en');}
+  function toggleMobile(){const n=document.getElementById('mobileNav');n.style.display=n.style.display==='block'?'none':'block';}
+  function selectChip(el){const g=el.dataset.group;document.querySelectorAll(`[data-group="${g}"]`).forEach(c=>c.classList.remove('selected'));el.classList.add('selected');sel[g]=el.dataset.val;updateFinder();}
+  function updateFinder(){
+    if(!sel.year||!sel.gap||!sel.urgency)return;
+    let id='pkg-booster',nameTH='Academic Booster',nameEN='Academic Booster';
+    if(sel.year==='entry'||(sel.gap!=='multiple'&&sel.urgency==='urgent')){id='pkg-hourly';nameTH='ติวเตอร์รายชั่วโมง';nameEN='Hourly Tutoring';}
+    else if(sel.year==='alevel'||sel.gap==='multiple'){id='pkg-elite';nameTH='Elite 9–16+';nameEN='Elite 9–16+';}
+    document.getElementById('finderMatch').innerHTML=`<span class="lang-th">${nameTH}</span><span class="lang-en">${nameEN}</span>`;
+    document.getElementById('finderResult').classList.add('visible');
+    document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('highlighted'));
+    document.getElementById(id).classList.add('highlighted');
+    document.getElementById('hlPillText').innerHTML=`<span class="lang-th">${nameTH}</span><span class="lang-en">${nameEN}</span>`;
+    document.getElementById('highlightNote').classList.add('visible');
+    setLang(document.documentElement.getAttribute('lang')||'th');
+  }
+  function toggleGap(id){
+    const card=document.getElementById(id),isOpen=card.classList.contains('open');
+    document.querySelectorAll('.gap-card.open').forEach(c=>{c.classList.remove('open');c.querySelector('.gap-card-body').style.maxHeight=null;});
+    if(!isOpen){card.classList.add('open');const b=card.querySelector('.gap-card-body');b.style.maxHeight=b.scrollHeight+'px';}
+  }
+  function toggleFaq(btn){const item=btn.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});if(!isOpen){item.classList.add('open');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px';}}
+  setLang('th');
+</script>
+</body>
+</html>
+<!-- tutoring-v3b: The Subject Gap — expandable subject-by-subject gap cards, analytical, international school specific -->

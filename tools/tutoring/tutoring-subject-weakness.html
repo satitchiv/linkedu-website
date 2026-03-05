@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — Subject Weakness Identifier | ระบุจุดอ่อนวิชาเรียน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-width: 320px;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+
+/* ── Header ── */
+#site-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.3);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 24px; gap: 24px;
+}
+.logo-wrap { flex-shrink: 0; }
+#site-header nav { display: flex; gap: 20px; flex: 1; justify-content: center; flex-wrap: wrap; }
+#site-header nav a {
+  color: var(--cream); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.04em; opacity: 0.8; transition: opacity 0.2s;
+}
+#site-header nav a:hover { opacity: 1; color: var(--gold); }
+.lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s; opacity: 0.6;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); opacity: 1; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+  background: var(--dark);
+  padding: 72px 24px 56px;
+  text-align: center;
+}
+.section-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.2em; color: var(--gold);
+  font-family: 'Inter', sans-serif; font-weight: 500; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.section-label::before, .section-label::after {
+  content: ''; display: inline-block; width: 28px; height: 1px; background: var(--gold);
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem); color: var(--cream);
+  line-height: 1.2; margin-bottom: 16px;
+}
+.hero p {
+  font-size: 1.05rem; color: rgba(245,240,232,0.7);
+  max-width: 560px; margin: 0 auto 32px;
+}
+.hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.badge {
+  background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.3);
+  border-radius: 20px; padding: 6px 16px;
+  font-size: 0.8rem; color: var(--gold); letter-spacing: 0.05em;
+}
+
+/* ── Container ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Step nav bar ── */
+.step-nav {
+  background: rgba(245,240,232,0.97);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  position: sticky; top: 64px; z-index: 100;
+  padding: 12px 24px; display: flex; align-items: center;
+  justify-content: center; gap: 8px; flex-wrap: wrap;
+}
+.step-pip {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; color: rgba(26,26,26,0.4); font-weight: 500;
+}
+.step-pip .num {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid currentColor; display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; flex-shrink: 0; transition: all 0.3s;
+}
+.step-pip.done { color: var(--gold); }
+.step-pip.done .num { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.step-pip.active { color: var(--dark); }
+.step-pip.active .num { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+.step-connector { width: 32px; height: 1px; background: rgba(184,150,46,0.25); flex-shrink: 0; }
+
+/* ── Form sections ── */
+.form-section {
+  padding: 56px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.form-section.dark {
+  background: var(--dark);
+  color: var(--cream);
+}
+.form-section .inner { max-width: 760px; margin: 0 auto; }
+
+.step-badge {
+  display: inline-block; font-family: 'Playfair Display', serif;
+  font-size: 0.85rem; color: var(--gold); border: 1px solid rgba(184,150,46,0.4);
+  padding: 4px 14px; border-radius: 4px; margin-bottom: 18px; letter-spacing: 0.08em;
+}
+.section-title { font-size: 1.6rem; margin-bottom: 8px; }
+.section-subtitle { font-size: 0.92rem; opacity: 0.65; margin-bottom: 32px; }
+
+/* ── Chips / selectors ── */
+.chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.chip {
+  padding: 8px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+  border: 1px solid rgba(184,150,46,0.35); background: transparent;
+  color: var(--gold); font-family: 'Inter', sans-serif; transition: all 0.2s;
+  user-select: none;
+}
+.chip:hover { background: var(--gold-faint); }
+.chip.selected { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 600; }
+.dark .chip { border-color: rgba(184,150,46,0.4); color: var(--gold); }
+.dark .chip.selected { background: var(--gold); color: var(--dark); }
+
+/* ── Grade inputs ── */
+.subjects-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 8px;
+}
+.subject-row {
+  background: var(--cream); border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px; padding: 16px; display: flex;
+  align-items: center; gap: 12px; justify-content: space-between;
+}
+.dark .subject-row { background: rgba(245,240,232,0.07); border-color: rgba(245,240,232,0.1); }
+.subject-name { font-size: 0.88rem; font-weight: 500; flex: 1; }
+.subject-sub { font-size: 0.78rem; opacity: 0.55; }
+.grade-select {
+  background: var(--dark); color: var(--cream); border: 1px solid rgba(184,150,46,0.4);
+  border-radius: 6px; padding: 6px 10px; font-size: 0.88rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; min-width: 80px; appearance: none; text-align: center;
+}
+.dark .grade-select { background: rgba(245,240,232,0.1); color: var(--cream); }
+
+/* ── Grade toggle ── */
+.grade-toggle {
+  display: flex; gap: 0; border: 1px solid rgba(184,150,46,0.4);
+  border-radius: 6px; overflow: hidden; margin-bottom: 20px;
+  width: fit-content;
+}
+.grade-toggle button {
+  background: transparent; border: none; color: var(--gold); padding: 7px 16px;
+  font-size: 0.82rem; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s;
+}
+.grade-toggle button.active { background: var(--gold); color: var(--dark); font-weight: 600; }
+
+/* ── CTA button ── */
+.btn-primary {
+  background: var(--gold); color: var(--dark); border: none;
+  border-radius: 6px; padding: 14px 28px; font-family: 'Inter', sans-serif;
+  font-weight: 600; font-size: 0.88rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s; display: inline-block; text-decoration: none;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  background: transparent; color: var(--gold); border: 1px solid var(--gold);
+  border-radius: 6px; padding: 14px 28px; font-family: 'Inter', sans-serif;
+  font-weight: 500; font-size: 0.88rem; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.2s; display: inline-block; text-decoration: none;
+}
+.btn-secondary:hover { background: var(--gold-faint); }
+
+/* ── Results ── */
+#results-section { display: none; padding: 56px 0; }
+.results-header {
+  text-align: center; margin-bottom: 40px;
+}
+.results-header h2 { font-size: 2rem; margin-bottom: 8px; }
+.results-header p { font-size: 0.95rem; opacity: 0.65; }
+
+.subject-result-card {
+  background: var(--cream); border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 20px;
+  flex-wrap: wrap;
+}
+.src-left { flex: 1; min-width: 160px; }
+.src-subject-name { font-size: 1rem; font-weight: 600; font-family: 'Playfair Display', serif; }
+.src-subject-sub { font-size: 0.78rem; opacity: 0.55; margin-top: 2px; }
+.src-grades { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.grade-box {
+  text-align: center; background: rgba(0,0,0,0.04); border-radius: 6px;
+  padding: 8px 14px; min-width: 72px;
+}
+.grade-box .label { font-size: 0.7rem; letter-spacing: 0.08em; opacity: 0.6; text-transform: uppercase; }
+.grade-box .value { font-size: 1.2rem; font-family: 'Playfair Display', serif; margin-top: 2px; }
+.grade-box .value.gold-val { color: var(--gold); }
+.grade-arrow { font-size: 1.2rem; color: var(--gold); opacity: 0.5; }
+.status-pill {
+  padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.06em; white-space: nowrap;
+}
+.status-on-track { background: rgba(100,180,100,0.15); color: #3a7a3a; }
+.status-needs-work { background: rgba(184,150,46,0.15); color: #7a5c0a; }
+.status-priority { background: rgba(200,80,80,0.12); color: #7a2020; }
+
+.rec-text { font-size: 0.82rem; color: rgba(26,26,26,0.65); margin-top: 8px; font-style: italic; }
+
+/* ── Priority ranking ── */
+.priority-box {
+  background: var(--dark); border-radius: 8px; padding: 28px 32px; margin: 32px 0;
+  color: var(--cream);
+}
+.priority-box h3 { font-size: 1.3rem; margin-bottom: 18px; color: var(--cream); }
+.priority-list { list-style: none; }
+.priority-list li {
+  display: flex; align-items: center; gap: 14px; padding: 10px 0;
+  border-bottom: 1px solid rgba(245,240,232,0.08); font-size: 0.9rem;
+}
+.priority-list li:last-child { border-bottom: none; }
+.priority-rank {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--gold);
+  color: var(--dark); display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.priority-rank.muted { background: rgba(184,150,46,0.25); color: var(--gold); }
+
+/* ── Hours summary ── */
+.hours-summary {
+  background: var(--gold); border-radius: 8px; padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  margin-bottom: 32px;
+}
+.hours-summary .label { font-size: 0.88rem; font-weight: 600; color: var(--dark); }
+.hours-summary .value { font-size: 2.4rem; font-family: 'Playfair Display', serif; color: var(--dark); }
+.hours-summary .unit { font-size: 0.82rem; color: rgba(26,26,26,0.7); }
+
+/* ── Inline LINE CTA ── */
+.inline-cta {
+  background: var(--dark); border-radius: 8px; padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px; margin: 32px 0;
+}
+.inline-cta p { color: var(--cream); font-size: 0.95rem; }
+.inline-cta p span { color: var(--gold); font-weight: 600; }
+
+/* ── LINE CTA section ── */
+.line-cta-section {
+  background: var(--dark); padding: 56px 24px; text-align: center;
+}
+.line-cta-section h2 { color: var(--cream); font-size: 1.8rem; margin-bottom: 12px; }
+.line-cta-section p { color: rgba(245,240,232,0.65); margin-bottom: 28px; font-size: 0.95rem; }
+.line-handle { color: var(--gold); font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 20px; }
+.btn-line {
+  background: var(--gold); color: var(--dark); border: none;
+  border-radius: 6px; padding: 14px 32px; font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none; display: inline-block;
+}
+
+/* ── Footer ── */
+footer {
+  background: var(--dark); padding: 28px 24px;
+  text-align: center; border-top: 1px solid rgba(184,150,46,0.2);
+}
+footer p { color: rgba(245,240,232,0.35); font-size: 0.78rem; letter-spacing: 0.05em; }
+footer a { color: var(--gold); text-decoration: none; opacity: 0.8; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .subjects-grid { grid-template-columns: 1fr; }
+  #site-header nav { display: none; }
+  .hours-summary { flex-direction: column; text-align: center; }
+  .inline-cta { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .hero { padding: 48px 16px 40px; }
+  .form-section { padding: 40px 0; }
+  .src-grades { justify-content: flex-start; }
+}
+
+/* ── Utility ── */
+.mt-24 { margin-top: 24px; }
+.mt-16 { margin-top: 16px; }
+.mb-8 { margin-bottom: 8px; }
+label.field-label {
+  display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 10px; color: inherit; opacity: 0.7;
+}
+.gold-line { width: 40px; height: 2px; background: var(--gold); margin-bottom: 18px; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header id="site-header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </div>
+  <nav>
+    <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../../prepare.html" class="active"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="section-label">
+    <span class="lang-th">· เครื่องมือวิเคราะห์ ·</span>
+    <span class="lang-en">· DIAGNOSTIC TOOL ·</span>
+  </div>
+  <h1>
+    <span class="lang-th">ระบุจุดอ่อนวิชาเรียน</span>
+    <span class="lang-en">Subject Weakness Identifier</span>
+  </h1>
+  <p>
+    <span class="lang-th">กรอกเกรดในระบบโรงเรียนไทย — เครื่องมือจะวิเคราะห์เทียบกับมาตรฐานหลักสูตร UK และระบุวิชาที่ต้องเร่งพัฒนา</span>
+    <span class="lang-en">Enter your child's Thai school grades — we map them to UK curriculum benchmarks and identify which subjects need tutoring attention most urgently.</span>
+  </p>
+  <div class="hero-badges">
+    <span class="badge"><span class="lang-th">4 ขั้นตอน</span><span class="lang-en">4 Steps</span></span>
+    <span class="badge"><span class="lang-th">เทียบมาตรฐาน UK</span><span class="lang-en">UK Benchmark Mapped</span></span>
+    <span class="badge"><span class="lang-th">แนะนำชั่วโมงเรียนพิเศษ</span><span class="lang-en">Tutoring Hours Recommended</span></span>
+  </div>
+</section>
+
+<!-- ── STEP NAV ── -->
+<div class="step-nav" id="step-nav">
+  <div class="step-pip active" id="pip-1"><div class="num">1</div><span class="lang-th">ระดับชั้น</span><span class="lang-en">Year</span></div>
+  <div class="step-connector"></div>
+  <div class="step-pip" id="pip-2"><div class="num">2</div><span class="lang-th">ประเภทโรงเรียน</span><span class="lang-en">School Type</span></div>
+  <div class="step-connector"></div>
+  <div class="step-pip" id="pip-3"><div class="num">3</div><span class="lang-th">เกรด</span><span class="lang-en">Grades</span></div>
+  <div class="step-connector"></div>
+  <div class="step-pip" id="pip-4"><div class="num">4</div><span class="lang-th">เป้าหมาย UK</span><span class="lang-en">UK Entry</span></div>
+</div>
+
+<!-- ── STEP 1: Thai School Year ── -->
+<section class="form-section" id="step-1">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 01</div>
+      <h2 class="section-title">
+        <span class="lang-th">ปัจจุบันลูกเรียนอยู่ระดับใด?</span>
+        <span class="lang-en">What year is your child currently in?</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">ระบบโรงเรียนไทย ป.1–ม.6</span>
+        <span class="lang-en">Thai school system, Prathom 1–Matthayom 6</span>
+      </p>
+      <label class="field-label"><span class="lang-th">ระดับชั้น</span><span class="lang-en">School Year</span></label>
+      <div class="chips" id="year-chips">
+        <div class="chip" data-value="P4" onclick="selectChip('year-chips',this,'step1Year')">ป.4</div>
+        <div class="chip" data-value="P5" onclick="selectChip('year-chips',this,'step1Year')">ป.5</div>
+        <div class="chip" data-value="P6" onclick="selectChip('year-chips',this,'step1Year')">ป.6</div>
+        <div class="chip" data-value="M1" onclick="selectChip('year-chips',this,'step1Year')">ม.1</div>
+        <div class="chip" data-value="M2" onclick="selectChip('year-chips',this,'step1Year')">ม.2</div>
+        <div class="chip" data-value="M3" onclick="selectChip('year-chips',this,'step1Year')">ม.3</div>
+        <div class="chip" data-value="M4" onclick="selectChip('year-chips',this,'step1Year')">ม.4</div>
+        <div class="chip" data-value="M5" onclick="selectChip('year-chips',this,'step1Year')">ม.5</div>
+        <div class="chip" data-value="M6" onclick="selectChip('year-chips',this,'step1Year')">ม.6</div>
+      </div>
+      <div class="mt-24">
+        <button class="btn-primary" onclick="goToStep(2)">
+          <span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEP 2: School Type ── -->
+<section class="form-section dark" id="step-2" style="display:none">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 02</div>
+      <h2 class="section-title">
+        <span class="lang-th">โรงเรียนปัจจุบันประเภทไหน?</span>
+        <span class="lang-en">What type of school does your child attend?</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">ช่วยให้เราปรับการเปรียบเทียบให้ถูกต้องยิ่งขึ้น</span>
+        <span class="lang-en">This helps us calibrate the grade comparison accurately.</span>
+      </p>
+      <div class="chips" id="type-chips">
+        <div class="chip" data-value="gov-thai" onclick="selectChip('type-chips',this,'step2Type')">
+          <span class="lang-th">รัฐบาลไทย</span><span class="lang-en">Government Thai</span>
+        </div>
+        <div class="chip" data-value="priv-thai" onclick="selectChip('type-chips',this,'step2Type')">
+          <span class="lang-th">เอกชนหลักสูตรไทย</span><span class="lang-en">Thai Private School</span>
+        </div>
+        <div class="chip" data-value="intl-thai" onclick="selectChip('type-chips',this,'step2Type')">
+          <span class="lang-th">นานาชาติหลักสูตรไทย</span><span class="lang-en">International Thai Curriculum</span>
+        </div>
+        <div class="chip" data-value="ep" onclick="selectChip('type-chips',this,'step2Type')">
+          <span class="lang-th">โปรแกรม EP</span><span class="lang-en">EP Programme</span>
+        </div>
+      </div>
+      <div class="mt-24" style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-secondary" onclick="goToStep(1)">
+          <span class="lang-th">← ย้อนกลับ</span><span class="lang-en">← Back</span>
+        </button>
+        <button class="btn-primary" onclick="goToStep(3)">
+          <span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEP 3: Grades ── -->
+<section class="form-section" id="step-3" style="display:none">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 03</div>
+      <h2 class="section-title">
+        <span class="lang-th">กรอกเกรดแต่ละวิชา</span>
+        <span class="lang-en">Enter grades for each subject</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">ใช้สเกล GPA 4.0 หรือคะแนนเปอร์เซ็นต์ก็ได้</span>
+        <span class="lang-en">Use GPA 4.0 scale or percentage — your choice.</span>
+      </p>
+
+      <!-- Grade system toggle -->
+      <div class="grade-toggle">
+        <button class="active" id="toggle-gpa" onclick="switchGradeMode('gpa')">GPA (4.0)</button>
+        <button id="toggle-pct" onclick="switchGradeMode('pct')">
+          <span class="lang-th">เปอร์เซ็นต์ (%)</span><span class="lang-en">Percentage (%)</span>
+        </button>
+      </div>
+
+      <div class="subjects-grid" id="subjects-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="mt-24" style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-secondary" onclick="goToStep(2)">
+          <span class="lang-th">← ย้อนกลับ</span><span class="lang-en">← Back</span>
+        </button>
+        <button class="btn-primary" onclick="goToStep(4)">
+          <span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEP 4: UK Entry Target ── -->
+<section class="form-section dark" id="step-4" style="display:none">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 04</div>
+      <h2 class="section-title">
+        <span class="lang-th">เป้าหมายเข้าโรงเรียน UK ที่อายุเท่าไหร่?</span>
+        <span class="lang-en">What UK boarding school entry level are you targeting?</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">ระดับการสอบเข้าโรงเรียนประจำ UK ที่แตกต่างกันมีเกณฑ์ต่างกัน</span>
+        <span class="lang-en">Each entry point has different academic benchmarks and exams.</span>
+      </p>
+      <div class="chips" id="entry-chips">
+        <div class="chip" data-value="11plus" onclick="selectChip('entry-chips',this,'step4Entry')">
+          11+ <span style="font-size:0.75rem;opacity:0.7;display:block;margin-top:2px">
+            <span class="lang-th">อายุ 11 ปี / Year 7</span><span class="lang-en">Age 11 / Year 7</span>
+          </span>
+        </div>
+        <div class="chip" data-value="13plus" onclick="selectChip('entry-chips',this,'step4Entry')">
+          13+ <span style="font-size:0.75rem;opacity:0.7;display:block;margin-top:2px">
+            <span class="lang-th">อายุ 13 ปี / Year 9</span><span class="lang-en">Age 13 / Year 9</span>
+          </span>
+        </div>
+        <div class="chip" data-value="16plus" onclick="selectChip('entry-chips',this,'step4Entry')">
+          16+ <span style="font-size:0.75rem;opacity:0.7;display:block;margin-top:2px">
+            <span class="lang-th">อายุ 16 ปี / Sixth Form</span><span class="lang-en">Age 16 / Sixth Form</span>
+          </span>
+        </div>
+      </div>
+      <div class="mt-24" style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-secondary" onclick="goToStep(3)">
+          <span class="lang-th">← ย้อนกลับ</span><span class="lang-en">← Back</span>
+        </button>
+        <button class="btn-primary" onclick="calculateResults()">
+          <span class="lang-th">วิเคราะห์ผล →</span><span class="lang-en">Analyse Results →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESULTS ── -->
+<section id="results-section">
+  <div class="container">
+    <div class="results-header">
+      <div class="section-label">
+        <span class="lang-th">· ผลการวิเคราะห์ ·</span>
+        <span class="lang-en">· YOUR RESULTS ·</span>
+      </div>
+      <h2>
+        <span class="lang-th">การวิเคราะห์วิชาเรียน</span>
+        <span class="lang-en">Subject Analysis Report</span>
+      </h2>
+      <p id="results-subtitle"></p>
+    </div>
+
+    <!-- Hours summary -->
+    <div class="hours-summary" id="hours-summary">
+      <div>
+        <div class="label">
+          <span class="lang-th">ชั่วโมงเรียนพิเศษที่แนะนำต่อสัปดาห์</span>
+          <span class="lang-en">Recommended Tutoring Hours / Week</span>
+        </div>
+      </div>
+      <div>
+        <div class="value" id="total-hours">0</div>
+        <div class="unit">
+          <span class="lang-th">ชั่วโมง/สัปดาห์</span>
+          <span class="lang-en">hours/week</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject cards -->
+    <div id="subject-results"></div>
+
+    <!-- Priority ranking -->
+    <div class="priority-box" id="priority-box">
+      <h3>
+        <span class="lang-th">ลำดับวิชาที่ต้องเร่งพัฒนา</span>
+        <span class="lang-en">Priority Subject Ranking — Most Urgent First</span>
+      </h3>
+      <ul class="priority-list" id="priority-list"></ul>
+    </div>
+
+    <!-- Inline LINE CTA -->
+    <div class="inline-cta">
+      <div>
+        <p style="font-size:1rem;font-weight:600;color:var(--cream);margin-bottom:6px">
+          <span class="lang-th">รับแผนการเรียนพิเศษส่วนตัวสำหรับลูก</span>
+          <span class="lang-en">Get your child's personalised subject plan</span>
+        </p>
+        <p style="font-size:0.85rem;">
+          <span class="lang-th">ผู้เชี่ยวชาญ LINKEDU พร้อมออกแบบโปรแกรมตามจุดอ่อนที่ระบุ — ปรึกษาฟรีครั้งแรก</span>
+          <span class="lang-en">Our tutoring specialists will design a programme around these exact gaps — free first consultation.</span>
+        </p>
+      </div>
+      <div style="flex-shrink:0;">
+        <a href="https://line.me/ti/p/@linkedu.th" target="_blank" class="btn-primary">
+          <span class="lang-th">ปรึกษาผ่าน LINE</span>
+          <span class="lang-en">Chat on LINE</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px;">
+      <button class="btn-secondary" onclick="resetTool()">
+        <span class="lang-th">วิเคราะห์ใหม่</span>
+        <span class="lang-en">Start Over</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINE CTA ── -->
+<section class="line-cta-section">
+  <div class="section-label" style="justify-content:center;display:flex;margin-bottom:20px;">
+    <span class="lang-th">· ติดต่อเรา ·</span>
+    <span class="lang-en">· CONTACT US ·</span>
+  </div>
+  <h2>
+    <span class="lang-th">พูดคุยกับที่ปรึกษา LINKEDU</span>
+    <span class="lang-en">Speak with a LINKEDU Adviser</span>
+  </h2>
+  <p>
+    <span class="lang-th">ทีมผู้เชี่ยวชาญพร้อมช่วยวางแผนการเรียนพิเศษที่เหมาะกับลูกของคุณ</span>
+    <span class="lang-en">Our specialists are ready to build a tutoring plan that fits your child's exact needs.</span>
+  </p>
+  <span class="line-handle">@linkedu.th</span>
+  <a href="https://line.me/ti/p/@linkedu.th" target="_blank" class="btn-line">
+    <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+    <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+  </a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 LINKEDU — <a href="../../about.html">Part of the Beacon Group</a></p>
+</footer>
+
+<script>
+/* ── State ── */
+const state = {
+  step1Year: null,
+  step2Type: null,
+  step4Entry: null,
+  gradeMode: 'gpa', // 'gpa' or 'pct'
+};
+
+/* ── Subjects definition ── */
+const SUBJECTS = [
+  { id: 'thai',    nameTh: 'ภาษาไทย',         nameEn: 'Thai Language',   required: true,  ukKey: 'literacy' },
+  { id: 'english', nameTh: 'ภาษาอังกฤษ',      nameEn: 'English',         required: true,  ukKey: 'english' },
+  { id: 'maths',   nameTh: 'คณิตศาสตร์',       nameEn: 'Mathematics',     required: true,  ukKey: 'maths' },
+  { id: 'science', nameTh: 'วิทยาศาสตร์',      nameEn: 'Science',         required: true,  ukKey: 'science' },
+  { id: 'social',  nameTh: 'สังคมศึกษา/ประวัติศาสตร์', nameEn: 'Social Studies / History', required: true, ukKey: 'humanities' },
+  { id: 'arts',    nameTh: 'ศิลปะ/ความคิดสร้างสรรค์', nameEn: 'Arts / Creative', required: true, ukKey: 'arts' },
+  { id: 'pe',      nameTh: 'พลศึกษา',          nameEn: 'Physical Education', required: true, ukKey: 'pe' },
+  { id: 'lang2',   nameTh: 'ภาษาที่สอง (ถ้ามี)', nameEn: 'Additional Language (if any)', required: false, ukKey: 'mfl' },
+];
+
+/* ── GPA options ── */
+const GPA_OPTIONS = ['4.0','3.5','3.0','2.5','2.0','1.5','1.0','0.0'];
+const PCT_OPTIONS = ['90-100','80-89','70-79','60-69','50-59','40-49','30-39','0-29'];
+
+/* ── UK grade mapping from GPA ── */
+function gpaToUK(gpa) {
+  const g = parseFloat(gpa);
+  if (g >= 4.0) return 'A* / A';
+  if (g >= 3.5) return 'A / B';
+  if (g >= 3.0) return 'B / C';
+  if (g >= 2.5) return 'C';
+  if (g >= 2.0) return 'D';
+  return 'U / E';
+}
+
+function pctToGpa(pctStr) {
+  const map = {'90-100':4.0,'80-89':3.5,'70-79':3.0,'60-69':2.5,'50-59':2.0,'40-49':1.5,'30-39':1.0,'0-29':0.0};
+  return map[pctStr] || 0;
+}
+
+/* ── Status logic ── */
+function getStatus(subjectId, gpa, entryLevel) {
+  // English has stricter rules
+  if (subjectId === 'english') {
+    if (gpa >= 3.5) return 'on-track';
+    if (gpa >= 3.0) return 'needs-work';
+    return 'priority';
+  }
+  // Entry level benchmarks
+  const benchmarks = {
+    '11plus': { onTrack: 3.0, needsWork: 2.5 },
+    '13plus': { onTrack: 3.0, needsWork: 2.0 },
+    '16plus': { onTrack: 3.5, needsWork: 2.5 },
+  };
+  const b = benchmarks[entryLevel] || benchmarks['13plus'];
+  if (gpa >= b.onTrack) return 'on-track';
+  if (gpa >= b.needsWork) return 'needs-work';
+  return 'priority';
+}
+
+function getStatusLabel(status) {
+  const isEn = document.documentElement.getAttribute('lang') === 'en';
+  if (status === 'on-track') return isEn ? 'On Track' : 'อยู่ในเกณฑ์';
+  if (status === 'needs-work') return isEn ? 'Needs Work' : 'ต้องปรับปรุง';
+  return isEn ? 'Priority Focus' : 'เร่งด่วน';
+}
+
+function getStatusClass(status) {
+  if (status === 'on-track') return 'status-on-track';
+  if (status === 'needs-work') return 'status-needs-work';
+  return 'status-priority';
+}
+
+/* ── Recommendations per subject ── */
+function getRec(subjectId, status) {
+  const isEn = document.documentElement.getAttribute('lang') === 'en';
+  const recs = {
+    english: {
+      'on-track': { th: 'ภาษาอังกฤษอยู่ในเกณฑ์ดี แนะนำฝึกเขียน essay เชิงวิเคราะห์เพิ่มเติม 1 ชม./สัปดาห์', en: 'English meets baseline requirements. Recommend 1 hr/week on analytical essay practice to exceed UK expectations.' },
+      'needs-work': { th: 'ภาษาอังกฤษต้องพัฒนา — เน้น reading comprehension, essay structure และ grammar 3 ชม./สัปดาห์', en: 'English needs work — focus on reading comprehension, essay structure, and grammar. Recommend 3 hrs/week.' },
+      'priority': { th: 'ภาษาอังกฤษเร่งด่วน — นี่คือสิ่งสำคัญที่สุด ต้องเรียนพิเศษทันที 4–5 ชม./สัปดาห์', en: 'English is the top priority — this is the most critical gap. Intensive tutoring required: 4–5 hrs/week on all four skills.' },
+    },
+    maths: {
+      'on-track': { th: 'คณิตศาสตร์อยู่ในเกณฑ์ดี แนะนำฝึก problem-solving เพิ่ม 1 ชม./สัปดาห์', en: 'Maths is strong. Recommend 1 hr/week of UK-style problem-solving practice to bridge curriculum differences.' },
+      'needs-work': { th: 'คณิตศาสตร์ต้องพัฒนา — เน้น algebra, geometry และ problem-solving สไตล์ UK 2–3 ชม./สัปดาห์', en: 'Maths needs work — focus on algebra, geometry, and UK-style problem-solving. Recommend 2–3 hrs/week.' },
+      'priority': { th: 'คณิตศาสตร์เร่งด่วน — ต้องเรียนพิเศษเข้มข้น 4 ชม./สัปดาห์ เน้นพื้นฐานและการประยุกต์ใช้', en: 'Maths is a priority gap. Intensive tutoring needed: 4 hrs/week covering foundational gaps and UK exam applications.' },
+    },
+    science: {
+      'on-track': { th: 'วิทยาศาสตร์อยู่ในเกณฑ์ดี แนะนำฝึก scientific method และ lab report 1 ชม./สัปดาห์', en: 'Science is on track. Recommend 1 hr/week on scientific method, lab report writing and UK terminology.' },
+      'needs-work': { th: 'วิทยาศาสตร์ต้องพัฒนา — เน้น Biology, Chemistry, Physics แบบ UK และการเขียน scientific reports 2–3 ชม./สัปดาห์', en: 'Science needs development — cover Biology, Chemistry and Physics in UK format, with scientific writing practice. 2–3 hrs/week.' },
+      'priority': { th: 'วิทยาศาสตร์เร่งด่วน — ต้องสร้างรากฐานวิทยาศาสตร์แบบ UK 3–4 ชม./สัปดาห์', en: 'Science is a priority. UK science curriculum differs significantly — structured tutoring 3–4 hrs/week recommended.' },
+    },
+    thai: {
+      'on-track': { th: 'ภาษาไทยดี — วิชานี้ไม่ส่งผลกระทบต่อการสอบเข้า UK โดยตรง', en: 'Thai Language is strong — this subject does not directly affect UK entrance but reflects general learning aptitude.' },
+      'needs-work': { th: 'ภาษาไทยพอใช้ — แม้ไม่ส่งผลสอบ UK แต่ทักษะภาษาโดยรวมสำคัญ', en: 'Thai Language shows some weakness — general literacy skills transfer to English learning. Some attention recommended.' },
+      'priority': { th: 'ภาษาไทยอ่อน — แนะนำพัฒนาทักษะการอ่านและการเขียนโดยรวม ซึ่งจะช่วยพัฒนาภาษาอังกฤษด้วย', en: 'Thai Language is weak — strong literacy in mother tongue supports second-language acquisition. General reading skills development recommended.' },
+    },
+    social: {
+      'on-track': { th: 'สังคมศึกษาอยู่ในเกณฑ์ — แนะนำอ่านประวัติศาสตร์โลก/UK เพิ่มเติมเป็นภาษาอังกฤษ', en: 'Social Studies / History is on track. Recommend reading UK and world history in English — key for Humanities at boarding school.' },
+      'needs-work': { th: 'สังคมศึกษาต้องพัฒนา — เน้นการวิเคราะห์เชิงประวัติศาสตร์และ essay ภาษาอังกฤษ 1–2 ชม./สัปดาห์', en: 'Humanities needs development — focus on historical analysis and essay writing in English. 1–2 hrs/week.' },
+      'priority': { th: 'สังคมศึกษาเร่งด่วน — ทักษะการวิเคราะห์และเขียน essay ต้องพัฒนาเร่งด่วน 2–3 ชม./สัปดาห์', en: 'Humanities is a gap — analytical and essay skills critical for UK entry. 2–3 hrs/week tutoring recommended.' },
+    },
+    arts: {
+      'on-track': { th: 'ศิลปะอยู่ในเกณฑ์ดี — ถ้าสนใจ Art Scholarship ควรพัฒนา portfolio เพิ่ม', en: 'Arts is good — if targeting an Art Scholarship, portfolio development will be key.' },
+      'needs-work': { th: 'ศิลปะพอใช้ — ไม่กระทบสอบเข้าส่วนใหญ่ แต่ควรพัฒนาถ้าต้องการ Scholarship สาขานี้', en: 'Arts needs some work — not critical for most entries, but important if targeting an arts scholarship.' },
+      'priority': { th: 'ศิลปะอ่อน — ถ้าไม่สนใจ Art Scholarship สามารถให้ priority น้อยกว่าวิชาหลัก', en: 'Arts is weak — unless targeting an arts scholarship, this is lower priority than core academic subjects.' },
+    },
+    pe: {
+      'on-track': { th: 'พลศึกษาดี — ทักษะกีฬาเป็นจุดเด่นในการสมัครโรงเรียน UK', en: 'PE is strong — athletic ability is a real differentiator at UK boarding schools. Document achievements for applications.' },
+      'needs-work': { th: 'พลศึกษาพอใช้ — ไม่ใช่วิชาหลักสำหรับสอบ แต่กิจกรรมกีฬาสำคัญต่อใบสมัคร', en: 'PE is adequate — not a core exam subject, but extracurricular sports participation is valued in applications.' },
+      'priority': { th: 'พลศึกษาอ่อน — แนะนำเพิ่มกิจกรรมกีฬาเพื่อเสริมใบสมัคร ไม่จำเป็นต้องเรียนพิเศษ', en: 'PE is weak — recommend increasing sports activity to strengthen the application profile. Tutoring not required.' },
+    },
+    lang2: {
+      'on-track': { th: 'ภาษาที่สองดี — ระบุในใบสมัครว่าพูดหลายภาษา', en: 'Second language is strong — highlight multilingual ability in the application. This is a differentiator.' },
+      'needs-work': { th: 'ภาษาที่สองพอใช้ — พัฒนาต่อเนื่อง ช่วยเสริม profile การสมัคร', en: 'Second language shows some gap — continued development strengthens the overall application profile.' },
+      'priority': { th: 'ภาษาที่สองอ่อน — ไม่ใช่ข้อบังคับสำหรับสอบเข้า UK แต่เป็น bonus ถ้าพัฒนาได้', en: 'Second language is weak — not required for UK entry but a useful bonus. Lower priority than core subjects.' },
+    },
+  };
+  const subRec = recs[subjectId] || recs['social'];
+  const statusRec = subRec[status] || subRec['needs-work'];
+  return isEn ? statusRec.en : statusRec.th;
+}
+
+/* ── Hours per status ── */
+function getHours(subjectId, status) {
+  if (status === 'on-track') return subjectId === 'pe' || subjectId === 'arts' ? 0 : 0;
+  if (status === 'needs-work') return subjectId === 'english' ? 3 : subjectId === 'maths' ? 2 : subjectId === 'pe' || subjectId === 'arts' || subjectId === 'thai' ? 0 : 1;
+  // priority
+  if (subjectId === 'english') return 5;
+  if (subjectId === 'maths') return 4;
+  if (subjectId === 'science') return 3;
+  if (subjectId === 'social') return 2;
+  if (subjectId === 'thai') return 1;
+  return 1;
+}
+
+/* ── UK Target grade ── */
+function getUKTarget(subjectId, entryLevel) {
+  if (entryLevel === '16plus') return subjectId === 'english' ? 'A / B' : 'A / B';
+  if (entryLevel === '11plus') return 'B / C';
+  return 'B / C'; // 13+
+}
+
+/* ── Language toggle ── */
+function setLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+
+/* ── Chip selection ── */
+function selectChip(groupId, el, stateKey) {
+  document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state[stateKey] = el.dataset.value;
+}
+
+/* ── Step navigation ── */
+function goToStep(n) {
+  // Validation
+  if (n === 2 && !state.step1Year) {
+    alert(document.documentElement.getAttribute('lang') === 'en' ? 'Please select a school year.' : 'กรุณาเลือกระดับชั้น');
+    return;
+  }
+  if (n === 3 && !state.step2Type) {
+    alert(document.documentElement.getAttribute('lang') === 'en' ? 'Please select a school type.' : 'กรุณาเลือกประเภทโรงเรียน');
+    return;
+  }
+  [1,2,3,4].forEach(i => {
+    document.getElementById('step-' + i).style.display = (i === n) ? '' : 'none';
+  });
+  // Update step pips
+  ['pip-1','pip-2','pip-3','pip-4'].forEach((id, idx) => {
+    const pip = document.getElementById(id);
+    pip.classList.remove('active','done');
+    if (idx + 1 < n) pip.classList.add('done');
+    if (idx + 1 === n) pip.classList.add('active');
+  });
+  if (n === 3) renderSubjectsGrid();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Grade mode switch ── */
+function switchGradeMode(mode) {
+  state.gradeMode = mode;
+  document.getElementById('toggle-gpa').classList.toggle('active', mode === 'gpa');
+  document.getElementById('toggle-pct').classList.toggle('active', mode === 'pct');
+  renderSubjectsGrid();
+}
+
+/* ── Render subjects grid ── */
+function renderSubjectsGrid() {
+  const grid = document.getElementById('subjects-grid');
+  const isEn = document.documentElement.getAttribute('lang') === 'en';
+  const options = state.gradeMode === 'gpa' ? GPA_OPTIONS : PCT_OPTIONS;
+
+  grid.innerHTML = SUBJECTS.map(s => `
+    <div class="subject-row">
+      <div>
+        <div class="subject-name">${isEn ? s.nameEn : s.nameTh}</div>
+        <div class="subject-sub">${s.required ? '' : (isEn ? 'Optional' : 'ไม่บังคับ')}</div>
+      </div>
+      <select class="grade-select" id="grade-${s.id}">
+        <option value="">${isEn ? 'Select' : 'เลือก'}</option>
+        ${options.map(o => `<option value="${o}">${o}</option>`).join('')}
+        ${!s.required ? `<option value="N/A">${isEn ? 'N/A' : 'ไม่มี'}</option>` : ''}
+      </select>
+    </div>
+  `).join('');
+}
+
+/* ── Calculate results ── */
+function calculateResults() {
+  if (!state.step4Entry) {
+    alert(document.documentElement.getAttribute('lang') === 'en' ? 'Please select a UK entry level.' : 'กรุณาเลือกระดับสอบเข้า UK');
+    return;
+  }
+
+  // Collect grades
+  const grades = {};
+  for (const s of SUBJECTS) {
+    const el = document.getElementById('grade-' + s.id);
+    if (!el) continue;
+    const val = el.value;
+    if (!val || val === 'N/A') { grades[s.id] = null; continue; }
+    if (state.gradeMode === 'gpa') grades[s.id] = parseFloat(val);
+    else grades[s.id] = pctToGpa(val);
+  }
+
+  // Check required
+  const requiredMissing = SUBJECTS.filter(s => s.required && grades[s.id] === null && document.getElementById('grade-'+s.id).value === '');
+  if (requiredMissing.length > 0) {
+    const isEn = document.documentElement.getAttribute('lang') === 'en';
+    alert(isEn ? 'Please enter grades for all required subjects.' : 'กรุณากรอกเกรดวิชาบังคับทุกวิชา');
+    return;
+  }
+
+  // Hide steps, show results
+  [1,2,3,4].forEach(i => document.getElementById('step-' + i).style.display = 'none');
+  ['pip-1','pip-2','pip-3','pip-4'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+    document.getElementById(id).classList.add('done');
+  });
+
+  const isEn = document.documentElement.getAttribute('lang') === 'en';
+  const entryLabel = {'11plus':'11+','13plus':'13+','16plus':'16+'}[state.step4Entry];
+
+  // Subtitle
+  document.getElementById('results-subtitle').innerHTML =
+    `<span class="lang-th">ผลวิเคราะห์สำหรับนักเรียน ${state.step1Year} — เป้าหมาย UK Boarding School Entry ${entryLabel}</span>` +
+    `<span class="lang-en">Results for ${state.step1Year} student — Target: UK Boarding School ${entryLabel} Entry</span>`;
+
+  // Build results per subject
+  const analyzed = [];
+  for (const s of SUBJECTS) {
+    const gpa = grades[s.id];
+    if (gpa === null) continue;
+    const status = getStatus(s.id, gpa, state.step4Entry);
+    const ukGrade = gpaToUK(gpa.toString());
+    const target = getUKTarget(s.id, state.step4Entry);
+    const rec = getRec(s.id, status);
+    const hours = getHours(s.id, status);
+    analyzed.push({ ...s, gpa, ukGrade, target, status, rec, hours });
+  }
+
+  // Sort: priority first, then needs-work, then on-track
+  const order = { 'priority': 0, 'needs-work': 1, 'on-track': 2 };
+  analyzed.sort((a, b) => order[a.status] - order[b.status]);
+
+  // Total hours
+  const totalHours = analyzed.reduce((sum, s) => sum + s.hours, 0);
+  document.getElementById('total-hours').textContent = totalHours;
+
+  // Render subject cards
+  const container = document.getElementById('subject-results');
+  container.innerHTML = analyzed.map(s => `
+    <div class="subject-result-card">
+      <div class="src-left">
+        <div class="src-subject-name">${isEn ? s.nameEn : s.nameTh}</div>
+        <div class="rec-text">${s.rec}</div>
+      </div>
+      <div class="src-grades">
+        <div class="grade-box">
+          <div class="label">${isEn ? 'Thai GPA' : 'GPA ไทย'}</div>
+          <div class="value">${s.gpa.toFixed(1)}</div>
+        </div>
+        <div class="grade-arrow">→</div>
+        <div class="grade-box">
+          <div class="label">${isEn ? 'UK Equiv.' : 'UK เทียบเท่า'}</div>
+          <div class="value gold-val">${s.ukGrade}</div>
+        </div>
+        <div class="grade-box">
+          <div class="label">${isEn ? 'Target' : 'เป้าหมาย'}</div>
+          <div class="value">${s.target}</div>
+        </div>
+        <span class="status-pill ${getStatusClass(s.status)}">${getStatusLabel(s.status)}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // Priority list (only needs-work and priority)
+  const prioritized = analyzed.filter(s => s.status !== 'on-track');
+  const priorityList = document.getElementById('priority-list');
+  if (prioritized.length === 0) {
+    priorityList.innerHTML = `<li><span class="lang-th" style="color:var(--cream)">ยินดีด้วย! ทุกวิชาอยู่ในเกณฑ์ดีสำหรับเป้าหมาย ${entryLabel}</span><span class="lang-en" style="color:var(--cream)">Congratulations — all subjects meet the ${entryLabel} benchmark!</span></li>`;
+  } else {
+    priorityList.innerHTML = prioritized.map((s, i) => `
+      <li>
+        <div class="priority-rank ${s.status === 'on-track' ? 'muted' : ''}">${i + 1}</div>
+        <div>
+          <strong style="color:var(--cream)">${isEn ? s.nameEn : s.nameTh}</strong>
+          <span style="color:var(--gold);margin-left:8px;font-size:0.8rem">${s.hours > 0 ? (isEn ? `+${s.hours} hrs/week` : `+${s.hours} ชม./สัปดาห์`) : ''}</span>
+          <div style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-top:2px">${s.rec}</div>
+        </div>
+      </li>
+    `).join('');
+  }
+
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── Reset ── */
+function resetTool() {
+  state.step1Year = null;
+  state.step2Type = null;
+  state.step4Entry = null;
+  document.getElementById('results-section').style.display = 'none';
+  goToStep(1);
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderSubjectsGrid();
+  document.documentElement.setAttribute('lang', 'th');
+});
+</script>
+</body>
+</html>

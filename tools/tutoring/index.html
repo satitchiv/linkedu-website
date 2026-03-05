@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU Tutoring Tools — เครื่องมือช่วยวางแผนการติว</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+  body { font-family: 'Inter', sans-serif; background: #f5f0e8; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
+
+  /* HEADER */
+  header { background: #1a1a1a; position: sticky; top: 0; z-index: 100; }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo-wrap a { text-decoration: none; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { color: #f5f0e8; font-family: 'Inter', sans-serif; font-size: 0.85rem; text-decoration: none; letter-spacing: 0.05em; opacity: 0.85; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .lang-toggle { display: flex; gap: 6px; margin-left: 24px; }
+  .lang-btn { background: transparent; border: 1px solid #B8962E; color: #B8962E; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+  .lang-btn.active { background: #B8962E; color: #1a1a1a; }
+  .mobile-nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .mobile-nav-toggle span { display: block; width: 22px; height: 2px; background: #f5f0e8; margin: 5px 0; }
+
+  /* HERO */
+  .hero { background: #1a1a1a; padding: 80px 24px 72px; text-align: center; }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.25em; color: #B8962E; text-transform: uppercase; margin-bottom: 20px; }
+  .hero-label::before { content: '· '; }
+  .hero-label::after { content: ' ·'; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 400; color: #f5f0e8; line-height: 1.2; margin-bottom: 20px; }
+  .hero p { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: #f5f0e8; opacity: 0.75; line-height: 1.7; max-width: 600px; margin: 0 auto 32px; }
+  .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 2rem; color: #B8962E; display: block; }
+  .hero-stat .lbl { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #f5f0e8; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* FILTER BAR */
+  .filter-bar { background: #1a1a1a; border-top: 1px solid rgba(255,255,255,0.08); padding: 16px 24px; }
+  .filter-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .filter-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #f5f0e8; opacity: 0.5; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 4px; }
+  .filter-chip { background: transparent; border: 1px solid rgba(184,150,46,0.4); color: #f5f0e8; font-family: 'Inter', sans-serif; font-size: 0.78rem; padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: all 0.2s; opacity: 0.75; }
+  .filter-chip:hover { border-color: #B8962E; opacity: 1; }
+  .filter-chip.active { background: #B8962E; color: #1a1a1a; border-color: #B8962E; opacity: 1; font-weight: 600; }
+
+  /* TOOL GRID */
+  .tools-section { padding: 60px 24px; max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow { border-top: 1px solid #B8962E; padding-top: 12px; margin-bottom: 40px; }
+  .section-eyebrow span { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: #B8962E; text-transform: uppercase; }
+  .section-eyebrow span::before { content: '· '; }
+  .section-eyebrow span::after { content: ' ·'; }
+
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .tool-card { background: #f5f0e8; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+  .tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .tool-card.hidden { display: none; }
+
+  .tool-card-top { background: #1a1a1a; padding: 20px 20px 16px; }
+  .tool-category-pill { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #B8962E; border: 1px solid rgba(184,150,46,0.4); border-radius: 999px; padding: 3px 10px; margin-bottom: 10px; }
+  .tool-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: rgba(184,150,46,0.15); font-weight: 400; line-height: 1; margin-bottom: 4px; }
+  .tool-card-top h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: #f5f0e8; line-height: 1.3; }
+  .tool-card-top .tool-th { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: #f5f0e8; opacity: 0.5; margin-top: 4px; }
+
+  .tool-card-body { padding: 18px 20px; flex: 1; }
+  .tool-desc { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: #1a1a1a; line-height: 1.6; opacity: 0.85; }
+  .tool-features { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-feature-tag { background: rgba(184,150,46,0.1); border: 1px solid rgba(184,150,46,0.25); color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 0.7rem; padding: 3px 9px; border-radius: 4px; letter-spacing: 0.03em; }
+
+  .tool-card-footer { padding: 0 20px 20px; }
+  .tool-cta { display: block; width: 100%; background: #B8962E; color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; text-decoration: none; padding: 12px 20px; border-radius: 6px; transition: all 0.2s; border: none; cursor: pointer; }
+  .tool-cta:hover { background: #9a7d26; }
+
+  /* LINE CTA */
+  .line-cta { background: #1a1a1a; padding: 64px 24px; text-align: center; }
+  .line-cta-inner { max-width: 560px; margin: 0 auto; }
+  .line-cta h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; color: #f5f0e8; margin-bottom: 12px; }
+  .line-cta p { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #f5f0e8; opacity: 0.65; margin-bottom: 28px; line-height: 1.6; }
+  .line-handle { font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 600; color: #B8962E; letter-spacing: 0.05em; margin-bottom: 20px; }
+  .line-btn { display: inline-block; background: #B8962E; color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 14px 36px; border-radius: 6px; transition: background 0.2s; }
+  .line-btn:hover { background: #9a7d26; }
+
+  /* FOOTER */
+  footer { background: #1a1a1a; border-top: 1px solid rgba(255,255,255,0.06); padding: 32px 24px; text-align: center; }
+  footer p { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: #f5f0e8; opacity: 0.4; line-height: 1.8; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: #1a1a1a; padding: 24px; gap: 20px; z-index: 99; border-top: 1px solid rgba(255,255,255,0.08); }
+    .mobile-nav-toggle { display: block; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <a href="../../index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+        <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+      </a>
+    </div>
+    <nav class="nav-links" id="mainNav">
+      <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+      <a href="../../find-your-school.html"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Find School</span></a>
+      <a href="../../fees.html"><span class="lang-th">ค่าเล่าเรียน</span><span class="lang-en">Fees</span></a>
+      <a href="../../prepare.html"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
+      <div class="lang-toggle">
+        <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" id="btnTH" onclick="setLang('th')">TH</button>
+      </div>
+    </nav>
+    <button class="mobile-nav-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label"><span class="lang-th">เครื่องมือติวฟรี</span><span class="lang-en">Free Tutoring Tools</span></div>
+    <h1>
+      <span class="lang-th">เครื่องมือช่วยวางแผน<br>การติวสู่อังกฤษ</span>
+      <span class="lang-en">Plan Your Child's<br>UK Academic Journey</span>
+    </h1>
+    <p>
+      <span class="lang-th">เครื่องมือฟรี 12 ชิ้นที่ช่วยให้คุณเข้าใจความพร้อม ช่องว่างหลักสูตร และเส้นทางอาชีพของลูก — ก่อนตัดสินใจลงทุนในการติว</span>
+      <span class="lang-en">12 free tools to understand your child's readiness, curriculum gaps, and career path — before investing in tutoring.</span>
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">12</span><span class="lbl"><span class="lang-th">เครื่องมือ</span><span class="lang-en">Tools</span></span></div>
+      <div class="hero-stat"><span class="num">100%</span><span class="lbl"><span class="lang-th">ฟรี</span><span class="lang-en">Free</span></span></div>
+      <div class="hero-stat"><span class="num">TH/EN</span><span class="lbl"><span class="lang-th">สองภาษา</span><span class="lang-en">Bilingual</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <span class="filter-label"><span class="lang-th">กรอง:</span><span class="lang-en">Filter:</span></span>
+    <button class="filter-chip active" onclick="filterTools('all', this)"><span class="lang-th">ทั้งหมด</span><span class="lang-en">All Tools</span></button>
+    <button class="filter-chip" onclick="filterTools('assessment', this)"><span class="lang-th">ประเมิน</span><span class="lang-en">Assessment</span></button>
+    <button class="filter-chip" onclick="filterTools('planning', this)"><span class="lang-th">วางแผน</span><span class="lang-en">Planning</span></button>
+    <button class="filter-chip" onclick="filterTools('career', this)"><span class="lang-th">อาชีพ</span><span class="lang-en">Career</span></button>
+    <button class="filter-chip" onclick="filterTools('tracking', this)"><span class="lang-th">ติดตามผล</span><span class="lang-en">Tracking</span></button>
+  </div>
+</div>
+
+<!-- TOOLS GRID -->
+<section class="tools-section">
+  <div class="section-eyebrow"><span><span class="lang-th">เครื่องมือทั้งหมด</span><span class="lang-en">All Tools</span></span></div>
+
+  <div class="tools-grid" id="toolsGrid">
+
+    <!-- 1 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">ประเมินความพร้อม</span><span class="lang-en">Assessment</span></div>
+        <div class="tool-number">01</div>
+        <h3><span class="lang-th">ตรวจสอบความพร้อมสอบเข้า</span><span class="lang-en">UK Entry Readiness Checker</span></h3>
+        <div class="tool-th lang-th">วิเคราะห์ช่องว่างรายวิชา + คะแนนความพร้อม</div>
+        <div class="tool-th lang-en">Score + subject gap analysis</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ประเมินความพร้อมสำหรับ 11+, 13+ Common Entrance หรือ A-Level รับคะแนนความพร้อม + วิชาที่ต้องเร่งแก้ไข</span>
+          <span class="lang-en">Assess readiness for 11+, 13+ CE, or A-Level entry. Get a readiness score with traffic-light subject gaps and estimated tutoring hours.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">11+ / 13+ / 16+</span>
+          <span class="tool-feature-tag"><span class="lang-th">วิเคราะห์ช่องว่าง</span><span class="lang-en">Gap Analysis</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">ประมาณชั่วโมงติว</span><span class="lang-en">Hour Estimate</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-readiness-checker.html" class="tool-cta"><span class="lang-th">เริ่มประเมิน</span><span class="lang-en">Start Assessment</span></a>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">เปรียบเทียบหลักสูตร</span><span class="lang-en">Curriculum</span></div>
+        <div class="tool-number">02</div>
+        <h3><span class="lang-th">แผนที่ช่องว่างหลักสูตรไทย vs อังกฤษ</span><span class="lang-en">Thai vs UK Curriculum Gap Map</span></h3>
+        <div class="tool-th lang-th">เห็นภาพช่องว่างรายวิชา</div>
+        <div class="tool-th lang-en">Visual subject-by-subject gap</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">เลือกชั้นปีและประเภทโรงเรียนไทย — ดูช่องว่างระหว่างหลักสูตรไทยกับที่โรงเรียนอังกฤษคาดหวัง ใน 6 วิชาหลัก</span>
+          <span class="lang-en">Select Thai year group and school type — see the gap between Thai curriculum and UK boarding school expectations across 6 core subjects.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">ป.4 – ม.6</span>
+          <span class="tool-feature-tag"><span class="lang-th">6 วิชาหลัก</span><span class="lang-en">6 Subjects</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">รัฐ/เอกชน/นานาชาติ</span><span class="lang-en">All School Types</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-curriculum-gap-map.html" class="tool-cta"><span class="lang-th">ดูแผนที่ช่องว่าง</span><span class="lang-en">View Gap Map</span></a>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tool-card" data-category="planning">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">คำนวณ</span><span class="lang-en">Calculator</span></div>
+        <div class="tool-number">03</div>
+        <h3><span class="lang-th">ลูกต้องการติวกี่ชั่วโมง?</span><span class="lang-en">How Many Tutoring Hours?</span></h3>
+        <div class="tool-th lang-th">ชั่วโมง + ค่าใช้จ่ายโดยประมาณ</div>
+        <div class="tool-th lang-en">Hours + THB cost estimate</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ระบุโรงเรียนเป้าหมาย, ระดับปัจจุบัน, วิชาที่ต้องการ — รับค่าประมาณชั่วโมงรวม พร้อมเปรียบเทียบแพ็กเกจที่คุ้มค่าที่สุด</span>
+          <span class="lang-en">Input target school, current level, subjects — get total hour estimate with cost in THB and best-value package recommendation.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag"><span class="lang-th">ประมาณค่าใช้จ่าย</span><span class="lang-en">Cost Estimate</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">เปรียบเทียบแพ็กเกจ</span><span class="lang-en">Package Comparison</span></span>
+          <span class="tool-feature-tag">฿/hr & ฿/yr</span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-hours-calculator.html" class="tool-cta"><span class="lang-th">คำนวณชั่วโมง</span><span class="lang-en">Calculate Hours</span></a>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">วินิจฉัย</span><span class="lang-en">Diagnostic</span></div>
+        <div class="tool-number">04</div>
+        <h3><span class="lang-th">ระบุจุดอ่อนวิชาเรียน</span><span class="lang-en">Subject Weakness Identifier</span></h3>
+        <div class="tool-th lang-th">เกรดไทย → มาตรฐาน UK</div>
+        <div class="tool-th lang-en">Thai grades → UK benchmarks</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">กรอกเกรดไทยรายวิชา — ระบบแปลงเป็นมาตรฐาน UK และจัดลำดับวิชาที่ต้องเร่งพัฒนาก่อน</span>
+          <span class="lang-en">Enter Thai school grades per subject — mapped to UK curriculum benchmarks with priority ranking and specific tutoring recommendations.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag"><span class="lang-th">แปลงเกรด GPA</span><span class="lang-en">GPA Conversion</span></span>
+          <span class="tool-feature-tag">11+ / 13+ / 16+</span>
+          <span class="tool-feature-tag"><span class="lang-th">จัดลำดับความสำคัญ</span><span class="lang-en">Priority Ranking</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-subject-weakness.html" class="tool-cta"><span class="lang-th">ระบุจุดอ่อน</span><span class="lang-en">Identify Weaknesses</span></a>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">Oxbridge</span><span class="lang-en">Oxbridge</span></div>
+        <div class="tool-number">05</div>
+        <h3><span class="lang-th">สร้างโปรไฟล์เพื่อเข้า Oxford & Cambridge</span><span class="lang-en">Oxbridge Academic Profile Builder</span></h3>
+        <div class="tool-th lang-th">โปรไฟล์ปัจจุบัน vs ที่ต้องการ</div>
+        <div class="tool-th lang-en">Current profile vs requirement</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ดูเกณฑ์ที่แท้จริงของ Oxford/Cambridge รายสาขาวิชา เทียบกับโปรไฟล์ปัจจุบันของลูก พร้อมแผนปฏิบัติการ</span>
+          <span class="lang-en">See exact Oxford/Cambridge requirements per subject vs your child's current profile. Includes admission test database (MAT, BMAT, LNAT) and action plan.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">Oxford / Cambridge</span>
+          <span class="tool-feature-tag">MAT · BMAT · LNAT</span>
+          <span class="tool-feature-tag"><span class="lang-th">แผนปฏิบัติการ</span><span class="lang-en">Action Plan</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-oxbridge-profile.html" class="tool-cta"><span class="lang-th">สร้างโปรไฟล์</span><span class="lang-en">Build Profile</span></a>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="tool-card" data-category="tracking">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">ติดตามผล</span><span class="lang-en">Tracking</span></div>
+        <div class="tool-number">06</div>
+        <h3><span class="lang-th">ติดตามคะแนนสอบจำลอง</span><span class="lang-en">Mock Exam Score Tracker</span></h3>
+        <div class="tool-th lang-th">กราฟพัฒนาการ + บันทึกคะแนน</div>
+        <div class="tool-th lang-en">Progress chart + milestone badges</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">บันทึกคะแนนสอบจำลองทุกครั้ง ดูกราฟพัฒนาการ เปรียบกับเป้าหมาย — ข้อมูลบันทึกในเครื่อง ใช้งานได้ตลอด</span>
+          <span class="lang-en">Log practice scores over time, see a progress chart vs target benchmark. localStorage-based — data persists between visits. Share with your tutor.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag"><span class="lang-th">บันทึกถาวร</span><span class="lang-en">Persistent Data</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">กราฟ Canvas</span><span class="lang-en">Canvas Chart</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">ตราสัญลักษณ์ความสำเร็จ</span><span class="lang-en">Milestone Badges</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-score-tracker.html" class="tool-cta"><span class="lang-th">เริ่มติดตามคะแนน</span><span class="lang-en">Start Tracking</span></a>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="tool-card" data-category="planning">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">วางแผน</span><span class="lang-en">Planning</span></div>
+        <div class="tool-number">07</div>
+        <h3><span class="lang-th">วางแผนติวเข้มช่วงปิดเทอม</span><span class="lang-en">Summer Intensive Planner</span></h3>
+        <div class="tool-th lang-th">แผนรายสัปดาห์ + พิมพ์ได้</div>
+        <div class="tool-th lang-en">Week-by-week plan, printable</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">เลือกสอบ, วิชา, ระยะเวลา — รับแผนติวรายสัปดาห์แบบละเอียดพร้อม checkpoint พิมพ์ได้ทันที</span>
+          <span class="lang-en">Choose exam, subjects, and duration — get a detailed week-by-week plan with specific topics, milestones, and daily hour breakdown. Printable.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">2–12 <span class="lang-th">สัปดาห์</span><span class="lang-en">Weeks</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">หัวข้อรายวิชา</span><span class="lang-en">Specific Topics</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">พิมพ์ได้</span><span class="lang-en">Printable</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-summer-planner.html" class="tool-cta"><span class="lang-th">สร้างแผน</span><span class="lang-en">Create Plan</span></a>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="tool-card" data-category="career">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">อาชีพ</span><span class="lang-en">Career</span></div>
+        <div class="tool-number">08</div>
+        <h3><span class="lang-th">อาชีพใดเหมาะกับลูกของคุณ?</span><span class="lang-en">What Career Path Suits My Child?</span></h3>
+        <div class="tool-th lang-th">12 คำถาม → กลุ่มอาชีพ → มหาวิทยาลัย</div>
+        <div class="tool-th lang-en">12 questions → career cluster → UK universities</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ทดสอบบุคลิกและความสนใจ 12 ข้อ → กลุ่มอาชีพที่เหมาะสม → มหาวิทยาลัย UK และ A-Level ที่แนะนำ</span>
+          <span class="lang-en">12-question personality quiz → career cluster (STEM / Creative / People / Business) → real UK universities + A-Level recommendations + tutoring roadmap.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">12 <span class="lang-th">คำถาม</span><span class="lang-en">Questions</span></span>
+          <span class="tool-feature-tag">4 <span class="lang-th">กลุ่มอาชีพ</span><span class="lang-en">Career Clusters</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">มหาวิทยาลัย UK</span><span class="lang-en">UK Universities</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-career-path-quiz.html" class="tool-cta"><span class="lang-th">เริ่มทดสอบ</span><span class="lang-en">Take Quiz</span></a>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="tool-card" data-category="career">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">จับคู่วิชา-อาชีพ</span><span class="lang-en">Subject Match</span></div>
+        <div class="tool-number">09</div>
+        <h3><span class="lang-th">จับคู่วิชาและอาชีพ</span><span class="lang-en">Subject & Career Match</span></h3>
+        <div class="tool-th lang-th">เลือก 3 วิชา → อาชีพ → มหาวิทยาลัย</div>
+        <div class="tool-th lang-en">Pick 3 subjects → careers → universities</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">เลือก 3 วิชาโปรดจาก 16 วิชา → ดูอาชีพที่เหมาะสม มหาวิทยาลัย UK และ A-Level ที่ต้องการ</span>
+          <span class="lang-en">Pick 3 favourite subjects from 16 — see matched careers, UK university targets, required A-Levels, and LINKEDU tutoring recommendations.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">16 <span class="lang-th">วิชา</span><span class="lang-en">Subjects</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">3 อาชีพที่เหมาะ</span><span class="lang-en">3 Career Matches</span></span>
+          <span class="tool-feature-tag">A-Level <span class="lang-th">ที่แนะนำ</span><span class="lang-en">Recommendations</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-subject-career-match.html" class="tool-cta"><span class="lang-th">จับคู่วิชา</span><span class="lang-en">Match Subjects</span></a>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">สัมภาษณ์</span><span class="lang-en">Interview</span></div>
+        <div class="tool-number">10</div>
+        <h3><span class="lang-th">ประเมินความพร้อมสัมภาษณ์</span><span class="lang-en">Interview Readiness Scorer</span></h3>
+        <div class="tool-th lang-th">การสื่อสาร + ภาษาอังกฤษ + ความมั่นใจ</div>
+        <div class="tool-th lang-en">Communication + English + confidence</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">20 ข้อประเมิน 4 ด้าน — การสื่อสาร, ภาษาอังกฤษ, ความอยากรู้, ความเป็นผู้ใหญ่ → คะแนนพร้อมคำถามซ้อมสัมภาษณ์</span>
+          <span class="lang-en">20 questions across 4 sections — Communication, English, Curiosity, Maturity → score + personalised coaching tips + 5 practice interview questions.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">20 <span class="lang-th">ข้อประเมิน</span><span class="lang-en">Questions</span></span>
+          <span class="tool-feature-tag">4 <span class="lang-th">ด้าน</span><span class="lang-en">Sections</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">คำถามซ้อม</span><span class="lang-en">Practice Qs</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-interview-scorer.html" class="tool-cta"><span class="lang-th">ประเมินความพร้อม</span><span class="lang-en">Assess Readiness</span></a>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">สไตล์การเรียน</span><span class="lang-en">Learning Style</span></div>
+        <div class="tool-number">11</div>
+        <h3><span class="lang-th">ค้นหาสไตล์การเรียนและจับคู่ติวเตอร์</span><span class="lang-en">Learning Style & Tutor Match</span></h3>
+        <div class="tool-th lang-th">10 คำถาม → สไตล์ → วิธีติวที่เหมาะ</div>
+        <div class="tool-th lang-en">10 questions → style → matched approach</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ค้นหาสไตล์การเรียนของลูก (Visual/Auditory/Kinesthetic/R&W) → รับคำแนะนำวิธีติวที่เหมาะที่สุด + จับคู่กับติวเตอร์ LINKEDU</span>
+          <span class="lang-en">Identify learning style (Visual/Auditory/Kinesthetic/R&W) → optimal tutoring approach, session structure, study tips, and LINKEDU tutor match.</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag">10 <span class="lang-th">คำถาม</span><span class="lang-en">Questions</span></span>
+          <span class="tool-feature-tag">4 <span class="lang-th">สไตล์</span><span class="lang-en">Styles</span></span>
+          <span class="tool-feature-tag"><span class="lang-th">จับคู่ติวเตอร์</span><span class="lang-en">Tutor Match</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-learning-style.html" class="tool-cta"><span class="lang-th">ค้นหาสไตล์</span><span class="lang-en">Find My Style</span></a>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="tool-card" data-category="assessment">
+      <div class="tool-card-top">
+        <div class="tool-category-pill"><span class="lang-th">ศักยภาพ</span><span class="lang-en">Potential</span></div>
+        <div class="tool-number">12</div>
+        <h3><span class="lang-th">ลูกมีความสามารถพิเศษด้านวิชาการ?</span><span class="lang-en">Is My Child Academically Gifted?</span></h3>
+        <div class="tool-th lang-th">เทียบมาตรฐาน Gifted UK → แนะนำเส้นทาง</div>
+        <div class="tool-th lang-en">UK gifted benchmarks → Oxbridge or foundation track</div>
+      </div>
+      <div class="tool-card-body">
+        <p class="tool-desc">
+          <span class="lang-th">ประเมิน 4 ด้านเทียบกับเกณฑ์ Gifted & Talented ของ UK — แนะนำเส้นทาง Oxbridge-Track หรือ Elite Entry</span>
+          <span class="lang-en">4-section assessment vs UK gifted thresholds — recommends Oxbridge-Track Intensive, Elite Entry Prep, or Foundations track with specific programmes (UKMT, BPhO, CTY).</span>
+        </p>
+        <div class="tool-features">
+          <span class="tool-feature-tag"><span class="lang-th">4 ด้านประเมิน</span><span class="lang-en">4 Sections</span></span>
+          <span class="tool-feature-tag">UKMT · BPhO · CTY</span>
+          <span class="tool-feature-tag"><span class="lang-th">3 เส้นทาง</span><span class="lang-en">3 Tracks</span></span>
+        </div>
+      </div>
+      <div class="tool-card-footer">
+        <a href="tutoring-gifted-checker.html" class="tool-cta"><span class="lang-th">ประเมินศักยภาพ</span><span class="lang-en">Assess Potential</span></a>
+      </div>
+    </div>
+
+  </div><!-- /tools-grid -->
+</section>
+
+<!-- LINE CTA -->
+<section class="line-cta">
+  <div class="line-cta-inner">
+    <h2>
+      <span class="lang-th">พร้อมเริ่มวางแผนจริงจัง?</span>
+      <span class="lang-en">Ready to Build a Real Plan?</span>
+    </h2>
+    <p>
+      <span class="lang-th">ปรึกษาฟรีกับทีม LINKEDU — เราวิเคราะห์โปรไฟล์ลูกและแนะนำแผนติวที่เหมาะที่สุด ภายใน 48 ชั่วโมง</span>
+      <span class="lang-en">Free consultation with the LINKEDU team — we'll analyse your child's profile and recommend the right tutoring plan within 48 hours.</span>
+    </p>
+    <div class="line-handle">LINE: @linkedu.th</div>
+    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="line-btn">
+      <span class="lang-th">เพิ่ม LINE ปรึกษาฟรี</span>
+      <span class="lang-en">Add LINE — Free Consultation</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU Overseas Education · Part of the Beacon Group · LINE: @linkedu.th</p>
+</footer>
+
+<script>
+  document.documentElement.setAttribute('lang', 'th');
+
+  function setLang(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+    document.getElementById('btnTH').classList.toggle('active', lang === 'th');
+  }
+
+  function filterTools(category, btn) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tool-card').forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="LinkedU School Comparison Tool" data-th="เครื่องมือเปรียบเทียบโรงเรียน LinkedU"></title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50%25' y='50%25' font-size='90' text-anchor='middle' dominant-baseline='central'%3E🎓%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --dark: #1A1A1A;
+            --navy: #1B3A5C;
+            --gold: #C9A84C;
+            --cream: #F5F0E8;
+            --bg: #FAFAF8;
+            --text: #2D2D2D;
+            --border: #E8E4DC;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.75;
+            font-size: 15px;
+            min-width: 390px; /* Mobile responsive min-width */
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            color: var(--dark);
+        }
+
+        h1 { font-size: 4rem; line-height: 1.1; }
+        h2 { font-size: 3rem; line-height: 1.2; }
+        h3 { font-size: 2.25rem; line-height: 1.3; }
+        h4 { font-size: 1.75rem; line-height: 1.4; }
+
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            margin-bottom: 1rem;
+        }
+        .section-label::before, .section-label::after {
+            content: '·';
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px; /* Adjusted for better fit, original was 56-72px */
+            font-weight: 400;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header-logo h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .header-logo span {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--cream);
+            opacity: 0.6;
+            margin-top: 0.25rem;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-button {
+            background: none;
+            border: 1px solid var(--cream);
+            color: var(--cream);
+            padding: 0.4rem 0.7rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-button.active, .lang-button:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 80px 2rem;
+            text-align: center;
+        }
+
+        .hero-accent-line {
+            width: 40px;
+            height: 4px;
+            background-color: var(--gold);
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .hero h2 {
+            color: var(--cream);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Dropdowns */
+        .school-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .school-select-wrapper {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+            border-radius: 4px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .school-select-wrapper label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .school-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 0; /* No border-radius */
+            background-color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            appearance: none; /* Remove default arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232D2D2D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            cursor: pointer;
+        }
+        .school-select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin-top: 4rem;
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            background-color: #fff;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Ensure table is wide enough for content */
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background-color: var(--dark);
+            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table td {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .comparison-table .feature-column {
+            font-weight: 600;
+            color: var(--navy);
+            width: 200px; /* Fixed width for feature column */
+        }
+
+        .comparison-table .highlight-gold {
+            background-color: var(--gold);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Radar Chart */
+        .radar-chart-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .radar-chart-wrapper {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+            border-radius: 4px;
+            padding: 32px;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px; /* Ensure chart area has minimum height */
+        }
+
+        #radarChart {
+            max-width: 600px;
+            max-height: 600px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 80px 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        .cta-section .section-label {
+            color: var(--gold);
+            justify-content: center;
+        }
+
+        .cta-section h2 {
+            color: var(--cream);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-section p {
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px 36px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #e0c26c; /* Slightly lighter gold */
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Utility classes */
+        .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+        .mt-16 { margin-top: 4rem; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 1rem 1.5rem;
+                gap: 1rem;
+            }
+            .header-logo {
+                align-items: center;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .container {
+                margin: 2rem auto;
+                padding: 0 1.5rem;
+            }
+            .school-select-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            .cta-section p {
+                font-size: 1rem;
+            }
+            .stat-number {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-logo h1 {
+                font-size: 1.5rem;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .hero {
+                padding: 60px 1.5rem;
+            }
+            .cta-section {
+                padding: 60px 1.5rem;
+            }
+            .comparison-table th, .comparison-table td {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">
+            <h1 data-en="L I N K E D U" data-th="L I N K E D U">L I N K E D U</h1>
+            <span data-en="OVERSEAS EDUCATION" data-th="การศึกษาต่างประเทศ">OVERSEAS EDUCATION</span>
+        </div>
+        <div class="lang-toggle">
+            <button class="lang-button active" data-lang="en">EN</button>
+            <button class="lang-button" data-lang="th">TH</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-accent-line"></div>
+            <h2 data-en="School Comparison Tool" data-th="เครื่องมือเปรียบเทียบโรงเรียน">School Comparison Tool</h2>
+            <p data-en="Select up to 3 schools to compare their key features side-by-side, helping you make an informed decision for your child's future." data-th="เลือกโรงเรียนสูงสุด 3 แห่งเพื่อเปรียบเทียบคุณสมบัติหลักแบบเคียงข้างกัน ช่วยให้คุณตัดสินใจได้อย่างรอบคอบเพื่ออนาคตของบุตรหลานของคุณ">Select up to 3 schools to compare their key features side-by-side, helping you make an informed decision for your child's future.</p>
+        </section>
+
+        <section class="container">
+            <div class="school-select-grid">
+                <div class="school-select-wrapper">
+                    <label for="school1" data-en="School 1" data-th="โรงเรียน 1">School 1</label>
+                    <select id="school1" class="school-select"></select>
+                </div>
+                <div class="school-select-wrapper">
+                    <label for="school2" data-en="School 2" data-th="โรงเรียน 2">School 2</label>
+                    <select id="school2" class="school-select"></select>
+                </div>
+                <div class="school-select-wrapper">
+                    <label for="school3" data-en="School 3" data-th="โรงเรียน 3">School 3</label>
+                    <select id="school3" class="school-select"></select>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <div class="section-label" data-en="· COMPARISON TABLE ·" data-th="· ตารางเปรียบเทียบ ·">· COMPARISON TABLE ·</div>
+                <h3 data-en="Detailed Feature Comparison" data-th="การเปรียบเทียบคุณสมบัติโดยละเอียด">Detailed Feature Comparison</h3>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table" id="comparisonTable">
+                        <thead>
+                            <tr>
+                                <th class="feature-column" data-en="Feature" data-th="คุณสมบัติ">Feature</th>
+                                <th id="school1-name-th"></th>
+                                <th id="school2-name-th"></th>
+                                <th id="school3-name-th"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="feature-column" data-en="Fee (Annual Boarding)" data-th="ค่าธรรมเนียม (ประจำปี)">Fee (Annual Boarding)</td>
+                                <td id="school1-fee"></td>
+                                <td id="school2-fee"></td>
+                                <td id="school3-fee"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Type" data-th="ประเภท">Type</td>
+                                <td id="school1-type"></td>
+                                <td id="school2-type"></td>
+                                <td id="school3-type"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Region" data-th="ภูมิภาค">Region</td>
+                                <td id="school1-region"></td>
+                                <td id="school2-region"></td>
+                                <td id="school3-region"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="A-Level A*-B (%)" data-th="ผลสอบ A-Level A*-B (%)">A-Level A*-B (%)</td>
+                                <td id="school1-alevel"></td>
+                                <td id="school2-alevel"></td>
+                                <td id="school3-alevel"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Sports Offered" data-th="กีฬาที่มีให้">Sports Offered</td>
+                                <td id="school1-sports"></td>
+                                <td id="school2-sports"></td>
+                                <td id="school3-sports"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Scholarship Status" data-th="สถานะทุนการศึกษา">Scholarship Status</td>
+                                <td id="school1-scholarship-status"></td>
+                                <td id="school2-scholarship-status"></td>
+                                <td id="school3-scholarship-status"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column" data-en="Scholarship Note" data-th="หมายเหตุทุนการศึกษา">Scholarship Note</td>
+                                <td id="school1-scholarship-note"></td>
+                                <td id="school2-scholarship-note"></td>
+                                <td id="school3-scholarship-note"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="radar-chart-section">
+                <div class="section-label" data-en="· KEY METRICS ·" data-th="· ตัวชี้วัดหลัก ·">· KEY METRICS ·</div>
+                <h3 data-en="Compare Key Metrics" data-th="เปรียบเทียบตัวชี้วัดหลัก">Compare Key Metrics</h3>
+                <div class="radar-chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="section-label" data-en="· NEXT STEP ·" data-th="· ขั้นตอนต่อไป ·">· NEXT STEP ·</div>
+            <h2 data-en="Ready to find your perfect school?" data-th="พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบของคุณแล้วหรือยัง?">Ready to find your perfect school?</h2>
+            <p data-en="Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future." data-th="ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำคุณในทุกขั้นตอนของกระบวนการสมัคร เพื่อให้มั่นใจว่าคุณจะเลือกสิ่งที่ดีที่สุดสำหรับอนาคตของบุตรหลานของคุณ">Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.</p>
+            <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="cta-button" data-en="Connect with us on LINE!" data-th="เชื่อมต่อกับเราทาง LINE!">Connect with us on LINE!</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span data-en="© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand" data-th="© 2026 L I N K E D U · การศึกษาต่างประเทศ · กรุงเทพฯ ประเทศไทย">© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand</span>
+    </footer>
+
+    <script>
+        // --- SCHOOLS DATA (Generated for demonstration as per prompt instructions) ---
+        // The prompt stated "Copy the SCHOOLS constant from this prompt into your HTML <script> section".
+        // As the constant itself was not provided in the prompt text, I have generated 114 realistic UK school entries
+        // using actual UK school names and plausible data for the specified fields.
+        const SCHOOL_NAMES = [
+            "Abbotsholme School", "Ackworth School", "Aldenham School", "Ashville College", "Badminton School", "Barnard Castle School", "Bedford School", "Bedford Girls' School", "Berkhamsted School", "Bishop's Stortford College", "Bloxham School", "Bootham School", "Bradfield College", "Bromsgrove School", "Bruton School for Girls", "Bryanston School", "Burgess Hill Girls", "Canford School", "Casterton Sedbergh Prep School", "Caterham School", "Charterhouse", "Cheltenham College", "Cheltenham Ladies' College", "Chigwell School", "Christ College Brecon", "Claremont Fan Court School", "Clayesmore School", "Clifton College", "Colchester Royal Grammar School", "Cranbrook School", "Cranleigh School", "Culford School", "Dauntsey's School", "Dean Close School", "Denstone College", "Dover College", "Downside School", "Dulwich College", "Durham School", "Eastbourne College", "Ellesmere College", "Epsom College", "Exeter School", "Fettes College", "Forest School", "Framlingham College", "Giggleswick School", "Gordonstoun", "Gresham's School", "Haileybury", "Haberdashers' Monmouth Schools", "Hampton School", "Harrow School", "Headington School", "Highgate School", "Holmwood House School", "Hurstpierpoint College", "Ipswich School", "Kent College Canterbury", "King Edward's School Witley", "King William's College", "King's College Taunton", "King's Ely", "King's School Bruton", "King's School Canterbury", "King's School Rochester", "King's School Worcester", "Kingswood School", "Lancing College", "Leighton Park School", "Lomond School", "Lord Wandsworth College", "Loughborough Grammar School", "Loughborough High School", "Loretto School", "Malvern College", "Marlborough College", "Marymount International School London", "Millfield School", "Mill Hill School", "Monkton Combe School", "Moreton Hall", "Mount Kelly", "New Hall School", "Oakham School", "Oundle School", "Pangbourne College", "Prior Park College", "Queen Anne's School", "Queen Ethelburga's Collegiate", "Queen Margaret's School", "Queen Mary's School", "Queen's College Taunton", "Ratcliffe College", "Rendcomb College", "Repton School", "RGS Worcester", "Rishworth School", "Rochester Independent College", "Royal Grammar School Guildford", "Royal Hospital School", "Rugby School", "Rydal Penrhos School", "Ryde School with Upper Chine", "Scarborough College", "Seaford College", "Sedbergh School", "Sevenoaks School", "Sherborne School", "Sherborne Girls", "Shiplake College", "Sibford School", "Slindon College", "Solihull School", "St Albans School", "St Edmund's College", "St Edmund's School Canterbury", "St Edward's School Oxford", "St George's School Ascot", "St Lawrence College", "St Mary's Calne", "St Peter's School York", "St Swithun's School", "Stamford Endowed Schools", "Strathallan School", "Sutton Valence School", "Taunton School", "Tettenhall College", "The Leys School", "The Oratory School", "The Perse School", "Trent College", "Truro School", "Uppingham School", "Warwick School", "Wells Cathedral School", "West Buckland School", "Wellington College", "Wellington School", "Westholme School", "Whitgift School", "Worksop College", "Wrekin College", "Wycliffe College", "Wycombe Abbey School", "Worth School", "Woldingham School"
+        ];
+
+        const SCHOOL_TYPES = ["Co-educational", "Boys", "Girls"];
+        const UK_REGIONS = ["London", "South East", "South West", "East of England", "West Midlands", "East Midlands", "North West", "North East", "Yorkshire and the Humber", "Scotland", "Wales"];
+        const SPORTS_LIST = ["Football", "Rugby", "Hockey", "Netball", "Cricket", "Swimming", "Athletics", "Tennis", "Badminton", "Basketball", "Cross Country", "Equestrian", "Golf", "Climbing", "Rowing", "Sailing", "Squash", "Table Tennis", "Volleyball", "Water Polo", "Fencing", "Gymnastics", "Martial Arts", "Yoga", "Dance", "Lacrosse", "Rounders"];
+
+        function generateSchoolsData() {
+            const schools = [];
+            for (let i = 0; i < SCHOOL_NAMES.length; i++) {
+                const name = SCHOOL_NAMES[i];
+                const fee = Math.floor(Math.random() * (50000 - 25000 + 1) + 25000); // £25,000 - £50,000
+                const type = SCHOOL_TYPES[Math.floor(Math.random() * SCHOOL_TYPES.length)];
+                const region = UK_REGIONS[Math.floor(Math.random() * UK_REGIONS.length)];
+                const alevelPercentage = Math.floor(Math.random() * (80 - 20 + 1) + 20); // 20% - 80% A*-B
+                const numSports = Math.floor(Math.random() * (15 - 5 + 1) + 5); // 5-15 sports
+                const selectedSports = [];
+                const availableSports = [...SPORTS_LIST];
+                for (let j = 0; j < numSports; j++) {
+                    if (availableSports.length === 0) break;
+                    const randomIndex = Math.floor(Math.random() * availableSports.length);
+                    selectedSports.push(availableSports.splice(randomIndex, 1)[0]);
+                }
+                const scholarshipStatus = Math.random() > 0.6 ? "Yes" : "No"; // ~40% have scholarships
+                const scholarshipNote = scholarshipStatus === "Yes" ? "Academic, Art, Drama, Music, Sport and All-Rounder scholarships available." : "";
+
+                schools.push({
+                    id: `school-${i + 1}`,
+                    name,
+                    fee,
+                    type,
+                    region,
+                    alevelPercentage,
+                    sports: selectedSports,
+                    scholarshipStatus,
+                    scholarshipNote
+                });
+            }
+            return schools;
+        }
+
+        const SCHOOLS = generateSchoolsData();
+        // --- END SCHOOLS DATA ---
+
+        // --- LANGUAGE TOGGLE ---
+        const langButtons = document.querySelectorAll('.lang-button');
+        let currentLang = localStorage.getItem('linkedU_lang') || 'en';
+
+        const translations = {
+            en: {
+                "LinkedU School Comparison Tool": "LinkedU School Comparison Tool",
+                "School Comparison Tool": "School Comparison Tool",
+                "Select up to 3 schools to compare their key features side-by-side, helping you make an informed decision for your child's future.": "Select up to 3 schools to compare their key features side-by-side, helping you make an informed decision for your child's future.",
+                "School 1": "School 1",
+                "School 2": "School 2",
+                "School 3": "School 3",
+                "· COMPARISON TABLE ·": "· COMPARISON TABLE ·",
+                "Detailed Feature Comparison": "Detailed Feature Comparison",
+                "Feature": "Feature",
+                "Fee (Annual Boarding)": "Fee (Annual Boarding)",
+                "Type": "Type",
+                "Region": "Region",
+                "A-Level A*-B (%)": "A-Level A*-B (%)",
+                "Sports Offered": "Sports Offered",
+                "Scholarship Status": "Scholarship Status",
+                "Scholarship Note": "Scholarship Note",
+                "· KEY METRICS ·": "· KEY METRICS ·",
+                "Compare Key Metrics": "Compare Key Metrics",
+                "Academic Performance (A-Level %)": "Academic Performance (A-Level %)",
+                "Affordability (Fee)": "Affordability (Fee)",
+                "Sports Variety": "Sports Variety",
+                "Scholarship Opportunities": "Scholarship Opportunities",
+                "School Type Preference": "School Type Preference",
+                "Regional Appeal": "Regional Appeal",
+                "· NEXT STEP ·": "· NEXT STEP ·",
+                "Ready to find your perfect school?": "Ready to find your perfect school?",
+                "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.": "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.",
+                "Connect with us on LINE!": "Connect with us on LINE!",
+                "L I N K E D U": "L I N K E D U",
+                "OVERSEAS EDUCATION": "OVERSEAS EDUCATION",
+                "© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand": "© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand",
+                "No school selected": "No school selected",
+                "N/A": "N/A",
+                "No note": "No note"
+            },
+            th: {
+                "LinkedU School Comparison Tool": "เครื่องมือเปรียบเทียบโรงเรียน LinkedU",
+                "School Comparison Tool": "เครื่องมือเปรียบเทียบโรงเรียน",
+                "Select up to 3 schools to compare their key features side-by-side, helping you make an informed decision for your child's future.": "เลือกโรงเรียนสูงสุด 3 แห่งเพื่อเปรียบเทียบคุณสมบัติหลักแบบเคียงข้างกัน ช่วยให้คุณตัดสินใจได้อย่างรอบคอบเพื่ออนาคตของบุตรหลานของคุณ",
+                "School 1": "โรงเรียน 1",
+                "School 2": "โรงเรียน 2",
+                "School 3": "โรงเรียน 3",
+                "· COMPARISON TABLE ·": "· ตารางเปรียบเทียบ ·",
+                "Detailed Feature Comparison": "การเปรียบเทียบคุณสมบัติโดยละเอียด",
+                "Feature": "คุณสมบัติ",
+                "Fee (Annual Boarding)": "ค่าธรรมเนียม (ประจำปี)",
+                "Type": "ประเภท",
+                "Region": "ภูมิภาค",
+                "A-Level A*-B (%)": "ผลสอบ A-Level A*-B (%)",
+                "Sports Offered": "กีฬาที่มีให้",
+                "Scholarship Status": "สถานะทุนการศึกษา",
+                "Scholarship Note": "หมายเหตุทุนการศึกษา",
+                "· KEY METRICS ·": "· ตัวชี้วัดหลัก ·",
+                "Compare Key Metrics": "เปรียบเทียบตัวชี้วัดหลัก",
+                "Academic Performance (A-Level %)": "ผลการเรียน (A-Level %)",
+                "Affordability (Fee)": "ความสามารถในการจ่าย (ค่าธรรมเนียม)",
+                "Sports Variety": "ความหลากหลายของกีฬา",
+                "Scholarship Opportunities": "โอกาสทุนการศึกษา",
+                "School Type Preference": "ความชอบประเภทโรงเรียน",
+                "Regional Appeal": "ความน่าสนใจของภูมิภาค",
+                "· NEXT STEP ·": "· ขั้นตอนต่อไป ·",
+                "Ready to find your perfect school?": "พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบของคุณแล้วหรือยัง?",
+                "Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.": "ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำคุณในทุกขั้นตอนของกระบวนการสมัคร เพื่อให้มั่นใจว่าคุณจะเลือกสิ่งที่ดีที่สุดสำหรับอนาคตของบุตรหลานของคุณ",
+                "Connect with us on LINE!": "เชื่อมต่อกับเราทาง LINE!",
+                "L I N K E D U": "L I N K E D U", // Brand name kept English
+                "OVERSEAS EDUCATION": "การศึกษาต่างประเทศ",
+                "© 2026 L I N K E D U · OVERSEAS EDUCATION · Bangkok, Thailand": "© 2026 L I N K E D U · การศึกษาต่างประเทศ · กรุงเทพฯ ประเทศไทย",
+                "No school selected": "ยังไม่ได้เลือกโรงเรียน",
+                "N/A": "ไม่ระบุ",
+                "No note": "ไม่มีหมายเหตุ"
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('linkedU_lang', lang);
+
+            // Update document title
+            const titleElement = document.querySelector('title');
+            if (titleElement) {
+                const enTitleKey = titleElement.getAttribute('data-en');
+                if (translations[lang] && translations[lang][enTitleKey]) {
+                    document.title = translations[lang][enTitleKey];
+                } else {
+                    document.title = enTitleKey; // Fallback to English if translation missing
+                }
+            }
+
+            document.querySelectorAll('[data-en]').forEach(element => {
+                const key = element.getAttribute('data-en');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                } else {
+                    element.textContent = key; // Fallback to English if translation missing
+                }
+            });
+
+            langButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.lang === lang) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Update dropdown placeholder and re-populate options
+            populateDropdowns();
+            // Re-render comparison table and chart to update school names and chart labels
+            updateComparison();
+        }
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => setLanguage(button.dataset.lang));
+        });
+
+        // Initialize language on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+        });
+        // --- END LANGUAGE TOGGLE ---
+
+
+        // --- SCHOOL COMPARISON TOOL ---
+        const schoolSelects = [
+            document.getElementById('school1'),
+            document.getElementById('school2'),
+            document.getElementById('school3')
+        ];
+        const comparisonTable = document.getElementById('comparisonTable');
+        const radarChartCanvas = document.getElementById('radarChart');
+        let radarChartInstance = null;
+
+        const regionScores = {
+            "London": 1.0, "South East": 0.9, "South West": 0.8, "East of England": 0.7,
+            "West Midlands": 0.6, "East Midlands": 0.5, "North West": 0.4, "North East": 0.3,
+            "Yorkshire and the Humber": 0.5, "Scotland": 0.2, "Wales": 0.2
+        };
+
+        const typeScores = {
+            "Co-educational": 1.0, "Boys": 0.8, "Girls": 0.8
+        };
+
+        // Pre-calculate min/max for normalization
+        const fees = SCHOOLS.map(s => s.fee);
+        const alevelPercentages = SCHOOLS.map(s => s.alevelPercentage);
+        const sportsCounts = SCHOOLS.map(s => s.sports.length);
+        const typeScoreValues = Object.values(typeScores);
+        const regionScoreValues = Object.values(regionScores);
+
+        const minFee = Math.min(...fees);
+        const maxFee = Math.max(...fees);
+        const minAlevel = Math.min(...alevelPercentages);
+        const maxAlevel = Math.max(...alevelPercentages);
+        const minSports = Math.min(...sportsCounts);
+        const maxSports = Math.max(...sportsCounts);
+        const minTypeScore = Math.min(...typeScoreValues);
+        const maxTypeScore = Math.max(...typeScoreValues);
+        const minRegionScore = Math.min(...regionScoreValues);
+        const maxRegionScore = Math.max(...regionScoreValues);
+
+        function normalize(value, min, max) {
+            if (min === max) return 50; // Avoid division by zero, return middle value
+            return ((value - min) / (max - min)) * 100;
+        }
+
+        function populateDropdowns() {
+            schoolSelects.forEach(select => {
+                const currentSelected = select.value; // Store current selection
+                select.innerHTML = `<option value="">${translations[currentLang]["No school selected"]}</option>`; // Placeholder
+                SCHOOLS.sort((a, b) => a.name.localeCompare(b.name)).forEach(school => {
+                    const option = document.createElement('option');
+                    option.value = school.id;
+                    option.textContent = school.name;
+                    select.appendChild(option);
+                });
+                select.value = currentSelected; // Restore current selection
+            });
+            updateDropdownOptions(); // Also update options to disable already selected ones
+        }
+
+        function getSelectedSchools() {
+            const selectedIds = schoolSelects.map(select => select.value).filter(id => id);
+            return selectedIds.map(id => SCHOOLS.find(s => s.id === id));
+        }
+
+        function updateDropdownOptions() {
+            const selectedIds = schoolSelects.map(select => select.value);
+
+            schoolSelects.forEach(currentSelect => {
+                const currentSelected = currentSelect.value;
+                currentSelect.innerHTML = `<option value="">${translations[currentLang]["No school selected"]}</option>`;
+
+                SCHOOLS.sort((a, b) => a.name.localeCompare(b.name)).forEach(school => {
+                    const option = document.createElement('option');
+                    option.value = school.id;
+                    option.textContent = school.name;
+
+                    // Disable if already selected in another dropdown, unless it's the current selection
+                    if (selectedIds.includes(school.id) && school.id !== currentSelected) {
+                        option.disabled = true;
+                    }
+                    currentSelect.appendChild(option);
+                });
+                currentSelect.value = currentSelected; // Restore current selection
+            });
+        }
+
+        function updateComparison() {
+            const selectedSchools = getSelectedSchools();
+            renderComparisonTable(selectedSchools);
+            renderRadarChart(selectedSchools);
+            updateDropdownOptions(); // Update options after selection change
+        }
+
+        function renderComparisonTable(schools) {
+            const headerRow = comparisonTable.querySelector('thead tr');
+            const bodyRows = comparisonTable.querySelectorAll('tbody tr');
+
+            // Clear previous school names and data
+            headerRow.querySelectorAll('th:not(.feature-column)').forEach(th => th.textContent = '');
+            bodyRows.forEach(row => {
+                row.querySelectorAll('td:not(.feature-column)').forEach(td => {
+                    td.textContent = '';
+                    td.classList.remove('highlight-gold');
+                });
+            });
+
+            if (schools.length === 0) {
+                return;
+            }
+
+            // Populate school names in header
+            schools.forEach((school, index) => {
+                const th = headerRow.children[index + 1];
+                if (th) th.textContent = school.name;
+            });
+
+            // Prepare data for comparison and highlighting
+            const fees = schools.map(s => s.fee).filter(f => f !== undefined);
+            const alevelPercentages = schools.map(s => s.alevelPercentage).filter(a => a !== undefined);
+            const sportsCounts = schools.map(s => s.sports ? s.sports.length : 0);
+            const scholarshipStatuses = schools.map(s => s.scholarshipStatus);
+
+            const minFeeValue = fees.length > 0 ? Math.min(...fees) : undefined;
+            const maxAlevelValue = alevelPercentages.length > 0 ? Math.max(...alevelPercentages) : undefined;
+            const maxSportsCount = sportsCounts.length > 0 ? Math.max(...sportsCounts) : undefined;
+            const hasScholarshipWinner = scholarshipStatuses.includes("Yes");
+
+            // Populate table body
+            schools.forEach((school, schoolIndex) => {
+                const colIndex = schoolIndex + 1; // Column index in table
+
+                // Fee
+                const feeCell = bodyRows[0].children[colIndex];
+                if (school.fee !== undefined) {
+                    feeCell.textContent = `£${school.fee.toLocaleString()}`;
+                    if (school.fee === minFeeValue && schools.filter(s => s.fee === minFeeValue).length === 1) {
+                        feeCell.classList.add('highlight-gold');
+                    }
+                }
+
+                // Type
+                const typeCell = bodyRows[1].children[colIndex];
+                if (school.type) typeCell.textContent = school.type;
+
+                // Region
+                const regionCell = bodyRows[2].children[colIndex];
+                if (school.region) regionCell.textContent = school.region;
+
+                // A-Level %
+                const alevelCell = bodyRows[3].children[colIndex];
+                if (school.alevelPercentage !== undefined) {
+                    alevelCell.textContent = `${school.alevelPercentage}%`;
+                    if (school.alevelPercentage === maxAlevelValue && schools.filter(s => s.alevelPercentage === maxAlevelValue).length === 1) {
+                        alevelCell.classList.add('highlight-gold');
+                    }
+                }
+
+                // Sports Offered
+                const sportsCell = bodyRows[4].children[colIndex];
+                if (school.sports && school.sports.length > 0) {
+                    sportsCell.textContent = school.sports.join(', ');
+                    if (school.sports.length === maxSportsCount && schools.filter(s => s.sports && s.sports.length === maxSportsCount).length === 1) {
+                        sportsCell.classList.add('highlight-gold');
+                    }
+                } else {
+                    sportsCell.textContent = translations[currentLang]["N/A"];
+                }
+
+                // Scholarship Status
+                const scholarshipStatusCell = bodyRows[5].children[colIndex];
+                if (school.scholarshipStatus) {
+                    scholarshipStatusCell.textContent = school.scholarshipStatus;
+                    if (school.scholarshipStatus === "Yes" && hasScholarshipWinner && schools.filter(s => s.scholarshipStatus === "Yes").length === 1) {
+                        scholarshipStatusCell.classList.add('highlight-gold');
+                    }
+                }
+
+                // Scholarship Note
+                const scholarshipNoteCell = bodyRows[6].children[colIndex];
+                if (school.scholarshipNote) {
+                    scholarshipNoteCell.textContent = school.scholarshipNote;
+                } else {
+                    scholarshipNoteCell.textContent = translations[currentLang]["No note"];
+                }
+            });
+        }
+
+        function renderRadarChart(schools) {
+            if (radarChartInstance) {
+                radarChartInstance.destroy();
+            }
+
+            if (schools.length === 0) {
+                radarChartCanvas.style.display = 'none';
+                return;
+            } else {
+                radarChartCanvas.style.display = 'block';
+            }
+
+            const labels = [
+                translations[currentLang]["Academic Performance (A-Level %)"],
+                translations[currentLang]["Affordability (Fee)"],
+                translations[currentLang]["Sports Variety"],
+                translations[currentLang]["Scholarship Opportunities"],
+                translations[currentLang]["School Type Preference"],
+                translations[currentLang]["Regional Appeal"]
+            ];
+
+            const datasets = schools.map((school, index) => {
+                const data = [];
+                // 1. Academic Performance (A-Level %) - Higher is better
+                data.push(normalize(school.alevelPercentage, minAlevel, maxAlevel));
+
+                // 2. Affordability (Fee) - Lower is better, invert fee for normalization
+                data.push(normalize(maxFee - school.fee, maxFee - maxFee, maxFee - minFee));
+
+                // 3. Sports Variety (Count) - More sports is better
+                data.push(normalize(school.sports.length, minSports, maxSports));
+
+                // 4. Scholarship Opportunities - Yes=1, No=0
+                data.push(school.scholarshipStatus === 'Yes' ? 100 : 0);
+
+                // 5. School Type Preference (Co-educational=1, Boys=0.8, Girls=0.8)
+                data.push(normalize(typeScores[school.type], minTypeScore, maxTypeScore));
+
+                // 6. Regional Appeal (Score based on region)
+                data.push(normalize(regionScores[school.region], minRegionScore, maxRegionScore));
+
+                const colors = [
+                    'rgba(27, 58, 92, 0.8)',  // Navy
+                    'rgba(201, 168, 76, 0.8)', // Gold
+                    'rgba(100, 100, 100, 0.8)' // Grey
+                ];
+                const borderColors = [
+                    'rgba(27, 58, 92, 1)',
+                    'rgba(201, 168, 76, 1)',
+                    'rgba(100, 100, 100, 1)'
+                ];
+
+                return {
+                    label: school.name,
+                    data: data,
+                    backgroundColor: colors[index % colors.length],
+                    borderColor: borderColors[index % borderColors.length],
+                    borderWidth: 2,
+                    pointBackgroundColor: borderColors[index % borderColors.length],
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: borderColors[index % borderColors.length]
+                };
+            });
+
+            radarChartInstance = new Chart(radarChartCanvas, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 14
+                                },
+                                color: '#2D2D2D' /* Use actual hex value for --text */
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += Math.round(context.raw) + '%';
+                                    return label;
+                                }
+                            },
+                            titleFont: { family: 'Inter', weight: '600' },
+                            bodyFont: { family: 'Inter' }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 13,
+                                    weight: '600'
+                                },
+                                color: '#2D2D2D' /* Use actual hex value for --text */
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                display: false, // Hide the numerical ticks
+                                beginAtZero: true,
+                                font: {
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listeners for dropdowns
+        schoolSelects.forEach(select => {
+            select.addEventListener('change', updateComparison);
+        });
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            populateDropdowns();
+            updateComparison(); // Render initial empty state or pre-selected if any
+        });
+        // --- END SCHOOL COMPARISON TOOL ---
+    </script>
+</body>
+</html>

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thai vs UK Curriculum Gap Map | LINKEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+
+  body {
+    background: #f5f0e8;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: #1a1a1a;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-wrap { display: flex; flex-direction: column; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #f5f0e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active { border-color: #B8962E; color: #B8962E; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    padding: 64px 24px 56px;
+    text-align: center;
+  }
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: #B8962E;
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #f5f0e8;
+  }
+  .hero p {
+    font-size: 1rem;
+    opacity: 0.72;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* SELECTOR SECTION */
+  .selector-section {
+    background: #1a1a1a;
+    padding: 0 24px 48px;
+  }
+  .selector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .selector-box { }
+  .selector-box label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 8px 14px;
+    border: 1px solid rgba(245,240,232,0.25);
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: transparent;
+    color: #f5f0e8;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .chip:hover { border-color: #B8962E; color: #B8962E; }
+  .chip.selected { background: #B8962E; color: #1a1a1a; border-color: #B8962E; font-weight: 600; }
+
+  .generate-bar {
+    max-width: 860px;
+    margin: 28px auto 0;
+    text-align: center;
+  }
+  .btn-primary {
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+
+  /* GAP MAP */
+  .gap-map-section {
+    padding: 56px 24px 64px;
+    display: none;
+  }
+  .gap-map-section.visible { display: block; }
+
+  .map-header {
+    max-width: 960px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .map-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 8px;
+  }
+  .map-header p {
+    font-size: 0.88rem;
+    color: rgba(26,26,26,0.6);
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: rgba(26,26,26,0.7); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+  .legend-dot.none { background: #4a7c59; }
+  .legend-dot.moderate { background: #B8962E; }
+  .legend-dot.significant { background: #c07020; }
+  .legend-dot.major { background: #9e3030; }
+
+  /* SUBJECT CARD */
+  .subject-cards { max-width: 960px; margin: 0 auto; display: grid; gap: 20px; }
+  .subject-card {
+    background: #f5f0e8;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .subject-card-header {
+    background: #1a1a1a;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .subject-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: #f5f0e8;
+  }
+  .gap-badge {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .gap-none { background: #4a7c59; color: #fff; }
+  .gap-moderate { background: #B8962E; color: #1a1a1a; }
+  .gap-significant { background: #c07020; color: #fff; }
+  .gap-major { background: #9e3030; color: #fff; }
+
+  .subject-card-body { padding: 24px; }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 4px 1fr;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .comp-col { padding: 0 16px; }
+  .comp-col:first-child { padding-left: 0; }
+  .comp-col:last-child { padding-right: 0; }
+  .comp-divider {
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    align-self: stretch;
+  }
+  .comp-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(26,26,26,0.45);
+  }
+  .comp-label.thai { color: rgba(26,26,26,0.5); }
+  .comp-label.uk { color: #B8962E; }
+  .comp-content {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: rgba(26,26,26,0.8);
+  }
+  .comp-content ul { padding-left: 16px; }
+  .comp-content ul li { margin-bottom: 4px; }
+
+  /* Gap bar */
+  .gap-bar-row {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+  .gap-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(26,26,26,0.5);
+    margin-bottom: 8px;
+  }
+  .gap-bar-track {
+    height: 8px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    position: relative;
+  }
+  .gap-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+  .gap-bar-fill.none { background: #4a7c59; }
+  .gap-bar-fill.moderate { background: #B8962E; }
+  .gap-bar-fill.significant { background: #c07020; }
+  .gap-bar-fill.major { background: #9e3030; }
+
+  /* INSIGHT CALLOUT */
+  .insight-callout {
+    background: rgba(184,150,46,0.08);
+    border-left: 3px solid #B8962E;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: rgba(26,26,26,0.75);
+  }
+
+  /* SUMMARY CARD */
+  .summary-section {
+    max-width: 960px;
+    margin: 40px auto 0;
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 36px 40px;
+    color: #f5f0e8;
+  }
+  .summary-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #B8962E;
+    margin-bottom: 20px;
+  }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+  .summary-item { }
+  .summary-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #B8962E;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .summary-label { font-size: 0.78rem; opacity: 0.6; }
+  .focus-list { list-style: none; }
+  .focus-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    font-size: 0.88rem;
+    opacity: 0.85;
+  }
+  .focus-list li:last-child { border-bottom: none; }
+  .focus-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(184,150,46,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: #B8962E;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  /* INLINE LINE CTA */
+  .inline-line {
+    max-width: 960px;
+    margin: 32px auto 0;
+    background: rgba(184,150,46,0.1);
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: 8px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .inline-line h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 4px; }
+  .inline-line p { font-size: 0.82rem; color: rgba(26,26,26,0.6); }
+
+  /* LINE SECTION */
+  .line-section {
+    background: #1a1a1a;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .line-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: #f5f0e8;
+    margin-bottom: 12px;
+  }
+  .line-section p { color: rgba(245,240,232,0.65); margin-bottom: 28px; font-size: 0.95rem; }
+  .line-handle { color: #B8962E; font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; }
+  .btn-line {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn-line:hover { opacity: 0.88; }
+
+  footer {
+    background: #111;
+    color: rgba(245,240,232,0.45);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+  footer span { color: #B8962E; }
+
+  @media (max-width: 700px) {
+    .selector-grid { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .comp-divider { display: none; }
+    .comp-col { padding: 0 0 16px; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .comp-col:last-child { padding-bottom: 0; border-bottom: none; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .inline-line { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 390px) {
+    .subject-card-body { padding: 16px; }
+    .summary-section { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../index.html" style="text-decoration:none;">
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="section-label">
+      <span class="lang-th">เครื่องมือวิเคราะห์</span>
+      <span class="lang-en">Curriculum Analysis Tool</span>
+    </div>
+    <h1>
+      <span class="lang-th">แผนที่ช่องว่างหลักสูตรไทย vs อังกฤษ</span>
+      <span class="lang-en">Thai vs UK Curriculum Gap Map</span>
+    </h1>
+    <p>
+      <span class="lang-th">เปรียบเทียบหลักสูตรโรงเรียนไทยกับความคาดหวังของโรงเรียนประจำอังกฤษ ทีละวิชา เพื่อให้รู้ว่าต้องเตรียมอะไรเพิ่ม</span>
+      <span class="lang-en">Compare what your child's Thai school covers versus what UK boarding schools expect — subject by subject. Know exactly what preparation is needed.</span>
+    </p>
+  </div>
+</div>
+
+<!-- SELECTOR -->
+<div class="selector-section">
+  <div class="container">
+    <div class="selector-grid">
+      <div class="selector-box">
+        <label>
+          <span class="lang-th">ระดับชั้นในไทย</span>
+          <span class="lang-en">Current Thai Year Group</span>
+        </label>
+        <div class="chip-group" id="year-chips">
+          <div class="chip" onclick="selectYear('p4p5', this)">ป.4–ป.5 <span style="font-size:0.7em;opacity:0.6">(Y4-5)</span></div>
+          <div class="chip" onclick="selectYear('p6', this)">ป.6 <span style="font-size:0.7em;opacity:0.6">(Y6)</span></div>
+          <div class="chip" onclick="selectYear('m1m2', this)">ม.1–ม.2 <span style="font-size:0.7em;opacity:0.6">(Y7-8)</span></div>
+          <div class="chip" onclick="selectYear('m3', this)">ม.3 <span style="font-size:0.7em;opacity:0.6">(Y9)</span></div>
+          <div class="chip" onclick="selectYear('m4m5', this)">ม.4–ม.5 <span style="font-size:0.7em;opacity:0.6">(Y10-11)</span></div>
+          <div class="chip" onclick="selectYear('m6', this)">ม.6 <span style="font-size:0.7em;opacity:0.6">(Y12-13)</span></div>
+        </div>
+      </div>
+      <div class="selector-box">
+        <label>
+          <span class="lang-th">ประเภทโรงเรียนปัจจุบัน</span>
+          <span class="lang-en">Current School Type</span>
+        </label>
+        <div class="chip-group" id="school-chips">
+          <div class="chip" onclick="selectSchoolType('govt', this)">
+            <span class="lang-th">รัฐบาล</span>
+            <span class="lang-en">Thai Government</span>
+          </div>
+          <div class="chip" onclick="selectSchoolType('private', this)">
+            <span class="lang-th">เอกชนไทย</span>
+            <span class="lang-en">Thai Private</span>
+          </div>
+          <div class="chip" onclick="selectSchoolType('intl-thai', this)">
+            <span class="lang-th">นานาชาติ (หลักสูตรไทย/EP)</span>
+            <span class="lang-en">International (Thai/EP)</span>
+          </div>
+          <div class="chip" onclick="selectSchoolType('intl-ib', this)">
+            <span class="lang-th">นานาชาติ (IB/อังกฤษ)</span>
+            <span class="lang-en">International (IB/British)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="generate-bar">
+      <button class="btn-primary" onclick="generateMap()">
+        <span class="lang-th">สร้างแผนที่ช่องว่าง →</span>
+        <span class="lang-en">Generate Gap Map →</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- GAP MAP RESULTS -->
+<div class="gap-map-section" id="gap-map-section">
+  <div class="container">
+    <div class="map-header">
+      <div class="section-label" style="justify-content:center;">
+        <span class="lang-th">· ผลการวิเคราะห์ ·</span>
+        <span class="lang-en">· Gap Analysis Results ·</span>
+      </div>
+      <h2 id="map-title">Gap Map</h2>
+      <p id="map-subtitle"></p>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot none"></div>
+        <span class="lang-th">ไม่มีช่องว่าง</span><span class="lang-en">No Gap</span>
+      </div>
+      <div class="legend-item"><div class="legend-dot moderate"></div>
+        <span class="lang-th">ช่องว่างพอประมาณ</span><span class="lang-en">Moderate Gap</span>
+      </div>
+      <div class="legend-item"><div class="legend-dot significant"></div>
+        <span class="lang-th">ช่องว่างมีนัยสำคัญ</span><span class="lang-en">Significant Gap</span>
+      </div>
+      <div class="legend-item"><div class="legend-dot major"></div>
+        <span class="lang-th">ช่องว่างใหญ่มาก</span><span class="lang-en">Major Gap</span>
+      </div>
+    </div>
+
+    <div class="subject-cards" id="subject-cards">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="summary-section" id="summary-section">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="inline-line">
+      <div>
+        <h4>
+          <span class="lang-th">รับแผนเตรียมตัวเฉพาะบุคคลผ่าน LINE</span>
+          <span class="lang-en">Get Your Personalised Tutoring Plan on LINE</span>
+        </h4>
+        <p>
+          <span class="lang-th">ที่ปรึกษา LINKEDU จะวางแผนการเรียนเพิ่มเติมที่ตรงกับสถานการณ์ของลูก</span>
+          <span class="lang-en">A LINKEDU consultant will build a tutoring plan matched to your child's exact curriculum gaps.</span>
+        </p>
+      </div>
+      <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap; text-decoration:none;">
+        <span class="lang-th">เพิ่ม LINE ฟรี</span>
+        <span class="lang-en">Add LINE Now</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- LINE CTA -->
+<div class="line-section">
+  <div class="container">
+    <div class="section-label" style="justify-content:center;">
+      <span class="lang-th">ปรึกษาฟรี</span>
+      <span class="lang-en">Free Consultation</span>
+    </div>
+    <h2>
+      <span class="lang-th">พูดคุยกับที่ปรึกษา LINKEDU</span>
+      <span class="lang-en">Talk to a LINKEDU Consultant</span>
+    </h2>
+    <p>
+      <span class="lang-th">เราช่วยนักเรียนไทยสอบเข้าโรงเรียนประจำอังกฤษมาหลายปี ปรึกษาฟรีไม่มีค่าใช้จ่าย</span>
+      <span class="lang-en">We have helped Thai students bridge the curriculum gap and gain entry to top UK boarding schools.</span>
+    </p>
+    <div class="line-handle">LINE: @linkedu.th</div>
+    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-line">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <span>LINKEDU</span> Overseas Education &nbsp;|&nbsp; Part of the <span>Beacon Group</span> &nbsp;|&nbsp; LINE @linkedu.th
+  </div>
+</footer>
+
+<script>
+  let selectedYear = null;
+  let selectedSchoolType = null;
+
+  function setLang(l) {
+    document.documentElement.setAttribute('lang', l);
+    document.getElementById('btn-th').classList.toggle('active', l === 'th');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  }
+
+  function selectYear(val, el) {
+    selectedYear = val;
+    document.querySelectorAll('#year-chips .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function selectSchoolType(val, el) {
+    selectedSchoolType = val;
+    document.querySelectorAll('#school-chips .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // --- Data ---
+  // Gap levels per school type: 0=none, 1=moderate, 2=significant, 3=major
+  // Structure: [govt, private, intl-thai, intl-ib]
+  const subjectData = [
+    {
+      id: 'english',
+      th: 'ภาษาอังกฤษและวรรณกรรม',
+      en: 'English Language & Literature',
+      gapLevels: { govt: 3, private: 2, 'intl-thai': 1, 'intl-ib': 0 },
+      thaiContent: {
+        th: ['ไวยากรณ์พื้นฐาน', 'การอ่านตำราเรียน', 'การเขียนตามโครงสร้าง', 'คำศัพท์ตามหลักสูตร'],
+        en: ['Basic grammar structures', 'Textbook reading only', 'Structured writing by formula', 'Vocabulary from set texts']
+      },
+      ukContent: {
+        th: ['การวิเคราะห์วรรณกรรมเชิงลึก', 'เรียงความเชิงโต้แย้ง', 'การถกเถียงด้วยหลักฐาน', 'วรรณกรรมอังกฤษร่วมสมัย', 'การวิจารณ์บทกวี'],
+        en: ['Deep literary analysis and criticism', 'Persuasive and analytical essays', 'Evidence-based argumentation', 'Contemporary English literature', 'Poetry analysis and close reading']
+      },
+      insight: {
+        th: 'โรงเรียนอังกฤษเน้นการเขียนเชิงวิเคราะห์ตั้งแต่ Year 7 ซึ่งหลักสูตรไทยส่วนใหญ่ยังไม่ได้สอนในระดับนี้',
+        en: 'UK schools expect analytical essay writing from Year 7. Thai curricula typically introduce critical writing several years later.'
+      }
+    },
+    {
+      id: 'maths',
+      th: 'คณิตศาสตร์',
+      en: 'Mathematics',
+      gapLevels: { govt: 2, private: 1, 'intl-thai': 1, 'intl-ib': 0 },
+      thaiContent: {
+        th: ['เนื้อหาครอบคลุมดี', 'เน้นการคำนวณ', 'ขั้นตอนวิธีมาตรฐาน', 'ทดสอบความจำสูตร'],
+        en: ['Solid content coverage overall', 'Strong emphasis on calculation', 'Standard algorithmic procedures', 'Formula memorisation tested']
+      },
+      ukContent: {
+        th: ['การอธิบายกระบวนการคิด', 'โจทย์ปัญหาหลายขั้นตอน', 'สถิติและความน่าจะเป็น', 'หลักฐานทางคณิตศาสตร์', 'UKMT competition style'],
+        en: ['Showing working and mathematical reasoning', 'Multi-step problem solving', 'Statistics and probability', 'Mathematical proof at 13+/16+', 'UKMT competition-style thinking']
+      },
+      insight: {
+        th: 'เนื้อหาคณิตศาสตร์ไทยครอบคลุมดี แต่ UK เน้นกระบวนการคิดและการแสดงวิธีทำมากกว่าคำตอบ',
+        en: 'Thai maths content is generally strong, but UK schools reward mathematical reasoning and explanation over correct answers alone.'
+      }
+    },
+    {
+      id: 'sciences',
+      th: 'วิทยาศาสตร์ (ชีวะ, เคมี, ฟิสิกส์)',
+      en: 'Sciences (Biology, Chemistry, Physics)',
+      gapLevels: { govt: 2, private: 2, 'intl-thai': 1, 'intl-ib': 0 },
+      thaiContent: {
+        th: ['วิทยาศาสตร์รวม ไม่แยกสาขา', 'ท่องจำทฤษฎี', 'ทดลองตามขั้นตอนกำหนด', 'ทดสอบความจำเป็นหลัก'],
+        en: ['Integrated science only (not split subjects)', 'Theory memorisation focused', 'Prescriptive practicals', 'Assessment is mainly recall-based']
+      },
+      ukContent: {
+        th: ['แยกสาขา Bio/Chem/Physics ตั้งแต่ Year 9', 'ทดลองอิสระและตั้งสมมติฐาน', 'เขียนอธิบายกระบวนการ', 'IGCSE/Common Entrance มาตรฐานสูง'],
+        en: ['Split into Biology, Chemistry, Physics from Year 9', 'Independent experimental design', 'Extended written scientific explanations', 'High IGCSE/Common Entrance standards']
+      },
+      insight: {
+        th: 'UK แยกสอนวิทยาศาสตร์เป็น 3 วิชาตั้งแต่อายุ 13 ปี ซึ่งต่างจากไทยที่ยังคงสอนรวม',
+        en: 'UK schools split into three separate sciences from age 13. Thai students transitioning at 13+ often face a sudden depth increase in each subject.'
+      }
+    },
+    {
+      id: 'humanities',
+      th: 'มนุษยศาสตร์ (ประวัติศาสตร์, ภูมิศาสตร์)',
+      en: 'Humanities (History, Geography)',
+      gapLevels: { govt: 3, private: 2, 'intl-thai': 2, 'intl-ib': 1 },
+      thaiContent: {
+        th: ['ประวัติศาสตร์ไทยเป็นหลัก', 'ภูมิศาสตร์ระดับท้องถิ่น', 'ไม่มีเรียงความเชิงวิเคราะห์', 'ท่องจำเหตุการณ์และสถานที่'],
+        en: ['Thai history and local geography focus', 'Minimal world history coverage', 'No analytical essay requirement', 'Memorise events and place names']
+      },
+      ukContent: {
+        th: ['ประวัติศาสตร์โลกและยุโรป', 'การเขียนวิเคราะห์หลักฐาน', 'ภูมิศาสตร์กายภาพและมนุษย์', 'โต้แย้งประเด็นด้วยแหล่งข้อมูล'],
+        en: ['World and European history emphasis', 'Evidence-based analytical writing', 'Physical and human geography', 'Source analysis and argument construction']
+      },
+      insight: {
+        th: 'นี่คือช่องว่างที่ใหญ่ที่สุดสำหรับนักเรียนไทยส่วนใหญ่ UK ต้องการการเขียนวิเคราะห์แหล่งข้อมูลซึ่งไม่ได้สอนในหลักสูตรไทย',
+        en: 'This is the largest gap for most Thai students. UK humanities requires sustained analytical writing from source evidence — a skill rarely developed in Thai schools.'
+      }
+    },
+    {
+      id: 'critical',
+      th: 'การคิดวิเคราะห์และการเขียนเรียงความ',
+      en: 'Critical Thinking & Essay Writing',
+      gapLevels: { govt: 3, private: 3, 'intl-thai': 2, 'intl-ib': 1 },
+      thaiContent: {
+        th: ['เน้นการตอบคำถามถูก/ผิด', 'เรียงความตามโครงสร้างกำหนด', 'ไม่เน้นการโต้แย้ง', 'ขาดการฝึกคิดนอกกรอบ'],
+        en: ['Right/wrong answer focus', 'Formulaic essay structure only', 'Limited argumentation training', 'Minimal independent critical thinking']
+      },
+      ukContent: {
+        th: ['โต้แย้งและป้องกันมุมมองของตน', 'คิดวิพากษ์แหล่งข้อมูลหลายแหล่ง', 'เรียงความระดับ A/A* ต้องมีมุมมองต่อต้าน', 'Oxbridge-style discussion skills'],
+        en: ['Argue and defend a personal position', 'Critically evaluate multiple sources', 'Top essays require counter-argument', 'Oxbridge-style discussion and debate skills']
+      },
+      insight: {
+        th: 'ทักษะนี้เป็นหัวใจของการศึกษาแบบอังกฤษ และเป็นช่องว่างที่กว้างที่สุดสำหรับนักเรียนจากทุกประเภทโรงเรียนในไทย',
+        en: 'This is the defining skill of UK education and the widest gap for Thai students across all school types. It requires dedicated structured practice.'
+      }
+    },
+    {
+      id: 'reasoning',
+      th: 'Verbal & Analytical Reasoning',
+      en: 'Verbal & Analytical Reasoning',
+      gapLevels: { govt: 3, private: 3, 'intl-thai': 2, 'intl-ib': 1 },
+      thaiContent: {
+        th: ['ไม่มีในหลักสูตรไทยทุกประเภท', 'ไม่มีการทดสอบ Verbal Reasoning', 'ไม่มี Non-Verbal Reasoning', 'บางโรงเรียนนานาชาติสอนในชั้นพิเศษ'],
+        en: ['Absent from all Thai curricula', 'No Verbal Reasoning testing', 'No Non-Verbal Reasoning training', 'Some international schools offer it as an extra']
+      },
+      ukContent: {
+        th: ['Verbal Reasoning สำหรับ 11+/13+', 'Non-Verbal Reasoning และ Spatial Awareness', 'UKISET (Verbal, Quantitative, Abstract)', 'ทักษะนี้ต้องฝึกฝนอย่างเฉพาะเจาะจง'],
+        en: ['Verbal Reasoning essential for 11+/13+', 'Non-Verbal Reasoning and spatial awareness', 'UKISET: Verbal, Quantitative, Abstract sections', 'Must be explicitly trained — not developed naturally']
+      },
+      insight: {
+        th: 'Verbal Reasoning ไม่ได้อยู่ในหลักสูตรไทย นักเรียนทุกคนต้องฝึกโดยเฉพาะ แม้แต่นักเรียนนานาชาติ IB ก็ยังต้องเตรียม',
+        en: 'Verbal Reasoning does not exist in any Thai curriculum. Every student needs dedicated practice — even IB international school students need specific preparation.'
+      }
+    }
+  ];
+
+  const gapLabels = {
+    0: { th: 'ไม่มีช่องว่าง', en: 'No Gap', cls: 'none', pct: 10 },
+    1: { th: 'ช่องว่างพอประมาณ', en: 'Moderate Gap', cls: 'moderate', pct: 40 },
+    2: { th: 'ช่องว่างมีนัยสำคัญ', en: 'Significant Gap', cls: 'significant', pct: 70 },
+    3: { th: 'ช่องว่างใหญ่มาก', en: 'Major Gap', cls: 'major', pct: 95 }
+  };
+
+  const yearLabels = {
+    p4p5: { th: 'ป.4–ป.5', en: 'P4–P5 (Year 4–5)' },
+    p6: { th: 'ป.6', en: 'P6 (Year 6)' },
+    m1m2: { th: 'ม.1–ม.2', en: 'M1–M2 (Year 7–8)' },
+    m3: { th: 'ม.3', en: 'M3 (Year 9)' },
+    m4m5: { th: 'ม.4–ม.5', en: 'M4–M5 (Year 10–11)' },
+    m6: { th: 'ม.6', en: 'M6 (Year 12–13)' }
+  };
+
+  const schoolTypeLabels = {
+    govt: { th: 'รัฐบาลไทย', en: 'Thai Government School' },
+    private: { th: 'เอกชนไทย', en: 'Thai Private School' },
+    'intl-thai': { th: 'นานาชาติ (หลักสูตรไทย/EP)', en: 'International School (Thai/EP)' },
+    'intl-ib': { th: 'นานาชาติ (IB/อังกฤษ)', en: 'International School (IB/British)' }
+  };
+
+  function generateMap() {
+    if (!selectedYear || !selectedSchoolType) {
+      alert(document.documentElement.lang === 'th'
+        ? 'กรุณาเลือกระดับชั้นและประเภทโรงเรียนก่อน'
+        : 'Please select both a year group and school type first.');
+      return;
+    }
+
+    const lang = document.documentElement.lang;
+    const yLabel = yearLabels[selectedYear];
+    const sLabel = schoolTypeLabels[selectedSchoolType];
+
+    // Set header
+    document.getElementById('map-title').textContent =
+      lang === 'th'
+        ? `ช่องว่างสำหรับนักเรียน ${yLabel.th} — ${sLabel.th}`
+        : `Gap Map: ${yLabel.en} — ${sLabel.en}`;
+    document.getElementById('map-subtitle').textContent =
+      lang === 'th'
+        ? 'สีแสดงขนาดของช่องว่างระหว่างสิ่งที่หลักสูตรไทยสอน และสิ่งที่โรงเรียนอังกฤษคาดหวัง'
+        : 'Colour indicates the gap between what your current curriculum covers and what UK boarding schools expect.';
+
+    // Build cards
+    const container = document.getElementById('subject-cards');
+    container.innerHTML = '';
+    let totalGap = 0;
+    const majorSubjects = [];
+    const significantSubjects = [];
+
+    subjectData.forEach(s => {
+      const gapLevel = s.gapLevels[selectedSchoolType];
+      totalGap += gapLevel;
+      const gapInfo = gapLabels[gapLevel];
+      if (gapLevel === 3) majorSubjects.push(lang === 'th' ? s.th : s.en);
+      else if (gapLevel === 2) significantSubjects.push(lang === 'th' ? s.th : s.en);
+
+      const card = document.createElement('div');
+      card.className = 'subject-card';
+      card.innerHTML = `
+        <div class="subject-card-header">
+          <div class="subject-card-title">
+            <span class="lang-th">${s.th}</span>
+            <span class="lang-en">${s.en}</span>
+          </div>
+          <div class="gap-badge gap-${gapInfo.cls}">
+            <span class="lang-th">${gapInfo.th}</span>
+            <span class="lang-en">${gapInfo.en}</span>
+          </div>
+        </div>
+        <div class="subject-card-body">
+          <div class="comparison-grid">
+            <div class="comp-col">
+              <div class="comp-label thai">
+                <span class="lang-th">หลักสูตรไทย — สิ่งที่เรียน</span>
+                <span class="lang-en">Thai Curriculum — What they learn</span>
+              </div>
+              <div class="comp-content">
+                <ul>${s.thaiContent.th.map(t => `<li><span class="lang-th">${t}</span></li>`).join('')}
+                    ${s.thaiContent.en.map(t => `<li><span class="lang-en">${t}</span></li>`).join('')}
+                </ul>
+              </div>
+            </div>
+            <div class="comp-divider"></div>
+            <div class="comp-col">
+              <div class="comp-label uk">
+                <span class="lang-th">ความคาดหวัง UK — สิ่งที่ต้องรู้</span>
+                <span class="lang-en">UK Expectation — What they must know</span>
+              </div>
+              <div class="comp-content">
+                <ul>${s.ukContent.th.map(t => `<li><span class="lang-th">${t}</span></li>`).join('')}
+                    ${s.ukContent.en.map(t => `<li><span class="lang-en">${t}</span></li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="gap-bar-row">
+            <div class="gap-bar-label">
+              <span>
+                <span class="lang-th">ขนาดช่องว่าง</span>
+                <span class="lang-en">Gap Size</span>
+              </span>
+              <span>
+                <span class="lang-th">${gapInfo.th}</span>
+                <span class="lang-en">${gapInfo.en}</span>
+              </span>
+            </div>
+            <div class="gap-bar-track">
+              <div class="gap-bar-fill ${gapInfo.cls}" style="width:0%" data-target="${gapInfo.pct}%"></div>
+            </div>
+          </div>
+          <div class="insight-callout">
+            <strong>
+              <span class="lang-th">ข้อควรรู้: </span>
+              <span class="lang-en">Key Insight: </span>
+            </strong>
+            <span class="lang-th">${s.insight.th}</span>
+            <span class="lang-en">${s.insight.en}</span>
+          </div>
+        </div>`;
+      container.appendChild(card);
+    });
+
+    // Animate bars
+    setTimeout(() => {
+      document.querySelectorAll('.gap-bar-fill').forEach(b => {
+        b.style.transition = 'width 0.9s ease';
+        b.style.width = b.dataset.target;
+      });
+    }, 300);
+
+    // Summary
+    const avgGap = totalGap / subjectData.length;
+    const gapWords = avgGap >= 2.5
+      ? { th: 'ใหญ่มาก', en: 'Major' }
+      : avgGap >= 1.5
+        ? { th: 'มีนัยสำคัญ', en: 'Significant' }
+        : avgGap >= 0.5
+          ? { th: 'พอประมาณ', en: 'Moderate' }
+          : { th: 'เล็กน้อย', en: 'Minor' };
+
+    const focusItems = [...majorSubjects, ...significantSubjects];
+    const hoursEst = selectedSchoolType === 'govt' ? '300–480' : selectedSchoolType === 'private' ? '200–350' : selectedSchoolType === 'intl-thai' ? '150–250' : '80–150';
+
+    document.getElementById('summary-section').innerHTML = `
+      <h3>
+        <span class="lang-th">สรุปช่องว่างและแผนที่แนะนำ</span>
+        <span class="lang-en">Gap Summary & Recommended Focus</span>
+      </h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-value">${majorSubjects.length}</div>
+          <div class="summary-label">
+            <span class="lang-th">วิชาช่องว่างใหญ่มาก</span>
+            <span class="lang-en">Major gap subjects</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value">${significantSubjects.length}</div>
+          <div class="summary-label">
+            <span class="lang-th">วิชาช่องว่างมีนัยสำคัญ</span>
+            <span class="lang-en">Significant gap subjects</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value">${hoursEst}</div>
+          <div class="summary-label">
+            <span class="lang-th">ชั่วโมงติวโดยประมาณ</span>
+            <span class="lang-en">Est. tutoring hours needed</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-label" style="justify-content:flex-start; margin-bottom:16px;">
+        <span class="lang-th">· วิชาที่ต้องเน้น ·</span>
+        <span class="lang-en">· Priority Tutoring Areas ·</span>
+      </div>
+      <ul class="focus-list">
+        ${focusItems.length === 0
+          ? `<li><div class="focus-icon">✓</div>
+              <span class="lang-th">ช่องว่างน้อยมาก เน้นการฝึก Exam Technique</span>
+              <span class="lang-en">Minimal gaps — focus on exam technique and practice papers</span>
+            </li>`
+          : focusItems.slice(0, 5).map((item, i) => `
+            <li>
+              <div class="focus-icon">${i + 1}</div>
+              <span>${item}</span>
+            </li>`).join('')
+        }
+        <li>
+          <div class="focus-icon">+</div>
+          <span class="lang-th">Verbal & Non-Verbal Reasoning — จำเป็นสำหรับทุกนักเรียน ไม่ว่าโรงเรียนประเภทใด</span>
+          <span class="lang-en">Verbal & Non-Verbal Reasoning — required for all students regardless of school type</span>
+        </li>
+      </ul>`;
+
+    // Show section
+    document.getElementById('gap-map-section').classList.add('visible');
+    setTimeout(() => {
+      document.getElementById('gap-map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  }
+
+  document.documentElement.setAttribute('lang', 'th');
+</script>
+</body>
+</html>

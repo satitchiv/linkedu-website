@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — Is My Child Academically Gifted?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-width: 320px;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+
+/* ── Header ─────────────────────────────────────────────── */
+#site-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.3);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 24px; gap: 24px;
+}
+.logo-wrap { flex-shrink: 0; }
+#site-header nav { display: flex; gap: 20px; flex: 1; justify-content: center; flex-wrap: wrap; }
+#site-header nav a {
+  color: var(--cream); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.04em; opacity: 0.8; transition: opacity 0.2s;
+}
+#site-header nav a:hover { opacity: 1; color: var(--gold); }
+.lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s; opacity: 0.6;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); opacity: 1; font-weight: 600; }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  background: var(--dark); padding: 72px 24px 56px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,150,46,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 16px; display: block;
+}
+.section-label::before {
+  content: ''; display: block; width: 40px; height: 1px;
+  background: var(--gold); margin: 0 auto 12px;
+}
+.hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+.hero p { color: rgba(245,240,232,0.65); max-width: 640px; margin: 0 auto; font-size: 0.95rem; }
+.sensitivity-note {
+  display: inline-block; background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.25);
+  border-radius: 6px; padding: 12px 24px; margin-top: 24px;
+  font-size: 0.85rem; color: rgba(245,240,232,0.7); max-width: 560px;
+}
+
+/* ── Container ──────────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Assessment ─────────────────────────────────────────── */
+.assessment-wrap { background: var(--cream); padding: 56px 24px; }
+.assessment-inner { max-width: 820px; margin: 0 auto; }
+
+.section-block { margin-bottom: 48px; }
+.section-block-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+  padding-bottom: 16px; border-bottom: 1px solid rgba(26,26,26,0.1);
+}
+.section-num {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--dark);
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1rem; flex-shrink: 0;
+}
+.section-block-header h3 { font-size: 1.2rem; color: var(--dark); }
+
+.question-row { margin-bottom: 24px; }
+.question-text { font-size: 0.9rem; color: rgba(26,26,26,0.82); margin-bottom: 10px; line-height: 1.5; font-weight: 500; }
+
+/* Radio-style option pills */
+.pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill-btn {
+  background: none; border: 1px solid rgba(26,26,26,0.18); color: rgba(26,26,26,0.65);
+  border-radius: 999px; padding: 8px 18px; cursor: pointer; transition: all 0.2s;
+  font-family: 'Inter', sans-serif; font-size: 0.83rem; line-height: 1.3; text-align: left;
+}
+.pill-btn:hover { border-color: var(--gold); color: var(--gold); }
+.pill-btn.selected { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+
+/* Checkbox-style for multi-select */
+.check-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.check-btn {
+  background: none; border: 1px solid rgba(26,26,26,0.18); color: rgba(26,26,26,0.65);
+  border-radius: 6px; padding: 9px 16px; cursor: pointer; transition: all 0.2s;
+  font-family: 'Inter', sans-serif; font-size: 0.82rem;
+}
+.check-btn:hover { border-color: var(--gold); color: var(--gold); }
+.check-btn.selected { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 600; }
+
+/* ── Submit ──────────────────────────────────────────────── */
+.submit-wrap { text-align: center; padding-top: 28px; }
+.btn-primary {
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 6px; padding: 15px 40px; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  background: none; border: 1px solid rgba(26,26,26,0.2); color: rgba(26,26,26,0.5); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  border-radius: 6px; padding: 12px 24px; transition: all 0.2s; margin-top: 12px;
+}
+.btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
+.validation-msg { color: #8B6A1A; font-size: 0.85rem; margin-top: 12px; display: none; }
+
+/* ── Results ─────────────────────────────────────────────── */
+#results-section { display: none; background: var(--dark); padding: 56px 24px; }
+.results-inner { max-width: 820px; margin: 0 auto; }
+
+.gifted-verdict {
+  text-align: center; padding: 48px 32px; border-radius: 8px;
+  border: 1px solid rgba(184,150,46,0.3); margin-bottom: 32px;
+  background: rgba(245,240,232,0.03);
+}
+.verdict-label { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(184,150,46,0.65); margin-bottom: 16px; }
+.verdict-icon { font-size: 3rem; margin-bottom: 16px; }
+.verdict-title {
+  font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 8px;
+}
+.verdict-sub { color: rgba(245,240,232,0.55); font-size: 0.9rem; margin-bottom: 20px; }
+.percentile-wrap { display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
+.percentile-pill {
+  display: inline-block; border: 1px solid var(--gold); color: var(--gold);
+  border-radius: 999px; padding: 6px 18px; font-size: 0.82rem; letter-spacing: 0.1em;
+}
+
+.track-card {
+  background: rgba(184,150,46,0.08); border: 1px solid rgba(184,150,46,0.25);
+  border-radius: 8px; padding: 24px 28px; margin-bottom: 24px;
+}
+.track-card h3 { color: var(--gold); font-size: 1.2rem; margin-bottom: 10px; }
+.track-card p { color: rgba(245,240,232,0.75); font-size: 0.88rem; line-height: 1.65; }
+
+.result-block {
+  background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.08);
+  border-radius: 8px; padding: 24px 28px; margin-bottom: 20px;
+}
+.result-block-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 14px; font-weight: 600;
+}
+.result-block-label::before {
+  content: ''; display: block; width: 28px; height: 1px; background: var(--gold); margin-bottom: 8px;
+}
+.result-block h3 { color: var(--cream); font-size: 1.05rem; margin-bottom: 10px; }
+.result-block p { color: rgba(245,240,232,0.7); font-size: 0.87rem; line-height: 1.65; }
+.step-list { list-style: none; }
+.step-list li {
+  color: rgba(245,240,232,0.72); font-size: 0.87rem;
+  padding: 10px 0 10px 28px; position: relative;
+  border-bottom: 1px solid rgba(245,240,232,0.06);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-num-inline {
+  position: absolute; left: 0; top: 10px;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--gold);
+  color: var(--dark); font-size: 0.68rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+
+.programme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+.programme-card {
+  background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.1);
+  border-radius: 6px; padding: 14px 16px;
+}
+.programme-card h4 { color: var(--gold); font-size: 0.88rem; margin-bottom: 4px; }
+.programme-card p { color: rgba(245,240,232,0.6); font-size: 0.8rem; line-height: 1.5; }
+
+.comparison-card {
+  background: rgba(184,150,46,0.06); border: 1px solid rgba(184,150,46,0.2);
+  border-radius: 8px; padding: 22px 26px; margin-bottom: 20px; text-align: center;
+}
+.comparison-card h3 { color: var(--cream); font-size: 1rem; margin-bottom: 14px; }
+.comparison-card p { color: rgba(245,240,232,0.75); font-size: 0.9rem; font-style: italic; line-height: 1.6; }
+.comparison-card strong { color: var(--gold); font-style: normal; }
+
+/* ── Inline LINE CTA ─────────────────────────────────────── */
+.inline-cta {
+  background: rgba(245,240,232,0.04); border-radius: 8px; padding: 28px 32px;
+  border: 1px solid rgba(184,150,46,0.3); text-align: center; margin-bottom: 28px;
+}
+.inline-cta h4 { color: var(--cream); font-size: 1.15rem; margin-bottom: 8px; }
+.inline-cta p { color: rgba(245,240,232,0.6); font-size: 0.87rem; margin-bottom: 18px; }
+.free-badge {
+  display: inline-block; background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.3);
+  color: var(--gold); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 999px; padding: 4px 14px; margin-bottom: 12px;
+}
+.btn-line {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 12px 28px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line:hover { background: var(--gold-light); }
+
+/* ── LINE CTA Section ──────────────────────────────────── */
+.line-cta-section {
+  background: var(--dark); padding: 72px 24px; text-align: center;
+  border-top: 1px solid rgba(184,150,46,0.15);
+}
+.line-cta-section h2 { color: var(--cream); font-size: 2rem; margin-bottom: 12px; }
+.line-cta-section p { color: rgba(245,240,232,0.65); margin-bottom: 8px; font-size: 0.95rem; }
+.line-handle { color: var(--gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 28px; display: block; }
+.btn-line-large {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 16px 40px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line-large:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+footer {
+  background: var(--dark); padding: 32px 24px; text-align: center;
+  border-top: 1px solid rgba(245,240,232,0.06);
+}
+footer p { color: rgba(245,240,232,0.35); font-size: 0.8rem; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #site-header nav { display: none; }
+  .programme-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.75rem; }
+  .gifted-verdict { padding: 32px 20px; }
+  .verdict-title { font-size: 1.6rem; }
+}
+@media (max-width: 480px) {
+  .pill-btn, .check-btn { font-size: 0.79rem; padding: 7px 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────── -->
+<header id="site-header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </div>
+  <nav>
+    <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
+    <h1>
+      <span class="lang-th">ลูกของคุณมีความสามารถ<br>พิเศษด้านวิชาการหรือไม่?</span>
+      <span class="lang-en">Is My Child<br>Academically Gifted?</span>
+    </h1>
+    <p style="margin-top:16px;">
+      <span class="lang-th">เปรียบเทียบลูกของคุณกับเกณฑ์โปรแกรม Gifted &amp; Talented ของสหราชอาณาจักร และค้นหาแนวทางการติวที่เหมาะสมที่สุด</span>
+      <span class="lang-en">Benchmark your child against UK gifted programme thresholds and Oxbridge preparation standards to find the right tutoring track.</span>
+    </p>
+    <div class="sensitivity-note">
+      <span class="lang-th">หมายเหตุ: "Gifted" หมายถึงนักเรียน 5-10% บนสุดในเชิงวิชาการ นักเรียนที่ยอดเยี่ยมทุกคนได้ประโยชน์จากการติวแบบ stretch — ไม่ว่าจะ "gifted" ตามนิยามหรือไม่ก็ตาม</span>
+      <span class="lang-en">Note: "Gifted" means the top 5–10% academically. Every exceptional student benefits from stretch tutoring — regardless of whether they meet the formal gifted definition.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Assessment ─────────────────────────────────── -->
+<section class="assessment-wrap">
+  <div class="assessment-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="section-label">· แบบประเมิน · ACADEMIC PROFILE ASSESSMENT ·</span>
+      <h2 style="font-size:1.75rem;">
+        <span class="lang-th">บอกเราเกี่ยวกับลูกของคุณ</span>
+        <span class="lang-en">Tell Us About Your Child</span>
+      </h2>
+      <p style="color:rgba(26,26,26,0.55);font-size:0.9rem;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto;">
+        <span class="lang-th">คำตอบของคุณจะสร้างโปรไฟล์วิชาการและแนะนำแนวทางการพัฒนาที่เหมาะสม</span>
+        <span class="lang-en">Your answers will generate an academic profile and recommend the most appropriate development pathway.</span>
+      </p>
+    </div>
+
+    <!-- Section 1: Academic Performance -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div class="section-num">1</div>
+        <h3><span class="lang-th">ผลการเรียน</span><span class="lang-en">Academic Performance</span></h3>
+      </div>
+
+      <div class="question-row" id="q1-wrap">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณอยู่อันดับต้นๆ ของชั้นในวิชาส่วนใหญ่หรือไม่?</span>
+          <span class="lang-en">Is your child typically at the top of class in most subjects?</span>
+        </p>
+        <div class="pill-group" id="q1">
+          <button class="pill-btn" data-q="q1" data-val="4" onclick="selectPill(this,'q1')"><span class="lang-th">เสมอ</span><span class="lang-en">Always</span></button>
+          <button class="pill-btn" data-q="q1" data-val="3" onclick="selectPill(this,'q1')"><span class="lang-th">โดยทั่วไป</span><span class="lang-en">Usually</span></button>
+          <button class="pill-btn" data-q="q1" data-val="2" onclick="selectPill(this,'q1')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q1" data-val="1" onclick="selectPill(this,'q1')"><span class="lang-th">ไม่บ่อย</span><span class="lang-en">Rarely</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">เมื่อเปรียบเทียบกับเพื่อนร่วมชั้นในการสอบ ลูกของคุณอยู่ที่ใด?</span>
+          <span class="lang-en">How does your child compare to classmates on tests and exams?</span>
+        </p>
+        <div class="pill-group" id="q2">
+          <button class="pill-btn" data-q="q2" data-val="4" onclick="selectPill(this,'q2')"><span class="lang-th">5% แรก</span><span class="lang-en">Top 5%</span></button>
+          <button class="pill-btn" data-q="q2" data-val="3" onclick="selectPill(this,'q2')"><span class="lang-th">20% แรก</span><span class="lang-en">Top 20%</span></button>
+          <button class="pill-btn" data-q="q2" data-val="2" onclick="selectPill(this,'q2')"><span class="lang-th">50% แรก</span><span class="lang-en">Top 50%</span></button>
+          <button class="pill-btn" data-q="q2" data-val="1" onclick="selectPill(this,'q2')"><span class="lang-th">ต่ำกว่าค่าเฉลี่ย</span><span class="lang-en">Below average</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ครูเคยแนะนำให้ทำงานขยายผลหรือวัสดุการเรียนขั้นสูงเป็นพิเศษหรือไม่?</span>
+          <span class="lang-en">Has a teacher ever suggested extension work or advanced materials for your child?</span>
+        </p>
+        <div class="pill-group" id="q3">
+          <button class="pill-btn" data-q="q3" data-val="3" onclick="selectPill(this,'q3')"><span class="lang-th">ใช่ หลายครั้ง</span><span class="lang-en">Yes, multiple times</span></button>
+          <button class="pill-btn" data-q="q3" data-val="2" onclick="selectPill(this,'q3')"><span class="lang-th">ใช่ ครั้งหนึ่ง</span><span class="lang-en">Yes, once</span></button>
+          <button class="pill-btn" data-q="q3" data-val="1" onclick="selectPill(this,'q3')"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณทำการบ้านเสร็จเร็วกว่าที่คาดไว้มากน้อยแค่ไหน?</span>
+          <span class="lang-en">Does your child complete homework significantly faster than expected?</span>
+        </p>
+        <div class="pill-group" id="q4">
+          <button class="pill-btn" data-q="q4" data-val="3" onclick="selectPill(this,'q4')"><span class="lang-th">ใช่ เร็วกว่ามาก</span><span class="lang-en">Yes, much faster</span></button>
+          <button class="pill-btn" data-q="q4" data-val="2" onclick="selectPill(this,'q4')"><span class="lang-th">เร็วกว่าเล็กน้อย</span><span class="lang-en">Slightly faster</span></button>
+          <button class="pill-btn" data-q="q4" data-val="1" onclick="selectPill(this,'q4')"><span class="lang-th">ใช้เวลาใกล้เคียงกัน</span><span class="lang-en">Similar time</span></button>
+          <button class="pill-btn" data-q="q4" data-val="0" onclick="selectPill(this,'q4')"><span class="lang-th">ใช้เวลานานกว่า</span><span class="lang-en">Takes longer</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณรู้สึกเบื่อในชั้นเรียนบ่อยหรือไม่?</span>
+          <span class="lang-en">Does your child get bored easily in class?</span>
+        </p>
+        <div class="pill-group" id="q5">
+          <button class="pill-btn" data-q="q5" data-val="3" onclick="selectPill(this,'q5')"><span class="lang-th">ใช่ บ่อยมาก</span><span class="lang-en">Yes, frequently</span></button>
+          <button class="pill-btn" data-q="q5" data-val="2" onclick="selectPill(this,'q5')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q5" data-val="1" onclick="selectPill(this,'q5')"><span class="lang-th">ไม่บ่อย</span><span class="lang-en">Rarely</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Advanced Learning Signs -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div class="section-num">2</div>
+        <h3><span class="lang-th">สัญญาณการเรียนรู้ขั้นสูง</span><span class="lang-en">Advanced Learning Signs</span></h3>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณอ่านหนังสือที่สูงกว่าระดับอายุมากกว่าปกติอย่างเห็นได้ชัดหรือไม่?</span>
+          <span class="lang-en">Does your child read books significantly above their age level?</span>
+        </p>
+        <div class="pill-group" id="q6">
+          <button class="pill-btn" data-q="q6" data-val="2" onclick="selectPill(this,'q6')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
+          <button class="pill-btn" data-q="q6" data-val="1" onclick="selectPill(this,'q6')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q6" data-val="0" onclick="selectPill(this,'q6')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณแสดงความเข้าใจลึกผิดปกติในวิชาหนึ่งวิชาหรือไม่?</span>
+          <span class="lang-en">Does your child show unusual depth of understanding in a particular subject?</span>
+        </p>
+        <div class="pill-group" id="q7">
+          <button class="pill-btn" data-q="q7" data-val="2" onclick="selectPill(this,'q7')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
+          <button class="pill-btn" data-q="q7" data-val="0" onclick="selectPill(this,'q7')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณถามคำถามที่ครูรู้สึกว่าตอบได้ยากหรือไม่?</span>
+          <span class="lang-en">Does your child ask questions teachers find difficult to answer?</span>
+        </p>
+        <div class="pill-group" id="q8">
+          <button class="pill-btn" data-q="q8" data-val="2" onclick="selectPill(this,'q8')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
+          <button class="pill-btn" data-q="q8" data-val="1" onclick="selectPill(this,'q8')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q8" data-val="0" onclick="selectPill(this,'q8')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณเคยชนะการแข่งขันทางวิชาการหรือรางวัลใดๆ หรือไม่?</span>
+          <span class="lang-en">Has your child won any academic competitions or awards?</span>
+        </p>
+        <div class="pill-group" id="q9">
+          <button class="pill-btn" data-q="q9" data-val="3" onclick="selectPill(this,'q9')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
+          <button class="pill-btn" data-q="q9" data-val="0" onclick="selectPill(this,'q9')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">ลูกของคุณเรียนรู้เรื่องที่ไม่อยู่ในหลักสูตรด้วยตนเองเพราะสนใจหรือไม่?</span>
+          <span class="lang-en">Does your child self-teach topics not on the school syllabus out of personal interest?</span>
+        </p>
+        <div class="pill-group" id="q10">
+          <button class="pill-btn" data-q="q10" data-val="2" onclick="selectPill(this,'q10')"><span class="lang-th">ใช่ สม่ำเสมอ</span><span class="lang-en">Yes, regularly</span></button>
+          <button class="pill-btn" data-q="q10" data-val="1" onclick="selectPill(this,'q10')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q10" data-val="0" onclick="selectPill(this,'q10')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Subject Peaks -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div class="section-num">3</div>
+        <h3><span class="lang-th">จุดเด่นวิชาการ</span><span class="lang-en">Subject Peaks</span></h3>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">เลือกวิชาที่ลูกของคุณโดดเด่นกว่าเพื่อนอย่างเห็นได้ชัด (เลือกได้หลายข้อ)</span>
+          <span class="lang-en">Select any subject where your child is notably ahead of peers (select all that apply)</span>
+        </p>
+        <div class="check-group" id="q11">
+          <button class="check-btn" data-q="q11" data-val="maths" onclick="toggleCheck(this,'q11')"><span class="lang-th">คณิตศาสตร์</span><span class="lang-en">Maths</span></button>
+          <button class="check-btn" data-q="q11" data-val="sciences" onclick="toggleCheck(this,'q11')"><span class="lang-th">วิทยาศาสตร์</span><span class="lang-en">Sciences</span></button>
+          <button class="check-btn" data-q="q11" data-val="english" onclick="toggleCheck(this,'q11')"><span class="lang-th">ภาษาอังกฤษ</span><span class="lang-en">English</span></button>
+          <button class="check-btn" data-q="q11" data-val="languages" onclick="toggleCheck(this,'q11')"><span class="lang-th">ภาษาต่างประเทศ</span><span class="lang-en">Languages</span></button>
+          <button class="check-btn" data-q="q11" data-val="history" onclick="toggleCheck(this,'q11')"><span class="lang-th">ประวัติศาสตร์</span><span class="lang-en">History</span></button>
+          <button class="check-btn" data-q="q11" data-val="computing" onclick="toggleCheck(this,'q11')"><span class="lang-th">คอมพิวเตอร์</span><span class="lang-en">Computing</span></button>
+          <button class="check-btn" data-q="q11" data-val="music" onclick="toggleCheck(this,'q11')"><span class="lang-th">ดนตรี</span><span class="lang-en">Music</span></button>
+          <button class="check-btn" data-q="q11" data-val="art" onclick="toggleCheck(this,'q11')"><span class="lang-th">ศิลปะ</span><span class="lang-en">Art</span></button>
+          <button class="check-btn" data-q="q11" data-val="multiple" onclick="toggleCheck(this,'q11')"><span class="lang-th">หลายวิชา</span><span class="lang-en">Multiple subjects</span></button>
+          <button class="check-btn" data-q="q11" data-val="none" onclick="toggleCheck(this,'q11')"><span class="lang-th">ไม่มีวิชาที่โดดเด่น</span><span class="lang-en">None noticeably</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Aspiration -->
+    <div class="section-block">
+      <div class="section-block-header">
+        <div class="section-num">4</div>
+        <h3><span class="lang-th">เป้าหมายและความทะเยอทะยาน</span><span class="lang-en">Aspirations &amp; Target Level</span></h3>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">มหาวิทยาลัยเป้าหมายของลูกคุณอยู่ระดับใด?</span>
+          <span class="lang-en">What is your target university tier for your child?</span>
+        </p>
+        <div class="pill-group" id="q12">
+          <button class="pill-btn" data-q="q12" data-val="oxbridge" onclick="selectPill(this,'q12')"><span class="lang-th">Oxbridge</span><span class="lang-en">Oxbridge</span></button>
+          <button class="pill-btn" data-q="q12" data-val="russell" onclick="selectPill(this,'q12')"><span class="lang-th">Russell Group</span><span class="lang-en">Russell Group</span></button>
+          <button class="pill-btn" data-q="q12" data-val="top20" onclick="selectPill(this,'q12')"><span class="lang-th">Top 20 ของโลก</span><span class="lang-en">Top 20 globally</span></button>
+          <button class="pill-btn" data-q="q12" data-val="any" onclick="selectPill(this,'q12')"><span class="lang-th">มหาวิทยาลัยดี</span><span class="lang-en">Any good university</span></button>
+          <button class="pill-btn" data-q="q12" data-val="unsure" onclick="selectPill(this,'q12')"><span class="lang-th">ยังไม่แน่ใจ</span><span class="lang-en">Not sure yet</span></button>
+        </div>
+      </div>
+
+      <div class="question-row">
+        <p class="question-text">
+          <span class="lang-th">โรงเรียนประจำเป้าหมายอยู่ระดับใด?</span>
+          <span class="lang-en">What UK boarding school tier are you targeting?</span>
+        </p>
+        <div class="pill-group" id="q13">
+          <button class="pill-btn" data-q="q13" data-val="elite" onclick="selectPill(this,'q13')"><span class="lang-th">Elite (Eton, Winchester, Westminster)</span><span class="lang-en">Elite (Eton, Winchester, Westminster)</span></button>
+          <button class="pill-btn" data-q="q13" data-val="top20" onclick="selectPill(this,'q13')"><span class="lang-th">Top 20 UK Boarding</span><span class="lang-en">Top 20 UK Boarding</span></button>
+          <button class="pill-btn" data-q="q13" data-val="top50" onclick="selectPill(this,'q13')"><span class="lang-th">Top 50</span><span class="lang-en">Top 50</span></button>
+          <button class="pill-btn" data-q="q13" data-val="any" onclick="selectPill(this,'q13')"><span class="lang-th">โรงเรียนดี</span><span class="lang-en">Any good school</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="button" class="btn-primary" onclick="calculateGifted()">
+        <span class="lang-th">ดูผลการประเมิน →</span>
+        <span class="lang-en">View Academic Profile →</span>
+      </button>
+      <br>
+      <button type="button" class="btn-secondary" onclick="resetAll()">
+        <span class="lang-th">เริ่มใหม่</span>
+        <span class="lang-en">Reset</span>
+      </button>
+      <p class="validation-msg" id="val-msg">
+        <span class="lang-th">กรุณาตอบทุกคำถามก่อนดูผล</span>
+        <span class="lang-en">Please answer all questions before viewing results.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Results ────────────────────────────────────── -->
+<section id="results-section">
+  <div class="results-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="section-label" style="color:rgba(184,150,46,0.75);">· โปรไฟล์วิชาการ · ACADEMIC PROFILE ·</span>
+      <h2 style="color:var(--cream);font-size:1.8rem;">
+        <span class="lang-th">รายงานความสามารถทางวิชาการ</span>
+        <span class="lang-en">Academic Capability Report</span>
+      </h2>
+    </div>
+
+    <div class="gifted-verdict" id="verdict-card"></div>
+    <div class="track-card" id="track-card"></div>
+    <div id="programmes-block"></div>
+    <div id="next-steps-block"></div>
+    <div id="comparison-block"></div>
+
+    <div class="inline-cta">
+      <div class="free-badge">
+        <span class="lang-th">เซสชันแรกฟรี</span>
+        <span class="lang-en">First Session Free</span>
+      </div>
+      <h4>
+        <span class="lang-th">จองการประเมินวิชาการของลูกคุณกับ LINKEDU</span>
+        <span class="lang-en">Book Your Child's Academic Assessment with LINKEDU</span>
+      </h4>
+      <p>
+        <span class="lang-th">ผู้เชี่ยวชาญของเราจะทำการประเมินเชิงลึกและออกแบบแผนพัฒนาที่ตรงกับโปรไฟล์ของลูกคุณโดยเฉพาะ — เซสชันแรกฟรี</span>
+        <span class="lang-en">Our specialists will conduct a thorough in-depth assessment and design a personalised development plan matched to your child's exact profile — first session free.</span>
+      </p>
+      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
+        <span class="lang-th">จองผ่าน LINE @linkedu.th</span>
+        <span class="lang-en">Book via LINE @linkedu.th</span>
+      </a>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn-secondary" style="color:rgba(245,240,232,0.45);border-color:rgba(245,240,232,0.15);" onclick="resetAll()">
+        <span class="lang-th">ประเมินใหม่</span>
+        <span class="lang-en">Reassess</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINE CTA Section ───────────────────────────── -->
+<section class="line-cta-section">
+  <div class="container">
+    <span class="section-label" style="color:rgba(184,150,46,0.7);">· ติดต่อเรา · GET IN TOUCH ·</span>
+    <h2>
+      <span class="lang-th">ทุกเด็กมีเส้นทางที่ใช่สำหรับตัวเอง</span>
+      <span class="lang-en">Every Child Has a Track That Works for Them</span>
+    </h2>
+    <p>
+      <span class="lang-th">LINKEDU ออกแบบโปรแกรมการติวที่ตรงกับความสามารถและเป้าหมายของลูกคุณโดยเฉพาะ ตั้งแต่การเตรียม Oxbridge ไปจนถึงการสร้างพื้นฐานที่แข็งแกร่ง</span>
+      <span class="lang-en">LINKEDU designs tutoring programmes matched to your child's specific ability and goals — from Oxbridge preparation to building a strong foundation for any leading school.</span>
+    </p>
+    <span class="line-handle">@linkedu.th</span>
+    <br>
+    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom:6px;">
+      <span class="lang-th">ส่วนหนึ่งของ Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+      <span class="lang-en">Part of the Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+    </p>
+    <p><a href="../../index.html">linkedu.hk</a> · <span class="lang-th">สงวนลิขสิทธิ์ 2026</span><span class="lang-en">All rights reserved 2026</span></p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.setAttribute('lang','th');
+function setLang(l) {
+  document.documentElement.setAttribute('lang', l);
+  document.getElementById('btn-th').classList.toggle('active', l === 'th');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+}
+
+const selections = {};
+const multiSelections = { q11: [] };
+
+function selectPill(btn, qid) {
+  document.querySelectorAll('[data-q="' + qid + '"]').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selections[qid] = btn.dataset.val;
+}
+
+function toggleCheck(btn, qid) {
+  const val = btn.dataset.val;
+  if (val === 'none') {
+    // Clear others
+    multiSelections[qid] = ['none'];
+    document.querySelectorAll('[data-q="' + qid + '"]').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    return;
+  }
+  // Remove 'none' if selecting something
+  const noneIdx = multiSelections[qid].indexOf('none');
+  if (noneIdx > -1) multiSelections[qid].splice(noneIdx, 1);
+  document.querySelector('[data-q="' + qid + '"][data-val="none"]').classList.remove('selected');
+
+  const idx = multiSelections[qid].indexOf(val);
+  if (idx > -1) {
+    multiSelections[qid].splice(idx, 1);
+    btn.classList.remove('selected');
+  } else {
+    multiSelections[qid].push(val);
+    btn.classList.add('selected');
+  }
+}
+
+function calculateGifted() {
+  // Required single-select questions
+  const required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q12','q13'];
+  const missing = required.filter(q => !selections[q]);
+  if (missing.length > 0 || multiSelections.q11.length === 0) {
+    const msg = document.getElementById('val-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 5000);
+    return;
+  }
+
+  // Scoring (max ~30 points for clear gifted)
+  let score = 0;
+  score += parseInt(selections.q1) || 0;    // 1-4
+  score += parseInt(selections.q2) || 0;    // 1-4
+  score += parseInt(selections.q3) || 0;    // 1-3
+  score += parseInt(selections.q4) || 0;    // 0-3
+  score += parseInt(selections.q5) || 0;    // 1-3
+  score += parseInt(selections.q6) || 0;    // 0-2
+  score += parseInt(selections.q7) || 0;    // 0-2
+  score += parseInt(selections.q8) || 0;    // 0-2
+  score += parseInt(selections.q9) || 0;    // 0-3
+  score += parseInt(selections.q10) || 0;   // 0-2
+  // Subject breadth bonus
+  const subjectCount = multiSelections.q11.filter(s => s !== 'none').length;
+  if (multiSelections.q11.includes('multiple')) score += 3;
+  else if (subjectCount >= 3) score += 2;
+  else if (subjectCount >= 1) score += 1;
+
+  const maxScore = 30;
+  const pct = Math.round(score / maxScore * 100);
+
+  let tier, tierEn, icon, percentileTh, percentileEn, descTh, descEn;
+  if (score >= 24) {
+    tier = 'มีความสามารถพิเศษ'; tierEn = 'Likely Gifted';
+    icon = '✦';
+    percentileTh = 'ใน 5% แรก'; percentileEn = 'Top 5% academically';
+    descTh = 'ผลการประเมินแสดงให้เห็นถึงรูปแบบที่สอดคล้องกับนักเรียน "gifted" ตามนิยามของสหราชอาณาจักร ลูกของคุณอาจเป็น 1 ใน 20 คนแรกในชั้นเรียนของตัวเอง';
+    descEn = 'The assessment profile is consistent with UK "gifted" definition — academically top 5%. Your child is likely among the top 1 in 20 students their age.';
+  } else if (score >= 16) {
+    tier = 'นักเรียนที่มีผลงานยอดเยี่ยม'; tierEn = 'High Achiever';
+    icon = '◆';
+    percentileTh = 'ใน 20% แรก'; percentileEn = 'Top 20% academically';
+    descTh = 'ลูกของคุณเป็นนักเรียนที่แข็งแกร่งและมีศักยภาพสูง แม้จะไม่ใช่ "gifted" ตามคำนิยามที่เข้มงวด แต่ศักยภาพของเขา/เธอเพียงพอสำหรับโรงเรียนชั้นนำของสหราชอาณาจักร';
+    descEn = 'Your child is a strong, high-potential student. Even if not meeting the strict "gifted" definition, their profile is well-suited to top UK boarding schools.';
+  } else if (score >= 8) {
+    tier = 'นักเรียนที่มีฐานแข็งแกร่ง'; tierEn = 'Strong Student';
+    icon = '●';
+    percentileTh = 'ใน 50% แรก'; percentileEn = 'Top 50% academically';
+    descTh = 'ลูกของคุณมีพื้นฐานที่ดีและมีศักยภาพที่จะพัฒนาได้ดีมาก การสนับสนุนที่ถูกทิศทางจะช่วยให้ไปถึงโรงเรียนชั้นดีในสหราชอาณาจักรได้';
+    descEn = 'Your child has a solid foundation with real potential for development. The right support and strategy will get them into a strong UK boarding school.';
+  } else {
+    tier = 'กำลังพัฒนา'; tierEn = 'Developing';
+    icon = '○';
+    percentileTh = 'กำลังพัฒนา'; percentileEn = 'Developing academically';
+    descTh = 'ลูกของคุณอยู่ในช่วงการพัฒนา เส้นทางที่เหมาะสมคือการสร้างพื้นฐานที่แข็งแกร่งก่อน และทุกเด็กสามารถก้าวหน้าได้เมื่อได้รับการสนับสนุนที่ถูกต้อง';
+    descEn = "Your child is in the developing phase. The right track focuses on building confidence and strong foundations — every child can progress with the right support.";
+  }
+
+  const uniTarget = selections.q12;
+  const schoolTarget = selections.q13;
+  const subjects = multiSelections.q11;
+
+  // Track recommendation
+  const TRACKS = {
+    'Likely Gifted': {
+      th: 'Oxbridge-Track Intensive',
+      en: 'Oxbridge-Track Intensive',
+      desc_th: 'การติวขั้นสูงที่เน้น stretch assignments, การเตรียม academic competitions, และการพัฒนาความลึกทางวิชาการเพื่อ Oxbridge และโรงเรียน elite',
+      desc_en: 'Advanced stretch tutoring, academic competition preparation, and deep intellectual enrichment to target Oxbridge and elite boarding school entry.'
+    },
+    'High Achiever': {
+      th: 'Elite Entry Preparation',
+      en: 'Elite Entry Preparation',
+      desc_th: 'โปรแกรมเตรียมเข้าโรงเรียน UK Top 20 และเส้นทาง Russell Group เน้นคะแนนสอบสูง, การสัมภาษณ์, และ personal statement',
+      desc_en: 'UK top boarding school entry preparation and Russell Group pathway — strong exam scores, interview coaching, and personal statement development.'
+    },
+    'Strong Student': {
+      th: 'Foundations for Success',
+      en: 'Foundations for Success',
+      desc_th: 'สร้างความมั่นใจ, ปิดช่องว่างวิชาการ, และเล็งโรงเรียน boarding school ที่แข็งแกร่ง เน้นการพัฒนาอย่างรอบด้านและยั่งยืน',
+      desc_en: 'Build confidence, close academic gaps, and target a strong UK boarding school — broad and sustainable academic development with clear milestones.'
+    },
+    'Developing': {
+      th: 'Strong Foundations Programme',
+      en: 'Strong Foundations Programme',
+      desc_th: 'พัฒนาพื้นฐานภาษาอังกฤษและวิชาการ เตรียมความพร้อมอย่างรอบด้าน และเลือกโรงเรียน boarding school ที่เหมาะสมกับระดับ',
+      desc_en: 'Develop English and core academic skills, build all-round readiness, and identify the right-fit boarding school for a confident transition.'
+    }
+  };
+  const track = TRACKS[tierEn] || TRACKS['Developing'];
+
+  // Programmes
+  const PROGRAMMES_BY_TIER = {
+    'Likely Gifted': [
+      { name: 'UKMT Mathematical Challenges', desc_th: 'การแข่งขันคณิตศาสตร์ระดับประเทศ UK (Junior/Intermediate/Senior)', desc_en: 'UK national mathematics competitions (Junior/Intermediate/Senior)' },
+      { name: 'British Physics Olympiad (BPhO)', desc_th: 'การแข่งขันฟิสิกส์ระดับชาติ UK', desc_en: 'UK national physics competition — excellent for Oxbridge applications' },
+      { name: 'Johns Hopkins CTY', desc_th: 'โปรแกรมนักเรียนพิเศษสำหรับเด็กที่มีความสามารถสูง', desc_en: 'Centre for Talented Youth — rigorous academic summer programmes for gifted students' },
+      { name: 'NAGTY / Potential Plus UK', desc_th: 'เครือข่าย gifted สหราชอาณาจักรสำหรับนักเรียนที่มีความสามารถสูง', desc_en: 'UK gifted networks connecting exceptionally able students with advanced opportunities' }
+    ],
+    'High Achiever': [
+      { name: 'UKMT Junior / Intermediate', desc_th: 'ระดับเริ่มต้นของการแข่งขันคณิตศาสตร์ UK', desc_en: 'Entry-level UK mathematics competitions — strong CV addition for boarding school applications' },
+      { name: 'UK Junior Mathematical Challenge', desc_th: 'สำหรับนักเรียนอายุต่ำกว่า 11 ปี', desc_en: 'For students under 11 — a clear gifted indicator for school applications' },
+      { name: 'British Biology / Chemistry Olympiad', desc_th: 'การแข่งขันวิทยาศาสตร์ระดับชาติ UK สำหรับระดับ 16+', desc_en: 'National UK science competitions — highly valued for 16+ and A-Level entries' },
+      { name: 'Academic Summer Programmes (Oxford/Cambridge)', desc_th: 'โปรแกรมภาคฤดูร้อนระดับมหาวิทยาลัยสำหรับนักเรียนอายุ 14-18 ปี', desc_en: 'University summer programmes for ages 14–18 at Oxford and Cambridge colleges' }
+    ],
+    'Strong Student': [
+      { name: 'UK Boarding School Prep Courses', desc_th: 'โปรแกรมเตรียมสอบ 11+, 13+, UKISET เฉพาะบุคคล', desc_en: 'Personalised 11+, 13+, UKISET preparation — essential for school entry' },
+      { name: 'UKISET Online Practice', desc_th: 'การทดสอบเข้าโรงเรียนนานาชาติ UK ที่โรงเรียนหลายแห่งกำหนด', desc_en: 'UK international school entry test — required by many boarding schools for international students' },
+      { name: 'Junior Maths / Science Challenges', desc_th: 'โอกาสเสริมความแข็งแกร่งและสร้างความมั่นใจ', desc_en: 'Lower-stakes challenges to build confidence and demonstrate academic ambition' },
+      { name: 'Reading Lists from Target Schools', desc_th: 'หนังสือที่โรงเรียนเป้าหมายแนะนำสำหรับนักเรียนใหม่', desc_en: 'Pre-reading lists from target schools — demonstrates genuine interest and preparation' }
+    ],
+    'Developing': [
+      { name: 'LINKEDU Foundation Tutoring', desc_th: 'โปรแกรมพื้นฐานภาษาอังกฤษ + คณิตศาสตร์ ออกแบบสำหรับนักเรียนไทย', desc_en: 'Foundation English and Maths programme designed for Thai students' },
+      { name: 'UKISET Preparation Programme', desc_th: 'การเตรียมสอบ UKISET อย่างเป็นระบบ', desc_en: 'Systematic UKISET preparation — achievable improvement with 3+ months of focused work' },
+      { name: 'English Reading Programme', desc_th: 'โปรแกรมอ่านภาษาอังกฤษที่มีโครงสร้างชัดเจน', desc_en: 'Structured English reading programme — builds vocabulary and comprehension rapidly' },
+      { name: 'School Selection Guidance', desc_th: 'คำแนะนำในการเลือกโรงเรียนที่เหมาะสมกับระดับปัจจุบัน', desc_en: 'Expert guidance to identify the right-fit boarding school for current ability level' }
+    ]
+  };
+
+  const STEPS = {
+    'Likely Gifted': {
+      steps_th: [
+        'ลงทะเบียนสอบ UKMT หรือ BPhO ที่ใกล้ที่สุดเพื่อรับ benchmark ระดับนานาชาติ',
+        'เริ่มโปรแกรมติว Oxbridge-track กับ LINKEDU — ขยายความลึกทางวิชาการในวิชาที่แข็งแกร่งที่สุด',
+        'ค้นคว้า Eton, Winchester, Westminster หรือ St Paul\'s — เตรียม portfolio วิชาการและ personal statement'
+      ],
+      steps_en: [
+        'Register for the nearest UKMT or BPhO competition to get an international benchmark immediately',
+        'Begin an Oxbridge-track tutoring programme with LINKEDU — deepen the strongest subject to an exceptional level',
+        'Research Eton, Winchester, Westminster, or St Paul\'s — begin academic portfolio and personal statement preparation'
+      ]
+    },
+    'High Achiever': {
+      steps_th: [
+        'สอบ UKISET หรือ Common Entrance เพื่อดูคะแนน benchmark จริง',
+        'เริ่มโปรแกรมเตรียมสอบ 11+ หรือ 13+ อย่างเป็นระบบกับ LINKEDU',
+        'ยื่นสมัครโรงเรียน Top 20 UK boarding เช่น Harrow, Rugby, Marlborough, Shrewsbury'
+      ],
+      steps_en: [
+        'Sit a UKISET or Common Entrance practice paper to get a real benchmark score',
+        'Begin a systematic 11+ or 13+ entry exam preparation programme with LINKEDU',
+        'Apply to Top 20 UK boarding schools such as Harrow, Rugby, Marlborough, or Shrewsbury'
+      ]
+    },
+    'Strong Student': {
+      steps_th: [
+        'ทำแบบทดสอบ UKISET ออนไลน์เพื่อประเมินระดับปัจจุบัน',
+        'เริ่มโปรแกรม Foundations for Success กับ LINKEDU ซึ่งปิดช่องว่างวิชาการอย่างมีเป้าหมาย',
+        'ระบุโรงเรียน 3-5 แห่งที่เหมาะสมกับโปรไฟล์ — LINKEDU จะช่วยเลือกโรงเรียนที่ใช่'
+      ],
+      steps_en: [
+        'Complete an online UKISET practice assessment to establish a current academic baseline',
+        'Begin the Foundations for Success programme with LINKEDU — targeted gap-closing in key subjects',
+        'Identify 3–5 schools that match the current profile — LINKEDU will help shortlist the right fit'
+      ]
+    },
+    'Developing': {
+      steps_th: [
+        'จัดทำ full academic assessment กับ LINKEDU เพื่อระบุจุดแข็งและช่องว่างอย่างชัดเจน',
+        'เริ่มโปรแกรมภาษาอังกฤษพื้นฐาน + คณิตศาสตร์ทันที — เวลาคือสิ่งสำคัญ',
+        'วางแผนเป้าหมายโรงเรียนที่เหมาะสมกับระดับปัจจุบัน — ทุกเด็กมีโรงเรียนที่ใช่สำหรับตัวเอง'
+      ],
+      steps_en: [
+        'Complete a full academic assessment with LINKEDU to clearly identify strengths and gaps',
+        'Begin a foundation English and Maths programme immediately — timing matters',
+        'Plan realistic school targets matched to current level — every child has the right school for them'
+      ]
+    }
+  };
+
+  const COMPARISONS = {
+    'Likely Gifted': {
+      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่คล้ายกับนักเรียนที่เข้าศึกษาที่ <strong>Eton, Winchester, Westminster</strong> และมหาวิทยาลัย <strong>Oxford และ Cambridge</strong>',
+      en: 'Based on your answers, your child\'s profile is consistent with students who go on to <strong>Eton, Winchester, Westminster</strong> and universities including <strong>Oxford and Cambridge</strong>.'
+    },
+    'High Achiever': {
+      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่คล้ายกับนักเรียนที่เข้าศึกษาที่ <strong>Harrow, Rugby, Marlborough, Cheltenham Ladies\' College</strong> และมหาวิทยาลัย <strong>Russell Group</strong>',
+      en: 'Based on your answers, your child\'s profile is consistent with students who go on to <strong>Harrow, Rugby, Marlborough, Cheltenham Ladies\' College</strong> and leading <strong>Russell Group universities</strong>.'
+    },
+    'Strong Student': {
+      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่เหมาะกับโรงเรียนเช่น <strong>Bromsgrove, Taunton, Rossall, Concord College</strong> ซึ่งมีนักเรียนไทยจำนวนมากและประสบความสำเร็จในมหาวิทยาลัยชั้นดี',
+      en: 'Based on your answers, your child\'s profile fits schools like <strong>Bromsgrove, Taunton, Rossall, Concord College</strong> — schools with strong Thai student communities and excellent university outcomes.'
+    },
+    'Developing': {
+      th: 'จากคำตอบของคุณ เรายินดีช่วยหาโรงเรียนที่เหมาะสมกับระดับปัจจุบันของลูกคุณ มีหลายโรงเรียนที่ยอดเยี่ยมในสหราชอาณาจักรที่ให้การสนับสนุนพิเศษสำหรับนักเรียนนานาชาติ',
+      en: "Based on your answers, we'd love to help identify the right-fit schools for your child's current level. Several excellent UK boarding schools provide outstanding support for international students at all starting points."
+    }
+  };
+
+  // Build results
+  document.getElementById('verdict-card').innerHTML = `
+    <div class="verdict-label"><span class="lang-th">ผลการประเมินวิชาการ</span><span class="lang-en">Academic Assessment Result</span></div>
+    <div class="verdict-icon">${icon}</div>
+    <div class="verdict-title"><span class="lang-th">${tier}</span><span class="lang-en">${tierEn}</span></div>
+    <div class="verdict-sub"><span class="lang-th">คะแนน ${score}/${maxScore} — ${pct}% ตัวชี้วัด Gifted</span><span class="lang-en">Score ${score}/${maxScore} — ${pct}% gifted indicators</span></div>
+    <div class="percentile-wrap">
+      <span class="percentile-pill"><span class="lang-th">${percentileTh}</span><span class="lang-en">${percentileEn}</span></span>
+    </div>
+    <p style="color:rgba(245,240,232,0.65);font-size:0.88rem;max-width:520px;margin:0 auto;line-height:1.65;">
+      <span class="lang-th">${descTh}</span><span class="lang-en">${descEn}</span>
+    </p>
+  `;
+
+  document.getElementById('track-card').innerHTML = `
+    <h3><span class="lang-th">แนวทางที่แนะนำ: ${track.th}</span><span class="lang-en">Recommended Track: ${track.en}</span></h3>
+    <p><span class="lang-th">${track.desc_th}</span><span class="lang-en">${track.desc_en}</span></p>
+  `;
+
+  const progs = PROGRAMMES_BY_TIER[tierEn] || PROGRAMMES_BY_TIER['Developing'];
+  document.getElementById('programmes-block').innerHTML = `
+    <div class="result-block">
+      <div class="result-block-label"><span class="lang-th">โปรแกรม UK ที่ควรรู้</span><span class="lang-en">UK Gifted Programmes to Know</span></div>
+      <div class="programme-grid">
+        ${progs.map(p => `
+          <div class="programme-card">
+            <h4>${p.name}</h4>
+            <p><span class="lang-th">${p.desc_th}</span><span class="lang-en">${p.desc_en}</span></p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  const steps = STEPS[tierEn] || STEPS['Developing'];
+  document.getElementById('next-steps-block').innerHTML = `
+    <div class="result-block">
+      <div class="result-block-label"><span class="lang-th">ขั้นตอนถัดไป 3 ข้อ</span><span class="lang-en">3 Concrete Next Steps</span></div>
+      <ul class="step-list">
+        ${steps.steps_th.map((s,i) => `<li class="lang-th"><div class="step-num-inline">${i+1}</div>${s}</li>`).join('')}
+        ${steps.steps_en.map((s,i) => `<li class="lang-en"><div class="step-num-inline">${i+1}</div>${s}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  const comp = COMPARISONS[tierEn] || COMPARISONS['Developing'];
+  document.getElementById('comparison-block').innerHTML = `
+    <div class="comparison-card">
+      <h3><span class="lang-th">เทียบโปรไฟล์กับนักเรียนที่ประสบความสำเร็จ</span><span class="lang-en">Profile Comparison</span></h3>
+      <p class="lang-th">${comp.th}</p>
+      <p class="lang-en">${comp.en}</p>
+    </div>
+  `;
+
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  Object.keys(selections).forEach(k => delete selections[k]);
+  multiSelections.q11 = [];
+  document.querySelectorAll('.pill-btn, .check-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('results-section').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

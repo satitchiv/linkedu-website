@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — Learning Style &amp; Tutor Match Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--dark);
+  color: var(--cream);
+  min-width: 320px;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+
+/* ── Header ─────────────────────────────────────────────── */
+#site-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.3);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 24px; gap: 24px;
+}
+.logo-wrap { flex-shrink: 0; }
+#site-header nav { display: flex; gap: 20px; flex: 1; justify-content: center; flex-wrap: wrap; }
+#site-header nav a {
+  color: var(--cream); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.04em; opacity: 0.8; transition: opacity 0.2s;
+}
+#site-header nav a:hover { opacity: 1; color: var(--gold); }
+.lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s; opacity: 0.6;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); opacity: 1; font-weight: 600; }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  background: var(--dark); padding: 72px 24px 48px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,150,46,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 16px; display: block;
+}
+.section-label::before {
+  content: ''; display: block; width: 40px; height: 1px;
+  background: var(--gold); margin: 0 auto 12px;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+.hero p { color: rgba(245,240,232,0.65); max-width: 600px; margin: 0 auto; font-size: 0.95rem; }
+
+/* ── Container ──────────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Progress bar ───────────────────────────────────────── */
+.progress-section {
+  background: rgba(245,240,232,0.04); padding: 20px 24px;
+  border-bottom: 1px solid rgba(184,150,46,0.15);
+}
+.progress-inner { max-width: 700px; margin: 0 auto; }
+.progress-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+}
+.progress-label { font-size: 0.8rem; color: rgba(245,240,232,0.5); letter-spacing: 0.08em; }
+.progress-count { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold); }
+.progress-bar-bg {
+  height: 4px; background: rgba(245,240,232,0.1); border-radius: 999px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; background: var(--gold); border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.progress-dots {
+  display: flex; gap: 6px; margin-top: 10px; justify-content: center; flex-wrap: wrap;
+}
+.progress-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1.5px solid rgba(184,150,46,0.3); background: none; transition: all 0.3s;
+}
+.progress-dot.answered { background: var(--gold); border-color: var(--gold); }
+.progress-dot.current { border-color: var(--gold); }
+
+/* ── Quiz area ──────────────────────────────────────────── */
+#quiz-section { padding: 48px 24px; }
+.quiz-inner { max-width: 700px; margin: 0 auto; }
+
+.question-card {
+  background: rgba(245,240,232,0.04); border-radius: 8px; padding: 36px 32px;
+  border: 1px solid rgba(184,150,46,0.18);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.q-number {
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.q-text {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; line-height: 1.4;
+  color: var(--cream); margin-bottom: 28px;
+}
+.options-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.option-btn {
+  background: rgba(245,240,232,0.05); border: 1px solid rgba(245,240,232,0.12);
+  color: var(--cream); border-radius: 8px; padding: 16px 18px;
+  text-align: left; cursor: pointer; transition: all 0.2s;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem; line-height: 1.45;
+}
+.option-btn:hover {
+  border-color: var(--gold); color: var(--gold);
+  background: var(--gold-faint);
+}
+.option-btn.selected {
+  background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 600;
+}
+.option-letter {
+  display: inline-block; width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid currentColor; text-align: center; line-height: 20px;
+  font-size: 0.72rem; margin-right: 8px; flex-shrink: 0; vertical-align: middle;
+}
+
+.nav-row { display: flex; gap: 12px; margin-top: 28px; justify-content: space-between; align-items: center; }
+.btn-primary {
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 6px; padding: 13px 28px; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); }
+.btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-secondary {
+  background: none; border: 1px solid rgba(245,240,232,0.2); color: rgba(245,240,232,0.55); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 0.85rem;
+  border-radius: 6px; padding: 12px 20px; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: rgba(245,240,232,0.4); color: rgba(245,240,232,0.8); }
+
+/* ── Results ─────────────────────────────────────────────── */
+#results-section { display: none; background: var(--cream); color: var(--dark); padding: 56px 24px; }
+.results-inner { max-width: 800px; margin: 0 auto; }
+
+.style-hero-card {
+  background: var(--dark); border-radius: 8px; padding: 40px 32px;
+  text-align: center; border: 1px solid rgba(184,150,46,0.3); margin-bottom: 32px;
+}
+.style-icon-wrap {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 1.8rem;
+}
+.style-name { font-size: 2rem; color: var(--gold); margin-bottom: 4px; }
+.style-sub { color: rgba(245,240,232,0.55); font-size: 0.88rem; }
+.style-pct-bar {
+  height: 6px; background: rgba(245,240,232,0.1); border-radius: 999px; margin: 20px 0 6px; overflow: hidden;
+}
+.style-pct-fill { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.8s ease; }
+.style-pct-label { font-size: 0.8rem; color: rgba(245,240,232,0.4); }
+
+.secondary-style {
+  background: rgba(245,240,232,0.05); border-radius: 6px; padding: 14px 20px;
+  margin-top: 16px; text-align: left; border: 1px solid rgba(184,150,46,0.15);
+}
+.secondary-style p { font-size: 0.85rem; color: rgba(245,240,232,0.65); }
+.secondary-style strong { color: var(--gold); }
+
+.result-card {
+  background: var(--cream); border-radius: 8px; padding: 24px 28px;
+  border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.result-card-label {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 14px; font-weight: 600;
+}
+.result-card-label::before {
+  content: ''; display: block; width: 30px; height: 1px; background: var(--gold); margin-bottom: 8px;
+}
+.result-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.result-card p { font-size: 0.88rem; color: rgba(26,26,26,0.72); line-height: 1.65; }
+.tip-list { list-style: none; margin-top: 10px; }
+.tip-list li { font-size: 0.87rem; color: rgba(26,26,26,0.72); padding: 5px 0 5px 18px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.tip-list li:last-child { border-bottom: none; }
+.tip-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; }
+.avoid-list { list-style: none; margin-top: 10px; }
+.avoid-list li { font-size: 0.87rem; color: rgba(26,26,26,0.68); padding: 5px 0 5px 18px; position: relative; }
+.avoid-list li::before { content: '✕'; position: absolute; left: 0; color: rgba(184,150,46,0.6); font-size: 0.75rem; }
+
+/* ── Inline CTA ─────────────────────────────────────────── */
+.inline-cta {
+  background: var(--dark); border-radius: 8px; padding: 28px 32px;
+  border: 1px solid rgba(184,150,46,0.3); text-align: center; margin-bottom: 24px;
+}
+.inline-cta h4 { color: var(--cream); font-size: 1.15rem; margin-bottom: 8px; }
+.inline-cta p { color: rgba(245,240,232,0.6); font-size: 0.87rem; margin-bottom: 18px; }
+.urgency-tag {
+  display: inline-block; background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.3);
+  color: var(--gold); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 999px; padding: 4px 12px; margin-bottom: 12px;
+}
+.btn-line {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 12px 28px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line:hover { background: var(--gold-light); }
+
+/* ── LINE CTA Section ──────────────────────────────────── */
+.line-cta-section {
+  background: var(--dark); padding: 72px 24px; text-align: center;
+  border-top: 1px solid rgba(184,150,46,0.15);
+}
+.line-cta-section h2 { color: var(--cream); font-size: 2rem; margin-bottom: 12px; }
+.line-cta-section p { color: rgba(245,240,232,0.65); margin-bottom: 8px; font-size: 0.95rem; }
+.line-handle { color: var(--gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 28px; display: block; }
+.btn-line-large {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 16px 40px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line-large:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+footer {
+  background: var(--dark); padding: 32px 24px; text-align: center;
+  border-top: 1px solid rgba(245,240,232,0.06);
+}
+footer p { color: rgba(245,240,232,0.35); font-size: 0.8rem; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .options-grid { grid-template-columns: 1fr; }
+  #site-header nav { display: none; }
+  .question-card { padding: 24px 20px; }
+  .q-text { font-size: 1.15rem; }
+  .style-hero-card { padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────── -->
+<header id="site-header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </div>
+  <nav>
+    <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
+    <h1>
+      <span class="lang-th">ค้นหาสไตล์การเรียน<br>และจับคู่ติวเตอร์</span>
+      <span class="lang-en">Learning Style<br>&amp; Tutor Match Quiz</span>
+    </h1>
+    <p style="margin-top:16px;">
+      <span class="lang-th">10 คำถาม เพื่อค้นหาวิธีที่ลูกของคุณเรียนรู้ได้ดีที่สุด แล้วจับคู่กับติวเตอร์สไตล์ที่ใช่</span>
+      <span class="lang-en">10 questions to discover how your child learns best — then match them with exactly the right tutor style.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── Progress bar ──────────────────────────────── -->
+<div class="progress-section" id="progress-section">
+  <div class="progress-inner">
+    <div class="progress-meta">
+      <span class="progress-label">
+        <span class="lang-th">ความคืบหน้า</span>
+        <span class="lang-en">PROGRESS</span>
+      </span>
+      <span class="progress-count" id="progress-count">1 / 10</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-bar" style="width:10%"></div>
+    </div>
+    <div class="progress-dots" id="progress-dots"></div>
+  </div>
+</div>
+
+<!-- ── Quiz ──────────────────────────────────────── -->
+<section id="quiz-section">
+  <div class="quiz-inner">
+    <div class="question-card" id="question-card">
+      <div class="q-number" id="q-number"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="nav-row">
+        <button class="btn-secondary" id="btn-prev" onclick="prevQuestion()">
+          <span class="lang-th">← ย้อนกลับ</span>
+          <span class="lang-en">← Back</span>
+        </button>
+        <button class="btn-primary" id="btn-next" onclick="nextQuestion()" disabled>
+          <span class="lang-th" id="next-label-th">ถัดไป →</span>
+          <span class="lang-en" id="next-label-en">Next →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Results ────────────────────────────────────── -->
+<section id="results-section">
+  <div class="results-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="section-label" style="color:var(--gold);">· ผลลัพธ์ · YOUR LEARNING PROFILE ·</span>
+      <h2 style="font-size:1.8rem;">
+        <span class="lang-th">สไตล์การเรียนของลูกคุณ</span>
+        <span class="lang-en">Your Child's Learning Style</span>
+      </h2>
+    </div>
+
+    <!-- Primary style -->
+    <div class="style-hero-card" id="primary-style-card"></div>
+
+    <!-- Result details -->
+    <div id="result-details"></div>
+
+    <!-- Inline CTA -->
+    <div class="inline-cta">
+      <div class="urgency-tag">
+        <span class="lang-th">จับคู่ภายใน 48 ชั่วโมง</span>
+        <span class="lang-en">Match Within 48 Hours</span>
+      </div>
+      <h4>
+        <span class="lang-th">เราจะจับคู่ลูกคุณกับติวเตอร์ที่เหมาะกับสไตล์การเรียนของเขาโดยเฉพาะ</span>
+        <span class="lang-en">We'll match your child with a tutor who suits their learning style exactly</span>
+      </h4>
+      <p>
+        <span class="lang-th">ติดต่อเราผ่าน LINE — เราจับคู่ภายใน 48 ชั่วโมง ติวเตอร์ LINKEDU มีทุกสไตล์</span>
+        <span class="lang-en">Contact us via LINE — we match within 48 hours. LINKEDU has tutors for every learning style.</span>
+      </p>
+      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
+        <span class="lang-th">ติดต่อ @linkedu.th ตอนนี้</span>
+        <span class="lang-en">Contact @linkedu.th Now</span>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:8px;">
+      <button class="btn-secondary" style="color:rgba(26,26,26,0.5);border-color:rgba(26,26,26,0.2);" onclick="restartQuiz()">
+        <span class="lang-th">เล่นใหม่</span>
+        <span class="lang-en">Retake Quiz</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINE CTA Section ───────────────────────────── -->
+<section class="line-cta-section">
+  <div class="container">
+    <span class="section-label" style="color:rgba(184,150,46,0.7);">· ติดต่อเรา · GET IN TOUCH ·</span>
+    <h2>
+      <span class="lang-th">ติวเตอร์ที่ใช่ เปลี่ยนชีวิต</span>
+      <span class="lang-en">The Right Tutor Changes Everything</span>
+    </h2>
+    <p>
+      <span class="lang-th">LINKEDU มีติวเตอร์เจ้าของภาษาและติวเตอร์ผู้เชี่ยวชาญที่เหมาะกับทุกสไตล์การเรียน</span>
+      <span class="lang-en">LINKEDU has native-speaking and specialist tutors matched to every learning style for UK boarding school preparation.</span>
+    </p>
+    <span class="line-handle">@linkedu.th</span>
+    <br>
+    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom:6px;">
+      <span class="lang-th">ส่วนหนึ่งของ Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+      <span class="lang-en">Part of the Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+    </p>
+    <p><a href="../../index.html">linkedu.hk</a> · <span class="lang-th">สงวนลิขสิทธิ์ 2026</span><span class="lang-en">All rights reserved 2026</span></p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.setAttribute('lang','th');
+function setLang(l) {
+  document.documentElement.setAttribute('lang', l);
+  document.getElementById('btn-th').classList.toggle('active', l === 'th');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+}
+
+// V = Visual, A = Auditory, K = Kinesthetic, R = Reading/Writing
+const QUESTIONS = [
+  {
+    th: 'เมื่อลูกของคุณกำลังเรียนรู้สิ่งใหม่ เขา/เธอชอบ...',
+    en: 'When learning something new, your child prefers to...',
+    options: [
+      { th: 'ดูไดอะแกรมหรือวิดีโอ', en: 'See diagrams or watch videos', type: 'V' },
+      { th: 'ฟังคำอธิบายจากครูหรือผู้อื่น', en: 'Hear an explanation from a teacher', type: 'A' },
+      { th: 'ลองทำด้วยตัวเองทันที', en: 'Try it hands-on straight away', type: 'K' },
+      { th: 'อ่านเกี่ยวกับเรื่องนั้นก่อน', en: 'Read about it first', type: 'R' }
+    ]
+  },
+  {
+    th: 'เมื่อลูกของคุณลืมอะไรบางอย่าง เขา/เธอจะ...',
+    en: 'When your child forgets something, they...',
+    options: [
+      { th: 'พยายามนึกภาพมันขึ้นมาในใจ', en: 'Try to picture it in their mind', type: 'V' },
+      { th: 'นึกถึงสิ่งที่มีคนพูดถึงมัน', en: 'Remember what someone said about it', type: 'A' },
+      { th: 'นึกถึงสิ่งที่ตนเองกำลังทำอยู่ตอนนั้น', en: 'Remember what they were doing at the time', type: 'K' },
+      { th: 'กลับไปดูโน้ตหรือหนังสือ', en: 'Go back to their notes or book', type: 'R' }
+    ]
+  },
+  {
+    th: 'ลูกของคุณสมาธิดีที่สุดเมื่อ...',
+    en: 'Your child concentrates best when...',
+    options: [
+      { th: 'ห้องเรียบร้อยและมีแสงสว่างเพียงพอ', en: 'The room is tidy and well-lit', type: 'V' },
+      { th: 'มีเพลงพื้นหลังเบาๆ', en: "There's gentle background music", type: 'A' },
+      { th: 'สามารถขยับร่างกายหรือเดินไปมาได้', en: 'They can move around or fidget', type: 'K' },
+      { th: 'เงียบสนิทสมบูรณ์', en: "It's completely quiet", type: 'R' }
+    ]
+  },
+  {
+    th: 'เมื่อลูกของคุณอ่านหนังสือ เขา/เธอชอบ...',
+    en: 'When your child studies, they prefer to...',
+    options: [
+      { th: 'ใช้โน้ตสีสันสดใสและ mind map', en: 'Use colour-coded notes and mind maps', type: 'V' },
+      { th: 'บันทึกเสียงและเปิดฟังซ้ำ', en: 'Record voice notes and play them back', type: 'A' },
+      { th: 'เดินไปมาขณะอ่าน', en: 'Walk around while reading', type: 'K' },
+      { th: 'เขียนสรุปอย่างละเอียด', en: 'Write detailed written summaries', type: 'R' }
+    ]
+  },
+  {
+    th: 'ลูกของคุณจำได้ดีที่สุดเมื่อ...',
+    en: 'Your child best remembers...',
+    options: [
+      { th: 'สิ่งที่เขา/เธอได้เห็นหรือนึกภาพ', en: "Things they've seen or visualised", type: 'V' },
+      { th: 'สิ่งที่ได้ยินหรือพูดคุย', en: "Things they've heard or discussed", type: 'A' },
+      { th: 'สิ่งที่ได้ฝึกลงมือทำ', en: "Things they've practised physically", type: 'K' },
+      { th: 'สิ่งที่ได้เขียนลงไป', en: "Things they've written down", type: 'R' }
+    ]
+  },
+  {
+    th: 'ในเซสชันติว ลูกของคุณจะได้ประโยชน์สูงสุดจาก...',
+    en: 'In a tutoring session, your child would benefit most from...',
+    options: [
+      { th: 'การอธิบายบนกระดานด้วยภาพ', en: 'Visual explanations on a whiteboard', type: 'V' },
+      { th: 'การพูดคุยแนวคิดด้วยกัน', en: 'Talking through concepts aloud together', type: 'A' },
+      { th: 'แบบฝึกหัดและตัวอย่างจำนวนมาก', en: 'Lots of practice problems and worked examples', type: 'K' },
+      { th: 'โน้ตสรุปที่ชัดเจนหลังเซสชัน', en: 'Clear structured notes after each session', type: 'R' }
+    ]
+  },
+  {
+    th: 'เมื่อลูกของคุณสับสน เขา/เธอมักจะ...',
+    en: 'When your child is confused, they...',
+    options: [
+      { th: 'วาดไดอะแกรมหรือแผนภูมิ', en: 'Draw a diagram or chart to help', type: 'V' },
+      { th: 'โทรหาเพื่อนเพื่อพูดคุย', en: 'Call a friend to talk it through', type: 'A' },
+      { th: 'ลองวิธีแก้ปัญหาใหม่', en: 'Try a completely different approach', type: 'K' },
+      { th: 'กลับไปอ่านโน้ตอย่างละเอียด', en: 'Re-read their notes very carefully', type: 'R' }
+    ]
+  },
+  {
+    th: 'ติวเตอร์ในอุดมคติของลูกคุณจะ...',
+    en: "Your child's ideal tutor would...",
+    options: [
+      { th: 'ใช้สไลด์ รูปภาพ และไดอะแกรม', en: 'Use visuals, slides, and diagrams', type: 'V' },
+      { th: 'อธิบายด้วยความกระตือรือร้นและสนทนาโต้ตอบ', en: 'Have lively explanations and discussions', type: 'A' },
+      { th: 'ให้แบบฝึกหัดจำนวนมากและทำตัวอย่าง', en: 'Give lots of practice exercises and examples', type: 'K' },
+      { th: 'ส่งโน้ตสรุปที่ชัดเจนหลังทุกเซสชัน', en: 'Provide clear written notes after every session', type: 'R' }
+    ]
+  },
+  {
+    th: 'หลังเซสชันติว ลูกของคุณมักจะ...',
+    en: 'After a tutoring session, your child is most likely to...',
+    options: [
+      { th: 'ทบทวน mind map หรือไดอะแกรม', en: 'Review their mind maps or diagrams', type: 'V' },
+      { th: 'คิดถึงสิ่งที่พูดคุยกัน', en: 'Think about what was discussed', type: 'A' },
+      { th: 'ลองทำแบบฝึกหัดเพิ่มเติม', en: 'Try extra practice questions immediately', type: 'K' },
+      { th: 'อ่านโน้ตซ้ำอย่างละเอียด', en: 'Re-read their notes carefully', type: 'R' }
+    ]
+  },
+  {
+    th: 'ลูกของคุณรู้สึกมั่นใจที่สุดเมื่อ...',
+    en: 'Your child feels most confident when they...',
+    options: [
+      { th: 'เห็นภาพรวมทั้งหมดวางอยู่ตรงหน้า', en: 'Can see the whole picture laid out visually', type: 'V' },
+      { th: 'พูดถึงความเข้าใจของตนเองออกมาดังๆ', en: 'Can talk through their understanding aloud', type: 'A' },
+      { th: 'ผ่านตัวอย่างมาพอแล้ว', en: 'Have worked through enough examples', type: 'K' },
+      { th: 'มีสรุปที่ชัดเจนสำหรับอ้างอิง', en: 'Have a clear written summary to refer back to', type: 'R' }
+    ]
+  }
+];
+
+const STYLES = {
+  V: {
+    name_th: 'ผู้เรียนด้วยภาพ',
+    name_en: 'Visual Learner',
+    icon: '👁',
+    desc_th: 'ลูกของคุณประมวลผลข้อมูลได้ดีที่สุดผ่านไดอะแกรม แผนที่ความคิด สี และการมองเห็น สมองของเขา/เธอถูกออกแบบมาเพื่อจดจำและเชื่อมโยงข้อมูลผ่านภาพ',
+    desc_en: 'Your child processes information best through diagrams, mind maps, colour, and visual organisation. Their brain is wired to encode and connect information visually.',
+    boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: ควรใช้ whiteboard, flashcard สี, แผนผังเวลา และ mind map ในทุกวิชา ตั้งแต่ Maths ไปจนถึง English Literature',
+    boarding_en: 'For UK boarding school preparation: use whiteboards, colour flashcards, timeline diagrams, and mind maps across all subjects — from Maths to English Literature.',
+    session_th: 'เซสชันควรมีกระดานไวท์บอร์ด, ไดอะแกรมที่วาดขณะสอน, โน้ตสีสัน และสรุปภาพรวมก่อนเริ่มเนื้อหาย่อยเสมอ',
+    session_en: 'Sessions should feature a whiteboard, diagrams drawn in real-time, coloured notes, and always start with a visual overview before drilling into detail.',
+    tutor_th: 'มองหาติวเตอร์ที่ใช้ภาพเป็นหลัก วาดไดอะแกรมระหว่างสอน ส่งโน้ตภาพหลังเซสชัน และอธิบายด้วยการเปรียบเทียบที่เป็นรูปธรรม',
+    tutor_en: 'Look for a tutor who leads with visuals, draws diagrams while teaching, sends visual summaries after sessions, and explains through concrete analogies.',
+    tips_th: [
+      'ใช้ mind map ก่อนเริ่มหัวข้อใหม่ทุกครั้งเพื่อเห็นภาพรวม',
+      'เขียนสูตรและแนวคิดสำคัญด้วยสีต่างๆ บน sticky notes',
+      'วาดภาพหรือไดอะแกรมเพื่ออธิบายทุกแนวคิด แม้แต่วิชา English',
+      'ใช้ timeline ภาพสำหรับประวัติศาสตร์และ process diagrams สำหรับวิทยาศาสตร์',
+      'ทบทวนโดยการวาดใหม่จากความจำโดยไม่ดูโน้ต'
+    ],
+    tips_en: [
+      'Always mind-map a new topic first to see the complete picture',
+      'Write key formulas and concepts in different colours on sticky notes',
+      'Draw a diagram or visual to explain every concept — even in English essays',
+      'Use timelines for History and process diagrams for Sciences',
+      'Revise by redrawing everything from memory without looking at notes'
+    ],
+    avoid_th: [
+      'อย่าเรียนด้วยการอ่านโน้ตยาวๆ แบบตรงๆ โดยไม่แปลงเป็นภาพ',
+      'หลีกเลี่ยงสภาพแวดล้อมที่รกหรือวุ่นวาย',
+      'อย่าพึ่งพาเสียงอธิบายเพียงอย่างเดียว'
+    ],
+    avoid_en: [
+      'Do not study by reading long linear notes without converting them to visuals',
+      'Avoid cluttered or chaotic study environments',
+      'Do not rely solely on audio explanations without a visual anchor'
+    ]
+  },
+  A: {
+    name_th: 'ผู้เรียนด้วยเสียง',
+    name_en: 'Auditory Learner',
+    icon: '🎧',
+    desc_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดผ่านการฟัง พูด และอภิปราย เขา/เธอจดจำได้ดีเมื่อได้ยินข้อมูลออกมาดังๆ หรือพูดถึงมัน',
+    desc_en: 'Your child learns best through listening, speaking, and discussion. They retain information best when they hear it spoken aloud or talk about it themselves.',
+    boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: การสนทนา Socratic, การอภิปราย และการอธิบายด้วยเสียงดังเป็นกุญแจสำคัญ โดยเฉพาะสำหรับ English, History และ Science',
+    boarding_en: 'For UK boarding school preparation: Socratic discussion, verbal Q&A, and explaining concepts aloud are key — especially for English, History, and Science.',
+    session_th: 'เซสชันควรเป็นการสนทนาโต้ตอบมากกว่าการบรรยายทางเดียว ติวเตอร์ควรถามคำถามบ่อยๆ และให้ลูกอธิบายแนวคิดด้วยตัวเอง',
+    session_en: 'Sessions should be conversational rather than one-way lectures. The tutor should ask frequent questions and have your child explain concepts back in their own words.',
+    tutor_th: 'มองหาติวเตอร์ที่กระตือรือร้น พูดคุยได้อย่างมีชีวิตชีวา ชอบการถกเถียงสุภาพ และสนับสนุนให้ลูกอธิบายออกมาดังๆ',
+    tutor_en: 'Look for an energetic tutor who loves discussion, enjoys a good debate, and consistently encourages your child to explain their thinking aloud.',
+    tips_th: [
+      'อธิบายแนวคิดออกมาดังๆ ราวกับกำลังสอนคนอื่น ("Feynman Technique")',
+      'บันทึกเสียงตัวเองอ่านโน้ตและเปิดฟังขณะเดินทาง',
+      'ฝึกโต้วาทีหรืออภิปรายหัวข้อที่กำลังเรียนกับเพื่อนหรือผู้ปกครอง',
+      'สร้างเพลง หรือจังหวะในการจำสูตรสำคัญ',
+      'ทำการทบทวนด้วยเสียง — พูดสรุปทุกอย่างที่รู้ออกมาดังๆ'
+    ],
+    tips_en: [
+      'Explain concepts aloud as if teaching someone else (the Feynman Technique)',
+      'Record yourself reading notes and listen back during travel',
+      'Practise debating or discussing the topic with a friend or parent',
+      'Create rhythms, rhymes, or mnemonics to remember key formulas',
+      'Revise by verbal recall — say aloud everything you know about a topic'
+    ],
+    avoid_th: [
+      'อย่าเรียนในห้องเงียบสนิทเป็นเวลานาน',
+      'หลีกเลี่ยงการอ่านโน้ตแบบเงียบๆ เพียงอย่างเดียว',
+      'อย่าเน้นการจดลงกระดาษโดยไม่ได้พูดถึงมัน'
+    ],
+    avoid_en: [
+      'Do not study in complete silence for long periods',
+      'Avoid reading notes silently without any verbal reinforcement',
+      "Do not focus heavily on writing without also talking through the material"
+    ]
+  },
+  K: {
+    name_th: 'ผู้เรียนแบบลงมือทำ',
+    name_en: 'Kinesthetic Learner',
+    icon: '✋',
+    desc_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดโดยการลงมือทำ ฝึกซ้อม และประสบการณ์โดยตรง เขา/เธอต้องการแบบฝึกหัดมากๆ และตัวอย่างที่ทำจริง',
+    desc_en: 'Your child learns best by doing, practising, and experiencing directly. They need lots of practice exercises and worked examples to truly understand.',
+    boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: ต้องการข้อสอบฝึกซ้อมและปัญหาจำนวนมาก โดยเฉพาะ Maths และ Science ก่อนสอบ 11+, 13+ หรือ A-Level',
+    boarding_en: 'For UK boarding school preparation: needs high volumes of past papers and practice problems — especially for Maths and Sciences before 11+, 13+, or A-Level entries.',
+    session_th: 'เซสชันควรเน้นการทำโจทย์จริง ไม่ใช่แค่การฟัง ติวเตอร์ควรให้ลูกลองทำเองก่อน จากนั้นจึงแก้ข้อผิดพลาดร่วมกัน',
+    session_en: 'Sessions should be heavily hands-on with real problem-solving, not just listening. The tutor should let your child attempt first, then work through errors together.',
+    tutor_th: 'มองหาติวเตอร์ที่ให้แบบฝึกหัดเยอะ ทำตัวอย่างให้ดูก่อนและให้ลองทำทันที และใช้วิธีการสอนแบบ "คุณลองทำก่อน"',
+    tutor_en: 'Look for a tutor who provides abundant exercises, demonstrates then immediately has your child try, and uses a "you attempt first" teaching philosophy.',
+    tips_th: [
+      'ทำข้อสอบเก่า (past papers) อย่างสม่ำเสมอเป็นการฝึกหลัก',
+      'ทำโจทย์ภายใต้เวลาจริงเพื่อเลียนแบบสภาพสอบจริง',
+      'ใช้การเดิน flash card หรือเกมเพื่อทำให้การทบทวนเคลื่อนไหว',
+      'หยุดพักสั้นๆ ทุก 25-30 นาทีและเคลื่อนไหวร่างกาย',
+      'เชื่อมโยงทฤษฎีกับตัวอย่างในชีวิตจริงก่อนเสมอ'
+    ],
+    tips_en: [
+      'Use past papers and practice tests as the primary revision method',
+      'Do timed practice under real exam conditions regularly',
+      'Use walking flashcards or quiz games to make revision physical',
+      'Take short breaks every 25–30 minutes and move around',
+      'Always connect theory to a real-world example first before abstract explanation'
+    ],
+    avoid_th: [
+      'อย่านั่งอ่านโน้ตเป็นเวลานานโดยไม่ได้ลองทำอะไร',
+      'หลีกเลี่ยงการเรียนแบบทฤษฎีล้วนๆ โดยไม่มีการฝึก',
+      'อย่าเริ่มจากการท่องจำ — เริ่มจากการลองทำก่อนเสมอ'
+    ],
+    avoid_en: [
+      'Do not sit reading notes for long periods without attempting something',
+      'Avoid purely theoretical sessions without practice components',
+      'Never start with memorisation — always start by attempting something first'
+    ]
+  },
+  R: {
+    name_th: 'ผู้เรียนด้วยการอ่านและเขียน',
+    name_en: 'Reading/Writing Learner',
+    icon: '📝',
+    desc_th: 'ลูกของคุณดูดซับข้อมูลได้ดีที่สุดผ่านการอ่านและการเขียน เขา/เธอชื่นชอบโน้ตที่มีโครงสร้างชัดเจน รายการ และคำอธิบายเป็นลายลักษณ์อักษร',
+    desc_en: 'Your child absorbs information best through reading and writing. They love structured notes, lists, and written explanations — and retain most from what they write down themselves.',
+    boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: เหมาะอย่างยิ่งสำหรับ English Literature, History และ essay-based subjects ต้องพัฒนาทักษะ analytical writing ให้แข็งแกร่ง',
+    boarding_en: 'For UK boarding school preparation: naturally strong for English Literature, History, and essay-based subjects. Must develop analytical writing skills to high standard.',
+    session_th: 'เซสชันควรมีโน้ตสรุปที่ชัดเจนหลังแต่ละหัวข้อ รายการขั้นตอน และการให้ feedback เป็นลายลักษณ์อักษรบนงานเขียน',
+    session_en: 'Sessions should include clear written summaries after each topic, step-by-step lists, and written feedback on essays and written work.',
+    tutor_th: 'มองหาติวเตอร์ที่เน้น essay writing, ให้ feedback เป็นลายลักษณ์อักษรที่ละเอียด ส่งโน้ตสรุปหลังทุกเซสชัน และชัดเจนในการอธิบายเป็นลายลักษณ์อักษร',
+    tutor_en: 'Look for a tutor who prioritises essay writing, gives detailed written feedback, sends comprehensive notes after every session, and is exceptionally clear in written explanations.',
+    tips_th: [
+      'เขียนสรุปด้วยคำพูดของตัวเองหลังอ่านหรือฟังทุกครั้ง',
+      'ทำรายการสิ่งสำคัญเป็นขั้นตอนสำหรับทุกแนวคิด',
+      'ฝึกเขียน essay plan ก่อนเขียน essay จริงเสมอ',
+      'ทำการทบทวนโดยการอ่านโน้ตซ้ำแล้วเขียนสรุปโดยไม่ดู',
+      'เก็บ vocabulary notebook สำหรับคำศัพท์ใหม่ทุกวิชา'
+    ],
+    tips_en: [
+      'Always write a summary in your own words after reading or listening to anything',
+      'Make numbered step-by-step lists for every process or concept',
+      'Always write an essay plan before starting the essay itself',
+      'Revise by re-reading notes then writing a summary from memory without looking',
+      'Keep a vocabulary notebook for new subject-specific terms in every subject'
+    ],
+    avoid_th: [
+      'อย่าพึ่งพาเฉพาะการฟังคำอธิบายโดยไม่จดบันทึก',
+      'หลีกเลี่ยงการเรียนผ่านวิดีโอหรือภาพเท่านั้น',
+      'อย่าละเลยการเขียนในวิชาที่ดูเหมือนไม่เกี่ยวกับการเขียน เช่น Maths'
+    ],
+    avoid_en: [
+      'Do not rely only on listening to explanations without writing anything down',
+      'Avoid learning through video or visual-only content without converting to text',
+      'Do not neglect writing in subjects that seem non-essay-based like Maths'
+    ]
+  }
+};
+
+let currentQ = 0;
+const answers = new Array(10).fill(null);
+
+function renderDots() {
+  const dots = document.getElementById('progress-dots');
+  dots.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const d = document.createElement('div');
+    d.className = 'progress-dot' + (answers[i] !== null ? ' answered' : '') + (i === currentQ ? ' current' : '');
+    dots.appendChild(d);
+  }
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const isLang = document.documentElement.getAttribute('lang') === 'th';
+  document.getElementById('q-number').innerHTML = `<span class="lang-th">คำถามที่ ${currentQ + 1} จาก 10</span><span class="lang-en">Question ${currentQ + 1} of 10</span>`;
+  document.getElementById('q-text').innerHTML = `<span class="lang-th">${q.th}</span><span class="lang-en">${q.en}</span>`;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (answers[currentQ] === opt.type ? ' selected' : '');
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span class="lang-th">${opt.th}</span><span class="lang-en">${opt.en}</span>`;
+    btn.onclick = () => selectOption(opt.type, grid, btn);
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('progress-bar').style.width = ((currentQ + 1) / 10 * 100) + '%';
+  document.getElementById('progress-count').textContent = (currentQ + 1) + ' / 10';
+  document.getElementById('btn-prev').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+  const isLast = currentQ === 9;
+  document.getElementById('next-label-th').textContent = isLast ? 'ดูผลลัพธ์ →' : 'ถัดไป →';
+  document.getElementById('next-label-en').textContent = isLast ? 'See Results →' : 'Next →';
+  document.getElementById('btn-next').disabled = answers[currentQ] === null;
+  renderDots();
+}
+
+function selectOption(type, grid, clickedBtn) {
+  answers[currentQ] = type;
+  grid.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  clickedBtn.classList.add('selected');
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === null) return;
+  if (currentQ < 9) {
+    currentQ++;
+    document.getElementById('question-card').style.animation = 'none';
+    requestAnimationFrame(() => {
+      document.getElementById('question-card').style.animation = 'fadeIn 0.3s ease';
+      renderQuestion();
+    });
+  } else {
+    showResults();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  // Count style frequencies
+  const counts = { V: 0, A: 0, K: 0, R: 0 };
+  answers.forEach(a => { if (a) counts[a]++; });
+  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+  const primary = sorted[0][0];
+  const secondary = sorted[1][0];
+  const primaryPct = Math.round(sorted[0][1] / 10 * 100);
+  const secondaryPct = Math.round(sorted[1][1] / 10 * 100);
+
+  const ps = STYLES[primary];
+  const ss = STYLES[secondary];
+
+  // Hide quiz, show results
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('progress-section').style.display = 'none';
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+
+  // Primary card
+  document.getElementById('primary-style-card').innerHTML = `
+    <div class="style-icon-wrap">${ps.icon}</div>
+    <div class="style-name"><span class="lang-th">${ps.name_th}</span><span class="lang-en">${ps.name_en}</span></div>
+    <div class="style-sub"><span class="lang-th">สไตล์หลัก · ${primaryPct}% ของคำตอบ</span><span class="lang-en">Primary style · ${primaryPct}% of answers</span></div>
+    <div class="style-pct-bar"><div class="style-pct-fill" style="width:${primaryPct}%"></div></div>
+    <div class="style-pct-label">${primaryPct}% match</div>
+    <div class="secondary-style">
+      <p><strong><span class="lang-th">สไตล์รอง: ${ss.name_th} (${secondaryPct}%)</span><span class="lang-en">Secondary style: ${ss.name_en} (${secondaryPct}%)</span></strong><br>
+      <span class="lang-th">ลูกของคุณยังแสดงลักษณะของ ${ss.name_th} ด้วย ติวเตอร์ที่ดีควรผสมทั้งสองสไตล์</span>
+      <span class="lang-en">Your child also shows strong ${ss.name_en} traits. A great tutor should blend both styles.</span></p>
+    </div>
+  `;
+
+  // Detail cards
+  const det = document.getElementById('result-details');
+  det.innerHTML = `
+    <div class="result-card">
+      <div class="result-card-label"><span class="lang-th">ความหมายสำหรับโรงเรียนประจำ UK</span><span class="lang-en">What This Means for UK Boarding School Prep</span></div>
+      <p><span class="lang-th">${ps.boarding_th}</span><span class="lang-en">${ps.boarding_en}</span></p>
+    </div>
+    <div class="result-card">
+      <div class="result-card-label"><span class="lang-th">วิธีจัดโครงสร้างเซสชันติว</span><span class="lang-en">How to Structure Tutoring Sessions</span></div>
+      <p><span class="lang-th">${ps.session_th}</span><span class="lang-en">${ps.session_en}</span></p>
+    </div>
+    <div class="result-card">
+      <div class="result-card-label"><span class="lang-th">ติวเตอร์ที่ใช่ควรเป็นอย่างไร</span><span class="lang-en">What to Look for in a Tutor</span></div>
+      <p><span class="lang-th">${ps.tutor_th}</span><span class="lang-en">${ps.tutor_en}</span></p>
+    </div>
+    <div class="result-card">
+      <div class="result-card-label"><span class="lang-th">เทคนิคการเรียนที่ได้ผล 5 ข้อ</span><span class="lang-en">5 Study Techniques That Work for Your Child</span></div>
+      <ul class="tip-list">
+        ${ps.tips_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
+        ${ps.tips_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
+      </ul>
+    </div>
+    <div class="result-card">
+      <div class="result-card-label"><span class="lang-th">ข้อผิดพลาดที่ควรหลีกเลี่ยง</span><span class="lang-en">Common Mistakes to Avoid</span></div>
+      <ul class="avoid-list">
+        ${ps.avoid_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
+        ${ps.avoid_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  answers.fill(null);
+  document.getElementById('quiz-section').style.display = 'block';
+  document.getElementById('progress-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+renderQuestion();
+</script>
+</body>
+</html>

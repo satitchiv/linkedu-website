@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — School Interview Readiness Scorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-width: 320px;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+
+/* ── Header ─────────────────────────────────────────────── */
+#site-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(184,150,46,0.3);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 24px; gap: 24px;
+}
+.logo-wrap { flex-shrink: 0; }
+#site-header nav { display: flex; gap: 20px; flex: 1; justify-content: center; flex-wrap: wrap; }
+#site-header nav a {
+  color: var(--cream); text-decoration: none; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.04em; opacity: 0.8; transition: opacity 0.2s;
+}
+#site-header nav a:hover { opacity: 1; color: var(--gold); }
+.lang-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn {
+  background: none; border: 1px solid rgba(245,240,232,0.25); color: var(--cream);
+  border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s; opacity: 0.6;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); opacity: 1; font-weight: 600; }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  background: var(--dark); padding: 72px 24px 56px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,150,46,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.section-label {
+  font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 16px; display: block;
+}
+.section-label::before {
+  content: ''; display: block; width: 40px; height: 1px;
+  background: var(--gold); margin: 0 auto 12px;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+.hero p { color: rgba(245,240,232,0.7); max-width: 640px; margin: 0 auto; font-size: 1rem; }
+
+/* ── Container ──────────────────────────────────────────── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Intro section ──────────────────────────────────────── */
+.intro-section {
+  background: var(--cream); padding: 56px 24px;
+}
+.intro-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.intro-card {
+  background: var(--dark); border-radius: 8px; padding: 24px;
+  border: 1px solid rgba(184,150,46,0.2);
+}
+.intro-card h3 { color: var(--gold); font-size: 1rem; margin-bottom: 10px; }
+.intro-card p { color: rgba(245,240,232,0.75); font-size: 0.88rem; line-height: 1.6; }
+.intro-heading {
+  text-align: center; margin-bottom: 32px;
+}
+.intro-heading h2 { font-size: 1.8rem; margin-bottom: 8px; }
+.intro-heading p { color: rgba(26,26,26,0.65); max-width: 600px; margin: 0 auto; font-size: 0.95rem; }
+
+/* ── Assessment form ─────────────────────────────────────── */
+.assessment-section { background: var(--dark); padding: 56px 24px; }
+.assessment-inner { max-width: 800px; margin: 0 auto; }
+.section-block { margin-bottom: 48px; }
+.section-block-title {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  padding-bottom: 16px; border-bottom: 1px solid rgba(184,150,46,0.25);
+}
+.section-num {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1rem; flex-shrink: 0;
+}
+.section-block-title h3 { color: var(--cream); font-size: 1.2rem; }
+
+.question-row { margin-bottom: 28px; }
+.question-text { color: rgba(245,240,232,0.88); font-size: 0.92rem; margin-bottom: 12px; line-height: 1.5; }
+.star-row { display: flex; gap: 8px; align-items: center; }
+.star-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid rgba(184,150,46,0.35); background: none;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; color: rgba(245,240,232,0.4); font-family: 'Inter', sans-serif; font-weight: 600;
+}
+.star-btn:hover { border-color: var(--gold); color: var(--gold); }
+.star-btn.selected { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.star-label { font-size: 0.75rem; color: rgba(245,240,232,0.4); margin-left: 8px; }
+
+/* ── Submit ──────────────────────────────────────────────── */
+.submit-wrap { text-align: center; padding-top: 24px; }
+.btn-primary {
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 6px; padding: 14px 36px; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  background: none; border: 1px solid var(--gold); color: var(--gold); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem;
+  letter-spacing: 0.06em; border-radius: 6px; padding: 12px 28px; transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--gold-faint); }
+.validation-msg { color: #e8b84b; font-size: 0.85rem; margin-top: 12px; display: none; }
+
+/* ── Results ─────────────────────────────────────────────── */
+#results-section { display: none; background: var(--cream); padding: 56px 24px; }
+.results-inner { max-width: 800px; margin: 0 auto; }
+.overall-score-card {
+  background: var(--dark); border-radius: 8px; padding: 40px 32px; text-align: center;
+  border: 1px solid rgba(184,150,46,0.3); margin-bottom: 32px;
+}
+.score-number {
+  font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold);
+  line-height: 1; margin-bottom: 8px;
+}
+.score-denom { font-size: 1.5rem; color: rgba(245,240,232,0.4); }
+.rating-badge {
+  display: inline-block; padding: 8px 24px; border-radius: 999px;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 600; margin: 16px 0;
+}
+.rating-desc { color: rgba(245,240,232,0.7); font-size: 0.92rem; max-width: 480px; margin: 0 auto; }
+
+.section-scores { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.score-card {
+  background: var(--cream); border-radius: 8px; padding: 20px;
+  border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.score-card-title { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; font-weight: 600; }
+.score-bar-wrap { height: 6px; background: rgba(26,26,26,0.1); border-radius: 999px; margin-bottom: 8px; overflow: hidden; }
+.score-bar { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.8s ease; }
+.score-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+.score-max { font-size: 0.85rem; color: rgba(26,26,26,0.45); }
+
+.coaching-section { margin-bottom: 32px; }
+.coaching-section h3 { font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,26,26,0.12); }
+.coaching-card {
+  background: var(--cream); border-radius: 8px; padding: 20px 24px;
+  border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+.coaching-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.coaching-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.coaching-card h4 { font-size: 1rem; }
+.coaching-card p { font-size: 0.88rem; color: rgba(26,26,26,0.72); line-height: 1.6; }
+.tip-list { list-style: none; margin-top: 10px; }
+.tip-list li { font-size: 0.87rem; color: rgba(26,26,26,0.72); padding: 4px 0 4px 16px; position: relative; }
+.tip-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+.practice-questions { margin-bottom: 32px; }
+.practice-questions h3 { font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,26,26,0.12); }
+.question-card {
+  background: var(--dark); border-radius: 8px; padding: 18px 22px; margin-bottom: 12px;
+  border-left: 3px solid var(--gold);
+}
+.question-card p { color: rgba(245,240,232,0.88); font-size: 0.9rem; font-style: italic; line-height: 1.5; }
+.question-card span { font-size: 0.78rem; color: rgba(245,240,232,0.4); letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+/* ── Inline LINE CTA ─────────────────────────────────────── */
+.inline-cta {
+  background: var(--dark); border-radius: 8px; padding: 28px 32px;
+  border: 1px solid rgba(184,150,46,0.3); text-align: center; margin-bottom: 32px;
+}
+.inline-cta h4 { color: var(--cream); font-size: 1.2rem; margin-bottom: 8px; }
+.inline-cta p { color: rgba(245,240,232,0.65); font-size: 0.88rem; margin-bottom: 20px; }
+.btn-line {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 12px 28px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line:hover { background: var(--gold-light); }
+
+/* ── LINE CTA Section ──────────────────────────────────── */
+.line-cta-section {
+  background: var(--dark); padding: 72px 24px; text-align: center;
+  border-top: 1px solid rgba(184,150,46,0.2);
+}
+.line-cta-section h2 { color: var(--cream); font-size: 2rem; margin-bottom: 12px; }
+.line-cta-section p { color: rgba(245,240,232,0.65); margin-bottom: 8px; font-size: 0.95rem; }
+.line-handle { color: var(--gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 28px; display: block; }
+.btn-line-large {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--dark); border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 6px; padding: 16px 40px; text-decoration: none; transition: all 0.2s;
+}
+.btn-line-large:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+footer {
+  background: var(--dark); padding: 32px 24px; text-align: center;
+  border-top: 1px solid rgba(245,240,232,0.06);
+}
+footer p { color: rgba(245,240,232,0.35); font-size: 0.8rem; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .intro-grid { grid-template-columns: 1fr; }
+  .section-scores { grid-template-columns: 1fr; }
+  #site-header nav { display: none; }
+  .hero h1 { font-size: 1.8rem; }
+  .overall-score-card { padding: 28px 20px; }
+  .score-number { font-size: 3.5rem; }
+}
+@media (max-width: 480px) {
+  .star-btn { width: 30px; height: 30px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────── -->
+<header id="site-header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </div>
+  <nav>
+    <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
+    <h1>
+      <span class="lang-th">ประเมินความพร้อม<br>สำหรับการสัมภาษณ์</span>
+      <span class="lang-en">School Interview<br>Readiness Scorer</span>
+    </h1>
+    <p style="margin-top:16px;">
+      <span class="lang-th">วัดระดับความพร้อมของลูกคุณสำหรับการสัมภาษณ์เข้าโรงเรียนประจำในสหราชอาณาจักร รับคะแนนและคำแนะนำการโค้ชเฉพาะบุคคล</span>
+      <span class="lang-en">Assess your child's readiness for UK boarding school interviews. Get a score, section-by-section feedback, and personalised coaching recommendations.</span>
+    </p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
+      <div style="text-align:center;color:rgba(245,240,232,0.6);font-size:0.82rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;">20</div>
+        <span class="lang-th">คำถาม</span><span class="lang-en">Questions</span>
+      </div>
+      <div style="width:1px;background:rgba(184,150,46,0.2);"></div>
+      <div style="text-align:center;color:rgba(245,240,232,0.6);font-size:0.82rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;">4</div>
+        <span class="lang-th">หมวดทักษะ</span><span class="lang-en">Skill Sections</span>
+      </div>
+      <div style="width:1px;background:rgba(184,150,46,0.2);"></div>
+      <div style="text-align:center;color:rgba(245,240,232,0.6);font-size:0.82rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;">5</div>
+        <span class="lang-th">คำถามฝึกซ้อม</span><span class="lang-en">Practice Questions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Intro ─────────────────────────────────────── -->
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-heading">
+      <span class="section-label" style="justify-content:center;display:flex;">· การสัมภาษณ์เข้าโรงเรียน UK · WHAT UK SCHOOLS ASSESS ·</span>
+      <h2>
+        <span class="lang-th">การสัมภาษณ์วัดอะไรบ้าง?</span>
+        <span class="lang-en">What Do UK School Interviews Assess?</span>
+      </h2>
+      <p>
+        <span class="lang-th">โรงเรียนชั้นนำของสหราชอาณาจักรไม่ได้สัมภาษณ์เพื่อทดสอบความรู้ แต่ต้องการค้นหาบุคลิกภาพที่แท้จริง</span>
+        <span class="lang-en">Elite UK schools do not interview to test knowledge. They want to find authentic personality and intellectual promise.</span>
+      </p>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-card">
+        <h3><span class="lang-th">ความอยากรู้อยากเห็นทางปัญญา</span><span class="lang-en">Intellectual Curiosity</span></h3>
+        <p><span class="lang-th">โรงเรียนต้องการนักเรียนที่มีความหลงใหลในการเรียนรู้ ไม่ใช่แค่ผู้ที่ท่องจำได้</span><span class="lang-en">Schools want students who love learning for its own sake, not just those who can recall facts on demand.</span></p>
+      </div>
+      <div class="intro-card">
+        <h3><span class="lang-th">การสื่อสารที่ชัดเจน</span><span class="lang-en">Clear Communication</span></h3>
+        <p><span class="lang-th">ความสามารถในการอธิบายความคิด ปกป้องความเห็น และพูดคุยอย่างมั่นใจเป็นสิ่งที่จำเป็น</span><span class="lang-en">The ability to articulate ideas, defend an opinion, and converse with confidence is essential for all entry levels.</span></p>
+      </div>
+      <div class="intro-card">
+        <h3><span class="lang-th">การรู้จักตัวเอง</span><span class="lang-en">Self-Awareness</span></h3>
+        <p><span class="lang-th">นักเรียนต้องรู้จุดแข็งและจุดอ่อนของตนเอง และแสดงให้เห็นถึงความเป็นผู้ใหญ่ที่แท้จริง</span><span class="lang-en">Students must know their strengths and weaknesses genuinely, and show real maturity rather than rehearsed answers.</span></p>
+      </div>
+      <div class="intro-card">
+        <h3><span class="lang-th">ความหลงใหลในวิชา</span><span class="lang-en">Subject Passion</span></h3>
+        <p><span class="lang-th">การพูดถึงหัวข้อที่ตนรักอย่างมีชีวิตชีวาเป็นเวลา 2-3 นาทีแสดงถึงคุณสมบัติที่โรงเรียนกำลังมองหา</span><span class="lang-en">Speaking enthusiastically about a subject they love for 2–3 minutes signals exactly the profile schools seek.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Assessment Form ────────────────────────────── -->
+<section class="assessment-section">
+  <div class="assessment-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="section-label" style="color:rgba(184,150,46,0.8);">· แบบประเมิน · ASSESSMENT ·</span>
+      <h2 style="color:var(--cream);font-size:1.8rem;">
+        <span class="lang-th">ให้คะแนนลูกของคุณ (1–5 ในแต่ละข้อ)</span>
+        <span class="lang-en">Rate Your Child (1–5 per question)</span>
+      </h2>
+      <p style="color:rgba(245,240,232,0.55);font-size:0.88rem;margin-top:8px;">
+        <span class="lang-th">1 = ต้องการพัฒนา · 3 = ปานกลาง · 5 = ยอดเยี่ยม</span>
+        <span class="lang-en">1 = Needs development · 3 = Adequate · 5 = Excellent</span>
+      </p>
+    </div>
+
+    <form id="scorer-form">
+      <!-- Section 1: Communication -->
+      <div class="section-block">
+        <div class="section-block-title">
+          <div class="section-num">1</div>
+          <h3><span class="lang-th">ทักษะการสื่อสาร</span><span class="lang-en">Communication Skills</span></h3>
+        </div>
+        <div id="section-1"></div>
+      </div>
+
+      <!-- Section 2: English -->
+      <div class="section-block">
+        <div class="section-block-title">
+          <div class="section-num">2</div>
+          <h3><span class="lang-th">ความสามารถภาษาอังกฤษ</span><span class="lang-en">English Proficiency</span></h3>
+        </div>
+        <div id="section-2"></div>
+      </div>
+
+      <!-- Section 3: Curiosity -->
+      <div class="section-block">
+        <div class="section-block-title">
+          <div class="section-num">3</div>
+          <h3><span class="lang-th">ความอยากรู้อยากเห็นทางปัญญา</span><span class="lang-en">Intellectual Curiosity</span></h3>
+        </div>
+        <div id="section-3"></div>
+      </div>
+
+      <!-- Section 4: Maturity -->
+      <div class="section-block">
+        <div class="section-block-title">
+          <div class="section-num">4</div>
+          <h3><span class="lang-th">การรู้จักตัวเองและความเป็นผู้ใหญ่</span><span class="lang-en">Self-Awareness &amp; Maturity</span></h3>
+        </div>
+        <div id="section-4"></div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="button" class="btn-primary" onclick="calculateResults()">
+          <span class="lang-th">ดูผลการประเมิน →</span>
+          <span class="lang-en">View My Results →</span>
+        </button>
+        <p class="validation-msg" id="validation-msg">
+          <span class="lang-th">กรุณาตอบทุกคำถามก่อนดูผล</span>
+          <span class="lang-en">Please answer all questions before viewing results.</span>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ── Results ────────────────────────────────────── -->
+<section id="results-section">
+  <div class="results-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="section-label">· ผลการประเมิน · YOUR RESULTS ·</span>
+      <h2 style="font-size:1.8rem;">
+        <span class="lang-th">รายงานความพร้อมสำหรับการสัมภาษณ์</span>
+        <span class="lang-en">Interview Readiness Report</span>
+      </h2>
+    </div>
+
+    <!-- Overall -->
+    <div class="overall-score-card">
+      <div style="font-size:0.8rem;letter-spacing:0.15em;color:rgba(245,240,232,0.4);text-transform:uppercase;margin-bottom:12px;">
+        <span class="lang-th">คะแนนรวม</span><span class="lang-en">Overall Score</span>
+      </div>
+      <div class="score-number" id="overall-score">--</div>
+      <div class="score-denom">/ 100</div>
+      <div class="rating-badge" id="rating-badge">--</div>
+      <p class="rating-desc" id="rating-desc"></p>
+    </div>
+
+    <!-- Section scores -->
+    <div class="section-scores" id="section-scores-grid"></div>
+
+    <!-- Coaching tips -->
+    <div class="coaching-section" id="coaching-section">
+      <h3>
+        <span class="lang-th">คำแนะนำการโค้ชเฉพาะบุคคล</span>
+        <span class="lang-en">Personalised Coaching Recommendations</span>
+      </h3>
+      <div id="coaching-cards"></div>
+    </div>
+
+    <!-- Practice questions -->
+    <div class="practice-questions" id="practice-questions-wrap">
+      <h3>
+        <span class="lang-th">คำถามฝึกซ้อมที่ควรเตรียมตอบทันที</span>
+        <span class="lang-en">Practice Questions to Prepare Right Now</span>
+      </h3>
+      <div id="practice-questions-list"></div>
+    </div>
+
+    <!-- Inline CTA -->
+    <div class="inline-cta">
+      <h4>
+        <span class="lang-th">จองเซสชันสัมภาษณ์จำลองกับโค้ช LINKEDU</span>
+        <span class="lang-en">Book a Mock Interview Session with a LINKEDU Coach</span>
+      </h4>
+      <p>
+        <span class="lang-th">โค้ชผู้เชี่ยวชาญของเราเคยผ่านกระบวนการสัมภาษณ์ UK มาเองและจะช่วยลูกของคุณสร้างความมั่นใจอย่างแท้จริง</span>
+        <span class="lang-en">Our expert coaches have been through the UK interview process themselves and will build your child's genuine confidence — not just rehearsed answers.</span>
+      </p>
+      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
+        <span class="lang-th">จองผ่าน LINE ตอนนี้</span>
+        <span class="lang-en">Book via LINE Now</span>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn-secondary" onclick="resetForm()">
+        <span class="lang-th">เริ่มใหม่อีกครั้ง</span>
+        <span class="lang-en">Start Again</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINE CTA Section ───────────────────────────── -->
+<section class="line-cta-section">
+  <div class="container">
+    <span class="section-label" style="color:rgba(184,150,46,0.7);">· ติดต่อเรา · GET IN TOUCH ·</span>
+    <h2>
+      <span class="lang-th">พร้อมเตรียมลูกของคุณสำหรับการสัมภาษณ์?</span>
+      <span class="lang-en">Ready to Prepare Your Child for Interview?</span>
+    </h2>
+    <p>
+      <span class="lang-th">LINKEDU มีโปรแกรมเตรียมความพร้อมสัมภาษณ์เฉพาะบุคคล รวมถึงการสัมภาษณ์จำลองกับอาจารย์ที่มีประสบการณ์</span>
+      <span class="lang-en">LINKEDU offers personalised interview preparation programmes including mock interviews with experienced coaches.</span>
+    </p>
+    <span class="line-handle">@linkedu.th</span>
+    <br>
+    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom:6px;">
+      <span class="lang-th">ส่วนหนึ่งของ Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+      <span class="lang-en">Part of the Beacon Group · LINKEDU Education Consulting · Bangkok, Thailand</span>
+    </p>
+    <p><a href="../../index.html">linkedu.hk</a> · <span class="lang-th">สงวนลิขสิทธิ์ 2026</span><span class="lang-en">All rights reserved 2026</span></p>
+  </div>
+</footer>
+
+<script>
+// ── Language toggle ─────────────────────────────
+document.documentElement.setAttribute('lang','th');
+function setLang(l) {
+  document.documentElement.setAttribute('lang', l);
+  document.getElementById('btn-th').classList.toggle('active', l === 'th');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+}
+
+// ── Question data ───────────────────────────────
+const QUESTIONS = {
+  1: {
+    label_th: 'ทักษะการสื่อสาร',
+    label_en: 'Communication Skills',
+    icon: '💬',
+    items: [
+      { th: 'สามารถอธิบายความเห็นของตนเองได้อย่างชัดเจนและมีเหตุผล', en: 'Can explain their views clearly and logically' },
+      { th: 'พูดเป็นประโยคสมบูรณ์ ไม่ใช่แค่คำตอบคำเดียว', en: 'Speaks in full sentences rather than single-word answers' },
+      { th: 'ตอบคำถามได้ตรงประเด็นโดยไม่วกวน', en: 'Stays on topic when answering questions' },
+      { th: 'ใช้คำศัพท์ที่เหมาะสมกับวัยของตน', en: 'Uses appropriate vocabulary for their age' },
+      { th: 'สบตาและพูดด้วยความมั่นใจ ไม่พึมพำ', en: 'Makes eye contact and speaks with confidence (not mumbling)' }
+    ]
+  },
+  2: {
+    label_th: 'ความสามารถภาษาอังกฤษ',
+    label_en: 'English Proficiency',
+    icon: '📚',
+    items: [
+      { th: 'อ่านหนังสือภาษาอังกฤษเพื่อความสุขส่วนตัว (ไม่ใช่แค่การบ้าน)', en: 'Reads books in English for pleasure (not just school)' },
+      { th: 'สามารถพูดคุยเรื่องข่าวสารปัจจุบันเป็นภาษาอังกฤษได้', en: 'Can discuss current news events in English' },
+      { th: 'ไวยากรณ์ถูกต้องเมื่อพูดภาษาอังกฤษ', en: 'Grammar is accurate in spoken English' },
+      { th: 'มีคลังศัพท์กว้าง (รู้จักคำเช่น perspective, significant, consequently)', en: 'Vocabulary is broad (knows words like "perspective", "significant", "consequently")' },
+      { th: 'พูดคุยเรื่องนามธรรมได้สบาย (ความยุติธรรม, ภาวะผู้นำ, ความคิดสร้างสรรค์)', en: 'Comfortable discussing abstract ideas in English (fairness, leadership, creativity)' }
+    ]
+  },
+  3: {
+    label_th: 'ความอยากรู้อยากเห็น',
+    label_en: 'Intellectual Curiosity',
+    icon: '🔍',
+    items: [
+      { th: 'มีความหลงใหลจริงๆ นอกห้องเรียน ไม่ใช่แค่เพื่อใส่ใน CV', en: 'Has genuine passions outside school (not just ticking boxes)' },
+      { th: 'ถามคำถาม "ทำไม" และ "อย่างไร" โดยธรรมชาติ', en: 'Asks "why" and "how" questions naturally' },
+      { th: 'มีความเห็นของตนเองและสามารถปกป้องได้', en: 'Has opinions on topics and can defend them' },
+      { th: 'อ่านหรือค้นคว้าเรื่องที่ไม่ได้อยู่ในหลักสูตร', en: 'Reads or researches topics beyond the school syllabus' },
+      { th: 'พูดถึงวิชาที่รักได้อย่างกระตือรือร้นนานกว่า 2 นาที', en: 'Can talk enthusiastically about a subject they love for 2+ minutes' }
+    ]
+  },
+  4: {
+    label_th: 'การรู้จักตัวเองและความเป็นผู้ใหญ่',
+    label_en: 'Self-Awareness & Maturity',
+    icon: '🪞',
+    items: [
+      { th: 'สามารถระบุจุดแข็งของตนเองได้อย่างตรงไปตรงมา', en: 'Can name their own strengths honestly' },
+      { th: 'พูดถึงจุดอ่อนหรือความล้มเหลวได้โดยไม่อาย', en: 'Can admit and discuss a weakness or failure without embarrassment' },
+      { th: 'แสดงความสนใจจริงในโรงเรียนที่สมัคร', en: 'Shows genuine interest in the school they\'re applying to' },
+      { th: 'เข้าใจว่าตนเองต้องการไปโรงเรียนประจำในสหราชอาณาจักรทำไม', en: 'Understands why they want to go to UK boarding school' },
+      { th: 'พูดได้ว่าตนเองจะมีส่วนร่วมกับชีวิตของโรงเรียนอย่างไร', en: 'Can discuss how they\'d contribute to school life' }
+    ]
+  }
+};
+
+const scores = {};
+
+// ── Render questions ────────────────────────────
+function renderQuestions() {
+  for (let s = 1; s <= 4; s++) {
+    const sec = QUESTIONS[s];
+    const container = document.getElementById('section-' + s);
+    sec.items.forEach((item, i) => {
+      const qid = 'q' + s + '_' + i;
+      const row = document.createElement('div');
+      row.className = 'question-row';
+      row.innerHTML = `
+        <p class="question-text">
+          <span class="lang-th">${item.th}</span>
+          <span class="lang-en">${item.en}</span>
+        </p>
+        <div class="star-row" role="group" aria-label="Rating 1 to 5">
+          ${[1,2,3,4,5].map(v => `
+            <button type="button" class="star-btn" data-q="${qid}" data-val="${v}" onclick="selectRating('${qid}', ${v})">${v}</button>
+          `).join('')}
+          <span class="star-label">
+            <span class="lang-th">1=ต้องพัฒนา · 5=ยอดเยี่ยม</span>
+            <span class="lang-en">1=Needs work · 5=Excellent</span>
+          </span>
+        </div>
+      `;
+      container.appendChild(row);
+    });
+  }
+}
+
+function selectRating(qid, val) {
+  scores[qid] = val;
+  document.querySelectorAll('[data-q="' + qid + '"]').forEach(btn => {
+    btn.classList.toggle('selected', parseInt(btn.dataset.val) <= val);
+  });
+}
+
+// ── Calculate results ───────────────────────────
+function calculateResults() {
+  // Check all answered
+  let allAnswered = true;
+  for (let s = 1; s <= 4; s++) {
+    for (let i = 0; i < 5; i++) {
+      if (!scores['q' + s + '_' + i]) { allAnswered = false; break; }
+    }
+    if (!allAnswered) break;
+  }
+  if (!allAnswered) {
+    const msg = document.getElementById('validation-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+    return;
+  }
+
+  const sectionTotals = {};
+  for (let s = 1; s <= 4; s++) {
+    let total = 0;
+    for (let i = 0; i < 5; i++) total += scores['q' + s + '_' + i];
+    sectionTotals[s] = total; // max 25
+  }
+  const overall = Object.values(sectionTotals).reduce((a, b) => a + b, 0); // max 100
+
+  // Rating
+  let ratingTh, ratingEn, descTh, descEn;
+  if (overall >= 85) {
+    ratingTh = 'พร้อมสำหรับการสัมภาษณ์'; ratingEn = 'Interview-Ready';
+    descTh = 'ลูกของคุณมีทักษะและความมั่นใจที่แข็งแกร่งสำหรับการสัมภาษณ์โรงเรียนประจำ UK ขั้นตอนถัดไปคือการฝึกซ้อมกับโค้ชเพื่อขัดเกลาคำตอบให้คมชัด';
+    descEn = 'Your child has the skills and confidence for UK boarding school interviews. The next step is polish — practise with a coach to sharpen answers.';
+  } else if (overall >= 70) {
+    ratingTh = 'ฐานที่แข็งแกร่ง'; ratingEn = 'Strong Foundation';
+    descTh = 'ลูกของคุณมีพื้นฐานที่ดีแต่ยังมีจุดที่ต้องพัฒนา การโค้ชเฉพาะด้านจะยกระดับได้อย่างรวดเร็ว';
+    descEn = 'Your child has a good base but there are clear areas to develop. Targeted coaching will accelerate improvement quickly.';
+  } else if (overall >= 50) {
+    ratingTh = 'กำลังสร้างความมั่นใจ'; ratingEn = 'Building Confidence';
+    descTh = 'ยังต้องการการเตรียมตัวที่มีโครงสร้างชัดเจน เราขอแนะนำโปรแกรมเตรียมสัมภาษณ์ 8-12 สัปดาห์';
+    descEn = 'Structured preparation is needed. We recommend an 8–12 week interview preparation programme before applying.';
+  } else {
+    ratingTh = 'ต้องการการโค้ช'; ratingEn = 'Needs Coaching';
+    descTh = 'ควรเริ่มโปรแกรมการพัฒนาภาษาและการสื่อสารโดยเร็ว ยิ่งเริ่มเร็วยิ่งดี';
+    descEn = 'A structured language and communication development programme should begin as soon as possible.';
+  }
+
+  document.getElementById('overall-score').textContent = overall;
+  document.getElementById('rating-badge').innerHTML = `<span class="lang-th">${ratingTh}</span><span class="lang-en">${ratingEn}</span>`;
+  document.getElementById('rating-desc').innerHTML = `<span class="lang-th">${descTh}</span><span class="lang-en">${descEn}</span>`;
+
+  // Section score cards
+  const sectionNames = {
+    1: { th: 'การสื่อสาร', en: 'Communication' },
+    2: { th: 'ภาษาอังกฤษ', en: 'English' },
+    3: { th: 'ความอยากรู้', en: 'Curiosity' },
+    4: { th: 'ความเป็นผู้ใหญ่', en: 'Maturity' }
+  };
+  const grid = document.getElementById('section-scores-grid');
+  grid.innerHTML = '';
+  for (let s = 1; s <= 4; s++) {
+    const pct = Math.round((sectionTotals[s] / 25) * 100);
+    grid.innerHTML += `
+      <div class="score-card">
+        <div class="score-card-title">
+          <span class="lang-th">${sectionNames[s].th}</span>
+          <span class="lang-en">${sectionNames[s].en}</span>
+        </div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%"></div></div>
+        <span class="score-val">${sectionTotals[s]}</span>
+        <span class="score-max"> / 25</span>
+      </div>
+    `;
+  }
+
+  // Coaching tips
+  const COACHING = {
+    1: {
+      title_th: 'พัฒนาทักษะการสื่อสาร',
+      title_en: 'Develop Communication Skills',
+      tips_th: [
+        'ฝึกพูดสรุปหนังสือหรือภาพยนตร์ที่ดูเมื่อคืนเป็นภาษาอังกฤษ 2-3 นาที',
+        'เล่นเกม "อธิบายให้ชัดเจน" — ให้ลูกอธิบายเรื่องซับซ้อนให้คนที่ไม่รู้เรื่องเข้าใจ',
+        'ฝึกสัมภาษณ์จำลองโดยถ่ายวิดีโอเพื่อดูภาษากาย',
+        'อ่านหนังสือพิมพ์ภาษาอังกฤษทุกวัน สรุป 1 เรื่องให้ผู้ปกครองฟัง',
+        'หลีกเลี่ยงการตอบว่า "ใช่" หรือ "ไม่" เพียงอย่างเดียว — ฝึกขยายคำตอบทุกครั้ง'
+      ],
+      tips_en: [
+        'Practise summarising a book or film from the night before in English for 2–3 minutes',
+        'Play the "explain it clearly" game — have your child explain something complex to someone who knows nothing about it',
+        'Record mock interview answers on video to review body language and eye contact',
+        'Read an English newspaper daily and summarise one story aloud',
+        'Ban one-word answers — every response must be at least 2–3 sentences'
+      ]
+    },
+    2: {
+      title_th: 'ยกระดับภาษาอังกฤษ',
+      title_en: 'Elevate English Proficiency',
+      tips_th: [
+        'อ่านหนังสือภาษาอังกฤษอย่างน้อย 20 นาทีต่อวัน เลือกเรื่องที่ลูกสนใจจริงๆ',
+        'ดูรายการ BBC News หรือ TED Talks สัปดาห์ละ 3 ครั้ง แล้วพูดสรุป',
+        'เรียนรู้คำศัพท์ระดับสูง 5 คำต่อสัปดาห์และใช้ในบทสนทนาจริง',
+        'ฝึกพูดถึงหัวข้อนามธรรม เช่น "ความยุติธรรมคืออะไร?" เป็นภาษาอังกฤษ',
+        'พิจารณาเรียนภาษาอังกฤษกับติวเตอร์เจ้าของภาษา 1-2 ชั่วโมงต่อสัปดาห์'
+      ],
+      tips_en: [
+        'Read English books for at least 20 minutes daily — chosen by interest, not obligation',
+        'Watch BBC News or TED Talks 3 times per week and verbalise a summary afterwards',
+        'Learn 5 advanced vocabulary words per week and use them in real conversation',
+        'Practise discussing abstract topics in English: "What is fairness?" "What makes a good leader?"',
+        'Consider 1–2 hours per week with a native-English tutor focused on conversation depth'
+      ]
+    },
+    3: {
+      title_th: 'บ่มเพาะความอยากรู้อยากเห็น',
+      title_en: 'Cultivate Intellectual Curiosity',
+      tips_th: [
+        'ให้ลูกเลือกหัวข้อที่สนใจจริงๆ และค้นคว้า 1 เรื่องต่อสัปดาห์ โดยไม่เกี่ยวกับการบ้าน',
+        'ฝึก "ถามลึก" — หลังอ่านอะไรสักอย่าง ให้ถาม 3 คำถามที่อยากรู้ต่อ',
+        'เยี่ยมชมพิพิธภัณฑ์หรืองาน lecture และพูดคุยถึงสิ่งที่น่าสนใจ',
+        'ลองเข้าร่วมการแข่งขันทางวิชาการ เช่น Math Olympiad หรือ Science Quiz',
+        'ฝึกอธิบายความเห็นของตนในหัวข้อที่เป็นที่ถกเถียง โดยมีเหตุผลสนับสนุน'
+      ],
+      tips_en: [
+        'Let your child choose a topic of genuine interest to research one subject per week — unrelated to homework',
+        'Practise "deep questioning" — after reading anything, ask 3 follow-up questions about things they want to know more about',
+        'Visit museums or attend lectures and discuss what was most interesting',
+        'Enter academic competitions such as Math Olympiad, Science Quiz, or Debating',
+        'Practise forming and defending opinions on debatable topics with supporting reasoning'
+      ]
+    },
+    4: {
+      title_th: 'สร้างความเป็นผู้ใหญ่',
+      title_en: 'Build Maturity & Self-Awareness',
+      tips_th: [
+        'คุยกับลูกเรื่อง "จุดแข็ง 3 อย่างของฉันและหลักฐานที่พิสูจน์ได้" อย่างตรงไปตรงมา',
+        'ฝึกเล่าเรื่องที่ล้มเหลวและสิ่งที่เรียนรู้ — นี่คือสิ่งที่โรงเรียนชอบฟัง',
+        'ค้นคว้าโรงเรียนเป้าหมายอย่างละเอียด ดูชมรม กีฬา ค่านิยมของโรงเรียน',
+        'เขียนรายการ 5 อย่างที่ลูกจะมีส่วนร่วมกับชีวิตโรงเรียน',
+        'ฝึกตอบ "ทำไมถึงอยากมาโรงเรียนนี้?" ให้ชัดเจนและจริงใจ'
+      ],
+      tips_en: [
+        'Have an honest conversation about "3 genuine strengths with real evidence" — not generic answers',
+        'Practise telling the story of a failure and what was learned — this is what schools love to hear',
+        'Research each target school in depth: clubs, sports, values, traditions, recent achievements',
+        'Write a list of 5 specific ways they would contribute to school life',
+        'Practise the answer to "Why do you want to come to this school?" until it is specific and genuine'
+      ]
+    }
+  };
+
+  const coachCards = document.getElementById('coaching-cards');
+  coachCards.innerHTML = '';
+  for (let s = 1; s <= 4; s++) {
+    if (sectionTotals[s] < 20) { // show coaching for sections below 80%
+      const c = COACHING[s];
+      const isLang = document.documentElement.getAttribute('lang') === 'th';
+      const tipsTh = c.tips_th.map(t => `<li>${t}</li>`).join('');
+      const tipsEn = c.tips_en.map(t => `<li>${t}</li>`).join('');
+      coachCards.innerHTML += `
+        <div class="coaching-card">
+          <div class="coaching-card-header">
+            <div class="coaching-icon"><span style="color:var(--gold);font-size:0.85rem;">${s}</span></div>
+            <h4>
+              <span class="lang-th">${c.title_th}</span>
+              <span class="lang-en">${c.title_en}</span>
+            </h4>
+          </div>
+          <ul class="tip-list lang-th">${tipsTh}</ul>
+          <ul class="tip-list lang-en">${tipsEn}</ul>
+        </div>
+      `;
+    }
+  }
+  if (!coachCards.innerHTML) {
+    coachCards.innerHTML = `<div class="coaching-card"><p><span class="lang-th">ยินดีด้วย! ลูกของคุณแสดงความแข็งแกร่งในทุกหมวด ขั้นตอนถัดไปคือการฝึกซ้อมกับโค้ชเพื่อขัดเกลาให้สมบูรณ์แบบ</span><span class="lang-en">Congratulations! Your child shows strength across all sections. The next step is fine-tuning with a coach to reach peak performance.</span></p></div>`;
+  }
+
+  // Practice questions
+  const ALL_QUESTIONS = {
+    1: [
+      { th: 'บอกฉันเกี่ยวกับตัวคุณเองหน่อยได้ไหม? (Tell me a bit about yourself)', en: 'Tell me a bit about yourself — what makes you who you are?' },
+      { th: 'คุณจัดการกับสถานการณ์ที่ยากลำบากอย่างไร? ยกตัวอย่างจริงให้ฟัง', en: 'How do you handle a difficult situation? Give me a real example.' }
+    ],
+    2: [
+      { th: 'คุณอ่านอะไรอยู่ตอนนี้? ทำไมถึงเลือกเล่มนี้?', en: 'What are you reading at the moment? Why did you choose it?' },
+      { th: 'เล่าข่าวหรือเหตุการณ์ปัจจุบันที่คุณติดตามอยู่ให้ฟัง', en: 'Tell me about a news story or current event you have been following.' }
+    ],
+    3: [
+      { th: 'หากคุณสามารถเรียนรู้เรื่องอะไรก็ได้ในโลกนี้ คุณจะเลือกอะไร และทำไม?', en: 'If you could learn about anything in the world, what would it be and why?' },
+      { th: 'มีหัวข้ออะไรที่คุณพบว่ายิ่งเรียนยิ่งอยากรู้เพิ่มเติม?', en: 'Is there a topic you find the more you learn about it, the more questions it raises?' }
+    ],
+    4: [
+      { th: 'อะไรคือจุดอ่อนที่ใหญ่ที่สุดของคุณ และคุณทำอะไรเพื่อพัฒนามันบ้าง?', en: 'What is your biggest weakness, and what are you doing to improve it?' },
+      { th: 'ทำไมคุณถึงต้องการมาที่โรงเรียนนี้โดยเฉพาะ?', en: 'Why do you want to come to this school specifically?' }
+    ]
+  };
+
+  const practiceList = document.getElementById('practice-questions-list');
+  practiceList.innerHTML = '';
+  let qCount = 0;
+  // Show questions from weakest sections first
+  const sortedSections = [1,2,3,4].sort((a,b) => sectionTotals[a] - sectionTotals[b]);
+  sortedSections.forEach(s => {
+    ALL_QUESTIONS[s].forEach(q => {
+      if (qCount < 5) {
+        const labelTh = QUESTIONS[s].label_th;
+        const labelEn = QUESTIONS[s].label_en;
+        practiceList.innerHTML += `
+          <div class="question-card">
+            <span><span class="lang-th">${labelTh}</span><span class="lang-en">${labelEn}</span></span>
+            <p><span class="lang-th">${q.th}</span><span class="lang-en">${q.en}</span></p>
+          </div>
+        `;
+        qCount++;
+      }
+    });
+  });
+
+  // Show results
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetForm() {
+  Object.keys(scores).forEach(k => delete scores[k]);
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('results-section').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestions();
+</script>
+</body>
+</html>

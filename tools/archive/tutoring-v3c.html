@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title lang="th">LinkedU — ติวเตอร์รายวิชา</title>
+<title lang="en">LinkedU — Academic Tutoring</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: rgba(184,150,46,0.15);
+  --gold-mid: rgba(184,150,46,0.35);
+  --text-light: rgba(245,240,232,0.75);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--cream); line-height: 1.6; }
+
+/* ── LANG TOGGLE ── */
+html[lang="th"] .lang-en { display: none !important; }
+html[lang="en"] .lang-th { display: none !important; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(26,26,26,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gold-mid);
+  padding: 0 5%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--cream); letter-spacing: 0.04em; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: var(--text-light); text-decoration: none; font-size: 0.85rem; transition: color .2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: var(--gold); color: var(--dark) !important; padding: 8px 18px; border-radius: 4px; font-weight: 600 !important; }
+.lang-btn { background: none; border: 1px solid var(--gold-mid); color: var(--cream); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-family: 'Inter', sans-serif; transition: all .2s; }
+.lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  padding: 120px 5% 80px;
+  background: radial-gradient(ellipse at 60% 40%, rgba(184,150,46,0.08) 0%, transparent 60%);
+  max-width: 900px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--gold-light); border: 1px solid var(--gold-mid);
+  color: var(--gold); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.2; margin-bottom: 20px;
+}
+.hero h1 span { color: var(--gold); }
+.hero p { font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin-bottom: 36px; }
+.hero-trust { display: flex; flex-wrap: wrap; gap: 20px; }
+.trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-light); }
+.trust-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+/* ── STAGE FINDER ── */
+.finder-section {
+  background: rgba(184,150,46,0.06);
+  border-top: 1px solid var(--gold-mid);
+  border-bottom: 1px solid var(--gold-mid);
+  padding: 60px 5%;
+}
+.finder-inner { max-width: 860px; margin: 0 auto; }
+.finder-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; margin-bottom: 8px; text-align: center;
+}
+.finder-sub { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 36px; }
+.finder-row { margin-bottom: 24px; }
+.finder-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  padding: 9px 18px; border-radius: 24px;
+  border: 1px solid rgba(245,240,232,0.2);
+  background: transparent; color: var(--cream);
+  font-family: 'Inter', sans-serif; font-size: 0.85rem;
+  cursor: pointer; transition: all .2s;
+}
+.chip:hover { border-color: var(--gold); color: var(--gold); }
+.chip.selected { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 600; }
+.finder-result {
+  margin-top: 28px; padding: 16px 20px;
+  background: var(--gold-light); border: 1px solid var(--gold-mid);
+  border-radius: 8px; font-size: 0.9rem;
+  display: none; align-items: center; gap: 12px;
+}
+.finder-result.visible { display: flex; }
+.result-icon { font-size: 1.3rem; }
+.result-text strong { color: var(--gold); }
+
+/* ── STAGES SECTION ── */
+.stages-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 16px; }
+.section-sub { color: var(--text-light); font-size: 1rem; max-width: 580px; margin-bottom: 48px; }
+
+/* ── STAGE JOURNEY BAR ── */
+.stage-journey {
+  display: flex; align-items: center;
+  margin-bottom: 48px; gap: 0;
+  background: rgba(245,240,232,0.04);
+  border: 1px solid var(--gold-mid); border-radius: 12px;
+  overflow: hidden;
+}
+.journey-stage {
+  flex: 1; padding: 20px 24px;
+  border-right: 1px solid var(--gold-mid);
+  cursor: pointer; transition: background .2s;
+  position: relative;
+}
+.journey-stage:last-child { border-right: none; }
+.journey-stage:hover { background: rgba(184,150,46,0.06); }
+.journey-stage.active { background: rgba(184,150,46,0.12); }
+.journey-stage.active::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold);
+}
+.journey-num {
+  font-family: 'Playfair Display', serif; font-size: 2rem;
+  color: var(--gold); opacity: 0.4; line-height: 1; margin-bottom: 6px;
+}
+.journey-stage.active .journey-num { opacity: 1; }
+.journey-label {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 4px;
+}
+.journey-stage.active .journey-label { color: var(--gold); }
+.journey-desc { font-size: 0.85rem; color: var(--text-light); }
+
+/* ── STAGE CARDS GRID ── */
+.stages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stage-card {
+  border: 1px solid rgba(245,240,232,0.1);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .3s, transform .2s;
+  display: flex; flex-direction: column;
+}
+.stage-card:hover { border-color: var(--gold-mid); transform: translateY(-3px); }
+.stage-card.highlighted {
+  border-color: var(--gold);
+  box-shadow: 0 0 28px rgba(184,150,46,0.25);
+}
+.stage-card-header {
+  padding: 28px 24px 20px;
+  background: rgba(245,240,232,0.04);
+  border-bottom: 1px solid rgba(245,240,232,0.08);
+}
+.stage-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.stage-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.stage-card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 8px; }
+.stage-card-sub { font-size: 0.85rem; color: var(--text-light); }
+.stage-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.stage-scenario {
+  background: rgba(184,150,46,0.08); border: 1px solid var(--gold-mid);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
+  font-size: 0.85rem; font-style: italic; color: var(--cream);
+}
+.stage-items { list-style: none; margin-bottom: 20px; flex: 1; }
+.stage-items li {
+  display: flex; gap: 10px; padding: 8px 0;
+  font-size: 0.85rem; color: var(--text-light);
+  border-bottom: 1px solid rgba(245,240,232,0.06);
+}
+.stage-items li:last-child { border-bottom: none; }
+.stage-items li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.stage-pkg-badge {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--gold); color: var(--dark);
+  padding: 10px 16px; border-radius: 6px; margin-top: auto;
+  font-size: 0.8rem; font-weight: 600;
+}
+.stage-pkg-price { font-family: 'Playfair Display', serif; font-size: 1rem; }
+
+/* ── PACKAGES SECTION ── */
+.packages-section {
+  background: rgba(245,240,232,0.03); border-top: 1px solid rgba(245,240,232,0.08);
+  padding: 80px 5%;
+}
+.packages-inner { max-width: 1100px; margin: 0 auto; }
+.packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.pkg {
+  border: 1px solid rgba(245,240,232,0.1);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .3s, transform .2s;
+}
+.pkg:hover { border-color: var(--gold-mid); transform: translateY(-2px); }
+.pkg.highlighted {
+  border-color: var(--gold);
+  box-shadow: 0 0 32px rgba(184,150,46,0.3);
+  transform: translateY(-4px);
+}
+.pkg-tag-bar { height: 4px; background: rgba(245,240,232,0.1); }
+.pkg.highlighted .pkg-tag-bar { background: var(--gold); }
+.pkg-head { padding: 28px 24px 20px; }
+.pkg-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 10px;
+}
+.pkg.highlighted .pkg-label { color: var(--gold); }
+.pkg-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 8px; }
+.pkg-price { font-size: 0.9rem; color: var(--text-light); margin-bottom: 12px; }
+.pkg-price strong { color: var(--gold); font-size: 1.2rem; }
+.pkg-desc { font-size: 0.85rem; color: var(--text-light); }
+.pkg-body { padding: 0 24px 24px; }
+.pkg-features { list-style: none; margin-bottom: 24px; }
+.pkg-features li {
+  display: flex; gap: 10px; padding: 9px 0;
+  font-size: 0.85rem; color: var(--text-light);
+  border-bottom: 1px solid rgba(245,240,232,0.06);
+}
+.pkg-features li:last-child { border-bottom: none; }
+.pkg-features li::before { content: '✓'; color: var(--gold); flex-shrink: 0; }
+.pkg-cta {
+  display: block; text-align: center;
+  border: 1px solid var(--gold); color: var(--gold);
+  padding: 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;
+  text-decoration: none; transition: all .2s;
+}
+.pkg-cta:hover, .pkg.highlighted .pkg-cta { background: var(--gold); color: var(--dark); }
+.pkg-stage-tag {
+  display: inline-block;
+  background: rgba(184,150,46,0.1); border: 1px solid var(--gold-mid);
+  color: var(--gold); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 10px; margin-bottom: 8px;
+}
+
+/* ── WHAT CHANGES SECTION ── */
+.changes-section { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+.changes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+.changes-col {
+  border: 1px solid rgba(245,240,232,0.1);
+  border-radius: 12px; padding: 32px;
+}
+.changes-col.intl { border-top: 3px solid rgba(245,240,232,0.2); }
+.changes-col.uk { border-top: 3px solid var(--gold); }
+.changes-col-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 6px;
+}
+.changes-col.uk .changes-col-label { color: var(--gold); }
+.changes-col-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 24px; }
+.change-item { display: flex; gap: 14px; margin-bottom: 18px; }
+.change-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(245,240,232,0.08); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.changes-col.uk .change-icon { background: var(--gold-light); }
+.change-label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-light); margin-bottom: 3px; }
+.change-text { font-size: 0.85rem; color: var(--text-light); }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  background: rgba(184,150,46,0.04); border-top: 1px solid var(--gold-mid);
+  padding: 80px 5%;
+}
+.testimonials-inner { max-width: 1100px; margin: 0 auto; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.testi-card {
+  border: 1px solid rgba(245,240,232,0.1); border-radius: 12px; padding: 28px;
+}
+.testi-stage-badge {
+  display: inline-block;
+  background: var(--gold-light); border: 1px solid var(--gold-mid);
+  color: var(--gold); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 10px; margin-bottom: 16px;
+}
+.testi-quote { font-size: 0.9rem; color: var(--cream); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.testi-divider { height: 1px; background: rgba(245,240,232,0.1); margin-bottom: 16px; }
+.testi-name { font-size: 0.85rem; font-weight: 600; color: var(--cream); }
+.testi-detail { font-size: 0.8rem; color: var(--text-light); margin-top: 2px; }
+
+/* ── SUBJECT GRID ── */
+.subjects-section { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+.subject-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.subj-filter {
+  padding: 7px 16px; border-radius: 20px;
+  border: 1px solid rgba(245,240,232,0.2);
+  background: transparent; color: var(--cream);
+  font-family: 'Inter', sans-serif; font-size: 0.8rem;
+  cursor: pointer; transition: all .2s;
+}
+.subj-filter:hover, .subj-filter.active { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 600; }
+.subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.subj-tag {
+  padding: 10px 14px; border-radius: 8px;
+  border: 1px solid rgba(245,240,232,0.12);
+  font-size: 0.82rem; color: var(--cream);
+  transition: all .2s;
+  display: none;
+}
+.subj-tag.visible { display: block; }
+.subj-tag:hover { border-color: var(--gold-mid); color: var(--gold); }
+.subj-tag .subj-cat { font-size: 0.7rem; color: var(--text-light); margin-top: 2px; }
+
+/* ── FAQ ── */
+.faq-section {
+  background: rgba(245,240,232,0.03); border-top: 1px solid rgba(245,240,232,0.08);
+  padding: 80px 5%;
+}
+.faq-inner { max-width: 760px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid rgba(245,240,232,0.1);
+}
+.faq-q {
+  width: 100%; background: none; border: none; text-align: left;
+  color: var(--cream); font-family: 'Inter', sans-serif;
+  font-size: 0.95rem; font-weight: 500;
+  padding: 20px 0; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
+.faq-q .faq-icon { color: var(--gold); font-size: 1.2rem; flex-shrink: 0; transition: transform .2s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height .3s ease;
+}
+.faq-a-inner { padding-bottom: 20px; font-size: 0.9rem; color: var(--text-light); line-height: 1.8; }
+
+/* ── LINE CTA ── */
+.line-section {
+  background: var(--gold); padding: 60px 5%; text-align: center;
+}
+.line-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); margin-bottom: 10px; }
+.line-section p { color: rgba(26,26,26,0.75); font-size: 1rem; margin-bottom: 28px; }
+.line-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--dark); color: var(--cream);
+  padding: 14px 32px; border-radius: 6px;
+  font-size: 0.9rem; font-weight: 600; text-decoration: none;
+  transition: opacity .2s;
+}
+.line-btn:hover { opacity: 0.85; }
+.line-icon { font-size: 1.2rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark); border-top: 1px solid rgba(245,240,232,0.08);
+  padding: 40px 5%; text-align: center;
+  color: var(--text-light); font-size: 0.8rem;
+}
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .stages-grid, .packages-grid, .testimonials-grid, .changes-grid { grid-template-columns: 1fr; }
+  .stage-journey { flex-direction: column; }
+  .journey-stage { border-right: none; border-bottom: 1px solid var(--gold-mid); }
+  .journey-stage:last-child { border-bottom: none; }
+  nav .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" rx="16" fill="#1a1a1a"/>
+      <path d="M40 155V45h28v88h52v22H40z" fill="#B8962E"/>
+      <path d="M132 45h28v55c0 30-14 55-42 60l-7-22c18-5 21-22 21-38V45z" fill="#f5f0e8"/>
+    </svg>
+    <span class="nav-logo-text">LinkedU</span>
+  </a>
+  <div class="nav-links">
+    <a href="schools.html" class="lang-th">โรงเรียน</a>
+    <a href="schools.html" class="lang-en">Schools</a>
+    <a href="fees.html" class="lang-th">ค่าใช้จ่าย</a>
+    <a href="fees.html" class="lang-en">Fees</a>
+    <a href="pricing.html" class="lang-th">บริการ</a>
+    <a href="pricing.html" class="lang-en">Services</a>
+    <a href="#line" class="nav-cta lang-th">ติดต่อเรา</a>
+    <a href="#line" class="nav-cta lang-en">Contact</a>
+    <button class="lang-btn" onclick="toggleLang()">EN / TH</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge lang-th">ติวเตอร์สำหรับนักเรียน International School</div>
+  <div class="hero-badge lang-en">Tutoring for International School Students</div>
+
+  <h1 class="lang-th">
+    พร้อมในทุก<span> Stage </span><br>ของการเดินทาง
+  </h1>
+  <h1 class="lang-en">
+    Support at Every<span> Stage</span><br>of the Journey
+  </h1>
+
+  <p class="lang-th">ไม่ว่าลูกของคุณจะยังอยู่ที่กรุงเทพฯ กำลังจะย้ายไปอังกฤษ หรือปรับตัวอยู่ที่โรงเรียน Boarding ครูและทีมของเราพร้อมช่วยในทุกขั้น</p>
+  <p class="lang-en">Whether your child is still in Bangkok, preparing to move, or settling into UK boarding school — our tutors are with them at every step.</p>
+
+  <div class="hero-trust">
+    <div class="trust-item"><span class="trust-dot"></span><span class="lang-th">นักเรียนจาก NIST, ISB, Shrewsbury, Bangkok Patana</span><span class="lang-en">Students from NIST, ISB, Shrewsbury, Bangkok Patana</span></div>
+    <div class="trust-item"><span class="trust-dot"></span><span class="lang-th">ครูผู้เชี่ยวชาญ Edexcel, AQA, OCR, Cambridge</span><span class="lang-en">Specialists in Edexcel, AQA, OCR, Cambridge</span></div>
+    <div class="trust-item"><span class="trust-dot"></span><span class="lang-th">สอนออนไลน์และที่กรุงเทพฯ</span><span class="lang-en">Online and Bangkok in-person</span></div>
+  </div>
+</section>
+
+<!-- FINDER -->
+<section class="finder-section">
+  <div class="finder-inner">
+    <h2 class="finder-title lang-th">ลูกของคุณอยู่ Stage ไหน?</h2>
+    <h2 class="finder-title lang-en">Which stage is your child at?</h2>
+    <p class="finder-sub lang-th">ตอบ 3 ข้อ — เราจะแนะนำแพ็กเกจที่เหมาะที่สุด</p>
+    <p class="finder-sub lang-en">Answer 3 questions — we'll recommend the right package.</p>
+
+    <!-- Q1: Stage -->
+    <div class="finder-row">
+      <div class="finder-label lang-th">Stage ปัจจุบัน</div>
+      <div class="finder-label lang-en">Current Stage</div>
+      <div class="chip-group">
+        <button class="chip" data-group="stage" data-val="before" onclick="selectChip(this)">
+          <span class="lang-th">ยังอยู่กรุงเทพฯ (กำลังเตรียม)</span>
+          <span class="lang-en">Still in Bangkok (preparing)</span>
+        </button>
+        <button class="chip" data-group="stage" data-val="arriving" onclick="selectChip(this)">
+          <span class="lang-th">กำลังจะย้าย / ปีแรก</span>
+          <span class="lang-en">Moving soon / First year</span>
+        </button>
+        <button class="chip" data-group="stage" data-val="settled" onclick="selectChip(this)">
+          <span class="lang-th">อยู่อังกฤษแล้ว</span>
+          <span class="lang-en">Already in UK</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q2: Subject focus -->
+    <div class="finder-row">
+      <div class="finder-label lang-th">จุดที่ต้องการเสริม</div>
+      <div class="finder-label lang-en">Area of focus</div>
+      <div class="chip-group">
+        <button class="chip" data-group="focus" data-val="entry" onclick="selectChip(this)">
+          <span class="lang-th">Entrance / CE / GCSE</span>
+          <span class="lang-en">Entrance / CE / GCSE</span>
+        </button>
+        <button class="chip" data-group="focus" data-val="multi" onclick="selectChip(this)">
+          <span class="lang-th">หลายวิชา</span>
+          <span class="lang-en">Multiple subjects</span>
+        </button>
+        <button class="chip" data-group="focus" data-val="alevel" onclick="selectChip(this)">
+          <span class="lang-th">A-Level / Russell Group</span>
+          <span class="lang-en">A-Level / Russell Group</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q3: Goal -->
+    <div class="finder-row">
+      <div class="finder-label lang-th">เป้าหมาย</div>
+      <div class="finder-label lang-en">Goal</div>
+      <div class="chip-group">
+        <button class="chip" data-group="goal" data-val="pass" onclick="selectChip(this)">
+          <span class="lang-th">ผ่านการสอบเข้า</span>
+          <span class="lang-en">Pass entry / entrance exam</span>
+        </button>
+        <button class="chip" data-group="goal" data-val="keep" onclick="selectChip(this)">
+          <span class="lang-th">ตามทัน / ปรับตัว</span>
+          <span class="lang-en">Keep up / adapt to UK system</span>
+        </button>
+        <button class="chip" data-group="goal" data-val="excel" onclick="selectChip(this)">
+          <span class="lang-th">เกรดสูง / เข้า Top University</span>
+          <span class="lang-en">Top grades / Top university</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="finder-result" id="finderResult">
+      <span class="result-icon">✦</span>
+      <span class="result-text" id="finderResultText"></span>
+    </div>
+  </div>
+</section>
+
+<!-- THREE STAGES -->
+<section class="stages-section">
+  <div class="section-eyebrow lang-th">เส้นทางของนักเรียน</div>
+  <div class="section-eyebrow lang-en">The Student Journey</div>
+  <h2 class="section-title lang-th">สาม Stage ที่แตกต่างกัน — ความช่วยเหลือที่แตกต่างกัน</h2>
+  <h2 class="section-title lang-en">Three Distinct Stages — Three Distinct Kinds of Support</h2>
+  <p class="section-sub lang-th">แต่ละช่วงของการเดินทางมีความต้องการที่ต่างกัน ทีมของเราเข้าใจ และออกแบบการสนับสนุนให้ตรงจุด</p>
+  <p class="section-sub lang-en">Each phase of the journey has different demands. Our team understands this and tailors support accordingly.</p>
+
+  <!-- Journey bar tabs -->
+  <div class="stage-journey">
+    <div class="journey-stage active" id="jstage-1" onclick="showJStage(1)">
+      <div class="journey-num">01</div>
+      <div class="journey-label lang-th">ยังอยู่กรุงเทพฯ</div>
+      <div class="journey-label lang-en">Still in Bangkok</div>
+      <div class="journey-desc lang-th">เตรียมพร้อมก่อนย้าย</div>
+      <div class="journey-desc lang-en">Preparing before the move</div>
+    </div>
+    <div class="journey-stage" id="jstage-2" onclick="showJStage(2)">
+      <div class="journey-num">02</div>
+      <div class="journey-label lang-th">กำลังย้าย / ปีแรก</div>
+      <div class="journey-label lang-en">Moving / First Year</div>
+      <div class="journey-desc lang-th">ปรับตัวกับระบบใหม่</div>
+      <div class="journey-desc lang-en">Adapting to a new system</div>
+    </div>
+    <div class="journey-stage" id="jstage-3" onclick="showJStage(3)">
+      <div class="journey-num">03</div>
+      <div class="journey-label lang-th">อยู่อังกฤษแล้ว</div>
+      <div class="journey-label lang-en">Settled in the UK</div>
+      <div class="journey-desc lang-th">เพิ่มผลลัพธ์สูงสุด</div>
+      <div class="journey-desc lang-en">Maximising results</div>
+    </div>
+  </div>
+
+  <!-- Stage cards grid -->
+  <div class="stages-grid">
+    <!-- Stage 1 -->
+    <div class="stage-card" id="stage-before">
+      <div class="stage-card-header">
+        <div class="stage-tag"><span class="stage-tag-dot"></span><span class="lang-th">Stage 1 — กรุงเทพฯ</span><span class="lang-en">Stage 1 — Bangkok</span></div>
+        <h3 class="stage-card-title lang-th">เตรียมความพร้อมก่อนย้าย</h3>
+        <h3 class="stage-card-title lang-en">Pre-Departure Preparation</h3>
+        <p class="stage-card-sub lang-th">สร้างฐานก่อนเข้าสู่ระบบ UK Boarding</p>
+        <p class="stage-card-sub lang-en">Build the foundation before entering the UK boarding system</p>
+      </div>
+      <div class="stage-card-body">
+        <div class="stage-scenario lang-th">"ลูกอยู่ Year 9 ที่ NIST — กำลังจะไป Boarding School ปีหน้า"</div>
+        <div class="stage-scenario lang-en">"My child is in Y9 at NIST — heading to boarding school next year"</div>
+        <ul class="stage-items">
+          <li class="lang-th">เตรียมสอบ CE / GCSE entrance / SSAT</li>
+          <li class="lang-en">Prep for CE / GCSE entrance / SSAT</li>
+          <li class="lang-th">เรียนรู้รูปแบบ exam UK: ไม่มี coursework, final exam เท่านั้น</li>
+          <li class="lang-en">Learn UK exam format: no coursework, final exam only</li>
+          <li class="lang-th">เสริม essay writing ในแบบที่ UK อาจารย์คาดหวัง</li>
+          <li class="lang-en">Build essay writing to UK academic standards</li>
+          <li class="lang-th">ทบทวน Maths และ Science ให้อยู่ในระดับ UK curriculum</li>
+          <li class="lang-en">Align Maths and Science to UK curriculum level</li>
+        </ul>
+        <div class="stage-pkg-badge">
+          <div>
+            <div class="lang-th" style="font-size:0.7rem;opacity:0.7">แพ็กเกจแนะนำ</div>
+            <div class="lang-en" style="font-size:0.7rem;opacity:0.7">Recommended package</div>
+            <div class="lang-th">Hourly หรือ Academic Booster</div>
+            <div class="lang-en">Hourly or Academic Booster</div>
+          </div>
+          <div class="stage-pkg-price lang-th">฿2,500/ชม.</div>
+          <div class="stage-pkg-price lang-en">฿2,500/hr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stage-card" id="stage-arriving">
+      <div class="stage-card-header">
+        <div class="stage-tag"><span class="stage-tag-dot"></span><span class="lang-th">Stage 2 — ปีแรกในอังกฤษ</span><span class="lang-en">Stage 2 — First Year in UK</span></div>
+        <h3 class="stage-card-title lang-th">ช่วงปรับตัว</h3>
+        <h3 class="stage-card-title lang-en">The Adaptation Phase</h3>
+        <p class="stage-card-sub lang-th">ระบบใหม่ มาตรฐานใหม่ ความกดดันสูง</p>
+        <p class="stage-card-sub lang-en">New system, new standards, high pressure</p>
+      </div>
+      <div class="stage-card-body">
+        <div class="stage-scenario lang-th">"ลูกเพิ่งเริ่ม Boarding School — ตามเพื่อนไม่ทัน"</div>
+        <div class="stage-scenario lang-en">"My child just started boarding — struggling to keep up with peers"</div>
+        <ul class="stage-items">
+          <li class="lang-th">ตามทันวิชาที่ต่างจาก IB / IGCSE เดิม</li>
+          <li class="lang-en">Bridge gaps from IB / IGCSE to new curriculum</li>
+          <li class="lang-th">ฝึก independent study และ time management</li>
+          <li class="lang-en">Build independent study and time management skills</li>
+          <li class="lang-th">เสริมทักษะ analytical essay (History, English Lit)</li>
+          <li class="lang-en">Strengthen analytical essay skills (History, English Lit)</li>
+          <li class="lang-th">เซสชั่นออนไลน์ช่วง term + ติวเข้มช่วง school holiday</li>
+          <li class="lang-en">Online sessions during term + intensive during school holidays</li>
+        </ul>
+        <div class="stage-pkg-badge">
+          <div>
+            <div class="lang-th" style="font-size:0.7rem;opacity:0.7">แพ็กเกจแนะนำ</div>
+            <div class="lang-en" style="font-size:0.7rem;opacity:0.7">Recommended package</div>
+            <div class="lang-th">Academic Booster</div>
+            <div class="lang-en">Academic Booster</div>
+          </div>
+          <div class="stage-pkg-price">฿70,000/ปี</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stage-card" id="stage-settled">
+      <div class="stage-card-header">
+        <div class="stage-tag"><span class="stage-tag-dot"></span><span class="lang-th">Stage 3 — อยู่ตัวแล้ว</span><span class="lang-en">Stage 3 — Settled</span></div>
+        <h3 class="stage-card-title lang-th">เพิ่มเพดานสูงสุด</h3>
+        <h3 class="stage-card-title lang-en">Maximising Potential</h3>
+        <p class="stage-card-sub lang-th">ปรับตัวแล้ว — ตอนนี้คือการแข่งขันจริง</p>
+        <p class="stage-card-sub lang-en">Settled in — now it's real competition</p>
+      </div>
+      <div class="stage-card-body">
+        <div class="stage-scenario lang-th">"ลูกปรับตัวได้แล้ว แต่อยากได้ A* / เข้า Oxbridge หรือ Russell Group"</div>
+        <div class="stage-scenario lang-en">"My child has settled in, but now wants A*s / Oxbridge / Russell Group"</div>
+        <ul class="stage-items">
+          <li class="lang-th">กลยุทธ์ A-Level เฉพาะวิชา เฉพาะ exam board</li>
+          <li class="lang-en">Subject-specific A-Level strategy per exam board</li>
+          <li class="lang-th">เตรียม UCAS / Personal Statement / Interview</li>
+          <li class="lang-en">UCAS / Personal Statement / Interview prep</li>
+          <li class="lang-th">เตรียมสอบ PAT, LNAT, BMAT, TSA ตามสาขา</li>
+          <li class="lang-en">Subject admission tests: PAT, LNAT, BMAT, TSA</li>
+          <li class="lang-th">Access ครูจาก Oxbridge / Russell Group alumni โดยตรง</li>
+          <li class="lang-en">Direct access to Oxbridge / Russell Group alumni tutors</li>
+        </ul>
+        <div class="stage-pkg-badge">
+          <div>
+            <div class="lang-th" style="font-size:0.7rem;opacity:0.7">แพ็กเกจแนะนำ</div>
+            <div class="lang-en" style="font-size:0.7rem;opacity:0.7">Recommended package</div>
+            <div class="lang-th">Elite 9–16+</div>
+            <div class="lang-en">Elite 9–16+</div>
+          </div>
+          <div class="stage-pkg-price">฿160,000/ปี</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages-section">
+  <div class="packages-inner">
+    <div class="section-eyebrow lang-th">แพ็กเกจ</div>
+    <div class="section-eyebrow lang-en">Packages</div>
+    <h2 class="section-title lang-th">เลือกแพ็กเกจที่ตรงกับ Stage ของคุณ</h2>
+    <h2 class="section-title lang-en">Choose the Package That Fits Your Stage</h2>
+
+    <div class="packages-grid">
+      <!-- Pkg 1 -->
+      <div class="pkg" id="pkg-hourly">
+        <div class="pkg-tag-bar"></div>
+        <div class="pkg-head">
+          <div class="pkg-stage-tag lang-th">Stage 1–3</div>
+          <div class="pkg-stage-tag lang-en">Stage 1–3</div>
+          <div class="pkg-label lang-th">รายชั่วโมง</div>
+          <div class="pkg-label lang-en">Flexible Hourly</div>
+          <h3 class="pkg-name lang-th">Hourly Tutoring</h3>
+          <h3 class="pkg-name lang-en">Hourly Tutoring</h3>
+          <div class="pkg-price lang-th"><strong>฿2,500</strong> / ชั่วโมง (ขั้นต่ำ 10 ชม.)</div>
+          <div class="pkg-price lang-en"><strong>฿2,500</strong> / hour (min 10 hrs)</div>
+          <p class="pkg-desc lang-th">ยืดหยุ่น เหมาะสำหรับเตรียมสอบเฉพาะ หรือทดลองก่อนสมัคร</p>
+          <p class="pkg-desc lang-en">Flexible — ideal for specific exam prep or trying out before committing</p>
+        </div>
+        <div class="pkg-body">
+          <ul class="pkg-features">
+            <li class="lang-th">เลือกวิชา เลือกเวลา ไม่ผูกมัด</li>
+            <li class="lang-en">Choose subject, choose time, no lock-in</li>
+            <li class="lang-th">ครูประจำตลอดทุก session</li>
+            <li class="lang-en">Same tutor across all sessions</li>
+            <li class="lang-th">เหมาะกับ CE / GCSE entrance / เสริมรายวิชา</li>
+            <li class="lang-en">Great for CE / entrance prep / subject top-up</li>
+            <li class="lang-th">ออนไลน์หรือ face-to-face กรุงเทพฯ</li>
+            <li class="lang-en">Online or Bangkok in-person</li>
+          </ul>
+          <a href="#line" class="pkg-cta lang-th">เริ่มต้น Hourly</a>
+          <a href="#line" class="pkg-cta lang-en">Start Hourly Tutoring</a>
+        </div>
+      </div>
+
+      <!-- Pkg 2 -->
+      <div class="pkg" id="pkg-booster">
+        <div class="pkg-tag-bar"></div>
+        <div class="pkg-head">
+          <div class="pkg-stage-tag lang-th">Stage 1–2</div>
+          <div class="pkg-stage-tag lang-en">Stage 1–2</div>
+          <div class="pkg-label lang-th">ครอบคลุมตลอดปี</div>
+          <div class="pkg-label lang-en">Year-round Coverage</div>
+          <h3 class="pkg-name lang-th">Academic Booster</h3>
+          <h3 class="pkg-name lang-en">Academic Booster</h3>
+          <div class="pkg-price lang-th"><strong>฿70,000</strong> / ปี (+฿15,000 / วิชาเพิ่ม)</div>
+          <div class="pkg-price lang-en"><strong>฿70,000</strong> / yr (+฿15,000 per extra subject)</div>
+          <p class="pkg-desc lang-th">สำหรับนักเรียนที่ต้องการ support อย่างต่อเนื่องตลอดปีการศึกษา</p>
+          <p class="pkg-desc lang-en">For students who need consistent support throughout the academic year</p>
+        </div>
+        <div class="pkg-body">
+          <ul class="pkg-features">
+            <li class="lang-th">ครอบคลุม 1 วิชาหลัก (เพิ่มวิชาได้)</li>
+            <li class="lang-en">Covers 1 core subject (add more)</li>
+            <li class="lang-th">Regular sessions ตลอด term + holiday intensive</li>
+            <li class="lang-en">Regular sessions + holiday intensive</li>
+            <li class="lang-th">Progress report ส่งให้ผู้ปกครองทุก term</li>
+            <li class="lang-en">Termly progress reports for parents</li>
+            <li class="lang-th">ครูเฉพาะทาง exam board ของโรงเรียน</li>
+            <li class="lang-en">Tutor matched to your school's exam board</li>
+          </ul>
+          <a href="#line" class="pkg-cta lang-th">สอบถาม Academic Booster</a>
+          <a href="#line" class="pkg-cta lang-en">Enquire Academic Booster</a>
+        </div>
+      </div>
+
+      <!-- Pkg 3 -->
+      <div class="pkg" id="pkg-elite">
+        <div class="pkg-tag-bar"></div>
+        <div class="pkg-head">
+          <div class="pkg-stage-tag lang-th">Stage 2–3</div>
+          <div class="pkg-stage-tag lang-en">Stage 2–3</div>
+          <div class="pkg-label lang-th">Flagship Programme</div>
+          <div class="pkg-label lang-en">Flagship Programme</div>
+          <h3 class="pkg-name lang-th">Elite 9–16+</h3>
+          <h3 class="pkg-name lang-en">Elite 9–16+</h3>
+          <div class="pkg-price lang-th"><strong>฿160,000</strong> / ปี</div>
+          <div class="pkg-price lang-en"><strong>฿160,000</strong> / yr</div>
+          <p class="pkg-desc lang-th">โปรแกรมระดับสูง สำหรับนักเรียนที่มุ่งสู่ Top University อังกฤษ</p>
+          <p class="pkg-desc lang-en">Premium programme for students targeting UK top universities</p>
+        </div>
+        <div class="pkg-body">
+          <ul class="pkg-features">
+            <li class="lang-th">ครอบคลุมทุกวิชา A-Level</li>
+            <li class="lang-en">All A-Level subjects covered</li>
+            <li class="lang-th">UCAS + Personal Statement + Interview coaching</li>
+            <li class="lang-en">UCAS + Personal Statement + Interview coaching</li>
+            <li class="lang-th">เตรียมสอบ admissions: PAT, LNAT, BMAT, TSA</li>
+            <li class="lang-en">Admissions test prep: PAT, LNAT, BMAT, TSA</li>
+            <li class="lang-th">ครูจาก Oxbridge / Russell Group alumni</li>
+            <li class="lang-en">Tutors from Oxbridge / Russell Group alumni</li>
+          </ul>
+          <a href="#line" class="pkg-cta lang-th">สอบถาม Elite 9–16+</a>
+          <a href="#line" class="pkg-cta lang-en">Enquire Elite 9–16+</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT CHANGES -->
+<section class="changes-section">
+  <div class="section-eyebrow lang-th">ทำไมต้องมีครู?</div>
+  <div class="section-eyebrow lang-en">Why Does a Tutor Matter?</div>
+  <h2 class="section-title lang-th">ระบบเปลี่ยน — วิธีเรียนต้องเปลี่ยน</h2>
+  <h2 class="section-title lang-en">The System Changes — The Approach Must Too</h2>
+  <p class="section-sub lang-th">แม้ลูกจะพูดภาษาอังกฤษคล่อง แต่ระบบการศึกษา UK Boarding ต่างจาก IB หรือ British International กรุงเทพฯ อย่างมีนัย</p>
+  <p class="section-sub lang-en">Even if your child is fluent in English, UK boarding school academics are fundamentally different from IB or British International schools in Bangkok.</p>
+
+  <div class="changes-grid">
+    <div class="changes-col intl">
+      <div class="changes-col-label lang-th">International School กรุงเทพฯ</div>
+      <div class="changes-col-label lang-en">International School Bangkok</div>
+      <h3 class="changes-col-title lang-th">วิธีที่คุ้นเคย</h3>
+      <h3 class="changes-col-title lang-en">What They Know</h3>
+      <div class="change-item">
+        <div class="change-icon">📋</div>
+        <div>
+          <div class="change-label lang-th">Coursework & Portfolio</div>
+          <div class="change-label lang-en">Coursework & Portfolio</div>
+          <div class="change-text lang-th">คะแนนมาจากงานตลอดปี — ทำทบทวนได้</div>
+          <div class="change-text lang-en">Marks come from ongoing work — revisions allowed</div>
+        </div>
+      </div>
+      <div class="change-item">
+        <div class="change-icon">🌐</div>
+        <div>
+          <div class="change-label lang-th">IB Holistic Approach</div>
+          <div class="change-label lang-en">IB Holistic Approach</div>
+          <div class="change-text lang-th">เชื่อมโยงหลายวิชา, ToK, CAS, Extended Essay</div>
+          <div class="change-text lang-th">Cross-subject links, ToK, CAS, Extended Essay</div>
+        </div>
+      </div>
+      <div class="change-item">
+        <div class="change-icon">👨‍👩‍👦</div>
+        <div>
+          <div class="change-label lang-th">Supported Environment</div>
+          <div class="change-label lang-en">Supported Environment</div>
+          <div class="change-text lang-th">อยู่บ้าน ผู้ปกครองใกล้ชิด ติวเตอร์คุ้นหน้า</div>
+          <div class="change-text lang-en">Home environment, parents nearby, familiar tutors</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="changes-col uk">
+      <div class="changes-col-label lang-th">UK Boarding School</div>
+      <div class="changes-col-label lang-en">UK Boarding School</div>
+      <h3 class="changes-col-title lang-th">สิ่งที่ต้องปรับ</h3>
+      <h3 class="changes-col-title lang-en">What Needs to Change</h3>
+      <div class="change-item">
+        <div class="change-icon" style="background:var(--gold-light)">📝</div>
+        <div>
+          <div class="change-label lang-th">Final Exam Only</div>
+          <div class="change-label lang-en">Final Exam Only</div>
+          <div class="change-text lang-th">ทุกอย่างขึ้นอยู่กับสอบปลายปี — ต้องเทคนิค</div>
+          <div class="change-text lang-en">Everything depends on a final exam — technique is critical</div>
+        </div>
+      </div>
+      <div class="change-item">
+        <div class="change-icon" style="background:var(--gold-light)">✍️</div>
+        <div>
+          <div class="change-label lang-th">Analytical Essay Style</div>
+          <div class="change-label lang-en">Analytical Essay Style</div>
+          <div class="change-text lang-th">UK ต้องการ argument-driven essays — ต่างจาก IB มาก</div>
+          <div class="change-text lang-en">UK expects argument-driven essays — very different from IB</div>
+        </div>
+      </div>
+      <div class="change-item">
+        <div class="change-icon" style="background:var(--gold-light)">🏠</div>
+        <div>
+          <div class="change-label lang-th">Independent Study</div>
+          <div class="change-label lang-en">Independent Study</div>
+          <div class="change-text lang-th">อยู่หอ จัดการตัวเอง — ผู้ปกครองอยู่ไกล</div>
+          <div class="change-text lang-en">Boarding house, self-managed — parents thousands of miles away</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="section-eyebrow lang-th">เสียงจากผู้ปกครอง</div>
+    <div class="section-eyebrow lang-en">What Parents Say</div>
+    <h2 class="section-title lang-th">จากทุก Stage — ผลลัพธ์จริง</h2>
+    <h2 class="section-title lang-en">From Every Stage — Real Results</h2>
+
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stage-badge lang-th">Stage 1 — กรุงเทพฯ</div>
+        <div class="testi-stage-badge lang-en">Stage 1 — Bangkok</div>
+        <p class="testi-quote lang-th">"ลูกเรียน IB ที่ ISB มาตลอด ตอนที่รู้ว่าระบบ GCSE ต่างกันมาก LinkedU ช่วยวางแผนให้ตั้งแต่ปีก่อนย้าย ลูกสอบ CE ผ่านได้สบายๆ"</p>
+        <p class="testi-quote lang-en">"My child studied IB at ISB throughout. When we realised GCSE is so different, LinkedU helped us plan a year before the move. He passed the CE exam comfortably."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-name lang-th">คุณพ่อ Prasert — นักเรียน ISB → Marlborough College</div>
+        <div class="testi-name lang-en">Khun Prasert — ISB → Marlborough College</div>
+        <div class="testi-detail lang-th">CE เตรียมสอบ 8 เดือน</div>
+        <div class="testi-detail lang-en">8 months CE preparation</div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stage-badge lang-th">Stage 2 — ปีแรก</div>
+        <div class="testi-stage-badge lang-en">Stage 2 — First Year</div>
+        <p class="testi-quote lang-th">"เทอมแรกที่ Boarding School ยากมาก ลูกรู้สึกเครียดเรื่องเกรด ครู LinkedU ช่วยทุก term break — จากตกกลางๆ ขึ้นมาเป็น top 20% ได้ใน 6 เดือน"</p>
+        <p class="testi-quote lang-en">"The first term at boarding school was very hard. My daughter felt overwhelmed by grades. LinkedU tutors helped every term break — from middle of the class to top 20% in 6 months."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-name lang-th">คุณแม่ Supitcha — นักเรียน Bangkok Patana → Roedean</div>
+        <div class="testi-name lang-en">Khun Supitcha — Bangkok Patana → Roedean</div>
+        <div class="testi-detail lang-th">Academic Booster — Maths + English</div>
+        <div class="testi-detail lang-en">Academic Booster — Maths + English</div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stage-badge lang-th">Stage 3 — Top University</div>
+        <div class="testi-stage-badge lang-en">Stage 3 — Top University</div>
+        <p class="testi-quote lang-th">"ลูกปรับตัวได้แล้ว แต่อยากได้ A* เพื่อเข้า LSE LinkedU จัดครูที่จบ LSE ตัวเองมาช่วย — ผลลัพธ์ดีเกินคาด"</p>
+        <p class="testi-quote lang-en">"My son had settled in but wanted A*s for LSE. LinkedU matched him with an LSE graduate tutor — results exceeded our expectations."</p>
+        <div class="testi-divider"></div>
+        <div class="testi-name lang-th">คุณพ่อ Wichai — นักเรียน Shrewsbury → A-Level UK</div>
+        <div class="testi-name lang-en">Khun Wichai — Shrewsbury → A-Level UK</div>
+        <div class="testi-detail lang-th">Elite 9–16+ — A*A*A</div>
+        <div class="testi-detail lang-en">Elite 9–16+ — A*A*A achieved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects-section">
+  <div class="section-eyebrow lang-th">วิชาที่สอน</div>
+  <div class="section-eyebrow lang-en">Subjects We Cover</div>
+  <h2 class="section-title lang-th">ครอบคลุมทุกวิชาหลัก ทุก Exam Board</h2>
+  <h2 class="section-title lang-en">All Core Subjects, All Exam Boards</h2>
+
+  <div class="subject-filters">
+    <button class="subj-filter active" onclick="filterSubj('all', this)" data-cat="all">
+      <span class="lang-th">ทั้งหมด</span><span class="lang-en">All</span>
+    </button>
+    <button class="subj-filter" onclick="filterSubj('stem', this)" data-cat="stem">STEM</button>
+    <button class="subj-filter" onclick="filterSubj('humanities', this)" data-cat="humanities">
+      <span class="lang-th">Humanities</span><span class="lang-en">Humanities</span>
+    </button>
+    <button class="subj-filter" onclick="filterSubj('business', this)" data-cat="business">
+      <span class="lang-th">Business</span><span class="lang-en">Business</span>
+    </button>
+    <button class="subj-filter" onclick="filterSubj('entry', this)" data-cat="entry">
+      <span class="lang-th">Entry Exams</span><span class="lang-en">Entry Exams</span>
+    </button>
+  </div>
+
+  <div class="subjects-grid" id="subjectsGrid">
+    <div class="subj-tag visible" data-cat="stem">Mathematics<div class="subj-cat">Edexcel · AQA · OCR</div></div>
+    <div class="subj-tag visible" data-cat="stem">Further Maths<div class="subj-cat">AQA · Edexcel</div></div>
+    <div class="subj-tag visible" data-cat="stem">Physics<div class="subj-cat">AQA · OCR · Edexcel</div></div>
+    <div class="subj-tag visible" data-cat="stem">Chemistry<div class="subj-cat">AQA · OCR · Edexcel</div></div>
+    <div class="subj-tag visible" data-cat="stem">Biology<div class="subj-cat">AQA · OCR · Edexcel</div></div>
+    <div class="subj-tag visible" data-cat="stem">Computer Science<div class="subj-cat">AQA · OCR</div></div>
+    <div class="subj-tag visible" data-cat="humanities">English Language<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="humanities">English Literature<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="humanities">History<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="humanities">Geography<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="humanities">Philosophy<div class="subj-cat">OCR · AQA</div></div>
+    <div class="subj-tag visible" data-cat="humanities">Psychology<div class="subj-cat">AQA · OCR</div></div>
+    <div class="subj-tag visible" data-cat="business">Economics<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="business">Business Studies<div class="subj-cat">AQA · Edexcel · OCR</div></div>
+    <div class="subj-tag visible" data-cat="business">Accounting<div class="subj-cat">AQA · Edexcel</div></div>
+    <div class="subj-tag visible" data-cat="entry">CE (Common Entrance)<div class="subj-cat">ISEB</div></div>
+    <div class="subj-tag visible" data-cat="entry">GCSE Entrance<div class="subj-cat">School-specific</div></div>
+    <div class="subj-tag visible" data-cat="entry">PAT (Oxford Physics)<div class="subj-cat">Oxford</div></div>
+    <div class="subj-tag visible" data-cat="entry">LNAT<div class="subj-cat">Law</div></div>
+    <div class="subj-tag visible" data-cat="entry">BMAT / UCAT<div class="subj-cat">Medicine</div></div>
+    <div class="subj-tag visible" data-cat="entry">TSA (Thinking Skills)<div class="subj-cat">Cambridge / Oxford</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-eyebrow lang-th" style="text-align:center">คำถามที่พบบ่อย</div>
+    <div class="section-eyebrow lang-en" style="text-align:center">Frequently Asked Questions</div>
+    <h2 class="section-title lang-th" style="text-align:center;margin-bottom:40px">คำถามจากผู้ปกครอง</h2>
+    <h2 class="section-title lang-en" style="text-align:center;margin-bottom:40px">Questions from Parents</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">ลูกเรียน IB อยู่ — ระบบ GCSE/A-Level ต่างกันมากไหม?</span>
+        <span class="lang-en">My child is in IB — how different is GCSE / A-Level?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">ต่างกันมากในเรื่องโครงสร้างการสอบและรูปแบบการเขียน IB เน้น portfolio, extended essay และ coursework ขณะที่ GCSE/A-Level ขึ้นอยู่กับ final exam เกือบ 100% ครูของเราเชี่ยวชาญการ bridge ช่องว่างนี้โดยเฉพาะ</div>
+        <div class="faq-a-inner lang-en">Significantly different in exam structure and writing style. IB emphasises portfolios, extended essays and coursework, while GCSE/A-Level is almost entirely final exam. Our tutors specialise in bridging exactly this gap.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">ควรเริ่มเตรียมก่อนย้ายนานแค่ไหน?</span>
+        <span class="lang-en">How far in advance should we start preparing before the move?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">แนะนำ 6–12 เดือนก่อนย้าย สำหรับนักเรียนที่ต้องสอบ CE หรือ entry exam ควรเริ่มไม่น้อยกว่า 8 เดือน หากไม่มีสอบ entrance แค่ 3–6 เดือนก็พอสำหรับปรับพื้นฐาน</div>
+        <div class="faq-a-inner lang-en">We recommend 6–12 months before the move. For students sitting CE or entry exams, start at least 8 months out. If there's no entrance exam, 3–6 months of foundation building is sufficient.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">ลูกภาษาอังกฤษดีอยู่แล้ว — ยังต้องการครูไหม?</span>
+        <span class="lang-en">My child already speaks fluent English — do they still need a tutor?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">ภาษาดีช่วยได้มาก แต่ปัญหาที่เจอจริงไม่ใช่ภาษา — คือรูปแบบการเขียน essay แบบ analytical ที่ UK ต้องการ, เทคนิคการทำข้อสอบ final exam และการ manage ตัวเองในหอพัก ทักษะเหล่านี้ต้องฝึกโดยเฉพาะ</div>
+        <div class="faq-a-inner lang-en">Fluency helps enormously, but the real challenges aren't linguistic — they're the UK's argument-driven essay style, final exam technique, and self-management in a boarding house. These skills require specific training regardless of language ability.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">สอนออนไลน์ขณะที่ลูกอยู่อังกฤษได้ไหม?</span>
+        <span class="lang-en">Can you tutor online while my child is in the UK?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">ได้ทุก session เราสอนออนไลน์ 100% สำหรับนักเรียนที่อยู่ UK โดย schedule ให้ตรงกับ study periods หรือช่วง weekend ที่โรงเรียนอนุญาต และปรับเวลาให้เหมาะสมระหว่าง Bangkok–UK time zone</div>
+        <div class="faq-a-inner lang-en">Yes — all sessions are conducted fully online for UK-based students. We schedule around the school's study periods or permitted weekend times, and adjust for the Bangkok–UK time difference.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">Academic Booster กับ Elite 9–16+ ต่างกันอย่างไร?</span>
+        <span class="lang-en">What's the difference between Academic Booster and Elite 9–16+?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">Academic Booster เน้นการ support รายวิชาตลอดปี เหมาะกับการตามทันหรือรักษาเกรด Elite 9–16+ เป็น flagship programme สำหรับนักเรียนที่มุ่งสู่ Top University ครอบคลุมทุกวิชา + UCAS + Personal Statement + admission tests (PAT, LNAT, BMAT) และเข้าถึงครูจาก Oxbridge / Russell Group alumni</div>
+        <div class="faq-a-inner lang-en">Academic Booster focuses on per-subject support throughout the year — ideal for keeping up or maintaining grades. Elite 9–16+ is our flagship for students targeting top universities, covering all subjects + UCAS + Personal Statement + admission tests (PAT, LNAT, BMAT) with access to Oxbridge / Russell Group alumni tutors.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span class="lang-th">เริ่มต้นอย่างไร?</span>
+        <span class="lang-en">How do we get started?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner lang-th">ทักมาหาเราที่ LINE @linkedu.th เราจะนัด consultation ฟรี 30 นาที เพื่อประเมิน stage และวิชาที่ต้องการ จากนั้นจับคู่ครูที่เหมาะสมและส่ง session แรกได้ภายใน 3–5 วันทำการ</div>
+        <div class="faq-a-inner lang-en">Message us on LINE @linkedu.th. We'll schedule a free 30-minute consultation to assess your child's stage and subject needs, then match a tutor and have your first session within 3–5 business days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINE CTA -->
+<section class="line-section" id="line">
+  <h2 class="lang-th">พร้อมเริ่มต้นไหม?</h2>
+  <h2 class="lang-en">Ready to Get Started?</h2>
+  <p class="lang-th">ไม่ว่าลูกจะอยู่ Stage ไหน — ทีมของเราพร้อมช่วย</p>
+  <p class="lang-en">Whatever stage your child is at — our team is ready to help.</p>
+  <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="line-btn">
+    <span class="line-icon">💬</span>
+    <span class="lang-th">ทักมาที่ LINE @linkedu.th</span>
+    <span class="lang-en">Message us on LINE @linkedu.th</span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 LinkedU Education Consulting · <a href="mailto:satit@linkedu.hk">satit@linkedu.hk</a> · LINE: @linkedu.th</p>
+</footer>
+
+<script>
+// Language toggle
+function toggleLang() {
+  const html = document.documentElement;
+  html.setAttribute('lang', html.getAttribute('lang') === 'th' ? 'en' : 'th');
+}
+
+// Finder logic
+const sel = { stage: null, focus: null, goal: null };
+const pkgMap = {
+  before: { entry: 'pkg-hourly', multi: 'pkg-booster', alevel: 'pkg-booster' },
+  arriving: { entry: 'pkg-booster', multi: 'pkg-booster', alevel: 'pkg-elite' },
+  settled: { entry: 'pkg-booster', multi: 'pkg-elite', alevel: 'pkg-elite' }
+};
+const resultTH = {
+  'pkg-hourly': 'แนะนำ <strong>Hourly Tutoring</strong> — ยืดหยุ่น เริ่มต้นง่าย เหมาะกับการเตรียมสอบเฉพาะ',
+  'pkg-booster': 'แนะนำ <strong>Academic Booster</strong> — ครอบคลุมตลอดปี เหมาะกับช่วงปรับตัวและตามทัน',
+  'pkg-elite': 'แนะนำ <strong>Elite 9–16+</strong> — Flagship programme สำหรับ Top University'
+};
+const resultEN = {
+  'pkg-hourly': 'Recommended: <strong>Hourly Tutoring</strong> — flexible, easy to start, great for specific exam prep',
+  'pkg-booster': 'Recommended: <strong>Academic Booster</strong> — year-round coverage, ideal for adapting and catching up',
+  'pkg-elite': 'Recommended: <strong>Elite 9–16+</strong> — flagship programme for top university aspirants'
+};
+
+function selectChip(el) {
+  const group = el.dataset.group;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  sel[group] = el.dataset.val;
+  updateFinder();
+}
+
+function updateFinder() {
+  if (!sel.stage || !sel.focus || !sel.goal) return;
+  const pkgId = pkgMap[sel.stage][sel.focus] || 'pkg-booster';
+  document.querySelectorAll('.pkg').forEach(p => p.classList.remove('highlighted'));
+  document.getElementById(pkgId).classList.add('highlighted');
+  const lang = document.documentElement.getAttribute('lang');
+  const text = lang === 'th' ? resultTH[pkgId] : resultEN[pkgId];
+  document.getElementById('finderResultText').innerHTML = text;
+  const result = document.getElementById('finderResult');
+  result.classList.add('visible');
+  document.getElementById(pkgId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Journey stage tab switcher
+function showJStage(n) {
+  [1, 2, 3].forEach(i => document.getElementById('jstage-' + i).classList.remove('active'));
+  document.getElementById('jstage-' + n).classList.add('active');
+  const stageIds = { 1: 'stage-before', 2: 'stage-arriving', 3: 'stage-settled' };
+  document.querySelectorAll('.stage-card').forEach(c => c.classList.remove('highlighted'));
+  document.getElementById(stageIds[n]).classList.add('highlighted');
+}
+
+// Subject filter
+function filterSubj(cat, btn) {
+  document.querySelectorAll('.subj-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.subj-tag').forEach(tag => {
+    tag.classList.toggle('visible', cat === 'all' || tag.dataset.cat === cat);
+  });
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = null;
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    const ans = item.querySelector('.faq-a');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoring Hours Calculator | LINKEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+
+  body {
+    background: #f5f0e8;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    background: #1a1a1a;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-wrap { display: flex; flex-direction: column; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #f5f0e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active { border-color: #B8962E; color: #B8962E; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  .hero {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    padding: 64px 24px 56px;
+    text-align: center;
+  }
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: #B8962E;
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: #f5f0e8;
+  }
+  .hero p {
+    font-size: 1rem;
+    opacity: 0.72;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* LAYOUT */
+  .tool-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 48px 24px 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* INPUT PANEL */
+  .input-panel {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 36px 32px;
+    position: sticky;
+    top: 80px;
+  }
+  .input-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #f5f0e8;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+  }
+
+  .field-group { margin-bottom: 24px; }
+  .field-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #B8962E;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 8px 13px;
+    border: 1px solid rgba(245,240,232,0.2);
+    border-radius: 5px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    background: transparent;
+    color: #f5f0e8;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.3;
+  }
+  .chip:hover { border-color: #B8962E; color: #B8962E; }
+  .chip.selected { background: #B8962E; color: #1a1a1a; border-color: #B8962E; font-weight: 600; }
+
+  /* SLIDER */
+  .slider-wrap { padding: 4px 0; }
+  .slider-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .slider-current {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #B8962E;
+    line-height: 1;
+  }
+  .slider-unit { font-size: 0.75rem; color: rgba(245,240,232,0.45); }
+  .range-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(245,240,232,0.15);
+    outline: none;
+    cursor: pointer;
+  }
+  .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8962E;
+    cursor: pointer;
+    border: 2px solid #1a1a1a;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .range-input::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8962E;
+    cursor: pointer;
+    border: 2px solid #1a1a1a;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .slider-minmax {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: rgba(245,240,232,0.3);
+    margin-top: 4px;
+  }
+
+  /* CHECKBOXES */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .check-item:hover { border-color: #B8962E; }
+  .check-item input[type="checkbox"] {
+    accent-color: #B8962E;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+  .check-item label {
+    font-size: 0.78rem;
+    color: #f5f0e8;
+    cursor: pointer;
+    line-height: 1.3;
+  }
+
+  .btn-primary {
+    width: 100%;
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 15px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 8px;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    width: 100%;
+    background: transparent;
+    color: #B8962E;
+    border: 1px solid #B8962E;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(184,150,46,0.08); }
+
+  /* RESULTS PANEL */
+  .results-panel { }
+  .results-placeholder {
+    background: #f5f0e8;
+    border: 2px dashed rgba(0,0,0,0.12);
+    border-radius: 8px;
+    padding: 60px 40px;
+    text-align: center;
+    color: rgba(26,26,26,0.35);
+  }
+  .results-placeholder h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .results-placeholder p { font-size: 0.85rem; }
+
+  .results-content { display: none; }
+  .results-content.visible { display: block; }
+
+  /* TOTAL HOURS CARD */
+  .total-card {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .total-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .total-hours {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: #B8962E;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .total-unit {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .breakdown-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    border-top: 1px solid rgba(245,240,232,0.1);
+    padding-top: 24px;
+  }
+  .breakdown-item { }
+  .bd-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f5f0e8;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .bd-label { font-size: 0.72rem; color: rgba(245,240,232,0.45); line-height: 1.3; }
+
+  /* SESSION CARD */
+  .info-card {
+    background: #f5f0e8;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    background: #B8962E;
+    color: #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 0.88rem;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row-label { color: rgba(26,26,26,0.6); }
+  .info-row-value { font-weight: 600; color: #1a1a1a; }
+
+  /* PRICING CARDS */
+  .pricing-section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #B8962E;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .pricing-grid { display: grid; gap: 14px; margin-bottom: 20px; }
+  .pricing-card {
+    background: #f5f0e8;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .pricing-card.best-value {
+    border-color: #B8962E;
+    border-width: 2px;
+  }
+  .best-badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: #B8962E;
+    color: #1a1a1a;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .pkg-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+  .pkg-desc { font-size: 0.78rem; color: rgba(26,26,26,0.55); line-height: 1.4; }
+  .pkg-price {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .pkg-thb {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+  .pkg-thb-sub { font-size: 0.72rem; color: rgba(26,26,26,0.45); }
+
+  /* TIMELINE BAR */
+  .timeline-card {
+    background: #f5f0e8;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .timeline-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .timeline-bar {
+    position: relative;
+    height: 10px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 5px;
+    margin-bottom: 12px;
+  }
+  .timeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4a7c59 0%, #B8962E 60%, #9e3030 100%);
+    border-radius: 5px 0 0 5px;
+    transition: width 1s ease;
+  }
+  .timeline-markers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: rgba(26,26,26,0.45);
+    margin-bottom: 16px;
+  }
+  .timeline-milestones { display: grid; gap: 10px; }
+  .milestone {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: rgba(26,26,26,0.75);
+  }
+  .milestone-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .milestone-dot.early { background: #4a7c59; }
+  .milestone-dot.mid { background: #B8962E; }
+  .milestone-dot.late { background: #9e3030; }
+
+  /* INLINE LINE */
+  .inline-line {
+    background: rgba(184,150,46,0.1);
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .inline-line h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .inline-line p { font-size: 0.82rem; color: rgba(26,26,26,0.6); margin-bottom: 16px; }
+
+  /* LINE SECTION */
+  .line-section {
+    background: #1a1a1a;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .line-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: #f5f0e8;
+    margin-bottom: 12px;
+  }
+  .line-section p { color: rgba(245,240,232,0.65); margin-bottom: 28px; font-size: 0.95rem; }
+  .line-handle { color: #B8962E; font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; }
+  .btn-line {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn-line:hover { opacity: 0.88; }
+  .btn-calc-line {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 13px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-calc-line:hover { opacity: 0.88; }
+
+  footer {
+    background: #111;
+    color: rgba(245,240,232,0.45);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+  footer span { color: #B8962E; }
+
+  @media (max-width: 820px) {
+    .tool-layout { grid-template-columns: 1fr; }
+    .input-panel { position: static; }
+    .breakdown-row { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .breakdown-row { grid-template-columns: 1fr; gap: 12px; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+    .input-panel { padding: 24px 20px; }
+    .total-hours { font-size: 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../index.html" style="text-decoration:none;">
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="section-label">
+      <span class="lang-th">เครื่องคำนวณชั่วโมงเรียน</span>
+      <span class="lang-en">Tutoring Hours Calculator</span>
+    </div>
+    <h1>
+      <span class="lang-th">ลูกต้องการติวกี่ชั่วโมง?</span>
+      <span class="lang-en">How Many Tutoring Hours Does My Child Need?</span>
+    </h1>
+    <p>
+      <span class="lang-th">ป้อนข้อมูลโรงเรียนเป้าหมาย ระดับปัจจุบัน และระยะเวลา เพื่อรับการประมาณชั่วโมงและค่าใช้จ่ายที่ชัดเจน</span>
+      <span class="lang-en">Enter your target school, current level and timeline to get an accurate estimate of tutoring hours needed and total investment in Thai Baht.</span>
+    </p>
+  </div>
+</div>
+
+<!-- TOOL LAYOUT -->
+<div class="tool-layout">
+
+  <!-- INPUT PANEL -->
+  <div class="input-panel">
+    <h2>
+      <span class="lang-th">ข้อมูลของคุณ</span>
+      <span class="lang-en">Your Details</span>
+    </h2>
+
+    <!-- Input 1: Target tier -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">โรงเรียนเป้าหมาย</span>
+        <span class="lang-en">Target School Tier</span>
+      </label>
+      <div class="chip-row" id="tier-chips">
+        <div class="chip" onclick="selectChip(this, 'tier', 'elite')">
+          <span class="lang-th">Elite<br><small>Eton / Harrow / Winchester</small></span>
+          <span class="lang-en">Elite<br><small>Eton / Harrow / Winchester</small></span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'tier', 'top20')">
+          <span class="lang-th">Top 20<br><small>Marlborough / Rugby / Charterhouse</small></span>
+          <span class="lang-en">Top 20<br><small>Marlborough / Rugby / Charterhouse</small></span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'tier', 'top50')">
+          <span class="lang-th">Top 50<br><small>Bromsgrove / Millfield / Rossall</small></span>
+          <span class="lang-en">Top 50<br><small>Bromsgrove / Millfield / Rossall</small></span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'tier', 'any')">
+          <span class="lang-th">โรงเรียนดีทั่วไป</span>
+          <span class="lang-en">Any Good Boarding School</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input 2: Entry year -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">ปีที่เข้าโรงเรียน</span>
+        <span class="lang-en">Target Entry Year</span>
+      </label>
+      <div class="chip-row" id="entryyear-chips">
+        <div class="chip" onclick="selectChip(this, 'entryYear', 'y9')">Year 9 <span style="opacity:0.5;font-size:0.72em">(13+)</span></div>
+        <div class="chip" onclick="selectChip(this, 'entryYear', 'y10')">Year 10 <span style="opacity:0.5;font-size:0.72em">(14+)</span></div>
+        <div class="chip" onclick="selectChip(this, 'entryYear', 'y12')">Year 12 <span style="opacity:0.5;font-size:0.72em">(16+)</span></div>
+      </div>
+    </div>
+
+    <!-- Input 3: Time slider -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">เวลาเตรียมตัว</span>
+        <span class="lang-en">Time Available</span>
+      </label>
+      <div class="slider-wrap">
+        <div class="slider-value">
+          <div class="slider-current" id="time-display">12</div>
+          <div class="slider-unit">
+            <span class="lang-th">เดือน</span>
+            <span class="lang-en">months</span>
+          </div>
+        </div>
+        <input type="range" class="range-input" min="6" max="24" step="6" value="12" id="time-slider" oninput="onTimeSlider(this)">
+        <div class="slider-minmax">
+          <span>
+            <span class="lang-th">6 เดือน</span>
+            <span class="lang-en">6 months</span>
+          </span>
+          <span>
+            <span class="lang-th">24 เดือน</span>
+            <span class="lang-en">24 months</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input 4: School type -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">ประเภทโรงเรียนปัจจุบัน</span>
+        <span class="lang-en">Current School Type</span>
+      </label>
+      <div class="chip-row" id="schooltype-chips">
+        <div class="chip" onclick="selectChip(this, 'schoolType', 'govt')">
+          <span class="lang-th">รัฐบาลไทย</span>
+          <span class="lang-en">Thai Government</span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'schoolType', 'private')">
+          <span class="lang-th">เอกชนไทย</span>
+          <span class="lang-en">Thai Private</span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'schoolType', 'intl-thai')">
+          <span class="lang-th">นานาชาติ (ไทย/EP)</span>
+          <span class="lang-en">International (Thai/EP)</span>
+        </div>
+        <div class="chip" onclick="selectChip(this, 'schoolType', 'intl-ib')">
+          <span class="lang-th">นานาชาติ (IB/อังกฤษ)</span>
+          <span class="lang-en">International (IB/British)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input 5: Subjects slider -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">จำนวนวิชาที่ต้องการเสริม</span>
+        <span class="lang-en">Subjects Needing Support</span>
+      </label>
+      <div class="slider-wrap">
+        <div class="slider-value">
+          <div class="slider-current" id="subjects-display">2</div>
+          <div class="slider-unit">
+            <span class="lang-th">วิชา</span>
+            <span class="lang-en">subjects</span>
+          </div>
+        </div>
+        <input type="range" class="range-input" min="1" max="4" step="1" value="2" id="subjects-slider" oninput="onSubjectsSlider(this)">
+        <div class="slider-minmax">
+          <span>1</span>
+          <span>4+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input 6: Exam prep checkboxes -->
+    <div class="field-group">
+      <label class="field-label">
+        <span class="lang-th">การสอบที่ต้องเตรียม</span>
+        <span class="lang-en">Exam Preparation Required</span>
+      </label>
+      <div class="checkbox-grid">
+        <div class="check-item">
+          <input type="checkbox" id="chk-ce" value="ce" onchange="recalc()">
+          <label for="chk-ce">13+ Common Entrance</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chk-igcse" value="igcse" onchange="recalc()">
+          <label for="chk-igcse">IGCSE</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chk-alevel" value="alevel" onchange="recalc()">
+          <label for="chk-alevel">A-Level</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chk-ielts" value="ielts" onchange="recalc()">
+          <label for="chk-ielts">IELTS</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chk-ukiset" value="ukiset" onchange="recalc()">
+          <label for="chk-ukiset">UKISET</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chk-interview" value="interview" onchange="recalc()">
+          <label for="chk-interview">
+            <span class="lang-th">การสัมภาษณ์</span>
+            <span class="lang-en">Interview Prep</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="calculateHours()">
+      <span class="lang-th">คำนวณชั่วโมง →</span>
+      <span class="lang-en">Calculate Hours →</span>
+    </button>
+    <button class="btn-secondary" onclick="resetCalc()">
+      <span class="lang-th">รีเซ็ต</span>
+      <span class="lang-en">Reset</span>
+    </button>
+  </div>
+
+  <!-- RESULTS PANEL -->
+  <div class="results-panel">
+    <div class="results-placeholder" id="results-placeholder">
+      <h3>
+        <span class="lang-th">ผลลัพธ์จะปรากฏที่นี่</span>
+        <span class="lang-en">Your results will appear here</span>
+      </h3>
+      <p>
+        <span class="lang-th">กรอกข้อมูลและกดคำนวณ</span>
+        <span class="lang-en">Fill in the inputs and press Calculate</span>
+      </p>
+    </div>
+
+    <div class="results-content" id="results-content">
+
+      <!-- Total Hours -->
+      <div class="total-card">
+        <div class="total-label">
+          <span class="lang-th">· ชั่วโมงติวทั้งหมดที่แนะนำ ·</span>
+          <span class="lang-en">· Total Recommended Tutoring Hours ·</span>
+        </div>
+        <div class="total-hours" id="total-hours-display">0</div>
+        <div class="total-unit">
+          <span class="lang-th">ชั่วโมง</span>
+          <span class="lang-en">hours</span>
+        </div>
+        <div class="breakdown-row">
+          <div class="breakdown-item">
+            <div class="bd-value" id="bd-core">0</div>
+            <div class="bd-label">
+              <span class="lang-th">วิชาหลัก</span>
+              <span class="lang-en">Core academics</span>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="bd-value" id="bd-exam">0</div>
+            <div class="bd-label">
+              <span class="lang-th">เตรียมสอบ</span>
+              <span class="lang-en">Exam preparation</span>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="bd-value" id="bd-interview">0</div>
+            <div class="bd-label">
+              <span class="lang-th">สัมภาษณ์</span>
+              <span class="lang-en">Interview prep</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session Schedule -->
+      <div class="info-card">
+        <h3>
+          <div class="card-icon">S</div>
+          <span class="lang-th">ตารางเรียนที่แนะนำ</span>
+          <span class="lang-en">Recommended Schedule</span>
+        </h3>
+        <div class="info-row">
+          <div class="info-row-label">
+            <span class="lang-th">จำนวนครั้งต่อสัปดาห์</span>
+            <span class="lang-en">Sessions per week</span>
+          </div>
+          <div class="info-row-value" id="sessions-per-week">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">
+            <span class="lang-th">ชั่วโมงต่อครั้ง</span>
+            <span class="lang-en">Hours per session</span>
+          </div>
+          <div class="info-row-value" id="hours-per-session">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">
+            <span class="lang-th">ชั่วโมงต่อสัปดาห์</span>
+            <span class="lang-en">Total hours per week</span>
+          </div>
+          <div class="info-row-value" id="hours-per-week">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">
+            <span class="lang-th">สัปดาห์ที่มี</span>
+            <span class="lang-en">Weeks available</span>
+          </div>
+          <div class="info-row-value" id="weeks-available">—</div>
+        </div>
+      </div>
+
+      <!-- Timeline Bar -->
+      <div class="timeline-card">
+        <h3>
+          <div class="card-icon">T</div>
+          <span class="lang-th">Timeline ถึงวันสอบ</span>
+          <span class="lang-en">Timeline to Exam Day</span>
+        </h3>
+        <div class="timeline-bar">
+          <div class="timeline-fill" id="timeline-fill" style="width:0%"></div>
+        </div>
+        <div class="timeline-markers" id="timeline-markers">
+          <!-- Injected by JS -->
+        </div>
+        <div class="timeline-milestones" id="timeline-milestones">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="pricing-section-label">
+        <span class="lang-th">· ตัวเลือกแพ็กเกจและค่าใช้จ่าย ·</span>
+        <span class="lang-en">· Package Options & Cost Estimate ·</span>
+      </div>
+      <div class="pricing-grid" id="pricing-grid">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- Inline LINE CTA -->
+      <div class="inline-line">
+        <h4>
+          <span class="lang-th">รับแผนติวที่ชัดเจน — ปรึกษาฟรี 30 นาที</span>
+          <span class="lang-en">Get Your Exact Tutoring Plan — Free 30-Min Consultation</span>
+        </h4>
+        <p>
+          <span class="lang-th">ที่ปรึกษา LINKEDU จะสร้างแผนการเรียนเฉพาะบุคคลพร้อมจับคู่กับอาจารย์ที่เหมาะสมที่สุดสำหรับลูก</span>
+          <span class="lang-en">A LINKEDU consultant will build a personalised plan and match your child with the right tutor for each subject.</span>
+        </p>
+        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-calc-line">
+          <span class="lang-th">เพิ่ม LINE เพื่อรับแผน / Get Plan on LINE</span>
+          <span class="lang-en">เพิ่ม LINE เพื่อรับแผน / Get Plan on LINE</span>
+        </a>
+      </div>
+
+    </div><!-- /results-content -->
+  </div><!-- /results-panel -->
+
+</div><!-- /tool-layout -->
+
+<!-- LINE CTA -->
+<div class="line-section">
+  <div class="container">
+    <div class="section-label" style="justify-content:center;">
+      <span class="lang-th">ปรึกษาฟรี</span>
+      <span class="lang-en">Free Consultation</span>
+    </div>
+    <h2>
+      <span class="lang-th">พูดคุยกับที่ปรึกษา LINKEDU</span>
+      <span class="lang-en">Talk to a LINKEDU Consultant</span>
+    </h2>
+    <p>
+      <span class="lang-th">เราช่วยวางแผนการติวที่เหมาะสมสำหรับนักเรียนไทยที่มุ่งสู่โรงเรียนประจำอังกฤษ</span>
+      <span class="lang-en">We build bespoke tutoring programmes for Thai students targeting UK boarding school entry.</span>
+    </p>
+    <div class="line-handle">LINE: @linkedu.th</div>
+    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-line">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <span>LINKEDU</span> Overseas Education &nbsp;|&nbsp; Part of the <span>Beacon Group</span> &nbsp;|&nbsp; LINE @linkedu.th
+  </div>
+</footer>
+
+<script>
+  let inputs = {
+    tier: null,
+    entryYear: null,
+    time: 12,
+    schoolType: null,
+    subjects: 2
+  };
+
+  function setLang(l) {
+    document.documentElement.setAttribute('lang', l);
+    document.getElementById('btn-th').classList.toggle('active', l === 'th');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  }
+
+  function selectChip(el, field, val) {
+    const groupId = {
+      tier: 'tier-chips',
+      entryYear: 'entryyear-chips',
+      schoolType: 'schooltype-chips'
+    }[field];
+    document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    inputs[field] = val;
+  }
+
+  function onTimeSlider(el) {
+    inputs.time = parseInt(el.value);
+    document.getElementById('time-display').textContent = el.value;
+  }
+
+  function onSubjectsSlider(el) {
+    inputs.subjects = parseInt(el.value);
+    document.getElementById('subjects-display').textContent = el.value === '4' ? '4+' : el.value;
+  }
+
+  function getCheckedExams() {
+    return ['ce','igcse','alevel','ielts','ukiset','interview']
+      .filter(id => document.getElementById('chk-' + id).checked);
+  }
+
+  function recalc() {
+    // Auto-recalc when checkboxes change if results already visible
+    if (document.getElementById('results-content').classList.contains('visible')) {
+      calculateHours();
+    }
+  }
+
+  function calculateHours() {
+    if (!inputs.tier || !inputs.entryYear || !inputs.schoolType) {
+      alert(document.documentElement.lang === 'th'
+        ? 'กรุณาเลือกโรงเรียนเป้าหมาย ปีเข้าเรียน และประเภทโรงเรียนปัจจุบัน'
+        : 'Please select target school tier, entry year, and current school type.');
+      return;
+    }
+
+    const exams = getCheckedExams();
+    const hasInterview = exams.includes('interview');
+    const examCount = exams.filter(e => e !== 'interview').length;
+
+    // Base hours by tier
+    const tierBase = { elite: 160, top20: 120, top50: 90, any: 60 }[inputs.tier];
+    // School type multiplier (govt needs most catch-up)
+    const schoolMult = { govt: 1.5, private: 1.25, 'intl-thai': 1.0, 'intl-ib': 0.7 }[inputs.schoolType];
+    // Subject multiplier
+    const subjectMult = 1 + (inputs.subjects - 1) * 0.35;
+    // Entry year adjustment
+    const entryMult = inputs.entryYear === 'y12' ? 0.85 : inputs.entryYear === 'y10' ? 0.95 : 1.0;
+
+    const coreHours = Math.round(tierBase * schoolMult * subjectMult * entryMult);
+    const examHours = examCount * 18;
+    const interviewHours = hasInterview ? (inputs.tier === 'elite' ? 24 : 14) : 0;
+    const totalHours = coreHours + examHours + interviewHours;
+
+    const weeks = inputs.time * 4;
+    const hrsPerWeek = Math.ceil(totalHours / weeks);
+    const sessionsPerWeek = Math.max(1, Math.round(hrsPerWeek / 2));
+    const hrsPerSession = sessionsPerWeek > 0 ? Math.round((hrsPerWeek / sessionsPerWeek) * 10) / 10 : 2;
+
+    // Animate total hours
+    document.getElementById('results-placeholder').style.display = 'none';
+    document.getElementById('results-content').classList.add('visible');
+
+    let count = 0;
+    const numEl = document.getElementById('total-hours-display');
+    const increment = Math.ceil(totalHours / 40);
+    const counterInterval = setInterval(() => {
+      count = Math.min(count + increment, totalHours);
+      numEl.textContent = count;
+      if (count >= totalHours) clearInterval(counterInterval);
+    }, 30);
+
+    document.getElementById('bd-core').textContent = coreHours;
+    document.getElementById('bd-exam').textContent = examHours;
+    document.getElementById('bd-interview').textContent = interviewHours;
+    document.getElementById('sessions-per-week').textContent = sessionsPerWeek + 'x';
+    document.getElementById('hours-per-session').textContent = hrsPerSession + ' hrs';
+    document.getElementById('hours-per-week').textContent = hrsPerWeek + ' hrs';
+    document.getElementById('weeks-available').textContent = weeks + ' weeks';
+
+    // Timeline
+    renderTimeline();
+
+    // Pricing
+    renderPricing(totalHours, hrsPerWeek);
+
+    // Scroll to results on mobile
+    if (window.innerWidth <= 820) {
+      setTimeout(() => {
+        document.getElementById('results-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
+
+  function renderTimeline() {
+    const months = inputs.time;
+    const lang = document.documentElement.lang;
+
+    // Build markers
+    const markersEl = document.getElementById('timeline-markers');
+    const milestoneEl = document.getElementById('timeline-milestones');
+
+    const phases = months <= 6 ? [
+      { pct: 0, label: { th: 'เริ่มต้น', en: 'Start' } },
+      { pct: 50, label: { th: 'กลางทาง', en: 'Midpoint' } },
+      { pct: 90, label: { th: 'ใกล้สอบ', en: 'Near Exam' } },
+      { pct: 100, label: { th: 'วันสอบ', en: 'Exam Day' } }
+    ] : [
+      { pct: 0, label: { th: 'เริ่มต้น', en: 'Start' } },
+      { pct: 33, label: { th: `${Math.round(months/3)} เดือน`, en: `${Math.round(months/3)}m` } },
+      { pct: 66, label: { th: `${Math.round(months*2/3)} เดือน`, en: `${Math.round(months*2/3)}m` } },
+      { pct: 100, label: { th: 'วันสอบ', en: 'Exam Day' } }
+    ];
+
+    markersEl.innerHTML = phases.map(p =>
+      `<span><span class="lang-th">${p.label.th}</span><span class="lang-en">${p.label.en}</span></span>`
+    ).join('');
+
+    const milestones = [
+      {
+        cls: 'early',
+        th: `เดือน 1–${Math.max(2, Math.round(months * 0.33))}: วินิจฉัยช่องว่าง สร้างรากฐาน และเริ่มฝึกวิชาหลัก`,
+        en: `Months 1–${Math.max(2, Math.round(months * 0.33))}: Diagnostic assessment, foundation building, core subject practice.`
+      },
+      {
+        cls: 'mid',
+        th: `เดือน ${Math.round(months * 0.33) + 1}–${Math.round(months * 0.7)}: เร่งความเข้มข้น ฝึก Exam papers เริ่มเตรียม IELTS`,
+        en: `Months ${Math.round(months * 0.33) + 1}–${Math.round(months * 0.7)}: Intensive subject work, past paper practice, IELTS preparation.`
+      },
+      {
+        cls: 'late',
+        th: `เดือน ${Math.round(months * 0.7) + 1}–${months}: Mock exams, Interview practice, Final refinements`,
+        en: `Months ${Math.round(months * 0.7) + 1}–${months}: Mock exams, interview preparation, final refinements.`
+      }
+    ];
+
+    milestoneEl.innerHTML = milestones.map(m => `
+      <div class="milestone">
+        <div class="milestone-dot ${m.cls}"></div>
+        <span class="lang-th">${m.th}</span>
+        <span class="lang-en">${m.en}</span>
+      </div>`).join('');
+
+    // Animate fill
+    setTimeout(() => {
+      document.getElementById('timeline-fill').style.width = '85%';
+    }, 400);
+  }
+
+  function renderPricing(totalHours, hrsPerWeek) {
+    const lang = document.documentElement.lang;
+    const hourlyRate = 2500;
+    const boosterRate = 70000;
+    const eliteRate = 160000;
+
+    const hourlyTotal = totalHours * hourlyRate;
+    // Annualise by timeline
+    const years = Math.max(0.5, inputs.time / 12);
+    const boosterTotal = Math.round(boosterRate * years);
+    const eliteTotal = Math.round(eliteRate * years);
+
+    // Determine best value
+    let bestValue = 'hourly';
+    if (hrsPerWeek >= 6 && totalHours >= 200) bestValue = 'elite';
+    else if (hrsPerWeek >= 3 && totalHours >= 100) bestValue = 'booster';
+
+    const pkgs = [
+      {
+        id: 'hourly',
+        name: { th: 'รายชั่วโมง', en: 'Pay-Per-Hour' },
+        desc: { th: `฿2,500 ต่อชั่วโมง × ${totalHours} ชั่วโมง — ยืดหยุ่น ไม่ผูกมัด เหมาะสำหรับเสริมบางวิชา`, en: `฿2,500/hr × ${totalHours} hrs — Flexible, no commitment. Best for targeted subject support.` },
+        thb: '฿' + hourlyTotal.toLocaleString(),
+        sub: { th: 'ค่าใช้จ่ายรวมโดยประมาณ', en: 'Estimated total cost' }
+      },
+      {
+        id: 'booster',
+        name: { th: 'Academic Booster', en: 'Academic Booster Package' },
+        desc: { th: `฿70,000 ต่อปี — เหมาะสำหรับนักเรียนที่ต้องการเสริม 2–3 วิชา มีอาจารย์ประจำ`, en: `฿70,000/year — Ideal for 2–3 subject support with a dedicated LINKEDU tutor.` },
+        thb: '฿' + boosterTotal.toLocaleString(),
+        sub: { th: `${years <= 0.5 ? '6 เดือน' : Math.round(years) + ' ปี'} โดยประมาณ`, en: `Approx ${years <= 0.5 ? '6 months' : Math.round(years) + ' year(s)'}` }
+      },
+      {
+        id: 'elite',
+        name: { th: 'Elite 9–16+', en: 'Elite 9–16+ Programme' },
+        desc: { th: `฿160,000 ต่อปี — โปรแกรมครบวงจร ทุกวิชา + IELTS + สัมภาษณ์ เหมาะสำหรับโรงเรียนระดับ Top 20 ขึ้นไป`, en: `฿160,000/year — Full programme: all subjects + IELTS + interview coaching. Best for Top 20 and Elite targets.` },
+        thb: '฿' + eliteTotal.toLocaleString(),
+        sub: { th: `${years <= 0.5 ? '6 เดือน' : Math.round(years) + ' ปี'} โดยประมาณ`, en: `Approx ${years <= 0.5 ? '6 months' : Math.round(years) + ' year(s)'}` }
+      }
+    ];
+
+    const grid = document.getElementById('pricing-grid');
+    grid.innerHTML = pkgs.map(p => `
+      <div class="pricing-card ${p.id === bestValue ? 'best-value' : ''}">
+        ${p.id === bestValue ? `<div class="best-badge"><span class="lang-th">แนะนำสำหรับคุณ</span><span class="lang-en">Best for You</span></div>` : ''}
+        <div>
+          <div class="pkg-name">${p.name.th}<span class="lang-en" style="display:none">${p.name.en}</span></div>
+          <div class="pkg-desc">
+            <span class="lang-th">${p.desc.th}</span>
+            <span class="lang-en">${p.desc.en}</span>
+          </div>
+        </div>
+        <div class="pkg-price">
+          <div class="pkg-thb">${p.thb}</div>
+          <div class="pkg-thb-sub">
+            <span class="lang-th">${p.sub.th}</span>
+            <span class="lang-en">${p.sub.en}</span>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // Re-apply lang visibility
+    setLang(document.documentElement.lang);
+  }
+
+  function resetCalc() {
+    inputs = { tier: null, entryYear: null, time: 12, schoolType: null, subjects: 2 };
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+    document.getElementById('time-slider').value = 12;
+    document.getElementById('time-display').textContent = '12';
+    document.getElementById('subjects-slider').value = 2;
+    document.getElementById('subjects-display').textContent = '2';
+    document.getElementById('results-placeholder').style.display = '';
+    document.getElementById('results-content').classList.remove('visible');
+  }
+
+  document.documentElement.setAttribute('lang', 'th');
+</script>
+</body>
+</html>

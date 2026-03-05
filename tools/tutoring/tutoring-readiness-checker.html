@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK School Entry Readiness Checker | LINKEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html[lang="en"] .lang-th { display: none; }
+  html[lang="th"] .lang-en { display: none; }
+
+  body {
+    background: #f5f0e8;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: #1a1a1a;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { text-decoration: none; }
+  .logo-wrap { display: flex; flex-direction: column; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #f5f0e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active { border-color: #B8962E; color: #B8962E; }
+
+  /* CONTAINER */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    padding: 64px 24px 56px;
+    text-align: center;
+  }
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #B8962E;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: #B8962E;
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #f5f0e8;
+  }
+  .hero p {
+    font-size: 1.05rem;
+    opacity: 0.75;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* STEP PROGRESS BAR */
+  .step-bar {
+    background: #1a1a1a;
+    padding: 0 24px 32px;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  .step-item.active { opacity: 1; }
+  .step-item.done { opacity: 0.7; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #B8962E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #B8962E;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .step-item.active .step-num { background: #B8962E; color: #1a1a1a; }
+  .step-item.done .step-num { background: #B8962E; color: #1a1a1a; }
+  .step-label { font-size: 11px; color: #f5f0e8; letter-spacing: 0.05em; white-space: nowrap; }
+  .step-connector { width: 32px; height: 1px; background: rgba(184,150,46,0.3); margin: 0 4px; flex-shrink: 0; align-self: center; }
+
+  /* MAIN TOOL AREA */
+  .tool-body { padding: 48px 24px 64px; }
+  .tool-card {
+    background: #f5f0e8;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+
+  .step-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .step-sub {
+    font-size: 0.9rem;
+    color: rgba(26,26,26,0.6);
+    margin-bottom: 32px;
+  }
+
+  /* ENTRY LEVEL CARDS */
+  .entry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .entry-card {
+    background: #fff8f0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .entry-card:hover { border-color: rgba(184,150,46,0.4); }
+  .entry-card.selected { border-color: #B8962E; background: rgba(184,150,46,0.06); }
+  .entry-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  .entry-card p { font-size: 0.82rem; color: rgba(26,26,26,0.6); }
+  .entry-badge {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  /* SUBJECT SLIDERS */
+  .subject-grid { display: grid; gap: 24px; margin-bottom: 32px; }
+  .subject-row { }
+  .subject-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .subject-name { font-weight: 600; font-size: 0.92rem; }
+  .subject-level-label {
+    font-size: 0.8rem;
+    color: #B8962E;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: right;
+  }
+  .subject-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
+  }
+  .subject-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8962E;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .subject-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #B8962E;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: rgba(26,26,26,0.45);
+    margin-top: 4px;
+  }
+
+  /* TIER CHIPS */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .chip {
+    padding: 10px 18px;
+    border: 1px solid rgba(26,26,26,0.2);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .chip:hover { border-color: #B8962E; }
+  .chip.selected { background: #B8962E; color: #1a1a1a; border-color: #B8962E; font-weight: 600; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    background: transparent;
+    color: #B8962E;
+    border: 1px solid #B8962E;
+    border-radius: 6px;
+    padding: 13px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(184,150,46,0.08); }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* RESULTS */
+  .results-panel { display: none; }
+  .results-panel.active { display: block; }
+
+  .score-ring-wrap {
+    text-align: center;
+    margin: 0 auto 40px;
+  }
+  .score-ring {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 16px;
+  }
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-subtitle { font-size: 0.85rem; color: rgba(26,26,26,0.55); }
+  .score-verdict {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .subject-results { margin-bottom: 36px; }
+  .subject-result-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .sr-name { min-width: 180px; font-size: 0.88rem; font-weight: 500; }
+  .sr-bar-wrap { flex: 1; position: relative; height: 10px; background: rgba(0,0,0,0.08); border-radius: 5px; }
+  .sr-bar { height: 100%; border-radius: 5px; transition: width 0.8s ease; }
+  .sr-bar.green { background: #4a7c59; }
+  .sr-bar.amber { background: #B8962E; }
+  .sr-bar.red { background: #9e3030; }
+  .sr-status {
+    min-width: 90px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .sr-status.green { color: #4a7c59; }
+  .sr-status.amber { color: #B8962E; }
+  .sr-status.red { color: #9e3030; }
+  .sr-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .sr-dot.green { background: #4a7c59; }
+  .sr-dot.amber { background: #B8962E; }
+  .sr-dot.red { background: #9e3030; }
+
+  .insight-card {
+    background: #1a1a1a;
+    color: #f5f0e8;
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .insight-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+    color: #B8962E;
+  }
+  .insight-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .insight-item { flex: 1; min-width: 140px; }
+  .insight-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #B8962E;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .insight-label { font-size: 0.78rem; opacity: 0.65; }
+
+  .priority-list { list-style: none; margin-bottom: 24px; }
+  .priority-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    font-size: 0.88rem;
+  }
+  .priority-list li:last-child { border-bottom: none; }
+  .priority-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #B8962E;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* INLINE LINE CTA */
+  .inline-line {
+    background: rgba(184,150,46,0.1);
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 32px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .inline-line h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .inline-line p { font-size: 0.82rem; color: rgba(26,26,26,0.6); }
+
+  /* LINE CTA SECTION */
+  .line-section {
+    background: #1a1a1a;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .line-section .section-label { justify-content: center; }
+  .line-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: #f5f0e8;
+    margin-bottom: 12px;
+  }
+  .line-section p { color: rgba(245,240,232,0.65); margin-bottom: 32px; font-size: 0.95rem; }
+  .line-handle { color: #B8962E; font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; }
+  .btn-line {
+    display: inline-block;
+    background: #B8962E;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn-line:hover { opacity: 0.88; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    color: rgba(245,240,232,0.45);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+  footer span { color: #B8962E; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .tool-card { padding: 24px 20px; }
+    .entry-grid { grid-template-columns: 1fr; }
+    .insight-row { flex-direction: column; gap: 16px; }
+    .sr-name { min-width: 120px; font-size: 0.82rem; }
+    .step-connector { width: 16px; }
+    .step-label { display: none; }
+    .inline-line { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="section-label">
+      <span class="lang-th">เครื่องมือประเมิน</span>
+      <span class="lang-en">Assessment Tool</span>
+    </div>
+    <h1>
+      <span class="lang-th">ตรวจสอบความพร้อมสอบเข้าโรงเรียนอังกฤษ</span>
+      <span class="lang-en">UK School Entry Readiness Checker</span>
+    </h1>
+    <p>
+      <span class="lang-th">ประเมินระดับความพร้อมในแต่ละวิชา เพื่อสอบเข้าโรงเรียนประจำอังกฤษ รับคะแนน และแผนเตรียมตัวส่วนตัว</span>
+      <span class="lang-en">Assess your readiness for UK boarding school entry exams. Get a subject gap analysis, readiness score and personalised preparation plan.</span>
+    </p>
+  </div>
+</div>
+
+<!-- STEP BAR -->
+<div class="step-bar">
+  <div class="step-item active" id="sb1">
+    <div class="step-num">1</div>
+    <div class="step-label lang-th">ระดับการสอบ</div>
+    <div class="step-label lang-en">Entry Level</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="sb2">
+    <div class="step-num">2</div>
+    <div class="step-label lang-th">ระดับวิชา</div>
+    <div class="step-label lang-en">Subject Levels</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="sb3">
+    <div class="step-num">3</div>
+    <div class="step-label lang-th">โรงเรียนเป้าหมาย</div>
+    <div class="step-label lang-en">Target Tier</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="sb4">
+    <div class="step-num">4</div>
+    <div class="step-label lang-th">ระยะเวลา</div>
+    <div class="step-label lang-en">Timeline</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="sb5">
+    <div class="step-num">5</div>
+    <div class="step-label lang-th">ผลลัพธ์</div>
+    <div class="step-label lang-en">Results</div>
+  </div>
+</div>
+
+<!-- TOOL BODY -->
+<div class="tool-body">
+  <div class="container">
+    <div class="tool-card">
+
+      <!-- STEP 1: Entry Level -->
+      <div class="step-panel active" id="step1">
+        <div class="step-heading lang-th">เลือกระดับการสอบเข้า</div>
+        <div class="step-heading lang-en">Select Entry Level</div>
+        <div class="step-sub lang-th">ลูกของคุณวางแผนสอบเข้าในระดับใด?</div>
+        <div class="step-sub lang-en">Which entry level is your child targeting?</div>
+
+        <div class="entry-grid">
+          <div class="entry-card" onclick="selectEntry('11plus')" id="ec-11plus">
+            <div class="entry-badge">11+</div>
+            <h3>Year 7 Entry</h3>
+            <p class="lang-th">เข้า Year 7 อายุ 11 ปี — เหมาะสำหรับ Prep Schools และ Junior departments ของโรงเรียนใหญ่</p>
+            <p class="lang-en">Entry at age 11 into Year 7 — Prep schools and junior departments of senior schools.</p>
+          </div>
+          <div class="entry-card" onclick="selectEntry('13plus')" id="ec-13plus">
+            <div class="entry-badge">13+</div>
+            <h3>Common Entrance</h3>
+            <p class="lang-th">เข้า Year 9 อายุ 13 ปี — การสอบ Common Entrance มาตรฐานของโรงเรียนประจำ UK ส่วนใหญ่</p>
+            <p class="lang-en">Entry at age 13 into Year 9 via Common Entrance — the standard UK boarding school exam.</p>
+          </div>
+          <div class="entry-card" onclick="selectEntry('16plus')" id="ec-16plus">
+            <div class="entry-badge">16+</div>
+            <h3>Sixth Form / A-Level</h3>
+            <p class="lang-th">เข้า Year 12 อายุ 16 ปี — ต้องใช้ผลการเรียน IGCSE/GCSE และระดับภาษาอังกฤษ</p>
+            <p class="lang-en">Entry at age 16 into Year 12 — requires GCSE/IGCSE results and English language proficiency.</p>
+          </div>
+          <div class="entry-card" onclick="selectEntry('year12')" id="ec-year12">
+            <div class="entry-badge">Year 12</div>
+            <h3>International Sixth Form</h3>
+            <p class="lang-th">สำหรับโรงเรียนที่เปิดรับนักเรียนต่างชาติโดยเฉพาะ เน้นวิชา A-Level ที่เลือก + IELTS</p>
+            <p class="lang-en">Targeted at schools with dedicated international sixth form entry. Focus on chosen A-Level subjects and IELTS.</p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="goStep(2)">
+            <span class="lang-th">ถัดไป →</span>
+            <span class="lang-en">Next →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Subject Levels -->
+      <div class="step-panel" id="step2">
+        <div class="step-heading lang-th">ประเมินระดับในแต่ละวิชา</div>
+        <div class="step-heading lang-en">Rate Your Subject Levels</div>
+        <div class="step-sub lang-th">เลื่อน Slider ไปยังระดับที่ตรงกับความสามารถปัจจุบันของลูก</div>
+        <div class="step-sub lang-en">Drag each slider to reflect your child's current level in each subject.</div>
+
+        <div class="subject-grid" id="subject-sliders">
+          <!-- Injected by JS -->
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goStep(1)">
+            <span class="lang-th">← ย้อนกลับ</span>
+            <span class="lang-en">← Back</span>
+          </button>
+          <button class="btn-primary" onclick="goStep(3)">
+            <span class="lang-th">ถัดไป →</span>
+            <span class="lang-en">Next →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Target Tier -->
+      <div class="step-panel" id="step3">
+        <div class="step-heading lang-th">โรงเรียนเป้าหมายของคุณ</div>
+        <div class="step-heading lang-en">Your Target School Tier</div>
+        <div class="step-sub lang-th">เลือกระดับโรงเรียนที่คุณต้องการสมัคร</div>
+        <div class="step-sub lang-en">Select the level of school you are aiming for.</div>
+
+        <div class="chip-grid" id="tier-chips">
+          <div class="chip" onclick="selectTier('elite')">
+            <strong>Elite</strong> — Eton, Harrow, Winchester
+          </div>
+          <div class="chip" onclick="selectTier('top20')">
+            <strong>Top 20</strong> — Marlborough, Charterhouse, Rugby
+          </div>
+          <div class="chip" onclick="selectTier('top50')">
+            <strong>Top 50</strong> — Bromsgrove, Millfield, Rossall
+          </div>
+          <div class="chip" onclick="selectTier('any')">
+            <span class="lang-th"><strong>โรงเรียนดี</strong> — โรงเรียนประจำที่มีคุณภาพ</span>
+            <span class="lang-en"><strong>Any Good School</strong> — Quality UK boarding school</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goStep(2)">
+            <span class="lang-th">← ย้อนกลับ</span>
+            <span class="lang-en">← Back</span>
+          </button>
+          <button class="btn-primary" onclick="goStep(4)">
+            <span class="lang-th">ถัดไป →</span>
+            <span class="lang-en">Next →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Timeline -->
+      <div class="step-panel" id="step4">
+        <div class="step-heading lang-th">เหลือเวลาเตรียมตัวเท่าไหร่?</div>
+        <div class="step-heading lang-en">How Long Until the Exam?</div>
+        <div class="step-sub lang-th">เวลายิ่งมาก ยิ่งสามารถปรับแผนได้มากขึ้น</div>
+        <div class="step-sub lang-en">The more time available, the more targeted a preparation plan can be built.</div>
+
+        <div class="chip-grid" id="timeline-chips">
+          <div class="chip" onclick="selectTimeline(6)">
+            <span class="lang-th">6 เดือน</span>
+            <span class="lang-en">6 Months</span>
+          </div>
+          <div class="chip" onclick="selectTimeline(12)">
+            <span class="lang-th">12 เดือน</span>
+            <span class="lang-en">12 Months</span>
+          </div>
+          <div class="chip" onclick="selectTimeline(18)">
+            <span class="lang-th">18 เดือน</span>
+            <span class="lang-en">18 Months</span>
+          </div>
+          <div class="chip" onclick="selectTimeline(24)">
+            <span class="lang-th">24+ เดือน</span>
+            <span class="lang-en">24+ Months</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goStep(3)">
+            <span class="lang-th">← ย้อนกลับ</span>
+            <span class="lang-en">← Back</span>
+          </button>
+          <button class="btn-primary" onclick="calculateResults()">
+            <span class="lang-th">ดูผลลัพธ์ →</span>
+            <span class="lang-en">See Results →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Results -->
+      <div class="step-panel" id="step5">
+        <div class="step-heading lang-th">ผลการประเมินความพร้อม</div>
+        <div class="step-heading lang-en">Your Readiness Assessment</div>
+        <div class="step-sub lang-th">อ้างอิงจากคำตอบของคุณ นี่คือภาพรวมความพร้อมในปัจจุบัน</div>
+        <div class="step-sub lang-en">Based on your inputs, here is your current readiness profile.</div>
+
+        <!-- Score Ring -->
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#B8962E" stroke-width="10"
+              stroke-dasharray="314" stroke-dashoffset="314"
+              stroke-linecap="round" transform="rotate(-90 60 60)"
+              id="score-arc" style="transition: stroke-dashoffset 1.2s ease;"/>
+          </svg>
+          <div class="score-number" id="score-number">0%</div>
+          <div class="score-subtitle">
+            <span class="lang-th">คะแนนความพร้อมโดยรวม</span>
+            <span class="lang-en">Overall Readiness Score</span>
+          </div>
+          <div class="score-verdict" id="score-verdict"></div>
+        </div>
+
+        <!-- Subject Bar Chart -->
+        <div class="section-label" style="justify-content:flex-start; margin-bottom:20px;">
+          <span class="lang-th">· ผลรายวิชา ·</span>
+          <span class="lang-en">· Subject Breakdown ·</span>
+        </div>
+        <div class="subject-results" id="subject-results">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Insights Card -->
+        <div class="insight-card" id="insight-card">
+          <h3>
+            <span class="lang-th">แผนการเตรียมตัว</span>
+            <span class="lang-en">Preparation Insights</span>
+          </h3>
+          <div class="insight-row" id="insight-row">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Priority Subjects -->
+        <div class="section-label" style="justify-content:flex-start; margin-bottom:16px; margin-top:32px;">
+          <span class="lang-th">· วิชาที่ต้องเน้น ·</span>
+          <span class="lang-en">· Priority Focus Areas ·</span>
+        </div>
+        <ul class="priority-list" id="priority-list">
+          <!-- Injected by JS -->
+        </ul>
+
+        <!-- Inline LINE CTA -->
+        <div class="inline-line">
+          <div>
+            <h4>
+              <span class="lang-th">นัดประเมิน Gap Analysis ฟรี ผ่าน LINE</span>
+              <span class="lang-en">Book a Free Gap Analysis Session on LINE</span>
+            </h4>
+            <p>
+              <span class="lang-th">ที่ปรึกษาของเราวิเคราะห์ผลและวางแผนเตรียมสอบให้ลูกโดยเฉพาะ</span>
+              <span class="lang-en">Our consultant will analyse your results and build a personalised exam preparation plan.</span>
+            </p>
+          </div>
+          <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;">
+            <span class="lang-th">เพิ่ม LINE ฟรี</span>
+            <span class="lang-en">Add LINE Now</span>
+          </a>
+        </div>
+
+        <div class="btn-row" style="margin-top:8px;">
+          <button class="btn-secondary" onclick="resetTool()">
+            <span class="lang-th">← เริ่มใหม่</span>
+            <span class="lang-en">← Start Again</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /tool-card -->
+  </div><!-- /container -->
+</div><!-- /tool-body -->
+
+<!-- LINE CTA -->
+<div class="line-section">
+  <div class="container">
+    <div class="section-label">
+      <span class="lang-th">ปรึกษาฟรี</span>
+      <span class="lang-en">Free Consultation</span>
+    </div>
+    <h2>
+      <span class="lang-th">พูดคุยกับที่ปรึกษา LINKEDU</span>
+      <span class="lang-en">Talk to a LINKEDU Consultant</span>
+    </h2>
+    <p>
+      <span class="lang-th">เราช่วยนักเรียนไทยสอบเข้าโรงเรียนประจำอังกฤษมาหลายปี ปรึกษาฟรีไม่มีค่าใช้จ่าย</span>
+      <span class="lang-en">We have helped Thai students gain entry to top UK boarding schools. Free consultation, no obligation.</span>
+    </p>
+    <div class="line-handle">LINE: @linkedu.th</div>
+    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-line">
+      <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+      <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <span>LINKEDU</span> Overseas Education &nbsp;|&nbsp; Part of the <span>Beacon Group</span> &nbsp;|&nbsp; LINE @linkedu.th
+  </div>
+</footer>
+
+<script>
+  // ---- State ----
+  let state = {
+    entryLevel: null,
+    subjects: {},
+    tier: null,
+    timeline: null
+  };
+
+  const subjectsByLevel = {
+    '11plus': [
+      { id: 'english', th: 'ภาษาอังกฤษ', en: 'English Language' },
+      { id: 'maths', th: 'คณิตศาสตร์', en: 'Mathematics' },
+      { id: 'verbal', th: 'Verbal Reasoning', en: 'Verbal Reasoning' },
+      { id: 'nonverbal', th: 'Non-Verbal Reasoning', en: 'Non-Verbal Reasoning' }
+    ],
+    '13plus': [
+      { id: 'english', th: 'ภาษาอังกฤษ', en: 'English Language' },
+      { id: 'maths', th: 'คณิตศาสตร์', en: 'Mathematics' },
+      { id: 'science', th: 'วิทยาศาสตร์', en: 'Science' },
+      { id: 'humanities', th: 'ประวัติศาสตร์ / ภูมิศาสตร์', en: 'History / Geography' },
+      { id: 'language', th: 'ภาษาต่างประเทศ (ละติน/ฝรั่งเศส)', en: 'Latin / French' },
+      { id: 'rs', th: 'Religious Studies', en: 'Religious Studies' }
+    ],
+    '16plus': [
+      { id: 'alevel1', th: 'A-Level วิชาที่ 1', en: 'A-Level Subject 1' },
+      { id: 'alevel2', th: 'A-Level วิชาที่ 2', en: 'A-Level Subject 2' },
+      { id: 'alevel3', th: 'A-Level วิชาที่ 3', en: 'A-Level Subject 3' },
+      { id: 'ielts', th: 'ระดับภาษาอังกฤษ (IELTS เทียบเท่า)', en: 'English Level (IELTS equivalent)' }
+    ],
+    'year12': [
+      { id: 'alevel1', th: 'A-Level วิชาที่ 1', en: 'A-Level Subject 1' },
+      { id: 'alevel2', th: 'A-Level วิชาที่ 2', en: 'A-Level Subject 2' },
+      { id: 'ielts', th: 'ระดับภาษาอังกฤษ (IELTS เทียบเท่า)', en: 'English Level (IELTS equivalent)' },
+      { id: 'interview', th: 'ทักษะการสัมภาษณ์', en: 'Interview Skills' }
+    ]
+  };
+
+  const tierThresholds = {
+    elite: 80, top20: 70, top50: 60, any: 50
+  };
+
+  const levelLabels = {
+    th: ['', 'ต่ำมาก', 'ต่ำกว่าเกณฑ์', 'พอใช้', 'ดี', 'ดีมาก'],
+    en: ['', 'Very Weak', 'Below Standard', 'Adequate', 'Good', 'Excellent']
+  };
+
+  function setLang(l) {
+    document.documentElement.setAttribute('lang', l);
+    document.getElementById('btn-th').classList.toggle('active', l === 'th');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    // Refresh slider labels if on step 2
+    const sliders = document.querySelectorAll('.subject-slider');
+    sliders.forEach(s => updateSliderLabel(s));
+  }
+
+  function selectEntry(level) {
+    state.entryLevel = level;
+    document.querySelectorAll('.entry-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('ec-' + level).classList.add('selected');
+  }
+
+  function selectTier(t) {
+    state.tier = t;
+    document.querySelectorAll('#tier-chips .chip').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+  }
+
+  function selectTimeline(months) {
+    state.timeline = months;
+    document.querySelectorAll('#timeline-chips .chip').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+  }
+
+  function goStep(n) {
+    if (n === 2 && !state.entryLevel) {
+      alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกระดับการสอบก่อน' : 'Please select an entry level first.');
+      return;
+    }
+    if (n === 3 && Object.keys(state.subjects).length === 0) {
+      // default all to 3
+      const subs = subjectsByLevel[state.entryLevel] || [];
+      subs.forEach(s => { if (!state.subjects[s.id]) state.subjects[s.id] = 3; });
+    }
+    if (n === 4 && !state.tier) {
+      alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกโรงเรียนเป้าหมายก่อน' : 'Please select a target tier first.');
+      return;
+    }
+
+    // Build step 2 sliders if needed
+    if (n === 2) buildSliders();
+
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+
+    // Update step bar
+    const bars = ['sb1','sb2','sb3','sb4','sb5'];
+    bars.forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active', 'done');
+      if (i + 1 === n) el.classList.add('active');
+      else if (i + 1 < n) el.classList.add('done');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function buildSliders() {
+    const lang = document.documentElement.lang;
+    const subs = subjectsByLevel[state.entryLevel] || [];
+    const container = document.getElementById('subject-sliders');
+    container.innerHTML = '';
+    subs.forEach(s => {
+      const val = state.subjects[s.id] || 3;
+      const row = document.createElement('div');
+      row.className = 'subject-row';
+      row.innerHTML = `
+        <div class="subject-row-header">
+          <div class="subject-name">
+            <span class="lang-th">${s.th}</span>
+            <span class="lang-en">${s.en}</span>
+          </div>
+          <div class="subject-level-label" id="lbl-${s.id}"></div>
+        </div>
+        <input type="range" class="subject-slider" min="1" max="5" step="1" value="${val}"
+          id="sl-${s.id}" data-subject="${s.id}" oninput="onSlider(this)">
+        <div class="slider-labels">
+          <span class="lang-th">ต่ำมาก</span><span class="lang-en">Very Weak</span>
+          <span class="lang-th">ดีมาก</span><span class="lang-en">Excellent</span>
+        </div>`;
+      container.appendChild(row);
+      // Set hidden classes
+      updateSliderLabel(row.querySelector('.subject-slider'));
+    });
+  }
+
+  function onSlider(el) {
+    state.subjects[el.dataset.subject] = parseInt(el.value);
+    updateSliderLabel(el);
+  }
+
+  function updateSliderLabel(el) {
+    if (!el) return;
+    const lang = document.documentElement.lang;
+    const val = parseInt(el.value);
+    const lbl = document.getElementById('lbl-' + el.dataset.subject);
+    if (lbl) lbl.textContent = levelLabels[lang][val];
+  }
+
+  function calculateResults() {
+    if (!state.timeline) {
+      alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกระยะเวลาก่อน' : 'Please select a timeline first.');
+      return;
+    }
+
+    // Collect final slider values
+    const subs = subjectsByLevel[state.entryLevel] || [];
+    subs.forEach(s => {
+      const el = document.getElementById('sl-' + s.id);
+      if (el) state.subjects[s.id] = parseInt(el.value);
+    });
+
+    goStep(5);
+    renderResults();
+  }
+
+  function renderResults() {
+    const subs = subjectsByLevel[state.entryLevel] || [];
+    const tierThresh = tierThresholds[state.tier] || 60;
+
+    // Compute subject scores vs threshold
+    // Each subject: score = (val/5)*100. Gap = tierThresh - score
+    let totalPct = 0;
+    const subResults = subs.map(s => {
+      const raw = state.subjects[s.id] || 3;
+      const pct = Math.round((raw / 5) * 100);
+      const gap = tierThresh - pct;
+      let status = 'green';
+      if (gap > 25) status = 'red';
+      else if (gap > 0) status = 'amber';
+      totalPct += pct;
+      return { ...s, pct, gap, status };
+    });
+
+    const avgPct = subs.length ? Math.round(totalPct / subs.length) : 0;
+
+    // Timeline bonus (more time = slightly better projected score)
+    const timelineBonus = state.timeline >= 18 ? 5 : state.timeline >= 12 ? 3 : 0;
+    const displayPct = Math.min(100, avgPct + timelineBonus);
+
+    // Score arc
+    const arc = document.getElementById('score-arc');
+    const circumference = 314;
+    setTimeout(() => {
+      arc.style.strokeDashoffset = circumference - (circumference * displayPct / 100);
+    }, 200);
+
+    // Score number
+    let count = 0;
+    const numEl = document.getElementById('score-number');
+    const interval = setInterval(() => {
+      count = Math.min(count + 2, displayPct);
+      numEl.textContent = count + '%';
+      if (count >= displayPct) clearInterval(interval);
+    }, 20);
+
+    // Verdict
+    const verdictEl = document.getElementById('score-verdict');
+    const isReady = displayPct >= tierThresh;
+    const lang = document.documentElement.lang;
+    if (displayPct >= 80) {
+      verdictEl.textContent = lang === 'th' ? 'พร้อมมาก — ปรับแผนให้เข้มข้นขึ้นได้เลย' : 'Strong Foundation — Ready to intensify preparation';
+      verdictEl.style.color = '#4a7c59';
+    } else if (displayPct >= 60) {
+      verdictEl.textContent = lang === 'th' ? 'พอใช้ — มีช่องว่างบางวิชาที่ต้องเสริม' : 'On Track — Some subjects need targeted support';
+      verdictEl.style.color = '#B8962E';
+    } else {
+      verdictEl.textContent = lang === 'th' ? 'ต้องเสริมมาก — แนะนำเริ่มวางแผนเร็วๆ นี้' : 'Significant Gaps — Start planning soon';
+      verdictEl.style.color = '#9e3030';
+    }
+
+    // Subject bars
+    const srContainer = document.getElementById('subject-results');
+    srContainer.innerHTML = '';
+    subResults.forEach(s => {
+      const row = document.createElement('div');
+      row.className = 'subject-result-row';
+      const statusText = {
+        green: { th: 'พร้อมแล้ว', en: 'Ready' },
+        amber: { th: 'ต้องเสริม', en: 'Needs Work' },
+        red: { th: 'ช่องว่างใหญ่', en: 'Significant Gap' }
+      }[s.status];
+      row.innerHTML = `
+        <div class="sr-dot ${s.status}"></div>
+        <div class="sr-name">
+          <span class="lang-th">${s.th}</span>
+          <span class="lang-en">${s.en}</span>
+        </div>
+        <div class="sr-bar-wrap">
+          <div class="sr-bar ${s.status}" style="width:0%" data-target="${s.pct}%"></div>
+        </div>
+        <div class="sr-status ${s.status}">
+          <span class="lang-th">${statusText.th}</span>
+          <span class="lang-en">${statusText.en}</span>
+        </div>`;
+      srContainer.appendChild(row);
+    });
+    // Animate bars
+    setTimeout(() => {
+      document.querySelectorAll('.sr-bar').forEach(b => {
+        b.style.transition = 'width 0.9s ease';
+        b.style.width = b.dataset.target;
+      });
+    }, 300);
+
+    // Insights
+    const redCount = subResults.filter(s => s.status === 'red').length;
+    const amberCount = subResults.filter(s => s.status === 'amber').length;
+    const hoursBase = state.tier === 'elite' ? 300 : state.tier === 'top20' ? 220 : state.tier === 'top50' ? 160 : 100;
+    const hoursGap = (redCount * 40) + (amberCount * 20);
+    const totalHours = Math.min(hoursBase + hoursGap, 480);
+    const weeksAvail = state.timeline * 4;
+    const hrsPerWeek = Math.ceil(totalHours / weeksAvail);
+
+    const insightRow = document.getElementById('insight-row');
+    insightRow.innerHTML = `
+      <div class="insight-item">
+        <div class="insight-value">${totalHours}</div>
+        <div class="insight-label">
+          <span class="lang-th">ชั่วโมงติวที่แนะนำ</span>
+          <span class="lang-en">Recommended tutoring hours</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-value">${hrsPerWeek}</div>
+        <div class="insight-label">
+          <span class="lang-th">ชั่วโมงต่อสัปดาห์</span>
+          <span class="lang-en">Hours per week needed</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-value">${state.timeline}</div>
+        <div class="insight-label">
+          <span class="lang-th">เดือนที่เหลือ</span>
+          <span class="lang-en">Months available</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-value">${redCount + amberCount}</div>
+        <div class="insight-label">
+          <span class="lang-th">วิชาที่ต้องเสริม</span>
+          <span class="lang-en">Subjects needing support</span>
+        </div>
+      </div>`;
+
+    // Priority list
+    const priorityEl = document.getElementById('priority-list');
+    priorityEl.innerHTML = '';
+    const priorities = subResults.filter(s => s.status !== 'green').sort((a,b) => a.pct - b.pct);
+    if (priorities.length === 0) {
+      priorityEl.innerHTML = `<li><span class="lang-th">ดีมาก! ทุกวิชาพร้อมสำหรับระดับเป้าหมาย</span><span class="lang-en">Excellent! All subjects are at target level.</span></li>`;
+    } else {
+      priorities.slice(0, 4).forEach((s, i) => {
+        const tip = {
+          th: s.status === 'red' ? 'ต้องการแผนเสริมพิเศษด่วน' : 'ควรเพิ่มชั่วโมงในวิชานี้',
+          en: s.status === 'red' ? 'Requires intensive focused support immediately' : 'Increase practice hours in this area'
+        };
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="priority-num">${i+1}</div>
+          <div>
+            <strong><span class="lang-th">${s.th}</span><span class="lang-en">${s.en}</span></strong>
+            — <span class="lang-th">${tip.th}</span><span class="lang-en">${tip.en}</span>
+          </div>`;
+        priorityEl.appendChild(li);
+      });
+    }
+  }
+
+  function resetTool() {
+    state = { entryLevel: null, subjects: {}, tier: null, timeline: null };
+    document.querySelectorAll('.entry-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    goStep(1);
+  }
+
+  // Init
+  document.documentElement.setAttribute('lang', 'th');
+</script>
+</body>
+</html>

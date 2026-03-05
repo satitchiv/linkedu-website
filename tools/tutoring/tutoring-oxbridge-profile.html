@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKEDU — Oxbridge Academic Profile Builder | สร้างโปรไฟล์เพื่อเข้า Oxford & Cambridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark: #1a1a1a;
+  --cream: #f5f0e8;
+  --gold: #B8962E;
+  --gold-light: #d4a93a;
+  --gold-faint: rgba(184,150,46,0.12);
+}
+html { scroll-behavior: smooth; }
+body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); min-width:320px; line-height:1.6; }
+h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:400; }
+html[lang="th"] .lang-en { display:none !important; }
+html[lang="en"] .lang-th { display:none !important; }
+
+/* ── Header ── */
+#site-header {
+  position:sticky; top:0; z-index:200;
+  background:var(--dark); border-bottom:1px solid rgba(184,150,46,0.3);
+  height:64px; display:flex; align-items:center; padding:0 24px; gap:24px;
+}
+.logo-wrap { flex-shrink:0; }
+#site-header nav { display:flex; gap:20px; flex:1; justify-content:center; flex-wrap:wrap; }
+#site-header nav a { color:var(--cream); text-decoration:none; font-size:0.82rem; font-weight:500; letter-spacing:0.04em; opacity:0.8; transition:opacity 0.2s; }
+#site-header nav a:hover { opacity:1; color:var(--gold); }
+.lang-toggle { display:flex; gap:6px; flex-shrink:0; }
+.lang-btn { background:none; border:1px solid rgba(245,240,232,0.25); color:var(--cream); border-radius:4px; padding:4px 10px; font-size:0.78rem; font-family:'Inter',sans-serif; cursor:pointer; transition:all 0.2s; opacity:0.6; }
+.lang-btn.active { background:var(--gold); border-color:var(--gold); color:var(--dark); opacity:1; font-weight:600; }
+
+/* ── Hero ── */
+.hero { background:var(--dark); padding:72px 24px 56px; text-align:center; position:relative; overflow:hidden; }
+.hero-bg-text {
+  position:absolute; font-family:'Playfair Display',serif; font-size:22vw; color:rgba(184,150,46,0.04);
+  top:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap; pointer-events:none; user-select:none;
+}
+.section-label {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:11px; letter-spacing:0.2em; color:var(--gold); font-family:'Inter',sans-serif;
+  font-weight:500; text-transform:uppercase; margin-bottom:20px;
+}
+.section-label::before,.section-label::after { content:''; display:inline-block; width:28px; height:1px; background:var(--gold); }
+.hero h1 { font-size:clamp(1.9rem,4.5vw,2.8rem); color:var(--cream); line-height:1.2; margin-bottom:16px; }
+.hero p { font-size:1rem; color:rgba(245,240,232,0.7); max-width:600px; margin:0 auto 32px; }
+.hero-badges { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.badge { background:var(--gold-faint); border:1px solid rgba(184,150,46,0.3); border-radius:20px; padding:6px 16px; font-size:0.8rem; color:var(--gold); letter-spacing:0.05em; }
+
+/* ── Container ── */
+.container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+/* ── Step progress ── */
+.step-nav {
+  background:rgba(245,240,232,0.97); border-bottom:1px solid rgba(0,0,0,0.08);
+  position:sticky; top:64px; z-index:100; padding:12px 24px;
+  display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;
+}
+.step-pip { display:flex; align-items:center; gap:8px; font-size:0.78rem; color:rgba(26,26,26,0.35); font-weight:500; }
+.step-pip .num { width:26px; height:26px; border-radius:50%; border:1px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:0.75rem; flex-shrink:0; transition:all 0.3s; }
+.step-pip.done { color:var(--gold); }
+.step-pip.done .num { background:var(--gold); border-color:var(--gold); color:var(--dark); }
+.step-pip.active { color:var(--dark); }
+.step-pip.active .num { background:var(--dark); border-color:var(--dark); color:var(--cream); }
+.step-connector { width:28px; height:1px; background:rgba(184,150,46,0.25); flex-shrink:0; }
+
+/* ── Form sections ── */
+.form-section { padding:56px 0; border-bottom:1px solid rgba(0,0,0,0.06); }
+.form-section.dark { background:var(--dark); color:var(--cream); }
+.form-section .inner { max-width:800px; margin:0 auto; }
+.step-badge { display:inline-block; font-family:'Playfair Display',serif; font-size:0.85rem; color:var(--gold); border:1px solid rgba(184,150,46,0.4); padding:4px 14px; border-radius:4px; margin-bottom:18px; letter-spacing:0.08em; }
+.section-title { font-size:1.6rem; margin-bottom:8px; }
+.section-subtitle { font-size:0.9rem; opacity:0.6; margin-bottom:28px; }
+
+/* ── Chips ── */
+.chips { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.chip { padding:10px 20px; border-radius:6px; cursor:pointer; font-size:0.85rem; border:1px solid rgba(184,150,46,0.35); background:transparent; color:var(--gold); font-family:'Inter',sans-serif; transition:all 0.2s; user-select:none; }
+.chip:hover { background:var(--gold-faint); }
+.chip.selected { background:var(--gold); color:var(--dark); border-color:var(--gold); font-weight:600; }
+.dark .chip { border-color:rgba(184,150,46,0.4); color:var(--gold); }
+.dark .chip.selected { background:var(--gold); color:var(--dark); }
+.chip-sub { display:block; font-size:0.72rem; opacity:0.65; margin-top:3px; }
+
+/* ── Field groups ── */
+.field-group { margin-bottom:28px; }
+label.field-label { display:block; font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; opacity:0.7; }
+.dark label.field-label { opacity:0.6; color:var(--cream); }
+.text-input {
+  width:100%; background:var(--cream); border:1px solid rgba(0,0,0,0.15);
+  border-radius:6px; padding:12px 16px; font-size:0.9rem; font-family:'Inter',sans-serif;
+  color:var(--dark); transition:border-color 0.2s;
+}
+.text-input:focus { outline:none; border-color:var(--gold); }
+.dark .text-input { background:rgba(245,240,232,0.08); border-color:rgba(184,150,46,0.3); color:var(--cream); }
+.dark .text-input::placeholder { color:rgba(245,240,232,0.35); }
+
+/* ── Checkbox list ── */
+.check-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+.check-item { display:flex; align-items:center; gap:10px; font-size:0.88rem; cursor:pointer; user-select:none; }
+.check-item input[type="checkbox"] { accent-color:var(--gold); width:16px; height:16px; cursor:pointer; flex-shrink:0; }
+.dark .check-item { color:var(--cream); }
+
+/* ── Radio row ── */
+.radio-row { display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; }
+.radio-item { display:flex; align-items:center; gap:8px; font-size:0.88rem; cursor:pointer; }
+.radio-item input[type="radio"] { accent-color:var(--gold); width:16px; height:16px; flex-shrink:0; }
+.dark .radio-item { color:var(--cream); }
+
+/* ── Two column form ── */
+.form-two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+/* ── Buttons ── */
+.btn-primary { background:var(--gold); color:var(--dark); border:none; border-radius:6px; padding:14px 28px; font-family:'Inter',sans-serif; font-weight:600; font-size:0.88rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; display:inline-block; text-decoration:none; }
+.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
+.btn-secondary { background:transparent; color:var(--gold); border:1px solid var(--gold); border-radius:6px; padding:14px 28px; font-family:'Inter',sans-serif; font-weight:500; font-size:0.88rem; letter-spacing:0.08em; cursor:pointer; transition:all 0.2s; display:inline-block; text-decoration:none; }
+.btn-secondary:hover { background:var(--gold-faint); }
+.btn-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
+
+/* ── Results ── */
+#results-section { display:none; background:var(--cream); padding:56px 0; }
+
+.results-top {
+  background:var(--dark); border-radius:12px; padding:32px 36px; margin-bottom:32px;
+}
+.results-top h2 { font-size:1.8rem; color:var(--cream); margin-bottom:6px; }
+.results-top p { font-size:0.9rem; color:rgba(245,240,232,0.6); }
+.probability-band {
+  display:inline-block; padding:6px 18px; border-radius:20px; margin-top:14px;
+  font-size:0.85rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+}
+.band-very-strong { background:rgba(100,180,80,0.2); color:#3a7a20; border:1px solid rgba(100,180,80,0.35); }
+.band-competitive { background:rgba(184,150,46,0.2); color:var(--gold); border:1px solid rgba(184,150,46,0.4); }
+.band-developing { background:rgba(220,140,40,0.15); color:#8a4a00; border:1px solid rgba(220,140,40,0.3); }
+.band-significant-work { background:rgba(200,80,60,0.15); color:#7a2010; border:1px solid rgba(200,80,60,0.3); }
+
+/* ── Progress bars ── */
+.profile-categories { margin-bottom:32px; }
+.category-row { margin-bottom:20px; }
+.cat-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.cat-label { font-size:0.9rem; font-weight:600; }
+.cat-scores { display:flex; gap:16px; font-size:0.8rem; }
+.cat-current { color:var(--gold); }
+.cat-target { color:rgba(26,26,26,0.5); }
+.bar-track { background:rgba(0,0,0,0.07); border-radius:4px; height:10px; position:relative; overflow:visible; }
+.bar-current { height:100%; border-radius:4px; background:var(--gold); transition:width 0.8s ease; position:relative; }
+.bar-target-line { position:absolute; top:-4px; width:2px; height:18px; background:var(--dark); border-radius:2px; }
+.bar-target-label { position:absolute; top:-22px; font-size:0.68rem; letter-spacing:0.05em; color:rgba(26,26,26,0.5); transform:translateX(-50%); white-space:nowrap; }
+
+/* ── Gap callout ── */
+.gap-box {
+  background:var(--dark); border-radius:8px; padding:24px 28px; margin-bottom:28px;
+}
+.gap-box h3 { color:var(--gold); font-size:1.1rem; margin-bottom:16px; }
+.gap-item { display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; font-size:0.88rem; color:rgba(245,240,232,0.8); }
+.gap-item::before { content:'!'; width:20px; height:20px; border-radius:50%; background:var(--gold); color:var(--dark); font-weight:700; font-size:0.72rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+
+/* ── Action plan ── */
+.action-plan { margin-bottom:32px; }
+.action-plan h3 { font-size:1.3rem; margin-bottom:20px; }
+.timeline-cols { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.timeline-col { background:var(--cream); border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.timeline-col .period { font-size:0.7rem; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; font-weight:600; margin-bottom:10px; }
+.timeline-col ul { list-style:none; }
+.timeline-col li { font-size:0.85rem; padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06); display:flex; gap:8px; align-items:flex-start; }
+.timeline-col li:last-child { border-bottom:none; }
+.timeline-col li::before { content:'→'; color:var(--gold); flex-shrink:0; }
+
+/* ── Requirement box ── */
+.req-box { background:var(--gold-faint); border:1px solid rgba(184,150,46,0.3); border-radius:8px; padding:20px 24px; margin-bottom:28px; }
+.req-box h3 { font-size:1rem; margin-bottom:14px; color:var(--dark); }
+.req-row { display:flex; gap:10px; align-items:center; margin-bottom:8px; font-size:0.87rem; }
+.req-pill { background:var(--dark); color:var(--cream); padding:3px 10px; border-radius:4px; font-size:0.75rem; font-weight:600; white-space:nowrap; }
+
+/* ── Inline CTA ── */
+.inline-cta { background:var(--dark); border-radius:8px; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin:32px 0; }
+.inline-cta p { color:var(--cream); font-size:0.9rem; }
+
+/* ── LINE CTA ── */
+.line-cta-section { background:var(--dark); padding:56px 24px; text-align:center; }
+.line-cta-section h2 { color:var(--cream); font-size:1.8rem; margin-bottom:12px; }
+.line-cta-section p { color:rgba(245,240,232,0.65); margin-bottom:28px; font-size:0.95rem; }
+.line-handle { color:var(--gold); font-weight:600; font-size:1.1rem; display:block; margin-bottom:20px; }
+.btn-line { background:var(--gold); color:var(--dark); border:none; border-radius:6px; padding:14px 32px; font-family:'Inter',sans-serif; font-weight:700; font-size:0.9rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; }
+
+/* ── Footer ── */
+footer { background:var(--dark); padding:28px 24px; text-align:center; border-top:1px solid rgba(184,150,46,0.2); }
+footer p { color:rgba(245,240,232,0.35); font-size:0.78rem; letter-spacing:0.05em; }
+footer a { color:var(--gold); text-decoration:none; opacity:0.8; }
+
+/* ── Responsive ── */
+@media(max-width:768px) {
+  #site-header nav { display:none; }
+  .form-two-col { grid-template-columns:1fr; }
+  .timeline-cols { grid-template-columns:1fr; }
+  .check-list { grid-template-columns:1fr; }
+  .inline-cta { flex-direction:column; text-align:center; }
+}
+@media(max-width:480px) {
+  .hero { padding:48px 16px 40px; }
+  .form-section { padding:40px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header id="site-header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+    <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+  </div>
+  <nav>
+    <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
+    <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
+    <a href="../../prepare.html" class="active"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></a>
+  </nav>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-text">Ox</div>
+  <div class="section-label">
+    <span class="lang-th">· เครื่องมือพรีเมียม ·</span>
+    <span class="lang-en">· PREMIUM TOOL ·</span>
+  </div>
+  <h1>
+    <span class="lang-th">สร้างโปรไฟล์เพื่อเข้า Oxford & Cambridge</span>
+    <span class="lang-en">Oxbridge Academic Profile Builder</span>
+  </h1>
+  <p>
+    <span class="lang-th">เปรียบเทียบโปรไฟล์ปัจจุบันของนักเรียนกับเกณฑ์ที่ Oxford และ Cambridge ต้องการจริง — พร้อม roadmap ที่ชัดเจน</span>
+    <span class="lang-en">Compare your current academic profile against the exact Oxford and Cambridge requirements for your subject — with a clear roadmap to close the gap.</span>
+  </p>
+  <div class="hero-badges">
+    <span class="badge"><span class="lang-th">ข้อมูลจาก Oxford & Cambridge จริง</span><span class="lang-en">Real Oxbridge Requirements</span></span>
+    <span class="badge"><span class="lang-th">วิเคราะห์ช่องว่าง</span><span class="lang-en">Gap Analysis</span></span>
+    <span class="badge"><span class="lang-th">แผน 6 เดือน</span><span class="lang-en">6-Month Roadmap</span></span>
+  </div>
+</section>
+
+<!-- ── STEP NAV ── -->
+<div class="step-nav" id="step-nav">
+  <div class="step-pip active" id="pip-1"><div class="num">1</div><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">University</span></div>
+  <div class="step-connector"></div>
+  <div class="step-pip" id="pip-2"><div class="num">2</div><span class="lang-th">สาขาวิชา</span><span class="lang-en">Subject Area</span></div>
+  <div class="step-connector"></div>
+  <div class="step-pip" id="pip-3"><div class="num">3</div><span class="lang-th">โปรไฟล์ปัจจุบัน</span><span class="lang-en">Current Profile</span></div>
+</div>
+
+<!-- ── STEP 1: University ── -->
+<section class="form-section" id="step-1">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 01</div>
+      <h2 class="section-title">
+        <span class="lang-th">เป้าหมายมหาวิทยาลัยใด?</span>
+        <span class="lang-en">Which university are you targeting?</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">แต่ละสถาบันมีเกณฑ์และรูปแบบที่แตกต่างกันเล็กน้อย</span>
+        <span class="lang-en">Each institution has slightly different requirements and interview styles.</span>
+      </p>
+      <div class="chips" id="uni-chips">
+        <div class="chip" data-value="oxford" onclick="selectChip('uni-chips',this,'uni')">
+          <strong>Oxford</strong>
+          <span class="chip-sub"><span class="lang-th">University of Oxford</span><span class="lang-en">University of Oxford</span></span>
+        </div>
+        <div class="chip" data-value="cambridge" onclick="selectChip('uni-chips',this,'uni')">
+          <strong>Cambridge</strong>
+          <span class="chip-sub"><span class="lang-th">University of Cambridge</span><span class="lang-en">University of Cambridge</span></span>
+        </div>
+        <div class="chip" data-value="either" onclick="selectChip('uni-chips',this,'uni')">
+          <strong><span class="lang-th">ทั้งสอง</span><span class="lang-en">Either / Both</span></strong>
+          <span class="chip-sub"><span class="lang-th">วิเคราะห์ทั้งสองพร้อมกัน</span><span class="lang-en">Analyse for both simultaneously</span></span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="goToStep(2)">
+          <span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEP 2: Subject Area ── -->
+<section class="form-section dark" id="step-2" style="display:none">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 02</div>
+      <h2 class="section-title">
+        <span class="lang-th">สาขาวิชาที่สนใจ?</span>
+        <span class="lang-en">Which subject area?</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">เกณฑ์และการทดสอบแตกต่างกันมากตามสาขา</span>
+        <span class="lang-en">Requirements, admissions tests and interview style vary significantly by subject.</span>
+      </p>
+      <div class="chips" id="subject-chips" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:0;">
+        <div class="chip" data-value="medicine" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">แพทยศาสตร์</span><span class="lang-en">Medicine</span>
+          <span class="chip-sub">UCAT / BMAT</span>
+        </div>
+        <div class="chip" data-value="maths" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">คณิตศาสตร์</span><span class="lang-en">Mathematics</span>
+          <span class="chip-sub">MAT / STEP</span>
+        </div>
+        <div class="chip" data-value="physics" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">ฟิสิกส์</span><span class="lang-en">Physics</span>
+          <span class="chip-sub">PAT</span>
+        </div>
+        <div class="chip" data-value="chemistry" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">เคมี</span><span class="lang-en">Chemistry</span>
+          <span class="chip-sub">TSA / interview</span>
+        </div>
+        <div class="chip" data-value="biology" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">ชีววิทยา</span><span class="lang-en">Biology</span>
+          <span class="chip-sub">BioMedical</span>
+        </div>
+        <div class="chip" data-value="english" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">ภาษาอังกฤษ</span><span class="lang-en">English</span>
+          <span class="chip-sub">ELAT</span>
+        </div>
+        <div class="chip" data-value="history" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">ประวัติศาสตร์</span><span class="lang-en">History</span>
+          <span class="chip-sub">HAT / essay</span>
+        </div>
+        <div class="chip" data-value="law" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">กฎหมาย</span><span class="lang-en">Law</span>
+          <span class="chip-sub">LNAT</span>
+        </div>
+        <div class="chip" data-value="ppe" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">PPE</span><span class="lang-en">PPE</span>
+          <span class="chip-sub">TSA (Oxford)</span>
+        </div>
+        <div class="chip" data-value="economics" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">เศรษฐศาสตร์</span><span class="lang-en">Economics</span>
+          <span class="chip-sub">TSA / STEP</span>
+        </div>
+        <div class="chip" data-value="engineering" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">วิศวกรรมศาสตร์</span><span class="lang-en">Engineering</span>
+          <span class="chip-sub">PAT / ENGAA</span>
+        </div>
+        <div class="chip" data-value="cs" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">วิทยาการคอมพิวเตอร์</span><span class="lang-en">Computer Science</span>
+          <span class="chip-sub">MAT / TMUA</span>
+        </div>
+        <div class="chip" data-value="psychology" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">จิตวิทยา</span><span class="lang-en">Psychology</span>
+          <span class="chip-sub">Experimental</span>
+        </div>
+        <div class="chip" data-value="arts" onclick="selectChip('subject-chips',this,'subjectArea')">
+          <span class="lang-th">ศิลปกรรม / ดนตรี</span><span class="lang-en">Fine Art / Music</span>
+          <span class="chip-sub">Portfolio</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goToStep(1)"><span class="lang-th">← ย้อนกลับ</span><span class="lang-en">← Back</span></button>
+        <button class="btn-primary" onclick="goToStep(3)"><span class="lang-th">ถัดไป →</span><span class="lang-en">Next →</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEP 3: Current Profile ── -->
+<section class="form-section" id="step-3" style="display:none">
+  <div class="container">
+    <div class="inner">
+      <div class="step-badge">STEP 03</div>
+      <h2 class="section-title">
+        <span class="lang-th">โปรไฟล์การเรียนปัจจุบัน</span>
+        <span class="lang-en">Your Current Academic Profile</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="lang-th">กรอกข้อมูลเท่าที่มี — ถ้ายังไม่มีให้ประมาณหรือเว้นว่างไว้</span>
+        <span class="lang-en">Fill in what you have — estimate if predicted, or leave blank if not yet applicable.</span>
+      </p>
+
+      <!-- A-Levels / IB -->
+      <div class="field-group">
+        <label class="field-label"><span class="lang-th">คะแนน A-Level (ที่คาด/จริง)</span><span class="lang-en">A-Level Grades (Predicted or Actual)</span></label>
+        <input type="text" class="text-input" id="alevels" placeholder="e.g. A* A* A or A A B">
+        <div style="font-size:0.78rem;opacity:0.55;margin-top:6px">
+          <span class="lang-th">หรือระบุคะแนน IB ที่คาดการณ์ด้านล่าง หากไม่ได้เรียน A-Level</span>
+          <span class="lang-en">Or enter IB predicted score below if not doing A-Levels.</span>
+        </div>
+      </div>
+
+      <div class="form-two-col">
+        <div class="field-group">
+          <label class="field-label"><span class="lang-th">คะแนน IB (ถ้ามี)</span><span class="lang-en">IB Predicted Score (if IB)</span></label>
+          <input type="number" class="text-input" id="ib-score" placeholder="e.g. 40" min="24" max="45">
+        </div>
+        <div class="field-group">
+          <label class="field-label"><span class="lang-th">จำนวน GCSE 9/A* ที่ได้/คาด</span><span class="lang-en">Number of GCSE 9s / A*s (actual or predicted)</span></label>
+          <input type="number" class="text-input" id="gcse-stars" placeholder="e.g. 7" min="0" max="14">
+        </div>
+      </div>
+
+      <div class="form-two-col">
+        <div class="field-group">
+          <label class="field-label"><span class="lang-th">คะแนน IELTS (ถ้ามี)</span><span class="lang-en">IELTS Score (if applicable)</span></label>
+          <input type="number" class="text-input" id="ielts" placeholder="e.g. 7.5" min="4" max="9" step="0.5">
+        </div>
+        <div class="field-group">
+          <label class="field-label"><span class="lang-th">สถานะ Personal Statement</span><span class="lang-en">Personal Statement Status</span></label>
+          <div class="chips" id="ps-chips" style="flex-direction:column;gap:8px;margin-top:0;">
+            <div class="chip" data-value="drafted" style="padding:8px 16px;" onclick="selectChip('ps-chips',this,'psStatus')">
+              <span class="lang-th">เขียนเสร็จแล้ว (draft)</span><span class="lang-en">Drafted</span>
+            </div>
+            <div class="chip" data-value="outline" style="padding:8px 16px;" onclick="selectChip('ps-chips',this,'psStatus')">
+              <span class="lang-th">มีโครงสร้างแล้ว</span><span class="lang-en">Outline only</span>
+            </div>
+            <div class="chip" data-value="not-started" style="padding:8px 16px;" onclick="selectChip('ps-chips',this,'psStatus')">
+              <span class="lang-th">ยังไม่ได้เริ่ม</span><span class="lang-en">Not started</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supercurricular -->
+      <div class="field-group">
+        <label class="field-label"><span class="lang-th">กิจกรรม Supercurricular (เลือกทั้งหมดที่มี)</span><span class="lang-en">Supercurricular Activities (select all that apply)</span></label>
+        <ul class="check-list" id="supercurricular-list">
+          <li class="check-item"><input type="checkbox" id="sc-olympiad"><label for="sc-olympiad"><span class="lang-th">Academic Olympiads (เหรียญ/รางวัล)</span><span class="lang-en">Academic Olympiads (medal/prize)</span></label></li>
+          <li class="check-item"><input type="checkbox" id="sc-research"><label for="sc-research"><span class="lang-th">Research Projects / Extended Essay</span><span class="lang-en">Research Projects / Extended Essay</span></label></li>
+          <li class="check-item"><input type="checkbox" id="sc-lectures"><label for="sc-lectures"><span class="lang-th">เข้าร่วม University Lectures / Summer Schools</span><span class="lang-en">University Lectures / Summer Schools attended</span></label></li>
+          <li class="check-item"><input type="checkbox" id="sc-published"><label for="sc-published"><label for="sc-published"><span class="lang-th">Published Work / บทความวิชาการ</span><span class="lang-en">Published Work / Academic Writing</span></label></label></li>
+          <li class="check-item"><input type="checkbox" id="sc-awards"><label for="sc-awards"><span class="lang-th">รางวัลระดับชาติ/นานาชาติ</span><span class="lang-en">National / International Awards</span></label></li>
+          <li class="check-item"><input type="checkbox" id="sc-none"><label for="sc-none"><span class="lang-th">ยังไม่มี (none yet)</span><span class="lang-en">None yet</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Work experience -->
+      <div class="field-group">
+        <label class="field-label"><span class="lang-th">Work Experience ในสาขาที่สนใจ?</span><span class="lang-en">Work Experience / Shadowing related to your subject?</span></label>
+        <div class="radio-row">
+          <label class="radio-item"><input type="radio" name="workexp" value="yes"><span class="lang-th">มี (Yes)</span><span class="lang-en">Yes</span></label>
+          <label class="radio-item"><input type="radio" name="workexp" value="no"><span class="lang-th">ไม่มี (No)</span><span class="lang-en">No</span></label>
+        </div>
+      </div>
+
+      <!-- Interview prep -->
+      <div class="field-group">
+        <label class="field-label"><span class="lang-th">เตรียมสัมภาษณ์ถึงไหนแล้ว?</span><span class="lang-en">Interview Preparation Level</span></label>
+        <div class="chips" id="interview-chips">
+          <div class="chip" data-value="mock" onclick="selectChip('interview-chips',this,'interviewPrep')">
+            <span class="lang-th">เคย mock interview แล้ว</span><span class="lang-en">Done mock interviews</span>
+          </div>
+          <div class="chip" data-value="reading" onclick="selectChip('interview-chips',this,'interviewPrep')">
+            <span class="lang-th">กำลัง reading around subject</span><span class="lang-en">Reading around the subject</span>
+          </div>
+          <div class="chip" data-value="none" onclick="selectChip('interview-chips',this,'interviewPrep')">
+            <span class="lang-th">ยังไม่ได้เตรียม</span><span class="lang-en">Not started</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goToStep(2)"><span class="lang-th">← ย้อนกลับ</span><span class="lang-en">← Back</span></button>
+        <button class="btn-primary" onclick="buildProfile()">
+          <span class="lang-th">สร้างโปรไฟล์ →</span><span class="lang-en">Build My Profile →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESULTS ── -->
+<section id="results-section">
+  <div class="container">
+
+    <!-- Top summary -->
+    <div class="results-top" id="results-top">
+      <h2 id="res-title"></h2>
+      <p id="res-subtitle"></p>
+      <div id="res-band"></div>
+    </div>
+
+    <!-- Requirement box -->
+    <div class="req-box" id="req-box"></div>
+
+    <!-- Progress bars -->
+    <div class="profile-categories">
+      <div class="section-label" style="display:inline-flex;margin-bottom:20px;">
+        <span class="lang-th">· การประเมินโปรไฟล์ ·</span>
+        <span class="lang-en">· PROFILE ASSESSMENT ·</span>
+      </div>
+      <div id="category-bars"></div>
+    </div>
+
+    <!-- Gap callout -->
+    <div class="gap-box" id="gap-box">
+      <h3><span class="lang-th">ช่องว่างที่ต้องแก้ไข</span><span class="lang-en">Gaps to Address</span></h3>
+      <div id="gap-items"></div>
+    </div>
+
+    <!-- Action plan -->
+    <div class="action-plan">
+      <h3>
+        <span class="lang-th">แผนการดำเนินการ</span>
+        <span class="lang-en">Your Action Plan</span>
+      </h3>
+      <div class="timeline-cols" id="action-plan"></div>
+    </div>
+
+    <!-- Inline LINE CTA -->
+    <div class="inline-cta">
+      <div>
+        <p style="font-size:1rem;font-weight:600;margin-bottom:6px;">
+          <span class="lang-th">จองเซสชั่น Oxbridge Strategy — ปรึกษาครั้งแรกฟรี</span>
+          <span class="lang-en">Book Oxbridge Strategy Session — free initial consultation</span>
+        </p>
+        <p>
+          <span class="lang-th">ผู้เชี่ยวชาญ LINKEDU มีประสบการณ์นำนักเรียนไทยเข้า Oxford และ Cambridge โดยตรง</span>
+          <span class="lang-en">LINKEDU specialists have direct experience guiding Thai students into Oxford and Cambridge.</span>
+        </p>
+      </div>
+      <div style="flex-shrink:0;">
+        <a href="https://line.me/ti/p/@linkedu.th" target="_blank" class="btn-primary">
+          <span class="lang-th">ปรึกษาผ่าน LINE</span>
+          <span class="lang-en">Chat on LINE</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px;">
+      <button class="btn-secondary" onclick="resetTool()">
+        <span class="lang-th">เริ่มใหม่</span><span class="lang-en">Start Over</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINE CTA ── -->
+<section class="line-cta-section">
+  <div class="section-label" style="justify-content:center;display:flex;margin-bottom:20px;">
+    <span class="lang-th">· ติดต่อเรา ·</span>
+    <span class="lang-en">· CONTACT US ·</span>
+  </div>
+  <h2>
+    <span class="lang-th">เส้นทาง Oxford & Cambridge เริ่มที่นี่</span>
+    <span class="lang-en">Your Oxbridge Journey Starts Here</span>
+  </h2>
+  <p>
+    <span class="lang-th">LINKEDU มีผู้เชี่ยวชาญด้าน Oxbridge โดยเฉพาะ — วางแผนตั้งแต่ GCSE จนถึงวันสัมภาษณ์</span>
+    <span class="lang-en">LINKEDU has dedicated Oxbridge specialists — planning from GCSE through interview day.</span>
+  </p>
+  <span class="line-handle">@linkedu.th</span>
+  <a href="https://line.me/ti/p/@linkedu.th" target="_blank" class="btn-line">
+    <span class="lang-th">เพิ่ม LINE / Add LINE</span>
+    <span class="lang-en">เพิ่ม LINE / Add LINE</span>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 LINKEDU — <a href="../../about.html">Part of the Beacon Group</a></p>
+</footer>
+
+<script>
+/* ── State ── */
+const state = {
+  uni: null,
+  subjectArea: null,
+  psStatus: null,
+  interviewPrep: null,
+};
+
+/* ── Subject requirements database ── */
+const SUBJECT_REQS = {
+  medicine:    { grades:'A*A*A',  test:'UCAT + BMAT (Oxford)',  gcse:8,  ielts:7.0, label:'Medicine' },
+  maths:       { grades:'A*A*A',  test:'MAT (Oxford) / STEP (Cambridge)', gcse:7, ielts:6.5, label:'Mathematics' },
+  physics:     { grades:'A*A*A',  test:'PAT (Oxford) / NSAA (Cambridge)', gcse:7, ielts:6.5, label:'Physics' },
+  chemistry:   { grades:'A*A*A',  test:'TSA / interview',       gcse:7,  ielts:6.5, label:'Chemistry' },
+  biology:     { grades:'A*AA',   test:'BioMedical / NSAA',     gcse:6,  ielts:6.5, label:'Biology' },
+  english:     { grades:'A*AA',   test:'ELAT (Oxford) / essay (Cambridge)', gcse:6, ielts:7.5, label:'English' },
+  history:     { grades:'A*AA',   test:'HAT (Oxford) / essay',  gcse:6,  ielts:7.0, label:'History' },
+  law:         { grades:'AAA',    test:'LNAT',                  gcse:6,  ielts:7.0, label:'Law' },
+  ppe:         { grades:'A*AA',   test:'TSA (Oxford)',          gcse:6,  ielts:7.0, label:'PPE' },
+  economics:   { grades:'A*AA',   test:'TSA / STEP',            gcse:6,  ielts:6.5, label:'Economics' },
+  engineering: { grades:'A*A*A',  test:'PAT / ENGAA',           gcse:7,  ielts:6.5, label:'Engineering' },
+  cs:          { grades:'A*A*A',  test:'MAT / TMUA',            gcse:7,  ielts:6.5, label:'Computer Science' },
+  psychology:  { grades:'A*AA',   test:'TSA / interview',       gcse:5,  ielts:6.5, label:'Psychology' },
+  arts:        { grades:'AAA',    test:'Portfolio + interview',  gcse:5,  ielts:6.5, label:'Fine Art / Music' },
+};
+
+/* ── Language helper ── */
+function setLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+function isEn() { return document.documentElement.getAttribute('lang') === 'en'; }
+
+/* ── Chip selection ── */
+function selectChip(groupId, el, stateKey) {
+  document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state[stateKey] = el.dataset.value;
+}
+
+/* ── Step navigation ── */
+function goToStep(n) {
+  if (n === 2 && !state.uni) {
+    alert(isEn() ? 'Please select a university.' : 'กรุณาเลือกมหาวิทยาลัย');
+    return;
+  }
+  if (n === 3 && !state.subjectArea) {
+    alert(isEn() ? 'Please select a subject area.' : 'กรุณาเลือกสาขาวิชา');
+    return;
+  }
+  [1,2,3].forEach(i => {
+    document.getElementById('step-' + i).style.display = (i === n) ? '' : 'none';
+  });
+  ['pip-1','pip-2','pip-3'].forEach((id, idx) => {
+    const pip = document.getElementById(id);
+    pip.classList.remove('active','done');
+    if (idx + 1 < n) pip.classList.add('done');
+    if (idx + 1 === n) pip.classList.add('active');
+  });
+  document.getElementById('results-section').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Score helpers ── */
+function scoreAcademic() {
+  const aText = (document.getElementById('alevels').value || '').toUpperCase().trim();
+  const ibVal = parseInt(document.getElementById('ib-score').value || '0');
+  const gcse = parseInt(document.getElementById('gcse-stars').value || '0');
+  let score = 0;
+  // A-level scoring
+  const counts = { 'A*': (aText.match(/A\*/g)||[]).length, 'A': (aText.replace(/A\*/g,'').match(/A/g)||[]).length, 'B': (aText.match(/B/g)||[]).length };
+  score += counts['A*'] * 33 + counts['A'] * 22 + counts['B'] * 11;
+  score = Math.min(score, 90); // max from A-levels
+  // IB bonus
+  if (ibVal >= 42) score = Math.max(score, 85);
+  else if (ibVal >= 38) score = Math.max(score, 70);
+  else if (ibVal >= 34) score = Math.max(score, 55);
+  // GCSE bonus
+  if (gcse >= 8) score = Math.min(score + 10, 100);
+  else if (gcse >= 6) score = Math.min(score + 6, 100);
+  else if (gcse >= 4) score = Math.min(score + 3, 100);
+  return Math.round(score);
+}
+
+function scoreSupercurricular() {
+  const checks = ['sc-olympiad','sc-research','sc-lectures','sc-published','sc-awards'];
+  const scNone = document.getElementById('sc-none').checked;
+  if (scNone) return 10;
+  const count = checks.filter(id => document.getElementById(id).checked).length;
+  return Math.min(count * 18 + 10, 100);
+}
+
+function scoreInterview() {
+  const prep = state.interviewPrep;
+  if (prep === 'mock') return 80;
+  if (prep === 'reading') return 50;
+  if (prep === 'none') return 15;
+  return 20;
+}
+
+function scoreApplication() {
+  const ps = state.psStatus;
+  const workexp = document.querySelector('input[name="workexp"]:checked');
+  const ielts = parseFloat(document.getElementById('ielts').value || '0');
+  let score = 0;
+  if (ps === 'drafted') score += 40;
+  else if (ps === 'outline') score += 20;
+  if (workexp && workexp.value === 'yes') score += 30;
+  if (ielts >= 7.5) score += 30;
+  else if (ielts >= 7.0) score += 20;
+  else if (ielts >= 6.5) score += 10;
+  return Math.min(score, 100);
+}
+
+/* ── Overall band ── */
+function getBand(avg) {
+  if (avg >= 80) return { key: 'very-strong', labelTh: 'ดีมาก — แข็งแกร่ง', labelEn: 'Very Strong Profile', cls: 'band-very-strong' };
+  if (avg >= 60) return { key: 'competitive', labelTh: 'อยู่ในเกณฑ์แข่งขันได้', labelEn: 'Competitive', cls: 'band-competitive' };
+  if (avg >= 40) return { key: 'developing', labelTh: 'กำลังพัฒนา — ต้องเสริมเพิ่ม', labelEn: 'Developing — Needs Strengthening', cls: 'band-developing' };
+  return { key: 'significant-work', labelTh: 'ต้องพัฒนาอย่างมีนัยสำคัญ', labelEn: 'Needs Significant Work', cls: 'band-significant-work' };
+}
+
+/* ── Build action plan ── */
+function buildActionPlan(acad, superc, interview, app, req) {
+  const en = isEn();
+  const now = [], three = [], six = [];
+
+  if (acad < 70) { now.push(en?'Verify A-Level subject combination includes required subjects':'ตรวจสอบวิชา A-Level ให้ครบที่กำหนด'); }
+  if (superc < 40) { now.push(en?'Identify one supercurricular project to start immediately':'เลือก supercurricular project 1 อย่างเริ่มได้เลย'); }
+  if (app < 30) { now.push(en?'Begin personal statement brainstorming — what drives your subject passion?':'เริ่ม brainstorm Personal Statement — ทำไมถึงชอบวิชานี้?'); }
+  if (interview < 40) { now.push(en?'Start reading books recommended by the department':'เริ่มอ่านหนังสือที่ภาควิชาแนะนำ'); }
+  if (now.length === 0) now.push(en?'Maintain current grades — consistency is key at Oxbridge':'รักษาเกรดให้คงที่ — Oxbridge ให้ความสำคัญกับความสม่ำเสมอ');
+
+  if (acad < 80) { three.push(en?'Practice past exam papers for your admissions test ('+req.test+')':'ฝึกข้อสอบเก่า '+req.test+' ให้ครบอย่างน้อย 5 ชุด'); }
+  if (superc < 60) { three.push(en?'Complete and document one supercurricular achievement':'ทำ supercurricular project ให้เสร็จและบันทึกผลลัพธ์'); }
+  three.push(en?'Draft personal statement — get feedback from tutor':'เขียน Personal Statement ฉบับแรก ให้อาจารย์ตรวจ');
+  if (app < 50) { three.push(en?'Arrange work experience / shadowing relevant to '+req.label:'จัดหา work experience / shadowing ที่เกี่ยวข้องกับ '+req.label); }
+
+  six.push(en?'Finalise and polish personal statement':'ขัดเกลา Personal Statement ให้สมบูรณ์');
+  six.push(en?'Complete full mock interview with subject-specialist tutor':'ทำ mock interview เต็มรูปแบบกับอาจารย์เชี่ยวชาญสาขา');
+  if (interview < 70) { six.push(en?'Join LINKEDU Oxbridge intensive mock interview programme':'เข้าร่วมโปรแกรม mock interview เข้มข้นของ LINKEDU'); }
+  six.push(en?'Submit UCAS application — Oxbridge deadline 15 October':'ยื่น UCAS ภายใน 15 ตุลาคม (Oxbridge deadline)');
+
+  return { now: now.slice(0,3), three: three.slice(0,3), six: six.slice(0,3) };
+}
+
+/* ── Build gaps ── */
+function buildGaps(acad, superc, interview, app, req) {
+  const en = isEn();
+  const gaps = [];
+  const gcse = parseInt(document.getElementById('gcse-stars').value || '0');
+  const ielts = parseFloat(document.getElementById('ielts').value || '0');
+  const aText = (document.getElementById('alevels').value || '').trim();
+
+  if (!aText && !document.getElementById('ib-score').value) {
+    gaps.push(en ? 'No A-Level / IB grades entered — this is the single most important factor. Aim for '+req.grades+'.' : 'ยังไม่มีเกรด A-Level / IB — นี่คือปัจจัยสำคัญที่สุด เป้าหมาย '+req.grades);
+  } else if (acad < 70) {
+    gaps.push(en ? 'Your predicted grades show potential but Oxbridge '+req.label+' typically requires '+req.grades+'. Focus on this first.' : 'เกรดที่คาดการณ์ยังไม่ถึงเกณฑ์ '+req.grades+' ที่ Oxbridge '+req.label+' ต้องการ');
+  }
+  if (gcse > 0 && gcse < req.gcse) {
+    gaps.push(en ? 'GCSE: You have '+gcse+' A*/9 grades — '+req.label+' applicants typically hold '+req.gcse+'+.' : 'GCSE: มี '+gcse+' เกรด A*/9 — ผู้สมัคร '+req.label+' มักมี '+req.gcse+' ขึ้นไป');
+  }
+  if (ielts > 0 && ielts < req.ielts) {
+    gaps.push(en ? 'IELTS '+ielts+' — Oxbridge '+req.label+' typically requires '+req.ielts+'. Intensive English preparation needed.' : 'IELTS '+ielts+' — Oxbridge '+req.label+' ต้องการ '+req.ielts+' เพิ่มการเตรียม English');
+  }
+  if (superc < 30) {
+    gaps.push(en ? 'No supercurricular activity recorded — Oxbridge expects genuine intellectual engagement beyond exams.' : 'ยังไม่มี supercurricular activities — Oxbridge คาดหวัง intellectual curiosity ที่มากกว่าห้องเรียน');
+  }
+  if (interview < 30) {
+    gaps.push(en ? 'Interview preparation not started — Oxbridge interviews are unlike any other and require dedicated practice.' : 'ยังไม่ได้เตรียมสัมภาษณ์ — Oxbridge interview ต่างจากที่อื่นมาก ต้องฝึกเป็นพิเศษ');
+  }
+  if (gaps.length === 0) {
+    gaps.push(en ? 'Your profile is strong — focus on maintaining grades and perfecting your personal statement narrative.' : 'โปรไฟล์แข็งแกร่งดี — รักษาเกรดและขัดเกลา Personal Statement ให้สมบูรณ์แบบ');
+  }
+  return gaps;
+}
+
+/* ── Progress bar renderer ── */
+function renderBar(container, label, current, target) {
+  const en = isEn();
+  const div = document.createElement('div');
+  div.className = 'category-row';
+  const targetPct = Math.min(target, 100);
+  const currentPct = Math.min(current, 100);
+  div.innerHTML = `
+    <div class="cat-header">
+      <span class="cat-label">${label}</span>
+      <div class="cat-scores">
+        <span class="cat-current">${en?'Current':'ปัจจุบัน'}: ${current}%</span>
+        <span class="cat-target">${en?'Target':'เป้าหมาย'}: ${targetPct}%</span>
+      </div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-current" style="width:0%" data-target="${currentPct}"></div>
+      <div class="bar-target-line" style="left:${targetPct}%">
+        <div class="bar-target-label">${en?'Target':'เป้าหมาย'}</div>
+      </div>
+    </div>
+  `;
+  container.appendChild(div);
+  // Animate
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const bar = div.querySelector('.bar-current');
+      bar.style.width = currentPct + '%';
+    }, 200);
+  });
+}
+
+/* ── Main build function ── */
+function buildProfile() {
+  const req = SUBJECT_REQS[state.subjectArea] || SUBJECT_REQS['medicine'];
+  const en = isEn();
+  const uniLabel = { oxford:'Oxford', cambridge:'Cambridge', either:'Oxford & Cambridge' }[state.uni] || 'Oxbridge';
+
+  const acad = scoreAcademic();
+  const superc = scoreSupercurricular();
+  const interview = scoreInterview();
+  const app = scoreApplication();
+  const avg = Math.round((acad + superc + interview + app) / 4);
+  const band = getBand(avg);
+
+  // Hide steps, show results
+  [1,2,3].forEach(i => document.getElementById('step-' + i).style.display = 'none');
+  ['pip-1','pip-2','pip-3'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+    document.getElementById(id).classList.add('done');
+  });
+
+  // Top summary
+  document.getElementById('res-title').textContent = uniLabel + ' — ' + req.label;
+  document.getElementById('res-subtitle').innerHTML =
+    `<span class="lang-th">Overall Profile Score: ${avg}/100</span><span class="lang-en">Overall Profile Score: ${avg}/100</span>`;
+  document.getElementById('res-band').innerHTML =
+    `<span class="probability-band ${band.cls}">${en ? band.labelEn : band.labelTh}</span>`;
+
+  // Requirements box
+  document.getElementById('req-box').innerHTML = `
+    <h3>${en?req.label+' at '+uniLabel+' — Requirements':req.label+' ที่ '+uniLabel+' — เกณฑ์ที่ต้องการ'}</h3>
+    <div class="req-row"><span class="req-pill">A-Levels</span><span>${req.grades}</span></div>
+    <div class="req-row"><span class="req-pill">${en?'Admissions Test':'การทดสอบ'}</span><span>${req.test}</span></div>
+    <div class="req-row"><span class="req-pill">GCSEs</span><span>${en?req.gcse+'+ at grade 9/A*':req.gcse+'+ เกรด 9/A*'}</span></div>
+    <div class="req-row"><span class="req-pill">IELTS</span><span>${en?req.ielts+' overall (non-native speakers)':req.ielts+' โดยรวม (สำหรับผู้เรียนภาษาที่สอง)'}</span></div>
+  `;
+
+  // Progress bars
+  const barsContainer = document.getElementById('category-bars');
+  barsContainer.innerHTML = '';
+  const cats = [
+    { label: en?'Academic Grades':'เกรดวิชาการ', current: acad, target: 85 },
+    { label: en?'Supercurricular':'Supercurricular', current: superc, target: 70 },
+    { label: en?'Interview Readiness':'ความพร้อมสัมภาษณ์', current: interview, target: 75 },
+    { label: en?'Application Materials':'เอกสารใบสมัคร', current: app, target: 80 },
+  ];
+  cats.forEach(c => renderBar(barsContainer, c.label, c.current, c.target));
+
+  // Gaps
+  const gaps = buildGaps(acad, superc, interview, app, req);
+  document.getElementById('gap-items').innerHTML = gaps.map(g => `<div class="gap-item">${g}</div>`).join('');
+
+  // Action plan
+  const plan = buildActionPlan(acad, superc, interview, app, req);
+  document.getElementById('action-plan').innerHTML = `
+    <div class="timeline-col">
+      <div class="period">${en?'Do Now — This Week':'เริ่มเดี๋ยวนี้'}</div>
+      <ul>${plan.now.map(a=>`<li>${a}</li>`).join('')}</ul>
+    </div>
+    <div class="timeline-col">
+      <div class="period">${en?'Next 3 Months':'3 เดือนข้างหน้า'}</div>
+      <ul>${plan.three.map(a=>`<li>${a}</li>`).join('')}</ul>
+    </div>
+    <div class="timeline-col">
+      <div class="period">${en?'Next 6 Months':'6 เดือนข้างหน้า'}</div>
+      <ul>${plan.six.map(a=>`<li>${a}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── Reset ── */
+function resetTool() {
+  state.uni = null; state.subjectArea = null; state.psStatus = null; state.interviewPrep = null;
+  document.getElementById('results-section').style.display = 'none';
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  ['alevels','ib-score','gcse-stars','ielts'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  goToStep(1);
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.setAttribute('lang', 'th');
+});
+</script>
+</body>
+</html>
