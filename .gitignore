@@ -18,3 +18,7 @@ schools-v3.html
 schools-v2.html
 # Misc leftovers
 guides.html.blog-backup
+*.backup-*
+*.nav-backup
+*.nav2-backup
+server.py*
