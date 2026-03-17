@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>มหาวิทยาลัยจีน 508 แห่ง / Browse 508 China Universities — LINKEDU</title>
+  <meta name="description" content="ค้นหามหาวิทยาลัยจีนกรองตามเมือง ภาษา ระดับการศึกษา และงบประมาณ | Browse 508 Chinese universities filtered by city, language, degree level and budget.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #f5f0e8; }
+
+    /* Hero */
+    .schools-hero { background: #1a1a1a; padding: 56px 0 48px; position: relative; overflow: hidden; }
+    .schools-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%; background: radial-gradient(ellipse at top right, rgba(184,150,46,0.08) 0%, transparent 70%); pointer-events: none; }
+    .schools-hero-inner { position: relative; z-index: 1; }
+    .schools-hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; color: #B8962E; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .schools-hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: #B8962E; }
+    .schools-hero h1 { color: #f5f0e8; max-width: 680px; margin-bottom: 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+    .schools-hero h1 em { font-style: italic; color: #B8962E; }
+    .schools-hero-sub { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(245,240,232,0.6); max-width: 520px; line-height: 1.7; margin-top: 10px; }
+    .schools-hero-stats { display: flex; gap: 40px; margin-top: 36px; padding-top: 30px; border-top: 1px solid rgba(245,240,232,0.1); flex-wrap: wrap; }
+    .h-stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #B8962E; font-weight: 400; line-height: 1; }
+    .h-stat-label { font-family: 'Inter', sans-serif; font-size: 0.68rem; color: rgba(245,240,232,0.42); letter-spacing: 0.09em; text-transform: uppercase; margin-top: 4px; }
+
+    /* Layout */
+    .schools-layout { display: grid; grid-template-columns: 280px 1fr; align-items: start; }
+
+    /* Sidebar */
+    .filter-sidebar { background: #1a1a1a; position: sticky; top: 68px; height: calc(100vh - 68px); overflow-y: auto; padding: 0 0 40px; border-right: 1px solid rgba(184,150,46,0.12); scrollbar-width: thin; scrollbar-color: rgba(184,150,46,0.25) transparent; }
+    .filter-sidebar::-webkit-scrollbar { width: 4px; }
+    .filter-sidebar::-webkit-scrollbar-thumb { background: rgba(184,150,46,0.25); border-radius: 2px; }
+    .mobile-filter-toggle { display: none; width: 100%; padding: 13px 20px; background: #1a1a1a; color: #B8962E; font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: none; border-bottom: 1px solid rgba(184,150,46,0.12); cursor: pointer; text-align: left; }
+    .sidebar-header { padding: 22px 22px 18px; border-bottom: 1px solid rgba(245,240,232,0.06); }
+    .sidebar-title { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B8962E; margin-bottom: 5px; }
+    .sidebar-count-text { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(245,240,232,0.45); }
+    .sidebar-count-text strong { color: #f5f0e8; font-weight: 600; }
+    .filter-section { padding: 16px 22px; border-bottom: 1px solid rgba(245,240,232,0.05); }
+    .filter-label { display: block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(184,150,46,0.65); margin-bottom: 10px; }
+    .sidebar-select { width: 100%; padding: 8px 30px 8px 11px; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #f5f0e8; background: rgba(245,240,232,0.07); border: 1px solid rgba(245,240,232,0.11); border-radius: 6px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B8962E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+    .sidebar-select option { background: #1a1a1a; color: #f5f0e8; }
+    .sidebar-select:focus { outline: none; border-color: rgba(184,150,46,0.5); }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 5px; }
+    .chip { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(245,240,232,0.16); color: rgba(245,240,232,0.6); background: transparent; cursor: pointer; transition: all 0.18s ease; white-space: nowrap; line-height: 1.5; }
+    .chip:hover { border-color: rgba(184,150,46,0.45); color: #f5f0e8; }
+    .chip.active { background: #B8962E; border-color: #B8962E; color: #1a1a1a; font-weight: 700; }
+    .budget-display { margin-bottom: 10px; }
+    .budget-display .usd { font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; color: #B8962E; }
+    .budget-display .thb { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: rgba(245,240,232,0.38); margin-left: 6px; }
+    input[type="range"].budget-range { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: rgba(245,240,232,0.14); border-radius: 2px; outline: none; cursor: pointer; margin-bottom: 6px; }
+    input[type="range"].budget-range::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #B8962E; cursor: pointer; border: 2px solid #1a1a1a; box-shadow: 0 0 0 1px #B8962E; }
+    .budget-min-max { display: flex; justify-content: space-between; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: rgba(245,240,232,0.3); }
+    .reset-all-btn { display: block; width: calc(100% - 44px); margin: 18px 22px 0; padding: 9px 0; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.4); background: transparent; border: 1px solid rgba(245,240,232,0.1); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .reset-all-btn:hover { color: #f5f0e8; border-color: rgba(245,240,232,0.28); }
+
+    /* Results panel */
+    .results-panel { background: #f5f0e8; padding: 28px 28px 56px; min-height: calc(100vh - 68px); }
+    .results-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .results-count-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(26,26,26,0.48); }
+    .results-count-text strong { color: #1a1a1a; font-weight: 600; }
+
+    /* University table */
+    .uni-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
+    .uni-table th { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(26,26,26,0.42); padding: 10px 14px; text-align: left; border-bottom: 2px solid rgba(26,26,26,0.1); white-space: nowrap; }
+    .uni-table td { font-size: 0.84rem; color: rgba(26,26,26,0.8); padding: 13px 14px; border-bottom: 1px solid rgba(26,26,26,0.06); vertical-align: top; }
+    .uni-table tr:hover td { background: rgba(184,150,46,0.04); }
+    .uni-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #1a1a1a; font-weight: 400; line-height: 1.3; }
+    .uni-city-badge { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 600; padding: 2px 8px; background: rgba(184,150,46,0.1); border-radius: 10px; color: #7a6018; white-space: nowrap; }
+    .uni-prog-count { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; color: #1a1a1a; }
+    .uni-tuition { font-family: 'Inter', sans-serif; font-size: 0.84rem; color: #B8962E; font-weight: 600; }
+    .uni-tuition-na { color: rgba(26,26,26,0.3); font-weight: 400; font-size: 0.75rem; }
+    .lang-pill { display: inline-block; font-size: 0.62rem; font-weight: 600; padding: 2px 7px; background: rgba(26,26,26,0.06); border-radius: 8px; color: rgba(26,26,26,0.55); margin: 1px; white-space: nowrap; }
+    .view-programs-btn { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #B8962E; background: transparent; border: 1px solid rgba(184,150,46,0.35); border-radius: 4px; padding: 5px 11px; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
+    .view-programs-btn:hover { background: rgba(184,150,46,0.08); border-color: #B8962E; }
+    .view-programs-btn.open { background: rgba(184,150,46,0.1); }
+
+    /* Program expand row */
+    .programs-expand-row { background: #fff; }
+    .programs-expand-row td { padding: 0 14px; }
+    .programs-expand-inner { padding: 14px 0 18px; border-top: 1px solid rgba(184,150,46,0.15); }
+    .programs-expand-label { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(26,26,26,0.35); margin-bottom: 10px; }
+    .programs-list { display: flex; flex-direction: column; gap: 6px; }
+    .program-item { display: flex; gap: 10px; align-items: flex-start; font-size: 0.8rem; color: rgba(26,26,26,0.75); line-height: 1.4; }
+    .program-level { font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: rgba(26,26,26,0.06); color: rgba(26,26,26,0.5); white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .program-lang-pill { font-size: 0.6rem; padding: 2px 7px; border-radius: 8px; background: rgba(184,150,46,0.1); color: #7a6018; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .program-tuition { font-size: 0.72rem; color: #B8962E; font-weight: 600; white-space: nowrap; margin-left: auto; flex-shrink: 0; }
+    .programs-loading { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(26,26,26,0.4); padding: 10px 0; }
+
+    /* Loading / empty states */
+    .results-loading { text-align: center; padding: 60px 24px; font-family: 'Inter', sans-serif; font-size: 0.88rem; color: rgba(26,26,26,0.45); }
+    .no-results-block { text-align: center; padding: 72px 24px; }
+    .no-results-block h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1a1a1a; margin-bottom: 8px; }
+    .no-results-block p { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: rgba(26,26,26,0.48); }
+
+    /* Mobile: table → cards */
+    @media (max-width: 1024px) {
+      .schools-layout { grid-template-columns: 240px 1fr; }
+    }
+    @media (max-width: 768px) {
+      .schools-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { position: static; height: auto; display: none; }
+      .filter-sidebar.open { display: block; }
+      .mobile-filter-toggle { display: flex; align-items: center; justify-content: space-between; }
+      .results-panel { padding: 20px 16px 48px; }
+      .uni-table { display: none; }
+      .uni-cards-mobile { display: flex; flex-direction: column; gap: 12px; }
+    }
+    @media (min-width: 769px) {
+      .uni-cards-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="studyinchina.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">STUDY IN CHINA</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="china-schools.html" class="nav-link"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></a>
+          <div class="nav-dropdown">
+            <a href="china-schools.html" class="dropdown-link"><span class="lang-th">ค้นหามหาวิทยาลัย</span><span class="lang-en">Browse All</span></a>
+            <a href="china-visa.html" class="dropdown-link"><span class="lang-th">คู่มือวีซ่า</span><span class="lang-en">Visa Guide</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Boarding+Schools" class="nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Tutoring" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Summer+Camps" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#contact-form" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav">
+    <a href="studyinchina.html" class="mobile-nav-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+    <a href="china-schools.html" class="mobile-nav-link"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></a>
+    <a href="china-visa.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คู่มือวีซ่า</span><span class="lang-en">Visa Guide</span></a>
+    <a href="china-coming-soon.html?section=Boarding+Schools" class="mobile-nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+    <a href="china-coming-soon.html?section=Tutoring" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="china-coming-soon.html?section=Summer+Camps" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <div class="mobile-nav-actions">
+      <a href="#contact-form" class="btn-primary" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="schools-hero">
+  <div class="container schools-hero-inner">
+    <div class="schools-hero-eyebrow">STUDY IN CHINA · UNIVERSITY BROWSER</div>
+    <h1>
+      <span class="lang-th">มหาวิทยาลัยจีน<br><em>508 แห่ง — ค้นหาที่ใช่ในไม่กี่วินาที</em></span>
+      <span class="lang-en">Chinese Universities<br><em>508 institutions — find your match in seconds</em></span>
+    </h1>
+    <p class="schools-hero-sub">
+      <span class="lang-th">กรองตามเมือง ภาษา ระดับการศึกษา และงบประมาณ แล้วดูโปรแกรมทั้งหมดของแต่ละมหาวิทยาลัย</span>
+      <span class="lang-en">Filter by city, language, degree level, and budget. Expand any university to see all its programs.</span>
+    </p>
+    <div class="schools-hero-stats">
+      <div><div class="h-stat-num">508</div><div class="h-stat-label"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></div></div>
+      <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
+      <div><div class="h-stat-num">11,472</div><div class="h-stat-label"><span class="lang-th">โปรแกรมทั้งหมด</span><span class="lang-en">Total Programs</span></div></div>
+      <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
+      <div><div class="h-stat-num">2,144</div><div class="h-stat-label"><span class="lang-th">โปรแกรมภาษาอังกฤษ</span><span class="lang-en">English Programs</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FILTER + RESULTS
+     ============================================================ -->
+<div class="schools-layout">
+
+  <!-- Mobile filter toggle -->
+  <button class="mobile-filter-toggle" onclick="toggleMobileFilter()">
+    <span class="lang-th">กรอง / ตัวกรอง</span><span class="lang-en">Filters</span>
+    <span id="filterToggleIcon">&#9660;</span>
+  </button>
+
+  <!-- SIDEBAR -->
+  <aside class="filter-sidebar" id="filterSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title"><span class="lang-th">กรองผล</span><span class="lang-en">Filter Results</span></div>
+      <div class="sidebar-count-text" id="sidebarCount"><strong>508</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span></div>
+    </div>
+
+    <!-- City filter -->
+    <div class="filter-section">
+      <span class="filter-label"><span class="lang-th">เมือง</span><span class="lang-en">City</span></span>
+      <select class="sidebar-select" id="cityFilter">
+        <option value="">All Cities</option>
+        <option value="Beijing">Beijing (41)</option>
+        <option value="Shanghai">Shanghai (24)</option>
+        <option value="Nanjing">Nanjing (19)</option>
+        <option value="Guangzhou">Guangzhou (17)</option>
+        <option value="Guiyang">Guiyang (14)</option>
+        <option value="Shenyang">Shenyang (14)</option>
+        <option value="Zhengzhou">Zhengzhou (13)</option>
+        <option value="Wuhan">Wuhan (13)</option>
+        <option value="Chengdu">Chengdu (12)</option>
+        <option value="Chongqing">Chongqing (11)</option>
+      </select>
+    </div>
+
+    <!-- Degree level -->
+    <div class="filter-section">
+      <span class="filter-label"><span class="lang-th">ระดับการศึกษา</span><span class="lang-en">Degree Level</span></span>
+      <div class="chip-group" id="degreeChips">
+        <button class="chip active" data-value="">All</button>
+        <button class="chip" data-value="Bachelor">Bachelor</button>
+        <button class="chip" data-value="Master">Master</button>
+        <button class="chip" data-value="Doctoral">Doctoral</button>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="filter-section">
+      <span class="filter-label"><span class="lang-th">ภาษาที่สอน</span><span class="lang-en">Instruction Language</span></span>
+      <div class="chip-group" id="langChips">
+        <button class="chip active" data-value="">All</button>
+        <button class="chip" data-value="English">English</button>
+        <button class="chip" data-value="Chinese">Chinese</button>
+      </div>
+    </div>
+
+    <!-- Budget slider -->
+    <div class="filter-section">
+      <span class="filter-label"><span class="lang-th">งบประมาณสูงสุด / ปี</span><span class="lang-en">Max Budget / year</span></span>
+      <div class="budget-display">
+        <span class="usd" id="budgetDisplay">$20,000</span>
+        <span class="thb" id="budgetThbDisplay">(~฿700,000)</span>
+      </div>
+      <input type="range" class="budget-range" id="budgetRange" min="0" max="20000" step="500" value="20000">
+      <div class="budget-min-max"><span>$0</span><span>$20,000</span></div>
+    </div>
+
+    <button class="reset-all-btn" onclick="resetFilters()">
+      <span class="lang-th">รีเซ็ตตัวกรอง</span><span class="lang-en">Reset Filters</span>
+    </button>
+  </aside>
+
+  <!-- RESULTS -->
+  <main class="results-panel">
+    <div class="results-top-bar">
+      <div class="results-count-text" id="resultsCountText">
+        <span class="lang-th"><strong id="resultsNum">508</strong> มหาวิทยาลัย</span>
+        <span class="lang-en">Showing <strong id="resultsNumEn">508</strong> universities</span>
+      </div>
+      <a href="contact.html" style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B8962E;text-decoration:none;">
+        <span class="lang-th">ขอคำแนะนำ →</span><span class="lang-en">Get Advice →</span>
+      </a>
+    </div>
+
+    <!-- Desktop table -->
+    <div id="resultsContainer">
+      <div class="results-loading">
+        <span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Mobile cards -->
+    <div id="mobileCards" class="uni-cards-mobile"></div>
+  </main>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<section id="contact-form" style="background:#f5f0e8;padding:88px 40px;border-top:4px solid #B8962E;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B8962E;margin-bottom:16px;"><span class="lang-th">ปรึกษาฟรี · ไม่มีข้อผูกมัด</span><span class="lang-en">Free Consultation · No Obligation</span></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#1a1a1a;line-height:1.15;margin:0 0 16px 0;">
+        <span class="lang-th">พาลูกสู่<br><em style="color:#B8962E;">มหาวิทยาลัยจีน<br>ที่ใช่</em></span>
+        <span class="lang-en">Find the<br><em style="color:#B8962E;">Right University</em><br>in China</span>
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(26,26,26,0.6);line-height:1.7;margin:0;">
+        <span class="lang-th">กรอกข้อมูลด้านขวา — ที่ปรึกษาจีนของเราจะส่งรายชื่อมหาวิทยาลัย พร้อมค่าเรียน ทุน CSC และขั้นตอนการสมัครให้ภายใน 24 ชั่วโมง</span>
+        <span class="lang-en">Fill the form and our China advisors will send tailored university recommendations, tuition details, CSC scholarship options, and a clear application plan within 24 hours.</span>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">บริการฟรี 100%</span><span class="lang-en">Completely free</span></strong><span class="lang-th">ไม่คิดค่าบริการจากครอบครัว</span><span class="lang-en">No charge to families, ever</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></strong><span class="lang-th">ออกไปเรียนต่างประเทศทั่วโลก</span><span class="lang-en">Studying abroad worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">508 มหาวิทยาลัยในจีน</span><span class="lang-en">508 universities in China</span></strong><span class="lang-th">โปรแกรมภาษาอังกฤษกว่า 2,000 รายการ</span><span class="lang-en">2,000+ English-taught programs</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ที่ปรึกษาพูดภาษาไทย</span><span class="lang-en">Thai-speaking advisors</span></strong><span class="lang-th">เชี่ยวชาญด้านการศึกษาในจีน</span><span class="lang-en">China education specialists</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hours</span></strong><span class="lang-th">ผ่าน LINE หรืออีเมล</span><span class="lang-en">Via LINE or email</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ไว้ใจได้ตั้งแต่ปี 2558</span><span class="lang-en">Trusted since 2015</span></strong><span class="lang-th">ดูแลครอบครัวไทยมากกว่า 10 ปี</span><span class="lang-en">10+ years with Thai families</span></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:20px 24px;background:#1a1a1a;border-radius:6px;display:flex;align-items:center;gap:16px;">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:4px;">LINE</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#f5f0e8;">satitlinkedu</div>
+        </div>
+        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="margin-left:auto;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;padding:10px 20px;border-radius:3px;text-decoration:none;white-space:nowrap;"><span class="lang-th">เพิ่ม LINE</span><span class="lang-en">Add LINE</span></a>
+      </div>
+    </div>
+    <div id="hs-inline-wrap" style="background:#1a1a1a;border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(26,26,26,0.15);">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">508 มหาวิทยาลัยจีน</span><span class="lang-en">508 China universities</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label>
+          <input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label>
+          <input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label>
+          <input type="date" name="dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label>
+          <select name="grade" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option>
+            <option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option>
+            <option>Year 12 / ม.6</option><option>อื่นๆ</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label>
+          <input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label>
+          <input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label>
+        <input type="text" name="lineid" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label>
+          <select name="country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option selected>China</option><option>United Kingdom</option><option>United States</option>
+            <option>Australia</option><option>Canada</option><option>Switzerland</option><option>อื่นๆ</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Intended Entry Year</span></label>
+          <select name="entryyear" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">มหาวิทยาลัยที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Universities of Interest (optional)</span></label>
+        <input type="text" name="schools" placeholder="เช่น BNU-HKBU, Fudan, Tsinghua — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+      </div>
+      <button onclick="submitHSForm('contact-form','hs-inline-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
+        <span class="lang-en">Send Enquiry — Free Consultation →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta-strip">
+      <div>
+        <div class="footer-cta-tagline">
+          <span class="lang-th">ที่ปรึกษาเฉพาะทางด้านการศึกษาในจีนสำหรับครอบครัวไทย</span>
+          <span class="lang-en">Thailand's specialist in China university placement</span>
+        </div>
+        <div class="footer-cta-sub">
+          <span class="lang-th">ปรึกษาฟรี — ตอบภายใน 24 ชั่วโมง</span>
+          <span class="lang-en">Free consultation — Response within 24 hours</span>
+        </div>
+      </div>
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-cta-btn" target="_blank" rel="noopener">
+        <span class="lang-th">เพิ่ม LINE satitlinkedu</span>
+        <span class="lang-en">Add LINE satitlinkedu</span>
+      </a>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-heading"><span class="lang-th">มหาวิทยาลัยจีน</span><span class="lang-en">Universities</span></div>
+        <div class="footer-links">
+          <a href="studyinchina.html" class="footer-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+          <a href="china-schools.html" class="footer-link"><span class="lang-th">ค้นหามหาวิทยาลัย 508 แห่ง</span><span class="lang-en">Browse 508 Universities</span></a>
+          <a href="china-visa.html" class="footer-link"><span class="lang-th">คู่มือวีซ่านักเรียน</span><span class="lang-en">Student Visa Guide</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการของเรา</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="china-coming-soon.html?section=Boarding+Schools" class="footer-link"><span class="lang-th">โรงเรียนประจำในจีน</span><span class="lang-en">Boarding Schools</span></a>
+          <a href="china-coming-soon.html?section=Tutoring" class="footer-link"><span class="lang-th">ติวเตอร์ภาษาจีน</span><span class="lang-en">Tutoring</span></a>
+          <a href="china-coming-soon.html?section=Summer+Camps" class="footer-link"><span class="lang-th">ซัมเมอร์แคมป์จีน</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">เกี่ยวกับ</span><span class="lang-en">About</span></div>
+        <div class="footer-links">
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Contact Us</span></a>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(245,240,232,0.08);">
+            <a href="index.html" class="footer-link" style="color:#B8962E;"><span class="lang-th">สำรวจโรงเรียนประจำ UK →</span><span class="lang-en">Also: UK Boarding Schools →</span></a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดตามเรา</span><span class="lang-en">Follow Us</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg> LINE: satitlinkedu</a>
+          <a href="https://facebook.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> FB: @linkedu.th</a>
+          <a href="https://instagram.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> IG: @linkedu.th</a>
+          <a href="https://youtube.com/@linkeduthailand" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg> YouTube: @linkeduthailand</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:20px;width:auto;display:block;opacity:0.5"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.2);">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<!-- Supabase CDN for client-side program expansion -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f5f0e8;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;">&times;</button>
+    </div>
+    <div id="hs-modal-wrap" style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">Name</span></label><input type="text" name="firstname" placeholder="First name" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <button onclick="submitHSForm('eqOverlay','hs-modal-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:16px;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'"><span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span></button>
+    </div>
+  </div>
+</div>
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="consultAction()" style="background:#B8962E;color:#1a1a1a;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);" onmouseover="this.style.paddingRight='14px'" onmouseout="this.style.paddingRight='10px'"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></button>
+</div>
+
+<script>
+(function() {
+  // Supabase client for program expansion (public anon key)
+  const SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk';
+  let sbClient = null;
+  function getSB() {
+    if (!sbClient && window.supabase) sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    return sbClient;
+  }
+
+  // Filter state
+  let state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000 };
+  let debounceTimer = null;
+  let openExpandId = null;
+
+  // Read URL param for city pre-select
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('city')) {
+    state.city = urlParams.get('city');
+    document.getElementById('cityFilter').value = state.city;
+  }
+
+  // Budget slider
+  const budgetRange = document.getElementById('budgetRange');
+  const budgetDisplay = document.getElementById('budgetDisplay');
+  const budgetThbDisplay = document.getElementById('budgetThbDisplay');
+  budgetRange.addEventListener('input', function() {
+    var v = parseInt(this.value);
+    state.max_tuition_usd = v;
+    budgetDisplay.textContent = v === 20000 ? '$20,000+' : '$' + v.toLocaleString();
+    budgetThbDisplay.textContent = v === 20000 ? '' : '(~฿' + Math.round(v * 35).toLocaleString() + ')';
+    scheduleRefetch();
+  });
+
+  // City select
+  document.getElementById('cityFilter').addEventListener('change', function() {
+    state.city = this.value;
+    scheduleRefetch();
+  });
+
+  // Degree chips
+  document.querySelectorAll('#degreeChips .chip').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#degreeChips .chip').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      state.degree_level = this.dataset.value;
+      scheduleRefetch();
+    });
+  });
+
+  // Language chips
+  document.querySelectorAll('#langChips .chip').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#langChips .chip').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      state.language = this.dataset.value;
+      scheduleRefetch();
+    });
+  });
+
+  function scheduleRefetch() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(fetchUniversities, 300);
+  }
+
+  async function fetchUniversities() {
+    document.getElementById('resultsContainer').innerHTML = '<div class="results-loading"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div>';
+
+    var params = new URLSearchParams();
+    if (state.city) params.set('city', state.city);
+    if (state.language) params.set('language', state.language);
+    if (state.degree_level) params.set('degree_level', state.degree_level);
+    if (state.max_tuition_usd < 20000) params.set('max_tuition_usd', state.max_tuition_usd);
+
+    try {
+      var res = await fetch('/api/china-universities?' + params.toString());
+      var data = await res.json();
+
+      if (data.error) throw new Error(data.error);
+
+      var total = data.total || 0;
+      var unis = data.universities || [];
+
+      // Update count
+      document.getElementById('resultsNum').textContent = total;
+      document.getElementById('resultsNumEn').textContent = total;
+      document.getElementById('sidebarCount').innerHTML = '<strong>' + total + '</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span>';
+
+      if (unis.length === 0) {
+        document.getElementById('resultsContainer').innerHTML = '<div class="no-results-block"><h3><span class="lang-th">ไม่พบผลลัพธ์</span><span class="lang-en">No results found</span></h3><p><span class="lang-th">ลองปรับตัวกรองและค้นหาใหม่</span><span class="lang-en">Try adjusting your filters</span></p></div>';
+        document.getElementById('mobileCards').innerHTML = '';
+        return;
+      }
+
+      renderTable(unis);
+      renderMobileCards(unis);
+    } catch(err) {
+      console.error(err);
+      document.getElementById('resultsContainer').innerHTML = '<div class="no-results-block"><h3>Error</h3><p>' + err.message + '</p></div>';
+    }
+  }
+
+  function renderTable(unis) {
+    var rows = unis.map(function(u, i) {
+      var langs = (u.languages || []).map(function(l) {
+        return '<span class="lang-pill">' + l + '</span>';
+      }).join('');
+      var tuition = u.min_tuition_usd ? '<span class="uni-tuition">From $' + Math.round(u.min_tuition_usd).toLocaleString() + '</span>' : '<span class="uni-tuition-na">—</span>';
+      return '<tr id="urow-' + i + '">' +
+        '<td><div class="uni-name">' + (u.name_en || '—') + '</div></td>' +
+        '<td><span class="uni-city-badge">' + (u.city || '—') + '</span></td>' +
+        '<td><span class="uni-prog-count">' + u.program_count + '</span></td>' +
+        '<td>' + tuition + '</td>' +
+        '<td>' + langs + '</td>' +
+        '<td><button class="view-programs-btn" id="vbtn-' + i + '" onclick="togglePrograms(' + i + ',\'' + u.id + '\')">' +
+          '<span class="lang-th">ดูโปรแกรม</span><span class="lang-en">View Programs</span>' +
+        '</button></td>' +
+      '</tr>' +
+      '<tr class="programs-expand-row" id="prow-' + i + '" style="display:none;">' +
+        '<td colspan="6"><div class="programs-expand-inner" id="pinner-' + i + '"><div class="programs-loading"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div></div></td>' +
+      '</tr>';
+    }).join('');
+
+    document.getElementById('resultsContainer').innerHTML =
+      '<table class="uni-table">' +
+      '<thead><tr>' +
+      '<th><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">University</span></th>' +
+      '<th><span class="lang-th">เมือง</span><span class="lang-en">City</span></th>' +
+      '<th><span class="lang-th">โปรแกรม</span><span class="lang-en">Programs</span></th>' +
+      '<th><span class="lang-th">ค่าเล่าเรียน</span><span class="lang-en">From (USD/yr)</span></th>' +
+      '<th><span class="lang-th">ภาษา</span><span class="lang-en">Languages</span></th>' +
+      '<th></th>' +
+      '</tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+      '</table>';
+  }
+
+  function renderMobileCards(unis) {
+    var cards = unis.map(function(u) {
+      var langs = (u.languages || []).join(' · ');
+      var tuition = u.min_tuition_usd ? 'From $' + Math.round(u.min_tuition_usd).toLocaleString() + '/yr' : '';
+      return '<div style="background:#fff;border-radius:8px;border:1px solid rgba(26,26,26,0.08);border-left:4px solid #B8962E;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.05);">' +
+        '<div style="font-family:\'Playfair Display\',serif;font-size:0.95rem;color:#1a1a1a;margin-bottom:6px;">' + (u.name_en || '—') + '</div>' +
+        '<div style="font-family:\'Inter\',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.5);margin-bottom:8px;">' + (u.city || '') + (u.province && u.province !== u.city ? ', ' + u.province : '') + '</div>' +
+        '<div style="display:flex;gap:12px;font-family:\'Inter\',sans-serif;font-size:0.78rem;margin-bottom:6px;">' +
+        '<span><strong style="color:#1a1a1a;">' + u.program_count + '</strong> programs</span>' +
+        (tuition ? '<span style="color:#B8962E;font-weight:600;">' + tuition + '</span>' : '') +
+        '</div>' +
+        (langs ? '<div style="font-family:\'Inter\',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.45);">' + langs + '</div>' : '') +
+        '</div>';
+    }).join('');
+    document.getElementById('mobileCards').innerHTML = cards;
+  }
+
+  window.togglePrograms = async function(idx, uniId) {
+    var prow = document.getElementById('prow-' + idx);
+    var pinner = document.getElementById('pinner-' + idx);
+    var btn = document.getElementById('vbtn-' + idx);
+
+    if (prow.style.display !== 'none') {
+      prow.style.display = 'none';
+      btn.classList.remove('open');
+      return;
+    }
+
+    // Close any other open expand
+    if (openExpandId !== null && openExpandId !== idx) {
+      var prev = document.getElementById('prow-' + openExpandId);
+      var prevBtn = document.getElementById('vbtn-' + openExpandId);
+      if (prev) prev.style.display = 'none';
+      if (prevBtn) prevBtn.classList.remove('open');
+    }
+    openExpandId = idx;
+    prow.style.display = 'table-row';
+    btn.classList.add('open');
+
+    // Fetch programs
+    try {
+      var sb = getSB();
+      if (!sb) { pinner.innerHTML = '<div class="programs-loading">Supabase not available</div>'; return; }
+      var { data: programs, error } = await sb
+        .from('china_programs')
+        .select('name_en, language, degree_level, tuition_usd_per_year')
+        .eq('university_id', uniId)
+        .order('degree_level', { ascending: true })
+        .limit(20);
+
+      if (error) throw error;
+      if (!programs || programs.length === 0) {
+        pinner.innerHTML = '<div class="programs-expand-label">PROGRAMS</div><div class="programs-loading" style="color:rgba(26,26,26,0.4);">No programs found</div>';
+        return;
+      }
+
+      var items = programs.map(function(p) {
+        var tuition = p.tuition_usd_per_year ? '<span class="program-tuition">$' + Math.round(p.tuition_usd_per_year).toLocaleString() + '/yr</span>' : '';
+        return '<div class="program-item">' +
+          '<span class="program-level">' + (p.degree_level || '—') + '</span>' +
+          '<span class="program-lang-pill">' + (p.language || '—') + '</span>' +
+          '<span style="flex:1;">' + (p.name_en || '—') + '</span>' +
+          tuition +
+          '</div>';
+      }).join('');
+
+      pinner.innerHTML = '<div class="programs-expand-label">PROGRAMS (showing ' + programs.length + ' of ' + programs.length + (programs.length === 20 ? '+' : '') + ')</div>' +
+        '<div class="programs-list">' + items + '</div>' +
+        '<div style="margin-top:14px;"><a href="contact.html" style="font-family:\'Inter\',sans-serif;font-size:0.72rem;font-weight:700;color:#B8962E;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;"><span class="lang-th">สนใจสมัคร? ปรึกษา LINKEDU →</span><span class="lang-en">Interested? Ask LINKEDU →</span></a></div>';
+    } catch(e) {
+      pinner.innerHTML = '<div class="programs-loading" style="color:rgba(26,26,26,0.4);">Error loading programs: ' + e.message + '</div>';
+    }
+  };
+
+  window.resetFilters = function() {
+    state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000 };
+    document.getElementById('cityFilter').value = '';
+    document.querySelectorAll('#degreeChips .chip').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('#degreeChips .chip')[0].classList.add('active');
+    document.querySelectorAll('#langChips .chip').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('#langChips .chip')[0].classList.add('active');
+    budgetRange.value = 20000;
+    budgetDisplay.textContent = '$20,000+';
+    budgetThbDisplay.textContent = '';
+    fetchUniversities();
+  };
+
+  window.toggleMobileFilter = function() {
+    var sidebar = document.getElementById('filterSidebar');
+    var icon = document.getElementById('filterToggleIcon');
+    sidebar.classList.toggle('open');
+    icon.textContent = sidebar.classList.contains('open') ? '\u25B2' : '\u25BC';
+  };
+
+  // Modal helpers
+  window.openEqModal = function() { document.getElementById('eqOverlay').style.display='flex'; document.body.style.overflow='hidden'; };
+  window.closeEqModal = function() { document.getElementById('eqOverlay').style.display='none'; document.body.style.overflow=''; };
+  window.consultAction = function() { var f=document.getElementById('contact-form'); if(f){f.scrollIntoView({behavior:'smooth',block:'start'});}else{openEqModal();} };
+  document.addEventListener('keydown', function(e) { if(e.key==='Escape') closeEqModal(); });
+
+  async function submitHSForm(cId,wId){var c=document.getElementById(cId),w=document.getElementById(wId),btn=c.querySelector('button[onclick]');function g(n){var el=c.querySelector('[name="'+n+'"]');return el?el.value.trim():'';}if(!g('email')){alert('Please enter your email');return;}btn.disabled=true;btn.style.opacity='0.6';btn.textContent='Sending...';var fields=[{name:'firstname',value:g('firstname')},{name:'email',value:g('email')}].filter(f=>f.value);try{var r=await fetch('https://api.hsforms.com/submissions/v3/integration/submit/245267958/044460cf-4981-4a0a-b844-4ea2df92fb1a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields,context:{pageUri:location.href,pageName:document.title}})});if(r.ok){w.innerHTML='<div style="padding:48px 28px;text-align:center;"><div style="font-size:2.5rem;color:#B8962E;margin-bottom:12px;">&#10003;</div><div style="font-family:\'Playfair Display\',serif;font-size:1.5rem;color:#f5f0e8;margin-bottom:10px;">ขอบคุณครับ/ค่ะ!</div></div>';}else{btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}
+  window.submitHSForm = submitHSForm;
+
+  // Initial load
+  fetchUniversities();
+})();
+</script>
+</body>
+</html>

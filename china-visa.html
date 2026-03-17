@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วีซ่านักเรียนจีน X1 X2 / China Student Visa Guide — LINKEDU</title>
+  <meta name="description" content="คู่มือวีซ่านักเรียนจีน X1 และ X2 สำหรับครอบครัวไทย เอกสาร ขั้นตอน และค่าใช้จ่าย | China student visa X1 &amp; X2 guide for Thai families. Documents, steps, costs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #1a1a1a; }
+
+    .visa-hero {
+      background: #1a1a1a;
+      padding: 72px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .visa-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%;
+      height: 100%;
+      background: radial-gradient(ellipse at top right, rgba(184,150,46,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .visa-hero-inner { position: relative; z-index: 1; }
+    .visa-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: #B8962E;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .visa-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: #B8962E; }
+    .visa-hero h1 { color: #f5f0e8; max-width: 720px; margin-bottom: 14px; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .visa-hero h1 em { font-style: italic; color: #B8962E; }
+    .visa-hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(245,240,232,0.65);
+      max-width: 540px;
+      line-height: 1.75;
+    }
+
+    /* Visa comparison cards */
+    .visa-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .visa-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 28px;
+      border-top: 5px solid #B8962E;
+    }
+    .visa-card-type {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 8px;
+    }
+    .visa-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #1a1a1a;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .visa-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(26,26,26,0.7);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .visa-card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .visa-meta-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(26,26,26,0.65);
+    }
+    .visa-meta-label {
+      font-weight: 700;
+      color: #1a1a1a;
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+    .visa-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(184,150,46,0.1);
+      border: 1px solid rgba(184,150,46,0.25);
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #7a6018;
+    }
+
+    /* Steps */
+    .steps-list {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.07);
+    }
+    .step-row:last-child { border-bottom: none; }
+    .step-num-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #B8962E;
+      font-weight: 400;
+      line-height: 1;
+      min-width: 32px;
+      padding-top: 2px;
+    }
+    .step-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.8);
+      line-height: 1.65;
+    }
+
+    /* Documents checklist */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 36px;
+    }
+    .docs-col-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 16px;
+    }
+    .doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.86rem;
+      color: rgba(26,26,26,0.72);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26,26,26,0.06);
+      line-height: 1.5;
+    }
+    .doc-item:last-child { border-bottom: none; }
+    .doc-check {
+      color: #B8962E;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Thai callout */
+    .thai-callout {
+      background: #111;
+      border: 1px solid rgba(184,150,46,0.25);
+      border-left: 5px solid #B8962E;
+      border-radius: 0 8px 8px 0;
+      padding: 32px 36px;
+      margin-top: 40px;
+    }
+    .thai-callout-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 10px;
+    }
+    .thai-callout-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.8);
+      line-height: 1.75;
+    }
+    .thai-callout-body strong { color: #f5f0e8; }
+
+    /* CTA */
+    .visa-cta {
+      background: #111;
+      padding: 64px 0;
+      text-align: center;
+    }
+    .visa-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #f5f0e8;
+      margin-bottom: 12px;
+    }
+    .visa-cta h2 em { color: #B8962E; font-style: italic; }
+    .visa-cta p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.6);
+      max-width: 460px;
+      margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .visa-cards-grid { grid-template-columns: 1fr; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .thai-callout { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="studyinchina.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">STUDY IN CHINA</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="china-schools.html" class="nav-link"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></a>
+          <div class="nav-dropdown">
+            <a href="china-schools.html" class="dropdown-link"><span class="lang-th">ค้นหามหาวิทยาลัย</span><span class="lang-en">Browse All</span></a>
+            <a href="china-visa.html" class="dropdown-link"><span class="lang-th">คู่มือวีซ่า</span><span class="lang-en">Visa Guide</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Boarding+Schools" class="nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Tutoring" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="china-coming-soon.html?section=Summer+Camps" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#contact-form" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav">
+    <a href="studyinchina.html" class="mobile-nav-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+    <a href="china-schools.html" class="mobile-nav-link"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></a>
+    <a href="china-visa.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คู่มือวีซ่า</span><span class="lang-en">Visa Guide</span></a>
+    <a href="china-coming-soon.html?section=Boarding+Schools" class="mobile-nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+    <a href="china-coming-soon.html?section=Tutoring" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="china-coming-soon.html?section=Summer+Camps" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <div class="mobile-nav-actions">
+      <a href="#contact-form" class="btn-primary" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="visa-hero">
+  <div class="container visa-hero-inner">
+    <div class="visa-eyebrow">STUDENT VISA GUIDE · CHINA</div>
+    <h1>
+      <span class="lang-th">วีซ่านักเรียนจีน<br><em>สำหรับครอบครัวไทย</em></span>
+      <span class="lang-en">China Student Visa Guide<br><em>for Thai Families</em></span>
+    </h1>
+    <p class="visa-hero-sub">
+      <span class="lang-th">วีซ่านักเรียนจีนมีสองประเภท — X1 สำหรับหลักสูตรระยะยาว และ X2 สำหรับหลักสูตรระยะสั้น คู่มือนี้อธิบายเอกสาร ขั้นตอน และค่าใช้จ่ายสำหรับนักเรียนไทยโดยเฉพาะ</span>
+      <span class="lang-en">China student visas come in two types — X1 for long-term degree programs and X2 for short courses. This guide covers documents, steps, and costs specifically for Thai applicants.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     X1 vs X2
+     ============================================================ -->
+<section class="section" style="background:#f5f0e8;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">ประเภทวีซ่า</span><span class="lang-en">Visa Types</span></span>
+      <h2>
+        <span class="lang-th">X1 กับ X2 — ต่างกันอย่างไร?</span>
+        <span class="lang-en">X1 vs X2 — What Is the Difference?</span>
+      </h2>
+    </div>
+    <div class="visa-cards-grid">
+      <!-- X1 -->
+      <div class="visa-card">
+        <div class="visa-card-type">VISA TYPE · X1</div>
+        <div class="visa-card-title"><span class="lang-th">วีซ่านักเรียนระยะยาว</span><span class="lang-en">Long-Stay Student Visa</span></div>
+        <div class="visa-card-desc">
+          <span class="lang-th">สำหรับนักศึกษาที่ลงทะเบียนในหลักสูตรปริญญาหรือโปรแกรมที่มีระยะเวลามากกว่า 180 วัน ต้องแปลงเป็นใบอนุญาตพำนักภายใน 30 วันหลังเดินทางถึงจีน</span>
+          <span class="lang-en">For students enrolling in a degree program or any course longer than 180 days. Must be converted to a Residence Permit within 30 days of arriving in China.</span>
+        </div>
+        <div class="visa-card-meta">
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">ระยะเวลา</span><span class="lang-en">Duration</span></span><span>30 days initial · convert to Residence Permit</span></div>
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">ใช้สำหรับ</span><span class="lang-en">Use for</span></span><span><span class="lang-th">ปริญญาตรี · โท · เอก · โปรแกรม &gt;180 วัน</span><span class="lang-en">Bachelor · Master · Doctoral · Programs &gt;180 days</span></span></div>
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">แปลง</span><span class="lang-en">Converts to</span></span><span class="visa-badge"><span class="lang-th">ใบอนุญาตพำนัก</span><span class="lang-en">Residence Permit</span></span></div>
+        </div>
+      </div>
+      <!-- X2 -->
+      <div class="visa-card">
+        <div class="visa-card-type">VISA TYPE · X2</div>
+        <div class="visa-card-title"><span class="lang-th">วีซ่านักเรียนระยะสั้น</span><span class="lang-en">Short-Stay Student Visa</span></div>
+        <div class="visa-card-desc">
+          <span class="lang-th">สำหรับนักศึกษาในโปรแกรมระยะสั้น หลักสูตรภาษา หรือการแลกเปลี่ยนที่มีระยะเวลา 180 วันหรือน้อยกว่า ไม่ต้องแปลงเป็นใบอนุญาตพำนัก</span>
+          <span class="lang-en">For students in short-term programs, language courses, or exchanges lasting 180 days or less. No conversion to Residence Permit required.</span>
+        </div>
+        <div class="visa-card-meta">
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">ระยะเวลา</span><span class="lang-en">Duration</span></span><span>Up to 180 days</span></div>
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">ใช้สำหรับ</span><span class="lang-en">Use for</span></span><span><span class="lang-th">หลักสูตรภาษา · โปรแกรมสั้น · ซัมเมอร์</span><span class="lang-en">Language courses · Short programs · Summer</span></span></div>
+          <div class="visa-meta-row"><span class="visa-meta-label"><span class="lang-th">หมายเหตุ</span><span class="lang-en">Note</span></span><span><span class="lang-th">หากต้องการเรียนต่อเกิน 180 วัน ต้องออกและสมัคร X1 ใหม่</span><span class="lang-en">If extended beyond 180 days, must exit and apply for X1</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STEP-BY-STEP PROCESS (X1)
+     ============================================================ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">ขั้นตอน X1</span><span class="lang-en">X1 Process</span></span>
+      <h2 style="color:#f5f0e8;">
+        <span class="lang-th">8 ขั้นตอนสมัครวีซ่า X1</span>
+        <span class="lang-en">8 Steps to Your X1 Visa</span>
+      </h2>
+    </div>
+    <div class="steps-list">
+      <div class="step-row"><div class="step-num-badge">01</div><div class="step-text"><span class="lang-th">รับจดหมายตอบรับและแบบฟอร์ม JW201/JW202 จากมหาวิทยาลัยในจีน</span><span class="lang-en">Receive admission letter and JW201 or JW202 form from your Chinese university</span></div></div>
+      <div class="step-row"><div class="step-num-badge">02</div><div class="step-text"><span class="lang-th">นัดหมายล่วงหน้าที่สถานทูตจีน กรุงเทพหรือสถานกงสุลเชียงใหม่</span><span class="lang-en">Book an appointment at the Chinese Embassy in Bangkok or Consulate in Chiang Mai</span></div></div>
+      <div class="step-row"><div class="step-num-badge">03</div><div class="step-text"><span class="lang-th">ยื่นใบสมัครพร้อมเอกสารครบถ้วนด้วยตนเอง</span><span class="lang-en">Submit application in person with all required documents</span></div></div>
+      <div class="step-row"><div class="step-num-badge">04</div><div class="step-text"><span class="lang-th">ชำระค่าธรรมเนียมวีซ่า (ประมาณ ฿4,500 / USD 140 สำหรับผู้สมัครไทย)</span><span class="lang-en">Pay visa fee (approx. ฿4,500 / USD 140 for Thai nationals)</span></div></div>
+      <div class="step-row"><div class="step-num-badge">05</div><div class="step-text"><span class="lang-th">รอประมาณ 4–5 วันทำการ (หรือ 2–3 วันหากเลือกแบบด่วน)</span><span class="lang-en">Wait approx. 4–5 business days (or 2–3 days for express processing)</span></div></div>
+      <div class="step-row"><div class="step-num-badge">06</div><div class="step-text"><span class="lang-th">รับหนังสือเดินทางพร้อมวีซ่า X1</span><span class="lang-en">Collect passport with X1 visa</span></div></div>
+      <div class="step-row"><div class="step-num-badge">07</div><div class="step-text"><span class="lang-th">เดินทางถึงจีน — ลงทะเบียนที่สำนักงานตำรวจท้องถิ่น (PSB) ภายใน 24 ชั่วโมงหากพักกับครอบครัวเจ้าบ้าน</span><span class="lang-en">Arrive in China — register at local Public Security Bureau (PSB) within 24 hours if staying with a host family</span></div></div>
+      <div class="step-row"><div class="step-num-badge">08</div><div class="step-text"><span class="lang-th">ภายใน 30 วัน: สมัครใบอนุญาตพำนักที่ PSB พร้อมหนังสือเดินทาง แบบฟอร์ม JW จดหมายตอบรับ รูปถ่าย และหลักฐานที่พัก</span><span class="lang-en">Within 30 days: apply for Residence Permit at PSB with passport, JW form, admission letter, photos, and accommodation proof</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DOCUMENTS CHECKLIST
+     ============================================================ -->
+<section class="section" style="background:#f5f0e8;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">เอกสารที่ต้องใช้</span><span class="lang-en">Documents Required</span></span>
+      <h2>
+        <span class="lang-th">รายการเอกสาร X1 และ X2</span>
+        <span class="lang-en">Document Checklist — X1 &amp; X2</span>
+      </h2>
+    </div>
+    <div class="docs-grid">
+      <!-- X1 Documents -->
+      <div>
+        <div class="docs-col-title">VISA X1 — DEGREE PROGRAMS</div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หนังสือเดินทาง (อายุมากกว่า 6 เดือน)</span><span class="lang-en">Valid passport (6+ months validity)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">แบบฟอร์ม JW201 หรือ JW202 (จากมหาวิทยาลัย)</span><span class="lang-en">JW201 or JW202 form (from university)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">จดหมายตอบรับจากมหาวิทยาลัย (ต้นฉบับ)</span><span class="lang-en">University admission letter (original)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">แบบฟอร์มใบสมัครวีซ่า V.2013 กรอกครบถ้วน</span><span class="lang-en">Completed visa application form V.2013</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">รูปถ่าย 2 นิ้ว พื้นหลังขาว</span><span class="lang-en">Passport-size photo (white background)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ผลการตรวจสุขภาพ (ตามที่แต่ละมณฑลกำหนด)</span><span class="lang-en">Physical examination record (if required by province)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หลักฐานเงินทุน (ธนาคารหรือผู้ปกครอง)</span><span class="lang-en">Proof of sufficient funds</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ตั๋วเครื่องบินหรือแผนการเดินทาง</span><span class="lang-en">Return air ticket or travel itinerary</span></span></div>
+      </div>
+      <!-- X2 Documents -->
+      <div>
+        <div class="docs-col-title">VISA X2 — SHORT PROGRAMS</div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หนังสือเดินทาง (อายุมากกว่า 6 เดือน)</span><span class="lang-en">Valid passport (6+ months validity)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">จดหมายตอบรับหรือหนังสือยืนยันการลงทะเบียน (ต้นฉบับ)</span><span class="lang-en">Admission letter or enrollment confirmation (original)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">แบบฟอร์มใบสมัครวีซ่า V.2013 กรอกครบถ้วน</span><span class="lang-en">Completed visa application form V.2013</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">รูปถ่าย 2 นิ้ว พื้นหลังขาว</span><span class="lang-en">Passport-size photo (white background)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หลักฐานเงินทุน</span><span class="lang-en">Proof of sufficient funds</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ตั๋วเครื่องบินหรือแผนการเดินทาง</span><span class="lang-en">Return air ticket or travel itinerary</span></span></div>
+        <div style="padding:16px 0 0;">
+          <div style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(26,26,26,0.45);font-style:italic;line-height:1.6;">
+            <span class="lang-th">X2 ไม่ต้องใช้แบบฟอร์ม JW หรือผลตรวจสุขภาพ — เอกสารน้อยกว่า X1</span>
+            <span class="lang-en">X2 does not require JW form or physical examination — simpler than X1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THAI-SPECIFIC CALLOUT
+     ============================================================ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">สำหรับผู้สมัครไทย</span><span class="lang-en">For Thai Applicants</span></span>
+      <h2 style="color:#f5f0e8;">
+        <span class="lang-th">ข้อมูลเฉพาะสำหรับครอบครัวไทย</span>
+        <span class="lang-en">Thailand-Specific Information</span>
+      </h2>
+    </div>
+    <div class="thai-callout">
+      <div class="thai-callout-title">THAI APPLICANTS · PRACTICAL INFO</div>
+      <div class="thai-callout-body">
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>สถานทูตจีน กรุงเทพ:</strong> 57 ถนนรัชดาภิเษก ดินแดง กรุงเทพ 10400 · โทร 02-245-7032 · เปิดทำการจันทร์–ศุกร์ 09:00–12:00</span>
+          <span class="lang-en"><strong>Chinese Embassy, Bangkok:</strong> 57 Ratchadaphisek Road, Din Daeng, Bangkok 10400 · Tel: 02-245-7032 · Open Mon–Fri 09:00–12:00</span>
+        </p>
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>เวลาดำเนินการ:</strong> ประมาณ 4 วันทำการ (มาตรฐาน) หรือ 2–3 วัน (แบบด่วน)</span>
+          <span class="lang-en"><strong>Processing time:</strong> Approx. 4 business days (standard) · 2–3 days (express)</span>
+        </p>
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>ค่าธรรมเนียม:</strong> ประมาณ ฿4,500 (USD 140) สำหรับผู้ถือหนังสือเดินทางไทย</span>
+          <span class="lang-en"><strong>Fee:</strong> Approx. ฿4,500 (USD 140) for Thai passport holders</span>
+        </p>
+        <p style="margin:0;">
+          <span class="lang-th"><strong>เชียงใหม่:</strong> สมัครได้ที่สถานกงสุลจีนประจำเชียงใหม่สำหรับผู้ที่อยู่ภาคเหนือ</span>
+          <span class="lang-en"><strong>Chiang Mai:</strong> Northern Thailand applicants can apply at the Chinese Consulate in Chiang Mai</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+<section class="visa-cta">
+  <div class="container">
+    <h2>
+      <span class="lang-th">LINKEDU จัดการเอกสาร<em>วีซ่า</em>ให้คุณ</span>
+      <span class="lang-en">LINKEDU Handles Your<br><em>Visa Paperwork</em></span>
+    </h2>
+    <p>
+      <span class="lang-th">ทีมงาน LINKEDU ช่วยรวบรวมเอกสาร ตรวจสอบความถูกต้อง และเตรียมใบสมัครวีซ่าให้ครบถ้วน — คุณแค่ยื่นที่สถานทูต</span>
+      <span class="lang-en">LINKEDU's team helps gather documents, verify completeness, and prepare your visa application — you just need to submit at the embassy.</span>
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-primary">
+        <span class="lang-th">ขอความช่วยเหลือเรื่องวีซ่า →</span>
+        <span class="lang-en">Get Visa Help →</span>
+      </a>
+      <a href="china-schools.html" class="btn-outline-cream">
+        <span class="lang-th">ดูมหาวิทยาลัยในจีน</span>
+        <span class="lang-en">Browse China Universities</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<section id="contact-form" style="background:#f5f0e8;padding:88px 40px;border-top:4px solid #B8962E;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B8962E;margin-bottom:16px;"><span class="lang-th">ปรึกษาฟรี · ไม่มีข้อผูกมัด</span><span class="lang-en">Free Consultation · No Obligation</span></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#1a1a1a;line-height:1.15;margin:0 0 16px 0;">
+        <span class="lang-th">พาลูกสู่<br><em style="color:#B8962E;">มหาวิทยาลัยจีน<br>ที่ใช่</em></span>
+        <span class="lang-en">Find the<br><em style="color:#B8962E;">Right University</em><br>in China</span>
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(26,26,26,0.6);line-height:1.7;margin:0;">
+        <span class="lang-th">กรอกข้อมูลด้านขวา — ที่ปรึกษาจีนของเราจะส่งรายชื่อมหาวิทยาลัย พร้อมค่าเรียน ทุน CSC และขั้นตอนการสมัครให้ภายใน 24 ชั่วโมง</span>
+        <span class="lang-en">Fill the form and our China advisors will send tailored university recommendations, tuition details, CSC scholarship options, and a clear application plan within 24 hours.</span>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">บริการฟรี 100%</span><span class="lang-en">Completely free</span></strong><span class="lang-th">ไม่คิดค่าบริการจากครอบครัว</span><span class="lang-en">No charge to families, ever</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></strong><span class="lang-th">ออกไปเรียนต่างประเทศทั่วโลก</span><span class="lang-en">Studying abroad worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">508 มหาวิทยาลัยในจีน</span><span class="lang-en">508 universities in China</span></strong><span class="lang-th">โปรแกรมภาษาอังกฤษกว่า 2,000 รายการ</span><span class="lang-en">2,000+ English-taught programs</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ที่ปรึกษาพูดภาษาไทย</span><span class="lang-en">Thai-speaking advisors</span></strong><span class="lang-th">เชี่ยวชาญด้านการศึกษาในจีน</span><span class="lang-en">China education specialists</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hours</span></strong><span class="lang-th">ผ่าน LINE หรืออีเมล</span><span class="lang-en">Via LINE or email</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ไว้ใจได้ตั้งแต่ปี 2558</span><span class="lang-en">Trusted since 2015</span></strong><span class="lang-th">ดูแลครอบครัวไทยมากกว่า 10 ปี</span><span class="lang-en">10+ years with Thai families</span></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:20px 24px;background:#1a1a1a;border-radius:6px;display:flex;align-items:center;gap:16px;">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:4px;">LINE</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#f5f0e8;">satitlinkedu</div>
+        </div>
+        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="margin-left:auto;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;padding:10px 20px;border-radius:3px;text-decoration:none;white-space:nowrap;"><span class="lang-th">เพิ่ม LINE</span><span class="lang-en">Add LINE</span></a>
+      </div>
+    </div>
+    <div id="hs-inline-wrap" style="background:#1a1a1a;border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(26,26,26,0.15);">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">508 มหาวิทยาลัยจีน</span><span class="lang-en">508 China universities</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label>
+          <input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label>
+          <input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label>
+          <input type="date" name="dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label>
+          <select name="grade" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option>
+            <option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option>
+            <option>Year 12 / ม.6</option><option>อื่นๆ</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label>
+          <input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label>
+          <input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label>
+        <input type="text" name="lineid" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label>
+          <select name="country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option selected>China</option><option>United Kingdom</option><option>United States</option>
+            <option>Australia</option><option>Canada</option><option>Switzerland</option><option>อื่นๆ</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Intended Entry Year</span></label>
+          <select name="entryyear" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+            <option value="">-- เลือก --</option>
+            <option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">มหาวิทยาลัยที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Universities of Interest (optional)</span></label>
+        <input type="text" name="schools" placeholder="เช่น BNU-HKBU, Fudan, Tsinghua — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+      </div>
+      <button onclick="submitHSForm('contact-form','hs-inline-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
+        <span class="lang-en">Send Enquiry — Free Consultation →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta-strip">
+      <div>
+        <div class="footer-cta-tagline">
+          <span class="lang-th">ที่ปรึกษาเฉพาะทางด้านการศึกษาในจีนสำหรับครอบครัวไทย</span>
+          <span class="lang-en">Thailand's specialist in China university placement</span>
+        </div>
+        <div class="footer-cta-sub">
+          <span class="lang-th">ปรึกษาฟรี — ตอบภายใน 24 ชั่วโมง</span>
+          <span class="lang-en">Free consultation — Response within 24 hours</span>
+        </div>
+      </div>
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-cta-btn" target="_blank" rel="noopener">
+        <span class="lang-th">เพิ่ม LINE satitlinkedu</span>
+        <span class="lang-en">Add LINE satitlinkedu</span>
+      </a>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-heading"><span class="lang-th">มหาวิทยาลัยจีน</span><span class="lang-en">Universities</span></div>
+        <div class="footer-links">
+          <a href="studyinchina.html" class="footer-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+          <a href="china-schools.html" class="footer-link"><span class="lang-th">ค้นหามหาวิทยาลัย 508 แห่ง</span><span class="lang-en">Browse 508 Universities</span></a>
+          <a href="china-visa.html" class="footer-link"><span class="lang-th">คู่มือวีซ่านักเรียน</span><span class="lang-en">Student Visa Guide</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการของเรา</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="china-coming-soon.html?section=Boarding+Schools" class="footer-link"><span class="lang-th">โรงเรียนประจำในจีน</span><span class="lang-en">Boarding Schools</span></a>
+          <a href="china-coming-soon.html?section=Tutoring" class="footer-link"><span class="lang-th">ติวเตอร์ภาษาจีน</span><span class="lang-en">Tutoring</span></a>
+          <a href="china-coming-soon.html?section=Summer+Camps" class="footer-link"><span class="lang-th">ซัมเมอร์แคมป์จีน</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">เกี่ยวกับ</span><span class="lang-en">About</span></div>
+        <div class="footer-links">
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Contact Us</span></a>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(245,240,232,0.08);">
+            <a href="index.html" class="footer-link" style="color:#B8962E;"><span class="lang-th">สำรวจโรงเรียนประจำ UK →</span><span class="lang-en">Also: UK Boarding Schools →</span></a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดตามเรา</span><span class="lang-en">Follow Us</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg> LINE: satitlinkedu</a>
+          <a href="https://facebook.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> FB: @linkedu.th</a>
+          <a href="https://instagram.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> IG: @linkedu.th</a>
+          <a href="https://youtube.com/@linkeduthailand" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg> YouTube: @linkeduthailand</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:20px;width:auto;display:block;opacity:0.5"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.2);">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f5f0e8;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;">&times;</button>
+    </div>
+    <div id="hs-modal-wrap" style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">Name</span></label><input type="text" name="firstname" placeholder="First name" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <button onclick="submitHSForm('eqOverlay','hs-modal-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:16px;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'"><span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span></button>
+    </div>
+  </div>
+</div>
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="consultAction()" style="background:#B8962E;color:#1a1a1a;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);" onmouseover="this.style.paddingRight='14px'" onmouseout="this.style.paddingRight='10px'"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></button>
+</div>
+<script>
+  function openEqModal(){document.getElementById('eqOverlay').style.display='flex';document.body.style.overflow='hidden';}
+  function closeEqModal(){document.getElementById('eqOverlay').style.display='none';document.body.style.overflow='';}
+  function consultAction() { var f=document.getElementById('contact-form'); if(f){f.scrollIntoView({behavior:'smooth',block:'start'});}else{openEqModal();} }
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeEqModal();});
+  async function submitHSForm(cId,wId){var c=document.getElementById(cId),w=document.getElementById(wId),btn=c.querySelector('button[onclick]');function g(n){var el=c.querySelector('[name="'+n+'"]');return el?el.value.trim():'';}if(!g('email')){alert('Please enter your email');return;}btn.disabled=true;btn.style.opacity='0.6';btn.textContent='Sending...';var fields=[{name:'firstname',value:g('firstname')},{name:'email',value:g('email')}].filter(f=>f.value);try{var r=await fetch('https://api.hsforms.com/submissions/v3/integration/submit/245267958/044460cf-4981-4a0a-b844-4ea2df92fb1a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields,context:{pageUri:location.href,pageName:document.title}})});if(r.ok){w.innerHTML='<div style="padding:48px 28px;text-align:center;"><div style="font-size:2.5rem;color:#B8962E;margin-bottom:12px;">&#10003;</div><div style="font-family:\'Playfair Display\',serif;font-size:1.5rem;color:#f5f0e8;margin-bottom:10px;">ขอบคุณครับ/ค่ะ!</div><div style="font-size:0.85rem;color:rgba(245,240,232,0.6);">LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง</div></div>';}else{btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}
+</script>
+</body>
+</html>
