@@ -393,6 +393,7 @@
       transition: transform 0.28s ease, box-shadow 0.28s ease;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .scard:hover {
       transform: translateY(-3px);
@@ -542,10 +543,28 @@
       border-top: 1px solid rgba(26,26,26,0.05);
     }
 
+    /* Heart button (shortlist) — absolute top-right of card */
+    .scard-heart-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: rgba(26,26,26,0.2);
+      transition: all 0.2s;
+      z-index: 2;
+      line-height: 1;
+      padding: 2px;
+    }
+    .scard-heart-btn:hover { color: #e8426e; transform: scale(1.15); }
+    .scard-heart-btn.saved { color: #e8426e; }
+
     /* Action buttons */
     .scard-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       border-top: 1px solid rgba(26,26,26,0.07);
       flex-shrink: 0;
     }
@@ -585,15 +604,6 @@
       background: rgba(184,150,46,0.12);
       color: #B8962E;
     }
-    .scard-btn-shortlist {
-      background: transparent;
-      color: #888;
-      border-left: 1px solid rgba(26,26,26,0.07);
-      font-size: 0.63rem;
-    }
-    .scard-btn-shortlist:hover { background: rgba(184,150,46,0.06); color: #B8962E; }
-    .scard-btn-shortlist.saved { background: rgba(184,150,46,0.12); color: #B8962E; }
-
     /* ============================================================
        COMPARE TRAY
        ============================================================ */
@@ -1199,6 +1209,7 @@
           <span class="lang-th">พบ <strong id="resultsCountTH">20</strong> โรงเรียน</span>
           <span class="lang-en"><strong id="resultsCountEN">20</strong> schools found</span>
         </p>
+        <button id="sl-saved-open-btn" onclick="openSchoolSavedPanel()" style="display:none;background:#1a1a1a;color:#f5f0e8;border:none;border-radius:4px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;cursor:pointer">&#10084; <span id="sl-saved-count">0</span> Shortlisted — view list</button>
       </div>
 
       <div id="schoolGrid" class="school-cards-grid">
@@ -1755,6 +1766,7 @@
         ? `<span class="loc-dist">· ${s.distLondon}mi from London</span>` : '';
 
       return `<article class="scard">
+  <button class="scard-heart-btn ${schoolsListSaved.has(s.slug)?'saved':''}" id="sl-list-btn-${s.slug}" onclick="toggleSchoolListShortlist('${s.slug}','${s.name.replace(/'/g,"\\'")}');event.stopPropagation()" title="Shortlist this school">${schoolsListSaved.has(s.slug)?'&#10084;':'&#9825;'}</button>
   <div class="scard-bar ${barClass(s.gender)}"></div>
   <div class="scard-body">
     <div class="scard-badges">
@@ -1796,10 +1808,6 @@
     </button>
     <button class="scard-btn scard-btn-compare" id="compare-btn-${s.name.replace(/[^a-z0-9]/gi,'_')}" onclick="toggleCompare('${s.name.replace(/'/g, "\\'")}')">
       <span class="lang-th">+ เปรียบ</span><span class="lang-en">+ Compare</span>
-    </button>
-    <button class="scard-btn scard-btn-shortlist ${schoolsListSaved.has(s.slug)?'saved':''}" id="sl-list-btn-${s.slug}" onclick="toggleSchoolListShortlist('${s.slug}','${s.name.replace(/'/g,"\\'")}')"
-      title="Save to shortlist">
-      <span class="lang-th">บันทึก</span><span class="lang-en">${schoolsListSaved.has(s.slug)?'Saved':'Shortlist'}</span>
     </button>
   </div>
 </article>`;
@@ -2099,6 +2107,20 @@
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeEqModal(); });
 </script>
 
+<!-- ── SCHOOL SAVED PANEL (shortlist view) ──────────────────── -->
+<div id="school-saved-panel" style="display:none;position:fixed;inset:0;background:rgba(26,26,26,0.65);z-index:900;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeSchoolSavedPanel()">
+  <div style="background:#f5f0e8;border-radius:12px;width:100%;max-width:700px;max-height:88vh;overflow-y:auto;display:flex;flex-direction:column">
+    <div style="background:#1a1a1a;padding:22px 28px;border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:400;color:#f5f0e8;margin:0">My School Shortlist</h3>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button id="sl-save-portal-btn" onclick="openSchoolListSaveModal()" style="display:none;background:#B8962E;color:#111;border:none;border-radius:4px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;cursor:pointer">Save to Portal</button>
+        <button onclick="closeSchoolSavedPanel()" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:rgba(245,240,232,0.4);line-height:1;padding:0">&#215;</button>
+      </div>
+    </div>
+    <div id="school-saved-list" style="padding:24px 28px;flex:1"></div>
+  </div>
+</div>
+
 <!-- ── SCHOOL SHORTLIST SAVE MODAL (schools listing page) ───── -->
 <div id="school-list-save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1100;align-items:center;justify-content:center">
   <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
@@ -2160,13 +2182,17 @@ function _slmPayload() {
 }
 
 function _updateSlmBtns() {
-  document.querySelectorAll('.scard-btn-shortlist').forEach(btn => {
+  document.querySelectorAll('.scard-heart-btn').forEach(btn => {
     const slug = btn.id.replace('sl-list-btn-', '')
-    const saved = schoolsListSaved.has(slug)
-    btn.classList.toggle('saved', saved)
-    const enSpan = btn.querySelector('.lang-en')
-    if (enSpan) enSpan.textContent = saved ? 'Saved' : 'Shortlist'
+    const isSaved = schoolsListSaved.has(slug)
+    btn.classList.toggle('saved', isSaved)
+    btn.innerHTML = isSaved ? '&#10084;' : '&#9825;'
   })
+  const n = schoolsListSaved.size
+  const countEl = document.getElementById('sl-saved-count')
+  if (countEl) countEl.textContent = n
+  const openBtn = document.getElementById('sl-saved-open-btn')
+  if (openBtn) openBtn.style.display = n > 0 ? 'inline-block' : 'none'
 }
 
 async function _slmSyncToPortal() {
@@ -2194,18 +2220,8 @@ async function toggleSchoolListShortlist(slug, name) {
   }
   localStorage.setItem('linkedu-schools-saved', JSON.stringify([...schoolsListSaved]))
   _updateSlmBtns()
-  if (!schoolsListSaved.has(slug)) { await _slmSyncToPortal(); return }
-  const link = document.getElementById('slm-portal-link')
-  if (link) link.href = SLM_API_BASE
-  try {
-    const { data: { session } } = await SLM_SB.auth.getSession()
-    if (session) { await _slmDoSave(session); return }
-  } catch(e) {}
-  document.getElementById('school-list-save-modal').style.display = 'flex'
-  document.getElementById('slm-signup').style.display = 'block'
-  document.getElementById('slm-login').style.display = 'none'
-  document.getElementById('slm-success').style.display = 'none'
-  document.getElementById('slm-error').style.display = 'none'
+  // Silently sync to portal if signed in — no modal on heart click (like summer camps pattern)
+  await _slmSyncToPortal()
 }
 
 async function _slmDoSave(session) {
@@ -2263,6 +2279,44 @@ async function slmLogin() {
     errEl.textContent = e.message || 'Sign in failed.'
     errEl.style.display = 'block'; btn.textContent = 'Sign In & Save'; btn.disabled = false
   }
+}
+
+function openSchoolSavedPanel() {
+  const panel = document.getElementById('school-saved-panel')
+  const list  = document.getElementById('school-saved-list')
+  const saveBtn = document.getElementById('sl-save-portal-btn')
+  if (!panel || !list) return
+  const names = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+  const items = [...schoolsListSaved]
+  if (!items.length) {
+    list.innerHTML = '<p style="color:#888;font-size:14px">No schools shortlisted yet — click the heart on any card.</p>'
+  } else {
+    list.innerHTML = items.map(slug => {
+      const name = names[slug] || slug
+      return `<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(26,26,26,0.1)">
+        <span style="font-family:'Playfair Display',Georgia,serif;font-size:1rem;color:#1a1a1a">${name}</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <a href="schools/${slug}.html" target="_blank" style="font-size:12px;color:#B8962E;text-decoration:none;font-weight:600">View &#8594;</a>
+          <button onclick="toggleSchoolListShortlist('${slug}','${name.replace(/'/g,"\\'")}');openSchoolSavedPanel()" style="background:none;border:none;cursor:pointer;font-size:0.85rem;color:#aaa">&#10005; Remove</button>
+        </div>
+      </div>`
+    }).join('')
+  }
+  if (saveBtn) saveBtn.style.display = items.length > 0 ? 'inline-block' : 'none'
+  panel.style.display = 'flex'
+  document.body.style.overflow = 'hidden'
+}
+
+function closeSchoolSavedPanel() {
+  const panel = document.getElementById('school-saved-panel')
+  if (panel) panel.style.display = 'none'
+  document.body.style.overflow = ''
+}
+
+function openSchoolListSaveModal() {
+  closeSchoolSavedPanel()
+  const modal = document.getElementById('school-list-save-modal')
+  if (modal) modal.style.display = 'flex'
 }
 
 // Init: load from portal if signed in
