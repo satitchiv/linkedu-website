@@ -1452,6 +1452,12 @@
     <div class="step3-grid" id="scholGrid">
       <!-- populated by JS -->
     </div>
+
+    <!-- Save Results -->
+    <div id="fees-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
+      <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
+      <button onclick="openSaveModal({tool_name:'fee-calculator',tool_label:'Fee Calculator',result_summary:'Budget: \u00a3'+(state.budget||'')+' \u2014 '+(state.selectedSchool||'No school selected'),result_data:{budget:state.budget,rate:state.rate,selectedSchool:state.selectedSchool,vatOn:state.vatOn,annualBudget:state.budget,termBudget:Math.round((state.budget||0)/3),monthBudget:Math.round((state.budget||0)/12)}})" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+    </div>
   </div>
 </section>
 
@@ -1498,7 +1504,7 @@
         <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
           <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Switzerland</option></select></div>
-          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการเข้าเรียน</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+          <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการเข้าเรียน</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
         </div>
         <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
         <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ข้อความเพิ่มเติม</span><span class="lang-en">Additional Message</span></label><textarea rows="3" placeholder="บอกเราเพิ่มเติมเกี่ยวกับลูกคุณ ความสนใจ หรือข้อกังวล..." style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;resize:vertical;"></textarea></div>
@@ -1537,8 +1543,8 @@ LINKEDU จะติดต่อกลับภายใน 24 ชั่วโ�
         <div class="footer-heading"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></div>
         <div class="footer-links">
           <a href="../prepare.html" class="footer-link"><span class="lang-th">ไทม์ไลน์สมัครเรียน</span><span class="lang-en">Application Timeline</span></a>
-          <a href="../prepare.html#interview" class="footer-link"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep</span></a>
-          <a href="../prepare.html#culture" class="footer-link"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Readiness</span></a>
+          <a href="interview-prep-guide.html" class="footer-link"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep</span></a>
+          <a href="culture-shock-readiness-quiz.html" class="footer-link"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Readiness</span></a>
           <a href="../guides.html" class="footer-link"><span class="lang-th">คู่มือครอบครัวไทย</span><span class="lang-en">Guides for Thai Families</span></a>
         </div>
       </div>
@@ -2477,7 +2483,7 @@ document.getElementById('step3').classList.add('step-hidden');
       <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
         <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>United Kingdom</option><option>United States</option><option>Australia</option><option>Switzerland</option></select></div>
-        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Entry Year</span></label><select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
       </div>
       <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
       <button onclick="alert('ขอบคุณครับ/ค่ะ!\nLINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง'); closeEqModal();" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;">
@@ -2510,6 +2516,181 @@ document.getElementById('step3').classList.add('step-hidden');
     else { openEqModal(); }
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeEqModal(); });
+</script>
+
+<!-- Save Results Modal -->
+<div id="save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
+    <div style="font-family:'Playfair Display',Georgia,serif;color:#B8962E;font-size:18px;margin-bottom:6px">Save Your Results</div>
+    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save and view your results in the portal.</div>
+
+    <div id="save-modal-signup">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="sm-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="sm-password" placeholder="min. 8 characters" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="sm-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="sm-signup-btn" onclick="saveModalSignup()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Create Account &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">Already have an account? <a href="#" onclick="saveModalShowLogin();return false" style="color:#B8962E">Sign in</a></div>
+    </div>
+
+    <div id="save-modal-login" style="display:none">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="sm-login-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="sm-login-password" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="sm-login-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="sm-login-btn" onclick="saveModalLogin()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer">Sign In &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">New user? <a href="#" onclick="saveModalShowSignup();return false" style="color:#B8962E">Create account</a></div>
+    </div>
+
+    <div id="save-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Results Saved</div>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">Your results are now in your portal.</div>
+      <a href="#" id="portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+    </div>
+
+    <button onclick="document.getElementById('save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8904'
+  : 'https://linkedu-parent-portal.netlify.app'
+const SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
+const sbTool = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+let _pendingResult = null
+
+function _showSaveModal() {
+  const modal = document.getElementById('save-modal')
+  modal.style.display = 'flex'
+  document.getElementById('save-modal-signup').style.display = 'block'
+  document.getElementById('save-modal-login').style.display = 'none'
+  document.getElementById('save-modal-success').style.display = 'none'
+  document.getElementById('sm-error').style.display = 'none'
+}
+
+async function openSaveModal(resultData) {
+  _pendingResult = resultData
+  const portalLink = document.getElementById('portal-link')
+  if (portalLink) portalLink.href = API_BASE
+  try {
+    const { data: { session } } = await sbTool.auth.getSession()
+    if (session) { await doSaveResult(session); return }
+  } catch(e) { /* fall through */ }
+  _showSaveModal()
+}
+
+function saveModalShowLogin() {
+  document.getElementById('save-modal-signup').style.display = 'none'
+  document.getElementById('save-modal-login').style.display = 'block'
+}
+
+function saveModalShowSignup() {
+  document.getElementById('save-modal-signup').style.display = 'block'
+  document.getElementById('save-modal-login').style.display = 'none'
+}
+
+async function doSaveResult(session) {
+  if (!_pendingResult) return
+  const res = await fetch(API_BASE + '/api/save-tool-result', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+    body: JSON.stringify(_pendingResult)
+  })
+  if (!res.ok) throw new Error('Save failed')
+  document.getElementById('save-modal').style.display = 'flex'
+  document.getElementById('save-modal-signup').style.display = 'none'
+  document.getElementById('save-modal-login').style.display = 'none'
+  document.getElementById('save-modal-success').style.display = 'block'
+}
+
+async function saveModalSignup() {
+  const email = (document.getElementById('sm-email').value || '').trim()
+  const password = document.getElementById('sm-password').value || ''
+  const errEl = document.getElementById('sm-error')
+  const btn = document.getElementById('sm-signup-btn')
+  errEl.style.display = 'none'
+  if (!email || password.length < 8) {
+    errEl.textContent = 'Valid email and password (min 8 chars) required.'
+    errEl.style.display = 'block'
+    return
+  }
+  btn.disabled = true
+  btn.textContent = 'Creating account...'
+  try {
+    let alreadyExists = false
+    try {
+      const signupRes = await fetch(API_BASE + '/api/free-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      if (signupRes.ok) {
+        const signupData = await signupRes.json()
+        if (signupData.error === 'already_exists') alreadyExists = true
+      }
+    } catch (fetchErr) { /* network error — attempt sign-in anyway */ }
+
+    const { data, error } = await sbTool.auth.signInWithPassword({ email, password })
+    btn.disabled = false
+    btn.textContent = 'Create Account & Save'
+    if (error) {
+      errEl.textContent = alreadyExists ? 'Account exists. Use Sign In below.' : error.message
+      errEl.style.display = 'block'
+      if (alreadyExists) saveModalShowLogin()
+      return
+    }
+    await doSaveResult(data.session)
+  } catch (e) {
+    btn.disabled = false
+    btn.textContent = 'Create Account & Save'
+    errEl.textContent = 'Something went wrong. Please try again.'
+    errEl.style.display = 'block'
+  }
+}
+
+async function saveModalLogin() {
+  const email = (document.getElementById('sm-login-email').value || '').trim()
+  const password = document.getElementById('sm-login-password').value || ''
+  const errEl = document.getElementById('sm-login-error')
+  const btn = document.getElementById('sm-login-btn')
+  errEl.style.display = 'none'
+  if (!email || !password) {
+    errEl.textContent = 'Email and password required.'
+    errEl.style.display = 'block'
+    return
+  }
+  btn.disabled = true
+  btn.textContent = 'Signing in...'
+  const { data, error } = await sbTool.auth.signInWithPassword({ email, password })
+  btn.disabled = false
+  btn.textContent = 'Sign In & Save'
+  if (error) {
+    errEl.textContent = error.message
+    errEl.style.display = 'block'
+    return
+  }
+  try {
+    await doSaveResult(data.session)
+  } catch (e) {
+    errEl.textContent = 'Signed in but could not save results. Try again.'
+    errEl.style.display = 'block'
+  }
+}
 </script>
 
 </body>
