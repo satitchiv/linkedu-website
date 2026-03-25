@@ -259,7 +259,7 @@
       <div class="life-card">
         <div class="life-card-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="#1a1a1a"><rect x="2" y="2" width="12" height="12" rx="2"/></svg></div>
         <div class="life-card-title"><span class="lang-th">ที่ตั้ง</span><span class="lang-en">Location</span></div>
-        <div class="life-card-text"><span class="lang-th">1 hour 10 minutes from London Victoria by direct train to Christ's Hospital station, which sits at the edge of the school's grounds ห่างจาก Nearest Airport — ไมล์</span><span class="lang-en">1 hour 10 minutes from London Victoria by direct train to Christ's Hospital station, which sits at the edge of the school's grounds. — miles from Nearest Airport.</span></div>
+        <div class="life-card-text"><span class="lang-th">1 hour 10 minutes from London Victoria by direct train to Christ's Hospital station, which sits at the edge of the school's grounds ห่างจาก London Gatwick 20 ไมล์</span><span class="lang-en">1 hour 10 minutes from London Victoria by direct train to Christ's Hospital station, which sits at the edge of the school's grounds. 20 miles from London Gatwick.</span></div>
       </div>
       <div class="life-card">
         <div class="life-card-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="#1a1a1a"><polygon points="8,1 10,6 15,6 11,9 13,14 8,11 3,14 5,9 1,6 6,6"/></svg></div>
@@ -307,7 +307,7 @@
         <ul class="boarding-list" style="margin-top:24px;">
           <li><span class="lang-th">กิจกรรมตลอดสุดสัปดาห์สำหรับนักเรียนที่พักอยู่</span><span class="lang-en">Weekend activities provided for remaining boarders</span></li>
           <li><span class="lang-th">อาหาร 3 มื้อต่อวัน รวมตัวเลือก Halal และ vegetarian</span><span class="lang-en">3 meals daily including Halal and vegetarian options</span></li>
-          <li><span class="lang-th">สนามบิน Nearest Airport ห่างเพียง — ไมล์</span><span class="lang-en">Nearest Airport just — miles away</span></li>
+          <li><span class="lang-th">สนามบิน London Gatwick ห่างเพียง 20 ไมล์</span><span class="lang-en">London Gatwick just 20 miles away</span></li>
         </ul>
       </div>
       <div>
@@ -323,8 +323,8 @@
         <div style="background:var(--dark);padding:24px;border-radius:4px;margin-top:20px;">
           <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;"><span class="lang-th">ระยะทางจาก Christ's Hospital School</span><span class="lang-en">Distances from Christ's Hospital School</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);">— mi</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">Nearest Airport</div></div>
-            <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);">— mi</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">West Sussex</div></div>
+            <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);">20 mi</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">London Gatwick</div></div>
+            <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);">3 mi</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">Horsham</div></div>
             <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);">14 hr</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">Bangkok (direct)</div></div>
             <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);">1552</div><div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.45);">Founded</div></div>
           </div>
@@ -466,6 +466,7 @@
 <div class="sticky-bar" id="stickyBar">
   <div class="sticky-bar-school">Christ's Hospital School</div>
   <div style="display:flex;gap:10px;align-items:center;">
+    <button id="school-heart-btn" onclick="toggleSchoolFav(event)" style="display:inline-flex;align-items:center;padding:10px 16px;background:transparent;border:1px solid rgba(245,240,232,0.25);border-radius:4px;color:rgba(245,240,232,0.7);font-family:'Inter',sans-serif;font-size:0.72rem;cursor:pointer;transition:all 0.2s">Shortlist</button>
     <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(245,240,232,0.5);">£38,790</span>
     <button class="btn-primary" onclick="openModal('Christ's Hospital School')" style="padding:10px 20px;font-size:0.72rem;"><span class="lang-th">สอบถาม / สมัคร</span><span class="lang-en">Enquire / Apply</span></button>
   </div>
@@ -545,6 +546,243 @@
     if (bar) bar.classList.toggle('visible', window.scrollY > 600);
   });
   setLang('th');
+</script>
+
+<!-- ── SCHOOL SHORTLIST SAVE MODAL ───────────────────────────── -->
+<div id="school-save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1100;align-items:center;justify-content:center">
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
+    <div style="font-family:'Playfair Display',Georgia,serif;color:#B8962E;font-size:18px;margin-bottom:6px">Save to Shortlist</div>
+    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your school shortlist and view it in your portal.</div>
+    <div id="school-modal-signup">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="ssm-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="ssm-password" placeholder="min. 8 characters" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="ssm-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="ssm-signup-btn" onclick="schoolSaveModalSignup()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Create Account &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">Already have an account? <a href="#" onclick="schoolSaveModalShowLogin();return false" style="color:#B8962E">Sign in</a></div>
+    </div>
+    <div id="school-modal-login" style="display:none">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="ssm-login-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="ssm-login-password" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="ssm-login-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="ssm-login-btn" onclick="schoolSaveModalLogin()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer">Sign In &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">New user? <a href="#" onclick="schoolSaveModalShowSignup();return false" style="color:#B8962E">Create account</a></div>
+    </div>
+    <div id="school-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Shortlist Saved</div>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">This school is now in your portal shortlist.</div>
+      <a href="#" id="school-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+    </div>
+    <button onclick="document.getElementById('school-save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SCHOOL_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8904'
+  : 'https://linkedu-parent-portal.netlify.app'
+const SCHOOL_SB_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
+const SCHOOL_SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
+const sbSchool = window.supabase.createClient(SCHOOL_SB_URL, SCHOOL_SB_KEY)
+
+const SCHOOL_SLUG = 'christs-hospital-school'
+const SCHOOL_NAME = 'Christ\'s Hospital School'
+
+let schoolSaved = new Set(JSON.parse(localStorage.getItem('linkedu-schools-saved') || '[]'))
+
+function _persistSchools() { localStorage.setItem('linkedu-schools-saved', JSON.stringify([...schoolSaved])) }
+
+function _updateSchoolHeartUI() {
+  const btn = document.getElementById('school-heart-btn')
+  if (!btn) return
+  const isSaved = schoolSaved.has(SCHOOL_SLUG)
+  btn.style.background = isSaved ? 'rgba(184,150,46,0.2)' : 'transparent'
+  btn.style.borderColor = isSaved ? 'rgba(184,150,46,0.6)' : 'rgba(245,240,232,0.25)'
+  btn.style.color = isSaved ? '#B8962E' : 'rgba(245,240,232,0.7)'
+  btn.textContent = isSaved ? 'Shortlisted \u2713' : 'Shortlist'
+}
+
+async function syncSchoolToPortal() {
+  try {
+    const { data: { session } } = await sbSchool.auth.getSession()
+    if (!session) return
+    const items = [...schoolSaved].map(slug => { return { slug, name: slug } })
+    // Merge in stored names from localStorage
+    const storedNames = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+    items.forEach(item => { item.name = storedNames[item.slug] || item.slug })
+    await fetch(SCHOOL_API_BASE + '/api/save-tool-result', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tool_name: 'school-shortlist',
+        tool_label: 'School Shortlist',
+        result_summary: items.length + ' school' + (items.length !== 1 ? 's' : '') + ' shortlisted',
+        result_data: { items }
+      })
+    })
+  } catch(e) { /* silent */ }
+}
+
+async function toggleSchoolFav(e) {
+  e.preventDefault()
+  if (schoolSaved.has(SCHOOL_SLUG)) {
+    schoolSaved.delete(SCHOOL_SLUG)
+    // Remove name mapping
+    const names = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+    delete names[SCHOOL_SLUG]
+    localStorage.setItem('linkedu-schools-names', JSON.stringify(names))
+  } else {
+    schoolSaved.add(SCHOOL_SLUG)
+    // Store name mapping
+    const names = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+    names[SCHOOL_SLUG] = SCHOOL_NAME
+    localStorage.setItem('linkedu-schools-names', JSON.stringify(names))
+  }
+  _persistSchools()
+  _updateSchoolHeartUI()
+  await _openSchoolSaveFlow()
+}
+
+async function _openSchoolSaveFlow() {
+  if (!schoolSaved.has(SCHOOL_SLUG)) {
+    // Was removed — just sync
+    await syncSchoolToPortal()
+    return
+  }
+  const link = document.getElementById('school-portal-link')
+  if (link) link.href = SCHOOL_API_BASE
+  try {
+    const { data: { session } } = await sbSchool.auth.getSession()
+    if (session) {
+      await _doSaveSchoolShortlist(session)
+      return
+    }
+  } catch(e) { /* fall through */ }
+  document.getElementById('school-save-modal').style.display = 'flex'
+  document.getElementById('school-modal-signup').style.display = 'block'
+  document.getElementById('school-modal-login').style.display = 'none'
+  document.getElementById('school-modal-success').style.display = 'none'
+  document.getElementById('ssm-error').style.display = 'none'
+}
+
+async function _doSaveSchoolShortlist(session) {
+  const storedNames = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+  const items = [...schoolSaved].map(slug => ({ slug, name: storedNames[slug] || slug }))
+  const res = await fetch(SCHOOL_API_BASE + '/api/save-tool-result', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      tool_name: 'school-shortlist',
+      tool_label: 'School Shortlist',
+      result_summary: items.length + ' school' + (items.length !== 1 ? 's' : '') + ' shortlisted',
+      result_data: { items }
+    })
+  })
+  if (!res.ok) throw new Error('Save failed')
+  const link = document.getElementById('school-portal-link')
+  if (link) link.href = SCHOOL_API_BASE
+  document.getElementById('school-save-modal').style.display = 'flex'
+  document.getElementById('school-modal-signup').style.display = 'none'
+  document.getElementById('school-modal-login').style.display = 'none'
+  document.getElementById('school-modal-success').style.display = 'block'
+}
+
+function schoolSaveModalShowLogin() {
+  document.getElementById('school-modal-signup').style.display = 'none'
+  document.getElementById('school-modal-login').style.display = 'block'
+}
+
+function schoolSaveModalShowSignup() {
+  document.getElementById('school-modal-signup').style.display = 'block'
+  document.getElementById('school-modal-login').style.display = 'none'
+}
+
+async function schoolSaveModalSignup() {
+  const email = (document.getElementById('ssm-email').value || '').trim()
+  const password = document.getElementById('ssm-password').value || ''
+  const errEl = document.getElementById('ssm-error')
+  const btn = document.getElementById('ssm-signup-btn')
+  errEl.style.display = 'none'
+  if (!email || !password) { errEl.textContent = 'Please enter email and password.'; errEl.style.display = 'block'; return }
+  btn.textContent = 'Creating account...'
+  btn.disabled = true
+  try {
+    const signupRes = await fetch(SCHOOL_API_BASE + '/api/free-signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    const signupData = await signupRes.json()
+    if (!signupRes.ok) { throw new Error(signupData.error || 'Signup failed') }
+    const { data: { session }, error } = await sbSchool.auth.signInWithPassword({ email, password })
+    if (!session) throw new Error('Could not sign in after signup')
+    await _doSaveSchoolShortlist(session)
+  } catch(e) {
+    errEl.textContent = e.message || 'Something went wrong. Please try again.'
+    errEl.style.display = 'block'
+    btn.textContent = 'Create Account & Save'
+    btn.disabled = false
+  }
+}
+
+async function schoolSaveModalLogin() {
+  const email = (document.getElementById('ssm-login-email').value || '').trim()
+  const password = document.getElementById('ssm-login-password').value || ''
+  const errEl = document.getElementById('ssm-login-error')
+  const btn = document.getElementById('ssm-login-btn')
+  errEl.style.display = 'none'
+  if (!email || !password) { errEl.textContent = 'Please enter email and password.'; errEl.style.display = 'block'; return }
+  btn.textContent = 'Signing in...'
+  btn.disabled = true
+  try {
+    const { data: { session }, error } = await sbSchool.auth.signInWithPassword({ email, password })
+    if (error || !session) throw new Error(error?.message || 'Sign in failed')
+    await _doSaveSchoolShortlist(session)
+  } catch(e) {
+    errEl.textContent = e.message || 'Sign in failed. Check your email and password.'
+    errEl.style.display = 'block'
+    btn.textContent = 'Sign In & Save'
+    btn.disabled = false
+  }
+}
+
+// Init: restore heart state + load from portal if signed in
+_updateSchoolHeartUI()
+;(async () => {
+  try {
+    const { data: { session } } = await sbSchool.auth.getSession()
+    if (!session) return
+    const res = await fetch(SCHOOL_API_BASE + '/api/get-tool-results', {
+      headers: { 'Authorization': 'Bearer ' + session.access_token }
+    })
+    if (!res.ok) return
+    const results = await res.json()
+    const sr = (results || []).find(r => r.tool_name === 'school-shortlist')
+    if (!sr?.result_data?.items) return
+    const names = JSON.parse(localStorage.getItem('linkedu-schools-names') || '{}')
+    sr.result_data.items.forEach(item => {
+      if (item.slug) {
+        schoolSaved.add(item.slug)
+        if (item.name) names[item.slug] = item.name
+      }
+    })
+    _persistSchools()
+    localStorage.setItem('linkedu-schools-names', JSON.stringify(names))
+    _updateSchoolHeartUI()
+  } catch(e) { /* silent */ }
+})()
 </script>
 </body>
 </html>

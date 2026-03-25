@@ -242,17 +242,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 </header>
 
 <!-- ─── HERO ─────────────────────────────────────────────────── -->
-<section class="hero"><div class="container hi">
-  <div class="ey lang-th">ซัมเมอร์แคมป์ 2026</div>
-  <div class="ey lang-en">Summer Camps 2026</div>
-  <h1><span class="lang-th">ค้นหา<em>โปรแกรม</em>ที่เหมาะกับลูก</span><span class="lang-en">Find the right <em>programme</em> for your child</span></h1>
-  <p class="lang-th">370 โปรแกรมจากผู้จัดชั้นนำ พร้อมรายละเอียดวิชา หลักสูตร ราคา และวันเริ่มต้น</p>
-  <p class="lang-en">370 programmes from the UK's leading providers — subjects, syllabus, fees and start dates.</p>
-  <div class="hstats">
-    <div class="hstat"><div class="n">370</div><div class="l lang-th">โปรแกรม</div><div class="l lang-en">Programmes</div></div>
-    <div class="hstat"><div class="n">48</div><div class="l lang-th">ผู้จัด</div><div class="l lang-en">Providers</div></div>
-    <div class="hstat"><div class="n">5</div><div class="l lang-th">สาขาวิชา</div><div class="l lang-en">Subjects</div></div>
-    <div class="hstat"><div class="n">10–18</div><div class="l lang-th">ช่วงอายุ</div><div class="l lang-en">Age range</div></div>
+<section class="hero"><div class="container hero-with-img">
+  <div class="hi hero-text-col">
+    <div class="ey lang-th">ซัมเมอร์แคมป์ 2026</div>
+    <div class="ey lang-en">Summer Camps 2026</div>
+    <h1><span class="lang-th">ค้นหา<em>โปรแกรม</em>ที่เหมาะกับลูก</span><span class="lang-en">Find the right <em>programme</em> for your child</span></h1>
+    <p class="lang-th">370 โปรแกรมจากผู้จัดชั้นนำ พร้อมรายละเอียดวิชา หลักสูตร ราคา และวันเริ่มต้น</p>
+    <p class="lang-en">370 programmes from the UK's leading providers — subjects, syllabus, fees and start dates.</p>
+    <div class="hstats">
+      <div class="hstat"><div class="n">370</div><div class="l lang-th">โปรแกรม</div><div class="l lang-en">Programmes</div></div>
+      <div class="hstat"><div class="n">48</div><div class="l lang-th">ผู้จัด</div><div class="l lang-en">Providers</div></div>
+      <div class="hstat"><div class="n">5</div><div class="l lang-th">สาขาวิชา</div><div class="l lang-en">Subjects</div></div>
+      <div class="hstat"><div class="n">10–18</div><div class="l lang-th">ช่วงอายุ</div><div class="l lang-en">Age range</div></div>
+    </div>
+  </div>
+  <div class="hero-img-right">
+    <img src="images/students/cropped/img-student-headphones.png" alt="" aria-hidden="true">
   </div>
 </div></section>
 
@@ -421,7 +426,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
     <p class="lang-en">A LINKEDU consultant will help you find the right programme — free.</p>
   </div>
   <div class="line-cta-action">
-    <a href="https://lin.ee/linkedu" class="btn btn-gold btn-lg" target="_blank">
+    <a href="https://line.me/R/ti/p/satitlinkedu" class="btn btn-gold btn-lg" target="_blank">
       <span class="lang-th">พูดคุยทาง LINE</span><span class="lang-en">Chat on LINE</span>
     </a>
     <p class="line-cta-note lang-th">ตอบภายใน 2 ชั่วโมง ไม่มีข้อผูกมัด</p>
@@ -501,7 +506,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
       <h3 class="lang-th">เราจะติดต่อกลับเร็วๆ นี้!</h3>
       <p class="lang-en">Our consultant will contact you within 2 hours. In the meantime, feel free to chat on LINE.</p>
       <p class="lang-th">ที่ปรึกษาจะติดต่อกลับภายใน 2 ชั่วโมง สามารถพูดคุยทาง LINE ได้เลย</p>
-      <a href="https://lin.ee/linkedu" class="btn-line-cta" target="_blank">
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="btn-line-cta" target="_blank">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.04 2 11c0 2.67 1.2 5.07 3.1 6.77L4 22l4.37-1.19C9.55 21.58 10.76 22 12 22c5.52 0 10-4.04 10-9S17.52 2 12 2z"/></svg>
         Chat on LINE
       </a>
@@ -513,8 +518,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 <div class="saved-panel" id="saved-panel" onclick="handleSavedOverlay(event)">
   <div class="saved-drawer">
     <div class="saved-drawer-header">
-      <h3>❤ <span class="lang-en">My Saved <span>Programmes</span></span><span class="lang-th">โปรแกรมที่บันทึกไว้</span></h3>
-      <button onclick="closeSavedPanel()" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:rgba(245,240,232,.4);line-height:1;padding:0">✕</button>
+      <h3><span class="lang-en">My Saved Programmes</span><span class="lang-th">โปรแกรมที่บันทึกไว้</span></h3>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button id="save-portal-btn" onclick="openCampSaveModal()" style="display:none;background:#B8962E;color:#111;border:none;border-radius:4px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.05em;cursor:pointer">Save to Portal</button>
+        <button onclick="closeSavedPanel()" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:rgba(245,240,232,.4);line-height:1;padding:0">&#215;</button>
+      </div>
     </div>
     <div class="saved-drawer-body">
       <div class="saved-grid" id="saved-grid">
@@ -907,7 +915,7 @@ let saved = new Set(JSON.parse(localStorage.getItem('linkedu-camps-saved')||'[]'
 
 function saveFav(id){saved.add(id);persist();}
 function removeFav(id){saved.delete(id);persist();}
-function toggleFav(id){saved.has(id)?removeFav(id):saveFav(id);updateFavUI();}
+function toggleFav(id){saved.has(id)?removeFav(id):saveFav(id);updateFavUI();syncShortlistToPortal();}
 function persist(){localStorage.setItem('linkedu-camps-saved',JSON.stringify([...saved]));}
 
 function updateFavUI(){
@@ -956,12 +964,21 @@ function openSavedPanel(){
           </div>
         </div>
         <div class="saved-item-btns">
-          <button class="si-btn book" onclick="openModal(${c.id},'book');closeSavedPanel()">Book</button>
+          <button class="si-btn book" onclick="document.getElementById('enquiry-form').scrollIntoView({behavior:'smooth'});closeSavedPanel()">Book</button>
           <button class="si-btn enq" onclick="openModal(${c.id},'enquiry');closeSavedPanel()">Enquire</button>
           <button class="si-btn remove" onclick="toggleFav(${c.id});openSavedPanel()">✕ Remove</button>
         </div>
       </div>`;
     }).join('');
+  }
+  // Show/hide save-to-portal button based on login state
+  const savePortalBtn = document.getElementById('save-portal-btn');
+  if (savePortalBtn) {
+    if (saved.size > 0) {
+      savePortalBtn.style.display = 'inline-block';
+    } else {
+      savePortalBtn.style.display = 'none';
+    }
   }
   document.getElementById('saved-panel').classList.add('open');
   document.body.style.overflow='hidden';
@@ -1061,7 +1078,7 @@ function buildCard(c){
       </div>
     </div>
     <div class="card-btns">
-      <button class="btn-book" onclick="openModal(${c.id},'book')">
+      <button class="btn-book" onclick="document.getElementById('enquiry-form').scrollIntoView({behavior:'smooth'})">
         <span class="lang-en">Book</span><span class="lang-th">จอง</span>
       </button>
       <button class="btn-enquire" onclick="openModal(${c.id},'enquiry')">
@@ -1221,6 +1238,196 @@ applyFilters();
     if (f) { f.scrollIntoView({behavior:'smooth',block:'start'}); }
     else { openEqModal && openEqModal(); }
   }
+</script>
+
+<!-- ── CAMP SHORTLIST SAVE MODAL ─────────────────────────────── -->
+<div id="camp-save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1100;align-items:center;justify-content:center">
+  <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
+    <div style="font-family:'Playfair Display',Georgia,serif;color:#B8962E;font-size:18px;margin-bottom:6px">Save Your Shortlist</div>
+    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your shortlisted camps and view them in your portal.</div>
+
+    <div id="camp-modal-signup">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="csm-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="csm-password" placeholder="min. 8 characters" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="csm-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="csm-signup-btn" onclick="campSaveModalSignup()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Create Account &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">Already have an account? <a href="#" onclick="campSaveModalShowLogin();return false" style="color:#B8962E">Sign in</a></div>
+    </div>
+
+    <div id="camp-modal-login" style="display:none">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
+        <input type="email" id="csm-login-email" placeholder="your@email.com" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Password</label>
+        <input type="password" id="csm-login-password" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:14px;outline:none;box-sizing:border-box" />
+      </div>
+      <div id="csm-login-error" style="display:none;color:#e74c3c;font-size:12px;margin-bottom:12px"></div>
+      <button id="csm-login-btn" onclick="campSaveModalLogin()" style="width:100%;padding:11px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer">Sign In &amp; Save</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:#555">New user? <a href="#" onclick="campSaveModalShowSignup();return false" style="color:#B8962E">Create account</a></div>
+    </div>
+
+    <div id="camp-modal-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Shortlist Saved</div>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">Your camp shortlist is now in your portal.</div>
+      <a href="#" id="camp-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+    </div>
+
+    <button onclick="document.getElementById('camp-save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const CAMP_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8904'
+  : 'https://linkedu-parent-portal.netlify.app'
+const CAMP_SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
+const CAMP_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
+const sbCamp = window.supabase.createClient(CAMP_SUPABASE_URL, CAMP_SUPABASE_ANON_KEY)
+
+function _campSavePayload() {
+  const items = [...saved].map(id => {
+    const c = CAMPS.find(x => x.id === id)
+    return c ? { id: c.id, title: c.title, provider: c.provider, fee: c.priceFee || '' } : null
+  }).filter(Boolean)
+  return {
+    tool_name: 'camp-shortlist',
+    tool_label: 'Summer Camp Shortlist',
+    result_summary: items.length + ' camp' + (items.length !== 1 ? 's' : '') + ' shortlisted',
+    result_data: { items }
+  }
+}
+
+async function syncShortlistToPortal() {
+  if (!saved.size) return
+  try {
+    const { data: { session } } = await sbCamp.auth.getSession()
+    if (!session) return
+    await fetch(CAMP_API_BASE + '/api/save-tool-result', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(_campSavePayload())
+    })
+  } catch(e) { /* silent — background sync */ }
+}
+
+async function openCampSaveModal() {
+  const link = document.getElementById('camp-portal-link')
+  if (link) link.href = CAMP_API_BASE
+  try {
+    const { data: { session } } = await sbCamp.auth.getSession()
+    if (session) {
+      await _doSaveCampShortlist(session)
+      return
+    }
+  } catch(e) { /* fall through */ }
+  document.getElementById('camp-save-modal').style.display = 'flex'
+  document.getElementById('camp-modal-signup').style.display = 'block'
+  document.getElementById('camp-modal-login').style.display = 'none'
+  document.getElementById('camp-modal-success').style.display = 'none'
+  document.getElementById('csm-error').style.display = 'none'
+}
+
+async function _doSaveCampShortlist(session) {
+  const res = await fetch(CAMP_API_BASE + '/api/save-tool-result', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+    body: JSON.stringify(_campSavePayload())
+  })
+  if (!res.ok) throw new Error('Save failed')
+  const link = document.getElementById('camp-portal-link')
+  if (link) link.href = CAMP_API_BASE
+  document.getElementById('camp-save-modal').style.display = 'flex'
+  document.getElementById('camp-modal-signup').style.display = 'none'
+  document.getElementById('camp-modal-login').style.display = 'none'
+  document.getElementById('camp-modal-success').style.display = 'block'
+}
+
+function campSaveModalShowLogin() {
+  document.getElementById('camp-modal-signup').style.display = 'none'
+  document.getElementById('camp-modal-login').style.display = 'block'
+}
+
+function campSaveModalShowSignup() {
+  document.getElementById('camp-modal-signup').style.display = 'block'
+  document.getElementById('camp-modal-login').style.display = 'none'
+}
+
+async function campSaveModalSignup() {
+  const email = (document.getElementById('csm-email').value || '').trim()
+  const password = document.getElementById('csm-password').value || ''
+  const errEl = document.getElementById('csm-error')
+  const btn = document.getElementById('csm-signup-btn')
+  errEl.style.display = 'none'
+  if (!email || !password) { errEl.textContent = 'Please enter email and password.'; errEl.style.display = 'block'; return }
+  btn.textContent = 'Creating account...'
+  btn.disabled = true
+  try {
+    const signupRes = await fetch(CAMP_API_BASE + '/api/free-signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    const signupData = await signupRes.json()
+    if (!signupRes.ok) { throw new Error(signupData.error || 'Signup failed') }
+    const { data: { session } } = await sbCamp.auth.signInWithPassword({ email, password })
+    if (!session) throw new Error('Could not sign in after signup')
+    await _doSaveCampShortlist(session)
+  } catch(e) {
+    errEl.textContent = e.message || 'Something went wrong. Please try again.'
+    errEl.style.display = 'block'
+    btn.textContent = 'Create Account & Save'
+    btn.disabled = false
+  }
+}
+
+async function campSaveModalLogin() {
+  const email = (document.getElementById('csm-login-email').value || '').trim()
+  const password = document.getElementById('csm-login-password').value || ''
+  const errEl = document.getElementById('csm-login-error')
+  const btn = document.getElementById('csm-login-btn')
+  errEl.style.display = 'none'
+  if (!email || !password) { errEl.textContent = 'Please enter email and password.'; errEl.style.display = 'block'; return }
+  btn.textContent = 'Signing in...'
+  btn.disabled = true
+  try {
+    const { data: { session }, error } = await sbCamp.auth.signInWithPassword({ email, password })
+    if (error || !session) throw new Error(error?.message || 'Sign in failed')
+    await _doSaveCampShortlist(session)
+  } catch(e) {
+    errEl.textContent = e.message || 'Sign in failed. Check your email and password.'
+    errEl.style.display = 'block'
+    btn.textContent = 'Sign In & Save'
+    btn.disabled = false
+  }
+}
+
+// On init: if user already signed in, load their existing camp shortlist from portal and merge into saved set
+;(async () => {
+  try {
+    const { data: { session } } = await sbCamp.auth.getSession()
+    if (!session) return
+    const res = await fetch(CAMP_API_BASE + '/api/get-tool-results', {
+      headers: { 'Authorization': 'Bearer ' + session.access_token }
+    })
+    if (!res.ok) return
+    const results = await res.json()
+    const campResult = (results || []).find(r => r.tool_name === 'camp-shortlist')
+    if (!campResult?.result_data?.items) return
+    campResult.result_data.items.forEach(item => { if (item.id != null) saved.add(item.id) })
+    persist()
+    updateFavUI()
+  } catch(e) { /* silent */ }
+})()
 </script>
 </body>
 </html>
