@@ -146,9 +146,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 .btn-line-cta{display:inline-flex;align-items:center;gap:8px;background:#06C755;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;text-decoration:none}
 
 /* ─── SAVED LIST PANEL ──────────────────────────────────────── */
-.saved-panel{display:none;position:fixed;inset:0;background:rgba(26,26,26,.65);z-index:900;align-items:center;justify-content:center;padding:20px}
+.saved-panel{display:none;position:fixed;inset:0;background:rgba(26,26,26,.65);z-index:900;align-items:flex-start;justify-content:center;padding:80px 20px 20px}
 .saved-panel.open{display:flex}
-.saved-drawer{background:#f5f0e8;border-radius:12px;width:100%;max-width:900px;max-height:88vh;overflow-y:auto;display:flex;flex-direction:column}
+.saved-drawer{background:#f5f0e8;border-radius:12px;width:100%;max-width:900px;max-height:calc(100vh - 100px);overflow-y:auto;display:flex;flex-direction:column}
 .saved-drawer-header{background:#1a1a1a;padding:22px 28px;border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .saved-drawer-header h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:#f5f0e8;margin:0}
 .saved-drawer-header h3 span{color:#B8962E}
@@ -520,7 +520,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
     <div class="saved-drawer-header">
       <h3><span class="lang-en">My Saved Programmes</span><span class="lang-th">โปรแกรมที่บันทึกไว้</span></h3>
       <div style="display:flex;align-items:center;gap:10px">
-        <button id="save-portal-btn" onclick="openCampSaveModal()" style="display:none;background:#B8962E;color:#111;border:none;border-radius:4px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.05em;cursor:pointer">Save to Portal</button>
+        <button id="save-portal-btn" onclick="openCampSaveModal()" style="display:none;background:#B8962E;color:#111;border:none;border-radius:4px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.05em;cursor:pointer">Save to EduNest Account</button>
         <button onclick="closeSavedPanel()" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:rgba(245,240,232,.4);line-height:1;padding:0">&#215;</button>
       </div>
     </div>
@@ -931,6 +931,14 @@ function updateFavUI(){
     btn.classList.toggle('saved',saved.has(+btn.dataset.id));
     btn.textContent=saved.has(+btn.dataset.id)?'❤':'♡';
   });
+  const stickyBar=document.getElementById('camps-sticky-bar');
+  if(stickyBar){
+    stickyBar.style.display=n>0?'flex':'none';
+    const sc=document.getElementById('sticky-fav-count');
+    if(sc) sc.textContent=n;
+    const sp=document.getElementById('sticky-fav-plural');
+    if(sp) sp.textContent=n===1?'':'s';
+  }
 }
 
 function openSavedPanel(){
@@ -1244,7 +1252,7 @@ applyFilters();
 <div id="camp-save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1100;align-items:center;justify-content:center">
   <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
     <div style="font-family:'Playfair Display',Georgia,serif;color:#B8962E;font-size:18px;margin-bottom:6px">Save Your Shortlist</div>
-    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your shortlisted camps and view them in your portal.</div>
+    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your shortlisted camps and view them in your EduNest account.</div>
 
     <div id="camp-modal-signup">
       <div style="margin-bottom:14px">
@@ -1277,8 +1285,8 @@ applyFilters();
     <div id="camp-modal-success" style="display:none;text-align:center;padding:20px 0">
       <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
       <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Shortlist Saved</div>
-      <div style="font-size:13px;color:#777;margin-bottom:20px">Your camp shortlist is now in your portal.</div>
-      <a href="#" id="camp-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">Your camp shortlist is now in your EduNest account.</div>
+      <a href="#" id="camp-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Account &#8594;</a>
     </div>
 
     <button onclick="document.getElementById('camp-save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
@@ -1287,8 +1295,8 @@ applyFilters();
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const CAMP_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:8904'
+const CAMP_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '100.100.120.57'
+  ? `http://${window.location.hostname}:8904`
   : 'https://linkedu-parent-portal.netlify.app'
 const CAMP_SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
 const CAMP_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
@@ -1345,11 +1353,17 @@ async function _doSaveCampShortlist(session) {
   })
   if (!res.ok) throw new Error('Save failed')
   const link = document.getElementById('camp-portal-link')
-  if (link) link.href = CAMP_API_BASE
+  if (link) link.href = CAMP_API_BASE + '/?at=' + encodeURIComponent(session.access_token) + '&rt=' + encodeURIComponent(session.refresh_token)
   document.getElementById('camp-save-modal').style.display = 'flex'
   document.getElementById('camp-modal-signup').style.display = 'none'
   document.getElementById('camp-modal-login').style.display = 'none'
   document.getElementById('camp-modal-success').style.display = 'block'
+  // Track tool_save_completed — fire-and-forget
+  fetch(CAMP_API_BASE + '/api/track-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+    body: JSON.stringify({ event_name: 'tool_save_completed', properties: { tool_name: 'camp-shortlist', source_page: location.pathname } })
+  }).catch(() => {})
 }
 
 function campSaveModalShowLogin() {
@@ -1372,10 +1386,11 @@ async function campSaveModalSignup() {
   btn.textContent = 'Creating account...'
   btn.disabled = true
   try {
+    const _utmP = new URLSearchParams(location.search)
     const signupRes = await fetch(CAMP_API_BASE + '/api/free-signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, source: 'camp-shortlist', referrer: document.referrer || null, utm_source: _utmP.get('utm_source'), utm_campaign: _utmP.get('utm_campaign') })
     })
     const signupData = await signupRes.json()
     if (!signupRes.ok) { throw new Error(signupData.error || 'Signup failed') }
@@ -1429,5 +1444,15 @@ async function campSaveModalLogin() {
   } catch(e) { /* silent */ }
 })()
 </script>
+<script src="js/auth-indicator.js"></script>
+
+<!-- ─── STICKY SHORTLIST BAR ───────────────────────────────── -->
+<div id="camps-sticky-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:800;background:#1a1a1a;border-top:1px solid #2a2a2a;padding:12px 24px;align-items:center;justify-content:space-between;gap:12px">
+  <div style="display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:13px;color:#f5f0e8">
+    <span style="color:#e8426e;font-size:15px">&#10084;</span>
+    <span><span id="sticky-fav-count">0</span> camp<span id="sticky-fav-plural">s</span> saved</span>
+  </div>
+  <button onclick="openSavedPanel()" style="background:#B8962E;color:#111;border:none;border-radius:4px;padding:8px 18px;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;cursor:pointer">View Shortlist</button>
+</div>
 </body>
 </html>

@@ -588,7 +588,7 @@
                 <!-- Save Results -->
                 <div id="sports-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
                   <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-                  <button onclick="(function(){var sport=document.getElementById('sport-select')?.value||'';var fallbackScores=[95,88,80,72,65];var topSchools=Array.from(document.querySelectorAll('#top-schools-container .card')).slice(0,5).map(function(c,i){var name=(c.querySelector('h3,h4,.school-name')?.textContent||'').trim();var scoreEl=c.querySelector('.match-score,.score,.compatibility-score');var scoreText=scoreEl?scoreEl.textContent.trim():'';var score=parseInt(scoreText.replace('%',''))||fallbackScores[i]||0;return name?{name:name,score:score}:null;}).filter(Boolean);openSaveModal({tool_name:'sports-pathway',tool_label:'Sports Pathway',result_summary:(sport?sport+' pathway':'Sports pathway')+(topSchools.length?' \u2014 Top: '+topSchools.map(function(s){return s.name;}).join(', '):''),result_data:{sport:sport,topSchools:topSchools}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+                  <button onclick="(function(){var sport=document.getElementById('sport-select')?.value||'';var fallbackScores=[95,88,80,72,65];var topSchools=Array.from(document.querySelectorAll('#top-schools-container .card')).slice(0,5).map(function(c,i){var name=(c.querySelector('h3,h4,.school-name')?.textContent||'').trim();var scoreEl=c.querySelector('.match-score,.score,.compatibility-score');var scoreText=scoreEl?scoreEl.textContent.trim():'';var score=parseInt(scoreText.replace('%',''))||fallbackScores[i]||0;return name?{name:name,score:score}:null;}).filter(Boolean);openSaveModal({tool_name:'sports-pathway',tool_label:'Sports Pathway',result_summary:(sport?sport+' pathway':'Sports pathway')+(topSchools.length?' \u2014 Top: '+topSchools.map(function(s){return s.name;}).join(', '):''),result_data:{sport:sport,topSchools:topSchools,level:document.getElementById('level-select')?.value||'',age:document.getElementById('age-input')?.value||''}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
                 </div>
             </div>
         </section>
@@ -1263,8 +1263,8 @@
     <div id="save-modal-success" style="display:none;text-align:center;padding:20px 0">
       <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
       <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Results Saved</div>
-      <div style="font-size:13px;color:#777;margin-bottom:20px">Your results are now in your portal.</div>
-      <a href="#" id="portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">Your results are now in your EduNest account.</div>
+      <a href="#" id="portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Account &#8594;</a>
     </div>
 
     <button onclick="document.getElementById('save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
@@ -1273,8 +1273,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:8904'
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '100.100.120.57'
+  ? `http://${window.location.hostname}:8904`
   : 'https://linkedu-parent-portal.netlify.app'
 const SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
@@ -1323,7 +1323,14 @@ async function doSaveResult(session) {
   document.getElementById('save-modal').style.display = 'flex'
   document.getElementById('save-modal-signup').style.display = 'none'
   document.getElementById('save-modal-login').style.display = 'none'
+  const _pl = document.getElementById('portal-link'); if (_pl) _pl.href = API_BASE + '/?at=' + encodeURIComponent(session.access_token) + '&rt=' + encodeURIComponent(session.refresh_token);
   document.getElementById('save-modal-success').style.display = 'block'
+  // Track tool_save_completed — fire-and-forget
+  fetch(API_BASE + '/api/track-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+    body: JSON.stringify({ event_name: 'tool_save_completed', properties: { tool_name: (_pendingResult.tool_name || null), source_page: location.pathname } })
+  }).catch(() => {})
 }
 
 async function saveModalSignup() {
@@ -1342,10 +1349,11 @@ async function saveModalSignup() {
   try {
     let alreadyExists = false
     try {
+      const _utmP = new URLSearchParams(location.search)
       const signupRes = await fetch(API_BASE + '/api/free-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, source: 'sports-pathway', referrer: document.referrer || null, utm_source: _utmP.get('utm_source'), utm_campaign: _utmP.get('utm_campaign') })
       })
       if (signupRes.ok) {
         const signupData = await signupRes.json()

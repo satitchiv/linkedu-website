@@ -56,7 +56,12 @@
       <a href="../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a><span>›</span>
       <span>Harrow School</span>
     </div>
+    <div class="hero-meta-row">
     <div class="mag-badge"><span class="lang-th">LINKEDU แนะนำ</span><span class="lang-en">LINKEDU Recommends</span></div>
+    <button class="hero-heart-btn" id="school-heart-hero-btn" onclick="toggleSchoolFav(event)" aria-label="Shortlist">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    </div>
     <h1 class="mag-hero-title">
       <span class="lang-th">Harrow School —<br><em>โรงเรียนของ Winston Churchill ห่างจาก Heathrow 12 ไมล์</em></span>
       <span class="lang-en">Harrow School —<br><em>Winston Churchill's School, 12 Miles from Heathrow</em></span>
@@ -566,7 +571,7 @@
 <div id="school-save-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1100;align-items:center;justify-content:center">
   <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:36px 32px;width:380px;max-width:92vw;position:relative">
     <div style="font-family:'Playfair Display',Georgia,serif;color:#B8962E;font-size:18px;margin-bottom:6px">Save to Shortlist</div>
-    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your school shortlist and view it in your portal.</div>
+    <div style="font-size:12px;color:#777;margin-bottom:24px">Create a free account to save your school shortlist and view it in your EduNest account.</div>
     <div id="school-modal-signup">
       <div style="margin-bottom:14px">
         <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#777;margin-bottom:6px">Email</label>
@@ -596,16 +601,16 @@
     <div id="school-modal-success" style="display:none;text-align:center;padding:20px 0">
       <div style="font-size:28px;margin-bottom:12px">&#10003;</div>
       <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;color:#eee;margin-bottom:8px">Shortlist Saved</div>
-      <div style="font-size:13px;color:#777;margin-bottom:20px">This school is now in your portal shortlist.</div>
-      <a href="#" id="school-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Portal &#8594;</a>
+      <div style="font-size:13px;color:#777;margin-bottom:20px">This school is now in your EduNest account.</div>
+      <a href="#" id="school-portal-link" target="_blank" style="display:inline-block;padding:10px 24px;background:#B8962E;color:#111;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none">View in Account &#8594;</a>
     </div>
     <button onclick="document.getElementById('school-save-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1">&#215;</button>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SCHOOL_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:8904'
+const SCHOOL_API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '100.100.120.57'
+  ? `http://${window.location.hostname}:8904`
   : 'https://linkedu-parent-portal.netlify.app'
 const SCHOOL_SB_URL = 'https://ufspivvuevllmkxmivbe.supabase.co'
 const SCHOOL_SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk'
@@ -620,12 +625,17 @@ function _persistSchools() { localStorage.setItem('linkedu-schools-saved', JSON.
 
 function _updateSchoolHeartUI() {
   const btn = document.getElementById('school-heart-btn')
-  if (!btn) return
+  const heroBtn = document.getElementById('school-heart-hero-btn')
   const isSaved = schoolSaved.has(SCHOOL_SLUG)
-  btn.style.background = isSaved ? 'rgba(184,150,46,0.2)' : 'transparent'
-  btn.style.borderColor = isSaved ? 'rgba(184,150,46,0.6)' : 'rgba(245,240,232,0.25)'
-  btn.style.color = isSaved ? '#B8962E' : 'rgba(245,240,232,0.7)'
-  btn.textContent = isSaved ? 'Shortlisted \u2713' : 'Shortlist'
+  if (btn) {
+    btn.style.background = isSaved ? 'rgba(184,150,46,0.2)' : 'transparent'
+    btn.style.borderColor = isSaved ? 'rgba(184,150,46,0.6)' : 'rgba(245,240,232,0.25)'
+    btn.style.color = isSaved ? '#B8962E' : 'rgba(245,240,232,0.7)'
+    btn.textContent = isSaved ? 'Shortlisted ✓' : 'Shortlist'
+  }
+  if (heroBtn) {
+    heroBtn.classList.toggle('saved', isSaved)
+  }
 }
 
 async function syncSchoolToPortal() {
@@ -706,11 +716,17 @@ async function _doSaveSchoolShortlist(session) {
   })
   if (!res.ok) throw new Error('Save failed')
   const link = document.getElementById('school-portal-link')
-  if (link) link.href = SCHOOL_API_BASE
+  if (link) link.href = SCHOOL_API_BASE + '/?at=' + encodeURIComponent(session.access_token) + '&rt=' + encodeURIComponent(session.refresh_token)
   document.getElementById('school-save-modal').style.display = 'flex'
   document.getElementById('school-modal-signup').style.display = 'none'
   document.getElementById('school-modal-login').style.display = 'none'
   document.getElementById('school-modal-success').style.display = 'block'
+  // Track tool_save_completed — fire-and-forget
+  fetch(SCHOOL_API_BASE + '/api/track-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+    body: JSON.stringify({ event_name: 'tool_save_completed', properties: { tool_name: 'school-shortlist', source_page: location.pathname } })
+  }).catch(() => {})
 }
 
 function schoolSaveModalShowLogin() {
@@ -733,10 +749,11 @@ async function schoolSaveModalSignup() {
   btn.textContent = 'Creating account...'
   btn.disabled = true
   try {
+    const _utmP = new URLSearchParams(location.search)
     const signupRes = await fetch(SCHOOL_API_BASE + '/api/free-signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, source: 'school-shortlist', referrer: document.referrer || null, utm_source: _utmP.get('utm_source'), utm_campaign: _utmP.get('utm_campaign') })
     })
     const signupData = await signupRes.json()
     if (!signupRes.ok) { throw new Error(signupData.error || 'Signup failed') }
@@ -798,5 +815,6 @@ _updateSchoolHeartUI()
   } catch(e) { /* silent */ }
 })()
 </script>
+<script src="../js/auth-indicator.js"></script>
 </body>
 </html>
