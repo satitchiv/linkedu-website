@@ -1456,7 +1456,7 @@
     <!-- Save Results -->
     <div id="fees-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
       <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-      <button onclick="openSaveModal({tool_name:'fee-calculator',tool_label:'Fee Calculator',result_summary:'Budget: \u00a3'+(state.budget||'')+' \u2014 '+(state.selectedSchool||'No school selected'),result_data:{budget:state.budget,rate:state.rate,selectedSchool:state.selectedSchool,vatOn:state.vatOn,annualBudget:state.budget,termBudget:Math.round((state.budget||0)/3),monthBudget:Math.round((state.budget||0)/12),livingCosts:state.livingCosts}})" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+      <button onclick="(function(){var lc=state.livingCosts;var livingTotal=Object.values(lc).reduce(function(a,b){return a+b;},0);var school=window._selectedSchool||null;openSaveModal({tool_name:'fee-calculator',tool_label:'Fee Calculator',result_summary:'Budget: \u00a3'+(state.budget||'')+' \u2014 '+(state.selectedSchool||'No school selected'),result_data:{budget:state.budget,rate:state.rate,selectedSchool:state.selectedSchool,vatOn:state.vatOn,annualBudget:state.budget,termBudget:Math.round((state.budget||0)/3),monthBudget:Math.round((state.budget||0)/12),livingCosts:state.livingCosts,livingTotal:livingTotal,totalAnnualCost:(state.trueCostGBP||state.budget+livingTotal)}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
     </div>
   </div>
 </section>
@@ -1770,12 +1770,15 @@ const state = {
   typeFilter: 'all',
   selectedSchool: null,
   livingCosts: {
-    flights: 3000,
+    flights: 5000,
     uniform: 1000,
     personal: 2500,
     accommodation: 1500,
     phone: 1000,
-    contingency: 1500
+    contingency: 1500,
+    guardian: 2500,
+    visa: 1200,
+    eal: 0
   },
   trueCostGBP: 0,
   trueCostTHB: 0,
@@ -2101,7 +2104,7 @@ function renderStep2() {
   const container = document.getElementById('step2Inner');
 
   const lc = state.livingCosts;
-  const livingTotal = lc.flights + lc.uniform + lc.personal + lc.accommodation + lc.phone + lc.contingency;
+  const livingTotal = Object.values(lc).reduce(function(a, b) { return a + b; }, 0);
 
   container.innerHTML =
     '<!-- Selected school banner -->' +
@@ -2167,20 +2170,27 @@ function renderStep2() {
 
 function buildLivingInputs(lc) {
   const items = [
-    { key: 'flights', labelTH: 'ตั๋วเครื่องบิน (ไป-กลับ)', labelEN: 'Flights (return)' },
-    { key: 'uniform', labelTH: 'ชุดนักเรียน / อุปกรณ์', labelEN: 'Uniform & Kit' },
-    { key: 'personal', labelTH: 'ค่าใช้จ่ายส่วนตัว', labelEN: 'Personal Allowance' },
-    { key: 'accommodation', labelTH: 'ที่พักช่วงปิดเทอม', labelEN: 'Holiday Accommodation' },
-    { key: 'phone', labelTH: 'โทรศัพท์ / ซิม', labelEN: 'Phone / SIM' },
-    { key: 'contingency', labelTH: 'สำรองฉุกเฉิน', labelEN: 'Contingency' }
+    { key: 'flights',      labelTH: 'ตั๋วเครื่องบิน (ไป-กลับ)',  labelEN: 'Flights (return)',         tipEN: 'Covers approx. 3 return flights Bangkok–London for your child plus 1 parent visit per year. Adjust based on your travel plans.',                                                                                     tipTH: 'ครอบคลุมประมาณ 3 เที่ยวบินไป-กลับ กรุงเทพฯ–ลอนดอนสำหรับบุตรหลาน และ 1 ครั้งสำหรับผู้ปกครอง' },
+    { key: 'uniform',      labelTH: 'ชุดนักเรียน / อุปกรณ์',   labelEN: 'Uniform & Kit',            tipEN: null, tipTH: null },
+    { key: 'personal',     labelTH: 'ค่าใช้จ่ายส่วนตัว',        labelEN: 'Personal Allowance',       tipEN: null, tipTH: null },
+    { key: 'accommodation',labelTH: 'ที่พักช่วงปิดเทอม',        labelEN: 'Holiday Accommodation',    tipEN: null, tipTH: null },
+    { key: 'phone',        labelTH: 'โทรศัพท์ / ซิม',           labelEN: 'Phone / SIM',              tipEN: null, tipTH: null },
+    { key: 'contingency',  labelTH: 'สำรองฉุกเฉิน',             labelEN: 'Contingency',              tipEN: null, tipTH: null },
+    { key: 'guardian',     labelTH: 'ค่าผู้ปกครองในสหราชอาณาจักร', labelEN: 'UK Guardian',           tipEN: 'UK law requires all international students under 18 to have a registered UK-based guardian. Guardianship agencies typically charge £1,500–£3,500/year. This is mandatory and is usually the first bill families receive.',  tipTH: 'กฎหมายสหราชอาณาจักรกำหนดให้นักเรียนต่างชาติที่อายุต่ำกว่า 18 ปีทุกคนต้องมีผู้ปกครองที่จดทะเบียนในสหราชอาณาจักร ค่าบริการโดยทั่วไปอยู่ที่ £1,500–£3,500 ต่อปี' },
+    { key: 'visa',         labelTH: 'วีซ่า + ค่าสุขภาพ (IHS)',  labelEN: 'Visa & Health Surcharge',  tipEN: 'Includes the UK Child Student Visa application (~£490) and the Immigration Health Surcharge (~£776/year), averaged annually over a 5-year placement.',                                                                    tipTH: 'รวมค่าวีซ่านักเรียนเด็ก (~£490) และค่าบริการสุขภาพ (~£776/ปี) คำนวณเฉลี่ยต่อปีสำหรับ 5 ปีการศึกษา' },
+    { key: 'eal',          labelTH: 'ค่าเรียนภาษาอังกฤษเพิ่มเติม (EAL)', labelEN: 'EAL Support (if needed)', tipEN: 'If your child needs English as an Additional Language support, schools typically charge £2,000–£6,000/year as a supplement. Set to £0 if not needed.',                                                              tipTH: 'หากบุตรหลานต้องการการสนับสนุนภาษาอังกฤษเพิ่มเติม โรงเรียนมักเรียกเก็บ £2,000–£6,000 ต่อปี ตั้งเป็น £0 หากไม่ต้องการ' }
   ];
   let html = '';
   items.forEach(function(item) {
+    const tipIcon = item.tipEN
+      ? '<span title="' + item.tipEN + '" style="display:inline-block;width:14px;height:14px;background:rgba(184,150,46,0.25);border-radius:50%;font-size:9px;font-weight:700;color:#B8962E;text-align:center;line-height:14px;cursor:help;margin-left:5px;vertical-align:middle;flex-shrink:0">?</span>'
+      : '';
     html +=
       '<div class="living-input-row">' +
-        '<label>' +
+        '<label style="display:flex;align-items:center;gap:0">' +
           '<span class="lang-th">' + item.labelTH + '</span>' +
           '<span class="lang-en">' + item.labelEN + '</span>' +
+          tipIcon +
         '</label>' +
         '<input type="number" min="0" step="100" value="' + lc[item.key] + '" ' +
           'data-key="' + item.key + '" onchange="updateLiving(this)" oninput="updateLiving(this)">' +

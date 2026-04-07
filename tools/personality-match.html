@@ -607,7 +607,7 @@
                 <!-- Save Results -->
                 <div id="personality-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
                   <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-                  <button onclick="(function(){var cards=document.querySelectorAll('#school-results-grid .school-card');var topSchools=Array.from(cards).slice(0,5).map(function(c){var name=(c.querySelector('h3,h4,.school-name')?.textContent||'').trim();var scoreEl=c.querySelector('.compatibility-score,.match-score,.score-badge,.school-score');var scoreText=scoreEl?scoreEl.textContent.trim():'';var score=parseInt(scoreText.replace('%',''))||0;return name?{name:name,score:score}:null;}).filter(Boolean);var answers=questions.map(function(q){var idx=userAnswers[q.id];return idx!==undefined?{q:q.en,a:q.options[idx].en}:null;}).filter(Boolean);openSaveModal({tool_name:'personality-match',tool_label:'Personality Match',result_summary:'Top matches: '+topSchools.map(function(s){return s.name+(s.score?' ('+s.score+'%)':'');}).join(', '),result_data:{topSchools:topSchools,answers:answers}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+                  <button onclick="(function(){var cards=document.querySelectorAll('#school-results-grid .school-card');var topSchools=Array.from(cards).slice(0,5).map(function(c){var name=(c.querySelector('h3,h4,.school-name')?.textContent||'').trim();var scoreEl=c.querySelector('.compatibility-score,.match-score,.score-badge,.school-score');var scoreText=scoreEl?scoreEl.textContent.trim():'';var score=parseInt(scoreText.replace('%',''))||0;return name?{name:name,score:score}:null;}).filter(Boolean);var answers=questions.map(function(q){var idx=userAnswers[q.id];return idx!==undefined?{q:q.en,a:q.options[idx].en}:null;}).filter(Boolean);var q9idx=userAnswers['q9'];var boardingType=q9idx!==undefined&&questions[8]&&questions[8].options[q9idx]?(questions[8].options[q9idx].attributes||{}).boardingType||'':'';openSaveModal({tool_name:'personality-match',tool_label:'Personality Match',result_summary:'Top matches: '+topSchools.map(function(s){return s.name+(s.score?' ('+s.score+'%)':'');}).join(', '),result_data:{topSchools:topSchools,answers:answers,boardingType:boardingType}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
                 </div>
             </div>
         </section>
@@ -649,7 +649,22 @@
         ];
 
         const SCHOOLS = [];
-        const locations = ['city', 'countryside'];
+        const locations = ['city', 'countryside', 'near_london'];
+
+        // Schools known to be in near-London counties: Berkshire, Surrey, Bucks, Oxon, Hants, Kent, Greater London
+        const nearLondonSchoolNames = new Set([
+            "Charterhouse", "Caterham School", "City of London Freemen's School", "Cokethorpe School",
+            "Cranbrook School", "Cranleigh School", "DLD College London", "Dover College", "Dulwich College",
+            "Eton College", "Forest School", "Highgate School", "Hurtwood House", "Ibstock Place School",
+            "Kent College Canterbury", "King Edward's School Witley", "King's School Canterbury",
+            "Lord Wandsworth College", "Marymount International School", "More House School",
+            "Pangbourne College", "Queen Anne's School", "Radley College", "Reed's School",
+            "Rochester Independent College", "Sevenoaks School", "St Clare's Oxford",
+            "St Edmund's School Canterbury", "St Edward's School Oxford", "St George's School Ascot",
+            "St Lawrence College", "St Mary's School Ascot", "St Swithun's School",
+            "Stowe School", "Tonbridge School", "Wellington College", "Winchester College", "Woldingham School"
+        ]);
+
         const sizes = ['small', 'large'];
         const academicFocuses = ['strong', 'balanced', 'creative'];
         const freeTimeActivitiesOptions = ['sports', 'arts', 'clubs', 'academic enrichment', 'outdoor', 'individual', 'social'];
@@ -679,7 +694,7 @@
             const name = UK_SCHOOL_NAMES[i];
             const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '');
 
-            const location = getRandomElement(locations);
+            const location = nearLondonSchoolNames.has(name) ? 'near_london' : getRandomElement(['city', 'countryside']);
             const size = getRandomElement(sizes);
             const academicFocus = getRandomElement(academicFocuses);
             const characterFocus = Math.random() > 0.3; // ~70% chance of having character focus
@@ -728,7 +743,8 @@
                 th: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดที่ใด?',
                 options: [
                     { en: 'In a vibrant city environment with cultural opportunities', th: 'ในสภาพแวดล้อมเมืองที่คึกคักพร้อมโอกาสทางวัฒนธรรม', attributes: { location: 'city' } },
-                    { en: 'In a peaceful countryside setting with open spaces', th: 'ในชนบทที่เงียบสงบพร้อมพื้นที่เปิดโล่ง', attributes: { location: 'countryside' } }
+                    { en: 'In a peaceful countryside setting with open spaces', th: 'ในชนบทที่เงียบสงบพร้อมพื้นที่เปิดโล่ง', attributes: { location: 'countryside' } },
+                    { en: 'Within 1–2 hours of London/Heathrow', th: 'ภายใน 1–2 ชั่วโมงจากลอนดอน/สนามบินฮีทโธรว์', tooltip: 'Most UK boarding schools sit in market towns. For international families, proximity to Heathrow Airport is often more practical than city vs countryside.', attributes: { location: 'near_london' } }
                 ]
             },
             {
@@ -783,24 +799,24 @@
             },
             {
                 id: 'q9',
-                en: 'What kind of extracurricular emphasis is important?',
-                th: 'กิจกรรมนอกหลักสูตรประเภทใดที่สำคัญ?',
+                en: 'What type of boarding arrangement suits your family?',
+                th: 'รูปแบบการพักประจำแบบใดที่เหมาะกับครอบครัวของคุณ?',
                 options: [
-                    { en: 'Strong emphasis on competitive sports and physical activity', th: 'เน้นกีฬาแข่งขันและกิจกรรมทางกายภาพอย่างมาก', attributes: { extracurricularEmphasis: 'sports', freeTimeActivities: ['sports'] } },
-                    { en: 'Rich program in arts, music, and drama', th: 'โปรแกรมที่หลากหลายในด้านศิลปะ ดนตรี และการละคร', attributes: { extracurricularEmphasis: 'arts', freeTimeActivities: ['arts'], academicFocus: 'creative' } },
-                    { en: 'Wide range of clubs, societies, and leadership opportunities', th: 'ชมรม สมาคม และโอกาสความเป็นผู้นำที่หลากหลาย', attributes: { extracurricularEmphasis: 'clubs', freeTimeActivities: ['clubs'], characterFocus: true } },
-                    { en: 'A balanced offering across all areas', th: 'การนำเสนอที่สมดุลในทุกด้าน', attributes: { extracurricularEmphasis: 'balanced', academicFocus: 'balanced', characterFocus: true } }
+                    { en: 'Full boarding — child stays at school during term, comes home for main holidays only', th: 'พักประจำเต็มรูปแบบ — บุตรหลานพักที่โรงเรียนตลอดภาคเรียน กลับบ้านเฉพาะช่วงปิดเทอมหลัก (เหมาะสำหรับครอบครัวที่อยู่ต่างประเทศ)', attributes: { boardingType: 'full' } },
+                    { en: 'Weekly boarding — child boards Monday to Friday, comes home most weekends', th: 'พักประจำรายสัปดาห์ — บุตรหลานพักที่โรงเรียนวันจันทร์ถึงศุกร์ กลับบ้านส่วนใหญ่ในวันหยุดสุดสัปดาห์', attributes: { boardingType: 'weekly' } },
+                    { en: 'Flexible boarding — mix of boarding and day attendance, decided week by week', th: 'พักประจำแบบยืดหยุ่น — ผสมระหว่างการพักประจำและการเดินทางมาเรียน ตัดสินใจเป็นรายสัปดาห์', attributes: { boardingType: 'flexible' } },
+                    { en: 'Not yet decided — open to all options', th: 'ยังไม่ตัดสินใจ — เปิดรับทุกรูปแบบ', attributes: { boardingType: 'any' } }
                 ]
             },
             {
                 id: 'q10',
-                en: 'What kind of university does your child aspire to attend?',
-                th: 'บุตรหลานของคุณปรารถนาที่จะเข้าเรียนมหาวิทยาลัยประเภทใด?',
+                en: 'What are your child\'s university aspirations?',
+                th: 'บุตรหลานของคุณมีความฝันด้านมหาวิทยาลัยอย่างไร?',
                 options: [
-                    { en: 'Top-tier Russell Group or Oxbridge universities', th: 'มหาวิทยาลัยชั้นนำ Russell Group หรือ Oxbridge', attributes: { universityPlacement: ['Oxbridge', 'Russell Group'], academicFocus: 'strong' } },
-                    { en: 'Reputable universities known for specific subjects', th: 'มหาวิทยาลัยที่มีชื่อเสียงด้านวิชาเฉพาะ', attributes: { universityPlacement: ['Specialized'], academicFocus: 'strong' } },
-                    { en: 'Universities with a strong focus on student experience and well-being', th: 'มหาวิทยาลัยที่เน้นประสบการณ์นักศึกษาและความเป็นอยู่ที่ดี', attributes: { universityPlacement: ['StudentExperience'], characterFocus: true } },
-                    { en: 'Not yet decided, focus on overall personal growth', th: 'ยังไม่ตัดสินใจ เน้นการเติบโตส่วนบุคคลโดยรวม', attributes: { universityPlacement: ['Broad', 'Growth'], characterFocus: true, academicFocus: 'balanced' } }
+                    { en: 'Top research universities — Oxford, Cambridge, Imperial, LSE, UCL', th: 'มหาวิทยาลัยวิจัยชั้นนำ — Oxford, Cambridge, Imperial, LSE, UCL', attributes: { universityPlacement: ['Oxbridge', 'Russell Group'], academicFocus: 'strong' } },
+                    { en: 'Specialist universities — e.g. art (UAL), music (Royal Academy), medicine, engineering', th: 'มหาวิทยาลัยเฉพาะทาง เช่น ศิลปะ ดนตรี แพทยศาสตร์ วิศวกรรมศาสตร์', attributes: { universityPlacement: ['Specialized'], academicFocus: 'strong' } },
+                    { en: 'Universities with strong student life, community, and well-being', th: 'มหาวิทยาลัยที่มีชีวิตนักศึกษาที่ดี ชุมชนที่อบอุ่น และความเป็นอยู่ที่ดี', attributes: { universityPlacement: ['StudentExperience'], characterFocus: true } },
+                    { en: 'Not yet decided — focused on overall growth first', th: 'ยังไม่ตัดสินใจ — เน้นการเติบโตโดยรวมก่อน', attributes: { universityPlacement: ['Broad', 'Growth'], characterFocus: true, academicFocus: 'balanced' } }
                 ]
             }
         ];
@@ -894,6 +910,7 @@
             switch (location) {
                 case 'city': return 'ในเมือง';
                 case 'countryside': return 'ชนบท';
+                case 'near_london': return 'ใกล้ลอนดอน/สนามบินฮีทโธรว์';
                 default: return location;
             }
         }
@@ -967,6 +984,7 @@
                     ${question.options.map((option, index) => `
                         <div class="option-card" data-option-index="${index}">
                             ${option[currentLanguage]}
+                            ${option.tooltip ? `<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.4;font-style:italic">${option.tooltip}</div>` : ''}
                         </div>
                     `).join('')}
                 </div>
@@ -1166,7 +1184,7 @@
                             <ul>
                                 <li>
                                     <span data-en="Location:" data-th="ที่ตั้ง:">Location:</span>
-                                    <span>${currentLanguage === 'en' ? school.location.charAt(0).toUpperCase() + school.location.slice(1) : getSchoolLocationThai(school.location)}</span>
+                                    <span>${currentLanguage === 'en' ? (school.location === 'near_london' ? 'Near London/Heathrow' : school.location.charAt(0).toUpperCase() + school.location.slice(1)) : getSchoolLocationThai(school.location)}</span>
                                 </li>
                                 <li>
                                     <span data-en="Size:" data-th="ขนาด:">Size:</span>

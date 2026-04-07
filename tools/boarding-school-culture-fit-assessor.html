@@ -613,7 +613,7 @@
                     <!-- Save Results -->
                     <div id="culture-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
                       <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-                      <button onclick="(function(){var scoreText=document.getElementById('fit-score')?.textContent||'';var numericScore=parseInt(scoreText.replace('%',''))||0;var dims={structure:0,independence:0,support:0,social:0,academics:0,co_curricular:0};var dimKeys=Object.keys(dims);dimKeys.forEach(function(dim){var max=maxScores[dim]||1;dims[dim]=maxScores[dim]>0?Math.round((scoreDimensions[dim]/maxScores[dim])*100):0;});var cfAnswers=questions.map(function(q){var val=userAnswers[q.id];var opt=q.options.find(function(o){return o.value===val;});return opt?{q:q.question_en,a:opt.text_en}:null;}).filter(Boolean);openSaveModal({tool_name:'culture-fit',tool_label:'Culture Fit Assessor',result_summary:'Culture Fit Score: '+scoreText,result_data:{score:numericScore,dimensions:dims,answers:cfAnswers}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+                      <button onclick="(function(){var numericScore=window._cultureScore||0;var profileName=window._cultureProfile||'';var dims={structure:0,independence:0,support:0,social:0,academics:0,co_curricular:0,community:0,discipline:0};Object.keys(dims).forEach(function(dim){dims[dim]=maxScores[dim]>0?Math.round((scoreDimensions[dim]/maxScores[dim])*100):0;});var cfAnswers=questions.map(function(q){var val=userAnswers[q.id];var opt=q.options.find(function(o){return o.value===val;});return opt?{q:q.question_en,a:opt.text_en}:null;}).filter(Boolean);openSaveModal({tool_name:'culture-fit',tool_label:'Culture Fit Assessor',result_summary:'Profile: '+(profileName||numericScore+'%'),result_data:{score:numericScore,profile:profileName,dimensions:dims,answers:cfAnswers}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
                     </div>
 
                     <!-- LINE CTA after results -->
@@ -759,6 +759,30 @@
                     { value: 'structured_support', text_th: 'ระบบการดูแลที่ชัดเจน มีผู้ใหญ่คอยให้คำแนะนำและช่วยเหลืออย่างสม่ำเสมอ', text_en: 'A clear pastoral system with consistent adult guidance and support.', scores: { support: 3, structure: 2 } },
                     { value: 'peer_support', text_th: 'พึ่งพาเพื่อนและระบบพี่เลี้ยงนักเรียนเป็นหลัก', text_en: 'Relies mostly on friends and a student mentoring system.', scores: { social: 2, independence: 1 } }
                 ]
+            },
+            {
+                id: 'q10',
+                category: 'separation_readiness',
+                question_th: 'ลูกของคุณมีประสบการณ์อยู่ห่างจากครอบครัวมากน้อยแค่ไหน?',
+                question_en: 'How much experience does your child have being away from family?',
+                options: [
+                    { value: 'very_little', text_th: 'น้อยมาก — ไม่เคยอยู่ห่างครอบครัวเกิน 1-2 คืน', text_en: 'Very little — has not spent more than a night or two away from family.', scores: { support: 3, independence: 0 } },
+                    { value: 'some', text_th: 'มีบ้าง — เคยเข้าค่ายหรืออยู่กับญาติประมาณหนึ่งสัปดาห์หรือมากกว่า', text_en: 'Some — has attended camps or stayed with relatives for a week or more.', scores: { support: 2, independence: 1 } },
+                    { value: 'significant', text_th: 'มากพอสมควร — เคยเข้าโปรแกรมพักประจำหรือซัมเมอร์แคมป์ต่างประเทศ', text_en: 'Significant — has attended boarding programmes or international summer camps.', scores: { independence: 2, support: 1 } },
+                    { value: 'already', text_th: 'อิสระอยู่แล้ว — กำลังเรียนพักประจำหรือเคยอยู่อย่างอิสระมาหลายเดือน', text_en: 'Already independent — currently at boarding school or has lived away independently for months.', scores: { independence: 3, support: 0 } }
+                ]
+            },
+            {
+                id: 'q11',
+                category: 'language_confidence',
+                question_th: 'ลูกของคุณมีความมั่นใจในการสื่อสารภาษาอังกฤษมากแค่ไหน?',
+                question_en: 'How confident is your child communicating in English?',
+                options: [
+                    { value: 'beginner', text_th: 'ระดับเริ่มต้น — พูดสนทนาง่าย ๆ ได้ แต่ยังมีปัญหากับภาษาวิชาการ', text_en: 'Beginner — can manage basic conversation but struggles with academic English', scores: { support: 5, academics: 1 } },
+                    { value: 'intermediate', text_th: 'ระดับกลาง — สบายใจในการสนทนา แต่อาจต้องการความช่วยเหลือในการเขียนเรียงความ', text_en: 'Intermediate — comfortable in conversation, may need support with essay writing', scores: { support: 3, academics: 3 } },
+                    { value: 'advanced', text_th: 'ระดับสูง — พูดและเขียนภาษาอังกฤษได้คล่อง ตรงตามระดับชั้น', text_en: 'Advanced — fluent in English, reads and writes confidently at age level', scores: { support: 1, academics: 5 } },
+                    { value: 'native', text_th: 'เจ้าของภาษาหรือสองภาษา — ภาษาอังกฤษเป็นภาษาหลักหรือภาษาที่สองที่เท่าเทียมกันที่บ้าน', text_en: 'Native or bilingual — English is a first or equal language at home', scores: { support: 0, academics: 5 } }
+                ]
             }
         ];
 
@@ -786,13 +810,20 @@
             discipline: 0
         };
 
-        // Calculate max possible scores for normalization
+        // Calculate max possible scores for normalization.
+        // For each question, only the HIGHEST-scoring option per dimension counts —
+        // a parent can only pick one option, so summing all options overstates the max.
         questions.forEach(q => {
+            const qMax = {};
             q.options.forEach(option => {
                 for (const dim in option.scores) {
-                    maxScores[dim] += Math.max(0, option.scores[dim]);
+                    const s = Math.max(0, option.scores[dim]);
+                    if (s > (qMax[dim] || 0)) qMax[dim] = s;
                 }
             });
+            for (const dim in qMax) {
+                maxScores[dim] = (maxScores[dim] || 0) + qMax[dim];
+            }
         });
 
         const quizQuestionDisplay = document.getElementById('quiz-question-display');
@@ -877,24 +908,34 @@
                 }
             }
             const overallFitScore = countDimensions > 0 ? Math.round(totalPercentage / countDimensions) : 0;
-            fitScoreDisplay.textContent = `${overallFitScore}%`;
 
-            let interpretationText_th = '';
-            let interpretationText_en = '';
-            if (overallFitScore >= 80) {
-                interpretationText_th = 'ยอดเยี่ยม! ลูกของคุณมีแนวโน้มที่จะปรับตัวและเติบโตได้ดีในสภาพแวดล้อมของโรงเรียนประจำในสหราชอาณาจักร';
-                interpretationText_en = 'Excellent! Your child is highly likely to adapt and thrive in a UK boarding school environment.';
-            } else if (overallFitScore >= 60) {
-                interpretationText_th = 'ดี! มีความเหมาะสมที่ดี อาจมีบางจุดที่ต้องปรับตัวเล็กน้อย';
-                interpretationText_en = 'Good! A strong fit, with only minor areas requiring adaptation.';
-            } else if (overallFitScore >= 40) {
-                interpretationText_th = 'ปานกลาง มีทั้งจุดที่เหมาะสมและจุดที่ต้องพิจารณาอย่างรอบคอบ';
-                interpretationText_en = 'Moderate. There are both areas of alignment and significant points for careful consideration.';
-            } else {
-                interpretationText_th = 'ต่ำ อาจต้องพิจารณาอย่างละเอียดว่าโรงเรียนประจำเหมาะสมหรือไม่ หรือมองหาโรงเรียนที่มีความยืดหยุ่นสูง';
-                interpretationText_en = 'Low. You may need to carefully reconsider if boarding school is the right fit, or look for highly flexible institutions.';
+            // Determine named profile from highest-scoring dimension
+            const dimPercentages = {};
+            for (const dim in scoreDimensions) {
+                dimPercentages[dim] = maxScores[dim] > 0 ? (scoreDimensions[dim] / maxScores[dim]) * 100 : 0;
             }
-            scoreInterpretationDisplay.innerHTML = `<span class="lang-th">${interpretationText_th}</span><span class="lang-en">${interpretationText_en}</span>`;
+            const topDimEntry = Object.entries(dimPercentages).sort((a, b) => b[1] - a[1])[0];
+            const topDimKey = topDimEntry ? topDimEntry[0] : null;
+
+            const profileMap = {
+                academics:    { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
+                structure:    { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
+                discipline:   { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
+                support:      { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sherborne, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sherborne, Uppingham, The Leys' },
+                community:    { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sherborne, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sherborne, Uppingham, The Leys' },
+                independence: { en: 'Self-Directed Scholar', th: 'ผู้เรียนที่พึ่งตนเอง',   descEn: 'Your child is self-motivated and may suit a school that encourages independent thinking — e.g. Bedales, Bryanston, Marlborough, or a progressive sixth-form college.',descTh: 'บุตรหลานของคุณมีแรงจูงใจในตัวเองสูง เหมาะกับโรงเรียนที่ส่งเสริมการคิดอิสระ เช่น Bedales, Bryanston, Marlborough' },
+                co_curricular:{ en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Marlborough, Oundle, Millfield, Bromsgrove.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Marlborough, Oundle, Millfield, Bromsgrove' },
+                social:       { en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Marlborough, Oundle, Millfield, Bromsgrove.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Marlborough, Oundle, Millfield, Bromsgrove' },
+            };
+            const profile = profileMap[topDimKey] || { en: 'Balanced Fit', th: 'ความเข้ากันได้ที่สมดุล', descEn: 'Your child has a well-rounded profile and could adapt to a range of school types. We recommend visiting 2–3 schools to find the best personal fit.', descTh: 'บุตรหลานของคุณมีโปรไฟล์ที่สมดุลและสามารถปรับตัวเข้ากับโรงเรียนได้หลากหลายประเภท แนะนำให้เยี่ยมชม 2-3 โรงเรียนเพื่อหาความเหมาะสมที่ดีที่สุด' };
+
+            // Store for save button access
+            window._cultureProfile = profile.en;
+            window._cultureScore = overallFitScore;
+
+            const lang = document.documentElement.lang || 'en';
+            fitScoreDisplay.textContent = lang === 'th' ? profile.th : profile.en;
+            scoreInterpretationDisplay.innerHTML = `<span class="lang-th">${profile.descTh}</span><span class="lang-en">${profile.descEn}</span>`;
 
             displayDetailedResults();
         }

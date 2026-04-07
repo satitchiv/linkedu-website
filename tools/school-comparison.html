@@ -691,6 +691,15 @@
                 </div>
             </div>
 
+            <!-- Data disclaimer -->
+            <div style="margin:0 0 24px;padding:14px 18px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:5px;display:flex;gap:12px;align-items:flex-start">
+                <span style="font-size:16px;color:#B8962E;flex-shrink:0;line-height:1.4">&#9432;</span>
+                <div>
+                    <span class="lang-en" style="font-size:12px;color:rgba(245,240,232,0.6);line-height:1.6;display:block">Figures shown are indicative and may not reflect current fees or results. Data was last compiled in early 2025. Please verify all details directly with each school before making decisions.</span>
+                    <span class="lang-th" style="font-size:12px;color:rgba(245,240,232,0.6);line-height:1.6;display:block">ตัวเลขที่แสดงเป็นตัวเลขประมาณการและอาจไม่สะท้อนค่าธรรมเนียมหรือผลลัพธ์ปัจจุบัน ข้อมูลถูกรวบรวมในต้นปี 2568 กรุณาตรวจสอบรายละเอียดทั้งหมดโดยตรงกับแต่ละโรงเรียนก่อนตัดสินใจ</span>
+                </div>
+            </div>
+
             <div class="comparison-section">
                 <div class="section-label" data-en="· COMPARISON TABLE ·" data-th="· ตารางเปรียบเทียบ ·">· COMPARISON TABLE ·</div>
                 <h3 data-en="Detailed Feature Comparison" data-th="การเปรียบเทียบคุณสมบัติโดยละเอียด">Detailed Feature Comparison</h3>
@@ -766,10 +775,34 @@
                                 <td id="school3-boarding-type"></td>
                             </tr>
                             <tr>
-                                <td class="feature-column" data-en="ISI Rating" data-th="คะแนน ISI">ISI Rating</td>
+                                <td class="feature-column"><span data-en="ISI Rating" data-th="คะแนน ISI">ISI Rating</span> <span title="ISI (Independent Schools Inspectorate) inspects private schools in England. Ratings: Outstanding, Excellent, Good, Requires Improvement. This is separate from Ofsted, which inspects state schools." style="display:inline-block;width:13px;height:13px;background:rgba(184,150,46,0.2);border-radius:50%;font-size:8px;font-weight:700;color:#B8962E;text-align:center;line-height:13px;cursor:help;vertical-align:middle">?</span></td>
                                 <td id="school1-isi-rating"></td>
                                 <td id="school2-isi-rating"></td>
                                 <td id="school3-isi-rating"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column"><span data-en="International Students" data-th="นักเรียนต่างชาติ">International Students</span></td>
+                                <td id="school1-intl-pct"></td>
+                                <td id="school2-intl-pct"></td>
+                                <td id="school3-intl-pct"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column"><span data-en="EAL Support" data-th="การสนับสนุน EAL">EAL Support</span></td>
+                                <td id="school1-eal"></td>
+                                <td id="school2-eal"></td>
+                                <td id="school3-eal"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column"><span data-en="Nearest Airport" data-th="สนามบินที่ใกล้ที่สุด">Nearest Airport</span></td>
+                                <td id="school1-airport"></td>
+                                <td id="school2-airport"></td>
+                                <td id="school3-airport"></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-column"><span data-en="Travel Time to Heathrow" data-th="เวลาเดินทางถึงฮีทโธรว์">Travel Time to Heathrow</span></td>
+                                <td id="school1-heathrow"></td>
+                                <td id="school2-heathrow"></td>
+                                <td id="school3-heathrow"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -871,6 +904,60 @@
                     'South': 'South East'
                 };
                 const typeMap = { 'Co-ed': 'Co-educational', 'Boys': 'Boys', 'Girls': 'Girls' };
+                // International student % and EAL support by school name
+                const intlPctMap = {
+                    'Marlborough College': 15, 'Eton College': 10, 'Harrow School': 20,
+                    'Rugby School': 12, 'Winchester College': 8, "Cheltenham Ladies' College": 15,
+                    'Roedean School': 25, 'Charterhouse': 20, 'Westminster School': 18, 'Benenden School': 12
+                };
+                const ealMap = {
+                    'Marlborough College': 'Yes', 'Eton College': 'Limited', 'Harrow School': 'Yes',
+                    'Rugby School': 'Yes', 'Winchester College': 'Limited', "Cheltenham Ladies' College": 'Yes',
+                    'Roedean School': 'Yes', 'Charterhouse': 'Limited', 'Westminster School': 'Limited', 'Benenden School': 'Yes',
+                    "Reed's School": 'Yes', 'Tonbridge School': 'Limited', 'Eastbourne College': 'Limited',
+                    'Sevenoaks School': 'Yes', 'Gordonstoun': 'Limited', 'Millfield School': 'Yes',
+                    'Sherborne School': 'Limited', "St Edward's School": 'Limited'
+                };
+                const nearestAirportMap = {
+                    'Marlborough College': 'Heathrow (LHR)',
+                    'Eton College': 'Heathrow (LHR)',
+                    'Harrow School': 'Heathrow (LHR)',
+                    'Rugby School': 'Birmingham (BHX)',
+                    'Winchester College': 'Southampton (SOU)',
+                    "Cheltenham Ladies' College": 'Bristol (BRS)',
+                    'Roedean School': 'Gatwick (LGW)',
+                    'Charterhouse': 'Heathrow (LHR)',
+                    'Westminster School': 'Heathrow (LHR)',
+                    'Benenden School': 'Gatwick (LGW)',
+                    "Reed's School": 'Heathrow (LHR)',
+                    'Tonbridge School': 'Gatwick (LGW)',
+                    'Eastbourne College': 'Gatwick (LGW)',
+                    'Sevenoaks School': 'Heathrow (LHR)',
+                    'Gordonstoun': 'Inverness (INV)',
+                    'Millfield School': 'Bristol (BRS)',
+                    'Sherborne School': 'Bristol (BRS)',
+                    "St Edward's School": 'Heathrow (LHR)'
+                };
+                const heathrowTimeMap = {
+                    'Marlborough College': '75 min',
+                    'Eton College': '20 min',
+                    'Harrow School': '35 min',
+                    'Rugby School': '75 min',
+                    'Winchester College': '70 min',
+                    "Cheltenham Ladies' College": '100 min',
+                    'Roedean School': '90 min',
+                    'Charterhouse': '50 min',
+                    'Westminster School': '45 min',
+                    'Benenden School': '100 min',
+                    "Reed's School": '40 min',
+                    'Tonbridge School': '80 min',
+                    'Eastbourne College': '105 min',
+                    'Sevenoaks School': '60 min',
+                    'Gordonstoun': '10 hr (fly INV)',
+                    'Millfield School': '130 min',
+                    'Sherborne School': '150 min',
+                    "St Edward's School": '55 min'
+                };
                 SCHOOLS = raw
                     .filter(s => s.fee > 0 && s.name)
                     .map((s, idx) => {
@@ -892,7 +979,11 @@
                             entryAge: (s.entry || []).join(' / ') || '13+',
                             totalStudents: s.totalStudents || 0,
                             boardingType: 'Full Boarding',
-                            isiRating: 'Excellent'
+                            isiRating: 'Excellent',
+                            internationalPercent: intlPctMap[s.name] !== undefined ? intlPctMap[s.name] : 15,
+                            ealSupport: ealMap[s.name] || 'Limited',
+                            nearestAirport: nearestAirportMap[s.name] || 'Not available — contact school',
+                            heathrowTime: heathrowTimeMap[s.name] || 'Not available — contact school'
                         };
                     });
             } catch (e) {
@@ -1249,6 +1340,30 @@
                 // ISI Rating
                 const isiCell = bodyRows[10].children[colIndex];
                 isiCell.textContent = school.isiRating || 'Excellent';
+
+                // International Students %
+                const intlCell = bodyRows[11].children[colIndex];
+                if (school.internationalPercent !== undefined) {
+                    intlCell.textContent = school.internationalPercent + '%';
+                }
+
+                // EAL Support
+                const ealCell = bodyRows[12].children[colIndex];
+                if (school.ealSupport) {
+                    ealCell.textContent = school.ealSupport;
+                    if (school.ealSupport === 'Yes') {
+                        ealCell.style.color = '#B8962E';
+                        ealCell.style.fontWeight = '600';
+                    }
+                }
+
+                // Nearest Airport
+                const airportCell = bodyRows[13].children[colIndex];
+                airportCell.textContent = school.nearestAirport || 'Not available — contact school';
+
+                // Travel Time to Heathrow
+                const heathrowCell = bodyRows[14].children[colIndex];
+                heathrowCell.textContent = school.heathrowTime || 'Not available — contact school';
             });
         }
 

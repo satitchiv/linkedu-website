@@ -510,12 +510,16 @@
                     <select id="sport-select">
                         <option value="" disabled selected data-en="Choose a sport" data-th="เลือกกีฬา">Choose a sport</option>
                         <option value="Tennis" data-en="Tennis" data-th="เทนนิส">Tennis</option>
+                        <option value="Badminton" data-en="Badminton" data-th="แบดมินตัน">Badminton</option>
+                        <option value="Squash" data-en="Squash" data-th="สควอช">Squash</option>
                         <option value="Football" data-en="Football" data-th="ฟุตบอล">Football</option>
                         <option value="Swimming" data-en="Swimming" data-th="ว่ายน้ำ">Swimming</option>
                         <option value="Rugby" data-en="Rugby" data-th="รักบี้">Rugby</option>
                         <option value="Cricket" data-en="Cricket" data-th="คริกเก็ต">Cricket</option>
                         <option value="Golf" data-en="Golf" data-th="กอล์ฟ">Golf</option>
                         <option value="Athletics" data-en="Athletics" data-th="กรีฑา">Athletics</option>
+                        <option value="Table Tennis" data-en="Table Tennis" data-th="ปิงปอง">Table Tennis</option>
+                        <option value="Martial Arts" data-en="Martial Arts (Judo / Taekwondo)" data-th="ศิลปะการต่อสู้ (ยูโด / เทควันโด)">Martial Arts (Judo / Taekwondo)</option>
                         <option value="Rowing" data-en="Rowing" data-th="เรือพาย">Rowing</option>
                     </select>
                 </div>
@@ -528,6 +532,44 @@
                         <option value="National" data-en="National" data-th="ระดับประเทศ">National</option>
                         <option value="International" data-en="International" data-th="ระดับนานาชาติ">International</option>
                     </select>
+                    <div id="level-guide-toggle" style="margin-top:8px;cursor:pointer;font-size:12px;color:var(--gold);text-decoration:underline;text-underline-offset:3px" onclick="document.getElementById('level-calibration-guide').classList.toggle('hidden')">
+                        <span data-en="Not sure which level applies to your child? See UK calibration guide" data-th="ไม่แน่ใจว่าระดับไหนเหมาะกับลูกของคุณ? ดูคู่มือเทียบระดับ UK">Not sure which level applies to your child? See UK calibration guide</span>
+                    </div>
+                    <div id="level-calibration-guide" class="hidden" style="margin-top:12px;padding:16px 18px;background:#fff8ee;border:1px solid #e8dcc4;border-radius:6px;font-size:13px;line-height:1.7;color:#4a4030">
+                        <div style="font-weight:600;font-size:13px;margin-bottom:10px;color:#2D2D2D" data-en="UK Level Guide — What do these levels mean for Thai students?" data-th="คู่มือระดับ UK — ระดับเหล่านี้หมายความว่าอย่างไรสำหรับนักเรียนไทย?">UK Level Guide — What do these levels mean for Thai students?</div>
+                        <table style="width:100%;border-collapse:collapse;font-size:12px">
+                            <thead>
+                                <tr style="border-bottom:1px solid #ddd">
+                                    <th style="text-align:left;padding:5px 8px;font-weight:600" data-en="UK Level" data-th="ระดับ UK">UK Level</th>
+                                    <th style="text-align:left;padding:5px 8px;font-weight:600" data-en="What it means" data-th="หมายความว่า">What it means</th>
+                                    <th style="text-align:left;padding:5px 8px;font-weight:600" data-en="Thai equivalent (approx.)" data-th="เทียบเท่าไทย (โดยประมาณ)">Thai equivalent (approx.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom:1px solid #eee">
+                                    <td style="padding:6px 8px;font-weight:600">Club</td>
+                                    <td style="padding:6px 8px" data-en="Trains regularly at a local club; competes at inter-club level" data-th="ฝึกซ้อมที่สโมสรท้องถิ่น แข่งขันระดับสโมสร">Trains regularly at a local club; competes at inter-club level</td>
+                                    <td style="padding:6px 8px" data-en="School team captain or top club player in province" data-th="กัปตันทีมโรงเรียนหรือผู้เล่นเด่นระดับจังหวัด">School team captain or top club player in province</td>
+                                </tr>
+                                <tr style="border-bottom:1px solid #eee">
+                                    <td style="padding:6px 8px;font-weight:600">Regional</td>
+                                    <td style="padding:6px 8px" data-en="Represents a county or region; consistent competition results" data-th="เป็นตัวแทนมณฑลหรือภูมิภาค มีผลการแข่งขันสม่ำเสมอ">Represents a county or region; consistent competition results</td>
+                                    <td style="padding:6px 8px" data-en="Top 3 at provincial championship, or selected for regional squad" data-th="3 อันดับแรกในการแข่งขันระดับจังหวัด หรือติดทีมภาค">Top 3 at provincial championship, or selected for regional squad</td>
+                                </tr>
+                                <tr style="border-bottom:1px solid #eee">
+                                    <td style="padding:6px 8px;font-weight:600">National</td>
+                                    <td style="padding:6px 8px" data-en="Competes nationally; ranked in top 50 for age group in the UK" data-th="แข่งขันระดับประเทศ ติดอันดับ top 50 ในกลุ่มอายุของ UK">Competes nationally; ranked in top 50 for age group in UK</td>
+                                    <td style="padding:6px 8px" data-en="Top 10 at Thai national championships for age group, or on national squad" data-th="10 อันดับแรกในการแข่งขันระดับประเทศไทย หรือติดทีมชาติ">Top 10 at Thai national championships for age group</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:6px 8px;font-weight:600">International</td>
+                                    <td style="padding:6px 8px" data-en="Represents national team; competes at international events" data-th="เป็นตัวแทนทีมชาติ แข่งขันในรายการนานาชาติ">Represents national team; competes at international events</td>
+                                    <td style="padding:6px 8px" data-en="Thai national team representative, SEA Games, or international ranking" data-th="ตัวแทนทีมชาติไทย ซีเกมส์ หรือมีอันดับโลก">Thai national team representative, SEA Games selection, or world ranking</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="margin-top:10px;font-size:11px;color:#888;font-style:italic" data-en="Note: UK school coaches calibrate independently. When in doubt, select one level below your estimate — schools prefer candidates who exceed expectations." data-th="หมายเหตุ: โค้ชโรงเรียน UK ประเมินเองอิสระ หากไม่แน่ใจ เลือกระดับต่ำกว่าที่ประเมินหนึ่งระดับ">Note: UK school coaches calibrate independently. When in doubt, select one level below your estimate — schools prefer candidates who exceed expectations.</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="age-input" data-en="Your Current Age" data-th="อายุปัจจุบันของคุณ">Your Current Age</label>
@@ -554,6 +596,15 @@
                 <h3 class="text-center mb-40" data-en="Top 3 School Recommendations" data-th="3 อันดับโรงเรียนแนะนำ">Top 3 School Recommendations</h3>
                 <div id="top-schools-container" class="card-grid mb-40">
                     <!-- Top 3 school cards will be injected here -->
+                </div>
+
+                <!-- Scholarship disclaimer -->
+                <div style="margin-bottom:32px;padding:14px 18px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:5px;display:flex;gap:12px;align-items:flex-start">
+                    <span style="font-size:16px;color:#B8962E;flex-shrink:0;line-height:1.4">&#9432;</span>
+                    <div>
+                        <span class="lang-en" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">About scholarship ranges:</strong> Figures shown are merit-based award estimates. Most UK boarding schools cap merit scholarships at 10–20% of fees. Larger awards (up to 100%) are means-tested bursaries and require a separate financial application. For sports newer to UK schools (Badminton, Squash, Table Tennis, Martial Arts), scholarships are rare — contact schools directly for current availability.</span>
+                        <span class="lang-th" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">เกี่ยวกับช่วงทุนการศึกษา:</strong> ตัวเลขที่แสดงเป็นการประมาณการทุนตามผลงาน โรงเรียนส่วนใหญ่จำกัดทุนประเภทนี้ไว้ที่ 10–20% ของค่าเล่าเรียน ทุนจำนวนมากขึ้น (ถึง 100%) มักเป็นทุนทดสอบฐานะทางการเงิน ซึ่งต้องยื่นสมัครแยกต่างหาก</span>
+                    </div>
                 </div>
 
                 <!-- Scholarship Chart -->
@@ -973,6 +1024,23 @@
             const filteredSchools = schoolsData.filter(school =>
                 school.sports[selectedSport] && levelOrder[school.sports[selectedSport].level_required] <= levelOrder[selectedLevel] + 1 // Allow slightly higher level for aspiration
             ).sort((a, b) => levelOrder[a.sports[selectedSport].level_required] - levelOrder[b.sports[selectedSport].level_required]); // Sort by level required
+
+            // If no schools found (e.g. new sports not yet in database), show a helpful message
+            if (filteredSchools.length === 0) {
+                const container = document.getElementById('top-schools-container');
+                if (container) {
+                    container.innerHTML = '<div style="grid-column:1/-1;padding:24px 20px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:6px;text-align:center">' +
+                        '<div style="font-size:13px;font-weight:600;color:rgba(245,240,232,0.85);margin-bottom:8px">' +
+                        (currentLang === 'en' ? 'We are building our school database for ' + selectedSport + '.' : 'เรากำลังสร้างฐานข้อมูลโรงเรียนสำหรับกีฬา ' + selectedSport) + '</div>' +
+                        '<div style="font-size:12px;color:rgba(245,240,232,0.55);margin-bottom:14px">' +
+                        (currentLang === 'en' ? 'Several UK boarding schools offer scholarships for this sport. Contact us for personalised recommendations.' : 'โรงเรียนประจำในสหราชอาณาจักรหลายแห่งมีทุนการศึกษาสำหรับกีฬานี้ ติดต่อเราเพื่อรับคำแนะนำส่วนตัว') + '</div>' +
+                        '<a href="https://linkeduth.netlify.app/contact.html" style="display:inline-block;padding:8px 20px;background:#B8962E;color:#111;border-radius:4px;font-size:12px;font-weight:600;text-decoration:none">' +
+                        (currentLang === 'en' ? 'Get Personalised Advice \u2192' : 'ขอคำแนะนำส่วนตัว \u2192') + '</a></div>';
+                }
+                const resultsSection = document.getElementById('pathway-results-section');
+                if (resultsSection) resultsSection.classList.add('visible');
+                return;
+            }
 
             // Generate Pathway Timeline
             renderPathwayTimeline(selectedSport, selectedLevel, currentAge);
