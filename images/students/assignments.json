@@ -1,0 +1,58 @@
+[
+  {
+    "page": "index.html",
+    "slot": "hero-student-1",
+    "description": "Hero section \u2014 student left",
+    "file": "images/students/approved/student-hero-student-1.png",
+    "source_desc": "Young girl walking in a school hallway wearing a sweater vest and backpack."
+  },
+  {
+    "page": "index.html",
+    "slot": "hero-student-2",
+    "description": "Hero section \u2014 student right",
+    "file": "images/students/approved/student-hero-student-2.png",
+    "source_desc": "Three schoolgirls in uniforms sit together on a bench indoors."
+  },
+  {
+    "page": "index.html",
+    "slot": "testimonial-photo-1",
+    "description": "Testimonial card 1",
+    "file": "images/students/approved/student-testimonial-photo-1.png",
+    "source_desc": "Two teenagers in school uniforms standing with backpacks against a beige background."
+  },
+  {
+    "page": "index.html",
+    "slot": "testimonial-photo-2",
+    "description": "Testimonial card 2",
+    "file": "images/students/approved/student-testimonial-photo-2.png",
+    "source_desc": "A teacher helps students during a classroom activity with books and notepads."
+  },
+  {
+    "page": "index.html",
+    "slot": "testimonial-photo-3",
+    "description": "Testimonial card 3",
+    "file": "images/students/approved/student-testimonial-photo-3.png",
+    "source_desc": "Teen basketball player dribbling during an intense game in a school gym."
+  },
+  {
+    "page": "about.html",
+    "slot": "team-student-1",
+    "description": "About \u2014 student photo 1",
+    "file": "images/students/approved/student-team-student-1.png",
+    "source_desc": "Group of children playing soccer on a school field, enjoying outdoor fun and recreation."
+  },
+  {
+    "page": "about.html",
+    "slot": "team-student-2",
+    "description": "About \u2014 student photo 2",
+    "file": "images/students/approved/student-team-student-2.png",
+    "source_desc": "Children lined up in a school setting, showcasing diversity and focus during a classroom activity."
+  },
+  {
+    "page": "schools.html",
+    "slot": "schools-hero-student",
+    "description": "Schools listing \u2014 hero student",
+    "file": "images/students/approved/student-schools-hero-student.png",
+    "source_desc": "A diverse group of children lined up in a school gym, ready for a sport activity."
+  }
+]
