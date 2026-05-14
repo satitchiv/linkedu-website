@@ -1,5 +1,5 @@
 // GET /api/china-universities
-// Filterable university list with program stats
+// Uses Postgres RPC to avoid Supabase 1000-row anon limit on china_programs (11,472 rows)
 // Public data — uses anon key (RLS: public SELECT)
 
 const { createClient } = require('@supabase/supabase-js');
@@ -22,118 +22,76 @@ exports.handler = async (event) => {
 
   try {
     const params = event.queryStringParameters || {};
-    const { city, language, degree_level, max_tuition_usd } = params;
+    const { city, language, degree_level, max_tuition_usd, tier, sort_by } = params;
 
-    // Step 1: If city filter, resolve university IDs for that city
-    let cityUniversityIds = null;
-    if (city && city !== 'All') {
-      const { data: unis, error: cityErr } = await supabase
-        .from('china_universities')
-        .select('id')
-        .eq('city', city);
+    // Step 1: Call RPC — does full aggregation + filtering in one Postgres query
+    // This avoids the Supabase 1000-row anon limit on china_programs (11,472 rows)
+    const rpcParams = {
+      p_city: city && city !== 'All' ? city : null,
+      p_language: language && language !== 'All' ? language : null,
+      p_degree_level: degree_level && degree_level !== 'All' ? degree_level : null,
+      p_max_tuition_usd: max_tuition_usd ? parseFloat(max_tuition_usd) : null,
+      p_tier: tier && tier !== 'All' ? tier : null,
+    };
 
-      if (cityErr) throw cityErr;
-      cityUniversityIds = unis ? unis.map(u => u.id) : [];
-
-      if (cityUniversityIds.length === 0) {
-        return {
-          statusCode: 200,
-          headers: HEADERS,
-          body: JSON.stringify({ universities: [], total: 0 }),
-        };
-      }
+    const { data: universities, error } = await supabase.rpc('get_china_universities', rpcParams);
+    if (error) throw error;
+    if (!universities || universities.length === 0) {
+      return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ universities: [], total: 0 }) };
     }
 
-    // Step 2: Query programs with filters (high range to get all matching rows)
-    let programQuery = supabase
-      .from('china_programs')
-      .select('university_id, language, degree_level, tuition_usd_per_year')
-      .range(0, 11999);
+    const total = universities.length;
 
-    if (language && language !== 'All') {
-      programQuery = programQuery.ilike('language', `%${language}%`);
-    }
-    if (degree_level && degree_level !== 'All') {
-      programQuery = programQuery.eq('degree_level', degree_level);
-    }
-    if (max_tuition_usd) {
-      programQuery = programQuery.lte('tuition_usd_per_year', parseFloat(max_tuition_usd));
-    }
-    if (cityUniversityIds) {
-      programQuery = programQuery.in('university_id', cityUniversityIds);
+    // Step 2: Sort
+    if (sort_by === 'programs') {
+      universities.sort((a, b) => b.program_count - a.program_count);
+    } else {
+      // Default: QS ranked universities first (ascending rank), then unranked by program count
+      universities.sort((a, b) => {
+        if (a.qs_rank && b.qs_rank) return a.qs_rank - b.qs_rank;
+        if (a.qs_rank) return -1;
+        if (b.qs_rank) return 1;
+        return b.program_count - a.program_count;
+      });
     }
 
-    const { data: programs, error: progErr } = await programQuery;
-    if (progErr) throw progErr;
+    const topResults = universities.slice(0, 100);
 
-    if (!programs || programs.length === 0) {
-      return {
-        statusCode: 200,
-        headers: HEADERS,
-        body: JSON.stringify({ universities: [], total: 0 }),
-      };
-    }
+    // Step 3: Fetch subject strengths for displayed universities (top-10 world rankings only)
+    const displayedIds = topResults.map(u => u.id);
+    const { data: subjects } = await supabase
+      .from('university_subjects')
+      .select('university_id, subject, subject_rank')
+      .in('university_id', displayedIds)
+      .lte('subject_rank', 10)
+      .order('subject_rank', { ascending: true });
 
-    // Step 3: Aggregate by university_id in JS
-    const uniMap = {};
-    for (const p of programs) {
-      if (!p.university_id) continue;
-      if (!uniMap[p.university_id]) {
-        uniMap[p.university_id] = {
-          program_count: 0,
-          min_tuition_usd: null,
-          languages: new Set(),
-          degree_levels: new Set(),
-        };
-      }
-      const u = uniMap[p.university_id];
-      u.program_count++;
-      if (p.tuition_usd_per_year != null) {
-        if (u.min_tuition_usd === null || p.tuition_usd_per_year < u.min_tuition_usd) {
-          u.min_tuition_usd = p.tuition_usd_per_year;
+    // Group by university_id — keep top 3 per uni
+    const subjectMap = {};
+    if (subjects) {
+      for (const s of subjects) {
+        if (!subjectMap[s.university_id]) subjectMap[s.university_id] = [];
+        if (subjectMap[s.university_id].length < 3) {
+          subjectMap[s.university_id].push({ subject: s.subject, rank: s.subject_rank });
         }
       }
-      if (p.language) u.languages.add(p.language);
-      if (p.degree_level) u.degree_levels.add(p.degree_level);
     }
 
-    const uniIds = Object.keys(uniMap);
-    const total = uniIds.length;
-
-    // Sort by program_count descending, take top 100
-    const topIds = uniIds
-      .sort((a, b) => uniMap[b].program_count - uniMap[a].program_count)
-      .slice(0, 100);
-
-    // Step 4: Fetch university details for top 100
-    const { data: universities, error: uniErr } = await supabase
-      .from('china_universities')
-      .select('id, source_id, name_en, city, province')
-      .in('id', topIds);
-
-    if (uniErr) throw uniErr;
-    if (!universities) {
-      return {
-        statusCode: 200,
-        headers: HEADERS,
-        body: JSON.stringify({ universities: [], total: 0 }),
-      };
-    }
-
-    // Step 5: Merge university details with aggregated program stats
-    const result = universities
-      .map(u => ({
-        id: u.id,
-        source_id: u.source_id,
-        name_en: u.name_en,
-        city: u.city,
-        province: u.province,
-        program_count: uniMap[u.id]?.program_count || 0,
-        min_tuition_usd: uniMap[u.id]?.min_tuition_usd,
-        languages: [...(uniMap[u.id]?.languages || [])],
-        degree_levels: [...(uniMap[u.id]?.degree_levels || [])],
-      }))
-      .sort((a, b) => b.program_count - a.program_count);
+    // Step 4: Attach subjects and normalise types
+    const result = topResults.map(u => ({
+      id: u.id,
+      name_en: u.name_en,
+      city: u.city,
+      province: u.province,
+      is_985: u.is_985,
+      is_211: u.is_211,
+      qs_rank: u.qs_rank,
+      qs_score: u.qs_score ? parseFloat(u.qs_score) : null,
+      program_count: parseInt(u.program_count, 10) || 0,
+      min_tuition_usd: u.min_tuition_usd ? parseFloat(u.min_tuition_usd) : null,
+      languages: u.languages || [],
+      top_subjects: subjectMap[u.id] || [],
+    }));
 
     return {
       statusCode: 200,

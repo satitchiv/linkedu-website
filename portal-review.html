@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedU Parent Portal — Review & Next Steps</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f0e8; color: #1a1a1a; font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  .header { background: #1a1a1a; padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .header svg { height: 22px; width: auto; }
+  .header .meta { font-size: 11px; color: #f5f0e8; opacity: 0.4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .hero { background: #1a1a1a; padding: 60px 40px 56px; border-bottom: 1px solid #2a2a2a; }
+  .hero .eyebrow { font-size: 11px; letter-spacing: 0.2em; color: #B8962E; text-transform: uppercase; margin-bottom: 14px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 400; color: #f5f0e8; line-height: 1.25; max-width: 700px; margin-bottom: 16px; }
+  .hero .sub { font-size: 14px; color: #f5f0e8; opacity: 0.5; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 56px 32px 80px; }
+
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; color: #B8962E; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; padding-top: 12px; border-top: 1px solid #B8962E44; }
+
+  h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; color: #1a1a1a; margin-bottom: 20px; }
+
+  /* Priority table */
+  .priority-grid { display: flex; flex-direction: column; gap: 12px; }
+  .item { display: flex; gap: 16px; align-items: flex-start; background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 8px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .item .badge { flex-shrink: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 20px; margin-top: 2px; white-space: nowrap; }
+  .badge-red    { background: #fdecea; color: #b03030; }
+  .badge-yellow { background: #fff8e6; color: #8a6000; }
+  .badge-green  { background: #f0f7f0; color: #2d6a2d; }
+  .item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .item-desc  { font-size: 13px; color: #666; line-height: 1.6; }
+
+  /* Bugs */
+  .bug-list { display: flex; flex-direction: column; gap: 14px; }
+  .bug { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-left: 4px solid #ca6d6d; border-radius: 8px; padding: 18px 20px; }
+  .bug-num { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #ca6d6d; text-transform: uppercase; margin-bottom: 5px; }
+  .bug-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 5px; }
+  .bug-desc { font-size: 13px; color: #666; line-height: 1.6; }
+  .bug-fix { font-size: 12px; color: #3a6a3a; background: #f0f7f0; border-radius: 4px; padding: 6px 10px; margin-top: 8px; display: inline-block; }
+
+  /* Summary table */
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+  th { background: #1a1a1a; color: #f5f0e8; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; text-align: left; font-weight: 500; }
+  td { padding: 13px 16px; border-bottom: 1px solid #f0ebe2; font-size: 13px; color: #444; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; color: #1a1a1a; width: 36%; }
+  .p-red    { color: #b03030; font-weight: 700; }
+  .p-yellow { color: #8a6000; font-weight: 700; }
+  .p-green  { color: #2d6a2d; font-weight: 700; }
+
+  /* Quote block */
+  .callout { background: #1a1a1a; border-radius: 8px; padding: 24px 28px; margin: 28px 0; }
+  .callout p { color: #f5f0e8; font-size: 14px; opacity: 0.8; line-height: 1.8; }
+  .callout strong { color: #B8962E; opacity: 1; }
+
+  /* Footer */
+  .footer { background: #1a1a1a; padding: 32px 40px; text-align: center; }
+  .footer p { font-size: 12px; color: #f5f0e8; opacity: 0.3; letter-spacing: 0.05em; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px; }
+    .hero h1 { font-size: 1.8rem; }
+    .container { padding: 36px 18px 60px; }
+    .header { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+  <span class="meta">Parent Portal — Review Document · 8 Mar 2026</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">· Internal Review ·</div>
+  <h1>Parent Portal v2 — What's Built, What's Broken, What's Next</h1>
+  <p class="sub">Review of http://127.0.0.1:8904 &nbsp;·&nbsp; Test token: YIFJXNUR &nbsp;·&nbsp; Student: Ping / Khun Mae Araya</p>
+</div>
+
+<div class="container">
+
+  <!-- BUGS -->
+  <div class="section">
+    <div class="section-label">· Bugs — Fix First ·</div>
+    <h2>4 Things Currently Wrong</h2>
+    <div class="bug-list">
+
+      <div class="bug">
+        <div class="bug-num">Bug 01</div>
+        <div class="bug-title">Overdue milestones still show as "Upcoming"</div>
+        <div class="bug-desc">UKISET Exam Prep Start was due 1 Feb 2026 — it is 35 days overdue. The dot is blue and says "🔵 Upcoming · High Priority." We calculate the day count correctly (-35 days) but ignore it for the visual status. A parent sees conflicting information.</div>
+        <span class="bug-fix">Fix: calculate overdue/upcoming from date, not Notion status field. Auto-flag red if date has passed.</span>
+      </div>
+
+      <div class="bug">
+        <div class="bug-num">Bug 02</div>
+        <div class="bug-title">Academic chart (Chart.js) won't render</div>
+        <div class="bug-desc">Chart.js requires the canvas element to be visible when it initialises. The Academics tab is hidden (display:none) on load. The chart script runs immediately and finds a zero-dimension canvas — it renders blank. Clicking to Academics shows an empty chart box.</div>
+        <span class="bug-fix">Fix: trigger chart.js initialisation on tab click, not on page load.</span>
+      </div>
+
+      <div class="bug">
+        <div class="bug-num">Bug 03</div>
+        <div class="bug-title">Service ordering — Recommended shows above Active</div>
+        <div class="bug-desc">Summer Camp (Recommended) appears first in the Services tab above School Matching and Tutoring which are both Active. The ordering from Notion is inconsistent. Active services should always come first.</div>
+        <span class="bug-fix">Fix: sort services client-side: Active → Recommended → Paused.</span>
+      </div>
+
+      <div class="bug">
+        <div class="bug-num">Bug 04</div>
+        <div class="bug-title">Internal consultant notes exposed to parents</div>
+        <div class="bug-desc">The Profile tab shows the raw Notion "Notes" field which currently reads: "TEST FAMILY — Do not contact. Ping targeting Bromsgrove Year 9 entry 2027." This is an internal operations note. Parents should not see operational notes meant for Satit only.</div>
+        <span class="bug-fix">Fix: add a separate "Message from Consultant" field in Notion DB1, display only that in the portal.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MISSING -->
+  <div class="section">
+    <div class="section-label">· Gaps — What Parents Actually Need ·</div>
+    <h2>What's Missing That Matters</h2>
+
+    <div class="callout">
+      <p>A Thai parent logging into this portal for the first time has <strong>three core questions</strong>:<br>
+      1. <strong>Is my child on track?</strong> &nbsp;·&nbsp; 2. <strong>What do I need to do right now?</strong> &nbsp;·&nbsp; 3. <strong>How much is this going to cost?</strong><br><br>
+      The portal currently answers #1 reasonably well. It doesn't answer #2 or #3 clearly enough.</p>
+    </div>
+
+    <div class="priority-grid">
+
+      <div class="item">
+        <span class="badge badge-red">CRITICAL</span>
+        <div>
+          <div class="item-title">No "Action Required" alert for overdue or urgent items</div>
+          <div class="item-desc">When a parent logs in and something is overdue or due within 14 days, there is no prominent red banner at the top. The urgency is buried inside the milestone list. A parent might miss the UKISET deadline entirely. A full-width alert at the very top of Overview — "⚠️ 1 item requires your attention" — would immediately tell them what needs to happen.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-red">CRITICAL</span>
+        <div>
+          <div class="item-title">No cost or fees section</div>
+          <div class="item-desc">The portal shows the family's budget (£45,000/yr) but never shows the actual school fees. Thai parents need to see: estimated total cost of the programme (school fees + tutoring + summer camp + guardianship + flights), broken down in both GBP and Thai Baht. This is the single most anxiety-inducing question for Thai families and the portal offers nothing. Should live on the Schools tab and/or its own tab.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-yellow">IMPORTANT</span>
+        <div>
+          <div class="item-title">No academic benchmarks or context</div>
+          <div class="item-desc">Maths B, Science C — parents don't know if this is good or bad for a UK Year 9 entry. The academic table needs a target column ("Target: A") and a trend indicator (↑ ↓ →). Without context, grades are meaningless to a Thai parent unfamiliar with the UK grading system.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-yellow">IMPORTANT</span>
+        <div>
+          <div class="item-title">Document due dates not shown</div>
+          <div class="item-desc">The documents checklist shows status (Missing, Requested, Verified) but not when each document is due. The Notion database has a "Required By" date field — it's not being displayed. A parent seeing "❌ Teacher Reference 2 — Missing" doesn't know if that's due next week or next year.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-yellow">IMPORTANT</span>
+        <div>
+          <div class="item-title">No FAQ section for Thai parents</div>
+          <div class="item-desc">First-time UK boarding school parents have recurring anxious questions that aren't in any tab: What happens if Ping doesn't get an offer? What exactly is a UK guardian? Will there be Thai food? How does the CE exam work? How often can we visit? A simple FAQ tab would reduce repetitive LINE messages to Satit significantly — this is high leverage for Satit's time.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-green">NICE TO HAVE</span>
+        <div>
+          <div class="item-title">No "last synced" timestamp</div>
+          <div class="item-desc">Parents don't know if the data is from today or last month. A small "Last updated: 8 Mar 2026, 15:43" at the bottom of each tab builds trust and makes clear the portal is live and not static.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="badge badge-green">NICE TO HAVE</span>
+        <div>
+          <div class="item-title">School cards show no fees or key facts</div>
+          <div class="item-desc">The Schools tab shows a Bromsgrove card with linked milestones and a "View School Profile" button — but no fees, boarding ratio, academic results, or scholarship info. A parent should be able to see the headline numbers directly in the portal without having to click through to the website.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRIORITY TABLE -->
+  <div class="section">
+    <div class="section-label">· Build Order ·</div>
+    <h2>Recommended Fix Sequence</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>What</th>
+          <th>Priority</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fix overdue milestone detection</td>
+          <td><span class="p-red">🔴 Now</span></td>
+          <td>Currently showing wrong status — confuses parents</td>
+        </tr>
+        <tr>
+          <td>Fix Chart.js lazy render</td>
+          <td><span class="p-red">🔴 Now</span></td>
+          <td>Academics tab shows blank chart box</td>
+        </tr>
+        <tr>
+          <td>Add cost / fees breakdown</td>
+          <td><span class="p-red">🔴 Now</span></td>
+          <td>#1 most important question for Thai parents</td>
+        </tr>
+        <tr>
+          <td>Fix service ordering (active first)</td>
+          <td><span class="p-red">🔴 Now</span></td>
+          <td>Quick fix, looks unprofessional as-is</td>
+        </tr>
+        <tr>
+          <td>Action Required banner (overdue/urgent)</td>
+          <td><span class="p-yellow">🟡 Soon</span></td>
+          <td>Parents need to see critical items immediately on login</td>
+        </tr>
+        <tr>
+          <td>Academic benchmarks + trend arrows</td>
+          <td><span class="p-yellow">🟡 Soon</span></td>
+          <td>Grades without context are meaningless</td>
+        </tr>
+        <tr>
+          <td>Document due dates visible</td>
+          <td><span class="p-yellow">🟡 Soon</span></td>
+          <td>Parents need to know urgency of each missing doc</td>
+        </tr>
+        <tr>
+          <td>Separate parent-visible notes from internal notes</td>
+          <td><span class="p-yellow">🟡 Soon</span></td>
+          <td>Internal ops notes should never be shown to parents</td>
+        </tr>
+        <tr>
+          <td>FAQ tab</td>
+          <td><span class="p-green">🟢 Later</span></td>
+          <td>Reduces repetitive LINE messages to Satit</td>
+        </tr>
+        <tr>
+          <td>School card key facts (fees, boarding %)</td>
+          <td><span class="p-green">🟢 Later</span></td>
+          <td>Useful but parents can get this from school profile page</td>
+        </tr>
+        <tr>
+          <td>Last synced timestamp</td>
+          <td><span class="p-green">🟢 Later</span></td>
+          <td>Trust signal — small but useful</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WHAT'S WORKING -->
+  <div class="section">
+    <div class="section-label">· What's Working ·</div>
+    <h2>What's Already Good</h2>
+    <div class="priority-grid">
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">Overall design and branding</div>
+          <div class="item-desc">Design bible is followed correctly. Playfair Display headings, cream background, gold accents, dark cards, SVG logo. Looks professional and consistent with the LINKEDU website.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">Bilingual EN/TH toggle</div>
+          <div class="item-desc">Switching between English and Thai works correctly across all tabs. Preference is saved in localStorage. Defaults to Thai. Labels throughout the portal are properly bilingual.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">Journey stage progress bar</div>
+          <div class="item-desc">5-step visual progress bar is clear and correct for Ping (Stage 3 — Roadmap). Parents immediately understand where they are in the process.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">Document upload (Google Drive link)</div>
+          <div class="item-desc">The upload form works — parents can paste a Google Drive / Dropbox link and it saves directly to Notion as a new document record. Practical and functional.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">Tools library by stage</div>
+          <div class="item-desc">All 20+ LINKEDU tools are organised by journey stage and linked to the website. Good for showing premium value to parents — they can see what's available to them at each stage.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="badge badge-green">✅ Good</span>
+        <div>
+          <div class="item-title">School auto-detection from milestones</div>
+          <div class="item-desc">Bromsgrove is correctly detected from milestone titles without needing a separate database field. School milestones are pulled and displayed on the school card with dates.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>LINKEDU Parent Portal Review &nbsp;·&nbsp; Generated 8 Mar 2026 &nbsp;·&nbsp; Internal document</p>
+</div>
+
+</body>
+</html>

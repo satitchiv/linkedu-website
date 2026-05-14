@@ -137,6 +137,20 @@
       color: #f5f0e8;
       font-weight: 400;
     }
+
+    @media (max-width: 768px) {
+      .cs-eyebrow { font-size: 12px; }
+      .cs-label { font-size: 12px; }
+      .cs-explore-label { font-size: 12px; letter-spacing: 0.12em; }
+      .cs-explore-card-label { font-size: 12px; }
+      .cs-explore-card { padding: 20px; }
+      .cs-desc { font-size: 1rem; }
+      /* Contact form — collapse to single column */
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
+    }
   </style>
 </head>
 <body>
@@ -475,5 +489,6 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeEqMo
 
 <button onclick="consultAction()" style="position:fixed;right:0;top:50%;transform:translateY(-50%);background:#B8962E;color:#1a1a1a;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);z-index:800;" onmouseover="this.style.paddingRight='14px'" onmouseout="this.style.paddingRight='10px'"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></button>
 
+<script src="js/auth-indicator.js"></script>
 </body>
 </html>

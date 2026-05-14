@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LINKEDU Portal — Ping</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-font-smoothing:antialiased}
+body{background:#f5f0e8;color:#1a1a1a;font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh}
+
+/* lang */
+html[lang="en"] .lang-th{display:none!important}
+html[lang="th"] .lang-en{display:none!important}
+
+/* topbar */
+.topbar{background:#1a1a1a;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;border-bottom:1px solid #2a2a2a}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.lang-toggle{display:flex;gap:4px}
+.lang-btn{background:transparent;border:1px solid #B8962E;color:#B8962E;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.1em;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all 0.2s}
+.lang-btn.active{background:#B8962E;color:#1a1a1a}
+.topbar-exit{color:#f5f0e8;opacity:0.4;font-size:12px;text-decoration:none;letter-spacing:0.05em}
+.topbar-exit:hover{opacity:0.8;color:#B8962E}
+
+/* tab nav */
+.tabnav{background:#1a1a1a;border-bottom:2px solid #2a2a2a;padding:0 32px;display:flex;gap:0;overflow-x:auto}
+.tabnav::-webkit-scrollbar{height:3px}
+.tabnav::-webkit-scrollbar-thumb{background:#B8962E33}
+.tab-btn{background:none;border:none;color:#f5f0e8;opacity:0.45;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;padding:14px 18px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all 0.2s}
+.tab-btn:hover{opacity:0.75}
+.tab-btn.active{color:#B8962E;opacity:1;border-bottom-color:#B8962E}
+
+/* container */
+.container{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+
+/* section label */
+.sec-label{font-size:11px;letter-spacing:0.2em;color:#B8962E;font-family:'Inter',sans-serif;font-weight:600;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-top:1px solid #B8962E33;padding-top:10px}
+.sec-label::before{content:'· '}
+.sec-label::after{content:' ·'}
+
+/* cards */
+.card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:all 0.3s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.card-cream{background:#f5f0e8;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:24px}
+
+/* hero student card */
+.hero-card{background:#1a1a1a;color:#f5f0e8;border-radius:10px;padding:32px;margin-bottom:36px;display:flex;gap:28px;align-items:flex-start}
+.hero-avatar{width:72px;height:72px;border-radius:50%;background:#B8962E22;border:2px solid #B8962E66;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0}
+.hero-info h1{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:400;color:#f5f0e8;margin-bottom:4px}
+.hero-info .meta{font-size:12px;color:#f5f0e8;opacity:0.45;margin-bottom:16px;letter-spacing:0.03em}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11px;padding:4px 12px;border-radius:20px;font-weight:500;letter-spacing:0.03em}
+.pill-gold{background:#B8962E22;color:#B8962E;border:1px solid #B8962E44}
+.pill-light{background:#f5f0e822;color:#f5f0e8;border:1px solid #f5f0e822}
+.pill-green{background:#1a3a1a;color:#6dca6d;border:1px solid #2d5a2d}
+.pill-yellow{background:#2a2200;color:#c9a830;border:1px solid #4a3a00}
+.pill-red{background:#2a1010;color:#ca6d6d;border:1px solid #4a2020}
+
+/* progress stage */
+.stage-track{display:flex;gap:0;margin:20px 0 8px;position:relative}
+.stage-track::before{content:'';position:absolute;top:10px;left:10px;right:10px;height:2px;background:#e0d9cd;z-index:0}
+.stage-step{flex:1;text-align:center;position:relative;z-index:1}
+.stage-dot{width:22px;height:22px;border-radius:50%;margin:0 auto 8px;border:2px solid #e0d9cd;background:#f5f0e8;transition:all 0.3s}
+.stage-dot.done{background:#B8962E;border-color:#B8962E}
+.stage-dot.current{background:#1a1a1a;border-color:#B8962E;box-shadow:0 0 0 3px #B8962E33}
+.stage-label{font-size:10px;color:#999;letter-spacing:0.05em}
+.stage-label.active{color:#1a1a1a;font-weight:600}
+.progress-bar-bg{background:#e0d9cd;border-radius:4px;height:5px;overflow:hidden;margin-top:6px}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#B8962E,#d4aa3e);border-radius:4px}
+
+/* stat cards */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:32px}
+.stat-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:#B8962E;line-height:1}
+.stat-label{font-size:11px;color:#999;margin-top:6px;letter-spacing:0.05em;text-transform:uppercase}
+
+/* timeline */
+.timeline{display:flex;flex-direction:column}
+.ms-row{display:grid;grid-template-columns:90px 28px 1fr;gap:0 14px;align-items:start;padding:12px 0;border-bottom:1px solid #ece7df}
+.ms-row:last-child{border-bottom:none}
+.ms-date{font-size:11px;color:#aaa;text-align:right;padding-top:4px;line-height:1.4}
+.ms-dot-col{display:flex;flex-direction:column;align-items:center}
+.ms-dot{width:13px;height:13px;border-radius:50%;margin-top:3px;flex-shrink:0;border:2px solid}
+.ms-line{width:1px;background:#ece7df;flex:1;min-height:18px;margin-top:4px}
+.ms-row:last-child .ms-line{display:none}
+.dot-done{background:#B8962E33;border-color:#B8962E}
+.dot-upcoming{background:#f5f0e8;border-color:#1a1a1a}
+.dot-overdue{background:#fdecea;border-color:#ca6d6d}
+.dot-na{background:#f5f0e8;border-color:#ccc}
+.ms-title{font-size:13.5px;color:#1a1a1a;font-weight:500;line-height:1.4}
+.ms-type{font-size:11px;color:#aaa;margin-top:2px}
+.ms-note{font-size:12px;color:#888;margin-top:4px;font-style:italic}
+.ms-urgent{color:#ca6d6d!important;font-weight:600}
+.ms-days{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:8px}
+.days-urgent{background:#fdecea;color:#ca6d6d}
+.days-soon{background:#fff8e6;color:#c9a830}
+.days-ok{background:#f0f7f0;color:#5a9a5a}
+
+/* two-col grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* doc cards */
+.doc-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.doc-icon{font-size:20px;flex-shrink:0;line-height:1}
+.doc-name{font-size:13px;font-weight:500;color:#1a1a1a}
+.doc-status{font-size:11px;margin-top:3px}
+.doc-note{font-size:11px;color:#aaa;margin-top:4px}
+.doc-grid{display:flex;flex-direction:column;gap:10px}
+
+/* service cards */
+.svc-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px 22px;border-left:4px solid}
+.svc-card.active-svc{border-left-color:#B8962E}
+.svc-card.rec-svc{border-left-color:#ccc}
+.svc-card.paused-svc{border-left-color:#e0d9cd}
+.svc-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:#1a1a1a;margin-bottom:4px}
+.svc-detail{font-size:12px;color:#888}
+
+/* school cards */
+.school-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;overflow:hidden}
+.school-header{background:#1a1a1a;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.school-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:#f5f0e8}
+.school-body{padding:20px}
+.school-links{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+/* academic chart */
+.chart-wrap{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:24px;margin-bottom:20px}
+
+/* tool cards */
+.tool-card{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:18px;transition:all 0.2s;cursor:pointer}
+.tool-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.1);border-color:#B8962E44}
+.tool-card a{text-decoration:none;color:inherit;display:block}
+.tool-icon{font-size:24px;margin-bottom:10px}
+.tool-name{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.tool-desc{font-size:11px;color:#aaa;line-height:1.5}
+.tool-stage-label{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B8962E;margin-bottom:14px;margin-top:24px;padding-bottom:8px;border-bottom:1px solid #ece7df}
+
+/* profile */
+.profile-section{margin-bottom:24px}
+.profile-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B8962E;margin-bottom:8px}
+.profile-value{font-size:14px;color:#1a1a1a;padding:12px 16px;background:#f5f0e8;border-radius:6px;border:1px solid rgba(0,0,0,0.06)}
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* buttons */
+.btn-primary{display:inline-block;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.btn-primary:hover{background:#d4aa3e}
+.btn-secondary{display:inline-block;background:transparent;color:#B8962E;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:11px 23px;border-radius:6px;border:1px solid #B8962E;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.btn-secondary:hover{background:#B8962E11}
+.btn-sm{padding:8px 16px;font-size:11px}
+
+/* LINE CTA */
+.line-cta{background:#1a1a1a;border-radius:10px;padding:28px 32px;text-align:center;margin-top:32px}
+.line-cta p{color:#f5f0e8;opacity:0.6;font-size:13px;margin-bottom:14px}
+.line-cta .line-handle{font-family:'Playfair Display',serif;font-size:1.3rem;color:#B8962E;margin-bottom:16px}
+
+/* upload form */
+.upload-form{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:24px}
+.form-group{margin-bottom:16px}
+.form-label{font-size:12px;font-weight:600;color:#555;margin-bottom:6px;display:block}
+.form-input{width:100%;background:#f5f0e8;border:1px solid rgba(0,0,0,0.1);border-radius:6px;padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;color:#1a1a1a;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:#B8962E}
+.form-success{background:#f0f7f0;border:1px solid #5a9a5a33;border-radius:6px;padding:12px 16px;color:#3a6a3a;font-size:13px;margin-top:12px}
+.form-error{background:#fdecea;border:1px solid #ca6d6d33;border-radius:6px;padding:12px 16px;color:#8a3030;font-size:13px;margin-top:12px}
+
+/* alerts */
+.next-action{background:#1a1a1a;border-radius:8px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:16px}
+.next-action .icon{font-size:28px;flex-shrink:0}
+.next-action .text{color:#f5f0e8}
+.next-action .label{font-size:10px;letter-spacing:0.15em;color:#B8962E;text-transform:uppercase;margin-bottom:4px}
+.next-action .title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400}
+.next-action .date{font-size:12px;opacity:0.5;margin-top:3px}
+
+/* responsive */
+@media(max-width:700px){
+  .topbar{padding:0 16px}.container{padding:20px 14px 60px}
+  .tabnav{padding:0 12px}.tab-btn{padding:12px 12px;font-size:11px}
+  .hero-card{flex-direction:column;gap:16px;padding:22px}
+  .grid-2,.grid-3,.resume-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .ms-row{grid-template-columns:72px 22px 1fr}
+}
+
+td{padding:10px 12px;border-bottom:1px solid #ece7df;font-size:13px;color:#333}
+tr:last-child td{border-bottom:none}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="/" style="text-decoration:none">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:22px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+  <span style="display:block;font-family:'Inter',sans-serif;font-size:8px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.5;margin-top:4px;text-transform:uppercase">OVERSEAS EDUCATION</span>
+</a>
+  <div class="topbar-right">
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-th" onclick="setLang('th')">TH</button>
+    </div>
+    <a class="topbar-exit" href="/">Exit</a>
+  </div>
+</div>
+
+<div class="tabnav"><button class="tab-btn" id="btn-overview" onclick="showTab('overview')"><span class="lang-en">Overview</span><span class="lang-th">ภาพรวม</span></button><button class="tab-btn" id="btn-journey" onclick="showTab('journey')"><span class="lang-en">Journey</span><span class="lang-th">ไทม์ไลน์</span></button><button class="tab-btn" id="btn-schools" onclick="showTab('schools')"><span class="lang-en">Schools</span><span class="lang-th">โรงเรียน</span></button><button class="tab-btn" id="btn-services" onclick="showTab('services')"><span class="lang-en">Services</span><span class="lang-th">บริการ</span></button><button class="tab-btn" id="btn-profile" onclick="showTab('profile')"><span class="lang-en">Profile</span><span class="lang-th">โปรไฟล์</span></button><button class="tab-btn" id="btn-academics" onclick="showTab('academics')"><span class="lang-en">Academics</span><span class="lang-th">ผลการเรียน</span></button><button class="tab-btn" id="btn-documents" onclick="showTab('documents')"><span class="lang-en">Documents</span><span class="lang-th">เอกสาร</span></button><button class="tab-btn" id="btn-tools" onclick="showTab('tools')"><span class="lang-en">Tools</span><span class="lang-th">เครื่องมือ</span></button></div>
+
+<div class="container">
+  <div id="tab-overview" class="tab-panel" style="display:none">
+<div class="hero-card">
+  <div class="hero-avatar">🎓</div>
+  <div class="hero-info" style="flex:1">
+    <h1>Ping</h1>
+    <div class="meta">
+      <span class="lang-en">Parent: Khun Mae Araya · Consultant: Satit · Bangkok Patana School (test), Year 8</span>
+      <span class="lang-th">ผู้ปกครอง: Khun Mae Araya · ที่ปรึกษา: Satit · Bangkok Patana School (test), Year 8</span>
+    </div>
+    <div class="hero-pills">
+      <span class="pill pill-green">🟢 On Track</span>
+      <span class="pill pill-gold">🎯 Sport Scholarship</span>
+      <span class='pill pill-gold'>⛳ Golf</span>
+      <span class="pill pill-light">🎓 Year 9 entry 2027</span>
+      <span class="pill pill-light">UK Boarding</span>
+      <span class='pill pill-light'>💷 £45,000 / year</span>
+    </div>
+  </div>
+</div>
+
+<p class="sec-label lang-en">Journey Progress</p>
+<p class="sec-label lang-th">ความก้าวหน้า</p>
+<div class="card-cream" style="margin-bottom:32px">
+  <div class="stage-track"><div class="stage-step">
+          <div class="stage-dot done"></div>
+          <div class="stage-label ">
+            <span class="lang-en">Discovery</span><span class="lang-th">ค้นหา</span>
+          </div>
+        </div><div class="stage-step">
+          <div class="stage-dot done"></div>
+          <div class="stage-label ">
+            <span class="lang-en">Profiling</span><span class="lang-th">วิเคราะห์</span>
+          </div>
+        </div><div class="stage-step">
+          <div class="stage-dot done"></div>
+          <div class="stage-label active">
+            <span class="lang-en">Roadmap</span><span class="lang-th">วางแผน</span>
+          </div>
+        </div><div class="stage-step">
+          <div class="stage-dot "></div>
+          <div class="stage-label ">
+            <span class="lang-en">Preparation</span><span class="lang-th">เตรียมตัว</span>
+          </div>
+        </div><div class="stage-step">
+          <div class="stage-dot "></div>
+          <div class="stage-label ">
+            <span class="lang-en">Transition</span><span class="lang-th">เดินทาง</span>
+          </div>
+        </div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:60%"></div></div>
+  <p style="font-size:11px;color:#888;text-align:center;margin-top:8px">
+    <span class="lang-en">Stage 3 of 5 — Roadmap</span>
+    <span class="lang-th">ขั้นที่ 3 จาก 5 — วางแผน</span>
+  </p>
+</div>
+
+<div class="next-action">
+          <div class="icon">🔴</div>
+          <div class="text">
+            <div class="label lang-en">Next Milestone</div>
+            <div class="label lang-th">ขั้นตอนถัดไป</div>
+            <div class="title">UKISET Exam Prep Start</div>
+            <div class="date">1 Feb 2026 · -35 days away</div>
+          </div>
+        </div>
+
+<p class="sec-label lang-en">At a Glance</p>
+<p class="sec-label lang-th">ภาพรวม</p>
+<div class="stats-grid" style="margin-bottom:36px"><div class="stat-card">
+      <div class="stat-num">3/5</div>
+      <div class="stat-label lang-en">Journey Stage</div>
+      <div class="stat-label lang-th">ขั้นตอน</div>
+    </div><div class="stat-card">
+      <div class="stat-num">3/7</div>
+      <div class="stat-label lang-en">Documents Ready</div>
+      <div class="stat-label lang-th">เอกสารพร้อม</div>
+    </div><div class="stat-card">
+      <div class="stat-num">0/13</div>
+      <div class="stat-label lang-en">Milestones Done</div>
+      <div class="stat-label lang-th">เป้าหมายสำเร็จ</div>
+    </div><div class="stat-card">
+      <div class="stat-num">2</div>
+      <div class="stat-label lang-en">Active Services</div>
+      <div class="stat-label lang-th">บริการที่ใช้งาน</div>
+    </div></div>
+
+<p class="sec-label lang-en">Upcoming Milestones</p>
+<p class="sec-label lang-th">ขั้นตอนที่กำลังจะมาถึง</p>
+<div class="card" style="padding:8px 0 0">
+  <div class="timeline" style="padding:0 20px 12px"><div class="ms-row">
+          <div class="ms-date">1 Feb 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-overdue"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title ms-urgent">UKISET Exam Prep Start<span class="ms-days days-urgent">35d overdue</span></div>
+            <div class="ms-type">UKISET Exam</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">31 Mar 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title ms-urgent">Bromsgrove Summer School Application<span class="ms-days days-soon">23d</span></div>
+            <div class="ms-type">Summer School Application</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Jul 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title ">Bromsgrove Summer School<span class="ms-days days-ok">129d</span></div>
+            <div class="ms-type">Summer School Dates</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">1 Sep 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title ">Mock Entrance Exam<span class="ms-days days-ok">177d</span></div>
+            <div class="ms-type">Entrance Exam</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Oct 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title ">Bromsgrove Open Day<span class="ms-days days-ok">221d</span></div>
+            <div class="ms-type">Open Day</div>
+          </div>
+        </div></div>
+  <div style="text-align:center;padding:12px;border-top:1px solid #ece7df">
+    <button class="btn-secondary btn-sm" onclick="showTab('journey')">
+      <span class="lang-en">View Full Timeline →</span>
+      <span class="lang-th">ดูไทม์ไลน์ทั้งหมด →</span>
+    </button>
+  </div>
+</div>
+
+<div class="line-cta">
+  <p class="lang-en">Questions about your child's journey?</p>
+  <p class="lang-th">มีคำถามเกี่ยวกับเส้นทางของบุตรหลาน?</p>
+  <div class="line-handle">LINE: @satitlinkedu</div>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Message Satit on LINE</span>
+    <span class="lang-th">ส่งข้อความผ่าน LINE</span>
+  </a>
+</div></div><div id="tab-journey" class="tab-panel" style="display:none">
+<div style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap">
+  <div class="card" style="flex:1;min-width:140px;text-align:center">
+    <div class="stat-num" style="font-size:1.8rem">0</div>
+    <div class="stat-label lang-en">Milestones Complete</div>
+    <div class="stat-label lang-th">เสร็จแล้ว</div>
+  </div>
+  <div class="card" style="flex:1;min-width:140px;text-align:center">
+    <div class="stat-num" style="font-size:1.8rem">13</div>
+    <div class="stat-label lang-en">Upcoming</div>
+    <div class="stat-label lang-th">กำลังจะมา</div>
+  </div>
+  <div class="card" style="flex:1;min-width:140px;text-align:center">
+    <div class="stat-num" style="font-size:1.8rem;color:#ca6d6d">1</div>
+    <div class="stat-label lang-en">Overdue</div>
+    <div class="stat-label lang-th">เกินกำหนด</div>
+  </div>
+</div>
+
+<p class="sec-label lang-en">Full Timeline</p>
+<p class="sec-label lang-th">ไทม์ไลน์ทั้งหมด</p>
+<div class="card" style="padding:8px 0 0">
+  <div class="timeline" style="padding:0 20px 12px"><div class="ms-row">
+          <div class="ms-date">1 Feb 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-overdue"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">UKISET Exam Prep Start<span class="ms-days days-urgent">35d overdue</span></div>
+            <div class="ms-type">UKISET Exam · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Begin UKISET prep. Target: Verbal Reasoning 110+</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">31 Mar 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Bromsgrove Summer School Application<span class="ms-days days-urgent">23d</span></div>
+            <div class="ms-type">Summer School Application · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Apply for Bromsgrove Summer School 2026. Golf programme priority.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Jul 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Bromsgrove Summer School</div>
+            <div class="ms-type">Summer School Dates · 🔵 Upcoming · <span style="color:#aaa">Medium Priority</span></div>
+            <div class='ms-note'>2-week summer school. Golf programme + school exposure.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">1 Sep 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Mock Entrance Exam</div>
+            <div class="ms-type">Entrance Exam · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Internal mock CE. Benchmark before formal prep intensification.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Oct 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Bromsgrove Open Day</div>
+            <div class="ms-type">Open Day · 🔵 Upcoming · <span style="color:#aaa">Medium Priority</span></div>
+            <div class='ms-note'>Attend open day with Khun Mae Araya. Meet golf coach.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">30 Nov 2026</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Formal Application Deadline</div>
+            <div class="ms-type">Application Deadline · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Bromsgrove application submission deadline. All docs required.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Jan 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Entrance Exam — Bromsgrove</div>
+            <div class="ms-type">Entrance Exam · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>CE Maths + English + Science. Target: 70%+ overall.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">20 Jan 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Interview — Bromsgrove</div>
+            <div class="ms-type">Interview · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Formal interview. Prepare golf portfolio and personal statement.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">15 Mar 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Offer Expected</div>
+            <div class="ms-type">Offer Expected · 🔵 Upcoming · <span style="color:#aaa">Medium Priority</span></div>
+            <div class='ms-note'>Conditional or unconditional offer expected from Bromsgrove.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">1 Apr 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Guardianship Setup</div>
+            <div class="ms-type">Guardianship Setup · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Appoint UK guardian. Required before offer acceptance.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">30 Apr 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Deposit Deadline</div>
+            <div class="ms-type">Deposit Deadline · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>Acceptance deposit due. Confirm place at Bromsgrove.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">1 Jul 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Pre-Departure Orientation</div>
+            <div class="ms-type">Pre-Departure Orientation · 🔵 Upcoming · <span style="color:#aaa">Medium Priority</span></div>
+            <div class='ms-note'>LinkedU pre-departure session with Ping and Khun Mae Araya.</div>
+          </div>
+        </div><div class="ms-row">
+          <div class="ms-date">8 Sep 2027</div>
+          <div class="ms-dot-col"><div class="ms-dot dot-upcoming"></div><div class="ms-line"></div></div>
+          <div>
+            <div class="ms-title">Term Start — Bromsgrove</div>
+            <div class="ms-type">Term Start · 🔵 Upcoming · <span style="color:#ca6d6d">High Priority</span></div>
+            <div class='ms-note'>First day at Bromsgrove. Year 9 entry.</div>
+          </div>
+        </div></div>
+</div>
+
+<p class="sec-label lang-en" style="margin-top:36px">Recommended Tools — Stage 3: Roadmap</p>
+<p class="sec-label lang-th" style="margin-top:36px">เครื่องมือแนะนำ — ขั้น 3: วางแผนเส้นทาง</p>
+<div class="grid-3"><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/fees-calculator-v2c.html" target="_blank">
+        <div class="tool-icon">💷</div>
+        <div class="tool-name">Fees Calculator</div>
+        <div class="tool-desc">Estimate full costs</div>
+      </a>
+    </div><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/cost-of-living-calc.html" target="_blank">
+        <div class="tool-icon">🏙</div>
+        <div class="tool-name">Cost of Living</div>
+        <div class="tool-desc">UK living costs</div>
+      </a>
+    </div><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/bursary-finder.html" target="_blank">
+        <div class="tool-icon">🎓</div>
+        <div class="tool-name">Bursary Finder</div>
+        <div class="tool-desc">Find financial support</div>
+      </a>
+    </div><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/scholarship-checklist.html" target="_blank">
+        <div class="tool-icon">📋</div>
+        <div class="tool-name">Scholarship Checklist</div>
+        <div class="tool-desc">Scholarship readiness</div>
+      </a>
+    </div><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/sports-pathway.html" target="_blank">
+        <div class="tool-icon">⛳</div>
+        <div class="tool-name">Sports Pathway</div>
+        <div class="tool-desc">Sport scholarship pathway</div>
+      </a>
+    </div><div class="tool-card">
+      <a href="http://127.0.0.1:8901/tools/sports-scholarship-finder.html" target="_blank">
+        <div class="tool-icon">🏆</div>
+        <div class="tool-name">Sports Scholarship Finder</div>
+        <div class="tool-desc">Find sport scholarships</div>
+      </a>
+    </div></div></div><div id="tab-schools" class="tab-panel" style="display:none">
+
+<p class="sec-label lang-en">School Report PDFs</p>
+<p class="sec-label lang-th">รายงานโรงเรียน PDF</p>
+<div class="card" style="margin-bottom:28px">
+  <p style="font-size:13px;color:#888;margin-bottom:16px">
+    <span class="lang-en">Your personalised school report will appear here once prepared by your consultant.</span>
+    <span class="lang-th">รายงานโรงเรียนส่วนตัวจะปรากฏที่นี่เมื่อที่ปรึกษาจัดทำเสร็จแล้ว</span>
+  </p>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Request School Report via LINE</span>
+    <span class="lang-th">ขอรายงานผ่าน LINE</span>
+  </a>
+</div>
+
+<p class="sec-label lang-en">Recommended Schools</p>
+<p class="sec-label lang-th">โรงเรียนที่แนะนำ</p>
+<div class="grid-2"><div class="school-card">
+              <div class="school-header">
+                <h3>Bromsgrove School</h3>
+                <span style="font-size:11px;color:#B8962E;letter-spacing:0.1em">UK BOARDING</span>
+              </div>
+              <div class="school-body">
+                <p style="font-size:12px;color:#aaa;margin-bottom:12px">
+                  <span class="lang-en">Recommended for Ping based on your profile and goals.</span>
+                  <span class="lang-th">แนะนำสำหรับ Ping ตามโปรไฟล์และเป้าหมาย</span>
+                </p>
+                <div style="margin-bottom:14px"><div style="font-size:12px;color:#666;padding:4px 0;border-bottom:1px solid #f5f0e8">Bromsgrove Summer School Application — 31 Mar 2026</div><div style="font-size:12px;color:#666;padding:4px 0;border-bottom:1px solid #f5f0e8">Bromsgrove Summer School — 15 Jul 2026</div><div style="font-size:12px;color:#666;padding:4px 0;border-bottom:1px solid #f5f0e8">Bromsgrove Open Day — 15 Oct 2026</div><div style="font-size:12px;color:#666;padding:4px 0;border-bottom:1px solid #f5f0e8">Entrance Exam — Bromsgrove — 15 Jan 2027</div></div>
+                <div class="school-links">
+                  <a href="http://127.0.0.1:8901/schools/bromsgrove-school.html" target="_blank" class="btn-secondary btn-sm">
+                    <span class="lang-en">View School Profile →</span>
+                    <span class="lang-th">ดูข้อมูลโรงเรียน →</span>
+                  </a>
+                  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary btn-sm">
+                    <span class="lang-en">Ask Satit about this school</span>
+                    <span class="lang-th">ถามที่ปรึกษา</span>
+                  </a>
+                </div>
+              </div>
+            </div></div>
+
+<div class="line-cta" style="margin-top:32px">
+  <p class="lang-en">Want to explore more school options?</p>
+  <p class="lang-th">ต้องการสำรวจตัวเลือกโรงเรียนเพิ่มเติม?</p>
+  <div class="line-handle">LINE: @satitlinkedu</div>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Discuss Schools with Satit</span>
+    <span class="lang-th">ปรึกษาเรื่องโรงเรียนกับที่ปรึกษา</span>
+  </a>
+</div></div><div id="tab-services" class="tab-panel" style="display:none">
+<p class="sec-label lang-en">Active Services</p>
+<p class="sec-label lang-th">บริการที่ใช้งานอยู่</p>
+<div class="svc-card rec-svc" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="svc-name">Summer Camp</div>
+            <span class="pill" style="background:#88822;color:#888;border:1px solid #88844;font-size:11px">Recommended</span>
+          </div>
+          <div class='svc-detail' style='margin-bottom:6px'>Bromsgrove Summer School 2026</div>
+          
+          <div class='svc-detail' style='margin-top:8px;font-style:italic;color:#aaa'>Strongly recommended — builds familiarity with school environment and golf programme contact.</div>
+        </div><div class="svc-card active-svc" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="svc-name">Tutoring</div>
+            <span class="pill" style="background:#B8962E22;color:#B8962E;border:1px solid #B8962E44;font-size:11px">Active</span>
+          </div>
+          <div class='svc-detail' style='margin-bottom:6px'>Maths + Science CE prep</div>
+          <div class='svc-detail'>From 20 Jan 2026 · 2× / week</div>
+          <div class='svc-detail' style='margin-top:8px;font-style:italic;color:#aaa'>2x per week. Target: Maths B→A, Science C→B by Jan 2027 CE.</div>
+        </div><div class="svc-card active-svc" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="svc-name">School Matching</div>
+            <span class="pill" style="background:#B8962E22;color:#B8962E;border:1px solid #B8962E44;font-size:11px">Active</span>
+          </div>
+          <div class='svc-detail' style='margin-bottom:6px'>UK Boarding Schools — Year 9 entry 2027</div>
+          <div class='svc-detail'>From 15 Jan 2026</div>
+          <div class='svc-detail' style='margin-top:8px;font-style:italic;color:#aaa'>Active search. Bromsgrove as top target. 3 backup schools to be identified.</div>
+        </div>
+<p class="sec-label lang-en" style="margin-top:32px">Recommended for Ping</p>
+        <p class="sec-label lang-th" style="margin-top:32px">แนะนำสำหรับ Ping</p><div class="svc-card rec-svc" style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div class="svc-name">⛳ Sport Pathway</div>
+                <span class="pill pill-gold" style="font-size:10px">Recommended</span>
+              </div>
+              <div class="svc-detail" style="margin-bottom:14px">With a primary sport, a sports scholarship pathway could significantly reduce fees</div>
+              <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-secondary btn-sm">
+                <span class="lang-en">Enquire via LINE</span>
+                <span class="lang-th">สอบถามผ่าน LINE</span>
+              </a>
+            </div><div class="svc-card rec-svc" style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div class="svc-name">🏠 Guardianship</div>
+                <span class="pill pill-gold" style="font-size:10px">Recommended</span>
+              </div>
+              <div class="svc-detail" style="margin-bottom:14px">UK law requires international students under 18 to have a registered UK guardian</div>
+              <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-secondary btn-sm">
+                <span class="lang-en">Enquire via LINE</span>
+                <span class="lang-th">สอบถามผ่าน LINE</span>
+              </a>
+            </div>
+<div class="line-cta" style="margin-top:32px">
+  <p class="lang-en">Ready to add a service or have questions?</p>
+  <p class="lang-th">พร้อมเพิ่มบริการหรือมีคำถาม?</p>
+  <div class="line-handle">LINE: @satitlinkedu</div>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Talk to Satit</span>
+    <span class="lang-th">คุยกับที่ปรึกษา</span>
+  </a>
+</div></div><div id="tab-profile" class="tab-panel" style="display:none">
+<div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+  <div style="flex:1;min-width:280px">
+    <p class="sec-label lang-en">Student Profile</p>
+    <p class="sec-label lang-th">โปรไฟล์นักเรียน</p>
+    <div class="resume-grid"><div class="profile-section">
+      <div class="profile-label">Student Name / ชื่อนักเรียน</div>
+      <div class="profile-value">Ping</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Date of Birth / วันเกิด</div>
+      <div class="profile-value">1 Mar 2013</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Nationality / สัญชาติ</div>
+      <div class="profile-value">Thai</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Current School / โรงเรียนปัจจุบัน</div>
+      <div class="profile-value">Bangkok Patana School (test)</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Year Group / ชั้นปี</div>
+      <div class="profile-value">Year 8</div>
+    </div><div class="profile-section">
+      <div class="profile-label">English Level / ระดับภาษาอังกฤษ</div>
+      <div class="profile-value">Upper-Intermediate</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Primary Sport / กีฬาหลัก</div>
+      <div class="profile-value">Golf</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Academic Goal / เป้าหมายการศึกษา</div>
+      <div class="profile-value">Sport Scholarship</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Target Entry Year / ปีเข้าเรียน</div>
+      <div class="profile-value">2027</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Target Year Group / ระดับชั้นเป้าหมาย</div>
+      <div class="profile-value">Year 9</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Destination / ปลายทาง</div>
+      <div class="profile-value">UK Boarding</div>
+    </div><div class="profile-section">
+      <div class="profile-label">Annual Budget / งบประมาณต่อปี</div>
+      <div class="profile-value">£45,000</div>
+    </div></div>
+  </div>
+  <div style="width:280px;flex-shrink:0">
+    <p class="sec-label lang-en">Journey Status</p>
+    <p class="sec-label lang-th">สถานะ</p>
+    <div class="card-cream" style="margin-bottom:16px">
+      <div class="profile-label">Stage</div>
+      <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:14px">3 - Roadmap</div>
+      <div class="profile-label">Status</div>
+      <div style="font-size:14px;margin-bottom:14px">🟢 On Track</div>
+      <div class="profile-label">Active Services</div>
+      <div style="font-size:13px;color:#555">School Matching, Tutoring, Summer Camp</div>
+    </div>
+    <p class="sec-label lang-en">Consultant Notes</p>
+    <p class="sec-label lang-th">บันทึกจากที่ปรึกษา</p>
+    <div class="card-cream" style="font-size:13px;color:#555;font-style:italic;line-height:1.7">TEST FAMILY — Do not contact. Ping targeting Bromsgrove Year 9 entry 2027. Golf scholar track. CE prep underway. Budget £45,000/yr.</div>
+    <div style="margin-top:20px">
+      <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary" style="width:100%;display:block;text-align:center;margin-bottom:10px">
+        <span class="lang-en">Request Detailed Consultation</span>
+        <span class="lang-th">ขอคำปรึกษาเพิ่มเติม</span>
+      </a>
+      <p style="font-size:11px;color:#aaa;text-align:center;margin-top:8px">LINE: @satitlinkedu</p>
+    </div>
+  </div>
+</div></div><div id="tab-academics" class="tab-panel" style="display:none">
+<p class="sec-label lang-en">Academic Performance</p>
+<p class="sec-label lang-th">ผลการเรียน</p>
+
+<div class="chart-wrap" style="margin-bottom:24px">
+  <p style="font-size:12px;color:#aaa;margin-bottom:16px">
+    <span class="lang-en">Subject performance overview (average across terms)</span>
+    <span class="lang-th">ภาพรวมผลการเรียนตามวิชา (เฉลี่ยตลอดเทอม)</span>
+  </p>
+  <canvas id="gradeChart" height="80"></canvas>
+</div>
+
+<p class="sec-label lang-en">All Records</p>
+<p class="sec-label lang-th">บันทึกทั้งหมด</p>
+<div class="card" style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse">
+    <thead><tr style="border-bottom:2px solid #ece7df">
+      <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa">Subject</th>
+      <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa">Grade / Score</th>
+      <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa">Type</th>
+      <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa">Term</th>
+    </tr></thead>
+    <tbody><tr>
+          <td style="font-weight:500">Science</td>
+          <td><span style="color:#c9a830;font-weight:700;font-size:15px">C</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 1 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">English</td>
+          <td><span style="color:#5a9a5a;font-weight:700;font-size:15px">A</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 1 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">Maths</td>
+          <td><span style="color:#5a7aba;font-weight:700;font-size:15px">B</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 1 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">Other</td>
+          <td><span style="color:#888;font-weight:700;font-size:15px">58/100</span></td>
+          <td style="color:#aaa;font-size:12px">Mock CE</td>
+          <td style="color:#aaa;font-size:12px">Term 2 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">Science</td>
+          <td><span style="color:#c9a830;font-weight:700;font-size:15px">C</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 2 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">English</td>
+          <td><span style="color:#5a9a5a;font-weight:700;font-size:15px">A</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 2 2025</td>
+        </tr><tr>
+          <td style="font-weight:500">Maths</td>
+          <td><span style="color:#5a7aba;font-weight:700;font-size:15px">B</span></td>
+          <td style="color:#aaa;font-size:12px">School Report</td>
+          <td style="color:#aaa;font-size:12px">Term 2 2025</td>
+        </tr></tbody>
+  </table>
+</div>
+
+<div class="line-cta" style="margin-top:32px">
+  <p class="lang-en">Want to discuss your child's academic progress?</p>
+  <p class="lang-th">ต้องการปรึกษาเรื่องผลการเรียน?</p>
+  <div class="line-handle">LINE: @satitlinkedu</div>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Talk to Satit</span><span class="lang-th">คุยกับที่ปรึกษา</span>
+  </a>
+</div>
+
+<script>
+(function(){
+  var ctx = document.getElementById('gradeChart');
+  if(!ctx || !window.Chart) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Science", "English", "Maths", "Other"],
+      datasets: [{
+        label: 'Performance (0–100)',
+        data: [40, 80, 60, 60],
+        backgroundColor: ["#B8962E", "#1a1a1a", "#5a9a5a", "#5a7aba"],
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { min:0, max:100, ticks:{ font:{size:11}, color:'#aaa' }, grid:{color:'#f0ebe2'} },
+        x: { ticks:{ font:{size:11}, color:'#555' }, grid:{display:false} }
+      }
+    }
+  });
+})();
+</script></div><div id="tab-documents" class="tab-panel" style="display:none">
+<div class="card-cream" style="margin-bottom:28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+  <div style="text-align:center;min-width:100px">
+    <div style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#B8962E">42%</div>
+    <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em">
+      <span class="lang-en">Documents Ready</span>
+      <span class="lang-th">เอกสารพร้อม</span>
+    </div>
+  </div>
+  <div style="flex:1;min-width:200px">
+    <div class="progress-bar-bg" style="height:8px;margin-bottom:8px"><div class="progress-bar-fill" style="width:42%"></div></div>
+    <p style="font-size:13px;color:#555">
+      <span class="lang-en">3 of 7 documents verified or uploaded</span>
+      <span class="lang-th">3 จาก 7 เอกสารพร้อมแล้ว</span>
+    </p>
+  </div>
+</div>
+
+<p class="sec-label lang-en">Document Checklist</p>
+<p class="sec-label lang-th">รายการเอกสาร</p>
+<div style="margin-bottom:36px"><p style="font-size:11px;font-weight:600;color:#5a9a5a;letter-spacing:0.08em;text-transform:uppercase;margin:20px 0 10px">✅ ✅ Verified (2)</p><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">✅</div>
+              <div style="flex:1">
+                <div class="doc-name">School Report Y7</div>
+                <div class='doc-note'>Bangkok Patana Year 7 full report.…</div>
+              </div>
+            </div><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">✅</div>
+              <div style="flex:1">
+                <div class="doc-name">Passport</div>
+                <div class='doc-note'>Valid until 2031.…</div>
+              </div>
+            </div><p style="font-size:11px;font-weight:600;color:#5a7aba;letter-spacing:0.08em;text-transform:uppercase;margin:20px 0 10px">📤 📤 Uploaded (1)</p><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">📤</div>
+              <div style="flex:1">
+                <div class="doc-name">School Report Y8</div>
+                <div class='doc-note'>Uploaded — awaiting consultant verification.…</div>
+              </div>
+            </div><p style="font-size:11px;font-weight:600;color:#c9a830;letter-spacing:0.08em;text-transform:uppercase;margin:20px 0 10px">⏳ ⏳ Requested (1)</p><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">⏳</div>
+              <div style="flex:1">
+                <div class="doc-name">Teacher Reference 1</div>
+                <div class='doc-note'>Requested from Maths teacher — awaiting response.…</div>
+              </div>
+            </div><p style="font-size:11px;font-weight:600;color:#ca6d6d;letter-spacing:0.08em;text-transform:uppercase;margin:20px 0 10px">❌ ❌ Missing (2)</p><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">❌</div>
+              <div style="flex:1">
+                <div class="doc-name">UKISET Result</div>
+                <div class='doc-note'>Not yet taken. Schedule for Term 3 2026.…</div>
+              </div>
+            </div><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">❌</div>
+              <div style="flex:1">
+                <div class="doc-name">Teacher Reference 2</div>
+                <div class='doc-note'>To be requested from English teacher.…</div>
+              </div>
+            </div><p style="font-size:11px;font-weight:600;color:#aaa;letter-spacing:0.08em;text-transform:uppercase;margin:20px 0 10px">🔒 🔒 Not Yet Required (1)</p><div class="doc-card" style="margin-bottom:8px">
+              <div class="doc-icon">🔒</div>
+              <div style="flex:1">
+                <div class="doc-name">Application Form — Bromsgrove</div>
+                <div class='doc-note'>Required Nov 2026. Portal to open Sept 2026.…</div>
+              </div>
+            </div></div>
+
+<p class="sec-label lang-en">Upload a Document</p>
+<p class="sec-label lang-th">อัพโหลดเอกสาร</p>
+<div class="upload-form">
+  <p style="font-size:13px;color:#888;margin-bottom:20px">
+    <span class="lang-en">Share a Google Drive, Dropbox, or OneDrive link below. Your consultant will be notified.</span>
+    <span class="lang-th">แชร์ลิงก์ Google Drive, Dropbox หรือ OneDrive ด้านล่าง ที่ปรึกษาจะได้รับแจ้ง</span>
+  </p>
+  <form id="uploadForm" onsubmit="submitUpload(event)">
+    <input type="hidden" name="token" value="YIFJXNUR">
+    <input type="hidden" name="sid" value="31d9d89c-abdc-817e-a18d-f238c34238d1">
+    <div class="form-group">
+      <label class="form-label">
+        <span class="lang-en">Document Name</span>
+        <span class="lang-th">ชื่อเอกสาร</span>
+      </label>
+      <input class="form-input" type="text" name="doc_title" placeholder="e.g. Passport scan" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">
+        <span class="lang-en">File Link (Google Drive / Dropbox / OneDrive)</span>
+        <span class="lang-th">ลิงก์ไฟล์</span>
+      </label>
+      <input class="form-input" type="url" name="doc_link" placeholder="https://drive.google.com/..." required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">
+        <span class="lang-en">Notes (optional)</span>
+        <span class="lang-th">หมายเหตุ (ถ้ามี)</span>
+      </label>
+      <input class="form-input" type="text" name="doc_notes" placeholder="">
+    </div>
+    <button class="btn-primary" type="submit">
+      <span class="lang-en">Submit Document Link</span>
+      <span class="lang-th">ส่งลิงก์เอกสาร</span>
+    </button>
+    <div id="uploadMsg"></div>
+  </form>
+</div>
+
+<div style="background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;margin-top:16px">
+  <p style="font-size:13px;font-weight:600;margin-bottom:8px">
+    <span class="lang-en">Or send directly via LINE</span>
+    <span class="lang-th">หรือส่งตรงผ่าน LINE</span>
+  </p>
+  <p style="font-size:12px;color:#aaa;margin-bottom:12px">
+    <span class="lang-en">You can also send documents directly to your consultant on LINE.</span>
+    <span class="lang-th">คุณสามารถส่งเอกสารให้ที่ปรึกษาโดยตรงผ่าน LINE</span>
+  </p>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-secondary btn-sm">LINE: @satitlinkedu</a>
+</div>
+
+<script>
+async function submitUpload(e) {
+  e.preventDefault();
+  var f = e.target;
+  var msg = document.getElementById('uploadMsg');
+  msg.innerHTML = '<p style="color:#aaa;font-size:13px;margin-top:12px">Submitting…</p>';
+  try {
+    var resp = await fetch('/upload-doc', {
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body: new URLSearchParams(new FormData(f)).toString()
+    });
+    var data = await resp.json();
+    if(data.ok) {
+      msg.innerHTML = '<div class="form-success">✅ Document link submitted. Your consultant has been notified.</div>';
+      f.reset();
+    } else {
+      msg.innerHTML = '<div class="form-error">❌ ' + (data.error||'Something went wrong') + '</div>';
+    }
+  } catch(err) {
+    msg.innerHTML = '<div class="form-error">❌ Network error. Please try again.</div>';
+  }
+}
+</script></div><div id="tab-tools" class="tab-panel" style="display:none">
+<div class="card-cream" style="margin-bottom:28px">
+  <p style="font-size:13px;color:#555;line-height:1.8">
+    <span class="lang-en">All LINKEDU tools are available to you as a premium client. Each tool opens on our website — your results are yours to keep. To save or discuss results, message Satit via LINE.</span>
+    <span class="lang-th">เครื่องมือทั้งหมดของ LINKEDU พร้อมให้คุณใช้งานในฐานะลูกค้าพรีเมียม เครื่องมือแต่ละอย่างจะเปิดบนเว็บไซต์ของเรา หากต้องการบันทึกหรือปรึกษาผล ติดต่อที่ปรึกษาผ่าน LINE</span>
+  </p>
+</div>
+<div class="tool-stage-label"><span class="lang-en">Stage 1: Discovery</span><span class="lang-th">ขั้นที่ 1: ค้นหา</span></div><div class="grid-3"><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/personality-match.html" target="_blank">
+                <div class="tool-icon">🧠</div>
+                <div class="tool-name">Personality Match</div>
+                <div class="tool-desc">Find the right school culture</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/school-match-quiz.html" target="_blank">
+                <div class="tool-icon">🏫</div>
+                <div class="tool-name">School Match Quiz</div>
+                <div class="tool-desc">Get matched to schools</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/uk-vs-thailand.html" target="_blank">
+                <div class="tool-icon">🌍</div>
+                <div class="tool-name">UK vs Thailand</div>
+                <div class="tool-desc">Compare education systems</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/culture-shock-readiness-quiz.html" target="_blank">
+                <div class="tool-icon">😌</div>
+                <div class="tool-name">Culture Shock Quiz</div>
+                <div class="tool-desc">Readiness check</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/boarding-school-culture-fit-assessor.html" target="_blank">
+                <div class="tool-icon">🎭</div>
+                <div class="tool-name">Culture Fit Assessor</div>
+                <div class="tool-desc">School culture match</div>
+              </a>
+            </div></div><div class="tool-stage-label"><span class="lang-en">Stage 2: Profiling</span><span class="lang-th">ขั้นที่ 2: วิเคราะห์</span></div><div class="grid-3"><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/english-assessment.html" target="_blank">
+                <div class="tool-icon">📝</div>
+                <div class="tool-name">English Assessment</div>
+                <div class="tool-desc">Gauge English level</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-learning-style.html" target="_blank">
+                <div class="tool-icon">🧩</div>
+                <div class="tool-name">Learning Style</div>
+                <div class="tool-desc">How your child learns best</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-gifted-checker.html" target="_blank">
+                <div class="tool-icon">⭐</div>
+                <div class="tool-name">Gifted Checker</div>
+                <div class="tool-desc">Identify strengths</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/ukiset-prep-tracker.html" target="_blank">
+                <div class="tool-icon">📊</div>
+                <div class="tool-name">UKISET Tracker</div>
+                <div class="tool-desc">Track UKISET preparation</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-curriculum-gap-map.html" target="_blank">
+                <div class="tool-icon">🗺</div>
+                <div class="tool-name">Curriculum Gap Map</div>
+                <div class="tool-desc">Identify knowledge gaps</div>
+              </a>
+            </div></div><div class="tool-stage-label"><span class="lang-en">Stage 3: Roadmap <span style="background:#B8962E;color:#1a1a1a;font-size:9px;padding:2px 8px;border-radius:10px;letter-spacing:0.08em;vertical-align:middle">YOUR STAGE</span></span><span class="lang-th">ขั้นที่ 3: วางแผน <span style="background:#B8962E;color:#1a1a1a;font-size:9px;padding:2px 8px;border-radius:10px;letter-spacing:0.08em;vertical-align:middle">YOUR STAGE</span></span></div><div class="grid-3"><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/fees-calculator-v2c.html" target="_blank">
+                <div class="tool-icon">💷</div>
+                <div class="tool-name">Fees Calculator</div>
+                <div class="tool-desc">Estimate full costs</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/cost-of-living-calc.html" target="_blank">
+                <div class="tool-icon">🏙</div>
+                <div class="tool-name">Cost of Living</div>
+                <div class="tool-desc">UK living costs</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/bursary-finder.html" target="_blank">
+                <div class="tool-icon">🎓</div>
+                <div class="tool-name">Bursary Finder</div>
+                <div class="tool-desc">Find financial support</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/scholarship-checklist.html" target="_blank">
+                <div class="tool-icon">📋</div>
+                <div class="tool-name">Scholarship Checklist</div>
+                <div class="tool-desc">Scholarship readiness</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/sports-pathway.html" target="_blank">
+                <div class="tool-icon">⛳</div>
+                <div class="tool-name">Sports Pathway</div>
+                <div class="tool-desc">Sport scholarship pathway</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/sports-scholarship-finder.html" target="_blank">
+                <div class="tool-icon">🏆</div>
+                <div class="tool-name">Sports Scholarship Finder</div>
+                <div class="tool-desc">Find sport scholarships</div>
+              </a>
+            </div></div><div class="tool-stage-label"><span class="lang-en">Stage 4: Preparation</span><span class="lang-th">ขั้นที่ 4: เตรียมสมัคร</span></div><div class="grid-3"><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/application-timeline.html" target="_blank">
+                <div class="tool-icon">📅</div>
+                <div class="tool-name">Application Timeline</div>
+                <div class="tool-desc">Plan your applications</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/interview-prep-guide.html" target="_blank">
+                <div class="tool-icon">🎤</div>
+                <div class="tool-name">Interview Prep Guide</div>
+                <div class="tool-desc">Ace the interview</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-interview-scorer.html" target="_blank">
+                <div class="tool-icon">📝</div>
+                <div class="tool-name">Interview Scorer</div>
+                <div class="tool-desc">Score mock interviews</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-subject-weakness.html" target="_blank">
+                <div class="tool-icon">📚</div>
+                <div class="tool-name">Subject Weakness</div>
+                <div class="tool-desc">Fix weak subjects</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-hours-calculator.html" target="_blank">
+                <div class="tool-icon">⏱</div>
+                <div class="tool-name">Tutoring Hours Calc</div>
+                <div class="tool-desc">How much tutoring?</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-oxbridge-profile.html" target="_blank">
+                <div class="tool-icon">🏛</div>
+                <div class="tool-name">Oxbridge Profile</div>
+                <div class="tool-desc">Build Oxbridge profile</div>
+              </a>
+            </div></div><div class="tool-stage-label"><span class="lang-en">Stage 5: Transition</span><span class="lang-th">ขั้นที่ 5: เตรียมเดินทาง</span></div><div class="grid-3"><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/packing-guide.html" target="_blank">
+                <div class="tool-icon">🧳</div>
+                <div class="tool-name">Packing Guide</div>
+                <div class="tool-desc">What to pack for UK</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/post-study-visa-pathway.html" target="_blank">
+                <div class="tool-icon">✈️</div>
+                <div class="tool-name">Visa Pathway</div>
+                <div class="tool-desc">Post-study visa options</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-summer-planner.html" target="_blank">
+                <div class="tool-icon">☀️</div>
+                <div class="tool-name">Summer Planner</div>
+                <div class="tool-desc">Plan the summer before</div>
+              </a>
+            </div><div class="tool-card">
+              <a href="http://127.0.0.1:8901/tools/tutoring/tutoring-career-path-quiz.html" target="_blank">
+                <div class="tool-icon">💼</div>
+                <div class="tool-name">Career Path Quiz</div>
+                <div class="tool-desc">Future career planning</div>
+              </a>
+            </div></div>
+<div class="line-cta" style="margin-top:32px">
+  <p class="lang-en">Completed a tool? Share your results with Satit.</p>
+  <p class="lang-th">ทำเครื่องมือเสร็จแล้ว? แชร์ผลลัพธ์กับที่ปรึกษา</p>
+  <div class="line-handle">LINE: @satitlinkedu</div>
+  <a href="https://line.me/R/ti/p/@satitlinkedu" target="_blank" class="btn-primary">
+    <span class="lang-en">Share on LINE</span><span class="lang-th">แชร์ผ่าน LINE</span>
+  </a>
+</div></div>
+</div>
+
+<script>
+(function(){
+  var l = localStorage.getItem('linkedu-lang') || 'th';
+  document.documentElement.setAttribute('lang', l);
+  document.getElementById('btn-' + l).classList.add('active');
+})();
+
+function setLang(l) {
+  document.documentElement.setAttribute('lang', l);
+  localStorage.setItem('linkedu-lang', l);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + l).classList.add('active');
+}
+
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).style.display = 'block';
+  document.getElementById('btn-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+showTab('overview');
+</script>
+</body></html>

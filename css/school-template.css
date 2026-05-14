@@ -131,11 +131,29 @@ body { padding-bottom: 80px; }
     /* BREADCRUMB */
     .mag-breadcrumb {
       font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em;
-      color: rgba(245,240,232,0.35); margin-bottom: 24px;
+      color: rgba(245,240,232,0.35); margin-bottom: 24px; padding-top: 28px;
     }
     .mag-breadcrumb a { color: var(--gold); text-decoration: none; }
     .mag-breadcrumb a:hover { color: var(--gold-light); }
     .mag-breadcrumb span { margin: 0 8px; }
+
+    /* HERO META ROW — badge + heart on same line */
+    .hero-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 760px; margin-bottom: 20px;
+    }
+    .hero-heart-btn {
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.07); border: 2px solid rgba(245,240,232,0.3);
+      color: rgba(245,240,232,0.5); cursor: pointer;
+      transition: all 0.25s; backdrop-filter: blur(4px);
+    }
+    .hero-heart-btn svg { width: 22px; height: 22px; }
+    .hero-heart-btn:hover { background: rgba(232,66,110,0.15); border-color: #e8426e; color: #e8426e; transform: scale(1.08); }
+    .hero-heart-btn.saved { background: rgba(232,66,110,0.2); border-color: #e8426e; color: #e8426e; }
+    .hero-heart-btn.saved svg { fill: #e8426e; }
 
     /* RECOMMEND BADGE */
     .mag-badge {

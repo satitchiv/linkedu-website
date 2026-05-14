@@ -237,6 +237,20 @@
       .visa-cards-grid { grid-template-columns: 1fr; }
       .docs-grid { grid-template-columns: 1fr; }
       .thai-callout { padding: 24px 20px; }
+      /* Font size fixes for parent readability */
+      .visa-eyebrow { font-size: 12px; }
+      .visa-card-type { font-size: 12px; letter-spacing: 0.1em; }
+      .visa-badge { font-size: 0.78rem; }
+      .docs-col-title { font-size: 12px; }
+      .thai-callout-title { font-size: 12px; }
+      .doc-item { font-size: 0.9rem; }
+      .visa-meta-row { font-size: 0.88rem; }
+      .step-text { font-size: 0.95rem; }
+      /* Contact form — collapse to single column */
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
     }
   </style>
 </head>
@@ -695,5 +709,6 @@
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeEqModal();});
   async function submitHSForm(cId,wId){var c=document.getElementById(cId),w=document.getElementById(wId),btn=c.querySelector('button[onclick]');function g(n){var el=c.querySelector('[name="'+n+'"]');return el?el.value.trim():'';}if(!g('email')){alert('Please enter your email');return;}btn.disabled=true;btn.style.opacity='0.6';btn.textContent='Sending...';var fields=[{name:'firstname',value:g('firstname')},{name:'email',value:g('email')}].filter(f=>f.value);try{var r=await fetch('https://api.hsforms.com/submissions/v3/integration/submit/245267958/044460cf-4981-4a0a-b844-4ea2df92fb1a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields,context:{pageUri:location.href,pageName:document.title}})});if(r.ok){w.innerHTML='<div style="padding:48px 28px;text-align:center;"><div style="font-size:2.5rem;color:#B8962E;margin-bottom:12px;">&#10003;</div><div style="font-family:\'Playfair Display\',serif;font-size:1.5rem;color:#f5f0e8;margin-bottom:10px;">ขอบคุณครับ/ค่ะ!</div><div style="font-size:0.85rem;color:rgba(245,240,232,0.6);">LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง</div></div>';}else{btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล →</span><span class="lang-en">Send Enquiry →</span>';alert('Error — please try again.');}}
 </script>
+<script src="js/auth-indicator.js"></script>
 </body>
 </html>

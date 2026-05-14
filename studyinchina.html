@@ -262,6 +262,20 @@
       .china-hero-stats { gap: 28px; }
       .csc-card { padding: 24px 22px; margin: 32px 0 0; }
       .china-cta { padding: 52px 0; }
+      /* Font size fixes for parent readability */
+      .china-hero-eyebrow { font-size: 12px; }
+      .h-stat-label { font-size: 0.78rem; letter-spacing: 0.06em; }
+      .why-card-body { font-size: 0.9rem; }
+      .why-card-stat-label { font-size: 0.75rem; }
+      .city-card-count { font-size: 0.75rem; }
+      .csc-eyebrow { font-size: 12px; }
+      .csc-item { font-size: 0.82rem; }
+      .csc-deadline { font-size: 0.82rem; }
+      /* Contact form — collapse to single column */
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
     }
   </style>
 </head>
@@ -758,5 +772,6 @@
     catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry →</span>';alert('เกิดข้อผิดพลาด / Error — please try again.');}
   }
 </script>
+<script src="js/auth-indicator.js"></script>
 </body>
 </html>

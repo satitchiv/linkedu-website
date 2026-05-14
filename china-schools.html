@@ -5,8 +5,8 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>มหาวิทยาลัยจีน 508 แห่ง / Browse 508 China Universities — LINKEDU</title>
-  <meta name="description" content="ค้นหามหาวิทยาลัยจีนกรองตามเมือง ภาษา ระดับการศึกษา และงบประมาณ | Browse 508 Chinese universities filtered by city, language, degree level and budget.">
+  <title>มหาวิทยาลัยจีน 248 แห่ง / Browse 248 China Universities — LINKEDU</title>
+  <meta name="description" content="ค้นหามหาวิทยาลัยจีนกรองตามเมือง ภาษา ระดับการศึกษา และงบประมาณ | Browse 248 Chinese universities with international programs, filtered by city, language, degree level and budget.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,40 +63,73 @@
     .results-count-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(26,26,26,0.48); }
     .results-count-text strong { color: #1a1a1a; font-weight: 600; }
 
-    /* University table */
-    .uni-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
-    .uni-table th { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(26,26,26,0.42); padding: 10px 14px; text-align: left; border-bottom: 2px solid rgba(26,26,26,0.1); white-space: nowrap; }
-    .uni-table td { font-size: 0.84rem; color: rgba(26,26,26,0.8); padding: 13px 14px; border-bottom: 1px solid rgba(26,26,26,0.06); vertical-align: top; }
-    .uni-table tr:hover td { background: rgba(184,150,46,0.04); }
-    .uni-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #1a1a1a; font-weight: 400; line-height: 1.3; }
-    .uni-city-badge { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 600; padding: 2px 8px; background: rgba(184,150,46,0.1); border-radius: 10px; color: #7a6018; white-space: nowrap; }
-    .uni-prog-count { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; color: #1a1a1a; }
-    .uni-tuition { font-family: 'Inter', sans-serif; font-size: 0.84rem; color: #B8962E; font-weight: 600; }
-    .uni-tuition-na { color: rgba(26,26,26,0.3); font-weight: 400; font-size: 0.75rem; }
-    .lang-pill { display: inline-block; font-size: 0.62rem; font-weight: 600; padding: 2px 7px; background: rgba(26,26,26,0.06); border-radius: 8px; color: rgba(26,26,26,0.55); margin: 1px; white-space: nowrap; }
-    .view-programs-btn { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #B8962E; background: transparent; border: 1px solid rgba(184,150,46,0.35); border-radius: 4px; padding: 5px 11px; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
-    .view-programs-btn:hover { background: rgba(184,150,46,0.08); border-color: #B8962E; }
-    .view-programs-btn.open { background: rgba(184,150,46,0.1); }
+    /* Sort toggle */
+    .sort-toggle { display: flex; gap: 4px; }
+    .sort-btn { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(26,26,26,0.15); background: transparent; color: rgba(26,26,26,0.45); cursor: pointer; transition: all 0.16s; }
+    .sort-btn.active { background: #1a1a1a; color: #f5f0e8; border-color: #1a1a1a; }
 
-    /* Program expand row */
-    .programs-expand-row { background: #fff; }
-    .programs-expand-row td { padding: 0 14px; }
-    .programs-expand-inner { padding: 14px 0 18px; border-top: 1px solid rgba(184,150,46,0.15); }
-    .programs-expand-label { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(26,26,26,0.35); margin-bottom: 10px; }
-    .programs-list { display: flex; flex-direction: column; gap: 6px; }
-    .program-item { display: flex; gap: 10px; align-items: flex-start; font-size: 0.8rem; color: rgba(26,26,26,0.75); line-height: 1.4; }
-    .program-level { font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: rgba(26,26,26,0.06); color: rgba(26,26,26,0.5); white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
-    .program-lang-pill { font-size: 0.6rem; padding: 2px 7px; border-radius: 8px; background: rgba(184,150,46,0.1); color: #7a6018; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
-    .program-tuition { font-size: 0.72rem; color: #B8962E; font-weight: 600; white-space: nowrap; margin-left: auto; flex-shrink: 0; }
-    .programs-loading { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(26,26,26,0.4); padding: 10px 0; }
+    /* School cards grid */
+    .school-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 0; }
+    .scard { background: #fff; border: 1px solid rgba(26,26,26,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease; display: flex; flex-direction: column; }
+    .scard:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .scard-bar { height: 6px; flex-shrink: 0; }
+    .scard-bar-boarding { background: #B8962E; }
+    .scard-bar-day { background: #4a6fa5; }
+    .scard-bar-both { background: linear-gradient(to right, #B8962E 50%, #4a6fa5 50%); }
+    .scard-body { padding: 18px 18px 0; flex: 1; display: flex; flex-direction: column; }
+    .scard-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+    .sbadge { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 8px; border-radius: 10px; }
+    .sbadge-type { background: rgba(26,26,26,0.06); color: rgba(26,26,26,0.55); }
+    .sbadge-boarding { background: rgba(184,150,46,0.12); color: #7a6018; }
+    .sbadge-day { background: rgba(74,111,165,0.12); color: #2e5080; }
+    .sbadge-both { background: rgba(100,150,80,0.12); color: #2e6020; }
+    .sbadge-schol { background: rgba(184,150,46,0.1); color: #7a6018; font-size: 0.58rem; }
+    .scard-name { font-family: 'Playfair Display', serif; font-size: 1.12rem; font-weight: 400; color: #1a1a1a; line-height: 1.25; margin-bottom: 4px; }
+    .scard-loc { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(26,26,26,0.45); margin-bottom: 14px; }
+    .scard-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .scard-stat { background: rgba(184,150,46,0.05); border-radius: 6px; padding: 8px 9px; }
+    .scard-stat-val { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+    .scard-stat-val .gold { color: #B8962E; }
+    .scard-stat-key { font-family: 'Inter', sans-serif; font-size: 0.6rem; color: rgba(26,26,26,0.42); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+    .scard-fee { border-top: 1px solid rgba(26,26,26,0.06); padding: 11px 0; margin-top: auto; }
+    .scard-fee-usd { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #1a1a1a; line-height: 1; }
+    .scard-fee-usd .per-yr { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 400; color: rgba(26,26,26,0.35); margin-left: 3px; }
+    .scard-fee-thb { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(26,26,26,0.42); margin-top: 2px; }
+    .scard-fee-na { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(26,26,26,0.3); font-style: italic; }
+    .scard-pills { display: flex; flex-wrap: wrap; gap: 4px; padding-bottom: 12px; }
+    .pill { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 500; padding: 3px 7px; background: rgba(26,26,26,0.05); color: rgba(26,26,26,0.52); border-radius: 10px; }
+    .pill-more { background: rgba(184,150,46,0.1); color: #9a7a24; font-weight: 600; }
+    .pill-lang { background: rgba(74,111,165,0.08); color: #2e5080; }
+    .pill-ib { background: rgba(184,150,46,0.12); color: #7a6018; font-weight: 600; }
+    .pill-subject { background: rgba(184,150,46,0.07); color: #7a6018; border: 1px solid rgba(184,150,46,0.18); }
+    .scard-actions { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(26,26,26,0.07); flex-shrink: 0; }
+    .scard-btn { padding: 11px 8px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; text-align: center; cursor: pointer; transition: background 0.2s; border: none; display: block; text-decoration: none; }
+    .scard-btn-view { background: #1a1a1a; color: #f5f0e8; }
+    .scard-btn-view:hover { background: #2c2c2c; }
+    .scard-btn-view-disabled { background: #e8e8e8; color: #aaa; cursor: default; pointer-events: none; text-align: center; padding: 11px 8px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; display: block; }
+    .scard-btn-enquire { background: transparent; color: #B8962E; border-left: 1px solid rgba(26,26,26,0.07); }
+    .scard-btn-enquire:hover { background: rgba(184,150,46,0.08); }
 
-    /* Loading / empty states */
+    /* Programs expand inside card */
+    .programs-expand { border-top: 1px solid rgba(26,26,26,0.06); padding: 12px 18px 14px; background: #fafaf8; }
+    .programs-expand-label { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(26,26,26,0.35); margin-bottom: 10px; }
+    .programs-list { display: flex; flex-direction: column; gap: 5px; }
+    .program-item { display: flex; gap: 8px; align-items: flex-start; font-size: 0.78rem; color: rgba(26,26,26,0.75); line-height: 1.4; }
+    .program-level { font-size: 0.58rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(26,26,26,0.06); color: rgba(26,26,26,0.5); white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .program-lang-pill { font-size: 0.58rem; padding: 2px 6px; border-radius: 6px; background: rgba(184,150,46,0.1); color: #7a6018; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .program-tuition { font-size: 0.7rem; color: #B8962E; font-weight: 600; white-space: nowrap; margin-left: auto; flex-shrink: 0; }
+    .programs-loading { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(26,26,26,0.4); padding: 8px 0; }
+    .subject-strengths { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(26,26,26,0.06); }
+    .subject-strengths-label { font-family: 'Inter', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(26,26,26,0.35); margin-bottom: 6px; }
+    .subject-tag { display: inline-flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; font-size: 0.68rem; color: #1a1a1a; background: rgba(184,150,46,0.08); border: 1px solid rgba(184,150,46,0.2); border-radius: 4px; padding: 2px 7px; margin: 2px 2px 2px 0; }
+    .subject-tag-rank { font-weight: 700; color: #B8962E; }
+
+    /* Loading */
     .results-loading { text-align: center; padding: 60px 24px; font-family: 'Inter', sans-serif; font-size: 0.88rem; color: rgba(26,26,26,0.45); }
     .no-results-block { text-align: center; padding: 72px 24px; }
     .no-results-block h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1a1a1a; margin-bottom: 8px; }
     .no-results-block p { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: rgba(26,26,26,0.48); }
 
-    /* Mobile: table → cards */
     @media (max-width: 1024px) {
       .schools-layout { grid-template-columns: 240px 1fr; }
     }
@@ -104,13 +137,20 @@
       .schools-layout { grid-template-columns: 1fr; }
       .filter-sidebar { position: static; height: auto; display: none; }
       .filter-sidebar.open { display: block; }
-      .mobile-filter-toggle { display: flex; align-items: center; justify-content: space-between; }
-      .results-panel { padding: 20px 16px 48px; }
-      .uni-table { display: none; }
-      .uni-cards-mobile { display: flex; flex-direction: column; gap: 12px; }
-    }
-    @media (min-width: 769px) {
-      .uni-cards-mobile { display: none; }
+      .mobile-filter-toggle { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; padding: 15px 20px; }
+      .results-panel { padding: 20px 20px 48px; }
+      .school-cards-grid { grid-template-columns: 1fr; }
+      .filter-label { font-size: 12px; }
+      .sidebar-title { font-size: 12px; }
+      .h-stat-label { font-size: 0.75rem; letter-spacing: 0.06em; }
+      .sort-btn { font-size: 0.78rem; padding: 6px 12px; }
+      .budget-min-max { font-size: 0.72rem; }
+      .chip { font-size: 0.78rem; padding: 6px 12px; }
+      .results-count-text { font-size: 0.9rem; }
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
     }
   </style>
 </head>
@@ -173,15 +213,15 @@
   <div class="container schools-hero-inner">
     <div class="schools-hero-eyebrow">STUDY IN CHINA · UNIVERSITY BROWSER</div>
     <h1>
-      <span class="lang-th">มหาวิทยาลัยจีน<br><em>508 แห่ง — ค้นหาที่ใช่ในไม่กี่วินาที</em></span>
-      <span class="lang-en">Chinese Universities<br><em>508 institutions — find your match in seconds</em></span>
+      <span class="lang-th">มหาวิทยาลัยจีน<br><em>248 แห่ง — ค้นหาที่ใช่ในไม่กี่วินาที</em></span>
+      <span class="lang-en">Chinese Universities<br><em>248 institutions — find your match in seconds</em></span>
     </h1>
     <p class="schools-hero-sub">
       <span class="lang-th">กรองตามเมือง ภาษา ระดับการศึกษา และงบประมาณ แล้วดูโปรแกรมทั้งหมดของแต่ละมหาวิทยาลัย</span>
       <span class="lang-en">Filter by city, language, degree level, and budget. Expand any university to see all its programs.</span>
     </p>
     <div class="schools-hero-stats">
-      <div><div class="h-stat-num">508</div><div class="h-stat-label"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></div></div>
+      <div><div class="h-stat-num">248</div><div class="h-stat-label"><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">Universities</span></div></div>
       <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
       <div><div class="h-stat-num">11,472</div><div class="h-stat-label"><span class="lang-th">โปรแกรมทั้งหมด</span><span class="lang-en">Total Programs</span></div></div>
       <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
@@ -205,7 +245,7 @@
   <aside class="filter-sidebar" id="filterSidebar">
     <div class="sidebar-header">
       <div class="sidebar-title"><span class="lang-th">กรองผล</span><span class="lang-en">Filter Results</span></div>
-      <div class="sidebar-count-text" id="sidebarCount"><strong>508</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span></div>
+      <div class="sidebar-count-text" id="sidebarCount"><strong>248</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span></div>
     </div>
 
     <!-- City filter -->
@@ -247,15 +287,25 @@
       </div>
     </div>
 
+    <!-- Elite Tier filter -->
+    <div class="filter-section">
+      <span class="filter-label"><span class="lang-th">ระดับความเป็นเลิศ</span><span class="lang-en">Elite Tier</span></span>
+      <div class="chip-group" id="tierChips">
+        <button class="chip active" data-value="">All</button>
+        <button class="chip" data-value="985">985 <span style="opacity:0.6;font-weight:400;">(37)</span></button>
+        <button class="chip" data-value="211">211 <span style="opacity:0.6;font-weight:400;">(90+)</span></button>
+      </div>
+    </div>
+
     <!-- Budget slider -->
     <div class="filter-section">
       <span class="filter-label"><span class="lang-th">งบประมาณสูงสุด / ปี</span><span class="lang-en">Max Budget / year</span></span>
       <div class="budget-display">
-        <span class="usd" id="budgetDisplay">$20,000</span>
-        <span class="thb" id="budgetThbDisplay">(~฿700,000)</span>
+        <span class="usd" id="budgetDisplay">฿700,000+</span>
+        <span class="thb" id="budgetThbDisplay"></span>
       </div>
       <input type="range" class="budget-range" id="budgetRange" min="0" max="20000" step="500" value="20000">
-      <div class="budget-min-max"><span>$0</span><span>$20,000</span></div>
+      <div class="budget-min-max"><span>฿0</span><span>฿700,000+</span></div>
     </div>
 
     <button class="reset-all-btn" onclick="resetFilters()">
@@ -267,28 +317,35 @@
   <main class="results-panel">
     <div class="results-top-bar">
       <div class="results-count-text" id="resultsCountText">
-        <span class="lang-th"><strong id="resultsNum">508</strong> มหาวิทยาลัย</span>
-        <span class="lang-en">Showing <strong id="resultsNumEn">508</strong> universities</span>
+        <span class="lang-th"><strong id="resultsNum">248</strong> มหาวิทยาลัย</span>
+        <span class="lang-en">Showing <strong id="resultsNumEn">248</strong> universities</span>
       </div>
-      <a href="contact.html" style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B8962E;text-decoration:none;">
-        <span class="lang-th">ขอคำแนะนำ →</span><span class="lang-en">Get Advice →</span>
-      </a>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div class="sort-toggle">
+          <button class="sort-btn active" id="sortQS" onclick="setSort('qs_rank')"><span class="lang-th">เรียงตามอันดับ</span><span class="lang-en">By QS Rank</span></button>
+          <button class="sort-btn" id="sortPrograms" onclick="setSort('programs')"><span class="lang-th">เรียงตามโปรแกรม</span><span class="lang-en">By Programs</span></button>
+        </div>
+        <a href="contact.html" style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B8962E;text-decoration:none;"><span class="lang-th">ขอคำแนะนำ →</span><span class="lang-en">Get Advice →</span></a>
+      </div>
     </div>
 
-    <!-- Desktop table -->
-    <div id="resultsContainer">
-      <div class="results-loading">
+    <!-- Cards Grid -->
+    <div id="schoolCardsGrid" class="school-cards-grid">
+      <div class="results-loading" style="grid-column:1/-1;">
         <span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span>
       </div>
     </div>
 
-    <!-- Mobile cards -->
-    <div id="mobileCards" class="uni-cards-mobile"></div>
+    <!-- No results -->
+    <div id="noResults" class="no-results-block" style="display:none;">
+      <h3><span class="lang-th">ไม่พบผลลัพธ์</span><span class="lang-en">No results found</span></h3>
+      <p><span class="lang-th">ลองปรับตัวกรองและค้นหาใหม่</span><span class="lang-en">Try adjusting your filters</span></p>
+    </div>
   </main>
 </div>
 
 <!-- ============================================================
-     FOOTER
+     CONTACT FORM
      ============================================================ -->
 <section id="contact-form" style="background:#f5f0e8;padding:88px 40px;border-top:4px solid #B8962E;">
   <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
@@ -340,7 +397,7 @@
       <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
         <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
         <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
-        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">508 มหาวิทยาลัยจีน</span><span class="lang-en">508 China universities</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">248 มหาวิทยาลัยจีน</span><span class="lang-en">248 China universities</span></span>
         <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -430,7 +487,7 @@
         <div class="footer-heading"><span class="lang-th">มหาวิทยาลัยจีน</span><span class="lang-en">Universities</span></div>
         <div class="footer-links">
           <a href="studyinchina.html" class="footer-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
-          <a href="china-schools.html" class="footer-link"><span class="lang-th">ค้นหามหาวิทยาลัย 508 แห่ง</span><span class="lang-en">Browse 508 Universities</span></a>
+          <a href="china-schools.html" class="footer-link"><span class="lang-th">ค้นหามหาวิทยาลัย 248 แห่ง</span><span class="lang-en">Browse 248 Universities</span></a>
           <a href="china-visa.html" class="footer-link"><span class="lang-th">คู่มือวีซ่านักเรียน</span><span class="lang-en">Student Visa Guide</span></a>
         </div>
       </div>
@@ -495,7 +552,7 @@
 
 <script>
 (function() {
-  // Supabase client for program expansion (public anon key)
+  // Supabase client
   const SUPABASE_URL = 'https://ufspivvuevllmkxmivbe.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk';
   let sbClient = null;
@@ -505,9 +562,10 @@
   }
 
   // Filter state
-  let state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000 };
+  let state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000, tier: '', sort_by: 'qs_rank' };
   let debounceTimer = null;
-  let openExpandId = null;
+  // Track open program expand per card (by uni id)
+  let openCardExpandId = null;
 
   // Read URL param for city pre-select
   const urlParams = new URLSearchParams(window.location.search);
@@ -523,8 +581,8 @@
   budgetRange.addEventListener('input', function() {
     var v = parseInt(this.value);
     state.max_tuition_usd = v;
-    budgetDisplay.textContent = v === 20000 ? '$20,000+' : '$' + v.toLocaleString();
-    budgetThbDisplay.textContent = v === 20000 ? '' : '(~฿' + Math.round(v * 35).toLocaleString() + ')';
+    budgetDisplay.textContent = v === 20000 ? '฿700,000+' : '฿' + Math.round(v * 35).toLocaleString();
+    budgetThbDisplay.textContent = '';
     scheduleRefetch();
   });
 
@@ -554,166 +612,293 @@
     });
   });
 
+  // Tier chips
+  document.querySelectorAll('#tierChips .chip').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#tierChips .chip').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      state.tier = this.dataset.value;
+      scheduleRefetch();
+    });
+  });
+
+  // Sort toggle
+  window.setSort = function(sortVal) {
+    state.sort_by = sortVal;
+    document.getElementById('sortQS').classList.toggle('active', sortVal === 'qs_rank');
+    document.getElementById('sortPrograms').classList.toggle('active', sortVal === 'programs');
+    scheduleRefetch();
+  };
+
   function scheduleRefetch() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(fetchUniversities, 300);
   }
 
   async function fetchUniversities() {
-    document.getElementById('resultsContainer').innerHTML = '<div class="results-loading"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div>';
-
-    var params = new URLSearchParams();
-    if (state.city) params.set('city', state.city);
-    if (state.language) params.set('language', state.language);
-    if (state.degree_level) params.set('degree_level', state.degree_level);
-    if (state.max_tuition_usd < 20000) params.set('max_tuition_usd', state.max_tuition_usd);
+    var grid = document.getElementById('schoolCardsGrid');
+    grid.innerHTML = '<div class="results-loading" style="grid-column:1/-1;"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div>';
+    document.getElementById('noResults').style.display = 'none';
 
     try {
-      var res = await fetch('/api/china-universities?' + params.toString());
-      var data = await res.json();
+      var sb = getSB();
+      if (!sb) throw new Error('Supabase client not ready');
 
-      if (data.error) throw new Error(data.error);
+      var rpcParams = {
+        p_city: (state.city && state.city !== 'All') ? state.city : null,
+        p_language: (state.language && state.language !== 'All') ? state.language : null,
+        p_degree_level: (state.degree_level && state.degree_level !== 'All') ? state.degree_level : null,
+        p_max_tuition_usd: (state.max_tuition_usd < 20000) ? state.max_tuition_usd : null,
+        p_tier: (state.tier && state.tier !== 'All') ? state.tier : null,
+      };
 
-      var total = data.total || 0;
-      var unis = data.universities || [];
+      var { data: universities, error } = await sb.rpc('get_china_universities', rpcParams);
+      if (error) throw error;
 
-      // Update count
+      var unis = universities || [];
+      var total = unis.length;
+
+      // Sort client-side
+      if (state.sort_by === 'programs') {
+        unis.sort(function(a, b) { return b.program_count - a.program_count; });
+      } else {
+        unis.sort(function(a, b) {
+          if (a.qs_rank && b.qs_rank) return a.qs_rank - b.qs_rank;
+          if (a.qs_rank) return -1;
+          if (b.qs_rank) return 1;
+          return b.program_count - a.program_count;
+        });
+      }
+
+      var topResults = unis.slice(0, 100);
+
+      // Fetch subject strengths (top-10 world rankings only)
+      var displayedIds = topResults.map(function(u) { return u.id; });
+      var subjectMap = {};
+      if (displayedIds.length > 0) {
+        var { data: subjects } = await sb
+          .from('university_subjects')
+          .select('university_id, subject, subject_rank')
+          .in('university_id', displayedIds)
+          .lte('subject_rank', 10)
+          .order('subject_rank', { ascending: true });
+        if (subjects) {
+          subjects.forEach(function(s) {
+            if (!subjectMap[s.university_id]) subjectMap[s.university_id] = [];
+            if (subjectMap[s.university_id].length < 3) {
+              subjectMap[s.university_id].push({ subject: s.subject, rank: s.subject_rank });
+            }
+          });
+        }
+      }
+
+      // Normalise
+      var result = topResults.map(function(u) {
+        return {
+          id: u.id,
+          name_en: u.name_en,
+          city: u.city,
+          province: u.province,
+          is_985: u.is_985,
+          is_211: u.is_211,
+          qs_rank: u.qs_rank,
+          qs_score: u.qs_score ? parseFloat(u.qs_score) : null,
+          program_count: parseInt(u.program_count, 10) || 0,
+          min_tuition_usd: u.min_tuition_usd ? parseFloat(u.min_tuition_usd) : null,
+          languages: u.languages || [],
+          top_subjects: subjectMap[u.id] || [],
+        };
+      });
+
+      // Update counts
       document.getElementById('resultsNum').textContent = total;
       document.getElementById('resultsNumEn').textContent = total;
       document.getElementById('sidebarCount').innerHTML = '<strong>' + total + '</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span>';
 
-      if (unis.length === 0) {
-        document.getElementById('resultsContainer').innerHTML = '<div class="no-results-block"><h3><span class="lang-th">ไม่พบผลลัพธ์</span><span class="lang-en">No results found</span></h3><p><span class="lang-th">ลองปรับตัวกรองและค้นหาใหม่</span><span class="lang-en">Try adjusting your filters</span></p></div>';
-        document.getElementById('mobileCards').innerHTML = '';
+      if (result.length === 0) {
+        grid.innerHTML = '';
+        document.getElementById('noResults').style.display = 'block';
         return;
       }
 
-      renderTable(unis);
-      renderMobileCards(unis);
+      renderCards(result);
     } catch(err) {
       console.error(err);
-      document.getElementById('resultsContainer').innerHTML = '<div class="no-results-block"><h3>Error</h3><p>' + err.message + '</p></div>';
+      document.getElementById('schoolCardsGrid').innerHTML = '<div class="no-results-block" style="grid-column:1/-1;"><h3>Error</h3><p>' + err.message + '</p></div>';
     }
   }
 
-  function renderTable(unis) {
-    var rows = unis.map(function(u, i) {
-      var langs = (u.languages || []).map(function(l) {
-        return '<span class="lang-pill">' + l + '</span>';
+  function renderCards(unis) {
+    var grid = document.getElementById('schoolCardsGrid');
+    grid.innerHTML = unis.map(function(u, idx) {
+      // Bar colour: 985 = gold, 211 = blue, others = grey
+      var barStyle, tierBadge;
+      if (u.is_985) {
+        barStyle = 'class="scard-bar scard-bar-boarding"';
+        tierBadge = '<span class="sbadge sbadge-boarding">985</span>';
+      } else if (u.is_211) {
+        barStyle = 'class="scard-bar scard-bar-day"';
+        tierBadge = '<span class="sbadge sbadge-day">211</span>';
+      } else {
+        barStyle = 'class="scard-bar" style="background:#999;"';
+        tierBadge = '';
+      }
+
+      var cityBadge = u.city ? '<span class="sbadge sbadge-type">' + u.city + '</span>' : '';
+
+      // Stats
+      var qsVal = u.qs_rank ? '<span class="gold">#' + u.qs_rank + '</span>' : '–';
+      var progsVal = u.program_count ? u.program_count.toLocaleString() : '–';
+      var tierVal = u.is_985 ? '985 Elite' : (u.is_211 ? '211 Elite' : 'Standard');
+      var tuitionStatVal = u.min_tuition_usd ? '$' + Math.round(u.min_tuition_usd).toLocaleString() : '–';
+
+      // Fee block
+      var feeHtml;
+      if (u.min_tuition_usd) {
+        feeHtml = '<div class="scard-fee-usd">$' + Math.round(u.min_tuition_usd).toLocaleString() + '<span class="per-yr">/ yr</span></div>' +
+                  '<div class="scard-fee-thb">&#x2248; &#x0E3F;' + Math.round(u.min_tuition_usd * 35).toLocaleString() + ' / &#x0E1B;&#x0E35;</div>';
+      } else {
+        feeHtml = '<div class="scard-fee-na">Contact university</div>';
+      }
+
+      // Language pills
+      var langPills = (u.languages || []).map(function(l) {
+        return '<span class="pill pill-lang">' + l + '</span>';
       }).join('');
-      var tuition = u.min_tuition_usd ? '<span class="uni-tuition">From $' + Math.round(u.min_tuition_usd).toLocaleString() + '</span>' : '<span class="uni-tuition-na">—</span>';
-      return '<tr id="urow-' + i + '">' +
-        '<td><div class="uni-name">' + (u.name_en || '—') + '</div></td>' +
-        '<td><span class="uni-city-badge">' + (u.city || '—') + '</span></td>' +
-        '<td><span class="uni-prog-count">' + u.program_count + '</span></td>' +
-        '<td>' + tuition + '</td>' +
-        '<td>' + langs + '</td>' +
-        '<td><button class="view-programs-btn" id="vbtn-' + i + '" onclick="togglePrograms(' + i + ',\'' + u.id + '\')">' +
-          '<span class="lang-th">ดูโปรแกรม</span><span class="lang-en">View Programs</span>' +
-        '</button></td>' +
-      '</tr>' +
-      '<tr class="programs-expand-row" id="prow-' + i + '" style="display:none;">' +
-        '<td colspan="6"><div class="programs-expand-inner" id="pinner-' + i + '"><div class="programs-loading"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div></div></td>' +
-      '</tr>';
-    }).join('');
 
-    document.getElementById('resultsContainer').innerHTML =
-      '<table class="uni-table">' +
-      '<thead><tr>' +
-      '<th><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">University</span></th>' +
-      '<th><span class="lang-th">เมือง</span><span class="lang-en">City</span></th>' +
-      '<th><span class="lang-th">โปรแกรม</span><span class="lang-en">Programs</span></th>' +
-      '<th><span class="lang-th">ค่าเล่าเรียน</span><span class="lang-en">From (USD/yr)</span></th>' +
-      '<th><span class="lang-th">ภาษา</span><span class="lang-en">Languages</span></th>' +
-      '<th></th>' +
-      '</tr></thead>' +
-      '<tbody>' + rows + '</tbody>' +
-      '</table>';
-  }
+      // Subject strength pills (top 3)
+      var subjectPills = (u.top_subjects || []).map(function(s) {
+        return '<span class="pill pill-subject"><span style="color:#B8962E;font-weight:700;margin-right:2px;">#' + s.rank + '</span>' + s.subject + '</span>';
+      }).join('');
 
-  function renderMobileCards(unis) {
-    var cards = unis.map(function(u) {
-      var langs = (u.languages || []).join(' · ');
-      var tuition = u.min_tuition_usd ? 'From $' + Math.round(u.min_tuition_usd).toLocaleString() + '/yr' : '';
-      return '<div style="background:#fff;border-radius:8px;border:1px solid rgba(26,26,26,0.08);border-left:4px solid #B8962E;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.05);">' +
-        '<div style="font-family:\'Playfair Display\',serif;font-size:0.95rem;color:#1a1a1a;margin-bottom:6px;">' + (u.name_en || '—') + '</div>' +
-        '<div style="font-family:\'Inter\',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.5);margin-bottom:8px;">' + (u.city || '') + (u.province && u.province !== u.city ? ', ' + u.province : '') + '</div>' +
-        '<div style="display:flex;gap:12px;font-family:\'Inter\',sans-serif;font-size:0.78rem;margin-bottom:6px;">' +
-        '<span><strong style="color:#1a1a1a;">' + u.program_count + '</strong> programs</span>' +
-        (tuition ? '<span style="color:#B8962E;font-weight:600;">' + tuition + '</span>' : '') +
+      var allPills = langPills + subjectPills;
+
+      var expandId = 'pexpand-' + idx;
+
+      return '<article class="scard" id="card-' + idx + '">' +
+        '<div ' + barStyle + '></div>' +
+        '<div class="scard-body">' +
+          '<div class="scard-badges">' + tierBadge + cityBadge + '</div>' +
+          '<div class="scard-name">' + (u.name_en || '–') + '</div>' +
+          '<div class="scard-loc">' + (u.city || '') + (u.province && u.province !== u.city ? ', ' + u.province : '') + ', China</div>' +
+          '<div class="scard-stats">' +
+            '<div class="scard-stat"><div class="scard-stat-val">' + qsVal + '</div><div class="scard-stat-key">QS Rank</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val">' + progsVal + '</div><div class="scard-stat-key">Programs</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val">' + tierVal + '</div><div class="scard-stat-key">Tier</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val">' + tuitionStatVal + '</div><div class="scard-stat-key">From (USD)</div></div>' +
+          '</div>' +
+          '<div class="scard-fee">' + feeHtml + '</div>' +
+          (allPills ? '<div class="scard-pills">' + allPills + '</div>' : '') +
         '</div>' +
-        (langs ? '<div style="font-family:\'Inter\',sans-serif;font-size:0.72rem;color:rgba(26,26,26,0.45);">' + langs + '</div>' : '') +
-        '</div>';
+        '<div id="' + expandId + '" style="display:none;"></div>' +
+        '<div class="scard-actions">' +
+          '<button class="scard-btn scard-btn-view" id="vbtn-' + idx + '" onclick="togglePrograms(' + idx + ',\'' + u.id + '\',\'' + encodeURIComponent(JSON.stringify(u.top_subjects || [])) + '\')">' +
+            '<span class="lang-th">ดูโปรแกรม</span><span class="lang-en">View Programs</span>' +
+          '</button>' +
+          '<button onclick="consultAction()" class="scard-btn scard-btn-enquire"><span class="lang-th">สอบถาม</span><span class="lang-en">Enquire</span></button>' +
+        '</div>' +
+      '</article>';
     }).join('');
-    document.getElementById('mobileCards').innerHTML = cards;
   }
 
-  window.togglePrograms = async function(idx, uniId) {
-    var prow = document.getElementById('prow-' + idx);
-    var pinner = document.getElementById('pinner-' + idx);
+  // Toggle programs expand inside card
+  window.togglePrograms = async function(idx, uniId, topSubjectsEncoded) {
+    var expandDiv = document.getElementById('pexpand-' + idx);
     var btn = document.getElementById('vbtn-' + idx);
 
-    if (prow.style.display !== 'none') {
-      prow.style.display = 'none';
-      btn.classList.remove('open');
+    if (expandDiv.style.display !== 'none') {
+      expandDiv.style.display = 'none';
+      btn.innerHTML = '<span class="lang-th">ดูโปรแกรม</span><span class="lang-en">View Programs</span>';
       return;
     }
 
-    // Close any other open expand
-    if (openExpandId !== null && openExpandId !== idx) {
-      var prev = document.getElementById('prow-' + openExpandId);
-      var prevBtn = document.getElementById('vbtn-' + openExpandId);
+    // Close previous expand if different card
+    if (openCardExpandId !== null && openCardExpandId !== idx) {
+      var prev = document.getElementById('pexpand-' + openCardExpandId);
+      var prevBtn = document.getElementById('vbtn-' + openCardExpandId);
       if (prev) prev.style.display = 'none';
-      if (prevBtn) prevBtn.classList.remove('open');
+      if (prevBtn) prevBtn.innerHTML = '<span class="lang-th">ดูโปรแกรม</span><span class="lang-en">View Programs</span>';
     }
-    openExpandId = idx;
-    prow.style.display = 'table-row';
-    btn.classList.add('open');
+    openCardExpandId = idx;
 
-    // Fetch programs
+    expandDiv.style.display = 'block';
+    expandDiv.innerHTML = '<div class="programs-expand"><div class="programs-loading"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading programs...</span></div></div>';
+    btn.innerHTML = '<span class="lang-th">ซ่อนโปรแกรม</span><span class="lang-en">Hide Programs</span>';
+
+    var topSubjects = [];
+    try { topSubjects = JSON.parse(decodeURIComponent(topSubjectsEncoded)); } catch(e) {}
+
     try {
       var sb = getSB();
-      if (!sb) { pinner.innerHTML = '<div class="programs-loading">Supabase not available</div>'; return; }
+      if (!sb) { expandDiv.innerHTML = '<div class="programs-expand"><div class="programs-loading">Supabase not available</div></div>'; return; }
       var { data: programs, error } = await sb
         .from('china_programs')
         .select('name_en, language, degree_level, tuition_usd_per_year')
         .eq('university_id', uniId)
         .order('degree_level', { ascending: true })
-        .limit(20);
+        .limit(500);
 
       if (error) throw error;
+
       if (!programs || programs.length === 0) {
-        pinner.innerHTML = '<div class="programs-expand-label">PROGRAMS</div><div class="programs-loading" style="color:rgba(26,26,26,0.4);">No programs found</div>';
+        expandDiv.innerHTML = '<div class="programs-expand"><div class="programs-expand-label">PROGRAMS</div><div class="programs-loading" style="color:rgba(26,26,26,0.4);">No programs found</div></div>';
         return;
       }
 
+      // Deduplicate
+      var seen = new Set();
+      programs = programs.filter(function(p) {
+        var key = (p.name_en || '') + '|' + (p.degree_level || '') + '|' + (p.language || '') + '|' + (p.tuition_usd_per_year || '');
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
       var items = programs.map(function(p) {
-        var tuition = p.tuition_usd_per_year ? '<span class="program-tuition">$' + Math.round(p.tuition_usd_per_year).toLocaleString() + '/yr</span>' : '';
+        var tuition = p.tuition_usd_per_year ? '<span class="program-tuition">&#x0E3F;' + Math.round(p.tuition_usd_per_year * 35).toLocaleString() + '/yr</span>' : '';
         return '<div class="program-item">' +
-          '<span class="program-level">' + (p.degree_level || '—') + '</span>' +
-          '<span class="program-lang-pill">' + (p.language || '—') + '</span>' +
-          '<span style="flex:1;">' + (p.name_en || '—') + '</span>' +
+          '<span class="program-level">' + (p.degree_level || '–') + '</span>' +
+          '<span class="program-lang-pill">' + (p.language || '–') + '</span>' +
+          '<span style="flex:1;">' + (p.name_en || '–') + '</span>' +
           tuition +
           '</div>';
       }).join('');
 
-      pinner.innerHTML = '<div class="programs-expand-label">PROGRAMS (showing ' + programs.length + ' of ' + programs.length + (programs.length === 20 ? '+' : '') + ')</div>' +
+      var subjectsHtml = '';
+      if (topSubjects.length > 0) {
+        var tags = topSubjects.map(function(s) {
+          return '<span class="subject-tag"><span class="subject-tag-rank">#' + s.rank + '</span> ' + s.subject + '</span>';
+        }).join('');
+        subjectsHtml = '<div class="subject-strengths">' +
+          '<div class="subject-strengths-label"><span class="lang-th">จุดเด่นระดับโลก (Shanghai 2024)</span><span class="lang-en">World Subject Strengths (Shanghai 2024)</span></div>' +
+          '<div>' + tags + '</div>' +
+          '</div>';
+      }
+
+      expandDiv.innerHTML = '<div class="programs-expand">' +
+        '<div class="programs-expand-label">PROGRAMS (' + programs.length + ')</div>' +
         '<div class="programs-list">' + items + '</div>' +
-        '<div style="margin-top:14px;"><a href="contact.html" style="font-family:\'Inter\',sans-serif;font-size:0.72rem;font-weight:700;color:#B8962E;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;"><span class="lang-th">สนใจสมัคร? ปรึกษา LINKEDU →</span><span class="lang-en">Interested? Ask LINKEDU →</span></a></div>';
+        subjectsHtml +
+        '<div style="margin-top:12px;"><a href="contact.html" style="font-family:\'Inter\',sans-serif;font-size:0.72rem;font-weight:700;color:#B8962E;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;"><span class="lang-th">สนใจสมัคร? ปรึกษา LINKEDU →</span><span class="lang-en">Interested? Ask LINKEDU →</span></a></div>' +
+        '</div>';
     } catch(e) {
-      pinner.innerHTML = '<div class="programs-loading" style="color:rgba(26,26,26,0.4);">Error loading programs: ' + e.message + '</div>';
+      expandDiv.innerHTML = '<div class="programs-expand"><div class="programs-loading" style="color:rgba(26,26,26,0.4);">Error loading programs: ' + e.message + '</div></div>';
     }
   };
 
   window.resetFilters = function() {
-    state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000 };
+    state = { city: '', language: '', degree_level: '', max_tuition_usd: 20000, tier: '', sort_by: 'qs_rank' };
     document.getElementById('cityFilter').value = '';
     document.querySelectorAll('#degreeChips .chip').forEach(function(b) { b.classList.remove('active'); });
     document.querySelectorAll('#degreeChips .chip')[0].classList.add('active');
     document.querySelectorAll('#langChips .chip').forEach(function(b) { b.classList.remove('active'); });
     document.querySelectorAll('#langChips .chip')[0].classList.add('active');
+    document.querySelectorAll('#tierChips .chip').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('#tierChips .chip')[0].classList.add('active');
+    document.getElementById('sortQS').classList.add('active');
+    document.getElementById('sortPrograms').classList.remove('active');
     budgetRange.value = 20000;
-    budgetDisplay.textContent = '$20,000+';
+    budgetDisplay.textContent = '฿700,000+';
     budgetThbDisplay.textContent = '';
     fetchUniversities();
   };
@@ -738,5 +923,6 @@
   fetchUniversities();
 })();
 </script>
+<script src="js/auth-indicator.js"></script>
 </body>
 </html>
