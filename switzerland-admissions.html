@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คู่มือการสมัครโรงเรียนสวิตเซอร์แลนด์ / Switzerland School Admissions Guide — LINKEDU</title>
+  <meta name="description" content="คู่มือการสมัครโรงเรียนนานาชาติในสวิตเซอร์แลนด์สำหรับครอบครัวไทย วีซ่า เอกสาร และขั้นตอน | Switzerland international school admissions guide for Thai families — visa, documents, timeline.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #1a1a1a; }
+
+    /* Hero */
+    .admissions-hero {
+      background: #1a1a1a;
+      padding: 72px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .admissions-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%;
+      height: 100%;
+      background: radial-gradient(ellipse at top right, rgba(184,150,46,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .admissions-hero-inner { position: relative; z-index: 1; }
+    .admissions-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: #B8962E;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admissions-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: #B8962E; }
+    .admissions-hero h1 { color: #f5f0e8; max-width: 720px; margin-bottom: 14px; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .admissions-hero h1 em { font-style: italic; color: #B8962E; }
+    .admissions-hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(245,240,232,0.65);
+      max-width: 540px;
+      line-height: 1.75;
+    }
+
+    /* School type cards */
+    .school-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .school-type-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 28px;
+      border-top: 5px solid #B8962E;
+    }
+    .school-type-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 8px;
+    }
+    .school-type-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #1a1a1a;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .school-type-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(26,26,26,0.7);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .school-type-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .type-meta-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(26,26,26,0.65);
+    }
+    .type-meta-label {
+      font-weight: 700;
+      color: #1a1a1a;
+      min-width: 110px;
+      flex-shrink: 0;
+    }
+
+    /* Steps */
+    .steps-list {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.07);
+    }
+    .step-row:last-child { border-bottom: none; }
+    .step-num-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #B8962E;
+      font-weight: 400;
+      line-height: 1;
+      min-width: 32px;
+      padding-top: 2px;
+    }
+    .step-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.8);
+      line-height: 1.65;
+    }
+    .step-text strong { color: #f5f0e8; }
+    .step-timing {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      color: #B8962E;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* Document checklist */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 36px;
+    }
+    .docs-col-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 16px;
+    }
+    .doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.86rem;
+      color: rgba(26,26,26,0.72);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26,26,26,0.06);
+      line-height: 1.5;
+    }
+    .doc-item:last-child { border-bottom: none; }
+    .doc-check {
+      color: #B8962E;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Visa callout */
+    .visa-callout {
+      background: #fff;
+      border-left: 5px solid #B8962E;
+      border-radius: 0 8px 8px 0;
+      padding: 36px 40px;
+      margin-top: 40px;
+    }
+    .visa-callout-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 8px;
+    }
+    .visa-callout-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #1a1a1a;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .visa-callout-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(26,26,26,0.7);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .visa-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .visa-meta-item {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(26,26,26,0.65);
+      line-height: 1.6;
+    }
+    .visa-meta-item strong {
+      display: block;
+      color: #1a1a1a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 3px;
+    }
+    .visa-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(184,150,46,0.1);
+      border: 1px solid rgba(184,150,46,0.25);
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #7a6018;
+    }
+
+    /* Thai callout */
+    .thai-callout {
+      background: #111;
+      border: 1px solid rgba(184,150,46,0.25);
+      border-left: 5px solid #B8962E;
+      border-radius: 0 8px 8px 0;
+      padding: 32px 36px;
+      margin-top: 40px;
+    }
+    .thai-callout-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B8962E;
+      margin-bottom: 10px;
+    }
+    .thai-callout-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.8);
+      line-height: 1.75;
+    }
+    .thai-callout-body strong { color: #f5f0e8; }
+
+    /* CTA */
+    .admissions-cta {
+      background: #111;
+      padding: 64px 0;
+      text-align: center;
+    }
+    .admissions-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #f5f0e8;
+      margin-bottom: 12px;
+    }
+    .admissions-cta h2 em { color: #B8962E; font-style: italic; }
+    .admissions-cta p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.6);
+      max-width: 460px;
+      margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .school-type-grid { grid-template-columns: 1fr; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .thai-callout { padding: 24px 20px; }
+      .visa-callout { padding: 24px 22px; }
+      .visa-meta-grid { grid-template-columns: 1fr; }
+      .admissions-eyebrow { font-size: 12px; }
+      .school-type-badge { font-size: 12px; letter-spacing: 0.1em; }
+      .visa-badge { font-size: 0.78rem; }
+      .docs-col-title { font-size: 12px; }
+      .thai-callout-title { font-size: 12px; }
+      .doc-item { font-size: 0.9rem; }
+      .type-meta-row { font-size: 0.88rem; }
+      .step-text { font-size: 0.95rem; }
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="studyinswitzerland.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">STUDY IN SWITZERLAND</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="switzerland-schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="switzerland-schools.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse All Schools</span></a>
+            <a href="switzerland-admissions.html" class="dropdown-link"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="switzerland-schools.html?boarding=true" class="nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#contact-form" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav">
+    <a href="studyinswitzerland.html" class="mobile-nav-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+    <a href="switzerland-schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="switzerland-admissions.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+    <a href="switzerland-schools.html?boarding=true" class="mobile-nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+    <a href="tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <div class="mobile-nav-actions">
+      <a href="#contact-form" class="btn-primary" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="admissions-hero">
+  <div class="container admissions-hero-inner">
+    <div class="admissions-eyebrow">ADMISSIONS GUIDE · SWITZERLAND</div>
+    <h1>
+      <span class="lang-th">คู่มือการสมัครโรงเรียน<br><em>ในสวิตเซอร์แลนด์สำหรับครอบครัวไทย</em></span>
+      <span class="lang-en">Swiss School Admissions Guide<br><em>for Thai Families</em></span>
+    </h1>
+    <p class="admissions-hero-sub">
+      <span class="lang-th">คู่มือนี้ครอบคลุมทุกอย่างที่ครอบครัวไทยต้องรู้ — ประเภทโรงเรียน ขั้นตอนการสมัคร เอกสารที่ต้องใช้ วีซ่า และข้อมูลเฉพาะสำหรับผู้สมัครจากประเทศไทย</span>
+      <span class="lang-en">This guide covers everything Thai families need to know — school types, application steps, documents required, visa process, and Thai-specific practical information.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHOOL TYPES
+     ============================================================ -->
+<section class="section" style="background:#f5f0e8;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">ประเภทโรงเรียน</span><span class="lang-en">School Types</span></span>
+      <h2>
+        <span class="lang-th">โรงเรียนประจำ vs. โรงเรียนไป-กลับ</span>
+        <span class="lang-en">Boarding School vs. Day School</span>
+      </h2>
+    </div>
+    <div class="school-type-grid">
+      <!-- Boarding -->
+      <div class="school-type-card">
+        <div class="school-type-badge">BOARDING SCHOOL</div>
+        <div class="school-type-title">
+          <span class="lang-th">โรงเรียนประจำ</span>
+          <span class="lang-en">Boarding School</span>
+        </div>
+        <div class="school-type-desc">
+          <span class="lang-th">นักเรียนอาศัยอยู่ในหอพักของโรงเรียนตลอดภาคการศึกษา สวิตเซอร์แลนด์มีโรงเรียนประจำชั้นนำระดับโลก เช่น Le Rosey, Institut Le Rosey และ Brillantmont ที่ให้ทั้งการศึกษาและชีวิตประจำวันอย่างครบครัน</span>
+          <span class="lang-en">Students live on campus in school dormitories throughout the term. Switzerland is home to world-famous boarding schools — including Le Rosey, Brillantmont and Institut Montana — providing a fully immersive academic and social environment.</span>
+        </div>
+        <div class="school-type-meta">
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ช่วงอายุ</span><span class="lang-en">Age Range</span></span>
+            <span><span class="lang-th">8–18 ปี (ขึ้นอยู่กับโรงเรียน)</span><span class="lang-en">8–18 years (varies by school)</span></span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ที่พัก</span><span class="lang-en">Accommodation</span></span>
+            <span><span class="lang-th">หอพักในโรงเรียน รวมในค่าเล่าเรียน</span><span class="lang-en">On-campus dormitory, included in fees</span></span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ค่าเล่าเรียน</span><span class="lang-en">Typical Fees</span></span>
+            <span class="lang-th">$50,000–$130,000+/ปี</span><span class="lang-en">$50,000–$130,000+/yr</span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ยื่นสมัครเมื่อไร</span><span class="lang-en">When to Apply</span></span>
+            <span><span class="lang-th">18 เดือนก่อนเปิดภาค หรือเร็วกว่านั้น</span><span class="lang-en">18 months before start, or earlier</span></span>
+          </div>
+        </div>
+      </div>
+      <!-- Day School -->
+      <div class="school-type-card">
+        <div class="school-type-badge">DAY SCHOOL</div>
+        <div class="school-type-title">
+          <span class="lang-th">โรงเรียนไป-กลับ</span>
+          <span class="lang-en">Day School</span>
+        </div>
+        <div class="school-type-desc">
+          <span class="lang-th">นักเรียนเดินทางไปโรงเรียนในเวลาเช้าและกลับบ้านในตอนเย็น เหมาะสำหรับครอบครัวที่ย้ายไปอยู่ในสวิตเซอร์แลนด์ด้วยกัน โรงเรียนไป-กลับหลายแห่งในเจนีวาและซูริคมีนักเรียนนานาชาติจากหลากหลายประเทศ</span>
+          <span class="lang-en">Students travel to school each morning and return home each evening. Ideal for families relocating to Switzerland together. Many day schools in Geneva and Zurich have highly international student bodies, reflecting the diplomatic and business communities.</span>
+        </div>
+        <div class="school-type-meta">
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ช่วงอายุ</span><span class="lang-en">Age Range</span></span>
+            <span><span class="lang-th">3–18 ปี (ตั้งแต่ Pre-K ถึง IB)</span><span class="lang-en">3–18 years (Pre-K through IB)</span></span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ที่พัก</span><span class="lang-en">Accommodation</span></span>
+            <span><span class="lang-th">ไม่รวม — ครอบครัวจัดหาเอง</span><span class="lang-en">Not included — family arranges</span></span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ค่าเล่าเรียน</span><span class="lang-en">Typical Fees</span></span>
+            <span class="lang-th">$10,000–$45,000/ปี</span><span class="lang-en">$10,000–$45,000/yr</span>
+          </div>
+          <div class="type-meta-row">
+            <span class="type-meta-label"><span class="lang-th">ยื่นสมัครเมื่อไร</span><span class="lang-en">When to Apply</span></span>
+            <span><span class="lang-th">6–12 เดือนก่อนเปิดภาค</span><span class="lang-en">6–12 months before start</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     APPLICATION TIMELINE
+     ============================================================ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">ขั้นตอนการสมัคร</span><span class="lang-en">Application Timeline</span></span>
+      <h2 style="color:#f5f0e8;">
+        <span class="lang-th">8 ขั้นตอน ตั้งแต่ค้นหาโรงเรียน จนถึงวันเดินทาง</span>
+        <span class="lang-en">8 Steps: From Research to Arrival</span>
+      </h2>
+    </div>
+    <div class="steps-list">
+      <div class="step-row">
+        <div class="step-num-badge">1</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">ค้นหาและเลือกโรงเรียนที่เหมาะสม</span><span class="lang-en">Research &amp; Shortlist Schools</span></strong><br><span class="lang-th">เปรียบเทียบโรงเรียนตามหลักสูตร ค่าเล่าเรียน ที่ตั้ง และความต้องการพิเศษของบุตรหลาน LINKEDU ช่วยสร้างรายชื่อโรงเรียนที่เหมาะสมโดยไม่มีค่าใช้จ่าย</span><span class="lang-en">Compare schools by curriculum, fees, location and your child's specific needs. LINKEDU builds a tailored shortlist for you at no cost.</span></div>
+          <div class="step-timing"><span class="lang-th">กันยายน–พฤศจิกายน · 18 เดือนก่อนเริ่มเรียน</span><span class="lang-en">September–November · 18 months before start</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">2</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">ติดต่อโรงเรียนและขอโบรชัวร์</span><span class="lang-en">Contact Schools &amp; Request Prospectus</span></strong><br><span class="lang-th">ติดต่อฝ่ายรับสมัครของโรงเรียนที่สนใจ ขอโบรชัวร์ แบบฟอร์มใบสมัคร และข้อมูลค่าเล่าเรียนฉบับล่าสุด</span><span class="lang-en">Contact admissions offices at your shortlisted schools, request prospectus, application forms, and current fee schedules.</span></div>
+          <div class="step-timing"><span class="lang-th">ตุลาคม–ธันวาคม</span><span class="lang-en">October–December</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">3</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">เยี่ยมชมโรงเรียนหรือเข้าร่วม Open Day ออนไลน์</span><span class="lang-en">Visit Schools or Attend Virtual Open Days</span></strong><br><span class="lang-th">การเยี่ยมชมจริงช่วยให้ตัดสินใจได้ดีกว่า หลายโรงเรียนมี Virtual Tour และ Open Day ออนไลน์สำหรับครอบครัวที่อยู่ไกล</span><span class="lang-en">An in-person visit significantly helps decision-making. Most schools also offer virtual tours and online open days for international families.</span></div>
+          <div class="step-timing"><span class="lang-th">พฤศจิกายน–มกราคม</span><span class="lang-en">November–January</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">4</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">ยื่นใบสมัครพร้อมเอกสาร</span><span class="lang-en">Submit Applications with Documents</span></strong><br><span class="lang-th">ยื่นแบบฟอร์มใบสมัคร พร้อมผลการเรียน จดหมายแนะนำ และเอกสารส่วนตัวทั้งหมด ยื่นพร้อมกันหลายโรงเรียนเพื่อเพิ่มโอกาส</span><span class="lang-en">Submit application forms with school reports, reference letters, and all personal documents. Apply to 2–3 schools simultaneously to maximise your options.</span></div>
+          <div class="step-timing"><span class="lang-th">ธันวาคม–กุมภาพันธ์</span><span class="lang-en">December–February</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">5</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">สอบเข้าและสัมภาษณ์</span><span class="lang-en">Entrance Exams &amp; Interviews</span></strong><br><span class="lang-th">โรงเรียนส่วนใหญ่ต้องการการทดสอบวิชาการ (คณิต อังกฤษ) และสัมภาษณ์กับนักเรียนและผู้ปกครอง บางโรงเรียนทำได้ทางออนไลน์</span><span class="lang-en">Most schools require academic assessment (Maths, English) and interviews with both student and parents. Many schools now conduct these online for international applicants.</span></div>
+          <div class="step-timing"><span class="lang-th">มกราคม–มีนาคม</span><span class="lang-en">January–March</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">6</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">รับข้อเสนอและยืนยันที่นั่ง</span><span class="lang-en">Receive Offers &amp; Confirm Place</span></strong><br><span class="lang-th">เมื่อได้รับ Offer Letter ต้องชำระเงินมัดจำภายในกำหนด (ปกติ 2–4 สัปดาห์) เพื่อยืนยันที่นั่ง</span><span class="lang-en">Once you receive an offer letter, confirm your place by paying the deposit within the deadline — typically 2–4 weeks. A deposit secures the school place.</span></div>
+          <div class="step-timing"><span class="lang-th">มีนาคม–เมษายน</span><span class="lang-en">March–April</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">7</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">ยื่นขอวีซ่านักเรียนสวิตเซอร์แลนด์</span><span class="lang-en">Apply for Swiss Student Visa (C-Permit)</span></strong><br><span class="lang-th">นักเรียนไทยที่เรียนในสวิตเซอร์แลนด์เกิน 90 วันต้องขอ National Visa Type C ยื่นที่สถานทูตสวิสในกรุงเทพ อย่างน้อย 3 เดือนก่อนเดินทาง</span><span class="lang-en">Thai students studying in Switzerland for more than 90 days require a National Visa (Type C). Apply at the Swiss Embassy in Bangkok at least 3 months before travel.</span></div>
+          <div class="step-timing"><span class="lang-th">เมษายน–มิถุนายน · ยื่นเร็วที่สุดเท่าที่ทำได้</span><span class="lang-en">April–June · Apply as early as possible</span></div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-badge">8</div>
+        <div>
+          <div class="step-text"><strong><span class="lang-th">เดินทางและลงทะเบียน</span><span class="lang-en">Arrive &amp; Register</span></strong><br><span class="lang-th">หลังเดินทางถึงสวิตเซอร์แลนด์ ต้องลงทะเบียนกับสำนักงานเทศบาล (Einwohnerkontrolle) ภายใน 14 วัน โรงเรียนมักช่วยแนะนำขั้นตอนนี้</span><span class="lang-en">Upon arriving in Switzerland, register with the municipal residents' office (Einwohnerkontrolle) within 14 days. Schools typically guide new families through this registration process.</span></div>
+          <div class="step-timing"><span class="lang-th">ก่อนเปิดภาคเรียน 1–2 สัปดาห์</span><span class="lang-en">1–2 weeks before term starts</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DOCUMENT CHECKLIST
+     ============================================================ -->
+<section class="section" style="background:#f5f0e8;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label"><span class="lang-th">เอกสารที่ต้องใช้</span><span class="lang-en">Documents Required</span></span>
+      <h2>
+        <span class="lang-th">รายการเอกสารการสมัครโรงเรียน</span>
+        <span class="lang-en">Application Document Checklist</span>
+      </h2>
+    </div>
+    <div class="docs-grid">
+      <!-- Academic Documents -->
+      <div>
+        <div class="docs-col-title"><span class="lang-th">เอกสารการศึกษา</span><span class="lang-en">Academic Documents</span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">รายงานผลการเรียน 3 ปีล่าสุด (ฉบับแปลภาษาอังกฤษ)</span><span class="lang-en">Last 3 years school reports (with certified English translation)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">คะแนนที่คาดการณ์ (Predicted Grades) จากโรงเรียนปัจจุบัน</span><span class="lang-en">Predicted grades from current school</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">จดหมายแนะนำจากครูหรืออาจารย์ 2 ฉบับ</span><span class="lang-en">2 academic reference letters from current teachers</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ผลสอบวัดระดับภาษาอังกฤษ (IELTS / TOEFL — ถ้ามี)</span><span class="lang-en">English proficiency test results (IELTS / TOEFL — if available)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ใบรับรองการศึกษาและวุฒิการศึกษาที่ผ่านมา</span><span class="lang-en">Previous qualification certificates (translated if not in English/French)</span></span></div>
+      </div>
+      <!-- Personal Documents -->
+      <div>
+        <div class="docs-col-title"><span class="lang-th">เอกสารส่วนตัว</span><span class="lang-en">Personal Documents</span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หนังสือเดินทาง อายุมากกว่า 6 เดือน (พร้อมสำเนา)</span><span class="lang-en">Valid passport (6+ months validity, with photocopy)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">รูปถ่าย 2 นิ้ว พื้นหลังขาว (4 รูปขึ้นไป)</span><span class="lang-en">Passport-size photos, white background (minimum 4)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">สูติบัตร (พร้อมแปลภาษาอังกฤษ)</span><span class="lang-en">Birth certificate (with certified English translation)</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">ใบรับรองสุขภาพและประวัติการฉีดวัคซีน</span><span class="lang-en">Medical certificate and vaccination record</span></span></div>
+        <div class="doc-item"><span class="doc-check">&#10003;</span><span><span class="lang-th">หลักฐานการเงิน (บัญชีธนาคาร หรือจดหมายรับรองจากผู้ปกครอง)</span><span class="lang-en">Proof of financial means (bank statement or parental guarantee)</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SWISS VISA
+     ============================================================ -->
+<section class="section" style="background:#f5f0e8;padding-top:0;">
+  <div class="container">
+    <div class="visa-callout">
+      <div class="visa-callout-eyebrow">SWISS STUDENT VISA · TYPE C</div>
+      <div class="visa-callout-title">
+        <span class="lang-th">วีซ่านักเรียนสวิตเซอร์แลนด์ (Type C — Long Stay)</span>
+        <span class="lang-en">Swiss Student Visa (Type C — Long Stay)</span>
+      </div>
+      <div class="visa-callout-body">
+        <span class="lang-th">นักเรียนไทยที่เรียนในโรงเรียนสวิตเซอร์แลนด์เกิน 90 วันต้องยื่นขอ National Visa Type C ยื่นได้ที่สถานทูตสวิสในกรุงเทพ หรือสถานกงสุลกิตติมศักดิ์ตามจังหวัด ต้องยื่นอย่างน้อย 3 เดือนก่อนวันเดินทาง โรงเรียนจะออกจดหมายตอบรับอย่างเป็นทางการเพื่อประกอบการยื่นวีซ่า</span>
+        <span class="lang-en">Thai students attending Swiss schools for more than 90 days require a National Visa (Type C — Long Stay). Apply at the Swiss Embassy in Bangkok or an honorary consulate in your region. Apply at least 3 months before your travel date. Schools issue official admission support letters to assist with the visa application.</span>
+      </div>
+      <div class="visa-meta-grid">
+        <div class="visa-meta-item">
+          <strong><span class="lang-th">สถานทูตกรุงเทพ</span><span class="lang-en">Embassy Bangkok</span></strong>
+          <span class="lang-th">35 ถนนสาทรเหนือ สีลม กรุงเทพ 10500 · จันทร์–ศุกร์ 08:00–12:00</span>
+          <span class="lang-en">35 North Sathorn Road, Silom, Bangkok 10500 · Mon–Fri 08:00–12:00</span>
+        </div>
+        <div class="visa-meta-item">
+          <strong><span class="lang-th">ระยะเวลาดำเนินการ</span><span class="lang-en">Processing Time</span></strong>
+          <span class="lang-th">4–8 สัปดาห์ (ขึ้นอยู่กับช่วงเวลา)</span>
+          <span class="lang-en">4–8 weeks (varies by season)</span>
+        </div>
+        <div class="visa-meta-item">
+          <strong><span class="lang-th">ค่าธรรมเนียม</span><span class="lang-en">Visa Fee</span></strong>
+          <span class="lang-th">ประมาณ ฿4,000 (CHF 90)</span>
+          <span class="lang-en">Approx. ฿4,000 (CHF 90)</span>
+        </div>
+        <div class="visa-meta-item">
+          <strong><span class="lang-th">ยื่นล่วงหน้า</span><span class="lang-en">Apply In Advance</span></strong>
+          <span class="lang-th">อย่างน้อย 3 เดือนก่อนเดินทาง — ยิ่งเร็วยิ่งดี</span>
+          <span class="lang-en">At least 3 months before travel — the earlier the better</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THAI-SPECIFIC CALLOUT
+     ============================================================ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header on-dark">
+      <span class="section-label"><span class="lang-th">สำหรับผู้สมัครไทย</span><span class="lang-en">For Thai Applicants</span></span>
+      <h2 style="color:#f5f0e8;">
+        <span class="lang-th">ข้อมูลสำหรับครอบครัวไทย</span>
+        <span class="lang-en">For Thai Families · ข้อมูลสำหรับครอบครัวไทย</span>
+      </h2>
+    </div>
+    <div class="thai-callout">
+      <div class="thai-callout-title">THAI APPLICANTS · PRACTICAL INFO</div>
+      <div class="thai-callout-body">
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>สถานทูตสวิสในกรุงเทพ:</strong> 35 ถนนสาทรเหนือ สีลม กรุงเทพ 10500 · โทร 02-674-6900 · เปิดทำการจันทร์–ศุกร์ 08:00–12:00</span>
+          <span class="lang-en"><strong>Swiss Embassy Bangkok:</strong> 35 North Sathorn Road, Silom, Bangkok 10500 · Tel: 02-674-6900 · Open Mon–Fri 08:00–12:00</span>
+        </p>
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>ยื่นวีซ่าเร็วที่สุด:</strong> ควรยื่นอย่างน้อย 3 เดือนก่อนวันเดินทาง เนื่องจากช่วงกรกฎาคม–สิงหาคมมีผู้ยื่นจำนวนมาก อาจใช้เวลานานกว่าปกติ</span>
+          <span class="lang-en"><strong>Apply early:</strong> Submit at least 3 months before departure. July–August is peak application season — processing may take longer than usual.</span>
+        </p>
+        <p style="margin:0 0 14px;">
+          <span class="lang-th"><strong>จดหมายสนับสนุนจากโรงเรียน:</strong> โรงเรียนนานาชาติในสวิตเซอร์แลนด์ส่วนใหญ่จะออกจดหมายสนับสนุนการขอวีซ่าให้นักเรียนที่ได้รับการตอบรับ LINKEDU ช่วยประสานงานกับโรงเรียนเพื่อให้ได้จดหมายนี้โดยเร็ว</span>
+          <span class="lang-en"><strong>School support letter:</strong> Most Swiss international schools issue visa support letters for accepted students. LINKEDU can liaise with the admissions office to obtain this letter quickly.</span>
+        </p>
+        <p style="margin:0;">
+          <span class="lang-th"><strong>LINKEDU ช่วยได้:</strong> ทีมงานของเราช่วยเตรียมเอกสาร ตรวจสอบความถูกต้อง และแนะนำขั้นตอนการยื่นวีซ่าทั้งหมด — โดยไม่คิดค่าใช้จ่าย</span>
+          <span class="lang-en"><strong>LINKEDU can help:</strong> Our team assists with document preparation, checklist verification, and guides you through the entire visa process — completely free of charge.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+<section class="admissions-cta">
+  <div class="container">
+    <h2>
+      <span class="lang-th">LINKEDU นำทางคุณ<em>ทุกขั้นตอน</em></span>
+      <span class="lang-en">LINKEDU Guides You<br>Through <em>Every Step</em></span>
+    </h2>
+    <p>
+      <span class="lang-th">จากการค้นหาโรงเรียน ไปจนถึงการยื่นวีซ่าและการเตรียมตัวก่อนเดินทาง LINKEDU อยู่เคียงข้างคุณทุกขั้นตอน โดยไม่คิดค่าบริการ</span>
+      <span class="lang-en">From school research through to visa approval and pre-departure preparation — LINKEDU is with you every step of the way, at no cost to your family.</span>
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="switzerland-schools.html" class="btn-primary">
+        <span class="lang-th">ดูโรงเรียนทั้งหมด →</span>
+        <span class="lang-en">Browse Schools →</span>
+      </a>
+      <a href="#contact-form" class="btn-outline-cream" onclick="consultAction();return false;">
+        <span class="lang-th">ปรึกษาฟรีผ่าน LINE</span>
+        <span class="lang-en">Free Consultation</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT FORM
+     ============================================================ -->
+<section id="contact-form" style="background:#f5f0e8;padding:80px 0;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B8962E;margin-bottom:16px;"><span class="lang-th">ปรึกษาฟรี · ไม่มีข้อผูกมัด</span><span class="lang-en">Free Consultation · No Obligation</span></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#1a1a1a;line-height:1.15;margin:0 0 16px 0;">
+        <span class="lang-th">เลือกโรงเรียน<br><em style="color:#B8962E;">ในสวิตเซอร์แลนด์<br>ที่ใช่สำหรับลูก</em></span>
+        <span class="lang-en">Find the<br><em style="color:#B8962E;">Right School</em><br>in Switzerland</span>
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(26,26,26,0.6);line-height:1.7;margin:0;">
+        <span class="lang-th">กรอกข้อมูลด้านขวา — ที่ปรึกษาของเราจะส่งรายชื่อโรงเรียนในสวิตเซอร์แลนด์ พร้อมค่าเรียน ทุนการศึกษา และขั้นตอนการสมัครให้ภายใน 24 ชั่วโมง</span>
+        <span class="lang-en">Fill the form and our advisors will send tailored school recommendations for Switzerland, with fees, scholarship options, and a clear application plan within 24 hours.</span>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">บริการฟรี 100%</span><span class="lang-en">Completely free</span></strong><span class="lang-th">ไม่คิดค่าบริการจากครอบครัว</span><span class="lang-en">No charge to families, ever</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></strong><span class="lang-th">ออกไปเรียนต่างประเทศทั่วโลก</span><span class="lang-en">Studying abroad worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">109 โรงเรียนในสวิตเซอร์แลนด์</span><span class="lang-en">109 schools in Switzerland</span></strong><span class="lang-th">ครอบคลุมทุกเมืองสำคัญ</span><span class="lang-en">Covering all major cities</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ที่ปรึกษาพูดภาษาไทย</span><span class="lang-en">Thai-speaking advisors</span></strong><span class="lang-th">เชี่ยวชาญด้านการศึกษาในยุโรป</span><span class="lang-en">European education specialists</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hours</span></strong><span class="lang-th">ผ่าน LINE หรืออีเมล</span><span class="lang-en">Via LINE or email</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ไว้ใจได้ตั้งแต่ปี 2558</span><span class="lang-en">Trusted since 2015</span></strong><span class="lang-th">ดูแลครอบครัวไทยมากกว่า 10 ปี</span><span class="lang-en">10+ years with Thai families</span></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:20px 24px;background:#1a1a1a;border-radius:6px;display:flex;align-items:center;gap:16px;">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:4px;">LINE</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#f5f0e8;">satitlinkedu</div>
+        </div>
+        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="margin-left:auto;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;padding:10px 20px;border-radius:3px;text-decoration:none;white-space:nowrap;"><span class="lang-th">เพิ่ม LINE</span><span class="lang-en">Add LINE</span></a>
+      </div>
+    </div>
+    <div id="hs-inline-wrap" style="background:#1a1a1a;border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(26,26,26,0.15);">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">109 โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">109 Swiss schools</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label><input type="date" name="dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label><select name="grade" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option><option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option><option>Year 12 / ม.6</option><option>อื่นๆ</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" name="lineid" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label><select name="country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>Switzerland</option><option>United Kingdom</option><option>China</option><option>United States</option><option>Australia</option><option>อื่นๆ</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการเข้าเรียน</span><span class="lang-en">Intended Entry Year</span></label><select name="entryyear" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" name="schools" placeholder="เช่น Le Rosey, Brillantmont, Institut Montana — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      <button onclick="submitHSForm('contact-form','hs-inline-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
+        <span class="lang-en">Send Enquiry — Free Consultation →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta-strip">
+      <div>
+        <div class="footer-cta-tagline"><span class="lang-th">ผู้เชี่ยวชาญด้านโรงเรียนนานาชาติสวิตเซอร์แลนด์สำหรับครอบครัวไทย</span><span class="lang-en">Thailand's specialist in Swiss international school placement</span></div>
+        <div class="footer-cta-sub"><span class="lang-th">ปรึกษาฟรี — ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Free consultation — Response within 24 hours</span></div>
+      </div>
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-cta-btn" target="_blank" rel="noopener"><span class="lang-th">เพิ่ม LINE satitlinkedu</span><span class="lang-en">Add LINE satitlinkedu</span></a>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">Swiss Schools</span></div>
+        <div class="footer-links">
+          <a href="studyinswitzerland.html" class="footer-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+          <a href="switzerland-schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน 109 แห่ง</span><span class="lang-en">Browse 109 Schools</span></a>
+          <a href="switzerland-admissions.html" class="footer-link"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการของเรา</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="switzerland-schools.html?boarding=true" class="footer-link"><span class="lang-th">โรงเรียนประจำในสวิตเซอร์แลนด์</span><span class="lang-en">Boarding Schools</span></a>
+          <a href="tutoring.html" class="footer-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+          <a href="summer-camps.html" class="footer-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">เกี่ยวกับ</span><span class="lang-en">About</span></div>
+        <div class="footer-links">
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Contact Us</span></a>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(245,240,232,0.08);">
+            <a href="index.html" class="footer-link" style="color:#B8962E;"><span class="lang-th">สำรวจโรงเรียนประจำ UK →</span><span class="lang-en">Also: UK Boarding Schools →</span></a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดตามเรา</span><span class="lang-en">Follow Us</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg> LINE: satitlinkedu</a>
+          <a href="https://facebook.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> FB: @linkedu.th</a>
+          <a href="https://instagram.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> IG: @linkedu.th</a>
+          <a href="https://youtube.com/@linkeduthailand" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg> YouTube: @linkeduthailand</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:20px;width:auto;display:block;opacity:0.5"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.2);">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<!-- GLOBAL ENQUIRY MODAL -->
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:6px;"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#f5f0e8;line-height:1.15;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      </div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">&times;</button>
+    </div>
+    <div id="hs-modal-wrap" style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <button onclick="submitHSForm('eqOverlay','hs-modal-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'"><span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry — Free Consultation →</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CONSULT BUTTON -->
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="consultAction()" style="background:#B8962E;color:#1a1a1a;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);" onmouseover="this.style.paddingRight='14px'" onmouseout="this.style.paddingRight='10px'"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></button>
+</div>
+
+<script>
+  function openEqModal() { document.getElementById('eqOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
+  function closeEqModal() { document.getElementById('eqOverlay').style.display='none'; document.body.style.overflow=''; }
+  function consultAction() { var f=document.getElementById('contact-form'); if(f){f.scrollIntoView({behavior:'smooth',block:'start'});}else{openEqModal();} }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeEqModal(); });
+  async function submitHSForm(containerId, wrapperId) {
+    var container=document.getElementById(containerId), wrapper=document.getElementById(wrapperId), btn=container.querySelector('button[onclick]');
+    function get(n){var el=container.querySelector('[name="'+n+'"]');return el?el.value.trim():'';}
+    if(!get('email')){alert('กรุณากรอกอีเมล / Please enter your email address');return;}
+    btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='<span class="lang-th">กำลังส่ง...</span><span class="lang-en">Sending...</span>';
+    var fields=[{name:'firstname',value:get('firstname')},{name:'lastname',value:get('lastname')},{name:'email',value:get('email')},{name:'phone',value:get('phone')}].filter(function(f){return f.value;});
+    try{var res=await fetch('https://api.hsforms.com/submissions/v3/integration/submit/245267958/044460cf-4981-4a0a-b844-4ea2df92fb1a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:fields,context:{pageUri:window.location.href,pageName:document.title}})});
+    if(res.ok){wrapper.innerHTML='<div style="padding:60px 32px;text-align:center;"><div style="font-size:3rem;color:#B8962E;margin-bottom:16px;">&#10003;</div><div style="font-family:\'Playfair Display\',serif;font-size:1.7rem;color:#f5f0e8;margin-bottom:14px;">ขอบคุณครับ/ค่ะ!</div><div style="font-family:\'Inter\',sans-serif;font-size:0.88rem;color:rgba(245,240,232,0.65);line-height:1.8;">LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง<br><em style="color:rgba(245,240,232,0.4);">We\'ll be in touch within 24 hours.</em></div><a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="display:inline-block;margin-top:28px;background:#B8962E;color:#1a1a1a;font-family:\'Inter\',sans-serif;font-size:0.78rem;font-weight:700;padding:12px 28px;border-radius:4px;text-decoration:none;">+ เพิ่ม LINE satitlinkedu</a></div>';}
+    else{btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry →</span>';alert('เกิดข้อผิดพลาด / Error — please try again.');}}
+    catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry →</span>';alert('เกิดข้อผิดพลาด / Error — please try again.');}
+  }
+</script>
+<script src="js/auth-indicator.js"></script>
+</body>
+</html>

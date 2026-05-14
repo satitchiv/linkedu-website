@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><script>
+  (function(){var l=localStorage.getItem('linkedu-lang');if(l)document.documentElement.setAttribute('lang',l);})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โรงเรียนนานาชาติสวิตเซอร์แลนด์ 109 แห่ง / Browse Swiss International Schools — LINKEDU</title>
+  <meta name="description" content="ค้นหาโรงเรียนนานาชาติในสวิตเซอร์แลนด์กรองตามเมือง หลักสูตร และงบประมาณ | Browse 109 Swiss international schools filtered by city, curriculum, boarding and budget.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #f5f0e8; }
+
+    /* Hero */
+    .schools-hero { background: #1a1a1a; padding: 56px 0 48px; position: relative; overflow: hidden; }
+    .schools-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%; background: radial-gradient(ellipse at top right, rgba(184,150,46,0.08) 0%, transparent 70%); pointer-events: none; }
+    .schools-hero-inner { position: relative; z-index: 1; }
+    .schools-hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; color: #B8962E; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .schools-hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: #B8962E; }
+    .schools-hero h1 { color: #f5f0e8; max-width: 680px; margin-bottom: 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+    .schools-hero h1 em { font-style: italic; color: #B8962E; }
+    .schools-hero-sub { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(245,240,232,0.6); max-width: 520px; line-height: 1.7; margin-top: 10px; }
+    .schools-hero-stats { display: flex; gap: 40px; margin-top: 36px; padding-top: 30px; border-top: 1px solid rgba(245,240,232,0.1); flex-wrap: wrap; }
+    .h-stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #B8962E; font-weight: 400; line-height: 1; }
+    .h-stat-label { font-family: 'Inter', sans-serif; font-size: 0.68rem; color: rgba(245,240,232,0.42); letter-spacing: 0.09em; text-transform: uppercase; margin-top: 4px; }
+
+    /* Layout */
+    .schools-layout { display: grid; grid-template-columns: 280px 1fr; align-items: start; }
+
+    /* Sidebar */
+    .filter-sidebar { background: #1a1a1a; position: sticky; top: 68px; height: calc(100vh - 68px); overflow-y: auto; padding: 0 0 40px; border-right: 1px solid rgba(184,150,46,0.12); scrollbar-width: thin; scrollbar-color: rgba(184,150,46,0.25) transparent; }
+    .filter-sidebar::-webkit-scrollbar { width: 4px; }
+    .filter-sidebar::-webkit-scrollbar-thumb { background: rgba(184,150,46,0.25); border-radius: 2px; }
+    .mobile-filter-toggle { display: none; width: 100%; padding: 13px 20px; background: #1a1a1a; color: #B8962E; font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: none; border-bottom: 1px solid rgba(184,150,46,0.12); cursor: pointer; text-align: left; }
+    .sidebar-header { padding: 22px 22px 18px; border-bottom: 1px solid rgba(245,240,232,0.06); }
+    .sidebar-title { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B8962E; margin-bottom: 5px; }
+    .sidebar-count-text { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(245,240,232,0.45); }
+    .sidebar-count-text strong { color: #f5f0e8; font-weight: 600; }
+    .filter-section { padding: 16px 22px; border-bottom: 1px solid rgba(245,240,232,0.05); }
+    .filter-label { display: block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(184,150,46,0.65); margin-bottom: 10px; }
+    .sidebar-select { width: 100%; padding: 8px 30px 8px 11px; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #f5f0e8; background: rgba(245,240,232,0.07); border: 1px solid rgba(245,240,232,0.11); border-radius: 6px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B8962E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+    .sidebar-select option { background: #1a1a1a; color: #f5f0e8; }
+    .sidebar-select:focus { outline: none; border-color: rgba(184,150,46,0.5); }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 5px; }
+    .chip { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(245,240,232,0.16); color: rgba(245,240,232,0.6); background: transparent; cursor: pointer; transition: all 0.18s ease; white-space: nowrap; line-height: 1.5; }
+    .chip:hover { border-color: rgba(184,150,46,0.45); color: #f5f0e8; }
+    .chip.active { background: #B8962E; border-color: #B8962E; color: #1a1a1a; font-weight: 700; }
+    .budget-display { margin-bottom: 10px; }
+    .budget-display .usd { font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; color: #B8962E; }
+    input[type="range"].budget-range { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: rgba(245,240,232,0.14); border-radius: 2px; outline: none; cursor: pointer; margin-bottom: 6px; }
+    input[type="range"].budget-range::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #B8962E; cursor: pointer; border: 2px solid #1a1a1a; box-shadow: 0 0 0 1px #B8962E; }
+    .budget-min-max { display: flex; justify-content: space-between; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: rgba(245,240,232,0.3); }
+    .reset-all-btn { display: block; width: calc(100% - 44px); margin: 18px 22px 0; padding: 9px 0; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.4); background: transparent; border: 1px solid rgba(245,240,232,0.1); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .reset-all-btn:hover { color: #f5f0e8; border-color: rgba(245,240,232,0.28); }
+
+    /* Results panel */
+    .results-panel { background: #f5f0e8; padding: 28px 28px 56px; min-height: calc(100vh - 68px); }
+    .results-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .results-count-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(26,26,26,0.48); }
+    .results-count-text strong { color: #1a1a1a; font-weight: 600; }
+    .sort-toggle { display: flex; gap: 6px; }
+    .sort-btn { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; border: 1px solid rgba(26,26,26,0.15); background: transparent; color: rgba(26,26,26,0.5); cursor: pointer; }
+    .sort-btn.active { background: #1a1a1a; color: #f5f0e8; border-color: #1a1a1a; }
+
+    /* School cards grid */
+    .school-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 0; }
+    .scard { background: #fff; border: 1px solid rgba(26,26,26,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease; display: flex; flex-direction: column; }
+    .scard:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .scard-bar { height: 6px; flex-shrink: 0; }
+    .scard-bar-boarding { background: #B8962E; }
+    .scard-bar-day { background: #4a6fa5; }
+    .scard-bar-both { background: linear-gradient(to right, #B8962E 50%, #4a6fa5 50%); }
+    .scard-body { padding: 18px 18px 0; flex: 1; display: flex; flex-direction: column; }
+    .scard-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+    .sbadge { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 8px; border-radius: 10px; }
+    .sbadge-type { background: rgba(26,26,26,0.06); color: rgba(26,26,26,0.55); }
+    .sbadge-boarding { background: rgba(184,150,46,0.12); color: #7a6018; }
+    .sbadge-day { background: rgba(74,111,165,0.12); color: #2e5080; }
+    .sbadge-both { background: rgba(100,150,80,0.12); color: #2e6020; }
+    .sbadge-schol { background: rgba(184,150,46,0.1); color: #7a6018; font-size: 0.58rem; }
+    .scard-name { font-family: 'Playfair Display', serif; font-size: 1.12rem; font-weight: 400; color: #1a1a1a; line-height: 1.25; margin-bottom: 4px; }
+    .scard-loc { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(26,26,26,0.45); margin-bottom: 14px; }
+    .scard-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .scard-stat { background: rgba(184,150,46,0.05); border-radius: 6px; padding: 8px 9px; }
+    .scard-stat-val { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+    .scard-stat-val .gold { color: #B8962E; }
+    .scard-stat-key { font-family: 'Inter', sans-serif; font-size: 0.6rem; color: rgba(26,26,26,0.42); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+    .scard-fee { border-top: 1px solid rgba(26,26,26,0.06); padding: 11px 0; margin-top: auto; }
+    .scard-fee-usd { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #1a1a1a; line-height: 1; }
+    .scard-fee-usd .per-yr { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 400; color: rgba(26,26,26,0.35); margin-left: 3px; }
+    .scard-fee-thb { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(26,26,26,0.42); margin-top: 2px; }
+    .scard-fee-na { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(26,26,26,0.3); font-style: italic; }
+    .scard-pills { display: flex; flex-wrap: wrap; gap: 4px; padding-bottom: 12px; }
+    .pill { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 500; padding: 3px 7px; background: rgba(26,26,26,0.05); color: rgba(26,26,26,0.52); border-radius: 10px; }
+    .pill-more { background: rgba(184,150,46,0.1); color: #9a7a24; font-weight: 600; }
+    .pill-lang { background: rgba(74,111,165,0.08); color: #2e5080; }
+    .pill-ib { background: rgba(184,150,46,0.12); color: #7a6018; font-weight: 600; }
+    .scard-note { font-family: 'Playfair Display', serif; font-size: 0.78rem; font-style: italic; color: rgba(26,26,26,0.48); line-height: 1.5; padding: 9px 0 12px; border-top: 1px solid rgba(26,26,26,0.05); }
+    .scard-actions { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(26,26,26,0.07); flex-shrink: 0; }
+    .scard-btn { padding: 11px 8px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; text-align: center; cursor: pointer; transition: background 0.2s; border: none; display: block; text-decoration: none; }
+    .scard-btn-view { background: #1a1a1a; color: #f5f0e8; }
+    .scard-btn-view:hover { background: #2c2c2c; }
+    .scard-btn-view-disabled { background: #e8e8e8; color: #aaa; cursor: default; pointer-events: none; text-align: center; padding: 11px 8px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; display: block; }
+    .scard-btn-enquire { background: transparent; color: #B8962E; border-left: 1px solid rgba(26,26,26,0.07); }
+    .scard-btn-enquire:hover { background: rgba(184,150,46,0.08); }
+
+    /* Loading */
+    .loading-state { text-align: center; padding: 60px 20px; }
+    .loading-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #B8962E; margin: 0 3px; animation: loadBounce 1.2s infinite; }
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes loadBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-8px);opacity:1} }
+
+    /* No results */
+    .no-results-block { text-align: center; padding: 72px 24px; }
+    .no-results-block h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1a1a1a; margin-bottom: 8px; }
+    .no-results-block p { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: rgba(26,26,26,0.48); }
+
+    @media (max-width: 768px) {
+      .schools-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid rgba(184,150,46,0.12); }
+      .sidebar-filters-body { display: none; }
+      .sidebar-filters-body.open { display: block; }
+      .mobile-filter-toggle { display: block; }
+      .results-panel { padding: 20px 16px 40px; }
+      .school-cards-grid { grid-template-columns: 1fr; }
+      .schools-hero-eyebrow { font-size: 12px; }
+      .h-stat-label { font-size: 0.78rem; }
+      #contact-form { padding: 48px 20px !important; }
+      #contact-form > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+      #contact-form h2 { font-size: 2rem !important; }
+      #hs-inline-wrap { padding: 24px 20px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="studyinswitzerland.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:28px;width:auto;display:block"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+          <span style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.25em;color:#f5f0e8;opacity:0.6;margin-top:5px;text-transform:uppercase">STUDY IN SWITZERLAND</span>
+        </a>
+      </div>
+      <nav class="site-nav">
+        <div class="nav-item">
+          <a href="switzerland-schools.html" class="nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+          <div class="nav-dropdown">
+            <a href="switzerland-schools.html" class="dropdown-link"><span class="lang-th">ค้นหาโรงเรียน</span><span class="lang-en">Browse All Schools</span></a>
+            <a href="switzerland-admissions.html" class="dropdown-link"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="switzerland-schools.html?boarding=true" class="nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="tutoring.html" class="nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+        </div>
+        <div class="nav-item">
+          <a href="summer-camps.html" class="nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="th">TH</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <a href="#contact-form" class="header-line-btn" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <nav class="mobile-nav">
+    <a href="studyinswitzerland.html" class="mobile-nav-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+    <a href="switzerland-schools.html" class="mobile-nav-link"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
+    <a href="switzerland-admissions.html" class="mobile-nav-link" style="padding-left:32px;font-size:13px;opacity:0.75"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+    <a href="switzerland-schools.html?boarding=true" class="mobile-nav-link"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding Schools</span></a>
+    <a href="tutoring.html" class="mobile-nav-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+    <a href="summer-camps.html" class="mobile-nav-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+    <div class="mobile-nav-actions">
+      <a href="#contact-form" class="btn-primary" onclick="consultAction();return false;"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consultation</span></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="schools-hero">
+  <div class="container schools-hero-inner">
+    <div class="schools-hero-eyebrow">STUDY IN SWITZERLAND · SCHOOL BROWSER</div>
+    <h1>
+      <span class="lang-th">โรงเรียนนานาชาติ<br><em>109 แห่ง — ค้นหาโรงเรียนที่ใช่</em></span>
+      <span class="lang-en">Swiss International Schools<br><em>109 schools — find your match</em></span>
+    </h1>
+    <p class="schools-hero-sub">
+      <span class="lang-th">กรองตามเมือง ประเภทโรงเรียน หลักสูตร และงบประมาณ — ดูข้อมูลสด จาก Supabase</span>
+      <span class="lang-en">Filter by city, school type, curriculum and budget — live data, updated in real time.</span>
+    </p>
+    <div class="schools-hero-stats">
+      <div>
+        <div class="h-stat-num">109</div>
+        <div class="h-stat-label"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></div>
+      </div>
+      <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
+      <div>
+        <div class="h-stat-num">33</div>
+        <div class="h-stat-label"><span class="lang-th">โรงเรียนประจำ</span><span class="lang-en">Boarding</span></div>
+      </div>
+      <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
+      <div>
+        <div class="h-stat-num">4</div>
+        <div class="h-stat-label"><span class="lang-th">ภาษา</span><span class="lang-en">Languages</span></div>
+      </div>
+      <div style="width:1px;background:rgba(245,240,232,0.15);align-self:stretch;margin:0 4px;"></div>
+      <div>
+        <div class="h-stat-num">Live</div>
+        <div class="h-stat-label"><span class="lang-th">ข้อมูลสด</span><span class="lang-en">Data</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHOOLS LAYOUT
+     ============================================================ -->
+<div class="schools-layout">
+
+  <!-- FILTER SIDEBAR -->
+  <aside class="filter-sidebar">
+    <button class="mobile-filter-toggle" onclick="toggleSidebarFilters(this)">
+      <span class="lang-th">กรองผลการค้นหา</span><span class="lang-en">Filter Results</span>
+      <span id="mobileFilterArrow" style="float:right;">&#9660;</span>
+    </button>
+    <div class="sidebar-filters-body" id="sidebarFiltersBody">
+      <div class="sidebar-header">
+        <div class="sidebar-title"><span class="lang-th">กรองผลการค้นหา</span><span class="lang-en">Filter Results</span></div>
+        <div class="sidebar-count-text"><strong id="sidebarCount">–</strong> <span class="lang-th">โรงเรียน</span><span class="lang-en">schools</span></div>
+      </div>
+
+      <!-- City -->
+      <div class="filter-section">
+        <label class="filter-label"><span class="lang-th">เมือง</span><span class="lang-en">City</span></label>
+        <select class="sidebar-select" id="filterCity" onchange="applyFilters()">
+          <option value=""><span class="lang-th">ทุกเมือง</span><span class="lang-en">All Cities</span></option>
+          <option value="Geneva">Geneva (15)</option>
+          <option value="Zurich">Zurich (11)</option>
+          <option value="Basel">Basel (7)</option>
+          <option value="Lausanne">Lausanne (5)</option>
+          <option value="Montreux">Montreux (4)</option>
+          <option value="Lugano">Lugano (3)</option>
+          <option value="Bern">Bern (3)</option>
+          <option value="Other"><span class="lang-th">เมืองอื่นๆ</span><span class="lang-en">Other</span></option>
+        </select>
+      </div>
+
+      <!-- Type -->
+      <div class="filter-section">
+        <label class="filter-label"><span class="lang-th">ประเภทโรงเรียน</span><span class="lang-en">School Type</span></label>
+        <div class="chip-group">
+          <button class="chip active" data-type="" onclick="setTypeFilter(this,'')"><span class="lang-th">ทั้งหมด</span><span class="lang-en">All</span></button>
+          <button class="chip" data-type="boarding" onclick="setTypeFilter(this,'boarding')"><span class="lang-th">ประจำ</span><span class="lang-en">Boarding</span></button>
+          <button class="chip" data-type="day" onclick="setTypeFilter(this,'day')"><span class="lang-th">ไป-กลับ</span><span class="lang-en">Day School</span></button>
+        </div>
+      </div>
+
+      <!-- Curriculum -->
+      <div class="filter-section">
+        <label class="filter-label"><span class="lang-th">หลักสูตร</span><span class="lang-en">Curriculum</span></label>
+        <div class="chip-group">
+          <button class="chip active" data-curr="" onclick="setCurrFilter(this,'')"><span class="lang-th">ทั้งหมด</span><span class="lang-en">All</span></button>
+          <button class="chip" data-curr="IB" onclick="setCurrFilter(this,'IB')">IB</button>
+          <button class="chip" data-curr="British" onclick="setCurrFilter(this,'British')"><span class="lang-th">อังกฤษ</span><span class="lang-en">British</span></button>
+          <button class="chip" data-curr="Montessori" onclick="setCurrFilter(this,'Montessori')">Montessori</button>
+          <button class="chip" data-curr="Swiss" onclick="setCurrFilter(this,'Swiss')"><span class="lang-th">สวิส</span><span class="lang-en">Swiss</span></button>
+        </div>
+      </div>
+
+      <!-- Budget -->
+      <div class="filter-section">
+        <label class="filter-label"><span class="lang-th">งบประมาณสูงสุด</span><span class="lang-en">Max Budget / yr</span></label>
+        <div class="budget-display">
+          <span class="usd" id="budgetDisplay">Up to $200,000/yr</span>
+        </div>
+        <input type="range" class="budget-range" id="budgetRange" min="0" max="200" value="200" step="5" oninput="updateBudget(this.value)">
+        <div class="budget-min-max"><span>$0</span><span>$200,000+</span></div>
+      </div>
+
+      <button class="reset-all-btn" onclick="resetFilters()"><span class="lang-th">ล้างตัวกรองทั้งหมด</span><span class="lang-en">Reset All Filters</span></button>
+    </div>
+  </aside>
+
+  <!-- RESULTS PANEL -->
+  <main class="results-panel">
+    <div class="results-top-bar">
+      <div class="results-count-text">
+        <span class="lang-th">แสดง <strong id="resultCount">–</strong> โรงเรียน</span>
+        <span class="lang-en">Showing <strong id="resultCountEn">–</strong> schools</span>
+      </div>
+      <div class="sort-toggle">
+        <button class="sort-btn active" id="sortName" onclick="setSort('name')"><span class="lang-th">เรียงตามชื่อ</span><span class="lang-en">By Name</span></button>
+        <button class="sort-btn" id="sortFees" onclick="setSort('fees')"><span class="lang-th">เรียงตามค่าเรียน</span><span class="lang-en">By Fees</span></button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" id="loadingState">
+      <div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.82rem;color:rgba(26,26,26,0.45);margin-top:16px;"><span class="lang-th">กำลังโหลดข้อมูลโรงเรียน...</span><span class="lang-en">Loading schools...</span></div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div id="schoolCardsGrid" class="school-cards-grid" style="display:none;"></div>
+
+    <!-- No Results -->
+    <div class="no-results-block" id="noResults" style="display:none;">
+      <h3><span class="lang-th">ไม่พบโรงเรียน</span><span class="lang-en">No schools found</span></h3>
+      <p><span class="lang-th">ลองปรับตัวกรองแล้วค้นหาใหม่</span><span class="lang-en">Try adjusting your filters</span></p>
+    </div>
+  </main>
+
+</div>
+
+<!-- ============================================================
+     CONTACT FORM
+     ============================================================ -->
+<section id="contact-form" style="background:#f5f0e8;padding:80px 0;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#B8962E;margin-bottom:16px;"><span class="lang-th">ปรึกษาฟรี · ไม่มีข้อผูกมัด</span><span class="lang-en">Free Consultation · No Obligation</span></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#1a1a1a;line-height:1.15;margin:0 0 16px 0;">
+        <span class="lang-th">เลือกโรงเรียน<br><em style="color:#B8962E;">ในสวิตเซอร์แลนด์<br>ที่ใช่สำหรับลูก</em></span>
+        <span class="lang-en">Find the<br><em style="color:#B8962E;">Right School</em><br>in Switzerland</span>
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(26,26,26,0.6);line-height:1.7;margin:0;">
+        <span class="lang-th">กรอกข้อมูลด้านขวา — ที่ปรึกษาของเราจะส่งรายชื่อโรงเรียนในสวิตเซอร์แลนด์ พร้อมค่าเรียน ทุนการศึกษา และขั้นตอนการสมัครให้ภายใน 24 ชั่วโมง</span>
+        <span class="lang-en">Fill the form and our advisors will send tailored school recommendations for Switzerland, with fees, scholarship options, and a clear application plan within 24 hours.</span>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">บริการฟรี 100%</span><span class="lang-en">Completely free</span></strong><span class="lang-th">ไม่คิดค่าบริการจากครอบครัว</span><span class="lang-en">No charge to families, ever</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></strong><span class="lang-th">ออกไปเรียนต่างประเทศทั่วโลก</span><span class="lang-en">Studying abroad worldwide</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">109 โรงเรียนในสวิตเซอร์แลนด์</span><span class="lang-en">109 schools in Switzerland</span></strong><span class="lang-th">ครอบคลุมทุกเมืองสำคัญ</span><span class="lang-en">Covering all major cities</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ที่ปรึกษาพูดภาษาไทย</span><span class="lang-en">Thai-speaking advisors</span></strong><span class="lang-th">เชี่ยวชาญด้านการศึกษาในยุโรป</span><span class="lang-en">European education specialists</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Reply within 24 hours</span></strong><span class="lang-th">ผ่าน LINE หรืออีเมล</span><span class="lang-en">Via LINE or email</span></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="width:20px;height:20px;background:#B8962E;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#1a1a1a;font-weight:700;margin-top:2px;">&#10003;</span>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(26,26,26,0.75);line-height:1.4;"><strong style="color:#1a1a1a;display:block;margin-bottom:2px;"><span class="lang-th">ไว้ใจได้ตั้งแต่ปี 2558</span><span class="lang-en">Trusted since 2015</span></strong><span class="lang-th">ดูแลครอบครัวไทยมากกว่า 10 ปี</span><span class="lang-en">10+ years with Thai families</span></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:20px 24px;background:#1a1a1a;border-radius:6px;display:flex;align-items:center;gap:16px;">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:4px;">LINE</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#f5f0e8;">satitlinkedu</div>
+        </div>
+        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="margin-left:auto;background:#B8962E;color:#1a1a1a;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;padding:10px 20px;border-radius:3px;text-decoration:none;white-space:nowrap;"><span class="lang-th">เพิ่ม LINE</span><span class="lang-en">Add LINE</span></a>
+      </div>
+    </div>
+    <div id="hs-inline-wrap" style="background:#1a1a1a;border-radius:8px;padding:40px;box-shadow:0 20px 60px rgba(26,26,26,0.15);">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 20px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid rgba(184,150,46,0.2);">
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span style="color:#B8962E;font-weight:600;"><span class="lang-th">บริการฟรี</span><span class="lang-en">Free service</span></span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ส่งนักเรียนกว่า 40,000 คน</span><span class="lang-en">40,000+ students placed</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">109 โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">109 Swiss schools</span></span>
+        <span style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(245,240,232,0.7);white-space:nowrap;">&#10003; <span class="lang-th">ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Reply in 24 hrs</span></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label><input type="date" name="dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label><select name="grade" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option><option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option><option>Year 12 / ม.6</option><option>อื่นๆ</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label><input type="text" name="lineid" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label><select name="country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option selected>Switzerland</option><option>United Kingdom</option><option>China</option><option>United States</option><option>Australia</option><option>อื่นๆ</option></select></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการเข้าเรียน</span><span class="lang-en">Intended Entry Year</span></label><select name="entryyear" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;"><option value="">-- เลือก --</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option></select></div>
+      </div>
+      <div style="margin-top:14px;"><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label><input type="text" name="schools" placeholder="เช่น Le Rosey, Brillantmont, Institut Montana — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      <button onclick="submitHSForm('contact-form','hs-inline-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+        <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
+        <span class="lang-en">Send Enquiry — Free Consultation →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta-strip">
+      <div>
+        <div class="footer-cta-tagline"><span class="lang-th">ผู้เชี่ยวชาญด้านโรงเรียนนานาชาติสวิตเซอร์แลนด์สำหรับครอบครัวไทย</span><span class="lang-en">Thailand's specialist in Swiss international school placement</span></div>
+        <div class="footer-cta-sub"><span class="lang-th">ปรึกษาฟรี — ตอบภายใน 24 ชั่วโมง</span><span class="lang-en">Free consultation — Response within 24 hours</span></div>
+      </div>
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-cta-btn" target="_blank" rel="noopener"><span class="lang-th">เพิ่ม LINE satitlinkedu</span><span class="lang-en">Add LINE satitlinkedu</span></a>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-heading"><span class="lang-th">โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">Swiss Schools</span></div>
+        <div class="footer-links">
+          <a href="studyinswitzerland.html" class="footer-link"><span class="lang-th">ภาพรวม</span><span class="lang-en">Overview</span></a>
+          <a href="switzerland-schools.html" class="footer-link"><span class="lang-th">ค้นหาโรงเรียน 109 แห่ง</span><span class="lang-en">Browse 109 Schools</span></a>
+          <a href="switzerland-admissions.html" class="footer-link"><span class="lang-th">คู่มือการสมัคร</span><span class="lang-en">Admissions Guide</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">บริการของเรา</span><span class="lang-en">Services</span></div>
+        <div class="footer-links">
+          <a href="switzerland-schools.html?boarding=true" class="footer-link"><span class="lang-th">โรงเรียนประจำในสวิตเซอร์แลนด์</span><span class="lang-en">Boarding Schools</span></a>
+          <a href="tutoring.html" class="footer-link"><span class="lang-th">ติวเตอร์</span><span class="lang-en">Tutoring</span></a>
+          <a href="summer-camps.html" class="footer-link"><span class="lang-th">ซัมเมอร์แคมป์</span><span class="lang-en">Summer Camps</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">เกี่ยวกับ</span><span class="lang-en">About</span></div>
+        <div class="footer-links">
+          <a href="about.html" class="footer-link"><span class="lang-th">เกี่ยวกับ LINKEDU</span><span class="lang-en">About LINKEDU</span></a>
+          <a href="contact.html" class="footer-link"><span class="lang-th">ติดต่อเรา</span><span class="lang-en">Contact Us</span></a>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(245,240,232,0.08);">
+            <a href="index.html" class="footer-link" style="color:#B8962E;"><span class="lang-th">สำรวจโรงเรียนประจำ UK →</span><span class="lang-en">Also: UK Boarding Schools →</span></a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading"><span class="lang-th">ติดตามเรา</span><span class="lang-en">Follow Us</span></div>
+        <div class="footer-links">
+          <a href="https://line.me/R/ti/p/satitlinkedu" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg> LINE: satitlinkedu</a>
+          <a href="https://facebook.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> FB: @linkedu.th</a>
+          <a href="https://instagram.com/linkedu.th" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> IG: @linkedu.th</a>
+          <a href="https://youtube.com/@linkeduthailand" class="footer-link footer-social" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg> YouTube: @linkeduthailand</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 21" style="height:20px;width:auto;display:block;opacity:0.5"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M24.7,20h-5V0h5V20z M5,15.5h10.8V20H0V0h5V15.5z M44.7,20h5V0h-5v12.2L34.3,0h-5v20h5V7.8L44.7,20z M66.4,8.1 L75,20h-6.5l-5.6-8.3l-3.6,3.8V20h-5V0h5v8.8L67.3,0h6.3L66.4,8.1z M94.2,4.5V0H78.4v20h15.8v-4.5H83.4v-3.4h9V7.9h-9V4.5H94.2z M118.3,10c0,5.8-4.5,10-10.9,10h-9.1V0l9.1,0C114.2,0,118.3,4.2,118.3,10z M103.3,15.5h4.2c3.5,0,5.9-2.2,5.9-5.6 c0-3.6-2.3-5.5-5.9-5.5h-4.2V15.5z M130.9,20.4c5.8,0,10.1-4,10.1-10.6h0V0h-5v9.7c0,3.8-1.9,6.1-5,6.1c-3.2,0-4.9-2.3-4.9-6.1V0h-5 v9.7C121.1,16.4,125.1,20.4,130.9,20.4z"/></svg>
+      <div class="footer-copy">© 2026 LINKEDU Overseas Education. <span class="lang-th">สงวนลิขสิทธิ์</span><span class="lang-en">All rights reserved.</span></div>
+      <div style="font-family:'Inter',sans-serif;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(245,240,232,0.2);">MEMBER OF BEACON GROUP &middot; HKEX:1775 &middot; FOUNDED 2015</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<!-- GLOBAL ENQUIRY MODAL -->
+<div id="eqOverlay" onclick="closeEqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div onclick="event.stopPropagation()" style="background:#1a1a1a;border-radius:8px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <div style="padding:24px 28px;border-bottom:1px solid rgba(184,150,46,0.2);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:sticky;top:0;background:#1a1a1a;z-index:1;">
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B8962E;margin-bottom:6px;"><span class="lang-th">สอบถาม / สมัคร ผ่าน LINKEDU</span><span class="lang-en">Enquire / Apply via LINKEDU</span></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#f5f0e8;line-height:1.15;"><span class="lang-th">ปรึกษาผู้เชี่ยวชาญฟรี</span><span class="lang-en">Free Expert Consultation</span></div>
+      </div>
+      <button onclick="closeEqModal()" style="background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">&times;</button>
+    </div>
+    <div id="hs-modal-wrap" style="padding:28px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label><input type="text" name="firstname" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label><input type="text" name="lastname" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label><input type="tel" name="phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+        <div><label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label><input type="email" name="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'"></div>
+      </div>
+      <button onclick="submitHSForm('eqOverlay','hs-modal-wrap')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'"><span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry — Free Consultation →</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CONSULT BUTTON -->
+<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:8000;">
+  <button onclick="consultAction()" style="background:#B8962E;color:#1a1a1a;border:none;border-radius:4px 0 0 4px;padding:14px 10px;cursor:pointer;writing-mode:vertical-rl;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;box-shadow:-4px 0 16px rgba(184,150,46,0.3);" onmouseover="this.style.paddingRight='14px'" onmouseout="this.style.paddingRight='10px'"><span class="lang-th">ปรึกษาฟรี</span><span class="lang-en">Free Consult</span></button>
+</div>
+
+<script>
+  // ============================================================
+  // SUPABASE CONFIG
+  // ============================================================
+  const SUPABASE_URL = 'https://ckofdbjfbxoxxxtedmqa.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNrb2ZkYmpmYnhveHh4dGVkbXFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MzQ1NzQsImV4cCI6MjA4OTQxMDU3NH0.-7xPMdRZO_VnYZF7GLOmvOOwrDJ2T2o_yWCSlcE-Kqg';
+
+  // ============================================================
+  // STATE
+  // ============================================================
+  var allSchools = [];
+  var activeType = '';
+  var activeCurr = '';
+  var activeSort = 'name';
+  var activeBudget = 200;
+
+  // ============================================================
+  // CURRICULUM DETECTION
+  // ============================================================
+  function detectCurriculum(school) {
+    var curr = school.curriculum;
+    if (!curr) return 'Swiss/Other';
+    var str = Array.isArray(curr) ? curr.join(' ') : String(curr);
+    str = str.toLowerCase();
+    if (str.includes('ib') || str.includes('international baccalaureate')) return 'IB';
+    if (str.includes('igcse') || str.includes('a-level') || str.includes('british') || str.includes('a level')) return 'British';
+    if (str.includes('montessori')) return 'Montessori';
+    return 'Swiss/Other';
+  }
+
+  // ============================================================
+  // FETCH FROM SUPABASE
+  // ============================================================
+  async function fetchSchools() {
+    var countries = ['Switzerland','Italy','Germany','Austria'];
+    var url = SUPABASE_URL + '/rest/v1/schools?select=id,slug,name,city,country,school_type,boarding,curriculum,languages,fees_usd_min,fees_usd_max,description,official_website,founded_year,student_count,nationalities_count,scholarship_available,age_min,age_max&country=in.(' + countries.map(function(c){return encodeURIComponent(c);}).join(',') + ')&order=name';
+    try {
+      var res = await fetch(url, {
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!res.ok) throw new Error('Supabase error ' + res.status);
+      var data = await res.json();
+      allSchools = Array.isArray(data) ? data : [];
+    } catch(e) {
+      console.warn('Supabase fetch failed:', e);
+      allSchools = [];
+    }
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('schoolCardsGrid').style.display = 'grid';
+    applyFilters();
+  }
+
+  // ============================================================
+  // FILTERS
+  // ============================================================
+  function applyFilters() {
+    var cityVal = document.getElementById('filterCity').value;
+    var budget = activeBudget;
+    var filtered = allSchools.filter(function(s) {
+      // City
+      if (cityVal) {
+        var knownCities = ['Geneva','Zurich','Basel','Lausanne','Montreux','Lugano','Bern'];
+        if (cityVal === 'Other') {
+          if (knownCities.indexOf(s.city) !== -1) return false;
+        } else {
+          if (s.city !== cityVal) return false;
+        }
+      }
+      // Type
+      if (activeType === 'boarding' && !s.boarding) return false;
+      if (activeType === 'day' && s.boarding) return false;
+      // Curriculum
+      if (activeCurr && detectCurriculum(s) !== activeCurr) return false;
+      // Budget
+      if (budget < 200) {
+        var minFee = s.fees_usd_min || s.fees_usd_max;
+        if (minFee && minFee > budget * 1000) return false;
+      }
+      return true;
+    });
+
+    // Sort
+    filtered.sort(function(a,b) {
+      if (activeSort === 'fees') {
+        var aFee = a.fees_usd_min || a.fees_usd_max || 999999;
+        var bFee = b.fees_usd_min || b.fees_usd_max || 999999;
+        return aFee - bFee;
+      }
+      return (a.name || '').localeCompare(b.name || '');
+    });
+
+    renderResults(filtered);
+  }
+
+  // ============================================================
+  // RENDER — scard grid
+  // ============================================================
+  function renderResults(schools) {
+    var count = schools.length;
+    document.getElementById('sidebarCount').textContent = count;
+    document.getElementById('resultCount').textContent = count;
+    document.getElementById('resultCountEn').textContent = count;
+
+    var grid = document.getElementById('schoolCardsGrid');
+
+    if (count === 0) {
+      document.getElementById('noResults').style.display = 'block';
+      grid.innerHTML = '';
+      return;
+    }
+    document.getElementById('noResults').style.display = 'none';
+
+    grid.innerHTML = schools.map(function(s) {
+      // Bar and badge class
+      var barClass, typeBadgeClass, typeBadgeLabel;
+      var typeStr = (s.school_type || '').toLowerCase();
+      if (s.boarding && (typeStr.includes('day') || typeStr === 'both')) {
+        barClass = 'scard-bar-both';
+        typeBadgeClass = 'sbadge-both';
+        typeBadgeLabel = 'Day &amp; Boarding';
+      } else if (s.boarding) {
+        barClass = 'scard-bar-boarding';
+        typeBadgeClass = 'sbadge-boarding';
+        typeBadgeLabel = 'Boarding';
+      } else {
+        barClass = 'scard-bar-day';
+        typeBadgeClass = 'sbadge-day';
+        typeBadgeLabel = 'Day School';
+      }
+
+      // Country badge
+      var countryBadge = s.country ? '<span class="sbadge sbadge-type">' + s.country + '</span>' : '';
+
+      // Scholarship badge
+      var scholBadge = s.scholarship_available ? '<span class="sbadge sbadge-schol">Scholarship</span>' : '';
+
+      // Name & location
+      var name = s.name || '–';
+      var loc = [s.city, s.country].filter(Boolean).join(', ') || '–';
+
+      // Stats — use only fields with near-100% coverage
+      // Age range: 120/120, Curriculum: 120/120, Languages: 120/120, Fees: 108/120
+      var agesVal = (s.age_min && s.age_max) ? s.age_min + '–' + s.age_max : (s.age_min ? s.age_min + '+' : '–');
+
+      var currArr2 = s.curriculum ? (Array.isArray(s.curriculum) ? s.curriculum : [s.curriculum]) : [];
+      var primaryCurr = currArr2.length > 0 ? String(currArr2[0]) : '–';
+      // Shorten long curriculum names
+      primaryCurr = primaryCurr.replace('International Baccalaureate', 'IB').replace('IB Career-related Programme', 'IB CP');
+
+      var langArr2 = s.languages ? (Array.isArray(s.languages) ? s.languages : [s.languages]) : [];
+      var langVal = langArr2.length > 0 ? langArr2.slice(0, 2).join(' · ') : '–';
+
+      var typeVal = s.boarding
+        ? ((s.school_type || '').toLowerCase().includes('day') ? 'Boarding & Day' : 'Boarding')
+        : 'Day School';
+
+      // Fees
+      var feeHtml;
+      if (s.fees_usd_min) {
+        var feeStr = '$' + Number(s.fees_usd_min).toLocaleString();
+        if (s.fees_usd_max && s.fees_usd_max !== s.fees_usd_min) {
+          feeStr += ' – $' + Number(s.fees_usd_max).toLocaleString();
+        }
+        var thbStr = '&#x0E3F;' + Math.round(s.fees_usd_min * 35).toLocaleString() + ' / &#x0E1B;&#x0E35;';
+        feeHtml = '<div class="scard-fee-usd">' + feeStr + '<span class="per-yr">/ yr</span></div>' +
+                  '<div class="scard-fee-thb">&#x2248; ' + thbStr + '</div>';
+      } else if (s.fees_usd_max) {
+        var feeStr2 = 'Up to $' + Number(s.fees_usd_max).toLocaleString();
+        feeHtml = '<div class="scard-fee-usd">' + feeStr2 + '<span class="per-yr">/ yr</span></div>';
+      } else {
+        feeHtml = '<div class="scard-fee-na">Fees on request</div>';
+      }
+
+      // Curriculum pills (up to 3)
+      var currPills = '';
+      var currArr = s.curriculum ? (Array.isArray(s.curriculum) ? s.curriculum : [s.curriculum]) : [];
+      var currShown = currArr.slice(0, 3);
+      currPills = currShown.map(function(c) {
+        var cStr = String(c);
+        var isIB = cStr.toLowerCase().includes('ib') || cStr.toLowerCase().includes('international baccalaureate');
+        return '<span class="pill ' + (isIB ? 'pill-ib' : '') + '">' + cStr + '</span>';
+      }).join('');
+
+      // Language pills (up to 2)
+      var langPills = '';
+      var langArr = s.languages ? (Array.isArray(s.languages) ? s.languages : [s.languages]) : [];
+      langPills = langArr.slice(0, 2).map(function(l) {
+        return '<span class="pill pill-lang">' + l + '</span>';
+      }).join('');
+
+      // Note (description truncated)
+      var noteHtml = '';
+      if (s.description) {
+        var noteText = s.description.length > 120 ? s.description.substring(0, 120) + '…' : s.description;
+        noteHtml = '<div class="scard-note">' + noteText + '</div>';
+      }
+
+      // Actions
+      var detailUrl = 'switzerland-school.html?slug=' + encodeURIComponent(s.slug || '');
+
+      return '<article class="scard">' +
+        '<div class="scard-bar ' + barClass + '"></div>' +
+        '<div class="scard-body">' +
+          '<div class="scard-badges">' +
+            '<span class="sbadge ' + typeBadgeClass + '">' + typeBadgeLabel + '</span>' +
+            countryBadge +
+            scholBadge +
+          '</div>' +
+          '<div class="scard-name">' + name + '</div>' +
+          '<div class="scard-loc">' + loc + '</div>' +
+          '<div class="scard-stats">' +
+            '<div class="scard-stat"><div class="scard-stat-val">' + agesVal + '</div><div class="scard-stat-key">Age Range</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val" style="font-size:0.78rem;">' + typeVal + '</div><div class="scard-stat-key">School Type</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val" style="font-size:0.78rem;">' + primaryCurr + '</div><div class="scard-stat-key">Curriculum</div></div>' +
+            '<div class="scard-stat"><div class="scard-stat-val" style="font-size:0.72rem;">' + langVal + '</div><div class="scard-stat-key">Language</div></div>' +
+          '</div>' +
+          '<div class="scard-fee">' + feeHtml + '</div>' +
+          noteHtml +
+        '</div>' +
+        '<div class="scard-actions">' +
+          '<a href="' + detailUrl + '" class="scard-btn scard-btn-view">View Details</a>' +
+          '<button onclick="consultAction()" class="scard-btn scard-btn-enquire">Enquire</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  // ============================================================
+  // FILTER CONTROLS
+  // ============================================================
+  function setTypeFilter(btn, val) {
+    activeType = val;
+    document.querySelectorAll('[data-type]').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function setCurrFilter(btn, val) {
+    activeCurr = val;
+    document.querySelectorAll('[data-curr]').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function updateBudget(val) {
+    activeBudget = parseInt(val);
+    document.getElementById('budgetDisplay').textContent = activeBudget >= 200 ? 'Up to $200,000+/yr' : 'Up to $' + (activeBudget * 1000).toLocaleString() + '/yr';
+    applyFilters();
+  }
+
+  function setSort(type) {
+    activeSort = type;
+    document.getElementById('sortName').classList.toggle('active', type === 'name');
+    document.getElementById('sortFees').classList.toggle('active', type === 'fees');
+    applyFilters();
+  }
+
+  function resetFilters() {
+    document.getElementById('filterCity').value = '';
+    activeType = '';
+    activeCurr = '';
+    activeBudget = 200;
+    activeSort = 'name';
+    document.getElementById('budgetRange').value = 200;
+    document.getElementById('budgetDisplay').textContent = 'Up to $200,000/yr';
+    document.querySelectorAll('[data-type]').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('[data-curr]').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelector('[data-type=""]').classList.add('active');
+    document.querySelector('[data-curr=""]').classList.add('active');
+    document.getElementById('sortName').classList.add('active');
+    document.getElementById('sortFees').classList.remove('active');
+    applyFilters();
+  }
+
+  function toggleSidebarFilters(btn) {
+    var body = document.getElementById('sidebarFiltersBody');
+    var arrow = document.getElementById('mobileFilterArrow');
+    if (body.classList.contains('open')) {
+      body.classList.remove('open');
+      arrow.innerHTML = '&#9660;';
+    } else {
+      body.classList.add('open');
+      arrow.innerHTML = '&#9650;';
+    }
+  }
+
+  // ============================================================
+  // MODAL + CONSULT
+  // ============================================================
+  function openEqModal() { document.getElementById('eqOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
+  function closeEqModal() { document.getElementById('eqOverlay').style.display='none'; document.body.style.overflow=''; }
+  function consultAction() { var f=document.getElementById('contact-form'); if(f){f.scrollIntoView({behavior:'smooth',block:'start'});}else{openEqModal();} }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeEqModal(); });
+
+  // ============================================================
+  // FORM SUBMIT
+  // ============================================================
+  async function submitHSForm(containerId, wrapperId) {
+    var container=document.getElementById(containerId), wrapper=document.getElementById(wrapperId), btn=container.querySelector('button[onclick]');
+    function get(n){var el=container.querySelector('[name="'+n+'"]');return el?el.value.trim():'';}
+    if(!get('email')){alert('กรุณากรอกอีเมล / Please enter your email address');return;}
+    btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='<span class="lang-th">กำลังส่ง...</span><span class="lang-en">Sending...</span>';
+    var fields=[{name:'firstname',value:get('firstname')},{name:'lastname',value:get('lastname')},{name:'email',value:get('email')},{name:'phone',value:get('phone')}].filter(function(f){return f.value;});
+    try{var res=await fetch('https://api.hsforms.com/submissions/v3/integration/submit/245267958/044460cf-4981-4a0a-b844-4ea2df92fb1a',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:fields,context:{pageUri:window.location.href,pageName:document.title}})});
+    if(res.ok){wrapper.innerHTML='<div style="padding:60px 32px;text-align:center;"><div style="font-size:3rem;color:#B8962E;margin-bottom:16px;">&#10003;</div><div style="font-family:\'Playfair Display\',serif;font-size:1.7rem;color:#f5f0e8;margin-bottom:14px;">ขอบคุณครับ/ค่ะ!</div><div style="font-family:\'Inter\',sans-serif;font-size:0.88rem;color:rgba(245,240,232,0.65);line-height:1.8;">LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง<br><em style="color:rgba(245,240,232,0.4);">We\'ll be in touch within 24 hours.</em></div><a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="display:inline-block;margin-top:28px;background:#B8962E;color:#1a1a1a;font-family:\'Inter\',sans-serif;font-size:0.78rem;font-weight:700;padding:12px 28px;border-radius:4px;text-decoration:none;">+ เพิ่ม LINE satitlinkedu</a></div>';}
+    else{btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry →</span>';alert('เกิดข้อผิดพลาด / Error — please try again.');}}
+    catch(e){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span><span class="lang-en">Send Enquiry →</span>';alert('เกิดข้อผิดพลาด / Error — please try again.');}
+  }
+
+  // ============================================================
+  // INIT — read URL params then fetch
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    var params = new URLSearchParams(window.location.search);
+
+    // Pre-select city from URL
+    var cityParam = params.get('city');
+    if (cityParam) {
+      document.getElementById('filterCity').value = cityParam;
+    }
+
+    // Pre-select boarding from URL
+    var boardingParam = params.get('boarding');
+    if (boardingParam === 'true') {
+      activeType = 'boarding';
+      document.querySelectorAll('[data-type]').forEach(function(b){ b.classList.remove('active'); });
+      var boardingBtn = document.querySelector('[data-type="boarding"]');
+      if (boardingBtn) boardingBtn.classList.add('active');
+    }
+
+    fetchSchools();
+  });
+</script>
+<script src="js/auth-indicator.js"></script>
+</body>
+</html>
