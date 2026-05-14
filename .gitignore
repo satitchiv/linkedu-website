@@ -1,8 +1,10 @@
 *.backup
+*.backup[0-9]*
 *.bak
 .DS_Store
 server.py
 __pycache__/
+node_modules/
 # Build scripts
 build-blog.py
 build-schools.py
@@ -22,3 +24,6 @@ guides.html.blog-backup
 *.nav-backup
 *.nav2-backup
 server.py*
+
+# Local Netlify folder
+.netlify
