@@ -294,6 +294,63 @@
   .cluster-pill.primary { background: var(--gold); color: var(--dark); }
   .cluster-pill.secondary { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
 
+  .intensity-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+  .intensity-note strong { color: var(--gold); }
+
+  /* PROFILE BARS */
+  .profile-bars {
+    max-width: 480px;
+    margin: 0 auto 8px;
+    text-align: left;
+  }
+  .profile-bar-row {
+    display: grid;
+    grid-template-columns: 108px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .profile-bar-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.7);
+  }
+  .profile-bar-row.is-lead .profile-bar-label { color: var(--gold); }
+  .profile-bar-track {
+    height: 8px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .profile-bar-fill {
+    height: 100%;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .profile-bar-row.is-lead .profile-bar-fill { background: var(--gold); }
+  .profile-bar-pct {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    text-align: right;
+  }
+
+  /* LIMITS LINE */
+  .limits-line {
+    font-size: 12px;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+  }
+
   /* RESULTS GRID */
   .results-grid {
     display: grid;
@@ -534,7 +591,7 @@
   <h1 class="lang-th">อาชีพใดเหมาะกับลูกของคุณ?</h1>
   <h1 class="lang-en">What Career Path Suits My Child?</h1>
   <p class="lang-th">ตอบ 12 คำถาม รับผลลัพธ์: กลุ่มอาชีพ + มหาวิทยาลัยในสหราชอาณาจักร + แผนการติว</p>
-  <p class="lang-en">Answer 12 questions to discover your child's career cluster, ideal UK universities, and personalised tutoring roadmap.</p>
+  <p class="lang-en">Answer 12 questions to discover your child's career cluster, commonly pursued UK university routes, and a personalised tutoring roadmap.</p>
 </div>
 
 <!-- QUIZ -->
@@ -583,15 +640,20 @@ function setLang(lang) {
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 }
 
+// Every question carries exactly 4 options, one pure-scoring option per
+// dimension (STEM, Creative, People, Business), each worth 2 points.
+// This keeps both (a) the total pool per dimension across the quiz and
+// (b) the per-question weight per dimension exactly equal — see the
+// verification script referenced in project notes.
 const QUESTIONS = [
   {
     th: 'ลูกของคุณชอบทำสิ่งใดมากที่สุด?',
     en: 'What does your child love doing most?',
     opts: [
-      { th: 'อ่านหนังสือและค้นคว้าข้อมูล', en: 'Reading & Research', scores: [1,0,0,0] },
-      { th: 'ทำและสร้างสิ่งต่างๆ', en: 'Making & Building', scores: [2,0,0,0] },
-      { th: 'ช่วยเหลือผู้อื่น', en: 'Helping People', scores: [0,0,2,0] },
-      { th: 'แสดงออกและนำเสนอ', en: 'Performing & Presenting', scores: [0,1,0,2] }
+      { th: 'ค้นคว้าและทำความเข้าใจว่าสิ่งต่างๆ ทำงานอย่างไร', en: 'Researching and figuring out how things work', scores: [2,0,0,0] },
+      { th: 'สร้างสรรค์งานศิลปะ เรื่องราว หรือไอเดียใหม่ๆ', en: 'Creating art, stories, or original ideas', scores: [0,2,0,0] },
+      { th: 'ช่วยเหลือและดูแลคนรอบตัว', en: 'Helping and looking after people around them', scores: [0,0,2,0] },
+      { th: 'วางแผน จัดการ และนำทีมให้บรรลุเป้าหมาย', en: 'Planning, organising, and leading a team to a goal', scores: [0,0,0,2] }
     ]
   },
   {
@@ -599,29 +661,29 @@ const QUESTIONS = [
     en: 'Which subjects does your child find easiest?',
     opts: [
       { th: 'วิทยาศาสตร์และคณิตศาสตร์', en: 'Sciences & Maths', scores: [2,0,0,0] },
-      { th: 'ภาษาและวรรณกรรม', en: 'Languages & Literature', scores: [0,1,0,1] },
-      { th: 'ศิลปะและการออกแบบ', en: 'Arts & Design', scores: [0,2,0,0] },
-      { th: 'สังคมศึกษาและเหตุการณ์ปัจจุบัน', en: 'Social Studies & Current Events', scores: [0,0,1,1] }
+      { th: 'ศิลปะและวรรณกรรม', en: 'Art & Literature', scores: [0,2,0,0] },
+      { th: 'จิตวิทยาและสังคมศึกษา', en: 'Psychology & Social Studies', scores: [0,0,2,0] },
+      { th: 'เศรษฐศาสตร์และธุรกิจศึกษา', en: 'Economics & Business Studies', scores: [0,0,0,2] }
     ]
   },
   {
     th: 'ลูกชอบทำงานในรูปแบบใด?',
     en: 'How does your child prefer to work?',
     opts: [
-      { th: 'ทำงานคนเดียว โฟกัสลึก', en: 'Alone, deeply focused', scores: [2,1,0,0] },
-      { th: 'ทำงานเป็นทีม', en: 'In a team', scores: [0,0,1,1] },
-      { th: 'ช่วยเหลือผู้อื่นในการทำงาน', en: 'Helping others', scores: [0,0,2,0] },
-      { th: 'นำทีมและตัดสินใจ', en: 'Leading a group', scores: [0,0,0,2] }
+      { th: 'คนเดียว โฟกัสลึกกับปัญหาที่ซับซ้อน', en: 'Alone, deeply focused on a complex problem', scores: [2,0,0,0] },
+      { th: 'อิสระ ตามจังหวะและไอเดียของตัวเอง', en: 'Freely, following their own ideas and pace', scores: [0,2,0,0] },
+      { th: 'ร่วมมือกับผู้อื่นอย่างใกล้ชิด', en: 'Closely together with others, supporting them', scores: [0,0,2,0] },
+      { th: 'เป็นผู้นำทีมและตัดสินใจ', en: 'Leading a team and making the calls', scores: [0,0,0,2] }
     ]
   },
   {
     th: 'ลูกชอบแก้ปัญหาประเภทใด?',
     en: 'What kind of problems does your child enjoy solving?',
     opts: [
-      { th: 'ปริศนาตรรกะ', en: 'Logical puzzles', scores: [2,0,0,0] },
-      { th: 'ความท้าทายด้านความคิดสร้างสรรค์', en: 'Creative challenges', scores: [0,2,0,0] },
-      { th: 'ปัญหาเกี่ยวกับผู้คน', en: 'People problems', scores: [0,0,2,0] },
-      { th: 'ปัญหาโลกจริงที่จับต้องได้', en: 'Practical real-world problems', scores: [1,0,0,1] }
+      { th: 'ปริศนาตรรกะที่มีคำตอบชัดเจน', en: 'Logical puzzles with a clear right answer', scores: [2,0,0,0] },
+      { th: 'โจทย์ที่ต้องใช้จินตนาการและมุมมองใหม่', en: 'Problems that need imagination and a fresh angle', scores: [0,2,0,0] },
+      { th: 'ความขัดแย้งหรือความรู้สึกของคนรอบตัว', en: 'Conflicts or feelings between people', scores: [0,0,2,0] },
+      { th: 'ปัญหาที่ต้องวางแผนและจัดสรรทรัพยากร', en: 'Problems that need a plan and smart use of resources', scores: [0,0,0,2] }
     ]
   },
   {
@@ -638,30 +700,30 @@ const QUESTIONS = [
     th: 'ลูกรับมือกับแรงกดดันอย่างไร?',
     en: 'How does your child handle pressure?',
     opts: [
-      { th: 'ชอบความท้าทาย เจริญรุ่งเรืองภายใต้แรงกดดัน', en: 'Thrives, loves the challenge', scores: [1,0,0,1] },
-      { th: 'ชอบงานที่มั่นคงและสม่ำเสมอ', en: 'Prefers steady, consistent work', scores: [1,1,0,0] },
-      { th: 'ต้องการการสนับสนุนแต่สามารถจัดการได้', en: 'Needs support but manages', scores: [0,0,2,0] },
-      { th: 'หลีกเลี่ยงสถานการณ์กดดันสูง', en: 'Avoids high-pressure situations', scores: [0,1,1,0] }
+      { th: 'สงบลงเมื่อได้แยกปัญหาออกเป็นขั้นตอนที่ชัดเจน', en: 'Calms down by breaking the problem into clear steps', scores: [2,0,0,0] },
+      { th: 'ต้องการพื้นที่และเวลาให้ไอเดียตกตะกอน', en: 'Needs space and time to let ideas settle', scores: [0,2,0,0] },
+      { th: 'รับมือได้ดีขึ้นเมื่อมีคนอยู่เคียงข้าง', en: 'Copes best with someone by their side', scores: [0,0,2,0] },
+      { th: 'ยิ่งกดดันยิ่งฮึกเหิม ชอบการแข่งขัน', en: 'Rises to the occasion — thrives on competition', scores: [0,0,0,2] }
     ]
   },
   {
     th: 'ลูกให้คุณค่ากับสิ่งใดในงานในอนาคตมากที่สุด?',
     en: 'What does your child value most in future work?',
     opts: [
-      { th: 'รายได้สูงและสถานะทางสังคม', en: 'High income & status', scores: [1,0,0,2] },
+      { th: 'ความท้าทายทางสติปัญญา', en: 'Intellectual stimulation', scores: [2,0,0,0] },
       { th: 'ความคิดสร้างสรรค์และการแสดงออก', en: 'Creativity & expression', scores: [0,2,0,0] },
       { th: 'ช่วยเหลือสังคม', en: 'Helping society', scores: [0,0,2,0] },
-      { th: 'ความท้าทายทางสติปัญญา', en: 'Intellectual stimulation', scores: [2,0,0,0] }
+      { th: 'รายได้สูงและสถานะทางสังคม', en: 'High income & status', scores: [0,0,0,2] }
     ]
   },
   {
     th: 'ลูกอยากเรียนวิชาใดมากขึ้น?',
     en: 'Which school subject does your child wish they could do MORE of?',
     opts: [
-      { th: 'วิทยาศาสตร์', en: 'Science', scores: [2,0,0,0] },
-      { th: 'วรรณกรรม', en: 'Literature', scores: [0,1,1,0] },
-      { th: 'ศิลปะหรือดนตรี', en: 'Art / Music', scores: [0,2,0,0] },
-      { th: 'พลศึกษาหรือกีฬา', en: 'PE / Sport', scores: [0,0,0,1] }
+      { th: 'วิทยาศาสตร์หรือคณิตศาสตร์', en: 'Science or Maths', scores: [2,0,0,0] },
+      { th: 'ศิลปะหรือดนตรี', en: 'Art or Music', scores: [0,2,0,0] },
+      { th: 'ภาษาและการสื่อสารกับผู้คน', en: 'Languages and communicating with people', scores: [0,0,2,0] },
+      { th: 'พลศึกษา การแข่งขัน หรือธุรกิจ', en: 'PE, competitive sport, or business studies', scores: [0,0,0,2] }
     ]
   },
   {
@@ -695,13 +757,13 @@ const QUESTIONS = [
     ]
   },
   {
-    th: 'ใน 15 ปี ลูกของคุณน่าจะเป็น...',
-    en: 'In 15 years, your child is most likely to be...',
+    th: 'คำชมแบบใดที่จะทำให้คุณภูมิใจในตัวลูกที่สุด?',
+    en: 'Which compliment about your child would make you proudest?',
     opts: [
-      { th: 'นักวิทยาศาสตร์ วิศวกร หรือแพทย์', en: 'A scientist, engineer or doctor', scores: [2,0,0,0] },
-      { th: 'ศิลปิน นักเขียน หรือนักออกแบบ', en: 'An artist, writer or designer', scores: [0,2,0,0] },
-      { th: 'ครู นักบำบัด หรือองค์กรการกุศล', en: 'A teacher, therapist or charity worker', scores: [0,0,2,0] },
-      { th: 'ทนาย นักธุรกิจ หรือนักการเมือง', en: 'A lawyer, business leader or politician', scores: [0,0,0,2] }
+      { th: '"เขา/เธอมองเห็นคำอธิบายที่คนอื่นมองข้าม"', en: '"They always find the explanation everyone else missed"', scores: [2,0,0,0] },
+      { th: '"ห้องของเขา/เธอเต็มไปด้วยไอเดียที่ไม่เหมือนใคร"', en: '"Their room is full of ideas no one else would think of"', scores: [0,2,0,0] },
+      { th: '"เพื่อนๆ มักมาปรึกษาเขา/เธอก่อนใครเสมอ"', en: '"Their friends always come to them first when something\'s wrong"', scores: [0,0,2,0] },
+      { th: '"ทุกคนอยากให้เขา/เธอเป็นหัวหน้าทีม"', en: '"Everyone always wants them to be the one in charge"', scores: [0,0,0,2] }
     ]
   }
 ];
@@ -917,11 +979,45 @@ function computeScores() {
   return totals;
 }
 
+const MAX_PER_CLUSTER = 24; // 12 questions x 2 points per dimension — equal pool, see QUESTIONS
+
 function showResults() {
   const scores = computeScores();
   const sorted = scores.map((s, i) => ({ idx: i, score: s })).sort((a, b) => b.score - a.score);
   const primary = CLUSTERS[sorted[0].idx];
   const secondary = CLUSTERS[sorted[1].idx];
+  const gap = sorted[0].score - sorted[1].score;
+  const isBlended = gap <= 2;
+  const intensity = gap >= 6 ? 'clear' : (gap >= 3 ? 'moderate' : 'mixed');
+
+  const intensityCopy = {
+    clear: {
+      th: `<strong>สัญญาณชัดเจน</strong> — คำตอบของ${'บุตรหลานของคุณ'}โน้มไปทาง ${primary.name_th} อย่างชัดเจนกว่ากลุ่มอื่นทั้งหมด`,
+      en: `<strong>Clear signal</strong> — your child's answers point strongly toward ${primary.name_en}, well ahead of the other clusters.`
+    },
+    moderate: {
+      th: `<strong>แนวโน้มปานกลาง</strong> — บุตรหลานของคุณเอนไปทาง ${primary.name_th} แต่ ${secondary.name_th} ก็ยังโดดเด่นไม่น้อย คุ้มค่าที่จะพิจารณาทั้งสองทาง`,
+      en: `<strong>Moderate lean</strong> — your child leans toward ${primary.name_en}, though ${secondary.name_en} is also strongly present and worth weighing.`
+    },
+    mixed: {
+      th: `<strong>โปรไฟล์แบบผสม</strong> — ${primary.name_th} และ ${secondary.name_th} มีคะแนนใกล้เคียงกันมาก นี่คือผลลัพธ์จริงของบุตรหลานคุณ ไม่ใช่การสุ่มเลือกฝั่งใดฝั่งหนึ่ง`,
+      en: `<strong>Mixed profile</strong> — ${primary.name_en} and ${secondary.name_en} are nearly tied. That is a genuine result, not an arbitrary pick.`
+    }
+  };
+
+  const headlineTh = isBlended ? `${primary.name_th} ที่มีแนวโน้ม ${secondary.name_th} สูงเช่นกัน` : primary.name_th;
+  const headlineEn = isBlended ? `${primary.name_en} with a strong ${secondary.name_en} orientation` : primary.name_en;
+
+  const profileBarsHTML = CLUSTERS.map((c, i) => {
+    const pct = Math.round((scores[i] / MAX_PER_CLUSTER) * 100);
+    const isLead = i === sorted[0].idx || i === sorted[1].idx;
+    return `
+      <div class="profile-bar-row${isLead ? ' is-lead' : ''}">
+        <div class="profile-bar-label"><span class="lang-th">${c.name_th}</span><span class="lang-en">${c.name_en}</span></div>
+        <div class="profile-bar-track"><div class="profile-bar-fill" style="width:${pct}%"></div></div>
+        <div class="profile-bar-pct">${pct}%</div>
+      </div>`;
+  }).join('');
 
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('progress-fill').style.width = '100%';
@@ -969,15 +1065,18 @@ function showResults() {
     <div style="max-width:1200px;margin:0 auto;padding:56px 24px 0">
       <div class="results-hero">
         <div class="section-label" style="justify-content:center;color:var(--gold)">· ผลลัพธ์ของคุณ / YOUR RESULTS ·</div>
-        <h2 class="lang-th">${primary.name_th}</h2>
-        <h2 class="lang-en">${primary.name_en}</h2>
+        <h2 class="lang-th">${headlineTh}</h2>
+        <h2 class="lang-en">${headlineEn}</h2>
         <p class="lang-th">${primary.desc_th}</p>
         <p class="lang-en">${primary.desc_en}</p>
+        <p class="intensity-note lang-th">${intensityCopy[intensity].th}</p>
+        <p class="intensity-note lang-en">${intensityCopy[intensity].en}</p>
+        <div class="profile-bars">${profileBarsHTML}</div>
         <div class="cluster-pills">
-          <span class="cluster-pill primary lang-th">หลัก: ${primary.name_th}</span>
-          <span class="cluster-pill primary lang-en">Primary: ${primary.name_en}</span>
-          <span class="cluster-pill secondary lang-th">รอง: ${secondary.name_th}</span>
-          <span class="cluster-pill secondary lang-en">Secondary: ${secondary.name_en}</span>
+          <span class="cluster-pill primary lang-th">${isBlended ? '1' : 'หลัก'}: ${primary.name_th}</span>
+          <span class="cluster-pill primary lang-en">${isBlended ? '1' : 'Primary'}: ${primary.name_en}</span>
+          <span class="cluster-pill secondary lang-th">${isBlended ? '2' : 'รอง'}: ${secondary.name_th}</span>
+          <span class="cluster-pill secondary lang-en">${isBlended ? '2' : 'Secondary'}: ${secondary.name_en}</span>
         </div>
       </div>
 
@@ -989,8 +1088,8 @@ function showResults() {
         </div>
 
         <div class="result-card">
-          <div class="card-label lang-th">· มหาวิทยาลัย UK ที่แนะนำ ·</div>
-          <div class="card-label lang-en">· Top UK Universities ·</div>
+          <div class="card-label lang-th">· เส้นทางมหาวิทยาลัย UK ที่นิยม ·</div>
+          <div class="card-label lang-en">· Commonly Pursued UK University Routes ·</div>
           <div class="uni-list">${unisHTML}</div>
         </div>
 
@@ -1014,6 +1113,9 @@ function showResults() {
           <div class="roadmap-items">${tutoringHTML}</div>
         </div>
       </div>
+
+      <p class="limits-line lang-th">แบบทดสอบนี้มี 12 คำถาม แสดง "แนวโน้ม" ของบุตรหลานคุณ ไม่ใช่ "โชคชะตา" — ความสนใจของวัยรุ่นเปลี่ยนแปลงได้เสมอ แนะนำให้ทำแบบทดสอบซ้ำทุกปีและพูดคุยผลลัพธ์กับที่ปรึกษา LINKEDU</p>
+      <p class="limits-line lang-en">This is a 12-question orientation snapshot, not a destiny reading — teenagers' interests genuinely change year to year. Revisit yearly and talk the result through with a LINKEDU consultant.</p>
 
       <div class="inline-cta">
         <div class="inline-cta-text">

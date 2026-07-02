@@ -108,6 +108,37 @@
             color: var(--accent-gold);
         }
 
+        .eligibility-warning {
+            background-color: #2a1414;
+            border: 2px solid #e05a4e;
+            border-left: 6px solid #e05a4e;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .eligibility-warning p {
+            margin: 0 0 0.7rem 0;
+            color: var(--text-color);
+        }
+
+        .eligibility-warning p:last-child {
+            margin-bottom: 0;
+        }
+
+        .eligibility-warning strong.label {
+            color: #ff8a7a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+
+        .fx-disclaimer {
+            font-size: 0.85rem;
+            color: #999;
+            font-style: italic;
+        }
+
         /* CTA Button */
         .cta-box {
             background-color: var(--cta-bg);
@@ -380,11 +411,17 @@
 
     <main class="container">
 
+        <div class="eligibility-warning">
+            <p><strong class="label">Eligibility Alert | คำเตือนเรื่องคุณสมบัติ</strong></p>
+            <p><strong>Before you compare prices, check eligibility.</strong> Most UK state boarding schools cannot sponsor a Child Student visa. A state boarding place is normally only open to children who already hold UK, Irish, settled or pre-settled (or similar) immigration status. For Thai families without that status, state boarding is generally <strong>not a realistic option</strong> — private boarding is almost always the practical route, since private schools are set up to sponsor international students. Ask us to confirm visa eligibility for any specific school before you apply.</p>
+            <p><strong>ตรวจสอบคุณสมบัติก่อนเปรียบเทียบราคา</strong> โรงเรียนประจำของรัฐ (State Boarding) ส่วนใหญ่ในสหราชอาณาจักร<strong>ไม่สามารถออกเอกสารสนับสนุนวีซ่านักเรียน (Child Student visa)</strong> ให้ได้ ที่นั่งโรงเรียนประจำของรัฐโดยปกติสงวนไว้สำหรับเด็กที่มีสถานะ UK, ไอร์แลนด์, settled หรือ pre-settled (หรือใกล้เคียง) อยู่แล้วเท่านั้น สำหรับครอบครัวไทยที่ไม่มีสถานะดังกล่าว โรงเรียนประจำของรัฐ<strong>มักไม่ใช่ทางเลือกที่เป็นไปได้จริง</strong> โรงเรียนประจำเอกชนจึงเป็นเส้นทางที่ใช้ได้จริงเกือบทุกกรณี เพราะมีระบบรองรับการสนับสนุนวีซ่านักเรียนต่างชาติ กรุณาสอบถามเราเพื่อยืนยันคุณสมบัติด้านวีซ่าสำหรับโรงเรียนที่คุณสนใจก่อนสมัคร</p>
+        </div>
+
         <section class="section">
             <h2>Understanding the VAT Impact | ทำความเข้าใจผลกระทบของภาษี VAT</h2>
             <div class="highlight">
-                <p><strong>IMPORTANT VAT NOTE:</strong> From January 2025, private boarding school fees in the UK will have 20% VAT added. State boarding schools remain VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.</p>
-                <p><strong>หมายเหตุสำคัญเกี่ยวกับ VAT:</strong> ตั้งแต่เดือนมกราคม 2025 เป็นต้นไป ค่าเล่าเรียนโรงเรียนประจำเอกชนในสหราชอาณาจักรจะถูกเพิ่มภาษี VAT 20% โรงเรียนประจำของรัฐยังคงได้รับการยกเว้นภาษี VAT โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ระหว่าง 10,000 ถึง 19,000 ปอนด์ต่อปี</p>
+                <p><strong>IMPORTANT VAT NOTE:</strong> Since January 2025, private boarding school fees in the UK have had 20% VAT added, and published fees (including those shown on this page) already reflect it. State boarding schools remain VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.</p>
+                <p><strong>หมายเหตุสำคัญเกี่ยวกับ VAT:</strong> ตั้งแต่เดือนมกราคม 2025 เป็นต้นมา ค่าเล่าเรียนโรงเรียนประจำเอกชนในสหราชอาณาจักรมีการเพิ่มภาษี VAT 20% แล้ว และค่าธรรมเนียมที่แสดงในหน้านี้เป็นราคาที่รวม VAT ไว้แล้ว โรงเรียนประจำของรัฐยังคงได้รับการยกเว้นภาษี VAT โดยมีค่าธรรมเนียมโดยทั่วไปอยู่ระหว่าง 10,000 ถึง 19,000 ปอนด์ต่อปี</p>
             </div>
             <p>This tool helps Thai families understand the significant financial implications and compare the value proposition of private vs. state boarding schools in the UK. We'll explore various aspects side-by-side to help you make an informed decision.</p>
             <p>เครื่องมือนี้ช่วยให้ครอบครัวชาวไทยเข้าใจถึงผลกระทบทางการเงินที่สำคัญ และเปรียบเทียบคุณค่าของโรงเรียนประจำเอกชนกับโรงเรียนประจำของรัฐในสหราชอาณาจักร เราจะสำรวจด้านต่างๆ ควบคู่กันไปเพื่อช่วยให้คุณตัดสินใจได้อย่างชาญฉลาด</p>
@@ -392,8 +429,8 @@
 
         <section class="section">
             <h2>VAT Impact Calculator | เครื่องคำนวณผลกระทบ VAT</h2>
-            <p>Use our interactive calculator to compare the estimated total costs for private vs. state boarding schools, including the new 20% VAT for private institutions.</p>
-            <p>ใช้เครื่องคำนวณแบบโต้ตอบของเราเพื่อเปรียบเทียบค่าใช้จ่ายโดยประมาณทั้งหมดสำหรับโรงเรียนประจำเอกชนกับโรงเรียนประจำของรัฐ รวมถึงภาษี VAT 20% ใหม่สำหรับสถาบันเอกชน</p>
+            <p>Use our interactive calculator to compare the estimated total costs for private vs. state boarding schools. Private fees are published figures that already include the 20% VAT in effect since January 2025.</p>
+            <p>ใช้เครื่องคำนวณแบบโต้ตอบของเราเพื่อเปรียบเทียบค่าใช้จ่ายโดยประมาณทั้งหมดสำหรับโรงเรียนประจำเอกชนกับโรงเรียนประจำของรัฐ ค่าธรรมเนียมเอกชนเป็นตัวเลขที่ประกาศแล้วซึ่งรวมภาษี VAT 20% ที่มีผลตั้งแต่เดือนมกราคม 2025 ไว้แล้ว</p>
 
             <div class="calculator-grid">
                 <div>
@@ -427,6 +464,10 @@
                         <label for="stateFee">Enter Estimated State Boarding Fee (GBP/year) | ป้อนค่าธรรมเนียมโรงเรียนประจำของรัฐโดยประมาณ (ปอนด์/ปี)</label>
                         <input type="number" id="stateFee" value="14500" min="10000" max="19000" step="500">
                         <small style="display:block; margin-top:0.5rem; color:#aaa;">(Typical range: GBP 10,000 - 19,000)</small>
+                        <div class="eligibility-warning" style="margin-top:1rem; padding:1rem;">
+                            <p style="font-size:0.95rem;"><strong>Check visa eligibility first:</strong> most state boarding schools cannot sponsor a Child Student visa. This option is normally realistic only if your child already has UK/Irish/settled status. Ask us to confirm before you plan around this figure.</p>
+                            <p style="font-size:0.95rem;"><strong>ตรวจสอบคุณสมบัติวีซ่าก่อน:</strong> โรงเรียนประจำของรัฐส่วนใหญ่ไม่สามารถสนับสนุนวีซ่า Child Student ได้ ตัวเลือกนี้มักใช้ได้จริงเฉพาะกรณีที่บุตรหลานมีสถานะ UK/ไอร์แลนด์/settled อยู่แล้ว กรุณาสอบถามเราเพื่อยืนยันก่อนวางแผนตามตัวเลขนี้</p>
+                        </div>
                     </div>
 
                     <div class="calculator-input-group">
@@ -448,7 +489,7 @@
                 <p class="line-id">LINE: satitlinkedu</p>
                 <p>ปรึกษาฟรี (Free Consultation)</p>
                 <p>เกี่ยวกับโรงเรียนประจำใน UK | About UK Boarding Schools</p>
-                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
+                <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
             </div>
         </section>
 
@@ -483,8 +524,8 @@
             <p>The choice between private and state boarding is increasingly a value-for-money decision:</p>
             <p>การเลือกระหว่างโรงเรียนประจำเอกชนและรัฐบาลกลายเป็นการตัดสินใจที่เน้นความคุ้มค่ามากขึ้น:</p>
             <ul>
-                <li><strong>Private:</strong> Access to elite networks, unparalleled facilities, highly individualized attention, and a strong push towards top-tier global universities. The higher price (now with VAT) reflects this premium experience.</li>
-                <li><strong>เอกชน:</strong> การเข้าถึงเครือข่ายชั้นนำ สิ่งอำนวยความสะดวกที่ไม่มีใครเทียบได้ การดูแลเอาใจใส่เป็นรายบุคคลอย่างสูง และการผลักดันอย่างแข็งแกร่งสู่มหาวิทยาลัยชั้นนำระดับโลก ราคาที่สูงขึ้น (พร้อม VAT) สะท้อนถึงประสบการณ์ระดับพรีเมียมนี้</li>
+                <li><strong>Private:</strong> Access to elite networks, unparalleled facilities, highly individualized attention, and a strong push towards top-tier global universities. The higher price (published fees already include VAT) reflects this premium experience.</li>
+                <li><strong>เอกชน:</strong> การเข้าถึงเครือข่ายชั้นนำ สิ่งอำนวยความสะดวกที่ไม่มีใครเทียบได้ การดูแลเอาใจใส่เป็นรายบุคคลอย่างสูง และการผลักดันอย่างแข็งแกร่งสู่มหาวิทยาลัยชั้นนำระดับโลก ราคาที่สูงขึ้น (ค่าธรรมเนียมที่ประกาศรวม VAT ไว้แล้ว) สะท้อนถึงประสบการณ์ระดับพรีเมียมนี้</li>
                 <li><strong>State:</strong> A high-quality UK education and boarding experience at a significantly lower cost. Excellent preparation for UK universities, a diverse and inclusive environment, and strong pastoral care, all without the added VAT burden.</li>
                 <li><strong>รัฐบาล:</strong> การศึกษาและประสบการณ์โรงเรียนประจำในสหราชอาณาจักรที่มีคุณภาพสูงด้วยค่าใช้จ่ายที่ต่ำกว่ามาก การเตรียมตัวที่ดีเยี่ยมสำหรับมหาวิทยาลัยในสหราชอาณาจักร สภาพแวดล้อมที่หลากหลายและครอบคลุม และการดูแลเอาใจใส่ที่ดีเยี่ยม ทั้งหมดนี้โดยไม่มีภาระภาษี VAT เพิ่มเติม</li>
             </ul>
@@ -492,8 +533,9 @@
 
         <section class="section">
             <h2>Approved UK Boarding Schools | โรงเรียนประจำในสหราชอาณาจักรที่ได้รับการรับรอง</h2>
-            <p>These are some of the highly regarded private boarding schools in the UK that LINKEDU works with. For state boarding options, please consult with us directly.</p>
-            <p>นี่คือโรงเรียนประจำเอกชนในสหราชอาณาจักรที่ได้รับการยอมรับซึ่ง LINKEDU ทำงานด้วย สำหรับทางเลือกโรงเรียนประจำของรัฐ โปรดปรึกษาเราโดยตรง</p>
+            <p>These are some of the highly regarded private boarding schools in the UK that LINKEDU works with. Fees shown are published, VAT-inclusive figures. For state boarding options, please consult with us directly — and note the visa eligibility warning above.</p>
+            <p>นี่คือโรงเรียนประจำเอกชนในสหราชอาณาจักรที่ได้รับการยอมรับซึ่ง LINKEDU ทำงานด้วย ค่าธรรมเนียมที่แสดงเป็นตัวเลขที่ประกาศแล้วและรวม VAT ไว้แล้ว สำหรับทางเลือกโรงเรียนประจำของรัฐ โปรดปรึกษาเราโดยตรง และโปรดอ่านคำเตือนเรื่องคุณสมบัติวีซ่าด้านบน</p>
+            <p class="fx-disclaimer">THB figures are approximate conversions at ~45 THB/GBP; actual exchange rates fluctuate (typically 43-45 THB/GBP). | ตัวเลขบาทเป็นการแปลงค่าโดยประมาณที่ ~45 บาท/ปอนด์ อัตราแลกเปลี่ยนจริงผันผวน (โดยทั่วไป 43-45 บาท/ปอนด์)</p>
             <div class="school-grid" id="schoolList">
                 <!-- School cards will be populated by JS -->
             </div>
@@ -501,58 +543,61 @@
                 <p class="line-id">LINE: satitlinkedu</p>
                 <p>ปรึกษาฟรี (Free Consultation)</p>
                 <p>วางแผนการศึกษาต่อ UK | Plan Your UK Education</p>
-                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
+                <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener noreferrer">Click to Chat | คลิกเพื่อแชท</a>
             </div>
         </section>
 
     </main>
 
     <footer>
-        <p>&copy; 2024 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
-        <p>Website: <a href="https://th.linkedu.hk" target="_blank" rel="noopener noreferrer">th.linkedu.hk</a> | LINE: <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener noreferrer">satitlinkedu</a></p>
+        <p>&copy; 2026 LINKEDU Education Consulting Bangkok. All rights reserved.</p>
+        <p>Website: <a href="https://th.linkedu.hk" target="_blank" rel="noopener noreferrer">th.linkedu.hk</a> | LINE: <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener noreferrer">satitlinkedu</a></p>
     </footer>
 
     <script>
-        const GBP_TO_THB_RATE = 45;
-        const VAT_RATE = 0.20; // 20%
+        const GBP_TO_THB_RATE = 45; // Approximate; THB/GBP fluctuates, typically ~43-45
 
+        // Fees below are sourced from ../js/schools-data.js (published, VAT-inclusive annual fees).
+        // Eton College and Oakham School are intentionally left at their prior estimate: the current
+        // schools-data.js fee values for these two are data-entry glitches outside a plausible
+        // GBP 10,000-100,000 range, so they were not used here pending a data fix.
         const privateSchools = [
-            { name: "Abbotsholme", feeGBP: 36000 },
-            { name: "Ardingly", feeGBP: 42000 },
-            { name: "Brighton College", feeGBP: 50000 },
-            { name: "Bromsgrove", feeGBP: 41000 },
-            { name: "Bryanston", feeGBP: 47000 },
-            { name: "Cardiff Sixth Form", feeGBP: 55000 },
-            { name: "Caterham", feeGBP: 43000 },
-            { name: "Charterhouse", feeGBP: 48000 },
-            { name: "Clifton", feeGBP: 40000 },
-            { name: "Concord", feeGBP: 45000 },
-            { name: "D Overbroeks", feeGBP: 44000 },
-            { name: "Dulwich", feeGBP: 46000 },
-            { name: "Epsom", feeGBP: 42000 },
-            { name: "Eton", feeGBP: 49000 },
-            { name: "Harrow", feeGBP: 48000 },
-            { name: "Lancing", feeGBP: 40000 },
-            { name: "Loretto", feeGBP: 38000 },
-            { name: "Millfield", feeGBP: 45000 },
-            { name: "Oakham", feeGBP: 39000 },
-            { name: "Oundle", feeGBP: 46000 },
-            { name: "Oxford International", feeGBP: 40000 },
-            { name: "Queen Ethelburgas", feeGBP: 52000 },
-            { name: "Repton", feeGBP: 43000 },
-            { name: "Roedean", feeGBP: 47000 },
-            { name: "Rossall", feeGBP: 37000 },
-            { name: "Royal Russell", feeGBP: 39000 },
-            { name: "Sedbergh", feeGBP: 41000 },
-            { name: "Sevenoaks", feeGBP: 49000 },
-            { name: "Shrewsbury", feeGBP: 45000 },
-            { name: "Sidcot", feeGBP: 35000 },
-            { name: "St Leonards", feeGBP: 36000 },
-            { name: "The Leys", feeGBP: 41000 },
-            { name: "NMSC", feeGBP: 54000 }, /* Northwood Schools Maths & Science College */
-            { name: "Tonbridge", feeGBP: 48000 },
-            { name: "Uppingham", feeGBP: 46000 },
-            { name: "Wells Cathedral", feeGBP: 38000 }
+            { name: "Abbotsholme", feeGBP: 20985 },
+            { name: "Ardingly", feeGBP: 33903 },
+            { name: "Brighton College", feeGBP: 65010 },
+            { name: "Bromsgrove", feeGBP: 52254 },
+            { name: "Bryanston", feeGBP: 56523 },
+            { name: "Cardiff Sixth Form", feeGBP: 62095 },
+            { name: "Caterham", feeGBP: 52620 },
+            { name: "Charterhouse", feeGBP: 56418 },
+            { name: "Clifton", feeGBP: 42090 },
+            { name: "Concord", feeGBP: 61764 },
+            { name: "D Overbroeks", feeGBP: 25080 },
+            { name: "Dulwich", feeGBP: 47949 },
+            { name: "Epsom", feeGBP: 55158 },
+            { name: "Eton", feeGBP: 49000 }, /* schools-data.js fee for Eton is a data glitch (outside plausible range); left at prior estimate */
+            { name: "Harrow", feeGBP: 61584 },
+            { name: "Lancing", feeGBP: 53319 },
+            { name: "Loretto", feeGBP: 40380 },
+            { name: "Millfield", feeGBP: 57132 },
+            { name: "Oakham", feeGBP: 39000 }, /* schools-data.js fee for Oakham is a data glitch (outside plausible range); left at prior estimate */
+            { name: "Oundle", feeGBP: 59400 },
+            { name: "Oxford International", feeGBP: 33637 },
+            { name: "Queen Ethelburgas", feeGBP: 69990 },
+            { name: "Repton", feeGBP: 54825 },
+            { name: "Roedean", feeGBP: 48375 },
+            { name: "Rossall", feeGBP: 54648 },
+            { name: "Royal Russell", feeGBP: 51993 },
+            { name: "Sedbergh", feeGBP: 49140 },
+            { name: "Sevenoaks", feeGBP: 56763 },
+            { name: "Shrewsbury", feeGBP: 54222 },
+            { name: "Sidcot", feeGBP: 31350 },
+            { name: "St Leonards", feeGBP: 42465 },
+            { name: "The Leys", feeGBP: 38832 },
+            { name: "NMSC", feeGBP: 69984 }, /* National Mathematics and Science College */
+            { name: "Tonbridge", feeGBP: 59124 },
+            { name: "Uppingham", feeGBP: 55674 },
+            { name: "Wells Cathedral", feeGBP: 42762 }
         ];
 
         const privateSchoolSelect = document.getElementById('privateSchool');
@@ -630,7 +675,10 @@
                 return;
             }
 
-            const privateFeeWithVAT_yearly = privateFeeGBP_yearly * (1 + VAT_RATE);
+            // Private fees in the privateSchools array come from schools-data.js, which already
+            // publishes VAT-inclusive prices (VAT has applied to private school fees since Jan 2025).
+            // No additional VAT multiplication is applied here to avoid double-counting.
+            const privateFeeWithVAT_yearly = privateFeeGBP_yearly;
             const totalPrivateCostGBP = privateFeeWithVAT_yearly * years;
             const totalPrivateCostTHB = totalPrivateCostGBP * GBP_TO_THB_RATE;
 
@@ -644,9 +692,8 @@
             if (schoolType === 'private') {
                 comparisonText = `
                     <p><strong>Private Boarding (Selected):</strong></p>
-                    <p>Fee (ex. VAT): ${formatCurrency(privateFeeGBP_yearly)}/yr</p>
-                    <p>Fee (inc. VAT): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
-                    <p>Total Private Cost (inc. VAT): <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
+                    <p>Published Fee (VAT already included): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
+                    <p>Total Private Cost: <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
                     <hr style="border-color:var(--border-color); margin: 1.5rem 0;">
                     <p><strong>State Boarding (Comparison):</strong></p>
                     <p>Fee (VAT exempt): ${formatCurrency(stateFeeGBP_yearly)}/yr</p>
@@ -660,9 +707,8 @@
                     <p>Total State Cost (VAT exempt): <strong>${formatCurrency(totalStateCostGBP)}</strong> | <strong>${formatCurrency(totalStateCostTHB, 'THB')}</strong></p>
                     <hr style="border-color:var(--border-color); margin: 1.5rem 0;">
                     <p><strong>Private Boarding (Average Comparison):</strong></p>
-                    <p>Fee (ex. VAT): ${formatCurrency(privateFeeGBP_yearly)}/yr</p>
-                    <p>Fee (inc. VAT): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
-                    <p>Total Private Cost (inc. VAT): <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
+                    <p>Published Fee (VAT already included): ${formatCurrency(privateFeeWithVAT_yearly)}/yr</p>
+                    <p>Total Private Cost: <strong>${formatCurrency(totalPrivateCostGBP)}</strong> | <strong>${formatCurrency(totalPrivateCostTHB, 'THB')}</strong></p>
                     <p class="total-difference">Cost Difference: <strong>${formatCurrency(differenceGBP * -1)}</strong> | <strong>${formatCurrency(differenceTHB * -1, 'THB')}</strong></p>
                 `;
             }
@@ -671,8 +717,8 @@
                 <h3>Calculation Results | ผลการคำนวณ</h3>
                 <p><strong>Years | จำนวนปี:</strong> ${years}</p>
                 ${comparisonText}
-                <small style="display:block; margin-top:1rem; color:#aaa;">(Exchange Rate: 1 GBP = ${GBP_TO_THB_RATE} THB)</small>
-                <small style="display:block; margin-top:0.5rem; color:#aaa;">(Private fees include 20% VAT from Jan 2025. State fees are VAT exempt.)</small>
+                <small style="display:block; margin-top:1rem; color:#aaa;" class="fx-disclaimer">(Exchange Rate: 1 GBP &asymp; ${GBP_TO_THB_RATE} THB &mdash; approximate, rates fluctuate around 43-45 THB/GBP | อัตราแลกเปลี่ยนโดยประมาณ ผันผวนอยู่ที่ราว 43-45 บาท/ปอนด์)</small>
+                <small style="display:block; margin-top:0.5rem; color:#aaa;">(Private fees are published figures that already include the 20% VAT applied since Jan 2025. State fees are VAT exempt.)</small>
             `;
         }
 
@@ -684,8 +730,8 @@
                 card.classList.add('school-card');
                 card.innerHTML = `
                     <h4>${school.name}</h4>
-                    <p class="fee">Est. Fee (ex. VAT): ${formatCurrency(school.feeGBP)}/yr</p>
-                    <p class="fee">ค่าใช้จ่ายโดยประมาณ (ไม่รวม VAT): ${formatCurrency(school.feeGBP * GBP_TO_THB_RATE, 'THB')}/ปี</p>
+                    <p class="fee">Published Fee (VAT incl.): ${formatCurrency(school.feeGBP)}/yr</p>
+                    <p class="fee">ค่าธรรมเนียมที่ประกาศ (รวม VAT แล้ว): ${formatCurrency(school.feeGBP * GBP_TO_THB_RATE, 'THB')}/ปี</p>
                 `;
                 schoolListDiv.appendChild(card);
             });

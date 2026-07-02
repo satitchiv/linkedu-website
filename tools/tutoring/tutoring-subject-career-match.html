@@ -307,6 +307,19 @@
   }
   .strengths-box p { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.7; }
 
+  /* MATCH SUMMARY (why + coverage) */
+  .match-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 4px 0 16px; }
+  .match-badge { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 14px; border-radius: 20px; }
+  .match-badge.primary { background: var(--gold); color: var(--dark); }
+  .match-badge.secondary { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
+  .closely-matched-note { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+  .why-list { list-style: none; }
+  .why-list li { font-size: 13px; color: rgba(255,255,255,0.7); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .why-list li:last-child { border-bottom: none; }
+
+  /* LIMITS LINE */
+  .limits-line { font-size: 12px; color: rgba(0,0,0,0.5); text-align: center; max-width: 640px; margin: 0 auto 28px; line-height: 1.7; }
+
   /* CAREER CARDS */
   .careers-grid {
     display: grid;
@@ -517,17 +530,17 @@
   <div class="section-label">· LINKEDU SUBJECT MATCHER ·</div>
   <h1 class="lang-th">จับคู่วิชาและอาชีพ</h1>
   <h1 class="lang-en">Subject & Career Match</h1>
-  <p class="lang-th">เลือก 3 วิชาโปรด → รับผลลัพธ์: อาชีพที่ตรงกัน + มหาวิทยาลัย UK + แผนการติว</p>
-  <p class="lang-en">Pick your 3 favourite subjects and discover your top career matches, ideal UK universities, and tutoring plan.</p>
+  <p class="lang-th">เลือก 3 วิชาโปรดของบุตรหลานคุณ → รับผลลัพธ์: กลุ่มอาชีพที่ตรงกัน + มหาวิทยาลัย UK ที่นิยม + แผนการติว</p>
+  <p class="lang-en">Pick your child's 3 favourite subjects to see their career cluster match, commonly pursued UK universities, and a tutoring plan.</p>
 </div>
 
 <!-- SCREEN 1: SUBJECT SELECTION -->
 <div id="screen-select">
   <div class="screen-header">
-    <h2 class="lang-th">เลือก 3 วิชาที่คุณชอบมากที่สุด</h2>
-    <h2 class="lang-en">Pick your 3 favourite subjects</h2>
+    <h2 class="lang-th">เลือก 3 วิชาที่บุตรหลานของคุณชอบมากที่สุด</h2>
+    <h2 class="lang-en">Pick the 3 subjects your child enjoys most</h2>
     <p class="lang-th">คลิกที่การ์ดวิชา เมื่อเลือกครบ 3 วิชาแล้ว กด "ดูผลลัพธ์"</p>
-    <p class="lang-en">Click a subject card to select it. Once you have chosen 3, click "See My Matches".</p>
+    <p class="lang-en">Click a subject card to select it. Once you've chosen 3, click "See the Matches".</p>
   </div>
 
   <div class="selection-bar">
@@ -603,130 +616,189 @@ const SUBJECTS = [
 ];
 
 // Career match database — indexed by sorted combination of subject IDs
-const CAREER_MAP = {
-  'maths+physics+chemistry': {
+// Each cluster carries a subject-affinity map (subjectId -> 0-3). A chosen
+// subject's contribution to a cluster is its affinity value; a cluster's
+// score is the sum across the 3 chosen subjects, normalised against that
+// cluster's own top-3 affinity sum (always 9, since each cluster has
+// exactly 3 subjects at affinity 3 and none higher). This replaces the old
+// order-dependent partial-match lookup — every chosen subject now
+// influences every cluster's score, including the third one.
+const CLUSTERS = [
+  {
+    id: 'engineering',
+    name_th: 'วิศวกรรมและวิทยาศาสตร์กายภาพ',
+    name_en: 'Engineering & Physical Sciences',
+    affinity: { maths:3, physics:3, chemistry:3, cs:2, economics:1, geography:1 },
     careers: [
-      { name: 'Engineering', name_th: 'วิศวกรรม', desc: 'Design and build the physical and digital infrastructure of the modern world', unis: [{n:'Imperial College London',r:'World #1 for Engineering'},{n:'University of Cambridge',r:'Engineering Tripos — elite benchmark'},{n:'University of Bath',r:'Industry links, excellent graduate employment'}], alevels:['Mathematics','Further Mathematics','Physics'], strengthen:['Chemistry'] },
-      { name: 'Physics Research', name_th: 'วิจัยฟิสิกส์', desc: 'Advance fundamental understanding of matter, energy, and the universe', unis: [{n:'University of Cambridge',r:'Cavendish Laboratory — world-leading physics research'},{n:'Imperial College London',r:'Physics ranked top-5 globally'},{n:'University of Oxford',r:'Mathematical and Theoretical Physics'}], alevels:['Mathematics','Further Mathematics','Physics'], strengthen:['Chemistry'] },
-      { name: 'Actuarial Science', name_th: 'คณิตศาสตร์ประกันภัย', desc: 'Use statistics and mathematics to assess financial risk for banks and insurers', unis: [{n:'London School of Economics',r:'Risk and statistics — world-class'},{n:'University of Warwick',r:'Top-3 UK actuarial programme'},{n:'Heriot-Watt University',r:'Specialist actuarial studies, global reputation'}], alevels:['Mathematics','Further Mathematics','Statistics'], strengthen:['Economics'] }
+      { name: 'Engineering', name_th: 'วิศวกรรม', desc: 'Design and build the physical and digital infrastructure of the modern world', unis: [{n:'Imperial College London',r:'Consistently top-ranked for Engineering in the UK'},{n:'University of Cambridge',r:'Engineering Tripos — a long-established academic benchmark'},{n:'University of Bath',r:'Strong industry links and excellent graduate employment'}], alevels:['Mathematics','Further Mathematics','Physics'] },
+      { name: 'Physics Research', name_th: 'วิจัยฟิสิกส์', desc: 'Advance fundamental understanding of matter, energy, and the universe', unis: [{n:'University of Cambridge',r:'Cavendish Laboratory — a major centre for physics research'},{n:'Imperial College London',r:'Physics consistently highly ranked internationally'},{n:'University of Oxford',r:'Mathematical and Theoretical Physics'}], alevels:['Mathematics','Further Mathematics','Physics'] },
+      { name: 'Actuarial Science', name_th: 'คณิตศาสตร์ประกันภัย', desc: 'Use statistics and mathematics to assess financial risk for banks and insurers', unis: [{n:'London School of Economics',r:'Strong reputation in risk and statistics'},{n:'University of Warwick',r:'Top-3 UK actuarial programme'},{n:'Heriot-Watt University',r:'Specialist actuarial studies with strong international recognition'}], alevels:['Mathematics','Further Mathematics','Statistics'] }
     ],
-    strengths_th: 'ลูกของคุณมีความคิดเชิงปริมาณ วิเคราะห์เป็น และถนัดในการแก้ปัญหาที่ซับซ้อน — คุณสมบัติที่จำเป็นสำหรับวิศวกรและนักวิทยาศาสตร์',
-    strengths_en: 'Your child has the analytical, quantitative, and problem-solving instincts of a natural engineer or scientist. They think in systems and enjoy precision.',
-    tutoring: [{s:'Further Mathematics',w:'Separates good applicants from exceptional ones at Imperial, Cambridge, and Bath engineering'},{s:'Physics Problem Sets',w:'Engineering interviews and entrance tests require applying physics in unfamiliar contexts'},{s:'Chemistry to GCSE/A-Level',w:'Required for Materials Science and Chemical Engineering pathways'},{s:'UKISET / Admissions Tests',w:'Engineering and science universities use entrance tests — targeted preparation needed'}]
+    strengths_th: 'บุตรหลานของคุณมีความคิดเชิงปริมาณ วิเคราะห์เป็น และถนัดในการแก้ปัญหาที่ซับซ้อน — คุณสมบัติที่จำเป็นสำหรับวิศวกรและนักวิทยาศาสตร์',
+    strengths_en: 'Your child has the analytical, quantitative, and problem-solving instincts of a natural engineer or scientist. They think in systems and enjoy precision.'
   },
-  'english+history+psychology': {
+  {
+    id: 'law-humanities',
+    name_th: 'กฎหมาย สื่อ และมนุษยศาสตร์',
+    name_en: 'Law, Media & Human Sciences',
+    affinity: { english:3, history:3, psychology:3, drama:1, geography:1, economics:1 },
     careers: [
-      { name: 'Law / Barrister', name_th: 'กฎหมาย/ทนาย', desc: 'Argue cases, advise clients, and uphold justice in courts and law firms', unis: [{n:'University of Oxford',r:'Law — consistently ranked #1 in the UK'},{n:'Durham University',r:'Top-5 Law school, excellent bar pass rate'},{n:'University of Edinburgh',r:'Scots and international law — global career paths'}], alevels:['English Literature','History','Politics'], strengthen:['Government & Politics'] },
-      { name: 'Journalism / Media', name_th: 'สื่อสารมวลชน', desc: 'Report, investigate, and shape public opinion through compelling written and broadcast storytelling', unis: [{n:'City, University of London',r:'UK\'s premier journalism school, strong BBC links'},{n:'University of Sheffield',r:'Gold-standard journalism degree, award-winning graduates'},{n:'University of Oxford (English)',r:'Most journalists who write books studied English at Oxford'}], alevels:['English Literature','History','Politics'], strengthen:['Media Studies'] },
-      { name: 'Counselling / Clinical Psychology', name_th: 'จิตวิทยาคลินิก', desc: 'Support individuals through mental health challenges using evidence-based therapeutic approaches', unis: [{n:'UCL (University College London)',r:'Psychology ranked top-3 UK — research-intensive'},{n:'University of Edinburgh',r:'Clinical psychology programme, strong research base'},{n:'University of Bath',r:'Excellent applied psychology, high employability'}], alevels:['Psychology','Biology','English Literature'], strengthen:['Sociology'] }
+      { name: 'Law / Barrister', name_th: 'กฎหมาย/ทนาย', desc: 'Argue cases, advise clients, and uphold justice in courts and law firms', unis: [{n:'University of Oxford',r:'Law — consistently ranked among the top in the UK'},{n:'Durham University',r:'Top-5 Law school, strong bar pass rate'},{n:'University of Edinburgh',r:'Scots and international law — broad global career paths'}], alevels:['English Literature','History','Politics'] },
+      { name: 'Journalism / Media', name_th: 'สื่อสารมวลชน', desc: 'Report, investigate, and shape public opinion through compelling written and broadcast storytelling', unis: [{n:'City, University of London',r:"One of the UK's leading journalism schools, strong industry links"},{n:'University of Sheffield',r:'Highly regarded journalism degree with strong graduate outcomes'},{n:'University of Oxford (English)',r:'English Literature — a strong foundation for writers and journalists'}], alevels:['English Literature','History','Politics'] },
+      { name: 'Counselling / Clinical Psychology', name_th: 'จิตวิทยาคลินิก', desc: 'Support individuals through mental health challenges using evidence-based therapeutic approaches', unis: [{n:'UCL (University College London)',r:'Psychology ranked top-3 UK — research-intensive'},{n:'University of Edinburgh',r:'Clinical psychology programme, strong research base'},{n:'University of Bath',r:'Excellent applied psychology, high employability'}], alevels:['Psychology','Biology','English Literature'] }
     ],
-    strengths_th: 'ลูกของคุณเป็นผู้สื่อสารที่ยอดเยี่ยม ชอบเข้าใจผู้คน และสนใจแนวคิดที่ซับซ้อน — เหมาะมากสำหรับกฎหมาย การสื่อสารมวลชน และจิตวิทยา',
-    strengths_en: 'Your child is a natural communicator with a gift for understanding people and engaging with complex ideas. They\'ll thrive in law, media, or the human sciences.',
-    tutoring: [{s:'English Essay Writing',w:'Law, journalism, and psychology all require fluent, structured, persuasive writing from day one'},{s:'Critical Reading',w:'University-level reading requires engaging with dense academic and legal texts'},{s:'Interview Preparation',w:'Law and Oxbridge interviews test verbal reasoning, argumentation, and intellectual confidence'},{s:'Personal Statement',w:'Humanities degrees are highly competitive — a distinctive personal statement is essential'}]
+    strengths_th: 'บุตรหลานของคุณเป็นผู้สื่อสารที่ยอดเยี่ยม ชอบเข้าใจผู้คน และสนใจแนวคิดที่ซับซ้อน — เหมาะมากสำหรับกฎหมาย การสื่อสารมวลชน และจิตวิทยา',
+    strengths_en: "Your child is a natural communicator with a gift for understanding people and engaging with complex ideas. They'll thrive in law, media, or the human sciences."
   },
-  'biology+chemistry+maths': {
+  {
+    id: 'medicine',
+    name_th: 'แพทยศาสตร์และวิทยาศาสตร์ชีวภาพ',
+    name_en: 'Medicine & Life Sciences',
+    affinity: { biology:3, chemistry:3, maths:3, psychology:1, physics:1 },
     careers: [
-      { name: 'Medicine / Surgery', name_th: 'แพทยศาสตร์', desc: 'Diagnose, treat, and prevent illness — one of the most respected and rewarding careers in the world', unis: [{n:'University of Cambridge',r:'Medical School — consistently top-3 globally'},{n:'Imperial College London',r:'Research-intensive medical training, London hospitals'},{n:'University of St Andrews',r:'Joint medical degree with Manchester, global reputation'}], alevels:['Chemistry','Biology','Mathematics'], strengthen:['Further Mathematics'] },
-      { name: 'Pharmacology / Pharmacy', name_th: 'เภสัชวิทยา', desc: 'Develop, test, and dispense drugs that treat disease and improve quality of life globally', unis: [{n:'University of Nottingham',r:'Top-ranked Pharmacy and Pharmaceutical Science in the UK'},{n:'King\'s College London',r:'Institute of Pharmaceutical Science, central London hospitals'},{n:'University of Bath',r:'Pharmacy MPharm — excellent industry placements'}], alevels:['Chemistry','Biology','Mathematics'], strengthen:['Physics'] },
-      { name: 'Biochemistry / Biotechnology', name_th: 'ชีวเคมีและเทคโนโลยีชีวภาพ', desc: 'Explore the molecular basis of life to develop new therapies, diagnostics, and biotechnologies', unis: [{n:'Imperial College London',r:'Life Sciences — world-leading research institute'},{n:'UCL',r:'Biochemistry ranked top-5 UK'},{n:'University of Bristol',r:'Biochemistry with Industrial Experience — top graduate salaries'}], alevels:['Chemistry','Biology','Mathematics'], strengthen:['Physics'] }
+      { name: 'Medicine / Surgery', name_th: 'แพทยศาสตร์', desc: 'Diagnose, treat, and prevent illness — one of the most respected and rewarding careers in the world', unis: [{n:'University of Cambridge',r:'Medical School — consistently highly ranked internationally'},{n:'Imperial College London',r:'Research-intensive medical training, London hospitals'},{n:'University of St Andrews',r:'Joint medical degree with Manchester, strong international reputation'}], alevels:['Chemistry','Biology','Mathematics'] },
+      { name: 'Pharmacology / Pharmacy', name_th: 'เภสัชวิทยา', desc: 'Develop, test, and dispense drugs that treat disease and improve quality of life globally', unis: [{n:'University of Nottingham',r:'Top-ranked Pharmacy and Pharmaceutical Science in the UK'},{n:'King\'s College London',r:'Institute of Pharmaceutical Science, central London hospitals'},{n:'University of Bath',r:'Pharmacy MPharm — excellent industry placements'}], alevels:['Chemistry','Biology','Mathematics'] },
+      { name: 'Biochemistry / Biotechnology', name_th: 'ชีวเคมีและเทคโนโลยีชีวภาพ', desc: 'Explore the molecular basis of life to develop new therapies, diagnostics, and biotechnologies', unis: [{n:'Imperial College London',r:'Life Sciences — a leading research institute'},{n:'UCL',r:'Biochemistry ranked top-5 UK'},{n:'University of Bristol',r:'Biochemistry with Industrial Experience — strong graduate outcomes'}], alevels:['Chemistry','Biology','Mathematics'] }
     ],
-    strengths_th: 'ลูกของคุณมีความคิดเชิงวิทยาศาสตร์และเป็นระบบ เหมาะมากสำหรับเส้นทางแพทย์และวิทยาศาสตร์ชีวภาพ',
-    strengths_en: 'Your child thinks like a scientist — methodical, evidence-driven, and passionate about the natural world. Medicine and biosciences are a natural fit.',
-    tutoring: [{s:'BMAT / UCAT Preparation',w:'UK medical school entry requires dedicated preparation for aptitude tests — start Year 11'},{s:'Chemistry A-Level Mastery',w:'Organic chemistry and mechanisms are essential for Medicine, Pharmacology, and Biochemistry'},{s:'Biology Extended Writing',w:'6-mark exam answers require precision language — practise scientific explanations'},{s:'Interview Simulation',w:'Medical school interviews (MMI and traditional) test empathy, ethics, and scientific reasoning'}]
+    strengths_th: 'บุตรหลานของคุณมีความคิดเชิงวิทยาศาสตร์และเป็นระบบ เหมาะมากสำหรับเส้นทางแพทย์และวิทยาศาสตร์ชีวภาพ',
+    strengths_en: 'Your child thinks like a scientist — methodical, evidence-driven, and passionate about the natural world. Medicine and biosciences are a natural fit.'
   },
-  'economics+maths+business': {
+  {
+    id: 'business-finance',
+    name_th: 'ธุรกิจ การเงิน และผู้ประกอบการ',
+    name_en: 'Business, Finance & Enterprise',
+    affinity: { economics:3, maths:3, business:3, history:1, cs:1, psychology:1 },
     careers: [
-      { name: 'Investment Banking / Finance', name_th: 'วาณิชธนกิจ', desc: 'Structure mergers, manage capital markets, and execute high-value transactions for global corporations', unis: [{n:'London School of Economics',r:'The premier economics university in the UK — direct pipeline to Goldman, JP Morgan'},{n:'University of Warwick',r:'Warwick Business School — top-5 UK, excellent finance programmes'},{n:'Durham University',r:'Top-5 Economics — strong City of London recruitment'}], alevels:['Economics','Mathematics','History'], strengthen:['Further Mathematics'] },
-      { name: 'Management Consulting', name_th: 'ที่ปรึกษาการจัดการ', desc: 'Solve complex business problems and advise global organisations on strategy, efficiency, and growth', unis: [{n:'University of Oxford (PPE)',r:'Politics, Philosophy & Economics — the consulting degree'},{n:'London School of Economics',r:'Management and economics — top consulting firm recruiter'},{n:'University of Cambridge',r:'Economics Tripos — McKinsey, BCG, Bain\'s favourite UK source'}], alevels:['Economics','Mathematics','History'], strengthen:['Statistics'] },
-      { name: 'Entrepreneur / Business Founder', name_th: 'ผู้ประกอบการ', desc: 'Build companies from scratch, lead teams, and create value by solving real-world problems', unis: [{n:'University of Warwick',r:'WBS Entrepreneurship — one of the UK\'s strongest startup ecosystems'},{n:'University of Bath',r:'Business and Management, industry placement year'},{n:'King\'s College London',r:'Business programmes with London startup access'}], alevels:['Economics','Business Studies','Mathematics'], strengthen:['Computing'] }
+      { name: 'Investment Banking / Finance', name_th: 'วาณิชธนกิจ', desc: 'Structure mergers, manage capital markets, and execute high-value transactions for global corporations', unis: [{n:'London School of Economics',r:"The UK's leading economics university — strong finance and consulting recruitment"},{n:'University of Warwick',r:'Warwick Business School — top-5 UK, excellent finance programmes'},{n:'Durham University',r:'Top-5 Economics — strong City of London recruitment'}], alevels:['Economics','Mathematics','History'] },
+      { name: 'Management Consulting', name_th: 'ที่ปรึกษาการจัดการ', desc: 'Solve complex business problems and advise global organisations on strategy, efficiency, and growth', unis: [{n:'University of Oxford (PPE)',r:'Politics, Philosophy & Economics — a well-established route into consulting'},{n:'London School of Economics',r:'Management and economics — strong consulting firm recruitment'},{n:'University of Cambridge',r:'Economics Tripos — strong recruitment into McKinsey, BCG, and Bain'}], alevels:['Economics','Mathematics','History'] },
+      { name: 'Entrepreneur / Business Founder', name_th: 'ผู้ประกอบการ', desc: 'Build companies from scratch, lead teams, and create value by solving real-world problems', unis: [{n:'University of Warwick',r:"WBS Entrepreneurship — one of the UK's strongest startup ecosystems"},{n:'University of Bath',r:'Business and Management, industry placement year'},{n:'King\'s College London',r:'Business programmes with London startup access'}], alevels:['Economics','Business Studies','Mathematics'] }
     ],
-    strengths_th: 'ลูกของคุณมีความสามารถเชิงตัวเลขและธุรกิจ เหมาะมากสำหรับการเงิน การตลาด และการเป็นผู้นำ',
-    strengths_en: 'Your child combines analytical precision with commercial awareness — exactly what top finance, consulting, and business programmes select for.',
-    tutoring: [{s:'Economics Essay Technique',w:'LSE, Oxford, and Cambridge Economics interviews and tests require rapid, structured economic argument'},{s:'Mathematics to A-Level',w:'Quantitative economics and finance require strong algebra, calculus, and statistics'},{s:'STEP / MAT Preparation',w:'Oxbridge Economics applicants are often expected to sit mathematics entrance tests'},{s:'Personal Statement & Interview',w:'Highly competitive — your personal statement must show genuine economic thinking, not just enthusiasm'}]
+    strengths_th: 'บุตรหลานของคุณมีความสามารถเชิงตัวเลขและธุรกิจ เหมาะมากสำหรับการเงิน การตลาด และการเป็นผู้นำ',
+    strengths_en: 'Your child combines analytical precision with commercial awareness — exactly what top finance, consulting, and business programmes select for.'
   },
-  'art+drama+music': {
+  {
+    id: 'creative-arts',
+    name_th: 'ศิลปะสร้างสรรค์และการออกแบบ',
+    name_en: 'Creative Arts & Design',
+    affinity: { art:3, drama:3, music:3, english:2, cs:1, history:1 },
     careers: [
-      { name: 'Film & Theatre Director', name_th: 'ผู้กำกับภาพยนตร์/ละคร', desc: 'Bring stories and ideas to life through performance, camera craft, and visual storytelling', unis: [{n:'University of the Arts London',r:'Central Saint Martins — world\'s top creative arts university'},{n:'LAMDA / RADA',r:'World\'s most prestigious acting and drama training conservatoires'},{n:'University of Edinburgh',r:'Film Studies and Performance — strong creative faculty'}], alevels:['Drama','English Literature','History of Art'], strengthen:['Film Studies'] },
-      { name: 'Graphic Designer / UX Designer', name_th: 'นักออกแบบกราฟิก/UX', desc: 'Create visual identities, digital experiences, and communication systems for brands and technology', unis: [{n:'University of the Arts London',r:'London College of Communication — top graphic design'},{n:'Royal College of Art',r:'Postgraduate design — the global benchmark'},{n:'Falmouth University',r:'Creative arts, design and media — outstanding graduate outcomes'}], alevels:['Art & Design','Mathematics','Computer Science'], strengthen:['Photography'] },
-      { name: 'Musician / Composer', name_th: 'นักดนตรี/นักแต่งเพลง', desc: 'Perform, compose, and produce music across classical, contemporary, and commercial genres', unis: [{n:'Royal College of Music',r:'World-class conservatoire, London — elite classical and contemporary training'},{n:'Guildhall School of Music',r:'City of London — performance, composition, music theatre'},{n:'University of Edinburgh',r:'Music with strong academic and performance strand'}], alevels:['Music','Music Technology','English Literature'], strengthen:['Art & Design'] }
+      { name: 'Film & Theatre Director', name_th: 'ผู้กำกับภาพยนตร์/ละคร', desc: 'Bring stories and ideas to life through performance, camera craft, and visual storytelling', unis: [{n:'University of the Arts London',r:"Central Saint Martins — one of the world's leading creative arts universities"},{n:'LAMDA / RADA',r:'Among the most respected acting and drama conservatoires'},{n:'University of Edinburgh',r:'Film Studies and Performance — strong creative faculty'}], alevels:['Drama','English Literature','History of Art'] },
+      { name: 'Graphic Designer / UX Designer', name_th: 'นักออกแบบกราฟิก/UX', desc: 'Create visual identities, digital experiences, and communication systems for brands and technology', unis: [{n:'University of the Arts London',r:'London College of Communication — leading graphic design programme'},{n:'Royal College of Art',r:'A globally respected postgraduate design school'},{n:'Falmouth University',r:'Creative arts, design and media — outstanding graduate outcomes'}], alevels:['Art & Design','Mathematics','Computer Science'] },
+      { name: 'Musician / Composer', name_th: 'นักดนตรี/นักแต่งเพลง', desc: 'Perform, compose, and produce music across classical, contemporary, and commercial genres', unis: [{n:'Royal College of Music',r:'A leading London conservatoire for classical and contemporary training'},{n:'Guildhall School of Music',r:'City of London — performance, composition, music theatre'},{n:'University of Edinburgh',r:'Music with strong academic and performance strand'}], alevels:['Music','Music Technology','English Literature'] }
     ],
-    strengths_th: 'ลูกของคุณมีความคิดสร้างสรรค์สูง มีวิสัยทัศน์ด้านสุนทรียศาสตร์ และสามารถสื่อสารผ่านศิลปะได้อย่างทรงพลัง',
-    strengths_en: 'Your child is creatively gifted — expressive, aesthetically sensitive, and able to communicate powerfully through art and performance. The creative industries need their talent.',
-    tutoring: [{s:'Portfolio Development',w:'Creative university applications require a strong portfolio — start developing it from Year 10'},{s:'English Literature',w:'All creative arts degrees require strong academic writing — do not neglect this'},{s:'Interview Preparation',w:'Creative school interviews test genuine passion, artistic vision, and cultural knowledge'},{s:'UCAS Personal Statement',w:'Showing a clear artistic voice and real-world creative experience is essential for UAL and conservatoire applications'}]
+    strengths_th: 'บุตรหลานของคุณมีความคิดสร้างสรรค์สูง มีวิสัยทัศน์ด้านสุนทรียศาสตร์ และสามารถสื่อสารผ่านศิลปะได้อย่างทรงพลัง',
+    strengths_en: 'Your child is creatively gifted — expressive, aesthetically sensitive, and able to communicate powerfully through art and performance. The creative industries need their talent.'
   },
-  'history+french+english': {
+  {
+    id: 'languages-diplomacy',
+    name_th: 'ภาษาและกิจการระหว่างประเทศ',
+    name_en: 'Languages & International Affairs',
+    affinity: { history:3, french:3, english:3, geography:2, psychology:1, economics:1 },
     careers: [
-      { name: 'International Relations / Diplomacy', name_th: 'ความสัมพันธ์ระหว่างประเทศ', desc: 'Represent nations, negotiate treaties, and navigate global policy at the highest levels of government', unis: [{n:'University of St Andrews',r:'Top-ranked International Relations in the UK'},{n:'University of Edinburgh',r:'Politics and International Relations — strong global alumni network'},{n:'LSE',r:'International Relations and History — direct path to UN, FCDO, NGOs'}], alevels:['History','Politics','French'], strengthen:['Geography'] },
-      { name: 'Translator / Interpreter', name_th: 'นักแปล/ล่าม', desc: 'Bridge languages and cultures in international organisations, publishing, legal, and diplomatic settings', unis: [{n:'University of Bath',r:'Modern Languages and International Studies — industry placements'},{n:'UCL',r:'Translation Studies and Language Sciences'},{n:'University of Westminster',r:'Conference Interpreting — EU and UN connections'}], alevels:['French','English Literature','Another Language'], strengthen:['History'] },
-      { name: 'Author / Academic', name_th: 'นักเขียน/นักวิชาการ', desc: 'Produce books, articles, and scholarship that advance knowledge and shape cultural conversation', unis: [{n:'University of Oxford',r:'English Literature — the gold standard for writers and academics'},{n:'University of Cambridge',r:'English — intensive literary training'},{n:'University of Edinburgh',r:'Creative Writing and Literature — strong faculty of practising writers'}], alevels:['English Literature','History','French'], strengthen:['Classical Civilisation'] }
+      { name: 'International Relations / Diplomacy', name_th: 'ความสัมพันธ์ระหว่างประเทศ', desc: 'Represent nations, negotiate treaties, and navigate global policy at the highest levels of government', unis: [{n:'University of St Andrews',r:'Top-ranked International Relations in the UK'},{n:'University of Edinburgh',r:'Politics and International Relations — strong global alumni network'},{n:'LSE',r:'International Relations and History — a well-established route toward the UN, FCDO, and NGOs'}], alevels:['History','Politics','French'] },
+      { name: 'Translator / Interpreter', name_th: 'นักแปล/ล่าม', desc: 'Bridge languages and cultures in international organisations, publishing, legal, and diplomatic settings', unis: [{n:'University of Bath',r:'Modern Languages and International Studies — industry placements'},{n:'UCL',r:'Translation Studies and Language Sciences'},{n:'University of Westminster',r:'Conference Interpreting — EU and UN connections'}], alevels:['French','English Literature','Another Language'] },
+      { name: 'Author / Academic', name_th: 'นักเขียน/นักวิชาการ', desc: 'Produce books, articles, and scholarship that advance knowledge and shape cultural conversation', unis: [{n:'University of Oxford',r:'English Literature — a highly regarded foundation for writers and academics'},{n:'University of Cambridge',r:'English — intensive literary training'},{n:'University of Edinburgh',r:'Creative Writing and Literature — strong faculty of practising writers'}], alevels:['English Literature','History','French'] }
     ],
-    strengths_th: 'ลูกของคุณรักภาษา ชอบเรียนรู้เกี่ยวกับผู้คนและวัฒนธรรม และสามารถคิดเชิงวิพากษ์ได้ดี เหมาะมากสำหรับการทูตและสื่อสาร',
-    strengths_en: 'Your child is a natural linguist and humanist — they read widely, communicate with flair, and think critically about the world. Diplomacy, writing, and academia await.',
-    tutoring: [{s:'Essay Writing & Argument',w:'History, Law, and international relations degrees require sophisticated analytical essay writing'},{s:'French to A-Level',w:'Speaking French fluently is increasingly valuable in international careers — secure it now'},{s:'Debating & Public Speaking',w:'Diplomatic and academic careers require confident, structured oral communication'},{s:'Oxbridge Interview Preparation',w:'English and History at Oxford and Cambridge require unusual intellectual confidence and range'}]
+    strengths_th: 'บุตรหลานของคุณรักภาษา ชอบเรียนรู้เกี่ยวกับผู้คนและวัฒนธรรม และสามารถคิดเชิงวิพากษ์ได้ดี เหมาะมากสำหรับการทูตและสื่อสาร',
+    strengths_en: 'Your child is a natural linguist and humanist — they read widely, communicate with flair, and think critically about the world. Diplomacy, writing, and academia await.'
   },
-  'cs+maths+physics': {
+  {
+    id: 'computing',
+    name_th: 'คอมพิวเตอร์และข้อมูล',
+    name_en: 'Computing & Data',
+    affinity: { cs:3, maths:3, physics:3, economics:1, business:1, art:1 },
     careers: [
-      { name: 'Software Engineer / Developer', name_th: 'วิศวกรซอฟต์แวร์', desc: 'Build the applications, platforms, and systems that power the digital world', unis: [{n:'University of Cambridge',r:'Computer Science — ranked #1 UK, graduates at Google, DeepMind, startups'},{n:'Imperial College London',r:'Computing — elite technical degree with industry links'},{n:'University of Edinburgh',r:'Informatics — top-5 UK, excellent research environment'}], alevels:['Computer Science','Mathematics','Further Mathematics'], strengthen:['Physics'] },
-      { name: 'Data Scientist / AI Researcher', name_th: 'นักวิทยาศาสตร์ข้อมูล/AI', desc: 'Extract insights from data and build intelligent systems that transform industries', unis: [{n:'University of Oxford',r:'Computer Science and Statistics — AI research powerhouse'},{n:'University College London',r:'UCL CS and AI — top AI research, DeepMind partnership'},{n:'University of Edinburgh',r:'Informatics and Data Science — nationally leading AI research'}], alevels:['Mathematics','Further Mathematics','Computer Science'], strengthen:['Statistics'] },
-      { name: 'Cybersecurity Specialist', name_th: 'ผู้เชี่ยวชาญความปลอดภัยไซเบอร์', desc: 'Protect digital systems, networks, and data from increasingly sophisticated threats', unis: [{n:'University of Surrey',r:'Cybersecurity — NCSC-certified, government partnerships'},{n:'University of Edinburgh',r:'Computer Security and Privacy'},{n:'Lancaster University',r:'Cybersecurity centre of excellence'}], alevels:['Computer Science','Mathematics','Physics'], strengthen:['Further Mathematics'] }
+      { name: 'Software Engineer / Developer', name_th: 'วิศวกรซอฟต์แวร์', desc: 'Build the applications, platforms, and systems that power the digital world', unis: [{n:'University of Cambridge',r:'Computer Science — consistently top-ranked in the UK, with graduates across major tech companies'},{n:'Imperial College London',r:'Computing — a highly technical degree with strong industry links'},{n:'University of Edinburgh',r:'Informatics — top-5 UK, excellent research environment'}], alevels:['Computer Science','Mathematics','Further Mathematics'] },
+      { name: 'Data Scientist / AI Researcher', name_th: 'นักวิทยาศาสตร์ข้อมูล/AI', desc: 'Extract insights from data and build intelligent systems that transform industries', unis: [{n:'University of Oxford',r:'Computer Science and Statistics — a major centre for AI research'},{n:'University College London',r:'UCL CS and AI — strong AI research, with a DeepMind partnership'},{n:'University of Edinburgh',r:"Informatics and Data Science — among the UK's leading AI research groups"}], alevels:['Mathematics','Further Mathematics','Computer Science'] },
+      { name: 'Cybersecurity Specialist', name_th: 'ผู้เชี่ยวชาญความปลอดภัยไซเบอร์', desc: 'Protect digital systems, networks, and data from increasingly sophisticated threats', unis: [{n:'University of Surrey',r:'Cybersecurity — NCSC-certified, government partnerships'},{n:'University of Edinburgh',r:'Computer Security and Privacy'},{n:'Lancaster University',r:'Cybersecurity centre of excellence'}], alevels:['Computer Science','Mathematics','Physics'] }
     ],
-    strengths_th: 'ลูกของคุณคิดเชิงตรรกะ เชี่ยวชาญด้านเทคโนโลยี และชอบการสร้างระบบที่ซับซ้อน — ทักษะที่ขาดแคลนและมีค่ามากในโลกดิจิทัล',
-    strengths_en: 'Your child is a logical, systematic thinker who understands technology deeply. These are among the most in-demand skills in the global economy.',
-    tutoring: [{s:'Further Mathematics',w:'Essential for Cambridge and Imperial Computer Science — separates applicants significantly'},{s:'Programming Projects',w:'University CS departments want evidence of genuine personal projects, not just school work'},{s:'Mathematics Olympiad Prep',w:'Competitive maths preparation signals the depth of thinking elite CS departments want'},{s:'Personal Statement',w:'CS personal statements must show genuine curiosity and independent coding experience'}]
+    strengths_th: 'บุตรหลานของคุณคิดเชิงตรรกะ เชี่ยวชาญด้านเทคโนโลยี และชอบการสร้างระบบที่ซับซ้อน — ทักษะที่ขาดแคลนและมีค่ามากในโลกดิจิทัล',
+    strengths_en: 'Your child is a logical, systematic thinker who understands technology deeply. These are among the most in-demand skills in the global economy.'
   },
-  'psychology+biology+sociology': {
+  {
+    id: 'psychology-social',
+    name_th: 'จิตวิทยาและสังคมศาสตร์',
+    name_en: 'Psychology & Social Sciences',
+    affinity: { psychology:3, biology:3, chemistry:3, english:1, pe:1, geography:1 },
     careers: [
-      { name: 'Clinical Psychologist', name_th: 'นักจิตวิทยาคลินิก', desc: 'Assess and treat mental health conditions using evidence-based therapies in clinical settings', unis: [{n:'UCL',r:'Psychology — consistently top-3 UK'},{n:'University of Edinburgh',r:'Clinical Psychology doctorate programme'},{n:'University of Bath',r:'Applied Psychology — excellent clinical placements'}], alevels:['Psychology','Biology','Sociology'], strengthen:['English Literature'] },
-      { name: 'Neuroscientist', name_th: 'นักประสาทวิทยาศาสตร์', desc: 'Investigate the biological basis of behaviour, memory, emotion, and consciousness', unis: [{n:'University of Cambridge',r:'Natural Sciences (Neuroscience option) — world-leading research'},{n:'UCL',r:'Neuroscience — one of the largest and best research departments globally'},{n:'University of Edinburgh',r:'Neuroscience and psychology combined programmes'}], alevels:['Biology','Chemistry','Psychology'], strengthen:['Mathematics'] },
-      { name: 'Social Worker / Counsellor', name_th: 'นักสังคมสงเคราะห์', desc: 'Support individuals and families facing mental health, family, or social challenges', unis: [{n:'University of Warwick',r:'Social Work — highly regarded, excellent placement links'},{n:'University of Birmingham',r:'Social Work and Social Policy — Midlands hub'},{n:'King\'s College London',r:'Social Work programme with London practice placements'}], alevels:['Psychology','Sociology','English Literature'], strengthen:['Biology'] }
+      { name: 'Clinical Psychologist', name_th: 'นักจิตวิทยาคลินิก', desc: 'Assess and treat mental health conditions using evidence-based therapies in clinical settings', unis: [{n:'UCL',r:'Psychology — consistently top-3 UK'},{n:'University of Edinburgh',r:'Clinical Psychology doctorate programme'},{n:'University of Bath',r:'Applied Psychology — excellent clinical placements'}], alevels:['Psychology','Biology','Chemistry'] },
+      { name: 'Neuroscientist', name_th: 'นักประสาทวิทยาศาสตร์', desc: 'Investigate the biological basis of behaviour, memory, emotion, and consciousness', unis: [{n:'University of Cambridge',r:'Natural Sciences (Neuroscience option) — a major centre for neuroscience research'},{n:'UCL',r:'Neuroscience — one of the largest neuroscience research departments in the UK'},{n:'University of Edinburgh',r:'Neuroscience and psychology combined programmes'}], alevels:['Biology','Chemistry','Psychology'] },
+      { name: 'Social Worker / Counsellor', name_th: 'นักสังคมสงเคราะห์', desc: 'Support individuals and families facing mental health, family, or social challenges', unis: [{n:'University of Warwick',r:'Social Work — highly regarded, excellent placement links'},{n:'University of Birmingham',r:'Social Work and Social Policy — Midlands hub'},{n:'King\'s College London',r:'Social Work programme with London practice placements'}], alevels:['Psychology','English Literature','Biology'] }
     ],
-    strengths_th: 'ลูกของคุณเข้าใจผู้คนได้ลึกซึ้ง มีความเห็นอกเห็นใจสูง และสนใจในวิทยาศาสตร์ของพฤติกรรมมนุษย์ — คุณสมบัติที่จำเป็นสำหรับอาชีพด้านสุขภาพจิตและสังคมศาสตร์',
-    strengths_en: 'Your child has a deep understanding of people and a genuine passion for human wellbeing. They combine scientific rigour with empathy — the ideal combination for psychological and social sciences.',
-    tutoring: [{s:'Biology A-Level',w:'Neuroscience and clinical psychology require strong biological foundations'},{s:'Statistics for Psychology',w:'All psychology degrees require research methods and statistical analysis — master this early'},{s:'Academic Essay Writing',w:'Psychology, social work, and neuroscience all require clear, evidence-based written argumentation'},{s:'Interview Preparation',w:'Psychology and clinical programmes select heavily on empathy, communication, and self-awareness shown at interview'}]
+    strengths_th: 'บุตรหลานของคุณเข้าใจผู้คนได้ลึกซึ้ง มีความเห็นอกเห็นใจสูง และสนใจในวิทยาศาสตร์ของพฤติกรรมมนุษย์ — คุณสมบัติที่จำเป็นสำหรับอาชีพด้านสุขภาพจิตและสังคมศาสตร์',
+    strengths_en: 'Your child has a deep understanding of people and a genuine passion for human wellbeing. They combine scientific rigour with empathy — a strong combination for psychological and social sciences.'
   },
-  'geography+biology+chemistry': {
+  {
+    id: 'environmental-science',
+    name_th: 'วิทยาศาสตร์สิ่งแวดล้อมและทางทะเล',
+    name_en: 'Environmental & Marine Sciences',
+    affinity: { geography:3, biology:3, chemistry:3, maths:1, physics:1, economics:1 },
     careers: [
-      { name: 'Environmental Scientist', name_th: 'นักวิทยาศาสตร์สิ่งแวดล้อม', desc: 'Investigate and develop solutions for environmental challenges including climate change, pollution, and biodiversity loss', unis: [{n:'University of Edinburgh',r:'Earth Sciences and Environmental Geoscience — world-class'},{n:'University of Exeter',r:'Environment and Sustainability — leading climate research'},{n:'UCL',r:'Environmental Sciences — policy-linked, London-based'}], alevels:['Geography','Chemistry','Biology'], strengthen:['Mathematics'] },
-      { name: 'Conservation Biologist', name_th: 'นักชีววิทยาอนุรักษ์', desc: 'Study and protect biodiversity, ecosystems, and endangered species in fieldwork and research roles', unis: [{n:'University of Exeter',r:'Biosciences and Conservation — excellent fieldwork focus'},{n:'University of Edinburgh',r:'Ecology and Environmental Science'},{n:'University of Bristol',r:'Biological Sciences — strong conservation research'}], alevels:['Biology','Geography','Chemistry'], strengthen:['Mathematics'] },
-      { name: 'Marine Biologist', name_th: 'นักชีววิทยาทางทะเล', desc: 'Study ocean ecosystems, marine species, and the impact of climate change on aquatic environments', unis: [{n:'University of St Andrews',r:'Marine Biology — world\'s best in Scotland'},{n:'University of Plymouth',r:'Marine Biology — UK\'s specialist coastal university'},{n:'University of Exeter (Penryn)',r:'Ocean science and conservation — leading research campus'}], alevels:['Biology','Chemistry','Geography'], strengthen:['Mathematics'] }
+      { name: 'Environmental Scientist', name_th: 'นักวิทยาศาสตร์สิ่งแวดล้อม', desc: 'Investigate and develop solutions for environmental challenges including climate change, pollution, and biodiversity loss', unis: [{n:'University of Edinburgh',r:'Earth Sciences and Environmental Geoscience — strong international reputation'},{n:'University of Exeter',r:'Environment and Sustainability — leading climate research'},{n:'UCL',r:'Environmental Sciences — policy-linked, London-based'}], alevels:['Geography','Chemistry','Biology'] },
+      { name: 'Conservation Biologist', name_th: 'นักชีววิทยาอนุรักษ์', desc: 'Study and protect biodiversity, ecosystems, and endangered species in fieldwork and research roles', unis: [{n:'University of Exeter',r:'Biosciences and Conservation — excellent fieldwork focus'},{n:'University of Edinburgh',r:'Ecology and Environmental Science'},{n:'University of Bristol',r:'Biological Sciences — strong conservation research'}], alevels:['Biology','Geography','Chemistry'] },
+      { name: 'Marine Biologist', name_th: 'นักชีววิทยาทางทะเล', desc: 'Study ocean ecosystems, marine species, and the impact of climate change on aquatic environments', unis: [{n:'University of St Andrews',r:"Marine Biology — Scotland's leading programme"},{n:'University of Plymouth',r:"Marine Biology — UK's specialist coastal university"},{n:'University of Exeter (Penryn)',r:'Ocean science and conservation — leading research campus'}], alevels:['Biology','Chemistry','Geography'] }
     ],
-    strengths_th: 'ลูกของคุณรักธรรมชาติ สนใจโลกของเราอย่างลึกซึ้ง และต้องการสร้างความแตกต่างให้กับสิ่งแวดล้อม — ทักษะที่โลกต้องการมากขึ้นทุกวัน',
-    strengths_en: 'Your child cares deeply about the natural world and combines scientific curiosity with a desire to make a real difference. Environmental and marine science careers need this combination urgently.',
-    tutoring: [{s:'Chemistry to A-Level',w:'Environmental science and marine biology require strong chemistry foundations'},{s:'Mathematics and Statistics',w:'Scientific research requires data analysis — strengthen this now'},{s:'Extended Project Qualification',w:'An EPQ on an environmental topic demonstrates genuine passion to university admissions teams'},{s:'Biology Fieldwork Skills',w:'University ecology and conservation programmes value candidates with real fieldwork and observation experience'}]
+    strengths_th: 'บุตรหลานของคุณรักธรรมชาติ สนใจโลกของเราอย่างลึกซึ้ง และต้องการสร้างความแตกต่างให้กับสิ่งแวดล้อม — ทักษะที่โลกต้องการมากขึ้นทุกวัน',
+    strengths_en: 'Your child cares deeply about the natural world and combines scientific curiosity with a desire to make a real difference. Environmental and marine science careers need this combination urgently.'
   },
-  'economics+history+politics': {
+  {
+    id: 'politics-economics',
+    name_th: 'การเมือง เศรษฐศาสตร์ และนโยบายสาธารณะ',
+    name_en: 'Politics, Economics & Public Policy',
+    affinity: { economics:3, history:3, geography:3, english:2, french:1, maths:1 },
     careers: [
-      { name: 'Politician / Policy Maker', name_th: 'นักการเมือง/ผู้กำหนดนโยบาย', desc: 'Shape the laws, budgets, and policies that govern society at local, national, and international level', unis: [{n:'University of Oxford (PPE)',r:'Politics, Philosophy & Economics — the definitive route into UK politics'},{n:'London School of Economics',r:'Politics and Economics — direct pipeline to parliament and think tanks'},{n:'University of Edinburgh',r:'Politics and International Relations — strong public affairs network'}], alevels:['History','Politics','Economics'], strengthen:['Mathematics'] },
-      { name: 'Economist / Researcher', name_th: 'นักเศรษฐศาสตร์/นักวิจัย', desc: 'Analyse data, model behaviour, and produce research that informs business and government decisions', unis: [{n:'London School of Economics',r:'Economics — the UK\'s specialist institution, world top-5'},{n:'University of Cambridge',r:'Economics Tripos — theoretical rigour and real-world application'},{n:'University of Warwick',r:'Economics — top-3 UK, strong quantitative training'}], alevels:['Economics','Mathematics','History'], strengthen:['Further Mathematics'] },
-      { name: 'Civil Servant / Diplomat', name_th: 'ข้าราชการ/นักการทูต', desc: 'Represent government, implement policy, and serve the public interest across domestic and international affairs', unis: [{n:'University of Oxford',r:'PPE and History — the civil service fast stream recruits heavily here'},{n:'LSE',r:'Government and International Relations'},{n:'University of Durham',r:'Politics and International Studies — strong civil service placement'}], alevels:['History','Politics','Economics'], strengthen:['French or another language'] }
+      { name: 'Politician / Policy Maker', name_th: 'นักการเมือง/ผู้กำหนดนโยบาย', desc: 'Shape the laws, budgets, and policies that govern society at local, national, and international level', unis: [{n:'University of Oxford (PPE)',r:'Politics, Philosophy & Economics — a well-established route into UK politics'},{n:'London School of Economics',r:'Politics and Economics — strong links to parliament and policy think tanks'},{n:'University of Edinburgh',r:'Politics and International Relations — strong public affairs network'}], alevels:['History','Politics','Economics'] },
+      { name: 'Economist / Researcher', name_th: 'นักเศรษฐศาสตร์/นักวิจัย', desc: 'Analyse data, model behaviour, and produce research that informs business and government decisions', unis: [{n:'London School of Economics',r:'Economics — a UK specialist institution, highly ranked internationally'},{n:'University of Cambridge',r:'Economics Tripos — theoretical rigour and real-world application'},{n:'University of Warwick',r:'Economics — top-3 UK, strong quantitative training'}], alevels:['Economics','Mathematics','History'] },
+      { name: 'Civil Servant / Diplomat', name_th: 'ข้าราชการ/นักการทูต', desc: 'Represent government, implement policy, and serve the public interest across domestic and international affairs', unis: [{n:'University of Oxford',r:'PPE and History — a strong recruiting ground for the civil service fast stream'},{n:'LSE',r:'Government and International Relations'},{n:'University of Durham',r:'Politics and International Studies — strong civil service placement'}], alevels:['History','Politics','Economics'] }
     ],
-    strengths_th: 'ลูกของคุณเข้าใจโลกผ่านเลนส์ของประวัติศาสตร์ เศรษฐศาสตร์ และอำนาจทางการเมือง — ทักษะของผู้นำในอนาคต',
-    strengths_en: 'Your child sees the world through the lens of history, power, and economics — the natural perspective of future leaders, policy makers, and public intellectuals.',
-    tutoring: [{s:'Economics Essay Writing',w:'LSE and Oxbridge economics interviews require rapid, structured economic argument — practise intensively'},{s:'Mathematics',w:'Quantitative economics requires A-Level Maths — essential for top-5 university entry'},{s:'Current Affairs Literacy',w:'PPE and Politics candidates must be able to discuss the major issues of the day with genuine depth'},{s:'Interview and Debate',w:'Oxbridge PPE interviews are intellectually demanding — systematic preparation with a tutor is essential'}]
-  },
-  'default': {
-    careers: [
-      { name: 'Generalist Professional', name_th: 'ผู้เชี่ยวชาญหลายด้าน', desc: 'A diverse subject combination often leads to interdisciplinary careers in management, consulting, or the civil service', unis: [{n:'University of Exeter',r:'Excellent interdisciplinary degrees and employability'},{n:'University of Leeds',r:'Broad academic programmes, strong industry links'},{n:'University of Bristol',r:'Wide range of combined honours degrees'}], alevels:['English Literature','History','Economics'], strengthen:['Mathematics'] },
-      { name: 'Management / Operations', name_th: 'การจัดการ/ปฏิบัติการ', desc: 'Lead teams, manage projects, and optimise how organisations work across every sector', unis: [{n:'University of Warwick',r:'Warwick Business School — top-5 UK management'},{n:'University of Bath',r:'Management with placement year — excellent employment'},{n:'University of Exeter',r:'Business and Management — South West\'s leading business school'}], alevels:['Business Studies','Economics','Mathematics'], strengthen:['Any science'] },
-      { name: 'Education / Teacher', name_th: 'การศึกษา/ครู', desc: 'Inspire the next generation in schools, colleges, or international education settings worldwide', unis: [{n:'University of Cambridge (PGCE)',r:'The most respected postgraduate teaching qualification in the UK'},{n:'UCL Institute of Education',r:'World\'s #1 Faculty of Education'},{n:'University of Oxford (PGCE)',r:'Postgraduate teacher training — elite secondary school placements'}], alevels:['Subject you wish to teach','English Literature','History'], strengthen:['Psychology'] }
-    ],
-    strengths_th: 'ลูกของคุณมีทักษะที่หลากหลาย ซึ่งเปิดประตูสู่เส้นทางอาชีพที่กว้างขวาง — ติดต่อ LINKEDU เพื่อขอคำแนะนำเฉพาะบุคคล',
-    strengths_en: 'Your child has a diverse and balanced set of interests. This opens many pathways — speak to LINKEDU for personalised guidance on the best A-Level combination.',
-    tutoring: [{s:'English Essay Writing',w:'Strong writing is required for almost every university degree and career — it is the highest-return tutoring investment'},{s:'Mathematics',w:'Quantitative skills open doors to business, science, and technology careers — do not overlook this'},{s:'Interview Preparation',w:'University interviews across all subjects reward confidence, intellectual curiosity, and clear communication'},{s:'Personal Statement',w:'A compelling personal statement that shows genuine focus and direction is essential for competitive applications'}]
+    strengths_th: 'บุตรหลานของคุณเข้าใจโลกผ่านเลนส์ของประวัติศาสตร์ เศรษฐศาสตร์ และอำนาจทางการเมือง — ทักษะของผู้นำในอนาคต',
+    strengths_en: 'Your child sees the world through the lens of history, power, and economics — the natural perspective of future leaders, policy makers, and public intellectuals.'
   }
+];
+
+// Fallback when no cluster reaches meaningful coverage — never a scored
+// winner, only used when the 3 chosen subjects don't point clearly anywhere.
+const GENERALIST = {
+  id: 'generalist',
+  name_th: 'สายกว้าง/หลากหลาย',
+  name_en: 'Generalist',
+  careers: [
+    { name: 'Generalist Professional', name_th: 'ผู้เชี่ยวชาญหลายด้าน', desc: 'A diverse subject combination often leads to interdisciplinary careers in management, consulting, or the civil service', unis: [{n:'University of Exeter',r:'Excellent interdisciplinary degrees and employability'},{n:'University of Leeds',r:'Broad academic programmes, strong industry links'},{n:'University of Bristol',r:'Wide range of combined honours degrees'}], alevels:['English Literature','History','Economics'] },
+    { name: 'Management / Operations', name_th: 'การจัดการ/ปฏิบัติการ', desc: 'Lead teams, manage projects, and optimise how organisations work across every sector', unis: [{n:'University of Warwick',r:'Warwick Business School — top-5 UK management'},{n:'University of Bath',r:'Management with placement year — excellent employment'},{n:'University of Exeter',r:"Business and Management — South West's leading business school"}], alevels:['Business Studies','Economics','Mathematics'] },
+    { name: 'Education / Teacher', name_th: 'การศึกษา/ครู', desc: 'Inspire the next generation in schools, colleges, or international education settings worldwide', unis: [{n:'University of Cambridge (PGCE)',r:'A highly respected postgraduate teaching qualification in the UK'},{n:'UCL Institute of Education',r:'Consistently top-ranked Faculty of Education'},{n:'University of Oxford (PGCE)',r:'Postgraduate teacher training — strong secondary school placements'}], alevels:['Subject you wish to teach','English Literature','History'] }
+  ],
+  strengths_th: 'บุตรหลานของคุณมีความสนใจที่หลากหลาย ซึ่งไม่ได้เอนไปทางกลุ่มอาชีพใดกลุ่มหนึ่งชัดเจน — นี่เป็นจุดเริ่มต้นที่ดีในการพูดคุยกับที่ปรึกษา LINKEDU เพื่อหาทิศทางที่เหมาะสม',
+  strengths_en: "Your child's interests are broad and don't point clearly toward one career cluster. That's a good starting point for a conversation with a LINKEDU consultant about direction."
 };
 
-function getMatchKey(ids) {
-  const sorted = [...ids].sort();
-  const key = sorted.join('+');
-  if (CAREER_MAP[key]) return key;
-  // Try partial matches (any 2 of 3 matching a defined key)
-  for (const mapKey of Object.keys(CAREER_MAP)) {
-    const parts = mapKey.split('+');
-    const matchCount = sorted.filter(id => parts.includes(id)).length;
-    if (matchCount >= 2 && mapKey !== 'default') return mapKey;
-  }
-  return 'default';
+// Score every cluster against the 3 chosen subjects. Denominator is each
+// cluster's own top-3 affinity sum (always 9 by construction), so every
+// cluster is normalised on the same, fair scale.
+function computeClusterScores(selectedIds) {
+  return CLUSTERS.map(cluster => {
+    const raw = selectedIds.reduce((sum, id) => sum + (cluster.affinity[id] || 0), 0);
+    const coverage = Math.round((raw / 9) * 100);
+    return { cluster, raw, coverage };
+  });
+}
+
+// Deterministic ranking: highest coverage first; ties broken alphabetically
+// by cluster name so the result never depends on array/object insertion
+// order. If even the best cluster's coverage is low, fall back to the
+// Generalist result rather than force-fitting a weak match.
+function getMatchResult(selectedIds) {
+  const scored = computeClusterScores(selectedIds)
+    .sort((a, b) => b.coverage - a.coverage || a.cluster.name_en.localeCompare(b.cluster.name_en));
+  const top = scored[0];
+  const runnerUp = scored[1];
+  const isGeneralist = top.coverage < 40;
+  return {
+    isGeneralist,
+    top,
+    runnerUp,
+    closelyMatched: !isGeneralist && (top.coverage - runnerUp.coverage) <= 5,
+    scored
+  };
 }
 
 // State
@@ -782,8 +854,8 @@ function updateUI() {
 
 function showResults() {
   if (selected.length < 3) return;
-  const matchKey = getMatchKey(selected);
-  const data = CAREER_MAP[matchKey];
+  const result = getMatchResult(selected);
+  const data = result.isGeneralist ? GENERALIST : result.top.cluster;
   const chosenSubjects = selected.map(id => SUBJECTS.find(s => s.id === id));
 
   const chosenPillsHTML = chosenSubjects.map(s => `
@@ -801,8 +873,7 @@ function showResults() {
       </div>
     `).join('');
 
-    const alevelsHTML = c.alevels.map(a => `<span class="alevel-chip">${a}</span>`).join('')
-      + (c.strengthen || []).map(a => `<span class="alevel-chip strengthen">${a}</span>`).join('');
+    const alevelsHTML = c.alevels.map(a => `<span class="alevel-chip">${a}</span>`).join('');
 
     return `
       <div class="career-result-card">
@@ -817,39 +888,121 @@ function showResults() {
           <div class="uni-pills">${uniPillsHTML}</div>
         </div>
         <div>
-          <div class="card-section-title">· Required A-Levels ·</div>
+          <div class="card-section-title">· Typical A-Levels for This Path ·</div>
           <div class="alevel-chips">${alevelsHTML}</div>
-          <p style="font-size:10px;color:rgba(0,0,0,0.4);margin-top:6px" class="lang-en">Dark = core required &nbsp;|&nbsp; Gold = additional recommended</p>
-          <p style="font-size:10px;color:rgba(0,0,0,0.4);margin-top:6px" class="lang-th">สีเข้ม = จำเป็น &nbsp;|&nbsp; สีทอง = แนะนำเพิ่มเติม</p>
         </div>
       </div>
     `;
   }).join('');
 
-  const tutoringHTML = data.tutoring.map((t, i) => `
-    <div class="rec-item">
-      <div class="rec-type">${i === 0 || i === 1 ? 'STRENGTHEN' : 'DEVELOP'}</div>
-      <div class="rec-subject">${t.s}</div>
-      <div class="rec-why">${t.w}</div>
-    </div>
-  `).join('');
+  // "Show why" — how each chosen subject contributed to the match, plus the
+  // runner-up cluster and its coverage, so the parent sees the full picture,
+  // not just a single winner.
+  let whyHTML;
+  if (!result.isGeneralist) {
+    const cluster = result.top.cluster;
+    const whyItems = chosenSubjects.map(s => {
+      const aff = cluster.affinity[s.id] || 0;
+      let label_th, label_en;
+      if (aff >= 3) { label_th = 'เป็นปัจจัยหลักของผลลัพธ์นี้'; label_en = 'strongly drives this match'; }
+      else if (aff === 2) { label_th = 'สนับสนุนผลลัพธ์นี้อย่างชัดเจน'; label_en = 'clearly supports this match'; }
+      else if (aff === 1) { label_th = 'เป็นสัญญาณเสริมเล็กน้อย'; label_en = 'adds a smaller supporting signal'; }
+      else { label_th = 'ไม่ใช่ปัจจัยหลักของกลุ่มนี้'; label_en = 'is not a strong factor for this cluster'; }
+      return { s, label_th, label_en };
+    });
+    whyHTML = `
+      <div class="strengths-box">
+        <div class="card-label lang-th">· ทำไมถึงจับคู่กลุ่มนี้ ·</div>
+        <div class="card-label lang-en">· Why This Cluster Matched ·</div>
+        <div class="match-badges">
+          <span class="match-badge primary lang-th">อันดับ 1: ${result.top.cluster.name_th} · ${result.top.coverage}%</span>
+          <span class="match-badge primary lang-en">Top match: ${result.top.cluster.name_en} · ${result.top.coverage}%</span>
+          <span class="match-badge secondary lang-th">รองลงมา: ${result.runnerUp.cluster.name_th} · ${result.runnerUp.coverage}%</span>
+          <span class="match-badge secondary lang-en">Runner-up: ${result.runnerUp.cluster.name_en} · ${result.runnerUp.coverage}%</span>
+        </div>
+        ${result.closelyMatched ? `
+        <p class="closely-matched-note lang-th">คะแนนทั้งสองกลุ่มใกล้เคียงกันมาก (ต่างกันไม่เกิน 5%) — ควรพิจารณาทั้งสองกลุ่มควบคู่กัน</p>
+        <p class="closely-matched-note lang-en">Scores are closely matched (within 5%) — both clusters are worth considering together.</p>` : ''}
+        <ul class="why-list">
+          ${whyItems.map(w => `<li class="lang-th">${w.s.icon} ${w.s.th} — ${w.label_th}</li>`).join('')}
+          ${whyItems.map(w => `<li class="lang-en">${w.s.icon} ${w.s.en} — ${w.label_en}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  } else {
+    whyHTML = `
+      <div class="strengths-box">
+        <div class="card-label lang-th">· ทำไมถึงเป็นสายกว้าง ·</div>
+        <div class="card-label lang-en">· Why a Generalist Result ·</div>
+        <p class="lang-th">วิชาทั้ง 3 ที่เลือกไม่ได้เอนไปทางกลุ่มอาชีพใดกลุ่มหนึ่งชัดเจน (คะแนนสูงสุดต่ำกว่า 40%) — ลองเลือกวิชาที่ใกล้เคียงกันมากขึ้น หรือพูดคุยผลลัพธ์นี้กับที่ปรึกษา LINKEDU</p>
+        <p class="lang-en">The 3 chosen subjects don't point clearly toward one career cluster (the top score was below 40%). Try a more related combination, or talk this result through with a LINKEDU consultant.</p>
+      </div>
+    `;
+  }
+
+  // STRENGTHEN / DEVELOP — driven by the child's actual chosen subjects
+  // against this cluster's affinity map, not by array position.
+  let recGridHTML = '';
+  if (!result.isGeneralist) {
+    const cluster = result.top.cluster;
+    const strengthenIds = selected.filter(id => (cluster.affinity[id] || 0) >= 2);
+    const developIds = SUBJECTS
+      .map(s => s.id)
+      .filter(id => (cluster.affinity[id] || 0) >= 2 && !selected.includes(id))
+      .sort((a, b) => (cluster.affinity[b] - cluster.affinity[a]) || SUBJECTS.find(s => s.id === a).en.localeCompare(SUBJECTS.find(s => s.id === b).en))
+      .slice(0, Math.max(0, 4 - strengthenIds.length));
+
+    const strengthenHTML = strengthenIds.map(id => {
+      const s = SUBJECTS.find(x => x.id === id);
+      return `
+        <div class="rec-item">
+          <div class="rec-type">STRENGTHEN</div>
+          <div class="rec-subject"><span class="lang-en">${s.en}</span><span class="lang-th">${s.th}</span></div>
+          <div class="rec-why lang-th">หนึ่งในวิชาที่บุตรหลานคุณเลือก และเป็นวิชาที่กลุ่ม ${cluster.name_th} ให้ความสำคัญมาก</div>
+          <div class="rec-why lang-en">One of your child's chosen subjects — and one this cluster values highly.</div>
+        </div>`;
+    }).join('');
+
+    const developHTML = developIds.map(id => {
+      const s = SUBJECTS.find(x => x.id === id);
+      return `
+        <div class="rec-item">
+          <div class="rec-type">DEVELOP</div>
+          <div class="rec-subject"><span class="lang-en">${s.en}</span><span class="lang-th">${s.th}</span></div>
+          <div class="rec-why lang-th">วิชานี้มีความสำคัญสูงสำหรับกลุ่ม ${cluster.name_th} แม้บุตรหลานคุณจะยังไม่ได้เลือกก็ตาม</div>
+          <div class="rec-why lang-en">A subject this cluster values highly, even though your child hasn't chosen it yet.</div>
+        </div>`;
+    }).join('');
+
+    recGridHTML = `
+      <div class="recommendation-box">
+        <div class="card-label lang-th">· แผนการติว LINKEDU ·</div>
+        <div class="card-label lang-en">· LINKEDU Tutoring Recommendation ·</div>
+        <h3 class="lang-th">วิชาที่ควรเสริมความแข็งแกร่งเดี๋ยวนี้ และวิชาที่ควรพัฒนาเพิ่ม</h3>
+        <h3 class="lang-en">Subjects to strengthen now, and subjects worth developing</h3>
+        <div class="rec-grid">${strengthenHTML}${developHTML}</div>
+      </div>
+    `;
+  }
 
   document.getElementById('screen-results').innerHTML = `
     <div class="results-intro">
       <div class="section-label">· ผลลัพธ์ของคุณ / YOUR MATCHES ·</div>
-      <h2 class="lang-th">อาชีพที่เหมาะกับคุณ</h2>
-      <h2 class="lang-en">Your Career Matches</h2>
+      <h2 class="lang-th">กลุ่มอาชีพที่เหมาะกับบุตรหลานของคุณ</h2>
+      <h2 class="lang-en">Career Clusters for Your Child</h2>
       <div class="chosen-subjects">${chosenPillsHTML}</div>
     </div>
 
     <div class="strengths-box">
-      <div class="card-label lang-th">· จุดแข็งทางวิชาการของคุณ ·</div>
-      <div class="card-label lang-en">· Your Academic Strengths ·</div>
-      <h3 class="lang-th">สิ่งที่การเลือกวิชาของคุณบอกเราเกี่ยวกับตัวคุณ</h3>
-      <h3 class="lang-en">What your subject choices say about you</h3>
+      <div class="card-label lang-th">· จุดแข็งทางวิชาการของบุตรหลานคุณ ·</div>
+      <div class="card-label lang-en">· Academic Strengths ·</div>
+      <h3 class="lang-th">สิ่งที่การเลือกวิชาของบุตรหลานคุณบอกเรา</h3>
+      <h3 class="lang-en">What your child's subject choices tell us</h3>
       <p class="lang-th">${data.strengths_th}</p>
       <p class="lang-en">${data.strengths_en}</p>
     </div>
+
+    ${whyHTML}
 
     <div style="margin-bottom:12px">
       <div class="section-label" style="justify-content:flex-start;padding:0 0 8px">
@@ -858,20 +1011,17 @@ function showResults() {
     </div>
     <div class="careers-grid">${careersHTML}</div>
 
-    <div class="recommendation-box">
-      <div class="card-label lang-th">· แผนการติว LINKEDU ·</div>
-      <div class="card-label lang-en">· LINKEDU Tutoring Recommendation ·</div>
-      <h3 class="lang-th">วิชาที่ควรเสริมความแข็งแกร่งเดี๋ยวนี้</h3>
-      <h3 class="lang-en">Subjects to strengthen now and new subjects to develop</h3>
-      <div class="rec-grid">${tutoringHTML}</div>
-    </div>
+    ${recGridHTML}
+
+    <p class="limits-line lang-th">ผลลัพธ์นี้อ้างอิงจาก 3 วิชาโปรดของบุตรหลานคุณเท่านั้น — เป็นจุดเริ่มต้นการพูดคุยกับครอบครัวและที่ปรึกษา LINKEDU ไม่ใช่คำแนะนำด้านอาชีพที่ชี้ขาด</p>
+    <p class="limits-line lang-en">This result is based on your child's 3 favourite subjects only — a conversation starter for your family and a LINKEDU consultant, not definitive career advice.</p>
 
     <div class="inline-cta">
       <div class="inline-cta-text">
-        <h3 class="lang-th">ปรึกษา LINKEDU เรื่อง A-Level ที่เหมาะกับลูก</h3>
+        <h3 class="lang-th">ปรึกษา LINKEDU เรื่อง A-Level ที่เหมาะกับบุตรหลานคุณ</h3>
         <h3 class="lang-en">Talk to LINKEDU about the right A-Level subjects for your child's career</h3>
         <p class="lang-th">รับคำแนะนำเฉพาะบุคคลจากผู้เชี่ยวชาญด้านการศึกษาต่างประเทศของเรา</p>
-        <p class="lang-en">Our specialists will map the precise A-Level combination and tutoring programme needed for your target career and university.</p>
+        <p class="lang-en">Our specialists will map the precise A-Level combination and tutoring programme needed for your child's target career and university.</p>
       </div>
       <a href="https://line.me/R/ti/p/satitlinkedu" class="btn-line" target="_blank">
         <span class="lang-th">เพิ่ม LINE / Add LINE</span>

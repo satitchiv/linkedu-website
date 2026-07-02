@@ -338,12 +338,12 @@ label.field-label {
     <span class="lang-en">Subject Weakness Identifier</span>
   </h1>
   <p>
-    <span class="lang-th">กรอกเกรดในระบบโรงเรียนไทย — เครื่องมือจะวิเคราะห์เทียบกับมาตรฐานหลักสูตร UK และระบุวิชาที่ต้องเร่งพัฒนา</span>
-    <span class="lang-en">Enter your child's Thai school grades — we map them to UK curriculum benchmarks and identify which subjects need tutoring attention most urgently.</span>
+    <span class="lang-th">กรอกเกรดในระบบโรงเรียนไทยของบุตรหลานของคุณ — เครื่องมือจะเทียบเคียงกับความคาดหวังทั่วไปของหลักสูตร UK แบบคร่าวๆ และช่วยจัดลำดับวิชาที่ควรเร่งพัฒนาก่อน ผลลัพธ์เป็นการเทียบเคียงเชิงประมาณการ ไม่ใช่การแปลงเกรดอย่างเป็นทางการ</span>
+    <span class="lang-en">Enter your child's Thai school grades — we give an indicative comparison against typical UK expectations (not an official conversion) and help prioritise which subjects need tutoring attention first.</span>
   </p>
   <div class="hero-badges">
     <span class="badge"><span class="lang-th">4 ขั้นตอน</span><span class="lang-en">4 Steps</span></span>
-    <span class="badge"><span class="lang-th">เทียบมาตรฐาน UK</span><span class="lang-en">UK Benchmark Mapped</span></span>
+    <span class="badge"><span class="lang-th">เทียบเคียง UK แบบคร่าวๆ</span><span class="lang-en">Indicative UK Benchmark</span></span>
     <span class="badge"><span class="lang-th">แนะนำชั่วโมงเรียนพิเศษ</span><span class="lang-en">Tutoring Hours Recommended</span></span>
   </div>
 </section>
@@ -403,8 +403,8 @@ label.field-label {
         <span class="lang-en">What type of school does your child attend?</span>
       </h2>
       <p class="section-subtitle">
-        <span class="lang-th">ช่วยให้เราปรับการเปรียบเทียบให้ถูกต้องยิ่งขึ้น</span>
-        <span class="lang-en">This helps us calibrate the grade comparison accurately.</span>
+        <span class="lang-th">หลักสูตรแต่ละประเภทให้เกรดในมาตรฐานที่ต่างกัน เราจะใช้ข้อมูลนี้ปรับการเทียบเคียงตามประเภทโรงเรียน (เป็นการประมาณการ ไม่ใช่มาตรฐานทางการ)</span>
+        <span class="lang-en">Grading standards vary by curriculum type. We use this to adjust the comparison for your child's school type (an approximation, not an official standard).</span>
       </p>
       <div class="chips" id="type-chips">
         <div class="chip" data-value="gov-thai" onclick="selectChip('type-chips',this,'step2Type')">
@@ -525,6 +525,7 @@ label.field-label {
         <span class="lang-en">Subject Analysis Report</span>
       </h2>
       <p id="results-subtitle"></p>
+      <p id="adjustment-note" style="font-size:0.8rem;opacity:0.6;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto;"></p>
     </div>
 
     <!-- Hours summary -->
@@ -533,6 +534,10 @@ label.field-label {
         <div class="label">
           <span class="lang-th">ชั่วโมงเรียนพิเศษที่แนะนำต่อสัปดาห์</span>
           <span class="lang-en">Recommended Tutoring Hours / Week</span>
+        </div>
+        <div style="font-size:0.75rem;color:rgba(26,26,26,0.6);margin-top:4px;">
+          <span class="lang-th">ตัวเลขประมาณการเพื่อการวางแผน ไม่ใช่ข้อกำหนดตายตัว</span>
+          <span class="lang-en">A planning estimate, not a fixed requirement</span>
         </div>
       </div>
       <div>
@@ -556,6 +561,14 @@ label.field-label {
       <ul class="priority-list" id="priority-list"></ul>
     </div>
 
+    <!-- Limits -->
+    <div style="background:rgba(0,0,0,0.03);border-radius:8px;padding:20px 24px;margin-bottom:24px;">
+      <p style="font-size:0.85rem;color:rgba(26,26,26,0.65);line-height:1.6;">
+        <span class="lang-th">ผลลัพธ์นี้อิงจากเกรดที่รายงานเข้ามา ซึ่งความหมายของเกรดแตกต่างกันไปในแต่ละโรงเรียน การทดสอบวินิจฉัย (diagnostic test) กับ LINKEDU จะให้เส้นฐาน (baseline) ที่แม่นยำกว่านี้</span>
+        <span class="lang-en">This result is based on reported grades, which vary in meaning between schools. A diagnostic test with LINKEDU gives a firmer baseline than self-reported grades alone.</span>
+      </p>
+    </div>
+
     <!-- Inline LINE CTA -->
     <div class="inline-cta">
       <div>
@@ -569,7 +582,7 @@ label.field-label {
         </p>
       </div>
       <div style="flex-shrink:0;">
-        <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-primary">
+        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-primary">
           <span class="lang-th">ปรึกษาผ่าน LINE</span>
           <span class="lang-en">Chat on LINE</span>
         </a>
@@ -600,7 +613,7 @@ label.field-label {
     <span class="lang-en">Our specialists are ready to build a tutoring plan that fits your child's exact needs.</span>
   </p>
   <span class="line-handle">satitlinkedu</span>
-  <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn-line">
+  <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line">
     <span class="lang-th">เพิ่ม LINE / Add LINE</span>
     <span class="lang-en">เพิ่ม LINE / Add LINE</span>
   </a>
@@ -636,7 +649,29 @@ const SUBJECTS = [
 const GPA_OPTIONS = ['4.0','3.5','3.0','2.5','2.0','1.5','1.0','0.0'];
 const PCT_OPTIONS = ['90-100','80-89','70-79','60-69','50-59','40-49','30-39','0-29'];
 
-/* ── UK grade mapping from GPA ── */
+/* ── School-type calibration ──
+   Disclosed, approximate adjustment applied to Thai GPA before UK mapping — grading
+   standards vary by curriculum type, so an unadjusted GPA is not comparable across
+   school types. This is a stated approximation, not an official equivalence. */
+const SCHOOL_TYPE_ADJUSTMENT = {
+  'intl-thai': 0,     // international / EP curriculum — no adjustment
+  'ep': 0,             // EP programme — no adjustment
+  'priv-thai': -0.25,  // bilingual / private Thai curriculum
+  'gov-thai': -0.5,    // government Thai curriculum
+};
+const SCHOOL_TYPE_LABELS = {
+  'gov-thai':  { th: 'รัฐบาลไทย', en: 'Government Thai' },
+  'priv-thai': { th: 'เอกชนหลักสูตรไทย', en: 'Thai Private School' },
+  'intl-thai': { th: 'นานาชาติหลักสูตรไทย', en: 'International Thai Curriculum' },
+  'ep':        { th: 'โปรแกรม EP', en: 'EP Programme' },
+};
+function getAdjustedGpa(rawGpa) {
+  const adj = SCHOOL_TYPE_ADJUSTMENT[state.step2Type] || 0;
+  return Math.max(0, rawGpa + adj);
+}
+
+/* ── UK grade mapping from (adjusted) GPA — an indicative comparison against typical
+   UK expectations, not an official conversion. ── */
 function gpaToUK(gpa) {
   const g = parseFloat(gpa);
   if (g >= 4.0) return 'A* / A';
@@ -735,24 +770,40 @@ function getRec(subjectId, status) {
   return isEn ? statusRec.en : statusRec.th;
 }
 
-/* ── Hours per status ── */
-function getHours(subjectId, status) {
-  if (status === 'on-track') return subjectId === 'pe' || subjectId === 'arts' ? 0 : 0;
-  if (status === 'needs-work') return subjectId === 'english' ? 3 : subjectId === 'maths' ? 2 : subjectId === 'pe' || subjectId === 'arts' || subjectId === 'thai' ? 0 : 1;
+/* ── Hours per status, as planning ranges (never a single false-precise number) ── */
+function getHoursRange(subjectId, status) {
+  if (status === 'on-track') return { min: 0, max: 0 };
+  if (status === 'needs-work') {
+    if (subjectId === 'english') return { min: 2, max: 3 };
+    if (subjectId === 'maths') return { min: 2, max: 3 };
+    if (subjectId === 'science') return { min: 1, max: 2 };
+    if (subjectId === 'pe' || subjectId === 'arts' || subjectId === 'thai') return { min: 0, max: 1 };
+    return { min: 1, max: 2 }; // social, lang2
+  }
   // priority
-  if (subjectId === 'english') return 5;
-  if (subjectId === 'maths') return 4;
-  if (subjectId === 'science') return 3;
-  if (subjectId === 'social') return 2;
-  if (subjectId === 'thai') return 1;
-  return 1;
+  if (subjectId === 'english') return { min: 4, max: 5 };
+  if (subjectId === 'maths') return { min: 3, max: 4 };
+  if (subjectId === 'science') return { min: 2, max: 3 };
+  if (subjectId === 'social') return { min: 1, max: 2 };
+  if (subjectId === 'thai') return { min: 0, max: 1 };
+  return { min: 1, max: 2 }; // arts, pe, lang2 — lower-intensity priority support
 }
 
-/* ── UK Target grade ── */
+/* ── UK Target grade — per-subject, per-entry-level, English stricter at every level
+   (consistent with getStatus's English special-casing). Thai and PE are not assessed
+   as UK entry-exam subjects, so they get no fabricated target grade. ── */
 function getUKTarget(subjectId, entryLevel) {
-  if (entryLevel === '16plus') return subjectId === 'english' ? 'A / B' : 'A / B';
-  if (entryLevel === '11plus') return 'B / C';
-  return 'B / C'; // 13+
+  const TARGETS = {
+    english: { '11plus': 'A',   '13plus': 'A',   '16plus': 'A*' },
+    maths:   { '11plus': 'B',   '13plus': 'B / A', '16plus': 'A / A*' },
+    science: { '11plus': 'B',   '13plus': 'B / A', '16plus': 'A / A*' },
+    social:  { '11plus': 'B / C', '13plus': 'B',  '16plus': 'A / B' },
+    lang2:   { '11plus': 'B / C', '13plus': 'B',  '16plus': 'A / B' },
+    arts:    { '11plus': 'B / C', '13plus': 'B / C', '16plus': 'B' },
+  };
+  const t = TARGETS[subjectId];
+  if (!t) return 'N/A'; // thai, pe: not a UK entry-exam subject
+  return t[entryLevel] || t['13plus'];
 }
 
 /* ── Language toggle ── */
@@ -864,26 +915,34 @@ function calculateResults() {
     `<span class="lang-th">ผลวิเคราะห์สำหรับนักเรียน ${state.step1Year} — เป้าหมาย UK Boarding School Entry ${entryLabel}</span>` +
     `<span class="lang-en">Results for ${state.step1Year} student — Target: UK Boarding School ${entryLabel} Entry</span>`;
 
+  // Disclosed school-type calibration note — makes the Step 2 "calibrate" promise true.
+  const typeLabel = SCHOOL_TYPE_LABELS[state.step2Type] || { th: state.step2Type, en: state.step2Type };
+  document.getElementById('adjustment-note').innerHTML =
+    `<span class="lang-th">ปรับตามประเภทโรงเรียน: ${typeLabel.th} — เป็นการประมาณการจากความแตกต่างของหลักสูตรโดยทั่วไป ไม่ใช่มาตรฐานเทียบเท่าอย่างเป็นทางการ</span>` +
+    `<span class="lang-en">Adjusted for school type: ${typeLabel.en} — an approximation based on typical curriculum differences, not an official equivalence.</span>`;
+
   // Build results per subject
   const analyzed = [];
   for (const s of SUBJECTS) {
-    const gpa = grades[s.id];
-    if (gpa === null) continue;
-    const status = getStatus(s.id, gpa, state.step4Entry);
-    const ukGrade = gpaToUK(gpa.toString());
+    const rawGpa = grades[s.id];
+    if (rawGpa === null) continue;
+    const adjGpa = getAdjustedGpa(rawGpa);
+    const status = getStatus(s.id, adjGpa, state.step4Entry);
+    const ukGrade = gpaToUK(adjGpa.toString());
     const target = getUKTarget(s.id, state.step4Entry);
     const rec = getRec(s.id, status);
-    const hours = getHours(s.id, status);
-    analyzed.push({ ...s, gpa, ukGrade, target, status, rec, hours });
+    const hoursRange = getHoursRange(s.id, status);
+    analyzed.push({ ...s, gpa: rawGpa, adjGpa, ukGrade, target, status, rec, hoursRange });
   }
 
   // Sort: priority first, then needs-work, then on-track
   const order = { 'priority': 0, 'needs-work': 1, 'on-track': 2 };
   analyzed.sort((a, b) => order[a.status] - order[b.status]);
 
-  // Total hours
-  const totalHours = analyzed.reduce((sum, s) => sum + s.hours, 0);
-  document.getElementById('total-hours').textContent = totalHours;
+  // Total hours as a range (planning estimate, not a fixed requirement)
+  const totalMin = analyzed.reduce((sum, s) => sum + s.hoursRange.min, 0);
+  const totalMax = analyzed.reduce((sum, s) => sum + s.hoursRange.max, 0);
+  document.getElementById('total-hours').textContent = totalMin === totalMax ? `${totalMin}` : `${totalMin}–${totalMax}`;
 
   // Render subject cards
   const container = document.getElementById('subject-results');
@@ -900,7 +959,7 @@ function calculateResults() {
         </div>
         <div class="grade-arrow">→</div>
         <div class="grade-box">
-          <div class="label">${isEn ? 'UK Equiv.' : 'UK เทียบเท่า'}</div>
+          <div class="label">${isEn ? 'UK Indicative' : 'UK โดยประมาณ'}</div>
           <div class="value gold-val">${s.ukGrade}</div>
         </div>
         <div class="grade-box">
@@ -918,16 +977,24 @@ function calculateResults() {
   if (prioritized.length === 0) {
     priorityList.innerHTML = `<li><span class="lang-th" style="color:var(--cream)">ยินดีด้วย! ทุกวิชาอยู่ในเกณฑ์ดีสำหรับเป้าหมาย ${entryLabel}</span><span class="lang-en" style="color:var(--cream)">Congratulations — all subjects meet the ${entryLabel} benchmark!</span></li>`;
   } else {
-    priorityList.innerHTML = prioritized.map((s, i) => `
+    priorityList.innerHTML = prioritized.map((s, i) => {
+      const hr = s.hoursRange;
+      const hoursLabel = hr.max > 0
+        ? (hr.min === hr.max
+            ? (isEn ? `+${hr.max} hrs/week` : `+${hr.max} ชม./สัปดาห์`)
+            : (isEn ? `+${hr.min}–${hr.max} hrs/week` : `+${hr.min}–${hr.max} ชม./สัปดาห์`))
+        : '';
+      return `
       <li>
         <div class="priority-rank ${s.status === 'on-track' ? 'muted' : ''}">${i + 1}</div>
         <div>
           <strong style="color:var(--cream)">${isEn ? s.nameEn : s.nameTh}</strong>
-          <span style="color:var(--gold);margin-left:8px;font-size:0.8rem">${s.hours > 0 ? (isEn ? `+${s.hours} hrs/week` : `+${s.hours} ชม./สัปดาห์`) : ''}</span>
+          <span style="color:var(--gold);margin-left:8px;font-size:0.8rem">${hoursLabel}</span>
           <div style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-top:2px">${s.rec}</div>
         </div>
       </li>
-    `).join('');
+    `;
+    }).join('');
   }
 
   document.getElementById('results-section').style.display = 'block';

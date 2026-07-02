@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKEDU — Is My Child Academically Gifted?</title>
+<title>LINKEDU — Academic Potential Signals Check</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -279,7 +279,7 @@ footer a { color: var(--gold); text-decoration: none; }
     <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
     <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
     <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
-    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+    <a href="../../tutoring.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
   </nav>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
@@ -292,16 +292,16 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="container">
     <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
     <h1>
-      <span class="lang-th">ลูกของคุณมีความสามารถ<br>พิเศษด้านวิชาการหรือไม่?</span>
-      <span class="lang-en">Is My Child<br>Academically Gifted?</span>
+      <span class="lang-th">เช็คสัญญาณศักยภาพ<br>ทางวิชาการ</span>
+      <span class="lang-en">Academic Potential<br>Signals Check</span>
     </h1>
     <p style="margin-top:16px;">
-      <span class="lang-th">เปรียบเทียบลูกของคุณกับเกณฑ์โปรแกรม Gifted &amp; Talented ของสหราชอาณาจักร และค้นหาแนวทางการติวที่เหมาะสมที่สุด</span>
-      <span class="lang-en">Benchmark your child against UK gifted programme thresholds and Oxbridge preparation standards to find the right tutoring track.</span>
+      <span class="lang-th">แบบสังเกต 13 ข้อจากมุมมองพ่อแม่ ที่ช่วยชี้สัญญาณศักยภาพทางวิชาการของบุตรหลานของคุณ และแนะนำแนวทางการติวที่เหมาะสม — ผลลัพธ์คือระดับสัญญาณ ไม่ใช่คะแนน percentile หรือการวินิจฉัยว่า "gifted"</span>
+      <span class="lang-en">A 13-item parent-observation check that flags academic potential signals in your child and recommends a matching tutoring track — the result is a signal band, not a percentile score or a "gifted" diagnosis.</span>
     </p>
     <div class="sensitivity-note">
-      <span class="lang-th">หมายเหตุ: "Gifted" หมายถึงนักเรียน 5-10% บนสุดในเชิงวิชาการ นักเรียนที่ยอดเยี่ยมทุกคนได้ประโยชน์จากการติวแบบ stretch — ไม่ว่าจะ "gifted" ตามนิยามหรือไม่ก็ตาม</span>
-      <span class="lang-en">Note: "Gifted" means the top 5–10% academically. Every exceptional student benefits from stretch tutoring — regardless of whether they meet the formal gifted definition.</span>
+      <span class="lang-th">หมายเหตุ: นี่คือสัญญาณเบื้องต้นจากการสังเกตของพ่อแม่ ไม่ใช่การวินิจฉัย แบบประเมินนี้ไม่คำนวณ percentile และไม่เคยตัดสินว่าเด็กคนใด "gifted" — โรงเรียนตัดสินใจเรื่องนี้ผ่านการประเมินอย่างเป็นทางการ เช่น CAT4 หรือ ISEB เท่านั้น</span>
+      <span class="lang-en">Note: This is an early signal from parent observation, not a diagnosis. It never calculates a percentile and never declares a child "gifted" — schools decide that through formal assessment such as CAT4 or ISEB, not a questionnaire.</span>
     </div>
   </div>
 </section>
@@ -330,27 +330,27 @@ footer a { color: var(--gold); text-decoration: none; }
 
       <div class="question-row" id="q1-wrap">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณอยู่อันดับต้นๆ ของชั้นในวิชาส่วนใหญ่หรือไม่?</span>
-          <span class="lang-en">Is your child typically at the top of class in most subjects?</span>
+          <span class="lang-th">จากสมุดพก/รายงานผลการเรียนล่าสุด บุตรหลานของคุณอยู่อันดับต้นๆ ของชั้นในวิชาส่วนใหญ่หรือไม่?</span>
+          <span class="lang-en">Based on your child's most recent school report, are they at the top of the class in most subjects?</span>
         </p>
         <div class="pill-group" id="q1">
-          <button class="pill-btn" data-q="q1" data-val="4" onclick="selectPill(this,'q1')"><span class="lang-th">เสมอ</span><span class="lang-en">Always</span></button>
           <button class="pill-btn" data-q="q1" data-val="3" onclick="selectPill(this,'q1')"><span class="lang-th">โดยทั่วไป</span><span class="lang-en">Usually</span></button>
-          <button class="pill-btn" data-q="q1" data-val="2" onclick="selectPill(this,'q1')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
           <button class="pill-btn" data-q="q1" data-val="1" onclick="selectPill(this,'q1')"><span class="lang-th">ไม่บ่อย</span><span class="lang-en">Rarely</span></button>
+          <button class="pill-btn" data-q="q1" data-val="4" onclick="selectPill(this,'q1')"><span class="lang-th">เสมอ</span><span class="lang-en">Always</span></button>
+          <button class="pill-btn" data-q="q1" data-val="2" onclick="selectPill(this,'q1')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">เมื่อเปรียบเทียบกับเพื่อนร่วมชั้นในการสอบ ลูกของคุณอยู่ที่ใด?</span>
-          <span class="lang-en">How does your child compare to classmates on tests and exams?</span>
+          <span class="lang-th">บนคะแนนสอบล่าสุด เมื่อเปรียบเทียบกับเพื่อนร่วมชั้น บุตรหลานของคุณอยู่ที่ใด?</span>
+          <span class="lang-en">On their most recent tests and exams, how does your child compare to classmates?</span>
         </p>
         <div class="pill-group" id="q2">
-          <button class="pill-btn" data-q="q2" data-val="4" onclick="selectPill(this,'q2')"><span class="lang-th">5% แรก</span><span class="lang-en">Top 5%</span></button>
-          <button class="pill-btn" data-q="q2" data-val="3" onclick="selectPill(this,'q2')"><span class="lang-th">20% แรก</span><span class="lang-en">Top 20%</span></button>
           <button class="pill-btn" data-q="q2" data-val="2" onclick="selectPill(this,'q2')"><span class="lang-th">50% แรก</span><span class="lang-en">Top 50%</span></button>
+          <button class="pill-btn" data-q="q2" data-val="4" onclick="selectPill(this,'q2')"><span class="lang-th">5% แรก</span><span class="lang-en">Top 5%</span></button>
           <button class="pill-btn" data-q="q2" data-val="1" onclick="selectPill(this,'q2')"><span class="lang-th">ต่ำกว่าค่าเฉลี่ย</span><span class="lang-en">Below average</span></button>
+          <button class="pill-btn" data-q="q2" data-val="3" onclick="selectPill(this,'q2')"><span class="lang-th">20% แรก</span><span class="lang-en">Top 20%</span></button>
         </div>
       </div>
 
@@ -360,34 +360,34 @@ footer a { color: var(--gold); text-decoration: none; }
           <span class="lang-en">Has a teacher ever suggested extension work or advanced materials for your child?</span>
         </p>
         <div class="pill-group" id="q3">
+          <button class="pill-btn" data-q="q3" data-val="1" onclick="selectPill(this,'q3')"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></button>
           <button class="pill-btn" data-q="q3" data-val="3" onclick="selectPill(this,'q3')"><span class="lang-th">ใช่ หลายครั้ง</span><span class="lang-en">Yes, multiple times</span></button>
           <button class="pill-btn" data-q="q3" data-val="2" onclick="selectPill(this,'q3')"><span class="lang-th">ใช่ ครั้งหนึ่ง</span><span class="lang-en">Yes, once</span></button>
-          <button class="pill-btn" data-q="q3" data-val="1" onclick="selectPill(this,'q3')"><span class="lang-th">ไม่เคย</span><span class="lang-en">No</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณทำการบ้านเสร็จเร็วกว่าที่คาดไว้มากน้อยแค่ไหน?</span>
+          <span class="lang-th">บุตรหลานของคุณทำการบ้านเสร็จเร็วกว่าที่คาดไว้มากน้อยแค่ไหน?</span>
           <span class="lang-en">Does your child complete homework significantly faster than expected?</span>
         </p>
         <div class="pill-group" id="q4">
-          <button class="pill-btn" data-q="q4" data-val="3" onclick="selectPill(this,'q4')"><span class="lang-th">ใช่ เร็วกว่ามาก</span><span class="lang-en">Yes, much faster</span></button>
-          <button class="pill-btn" data-q="q4" data-val="2" onclick="selectPill(this,'q4')"><span class="lang-th">เร็วกว่าเล็กน้อย</span><span class="lang-en">Slightly faster</span></button>
-          <button class="pill-btn" data-q="q4" data-val="1" onclick="selectPill(this,'q4')"><span class="lang-th">ใช้เวลาใกล้เคียงกัน</span><span class="lang-en">Similar time</span></button>
           <button class="pill-btn" data-q="q4" data-val="0" onclick="selectPill(this,'q4')"><span class="lang-th">ใช้เวลานานกว่า</span><span class="lang-en">Takes longer</span></button>
+          <button class="pill-btn" data-q="q4" data-val="2" onclick="selectPill(this,'q4')"><span class="lang-th">เร็วกว่าเล็กน้อย</span><span class="lang-en">Slightly faster</span></button>
+          <button class="pill-btn" data-q="q4" data-val="3" onclick="selectPill(this,'q4')"><span class="lang-th">ใช่ เร็วกว่ามาก</span><span class="lang-en">Yes, much faster</span></button>
+          <button class="pill-btn" data-q="q4" data-val="1" onclick="selectPill(this,'q4')"><span class="lang-th">ใช้เวลาใกล้เคียงกัน</span><span class="lang-en">Similar time</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณรู้สึกเบื่อในชั้นเรียนบ่อยหรือไม่?</span>
-          <span class="lang-en">Does your child get bored easily in class?</span>
+          <span class="lang-th">หลังทำงานที่ครูมอบหมายในห้องเสร็จ บุตรหลานของคุณขอทำงานที่ยากขึ้นเองโดยไม่ต้องมีใครบอกหรือไม่?</span>
+          <span class="lang-en">Without being asked, does your child request more challenging work after finishing what's set in class?</span>
         </p>
         <div class="pill-group" id="q5">
-          <button class="pill-btn" data-q="q5" data-val="3" onclick="selectPill(this,'q5')"><span class="lang-th">ใช่ บ่อยมาก</span><span class="lang-en">Yes, frequently</span></button>
+          <button class="pill-btn" data-q="q5" data-val="1" onclick="selectPill(this,'q5')"><span class="lang-th">ไม่ค่อยเกิดขึ้น</span><span class="lang-en">Rarely</span></button>
+          <button class="pill-btn" data-q="q5" data-val="3" onclick="selectPill(this,'q5')"><span class="lang-th">ใช่ เป็นประจำ</span><span class="lang-en">Yes, regularly</span></button>
           <button class="pill-btn" data-q="q5" data-val="2" onclick="selectPill(this,'q5')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
-          <button class="pill-btn" data-q="q5" data-val="1" onclick="selectPill(this,'q5')"><span class="lang-th">ไม่บ่อย</span><span class="lang-en">Rarely</span></button>
         </div>
       </div>
     </div>
@@ -401,58 +401,58 @@ footer a { color: var(--gold); text-decoration: none; }
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณอ่านหนังสือที่สูงกว่าระดับอายุมากกว่าปกติอย่างเห็นได้ชัดหรือไม่?</span>
-          <span class="lang-en">Does your child read books significantly above their age level?</span>
+          <span class="lang-th">บุตรหลานของคุณอ่านหนังสือที่สูงกว่าระดับชั้นของตัวเองด้วยตัวเอง (ไม่ใช่เพราะถูกสั่ง) หรือไม่?</span>
+          <span class="lang-en">Does your child read books above their year level on their own — not because it was assigned?</span>
         </p>
         <div class="pill-group" id="q6">
+          <button class="pill-btn" data-q="q6" data-val="0" onclick="selectPill(this,'q6')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
           <button class="pill-btn" data-q="q6" data-val="2" onclick="selectPill(this,'q6')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
           <button class="pill-btn" data-q="q6" data-val="1" onclick="selectPill(this,'q6')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
-          <button class="pill-btn" data-q="q6" data-val="0" onclick="selectPill(this,'q6')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณแสดงความเข้าใจลึกผิดปกติในวิชาหนึ่งวิชาหรือไม่?</span>
-          <span class="lang-en">Does your child show unusual depth of understanding in a particular subject?</span>
+          <span class="lang-th">บุตรหลานของคุณสามารถอธิบายเรื่องในวิชาที่ชอบได้ลึกซึ้งกว่าที่สอนในห้องเรียน โดยไม่มีใครถามหรือไม่?</span>
+          <span class="lang-en">Can your child explain ideas from a subject they love in more depth than what was taught in class, without being asked?</span>
         </p>
         <div class="pill-group" id="q7">
-          <button class="pill-btn" data-q="q7" data-val="2" onclick="selectPill(this,'q7')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
           <button class="pill-btn" data-q="q7" data-val="0" onclick="selectPill(this,'q7')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+          <button class="pill-btn" data-q="q7" data-val="2" onclick="selectPill(this,'q7')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณถามคำถามที่ครูรู้สึกว่าตอบได้ยากหรือไม่?</span>
-          <span class="lang-en">Does your child ask questions teachers find difficult to answer?</span>
+          <span class="lang-th">บุตรหลานของคุณถามคำถามที่ทำให้ครูหรือคุณต้องหยุดคิดก่อนตอบบ่อยแค่ไหน?</span>
+          <span class="lang-en">How often does your child ask questions that make a teacher — or you — stop and think before answering?</span>
         </p>
         <div class="pill-group" id="q8">
-          <button class="pill-btn" data-q="q8" data-val="2" onclick="selectPill(this,'q8')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
           <button class="pill-btn" data-q="q8" data-val="1" onclick="selectPill(this,'q8')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
           <button class="pill-btn" data-q="q8" data-val="0" onclick="selectPill(this,'q8')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+          <button class="pill-btn" data-q="q8" data-val="2" onclick="selectPill(this,'q8')"><span class="lang-th">ใช่ บ่อย</span><span class="lang-en">Yes, often</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณเคยชนะการแข่งขันทางวิชาการหรือรางวัลใดๆ หรือไม่?</span>
+          <span class="lang-th">บุตรหลานของคุณเคยชนะการแข่งขันทางวิชาการหรือรางวัลใดๆ หรือไม่?</span>
           <span class="lang-en">Has your child won any academic competitions or awards?</span>
         </p>
         <div class="pill-group" id="q9">
-          <button class="pill-btn" data-q="q9" data-val="3" onclick="selectPill(this,'q9')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
           <button class="pill-btn" data-q="q9" data-val="0" onclick="selectPill(this,'q9')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
+          <button class="pill-btn" data-q="q9" data-val="3" onclick="selectPill(this,'q9')"><span class="lang-th">ใช่</span><span class="lang-en">Yes</span></button>
         </div>
       </div>
 
       <div class="question-row">
         <p class="question-text">
-          <span class="lang-th">ลูกของคุณเรียนรู้เรื่องที่ไม่อยู่ในหลักสูตรด้วยตนเองเพราะสนใจหรือไม่?</span>
+          <span class="lang-th">บุตรหลานของคุณเรียนรู้เรื่องที่ไม่อยู่ในหลักสูตรด้วยตนเองเพราะสนใจหรือไม่?</span>
           <span class="lang-en">Does your child self-teach topics not on the school syllabus out of personal interest?</span>
         </p>
         <div class="pill-group" id="q10">
-          <button class="pill-btn" data-q="q10" data-val="2" onclick="selectPill(this,'q10')"><span class="lang-th">ใช่ สม่ำเสมอ</span><span class="lang-en">Yes, regularly</span></button>
           <button class="pill-btn" data-q="q10" data-val="1" onclick="selectPill(this,'q10')"><span class="lang-th">บางครั้ง</span><span class="lang-en">Sometimes</span></button>
+          <button class="pill-btn" data-q="q10" data-val="2" onclick="selectPill(this,'q10')"><span class="lang-th">ใช่ สม่ำเสมอ</span><span class="lang-en">Yes, regularly</span></button>
           <button class="pill-btn" data-q="q10" data-val="0" onclick="selectPill(this,'q10')"><span class="lang-th">ไม่</span><span class="lang-en">No</span></button>
         </div>
       </div>
@@ -554,6 +554,7 @@ footer a { color: var(--gold); text-decoration: none; }
     <div id="programmes-block"></div>
     <div id="next-steps-block"></div>
     <div id="comparison-block"></div>
+    <div id="limits-block"></div>
 
     <div class="inline-cta">
       <div class="free-badge">
@@ -568,7 +569,7 @@ footer a { color: var(--gold); text-decoration: none; }
         <span class="lang-th">ผู้เชี่ยวชาญของเราจะทำการประเมินเชิงลึกและออกแบบแผนพัฒนาที่ตรงกับโปรไฟล์ของลูกคุณโดยเฉพาะ — เซสชันแรกฟรี</span>
         <span class="lang-en">Our specialists will conduct a thorough in-depth assessment and design a personalised development plan matched to your child's exact profile — first session free.</span>
       </p>
-      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
+      <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line">
         <span class="lang-th">จองผ่าน LINE satitlinkedu</span>
         <span class="lang-en">Book via LINE satitlinkedu</span>
       </a>
@@ -597,7 +598,7 @@ footer a { color: var(--gold); text-decoration: none; }
     </p>
     <span class="line-handle">satitlinkedu</span>
     <br>
-    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line-large">
       <span class="lang-th">เพิ่ม LINE / Add LINE</span>
       <span class="lang-en">เพิ่ม LINE / Add LINE</span>
     </a>
@@ -667,7 +668,7 @@ function calculateGifted() {
     return;
   }
 
-  // Scoring (max ~30 points for clear gifted)
+  // Scoring — true range is 4 (all-lowest) to 31 (all-highest); see weight comments.
   let score = 0;
   score += parseInt(selections.q1) || 0;    // 1-4
   score += parseInt(selections.q2) || 0;    // 1-4
@@ -679,96 +680,112 @@ function calculateGifted() {
   score += parseInt(selections.q8) || 0;    // 0-2
   score += parseInt(selections.q9) || 0;    // 0-3
   score += parseInt(selections.q10) || 0;   // 0-2
-  // Subject breadth bonus
+  // Subject breadth bonus (0-3)
   const subjectCount = multiSelections.q11.filter(s => s !== 'none').length;
   if (multiSelections.q11.includes('multiple')) score += 3;
   else if (subjectCount >= 3) score += 2;
   else if (subjectCount >= 1) score += 1;
 
-  const maxScore = 30;
-  const pct = Math.round(score / maxScore * 100);
+  // True minimum and maximum achievable scores (verified against the weights above:
+  // min = 1+1+1+0+1+0+0+0+0+0+0 = 4, max = 4+4+3+3+3+2+2+2+3+2+3 = 31).
+  const MIN_SCORE = 4;
+  const MAX_SCORE = 31;
+  const signalPct = Math.round((score - MIN_SCORE) / (MAX_SCORE - MIN_SCORE) * 100);
 
-  let tier, tierEn, icon, percentileTh, percentileEn, descTh, descEn;
-  if (score >= 24) {
-    tier = 'มีความสามารถพิเศษ'; tierEn = 'Likely Gifted';
-    icon = '✦';
-    percentileTh = 'ใน 5% แรก'; percentileEn = 'Top 5% academically';
-    descTh = 'ผลการประเมินแสดงให้เห็นถึงรูปแบบที่สอดคล้องกับนักเรียน "gifted" ตามนิยามของสหราชอาณาจักร ลูกของคุณอาจเป็น 1 ใน 20 คนแรกในชั้นเรียนของตัวเอง';
-    descEn = 'The assessment profile is consistent with UK "gifted" definition — academically top 5%. Your child is likely among the top 1 in 20 students their age.';
-  } else if (score >= 16) {
-    tier = 'นักเรียนที่มีผลงานยอดเยี่ยม'; tierEn = 'High Achiever';
-    icon = '◆';
-    percentileTh = 'ใน 20% แรก'; percentileEn = 'Top 20% academically';
-    descTh = 'ลูกของคุณเป็นนักเรียนที่แข็งแกร่งและมีศักยภาพสูง แม้จะไม่ใช่ "gifted" ตามคำนิยามที่เข้มงวด แต่ศักยภาพของเขา/เธอเพียงพอสำหรับโรงเรียนชั้นนำของสหราชอาณาจักร';
-    descEn = 'Your child is a strong, high-potential student. Even if not meeting the strict "gifted" definition, their profile is well-suited to top UK boarding schools.';
-  } else if (score >= 8) {
-    tier = 'นักเรียนที่มีฐานแข็งแกร่ง'; tierEn = 'Strong Student';
-    icon = '●';
-    percentileTh = 'ใน 50% แรก'; percentileEn = 'Top 50% academically';
-    descTh = 'ลูกของคุณมีพื้นฐานที่ดีและมีศักยภาพที่จะพัฒนาได้ดีมาก การสนับสนุนที่ถูกทิศทางจะช่วยให้ไปถึงโรงเรียนชั้นดีในสหราชอาณาจักรได้';
-    descEn = 'Your child has a solid foundation with real potential for development. The right support and strategy will get them into a strong UK boarding school.';
-  } else {
-    tier = 'กำลังพัฒนา'; tierEn = 'Developing';
-    icon = '○';
-    percentileTh = 'กำลังพัฒนา'; percentileEn = 'Developing academically';
-    descTh = 'ลูกของคุณอยู่ในช่วงการพัฒนา เส้นทางที่เหมาะสมคือการสร้างพื้นฐานที่แข็งแกร่งก่อน และทุกเด็กสามารถก้าวหน้าได้เมื่อได้รับการสนับสนุนที่ถูกต้อง';
-    descEn = "Your child is in the developing phase. The right track focuses on building confidence and strong foundations — every child can progress with the right support.";
-  }
+  // Four honest signal-strength bands — never a "gifted" verdict, never a percentile claim.
+  const BANDS = {
+    strong: {
+      tierTh: 'สัญญาณชัดเจน', tierEn: 'Strong Signals',
+      subTh: 'ควรพาไปประเมินอย่างเป็นทางการ', subEn: 'Worth a formal assessment',
+      icon: '✦',
+      descTh: 'คำตอบของคุณแสดงสัญญาณศักยภาพทางวิชาการที่ชัดเจนในหลายด้าน นี่คือสัญญาณจากมุมมองพ่อแม่ ไม่ใช่ผลการวินิจฉัย ขั้นตอนถัดไปที่เหมาะสมคือการประเมินอย่างเป็นทางการกับผู้เชี่ยวชาญ',
+      descEn: 'Your answers show clear academic potential signals across several areas. This is a parent-observed signal, not a diagnosis — the appropriate next step is a formal assessment with a specialist.'
+    },
+    promising: {
+      tierTh: 'สัญญาณที่มีแนวโน้มดี', tierEn: 'Promising Signals',
+      subTh: 'เสริมประสบการณ์และสังเกตต่อ', subEn: 'Enrich and observe',
+      icon: '◆',
+      descTh: 'บุตรหลานของคุณแสดงสัญญาณที่มีแนวโน้มดีในหลายด้าน ยังไม่จำเป็นต้องประเมินอย่างเป็นทางการทันที แต่การเสริมประสบการณ์ที่ท้าทายขึ้นและสังเกตต่อเนื่องจะช่วยให้เห็นภาพชัดขึ้น',
+      descEn: "Your child shows promising signals in several areas. A formal assessment isn't urgent yet — enriching with more challenging material and continuing to observe will sharpen the picture."
+    },
+    developing: {
+      tierTh: 'กำลังพัฒนา', tierEn: 'Developing',
+      subTh: 'บ่มเพาะพื้นฐานให้แข็งแรง', subEn: 'Nurture the foundations',
+      icon: '●',
+      descTh: 'บุตรหลานของคุณอยู่ในช่วงกำลังสร้างพื้นฐาน คำตอบส่วนใหญ่อยู่ในระดับกลาง ซึ่งเป็นเรื่องปกติมาก การสนับสนุนที่ถูกทิศทางจะช่วยให้พื้นฐานแข็งแรงขึ้นอย่างต่อเนื่อง',
+      descEn: 'Your child is still building foundations, with most answers in the middle range — which is completely normal. The right support now will strengthen the base steadily.'
+    },
+    early: {
+      tierTh: 'ช่วงเริ่มต้น', tierEn: 'Early Days',
+      subTh: 'เน้นสร้างความสนุกในการเรียนรู้ก่อน', subEn: 'Focus on enjoyment of learning',
+      icon: '○',
+      descTh: 'ตอนนี้ยังเร็วเกินไปที่จะสรุปอะไรได้ชัดเจนจากคำตอบเหล่านี้ สิ่งสำคัญที่สุดในช่วงนี้คือทำให้บุตรหลานของคุณสนุกกับการเรียนรู้ — ศักยภาพทางวิชาการมักตามมาทีหลังเมื่อมีความสนุกเป็นพื้นฐาน',
+      descEn: "It's too early to draw firm conclusions from these answers. The priority right now is making sure your child enjoys learning — academic potential tends to follow once that foundation is in place."
+    }
+  };
+
+  let bandKey;
+  if (signalPct >= 75) bandKey = 'strong';
+  else if (signalPct >= 50) bandKey = 'promising';
+  else if (signalPct >= 25) bandKey = 'developing';
+  else bandKey = 'early';
+  const band = BANDS[bandKey];
 
   const uniTarget = selections.q12;
   const schoolTarget = selections.q13;
-  const subjects = multiSelections.q11;
+  const eliteTarget = ['oxbridge','russell'].includes(uniTarget) || ['elite','top20'].includes(schoolTarget);
+  const upperBand = (bandKey === 'strong' || bandKey === 'promising');
 
   // Track recommendation
   const TRACKS = {
-    'Likely Gifted': {
+    strong: {
       th: 'Oxbridge-Track Intensive',
       en: 'Oxbridge-Track Intensive',
-      desc_th: 'การติวขั้นสูงที่เน้น stretch assignments, การเตรียม academic competitions, และการพัฒนาความลึกทางวิชาการเพื่อ Oxbridge และโรงเรียน elite',
-      desc_en: 'Advanced stretch tutoring, academic competition preparation, and deep intellectual enrichment to target Oxbridge and elite boarding school entry.'
+      desc_th: 'การติวขั้นสูงที่เน้น stretch assignments การเตรียมสอบแข่งขันวิชาการ และการต่อยอดความลึกทางวิชาการ เหมาะสำหรับครอบครัวที่สนใจเส้นทาง Oxbridge หรือโรงเรียน elite',
+      desc_en: 'Advanced stretch tutoring, academic competition preparation, and deep intellectual enrichment — for families exploring the Oxbridge or elite boarding school pathway.'
     },
-    'High Achiever': {
-      th: 'Elite Entry Preparation',
-      en: 'Elite Entry Preparation',
-      desc_th: 'โปรแกรมเตรียมเข้าโรงเรียน UK Top 20 และเส้นทาง Russell Group เน้นคะแนนสอบสูง, การสัมภาษณ์, และ personal statement',
-      desc_en: 'UK top boarding school entry preparation and Russell Group pathway — strong exam scores, interview coaching, and personal statement development.'
+    promising: {
+      th: 'Advanced Entry Preparation',
+      en: 'Advanced Entry Preparation',
+      desc_th: 'โปรแกรมเตรียมเข้าโรงเรียน UK ระดับต้นๆ และเส้นทาง Russell Group เน้นคะแนนสอบที่แข็งแกร่ง การสัมภาษณ์ และ personal statement',
+      desc_en: 'Preparation for top UK boarding schools and the Russell Group pathway — strong exam scores, interview coaching, and personal statement development.'
     },
-    'Strong Student': {
+    developing: {
       th: 'Foundations for Success',
       en: 'Foundations for Success',
-      desc_th: 'สร้างความมั่นใจ, ปิดช่องว่างวิชาการ, และเล็งโรงเรียน boarding school ที่แข็งแกร่ง เน้นการพัฒนาอย่างรอบด้านและยั่งยืน',
-      desc_en: 'Build confidence, close academic gaps, and target a strong UK boarding school — broad and sustainable academic development with clear milestones.'
+      desc_th: 'สร้างความมั่นใจ ปิดช่องว่างวิชาการ และมองหาโรงเรียน boarding school ที่แข็งแกร่งและเหมาะสม เน้นการพัฒนาอย่างรอบด้านและยั่งยืน',
+      desc_en: 'Build confidence, close academic gaps, and target a strong, well-matched UK boarding school — broad and sustainable development with clear milestones.'
     },
-    'Developing': {
-      th: 'Strong Foundations Programme',
-      en: 'Strong Foundations Programme',
-      desc_th: 'พัฒนาพื้นฐานภาษาอังกฤษและวิชาการ เตรียมความพร้อมอย่างรอบด้าน และเลือกโรงเรียน boarding school ที่เหมาะสมกับระดับ',
+    early: {
+      th: 'Early Foundations Programme',
+      en: 'Early Foundations Programme',
+      desc_th: 'พัฒนาพื้นฐานภาษาอังกฤษและวิชาการ สร้างความพร้อมอย่างรอบด้าน และมองหาโรงเรียนที่เหมาะสมกับระดับปัจจุบัน',
       desc_en: 'Develop English and core academic skills, build all-round readiness, and identify the right-fit boarding school for a confident transition.'
     }
   };
-  const track = TRACKS[tierEn] || TRACKS['Developing'];
+  const track = TRACKS[bandKey];
 
   // Programmes
   const PROGRAMMES_BY_TIER = {
-    'Likely Gifted': [
+    strong: [
       { name: 'UKMT Mathematical Challenges', desc_th: 'การแข่งขันคณิตศาสตร์ระดับประเทศ UK (Junior/Intermediate/Senior)', desc_en: 'UK national mathematics competitions (Junior/Intermediate/Senior)' },
       { name: 'British Physics Olympiad (BPhO)', desc_th: 'การแข่งขันฟิสิกส์ระดับชาติ UK', desc_en: 'UK national physics competition — excellent for Oxbridge applications' },
-      { name: 'Johns Hopkins CTY', desc_th: 'โปรแกรมนักเรียนพิเศษสำหรับเด็กที่มีความสามารถสูง', desc_en: 'Centre for Talented Youth — rigorous academic summer programmes for gifted students' },
-      { name: 'NAGTY / Potential Plus UK', desc_th: 'เครือข่าย gifted สหราชอาณาจักรสำหรับนักเรียนที่มีความสามารถสูง', desc_en: 'UK gifted networks connecting exceptionally able students with advanced opportunities' }
+      { name: 'Johns Hopkins CTY', desc_th: 'โปรแกรมเสริมศักยภาพสำหรับเด็กที่มีความสามารถสูง', desc_en: 'Centre for Talented Youth — rigorous academic summer programmes for high-potential students' },
+      { name: 'Potential Plus UK', desc_th: 'เครือข่ายในสหราชอาณาจักรสำหรับนักเรียนที่มีความสามารถสูง', desc_en: 'UK network connecting exceptionally able students with advanced opportunities' }
     ],
-    'High Achiever': [
+    promising: [
       { name: 'UKMT Junior / Intermediate', desc_th: 'ระดับเริ่มต้นของการแข่งขันคณิตศาสตร์ UK', desc_en: 'Entry-level UK mathematics competitions — strong CV addition for boarding school applications' },
-      { name: 'UK Junior Mathematical Challenge', desc_th: 'สำหรับนักเรียนอายุต่ำกว่า 11 ปี', desc_en: 'For students under 11 — a clear gifted indicator for school applications' },
+      { name: 'UK Junior Mathematical Challenge', desc_th: 'สำหรับนักเรียนอายุต่ำกว่า 11 ปี', desc_en: 'For students under 11 — a useful early benchmark for school applications' },
       { name: 'British Biology / Chemistry Olympiad', desc_th: 'การแข่งขันวิทยาศาสตร์ระดับชาติ UK สำหรับระดับ 16+', desc_en: 'National UK science competitions — highly valued for 16+ and A-Level entries' },
       { name: 'Academic Summer Programmes (Oxford/Cambridge)', desc_th: 'โปรแกรมภาคฤดูร้อนระดับมหาวิทยาลัยสำหรับนักเรียนอายุ 14-18 ปี', desc_en: 'University summer programmes for ages 14–18 at Oxford and Cambridge colleges' }
     ],
-    'Strong Student': [
+    developing: [
       { name: 'UK Boarding School Prep Courses', desc_th: 'โปรแกรมเตรียมสอบ 11+, 13+, UKISET เฉพาะบุคคล', desc_en: 'Personalised 11+, 13+, UKISET preparation — essential for school entry' },
       { name: 'UKISET Online Practice', desc_th: 'การทดสอบเข้าโรงเรียนนานาชาติ UK ที่โรงเรียนหลายแห่งกำหนด', desc_en: 'UK international school entry test — required by many boarding schools for international students' },
       { name: 'Junior Maths / Science Challenges', desc_th: 'โอกาสเสริมความแข็งแกร่งและสร้างความมั่นใจ', desc_en: 'Lower-stakes challenges to build confidence and demonstrate academic ambition' },
       { name: 'Reading Lists from Target Schools', desc_th: 'หนังสือที่โรงเรียนเป้าหมายแนะนำสำหรับนักเรียนใหม่', desc_en: 'Pre-reading lists from target schools — demonstrates genuine interest and preparation' }
     ],
-    'Developing': [
+    early: [
       { name: 'LINKEDU Foundation Tutoring', desc_th: 'โปรแกรมพื้นฐานภาษาอังกฤษ + คณิตศาสตร์ ออกแบบสำหรับนักเรียนไทย', desc_en: 'Foundation English and Maths programme designed for Thai students' },
       { name: 'UKISET Preparation Programme', desc_th: 'การเตรียมสอบ UKISET อย่างเป็นระบบ', desc_en: 'Systematic UKISET preparation — achievable improvement with 3+ months of focused work' },
       { name: 'English Reading Programme', desc_th: 'โปรแกรมอ่านภาษาอังกฤษที่มีโครงสร้างชัดเจน', desc_en: 'Structured English reading programme — builds vocabulary and comprehension rapidly' },
@@ -777,31 +794,31 @@ function calculateGifted() {
   };
 
   const STEPS = {
-    'Likely Gifted': {
+    strong: {
       steps_th: [
         'ลงทะเบียนสอบ UKMT หรือ BPhO ที่ใกล้ที่สุดเพื่อรับ benchmark ระดับนานาชาติ',
-        'เริ่มโปรแกรมติว Oxbridge-track กับ LINKEDU — ขยายความลึกทางวิชาการในวิชาที่แข็งแกร่งที่สุด',
-        'ค้นคว้า Eton, Winchester, Westminster หรือ St Paul\'s — เตรียม portfolio วิชาการและ personal statement'
+        'เริ่มโปรแกรมติว Oxbridge-track กับ LINKEDU — ต่อยอดความลึกทางวิชาการในวิชาที่แข็งแกร่งที่สุด',
+        'จองการประเมินอย่างเป็นทางการ (เช่น CAT4, ISEB) กับที่ปรึกษา — นี่คือขั้นตอนที่ยืนยันสัญญาณได้จริง'
       ],
       steps_en: [
-        'Register for the nearest UKMT or BPhO competition to get an international benchmark immediately',
-        'Begin an Oxbridge-track tutoring programme with LINKEDU — deepen the strongest subject to an exceptional level',
-        'Research Eton, Winchester, Westminster, or St Paul\'s — begin academic portfolio and personal statement preparation'
+        'Register for the nearest UKMT or BPhO competition to get an international benchmark',
+        'Begin an Oxbridge-track tutoring programme with LINKEDU — deepen the strongest subject further',
+        'Book a formal assessment (e.g. CAT4, ISEB) with a consultant — this is the step that actually confirms the signal'
       ]
     },
-    'High Achiever': {
+    promising: {
       steps_th: [
         'สอบ UKISET หรือ Common Entrance เพื่อดูคะแนน benchmark จริง',
         'เริ่มโปรแกรมเตรียมสอบ 11+ หรือ 13+ อย่างเป็นระบบกับ LINKEDU',
-        'ยื่นสมัครโรงเรียน Top 20 UK boarding เช่น Harrow, Rugby, Marlborough, Shrewsbury'
+        'เสริมประสบการณ์ที่ท้าทายขึ้นในวิชาที่โดดเด่น แล้วสังเกตต่อเนื่องอีก 1 ภาคเรียนก่อนตัดสินใจเรื่องเป้าหมายโรงเรียน'
       ],
       steps_en: [
         'Sit a UKISET or Common Entrance practice paper to get a real benchmark score',
         'Begin a systematic 11+ or 13+ entry exam preparation programme with LINKEDU',
-        'Apply to Top 20 UK boarding schools such as Harrow, Rugby, Marlborough, or Shrewsbury'
+        'Enrich the strongest subject with more challenging material and observe for another term before fixing school targets'
       ]
     },
-    'Strong Student': {
+    developing: {
       steps_th: [
         'ทำแบบทดสอบ UKISET ออนไลน์เพื่อประเมินระดับปัจจุบัน',
         'เริ่มโปรแกรม Foundations for Success กับ LINKEDU ซึ่งปิดช่องว่างวิชาการอย่างมีเป้าหมาย',
@@ -813,7 +830,7 @@ function calculateGifted() {
         'Identify 3–5 schools that match the current profile — LINKEDU will help shortlist the right fit'
       ]
     },
-    'Developing': {
+    early: {
       steps_th: [
         'จัดทำ full academic assessment กับ LINKEDU เพื่อระบุจุดแข็งและช่องว่างอย่างชัดเจน',
         'เริ่มโปรแกรมภาษาอังกฤษพื้นฐาน + คณิตศาสตร์ทันที — เวลาคือสิ่งสำคัญ',
@@ -827,36 +844,44 @@ function calculateGifted() {
     }
   };
 
-  const COMPARISONS = {
-    'Likely Gifted': {
-      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่คล้ายกับนักเรียนที่เข้าศึกษาที่ <strong>Eton, Winchester, Westminster</strong> และมหาวิทยาลัย <strong>Oxford และ Cambridge</strong>',
-      en: 'Based on your answers, your child\'s profile is consistent with students who go on to <strong>Eton, Winchester, Westminster</strong> and universities including <strong>Oxford and Cambridge</strong>.'
-    },
-    'High Achiever': {
-      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่คล้ายกับนักเรียนที่เข้าศึกษาที่ <strong>Harrow, Rugby, Marlborough, Cheltenham Ladies\' College</strong> และมหาวิทยาลัย <strong>Russell Group</strong>',
-      en: 'Based on your answers, your child\'s profile is consistent with students who go on to <strong>Harrow, Rugby, Marlborough, Cheltenham Ladies\' College</strong> and leading <strong>Russell Group universities</strong>.'
-    },
-    'Strong Student': {
-      th: 'จากคำตอบของคุณ ลูกของคุณมีโปรไฟล์ที่เหมาะกับโรงเรียนเช่น <strong>Bromsgrove, Taunton, Rossall, Concord College</strong> ซึ่งมีนักเรียนไทยจำนวนมากและประสบความสำเร็จในมหาวิทยาลัยชั้นดี',
-      en: 'Based on your answers, your child\'s profile fits schools like <strong>Bromsgrove, Taunton, Rossall, Concord College</strong> — schools with strong Thai student communities and excellent university outcomes.'
-    },
-    'Developing': {
-      th: 'จากคำตอบของคุณ เรายินดีช่วยหาโรงเรียนที่เหมาะสมกับระดับปัจจุบันของลูกคุณ มีหลายโรงเรียนที่ยอดเยี่ยมในสหราชอาณาจักรที่ให้การสนับสนุนพิเศษสำหรับนักเรียนนานาชาติ',
-      en: "Based on your answers, we'd love to help identify the right-fit schools for your child's current level. Several excellent UK boarding schools provide outstanding support for international students at all starting points."
+  // Honest, non-diagnostic equivalent of the old "profile comparison" — tailored by
+  // signal band AND how ambitious the q12/q13 targets are, so those answers actually matter.
+  function buildTargetNote() {
+    if (eliteTarget && upperBand) {
+      return {
+        th: 'คุณตั้งเป้าไปที่มหาวิทยาลัยหรือโรงเรียนระดับ elite และสัญญาณจากคำตอบของคุณอยู่ในระดับที่น่าสนใจ ครอบครัวที่มีรูปแบบคำตอบใกล้เคียงกันมักเริ่มเตรียมความพร้อมด้วยการประเมินอย่างเป็นทางการ (เช่น CAT4, ISEB) และเส้นทางเตรียมทุนการศึกษา (scholarship-track) ร่วมกับที่ปรึกษา',
+        en: "You're targeting an elite university or school tier, and the signals from your answers are encouraging. Families with this pattern of answers often move next to a formal assessment (e.g. CAT4, ISEB) and scholarship-track preparation with a consultant."
+      };
     }
-  };
+    if (eliteTarget && !upperBand) {
+      return {
+        th: 'เป้าหมายของคุณอยู่ในระดับ elite แต่สัญญาณปัจจุบันจากคำตอบยังอยู่ในช่วงเริ่มต้นหรือกำลังพัฒนา นี่ไม่ได้แปลว่าเป็นไปไม่ได้ แต่ระยะเวลาที่เหลือและความเข้มข้นของการเตรียมตัวคือปัจจัยสำคัญ เราแนะนำให้เริ่มจากการประเมินพื้นฐานอย่างตรงไปตรงมากับที่ปรึกษา เพื่อวางแผนที่สมจริง',
+        en: "Your target is an elite tier, but the current signals are still early-stage or developing. That doesn't rule it out — but the runway and intensity of preparation matter a great deal. We'd recommend an honest baseline assessment with a consultant to map out a realistic plan."
+      };
+    }
+    if (!eliteTarget && upperBand) {
+      return {
+        th: 'เป้าหมายของคุณค่อนข้างยืดหยุ่น และสัญญาณจากคำตอบก็อยู่ในระดับที่ดี — คุณมีตัวเลือกที่ดีหลายทางโดยไม่จำเป็นต้องเร่งเข้าเส้นทาง scholarship ที่เข้มข้น แต่เส้นทางนั้นก็ยังเปิดอยู่หากสนใจในอนาคต',
+        en: 'Your target is flexible, and the signals from your answers are strong — you have good options without necessarily needing an intensive scholarship track, though that path remains open if you want it later.'
+      };
+    }
+    return {
+      th: 'เป้าหมายของคุณสอดคล้องกับจุดที่บุตรหลานอยู่ในตอนนี้ นี่เป็นจุดเริ่มต้นที่ดี — เน้นสร้างพื้นฐานให้แข็งแรงก่อน แล้วค่อยประเมินเป้าหมายอีกครั้งเมื่อพร้อม',
+      en: "Your target is realistic for where your child is today. That's a good starting point — focus on building solid foundations first, then revisit ambitions once that base is in place."
+    };
+  }
 
   // Build results
   document.getElementById('verdict-card').innerHTML = `
     <div class="verdict-label"><span class="lang-th">ผลการประเมินวิชาการ</span><span class="lang-en">Academic Assessment Result</span></div>
-    <div class="verdict-icon">${icon}</div>
-    <div class="verdict-title"><span class="lang-th">${tier}</span><span class="lang-en">${tierEn}</span></div>
-    <div class="verdict-sub"><span class="lang-th">คะแนน ${score}/${maxScore} — ${pct}% ตัวชี้วัด Gifted</span><span class="lang-en">Score ${score}/${maxScore} — ${pct}% gifted indicators</span></div>
+    <div class="verdict-icon">${band.icon}</div>
+    <div class="verdict-title"><span class="lang-th">${band.tierTh} — ${band.subTh}</span><span class="lang-en">${band.tierEn} — ${band.subEn}</span></div>
+    <div class="verdict-sub"><span class="lang-th">คะแนนดิบ ${score}/${MAX_SCORE} (ช่วงคะแนนจริงคือ ${MIN_SCORE}–${MAX_SCORE})</span><span class="lang-en">Raw score ${score}/${MAX_SCORE} (true achievable range is ${MIN_SCORE}–${MAX_SCORE})</span></div>
     <div class="percentile-wrap">
-      <span class="percentile-pill"><span class="lang-th">${percentileTh}</span><span class="lang-en">${percentileEn}</span></span>
+      <span class="percentile-pill"><span class="lang-th">ระดับสัญญาณ ${signalPct}%</span><span class="lang-en">Signal strength ${signalPct}%</span></span>
     </div>
     <p style="color:rgba(245,240,232,0.65);font-size:0.88rem;max-width:520px;margin:0 auto;line-height:1.65;">
-      <span class="lang-th">${descTh}</span><span class="lang-en">${descEn}</span>
+      <span class="lang-th">${band.descTh}</span><span class="lang-en">${band.descEn}</span>
     </p>
   `;
 
@@ -865,10 +890,10 @@ function calculateGifted() {
     <p><span class="lang-th">${track.desc_th}</span><span class="lang-en">${track.desc_en}</span></p>
   `;
 
-  const progs = PROGRAMMES_BY_TIER[tierEn] || PROGRAMMES_BY_TIER['Developing'];
+  const progs = PROGRAMMES_BY_TIER[bandKey];
   document.getElementById('programmes-block').innerHTML = `
     <div class="result-block">
-      <div class="result-block-label"><span class="lang-th">โปรแกรม UK ที่ควรรู้</span><span class="lang-en">UK Gifted Programmes to Know</span></div>
+      <div class="result-block-label"><span class="lang-th">โปรแกรม UK ที่ควรรู้</span><span class="lang-en">UK Programmes to Know</span></div>
       <div class="programme-grid">
         ${progs.map(p => `
           <div class="programme-card">
@@ -880,7 +905,7 @@ function calculateGifted() {
     </div>
   `;
 
-  const steps = STEPS[tierEn] || STEPS['Developing'];
+  const steps = STEPS[bandKey];
   document.getElementById('next-steps-block').innerHTML = `
     <div class="result-block">
       <div class="result-block-label"><span class="lang-th">ขั้นตอนถัดไป 3 ข้อ</span><span class="lang-en">3 Concrete Next Steps</span></div>
@@ -891,12 +916,19 @@ function calculateGifted() {
     </div>
   `;
 
-  const comp = COMPARISONS[tierEn] || COMPARISONS['Developing'];
+  const note = buildTargetNote();
   document.getElementById('comparison-block').innerHTML = `
     <div class="comparison-card">
-      <h3><span class="lang-th">เทียบโปรไฟล์กับนักเรียนที่ประสบความสำเร็จ</span><span class="lang-en">Profile Comparison</span></h3>
-      <p class="lang-th">${comp.th}</p>
-      <p class="lang-en">${comp.en}</p>
+      <h3><span class="lang-th">สิ่งนี้หมายความว่าอย่างไรสำหรับเป้าหมายของคุณ</span><span class="lang-en">What This Means for Your Target</span></h3>
+      <p class="lang-th">${note.th}</p>
+      <p class="lang-en">${note.en}</p>
+    </div>
+  `;
+
+  document.getElementById('limits-block').innerHTML = `
+    <div class="result-block">
+      <div class="result-block-label"><span class="lang-th">ข้อจำกัดของแบบประเมินนี้</span><span class="lang-en">Limits of This Check</span></div>
+      <p><span class="lang-th">แบบประเมินนี้อิงจากการสังเกตของพ่อแม่ 13 ข้อ — เป็นสัญญาณเบื้องต้นสำหรับการคัดกรอง ไม่ใช่การวินิจฉัย การประเมินอย่างเป็นทางการ (เช่น CAT4, ISEB) คือวิธีที่โรงเรียนใช้ตัดสินใจจริง ที่ปรึกษาของ LINKEDU ช่วยตีความผลนี้และวางแผนขั้นตอนถัดไปได้</span><span class="lang-en">This check is based on 13 parent observations — a screening signal, not a diagnosis. Formal assessment (e.g. CAT4, ISEB) is how schools actually decide. A LINKEDU consultant can help interpret this result and plan the next step.</span></p>
     </div>
   `;
 

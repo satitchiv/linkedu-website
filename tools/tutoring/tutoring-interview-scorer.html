@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKEDU — School Interview Readiness Scorer</title>
+<title>LINKEDU — Interview Readiness Checklist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -263,7 +263,7 @@ footer a { color: var(--gold); text-decoration: none; }
     <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
     <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
     <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
-    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+    <a href="../../tutoring.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
   </nav>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
@@ -276,13 +276,17 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="container">
     <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
     <h1>
-      <span class="lang-th">ประเมินความพร้อม<br>สำหรับการสัมภาษณ์</span>
-      <span class="lang-en">School Interview<br>Readiness Scorer</span>
+      <span class="lang-th">เช็คลิสต์ความพร้อม<br>สำหรับการสัมภาษณ์</span>
+      <span class="lang-en">Interview Readiness<br>Checklist</span>
     </h1>
     <p style="margin-top:16px;">
-      <span class="lang-th">วัดระดับความพร้อมของลูกคุณสำหรับการสัมภาษณ์เข้าโรงเรียนประจำในสหราชอาณาจักร รับคะแนนและคำแนะนำการโค้ชเฉพาะบุคคล</span>
-      <span class="lang-en">Assess your child's readiness for UK boarding school interviews. Get a score, section-by-section feedback, and personalised coaching recommendations.</span>
+      <span class="lang-th">เครื่องมือนี้ช่วยจัดระเบียบสิ่งที่คุณสังเกตเห็นในตัวบุตรหลานให้เป็นระบบ ก่อนการสัมภาษณ์เข้าโรงเรียนประจำในสหราชอาณาจักร รับคะแนน ข้อเสนอแนะรายหมวด และคำแนะนำการโค้ชเฉพาะบุคคล</span>
+      <span class="lang-en">This tool structures what you already observe in your child ahead of a UK boarding school interview. Get a score, section-by-section feedback, and personalised coaching recommendations.</span>
     </p>
+    <div style="display:inline-block;background:var(--gold-faint);border:1px solid rgba(184,150,46,0.3);border-radius:6px;padding:12px 24px;margin-top:24px;max-width:560px;font-size:0.85rem;color:rgba(245,240,232,0.7);">
+      <span class="lang-th">หมายเหตุ: นี่คือเครื่องมือจัดระเบียบการสังเกตของ<strong style="color:var(--gold);">พ่อแม่</strong> ไม่ใช่การประเมินโดยผู้สัมภาษณ์จริงของโรงเรียน ผลลัพธ์ช่วยวางแผนการเตรียมตัว ไม่ใช่คำทำนายผลการสัมภาษณ์</span>
+      <span class="lang-en">Note: This structures <strong style="color:var(--gold);">your</strong> observations as a parent — it is not an assessment by an actual school interviewer. The result guides preparation, not a prediction of the interview outcome.</span>
+    </div>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
       <div style="text-align:center;color:rgba(245,240,232,0.6);font-size:0.82rem;">
         <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;">20</div>
@@ -359,6 +363,10 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="section-num">1</div>
           <h3><span class="lang-th">ทักษะการสื่อสาร</span><span class="lang-en">Communication Skills</span></h3>
         </div>
+        <p style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-bottom:18px;line-height:1.6;">
+          <span class="lang-th"><strong style="color:rgba(184,150,46,0.85);">5</strong> = สนทนาสองทางกับผู้ใหญ่ที่ไม่คุ้นเคยเป็นภาษาอังกฤษได้โดยไม่ต้องมีใครกระตุ้น &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = ตอบเป็นคำเดียวแม้กับคนที่คุ้นเคย</span>
+          <span class="lang-en"><strong style="color:rgba(184,150,46,0.85);">5</strong> = holds a two-way conversation with an unfamiliar adult in English without prompting &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = answers in single words even with familiar adults</span>
+        </p>
         <div id="section-1"></div>
       </div>
 
@@ -368,6 +376,10 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="section-num">2</div>
           <h3><span class="lang-th">ความสามารถภาษาอังกฤษ</span><span class="lang-en">English Proficiency</span></h3>
         </div>
+        <p style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-bottom:18px;line-height:1.6;">
+          <span class="lang-th"><strong style="color:rgba(184,150,46,0.85);">5</strong> = อ่าน เขียน และพูดเรื่องนามธรรมเป็นภาษาอังกฤษได้คล่องโดยไม่ต้องแปลในหัวก่อน &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = พูดภาษาอังกฤษเป็นประโยคสมบูรณ์ไม่ได้แม้มีคนช่วย</span>
+          <span class="lang-en"><strong style="color:rgba(184,150,46,0.85);">5</strong> = reads, writes, and discusses abstract topics in English fluently without translating in their head &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = cannot form a complete English sentence, even with help</span>
+        </p>
         <div id="section-2"></div>
       </div>
 
@@ -377,6 +389,10 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="section-num">3</div>
           <h3><span class="lang-th">ความอยากรู้อยากเห็นทางปัญญา</span><span class="lang-en">Intellectual Curiosity</span></h3>
         </div>
+        <p style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-bottom:18px;line-height:1.6;">
+          <span class="lang-th"><strong style="color:rgba(184,150,46,0.85);">5</strong> = ถามคำถามต่อเนื่องและค้นหาคำตอบด้วยตัวเองโดยไม่ต้องมีใครบอก &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = ไม่แสดงความสนใจในเรื่องใดนอกเหนือจากการบ้านที่ได้รับมอบหมาย</span>
+          <span class="lang-en"><strong style="color:rgba(184,150,46,0.85);">5</strong> = asks follow-up questions and pursues the answer on their own, unprompted &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = shows no interest in anything beyond assigned homework</span>
+        </p>
         <div id="section-3"></div>
       </div>
 
@@ -386,6 +402,10 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="section-num">4</div>
           <h3><span class="lang-th">การรู้จักตัวเองและความเป็นผู้ใหญ่</span><span class="lang-en">Self-Awareness &amp; Maturity</span></h3>
         </div>
+        <p style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-bottom:18px;line-height:1.6;">
+          <span class="lang-th"><strong style="color:rgba(184,150,46,0.85);">5</strong> = บอกจุดอ่อนที่แท้จริงของตัวเองได้ พร้อมอธิบายว่ากำลังทำอะไรเพื่อพัฒนา โดยไม่ต้องมีใครถาม &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = บอกจุดอ่อนของตัวเองไม่ได้ หรือพูดกลบเกลื่อนเมื่อถูกถาม</span>
+          <span class="lang-en"><strong style="color:rgba(184,150,46,0.85);">5</strong> = names a real weakness and describes what they're doing about it, unprompted &nbsp;·&nbsp; <strong style="color:rgba(184,150,46,0.85);">1</strong> = cannot describe a personal weakness, or deflects the question</span>
+        </p>
         <div id="section-4"></div>
       </div>
 
@@ -456,7 +476,7 @@ footer a { color: var(--gold); text-decoration: none; }
         <span class="lang-th">โค้ชผู้เชี่ยวชาญของเราเคยผ่านกระบวนการสัมภาษณ์ UK มาเองและจะช่วยลูกของคุณสร้างความมั่นใจอย่างแท้จริง</span>
         <span class="lang-en">Our expert coaches have been through the UK interview process themselves and will build your child's genuine confidence — not just rehearsed answers.</span>
       </p>
-      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
+      <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line">
         <span class="lang-th">จองผ่าน LINE ตอนนี้</span>
         <span class="lang-en">Book via LINE Now</span>
       </a>
@@ -485,7 +505,7 @@ footer a { color: var(--gold); text-decoration: none; }
     </p>
     <span class="line-handle">satitlinkedu</span>
     <br>
-    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line-large">
       <span class="lang-th">เพิ่ม LINE / Add LINE</span>
       <span class="lang-en">เพิ่ม LINE / Add LINE</span>
     </a>
@@ -517,7 +537,6 @@ const QUESTIONS = {
   1: {
     label_th: 'ทักษะการสื่อสาร',
     label_en: 'Communication Skills',
-    icon: '💬',
     items: [
       { th: 'สามารถอธิบายความเห็นของตนเองได้อย่างชัดเจนและมีเหตุผล', en: 'Can explain their views clearly and logically' },
       { th: 'พูดเป็นประโยคสมบูรณ์ ไม่ใช่แค่คำตอบคำเดียว', en: 'Speaks in full sentences rather than single-word answers' },
@@ -529,7 +548,6 @@ const QUESTIONS = {
   2: {
     label_th: 'ความสามารถภาษาอังกฤษ',
     label_en: 'English Proficiency',
-    icon: '📚',
     items: [
       { th: 'อ่านหนังสือภาษาอังกฤษเพื่อความสุขส่วนตัว (ไม่ใช่แค่การบ้าน)', en: 'Reads books in English for pleasure (not just school)' },
       { th: 'สามารถพูดคุยเรื่องข่าวสารปัจจุบันเป็นภาษาอังกฤษได้', en: 'Can discuss current news events in English' },
@@ -541,7 +559,6 @@ const QUESTIONS = {
   3: {
     label_th: 'ความอยากรู้อยากเห็น',
     label_en: 'Intellectual Curiosity',
-    icon: '🔍',
     items: [
       { th: 'มีความหลงใหลจริงๆ นอกห้องเรียน ไม่ใช่แค่เพื่อใส่ใน CV', en: 'Has genuine passions outside school (not just ticking boxes)' },
       { th: 'ถามคำถาม "ทำไม" และ "อย่างไร" โดยธรรมชาติ', en: 'Asks "why" and "how" questions naturally' },
@@ -553,7 +570,6 @@ const QUESTIONS = {
   4: {
     label_th: 'การรู้จักตัวเองและความเป็นผู้ใหญ่',
     label_en: 'Self-Awareness & Maturity',
-    icon: '🪞',
     items: [
       { th: 'สามารถระบุจุดแข็งของตนเองได้อย่างตรงไปตรงมา', en: 'Can name their own strengths honestly' },
       { th: 'พูดถึงจุดอ่อนหรือความล้มเหลวได้โดยไม่อาย', en: 'Can admit and discuss a weakness or failure without embarrassment' },
@@ -625,29 +641,35 @@ function calculateResults() {
     for (let i = 0; i < 5; i++) total += scores['q' + s + '_' + i];
     sectionTotals[s] = total; // max 25
   }
-  const overall = Object.values(sectionTotals).reduce((a, b) => a + b, 0); // max 100
+  const overall = Object.values(sectionTotals).reduce((a, b) => a + b, 0); // raw range 20-100 (20 items, 1-5 each)
 
-  // Rating
+  // Rescale so the floor (all 1s, raw 20) becomes 0 and the ceiling (all 5s, raw 100)
+  // becomes 100 — the raw score's true floor is 20, not 0, so displaying it directly
+  // as "/100" would overstate every result.
+  const displayScore = Math.round((overall - 20) / 80 * 100);
+
+  // Rating — this is a parent-observation checklist, never a claim of "Interview-Ready".
+  // Every band's next step is the same honest closer: external validation via a mock interview.
   let ratingTh, ratingEn, descTh, descEn;
-  if (overall >= 85) {
-    ratingTh = 'พร้อมสำหรับการสัมภาษณ์'; ratingEn = 'Interview-Ready';
-    descTh = 'ลูกของคุณมีทักษะและความมั่นใจที่แข็งแกร่งสำหรับการสัมภาษณ์โรงเรียนประจำ UK ขั้นตอนถัดไปคือการฝึกซ้อมกับโค้ชเพื่อขัดเกลาคำตอบให้คมชัด';
-    descEn = 'Your child has the skills and confidence for UK boarding school interviews. The next step is polish — practise with a coach to sharpen answers.';
-  } else if (overall >= 70) {
-    ratingTh = 'ฐานที่แข็งแกร่ง'; ratingEn = 'Strong Foundation';
-    descTh = 'ลูกของคุณมีพื้นฐานที่ดีแต่ยังมีจุดที่ต้องพัฒนา การโค้ชเฉพาะด้านจะยกระดับได้อย่างรวดเร็ว';
-    descEn = 'Your child has a good base but there are clear areas to develop. Targeted coaching will accelerate improvement quickly.';
-  } else if (overall >= 50) {
-    ratingTh = 'กำลังสร้างความมั่นใจ'; ratingEn = 'Building Confidence';
-    descTh = 'ยังต้องการการเตรียมตัวที่มีโครงสร้างชัดเจน เราขอแนะนำโปรแกรมเตรียมสัมภาษณ์ 8-12 สัปดาห์';
-    descEn = 'Structured preparation is needed. We recommend an 8–12 week interview preparation programme before applying.';
+  if (displayScore >= 80) {
+    ratingTh = 'สัญญาณชัดเจน — จองสัมภาษณ์จำลองเพื่อยืนยัน'; ratingEn = 'Strong Signals — Book a Mock Interview to Confirm';
+    descTh = 'จากการสังเกตของคุณ บุตรหลานของคุณแสดงสัญญาณความพร้อมที่ชัดเจนสำหรับการสัมภาษณ์เข้าโรงเรียนประจำ UK ขั้นตอนถัดไปคือสัมภาษณ์จำลองจริงกับโค้ช เพื่อยืนยันสัญญาณนี้และขัดเกลาคำตอบให้คมชัดยิ่งขึ้น';
+    descEn = 'Based on your observations, your child shows strong readiness signals for UK boarding school interviews. The next step is a real mock interview with a coach — to confirm these signals and sharpen the answers further.';
+  } else if (displayScore >= 60) {
+    ratingTh = 'ฐานที่มั่นคง — ขัดเกลาจุดที่เฉพาะเจาะจง'; ratingEn = 'Solid Foundation — Polish Specific Areas';
+    descTh = 'บุตรหลานของคุณมีฐานที่มั่นคงแต่ยังมีจุดที่ต้องขัดเกลาเฉพาะเจาะจง การโค้ชในหมวดที่คะแนนต่ำที่สุดจะช่วยยกระดับได้อย่างรวดเร็ว';
+    descEn = 'Your child has a solid foundation, with specific areas still to polish. Coaching focused on the lowest-scoring sections will accelerate progress quickly.';
+  } else if (displayScore >= 35) {
+    ratingTh = 'ต้องการการฝึกฝนอย่างมีโครงสร้าง'; ratingEn = 'Needs Structured Practice';
+    descTh = 'จากการสังเกตของคุณ บุตรหลานของคุณยังต้องการการฝึกฝนที่มีโครงสร้างชัดเจนก่อนการสัมภาษณ์จริง เราแนะนำโปรแกรมเตรียมสัมภาษณ์ 8-12 สัปดาห์';
+    descEn = 'Based on your observations, your child needs structured practice before a real interview. We recommend an 8–12 week interview preparation programme.';
   } else {
-    ratingTh = 'ต้องการการโค้ช'; ratingEn = 'Needs Coaching';
-    descTh = 'ควรเริ่มโปรแกรมการพัฒนาภาษาและการสื่อสารโดยเร็ว ยิ่งเริ่มเร็วยิ่งดี';
-    descEn = 'A structured language and communication development programme should begin as soon as possible.';
+    ratingTh = 'เริ่มจากการสร้างความมั่นใจ'; ratingEn = 'Start with Confidence-Building';
+    descTh = 'ควรเริ่มจากการสร้างความมั่นใจและทักษะการสื่อสารพื้นฐานก่อน ยิ่งเริ่มเร็วยิ่งดี — สัมภาษณ์จำลองครั้งแรกควรเป็นแบบผ่อนคลายและให้กำลังใจ ไม่ใช่การประเมินที่กดดัน';
+    descEn = 'Start with confidence-building and basic communication skills. The earlier this begins, the better — the first mock interview should be low-pressure and encouraging, not a high-stakes evaluation.';
   }
 
-  document.getElementById('overall-score').textContent = overall;
+  document.getElementById('overall-score').textContent = displayScore;
   document.getElementById('rating-badge').innerHTML = `<span class="lang-th">${ratingTh}</span><span class="lang-en">${ratingEn}</span>`;
   document.getElementById('rating-desc').innerHTML = `<span class="lang-th">${descTh}</span><span class="lang-en">${descEn}</span>`;
 

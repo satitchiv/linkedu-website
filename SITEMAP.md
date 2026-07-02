@@ -99,7 +99,7 @@ Everything working. Hero, stats, navigation, footer all live. Sends visitors tow
 
 | Tool | What it does | Status | View |
 |------|-------------|--------|------|
-| Fee Calculator — Original | Basic fee calculator | 🔗 Live but hidden | [Open](https://linkeduth.netlify.app/tools/fee-calculator.html) |
+| Fee Calculator — Original | Basic fee calculator | Archived 2026-07-02 (stale/fabricated fees) → tools/archive/ | superseded by fees-calculator-v2c.html |
 | Fee Calculator — V1 | First redesigned version | 🔗 Live but hidden | [Open](https://linkeduth.netlify.app/tools/fees-calculator-v1.html) |
 | Fee Calculator — V2 (Three-Step Journey) | Step-by-step layout | 🔗 Live but hidden | [Open](https://linkeduth.netlify.app/tools/fees-calculator-v2.html) |
 | Fee Calculator — V3 (Split Dashboard) | Side-by-side power view | 🔗 Live but hidden | [Open](https://linkeduth.netlify.app/tools/fees-calculator-v3.html) |
@@ -120,7 +120,7 @@ Everything working. Hero, stats, navigation, footer all live. Sends visitors tow
 | English Assessment | Self-assess English level | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/english-assessment.html) |
 | Culture Shock Quiz | Checks UK culture readiness | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/culture-shock-readiness-quiz.html) |
 | Packing Guide | What to pack for UK boarding | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/packing-guide.html) |
-| UK vs Thailand | Life differences explained | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/uk-vs-thailand.html) |
+| UK vs Thailand | Life differences explained | Archived 2026-07-02 (non-functional stub) → tools/archive/ | — |
 | Cultural Integration Quiz | Deeper culture readiness check | 🔲 Not on website yet | — |
 | UK School Journey Planner | End-to-end journey planner | 🔲 Not on website yet | — |
 | Thai Food Compatibility | Food guide for Thai students in the UK | 🔲 Not on website yet | — |
@@ -135,7 +135,7 @@ Everything working. Hero, stats, navigation, footer all live. Sends visitors tow
 | Guide | What it covers | Status | View |
 |-------|---------------|--------|------|
 | Oxbridge Pathway (featured) | Step-by-step Oxbridge guide | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/oxbridge-pathway.html) |
-| UK vs Thailand | Living differences | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/uk-vs-thailand.html) |
+| UK vs Thailand | Living differences | Archived 2026-07-02 (non-functional stub) → tools/archive/ | — |
 | Post-Study Visa Pathway | Visa planning after school | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/post-study-visa-pathway.html) |
 | Scholarship Checklist | How to apply for scholarships | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/scholarship-checklist.html) |
 | Sports Scholarship Finder | Find sports scholarships | ✅ Live & linked | [Open](https://linkeduth.netlify.app/tools/sports-scholarship-finder.html) |

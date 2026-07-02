@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINKEDU - UK Culture Shock Readiness Quiz</title>
+    <title>LINKEDU - UK Boarding Readiness Check</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Base Styles */
@@ -289,6 +289,36 @@
             color: var(--text-dark);
         }
 
+        .quiz-question.missing {
+            border-color: #c0392b;
+            box-shadow: 0 0 0 2px rgba(192,57,43,0.25);
+        }
+
+        .validation-message {
+            display: none;
+            background-color: #fbeaea;
+            color: #c0392b;
+            border-left: 4px solid #c0392b;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .next-steps p a {
+            font-weight: 600;
+        }
+
+        .limits-note {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-left: 4px solid var(--gold);
+            border-radius: 4px;
+        }
+
         .quiz-options label {
             display: block;
             margin-bottom: 15px;
@@ -556,10 +586,10 @@
                 <span class="lang-th">การศึกษาต่อต่างประเทศ</span>
             </div>
             <nav class="nav-menu">
-                <a href="th.linkedu.hk" class="lang-th">หน้าแรก</a>
-                <a href="th.linkedu.hk" class="lang-en">Home</a>
-                <a href="th.linkedu.hk/services" class="lang-th">บริการ</a>
-                <a href="th.linkedu.hk/services" class="lang-en">Services</a>
+                <a href="../index.html" class="lang-th">หน้าแรก</a>
+                <a href="../index.html" class="lang-en">Home</a>
+                <a href="../all-tools.html" class="lang-th">เครื่องมือ</a>
+                <a href="../all-tools.html" class="lang-en">Tools</a>
             </nav>
             <div class="lang-toggle">
                 <button id="lang-th-btn" class="active">TH</button>
@@ -571,10 +601,10 @@
     <!-- Hero Section -->
     <section class="hero dark-bg">
         <div class="container">
-            <h1 class="lang-th">แบบทดสอบความพร้อมในการปรับตัวเข้ากับวัฒนธรรมสหราชอาณาจักร</h1>
-            <h1 class="lang-en">UK Culture Shock Readiness Quiz</h1>
-            <p class="lang-th">ประเมินความพร้อมของคุณและรับคำแนะนำส่วนบุคคลเพื่อการปรับตัวที่ราบรื่นสู่ชีวิตในสหราชอาณาจักร</p>
-            <p class="lang-en">Assess your readiness and get personalized tips for a smooth transition to life in the UK.</p>
+            <h1 class="lang-th">เช็คความพร้อมสำหรับชีวิตโรงเรียนประจำในสหราชอาณาจักร</h1>
+            <h1 class="lang-en">UK Boarding Readiness Check</h1>
+            <p class="lang-th">8 คำถามเกี่ยวกับพฤติกรรมจริงของบุตรหลานคุณในวันนี้ เพื่อประเมินว่าเขาพร้อมสำหรับชีวิตโรงเรียนประจำในสหราชอาณาจักรมากน้อยเพียงใด</p>
+            <p class="lang-en">8 questions about your child's real behaviour today, to gauge how ready they are for UK boarding life.</p>
             <a href="#quiz-start" class="btn lang-th">เริ่มทำแบบทดสอบ</a>
             <a href="#quiz-start" class="btn lang-en">Start Quiz</a>
         </div>
@@ -587,183 +617,266 @@
                 <span class="lang-th">· แบบทดสอบ ·</span>
                 <span class="lang-en">· THE QUIZ ·</span>
             </div>
-            <h2 class="lang-th">ประเมินความพร้อมของคุณ</h2>
-            <h2 class="lang-en">Assess Your Readiness</h2>
-            <p class="lang-th">ตอบคำถามด้านล่างเพื่อทำความเข้าใจว่าคุณพร้อมสำหรับความท้าทายทางวัฒนธรรมในสหราชอาณาจักรมากน้อยเพียงใด คำตอบของคุณจะช่วยให้เราให้คำแนะนำที่ปรับให้เหมาะกับคุณได้</p>
-            <p class="lang-en">Answer the questions below to understand how prepared you are for cultural differences in the UK. Your responses will help us provide tailored advice.</p>
+            <h2 class="lang-th">เช็คความพร้อมของบุตรหลานคุณ</h2>
+            <h2 class="lang-en">Check Your Child's Readiness</h2>
+            <p class="lang-th"><strong>แบบทดสอบนี้วัดอะไร:</strong> ความพร้อมของบุตรหลานคุณสำหรับชีวิตโรงเรียนประจำในสหราชอาณาจักร โดยอิงจากพฤติกรรมจริง 8 ด้านที่เกิดขึ้นแล้ววันนี้ ไม่ใช่เจตคติหรือความตั้งใจ</p>
+            <p class="lang-en"><strong>What this measures:</strong> your child's readiness for UK boarding life, based on 8 real behaviours happening today — not attitudes or intentions.</p>
+            <p class="lang-th"><strong>สิ่งที่แบบทดสอบนี้ไม่ได้ทำ:</strong> นี่ไม่ใช่การพยากรณ์ผลการเข้าเรียน และไม่ได้บอกว่าโรงเรียนใดเหมาะกับบุตรหลานคุณ — สำหรับเรื่องนั้น ลองใช้ <a href="../tools/personality-match.html">School Fit Finder</a></p>
+            <p class="lang-en"><strong>What it does not do:</strong> this is not an admissions prediction, and it does not tell you which school fits your child — for that, try the <a href="../tools/personality-match.html">School Fit Finder</a>.</p>
+            <p class="lang-th">ตอบคำถามทั้ง 8 ข้อโดยนึกถึงพฤติกรรมจริงของบุตรหลานคุณ ไม่ใช่สิ่งที่คุณอยากให้เป็น คำถามทุกข้อต้องตอบก่อนจึงจะดูผลลัพธ์ได้</p>
+            <p class="lang-en">Answer all 8 questions based on your child's actual behaviour, not what you'd like it to be. All questions must be answered before you can see your result.</p>
+
+            <div id="validationMessage" class="validation-message">
+                <span class="lang-th">กรุณาตอบคำถามที่ยังไม่ได้เลือก (ไฮไลต์สีแดงด้านล่าง) ก่อนส่งคำตอบ</span>
+                <span class="lang-en">Please answer the highlighted question(s) below before submitting.</span>
+            </div>
 
             <form id="cultureShockQuiz">
-                <!-- Question 1: Food Preferences -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">1. คุณเปิดใจลองอาหารใหม่ๆ ที่แตกต่างจากอาหารไทยมากน้อยเพียงใด?</span><span class="lang-en">1. How open are you to trying new foods that are very different from Thai cuisine?</span></h3>
+                <!-- Question 1: Time away from home -->
+                <div class="quiz-question" data-dim="time_away">
+                    <h3><span class="lang-th">1. ระยะเวลาที่นานที่สุดที่บุตรหลานของคุณเคยอยู่ห่างจากครอบครัว (โดยไม่มีคุณอยู่ด้วย) คือเท่าไหร่?</span><span class="lang-en">1. What's the longest your child has ever been away from your family, without you there?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q1" value="1">
+                            <input type="radio" name="time_away" value="2">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">อยากทานอาหารไทยเป็นหลัก อาจลองอาหารต่างชาติบ้างเล็กน้อย</span>
-                            <span class="lang-en">I prefer Thai food primarily and might try new international dishes only a little.</span>
+                            <span class="lang-th">หนึ่งสัปดาห์ขึ้นไป — ทัศนศึกษา ค่ายกีฬา หรือไปพักกับญาติในไทย</span>
+                            <span class="lang-en">A week or more — a school trip, sports camp, or staying with relatives in Thailand.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q1" value="3">
+                            <input type="radio" name="time_away" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">เปิดใจลองอาหารต่างชาติหลายประเภท แต่ก็ยังอยากมีอาหารไทยเป็นบางครั้ง</span>
-                            <span class="lang-en">I'm open to trying many types of international food but would still like Thai food sometimes.</span>
+                            <span class="lang-th">ไม่เคยเลย — ยังไม่เคยค้างคืนห่างจากครอบครัวแม้แต่คืนเดียว</span>
+                            <span class="lang-en">Never — hasn't spent a single full night away from the family.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q1" value="5">
+                            <input type="radio" name="time_away" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ตื่นเต้นที่จะได้ลองอาหารท้องถิ่นและอาหารนานาชาติทุกประเภท</span>
-                            <span class="lang-en">I'm excited to explore local cuisine and all kinds of international dishes.</span>
+                            <span class="lang-th">2 สัปดาห์ขึ้นไปในต่างประเทศ — ค่ายต่างประเทศ โครงการแลกเปลี่ยน หรือโฮมสเตย์</span>
+                            <span class="lang-en">2 or more weeks abroad — an overseas camp, exchange programme, or homestay.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="time_away" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">1-3 คืน — ค้างบ้านเพื่อน บ้านญาติ หรือทริปสั้นๆ</span>
+                            <span class="lang-en">1–3 nights — a sleepover, a relative's house, or a short trip.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 2: Social Etiquette & Communication -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">2. คุณรู้สึกสบายใจกับการสื่อสารที่ตรงไปตรงมาและมีปฏิสัมพันธ์กับคนแปลกหน้ามากน้อยเพียงใด?</span><span class="lang-en">2. How comfortable are you with direct communication and interacting with strangers?</span></h3>
+                <!-- Question 2: English immersion -->
+                <div class="quiz-question" data-dim="english_immersion">
+                    <h3><span class="lang-th">2. บุตรหลานของคุณใช้ภาษาอังกฤษในชีวิตประจำวันมากน้อยแค่ไหน (นอกเวลาเรียน)?</span><span class="lang-en">2. How much does your child use English in daily life, outside the classroom?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q2" value="1">
+                            <input type="radio" name="english_immersion" value="1">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ค่อนข้างขี้อายและไม่ค่อยกล้าเข้าหาคนแปลกหน้า</span>
-                            <span class="lang-en">I'm quite shy and prefer not to initiate conversations with strangers.</span>
+                            <span class="lang-th">เป็นบางครั้ง — ดูรายการ เกม หรือวิดีโอภาษาอังกฤษ แต่แทบไม่ได้พูด</span>
+                            <span class="lang-en">Occasionally — watches English shows, games, or videos, but rarely speaks it.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q2" value="3">
+                            <input type="radio" name="english_immersion" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">พอจะคุยกับคนแปลกหน้าได้บ้าง แต่ก็ยังไม่ค่อยมั่นใจนัก</span>
-                            <span class="lang-en">I can talk to strangers if needed, but I'm not always confident.</span>
+                            <span class="lang-th">ทุกวัน — พูดหรือใช้ภาษาอังกฤษกับเพื่อน งานอดิเรก หรือที่บ้านพอๆ กับภาษาไทย</span>
+                            <span class="lang-en">Every day — speaks or uses English with friends, for hobbies, or at home as much as Thai.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q2" value="5">
+                            <input type="radio" name="english_immersion" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ชอบที่จะพูดคุยและสร้างเพื่อนใหม่ ไม่กลัวการสื่อสารที่ตรงไปตรงมา</span>
-                            <span class="lang-en">I enjoy striking up conversations and making new friends, comfortable with directness.</span>
+                            <span class="lang-th">เฉพาะช่วงเรียนวิชาภาษาอังกฤษที่โรงเรียนเท่านั้น นอกนั้นใช้ภาษาไทย</span>
+                            <span class="lang-en">Only in English class at school — Thai the rest of the day.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="english_immersion" value="2">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ใช้เป็นประจำกับติวเตอร์หรือเพื่อนที่พูดภาษาอังกฤษ แต่ที่บ้านยังคงใช้ภาษาไทยเป็นหลัก</span>
+                            <span class="lang-en">Regularly with a tutor or English-speaking friends, but Thai is still the main language at home.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 3: Weather Expectations -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">3. คุณเตรียมตัวรับมือกับสภาพอากาศที่หนาวเย็นและฝนตกบ่อยในสหราชอาณาจักรอย่างไร?</span><span class="lang-en">3. How prepared are you for the colder and often rainy weather in the UK?</span></h3>
+                <!-- Question 3: Food flexibility -->
+                <div class="quiz-question" data-dim="food_flexibility">
+                    <h3><span class="lang-th">3. เมื่อบุตรหลานของคุณเจออาหารที่ไม่คุ้นเคย (ตอนเดินทางหรือที่บ้านเพื่อน) เขาทำอย่างไรจริงๆ?</span><span class="lang-en">3. When your child actually encounters unfamiliar food (while traveling, or at a friend's house), what do they actually do?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q3" value="1">
+                            <input type="radio" name="food_flexibility" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ไม่ชอบอากาศหนาวเลย และกังวลเรื่องการปรับตัว</span>
-                            <span class="lang-en">I dislike cold weather intensely and am worried about adjusting.</span>
+                            <span class="lang-th">ลองชิมแล้วมักขอเพิ่มหรืออยากสั่งอีก</span>
+                            <span class="lang-en">Tries it, and often asks for more or wants to order it again.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q3" value="3">
+                            <input type="radio" name="food_flexibility" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">พอจะรับมือได้ แต่ก็หวังว่าจะมีวันแดดออกบ้าง</span>
-                            <span class="lang-en">I can manage, but I'm hoping for some sunny days too.</span>
+                            <span class="lang-th">ไม่ยอมกินและรอจนกว่าจะได้กินอาหารไทยหรือของว่างที่คุ้นเคย</span>
+                            <span class="lang-en">Skips it and waits until they can get Thai food or a familiar snack.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q3" value="5">
+                            <input type="radio" name="food_flexibility" value="2">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">เตรียมเสื้อผ้ากันหนาวและอุปกรณ์กันฝนพร้อม และพร้อมรับทุกสภาพอากาศ</span>
-                            <span class="lang-en">I have warm clothes and rain gear ready, and I'm prepared for all weather conditions.</span>
+                            <span class="lang-th">กินตามที่เสิร์ฟโดยไม่งอแง แม้จะไม่ค่อยชอบ</span>
+                            <span class="lang-en">Eats what's served without much fuss, even if they don't love it.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="food_flexibility" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ลองชิมนิดหน่อยแล้วมักขอของที่คุ้นเคยแทน</span>
+                            <span class="lang-en">Tries a small bite, then usually asks for something familiar.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 4: Independence Levels -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">4. คุณเคยใช้ชีวิตอยู่ห่างจากครอบครัวและจัดการกิจวัตรประจำวันด้วยตัวเองมากน้อยเพียงใด?</span><span class="lang-en">4. How much experience do you have living away from family and managing daily routines independently?</span></h3>
+                <!-- Question 4: Self-care -->
+                <div class="quiz-question" data-dim="self_care">
+                    <h3><span class="lang-th">4. บุตรหลานของคุณจัดการเรื่องซักผ้า เก็บกระเป๋า และตารางเวลาของตัวเองได้แค่ไหนในตอนนี้?</span><span class="lang-en">4. How much does your child manage their own laundry, packing, and schedule right now?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q4" value="1">
+                            <input type="radio" name="self_care" value="1">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ไม่เคยเลย ครอบครัวดูแลทุกอย่าง</span>
-                            <span class="lang-en">Very little; my family usually handles everything for me.</span>
+                            <span class="lang-th">จัดการได้บางส่วน — เก็บกระเป๋าเองได้ถ้ามีคนคอยเตือน แต่ยังต้องพึ่งพาเรื่องซักผ้าหรือตารางเวลา</span>
+                            <span class="lang-en">Manages some of it — can pack their own bag with reminders, but still needs help with laundry or scheduling.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q4" value="3">
+                            <input type="radio" name="self_care" value="2">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">เคยลองอยู่ห่างบ้าง แต่ก็ยังต้องพึ่งพาครอบครัวในเรื่องสำคัญ</span>
-                            <span class="lang-en">Some experience, but I still rely on my family for important matters.</span>
+                            <span class="lang-th">จัดการงานประจำวันส่วนใหญ่ได้เอง แต่คุณยังต้องช่วยตัดสินใจเรื่องใหญ่หรือของที่ลืม</span>
+                            <span class="lang-en">Handles most daily tasks alone, but you still step in for bigger decisions or forgotten items.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q4" value="5">
+                            <input type="radio" name="self_care" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">จัดการเรื่องส่วนตัวได้ดี ทั้งการเงิน การเดินทาง และการดูแลตัวเอง</span>
-                            <span class="lang-en">I'm very capable of managing my own affairs, including finances, travel, and self-care.</span>
+                            <span class="lang-th">ยังไม่ได้ — คุณหรือคนช่วยที่บ้านยังจัดการเรื่องซักผ้า เก็บกระเป๋า และตารางเวลาให้</span>
+                            <span class="lang-en">Not yet — you or household help still handle laundry, packing, and daily schedule for them.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="self_care" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">จัดการเรื่องซักผ้า เก็บกระเป๋า และตารางประจำวันได้เองโดยไม่ต้องเตือน</span>
+                            <span class="lang-en">Fully manages their own laundry, packing, and daily schedule without reminders.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 5: Homesickness Coping -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">5. หากคุณรู้สึกคิดถึงบ้าน คุณจะรับมือกับความรู้สึกนั้นอย่างไร?</span><span class="lang-en">5. If you feel homesick, how would you typically cope with that feeling?</span></h3>
+                <!-- Question 5: Homesickness history -->
+                <div class="quiz-question" data-dim="homesickness_history">
+                    <h3><span class="lang-th">5. นึกถึงครั้งล่าสุดที่บุตรหลานของคุณคิดถึงบ้านหรืออารมณ์เสียตอนอยู่ห่างจากคุณ (แม้จะเป็นแค่วันแรกของเทอมหรือค้างบ้านเพื่อน) — เขามักรับมืออย่างไร?</span><span class="lang-en">5. Think of the last time your child was upset or missed home while away from you (even just the first day of school or a sleepover) — how did they typically cope?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q5" value="1">
+                            <input type="radio" name="homesickness_history" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">โทรหาครอบครัวบ่อยๆ และไม่แน่ใจว่าจะทำกิจกรรมอื่นได้หรือไม่</span>
-                            <span class="lang-en">I'd call my family frequently and might struggle to engage in other activities.</span>
+                            <span class="lang-th">โทรหาครอบครัวบ่อยครั้ง และมีปัญหาในการทำกิจกรรมอื่นต่อ</span>
+                            <span class="lang-en">Called home repeatedly and had trouble getting back to other activities.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q5" value="3">
+                            <input type="radio" name="homesickness_history" value="1">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">จะพยายามหากิจกรรมทำ หรือพูดคุยกับเพื่อนใหม่ แต่ก็ยังต้องการกำลังใจจากครอบครัว</span>
-                            <span class="lang-en">I'd try to find activities or talk to new friends, but still need family support.</span>
+                            <span class="lang-th">โทรหาครอบครัวบ่อย แต่สุดท้ายก็เข้าร่วมกิจกรรมได้เมื่อมีคนช่วยชวน</span>
+                            <span class="lang-en">Called home often, but eventually joined in once someone else got them started.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q5" value="5">
+                            <input type="radio" name="homesickness_history" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">จะหากิจกรรมใหม่ๆ ทำ เข้าร่วมชมรม หรือสำรวจสถานที่ใหม่ๆ เพื่อเบี่ยงเบนความสนใจ</span>
-                            <span class="lang-en">I'd actively seek out new activities, join clubs, or explore new places to distract myself.</span>
+                            <span class="lang-th">หากิจกรรมทำเองได้ — เล่นเกม อ่านหนังสือ หรือหาเพื่อนใหม่ — โดยไม่ต้องมีใครมาช่วยมากนัก</span>
+                            <span class="lang-en">Found something to do on their own — a game, a book, a new friend — without much prompting.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="homesickness_history" value="2">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">คุยกับเพื่อนหรือครูเกี่ยวกับความรู้สึก แล้วกลับไปทำกิจกรรมตามปกติได้</span>
+                            <span class="lang-en">Talked to a friend or a teacher about it, then got back to the day's activities.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 6: Academic Style -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">6. คุณคุ้นเคยกับการเรียนแบบเน้นการคิดวิเคราะห์ การถกเถียง และการแสดงความคิดเห็นมากน้อยแค่ไหน?</span><span class="lang-en">6. How familiar are you with an academic style that emphasizes critical thinking, debate, and expressing opinions?</span></h3>
+                <!-- Question 6: Social initiation -->
+                <div class="quiz-question" data-dim="social_initiation">
+                    <h3><span class="lang-th">6. เมื่อเจอเด็กที่ไม่รู้จักมาก่อน (ที่ค่าย สนามเด็กเล่น หรืองานของครอบครัวเพื่อน) บุตรหลานของคุณมักทำอย่างไร?</span><span class="lang-en">6. When your child meets kids they don't already know (at a camp, playground, or family friend's gathering), what do they typically do?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q6" value="1">
+                            <input type="radio" name="social_initiation" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ไม่ค่อยคุ้นเคย ชอบการเรียนแบบท่องจำและทำตามคำแนะนำ</span>
-                            <span class="lang-en">Not very; I prefer rote learning and following instructions.</span>
+                            <span class="lang-th">ทักทายและเริ่มคุยกับเด็กที่ไม่รู้จักได้เองโดยไม่ต้องมีใครชวน</span>
+                            <span class="lang-en">Introduces themselves and starts talking to unfamiliar kids without being prompted.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q6" value="3">
+                            <input type="radio" name="social_initiation" value="1">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">พอจะปรับตัวได้ แต่ก็ยังต้องใช้เวลาในการฝึกฝน</span>
-                            <span class="lang-en">I can adapt, but it will take some time and practice.</span>
+                            <span class="lang-th">ค่อยๆ เปิดใจหลังจากผ่านไปสักพัก มักจะรอให้อีกฝ่ายเริ่มคุยก่อน</span>
+                            <span class="lang-en">Warms up after a while, usually once someone else starts the conversation.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q6" value="5">
+                            <input type="radio" name="social_initiation" value="0">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ชอบการเรียนรู้แบบมีส่วนร่วม การอภิปราย และการแสดงความคิดเห็นของตัวเอง</span>
-                            <span class="lang-en">I enjoy participatory learning, debates, and expressing my own ideas.</span>
+                            <span class="lang-th">อยู่ใกล้คุณหรือคนที่คุ้นเคย ไม่ค่อยกล้าเข้าหาคนแปลกหน้า</span>
+                            <span class="lang-en">Sticks close to you or familiar faces and rarely approaches strangers.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="social_initiation" value="2">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">เข้าร่วมได้เมื่อมีครู โค้ช หรือผู้ใหญ่คนอื่นแนะนำให้รู้จักก่อน</span>
+                            <span class="lang-en">Joins in once introduced by a teacher, coach, or another adult.</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 7: Public Transport -->
-                <div class="quiz-question">
-                    <h3><span class="lang-th">7. คุณรู้สึกสบายใจกับการใช้ระบบขนส่งสาธารณะ เช่น รถบัส รถไฟ ในต่างประเทศเพียงลำพังหรือไม่?</span><span class="lang-en">7. How comfortable are you with using public transport (e.g., buses, trains) in a foreign country by yourself?</span></h3>
+                <!-- Question 7: Handling setbacks without parents -->
+                <div class="quiz-question" data-dim="setback_handling">
+                    <h3><span class="lang-th">7. เมื่อบุตรหลานของคุณเจอปัญหาระหว่างที่คุณไม่อยู่ด้วย (เช่น ของหาย ทะเลาะกับเพื่อน ทำการบ้านไม่ทัน) เขามักทำอย่างไร?</span><span class="lang-en">7. When your child runs into a problem while you're not there (a lost item, a disagreement with a friend, an assignment they're behind on), what do they typically do?</span></h3>
                     <div class="quiz-options">
                         <label>
-                            <input type="radio" name="q7" value="1">
+                            <input type="radio" name="setback_handling" value="2">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">ไม่เคยใช้เลยและรู้สึกกังวลมาก</span>
-                            <span class="lang-en">I have no experience and would feel very anxious.</span>
+                            <span class="lang-th">จัดการเรื่องส่วนใหญ่ได้ด้วยตัวเอง แล้วค่อยเล่าให้คุณฟังทีหลัง</span>
+                            <span class="lang-en">Works through it mostly alone, and tells you about it afterward.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q7" value="3">
+                            <input type="radio" name="setback_handling" value="3">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">เคยใช้บ้าง แต่ก็ยังต้องการความช่วยเหลือหรือคำแนะนำ</span>
-                            <span class="lang-en">I've used it a little, but still need assistance or guidance.</span>
+                            <span class="lang-th">แก้ปัญหาทันที — ถามครู ถามเพื่อน หรือหาทางออกเอง</span>
+                            <span class="lang-en">Solves the problem on the spot — asks a teacher, a friend, or figures it out themselves.</span>
                         </label>
                         <label>
-                            <input type="radio" name="q7" value="5">
+                            <input type="radio" name="setback_handling" value="1">
                             <span class="radio-custom"></span>
-                            <span class="lang-th">มั่นใจในการวางแผนและเดินทางด้วยตัวเองโดยใช้ระบบขนส่งสาธารณะ</span>
-                            <span class="lang-en">I'm confident in planning and navigating public transport independently.</span>
+                            <span class="lang-th">อารมณ์เสียก่อน แต่ใจเย็นลงเมื่อมีผู้ใหญ่ที่ไว้ใจ (ครู โค้ช) เข้ามาช่วย</span>
+                            <span class="lang-en">Gets upset at first, but calms down once a trusted adult (teacher, coach) steps in.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="setback_handling" value="0">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ต้องคุยกับคุณโดยตรงก่อนถึงจะทำใจต่อไปได้</span>
+                            <span class="lang-en">Needs to speak with you directly before they can move past it.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8: Family contact expectations -->
+                <div class="quiz-question" data-dim="family_readiness">
+                    <h3><span class="lang-th">8. เมื่อบุตรหลานของคุณเข้าโรงเรียนประจำและปรับตัวได้แล้ว คุณคาดว่าจะโทรหรือวิดีโอคอลกันบ่อยแค่ไหน?</span><span class="lang-en">8. Once your child has settled into boarding life, how often do you realistically expect to call or video chat?</span></h3>
+                    <p style="font-size:0.9rem;color:#666;margin-top:-10px;margin-bottom:15px;"><span class="lang-th">ไม่มีคำตอบที่ผิด — ข้อนี้ช่วยให้เราเข้าใจสิ่งที่ครอบครัวคุณให้ความสำคัญ</span><span class="lang-en">There's no wrong answer here — this simply helps us understand what matters to your family.</span></p>
+                    <div class="quiz-options">
+                        <label>
+                            <input type="radio" name="family_readiness" value="0">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ทุกวัน ในเวลาที่กำหนด</span>
+                            <span class="lang-en">Every day, at a set time.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="family_readiness" value="2">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ประมาณสัปดาห์ละครั้ง ในวันที่นัดไว้</span>
+                            <span class="lang-en">About once a week, on a set call day.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="family_readiness" value="1">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">สัปดาห์ละหลายครั้ง</span>
+                            <span class="lang-en">A few times a week.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="family_readiness" value="3">
+                            <span class="radio-custom"></span>
+                            <span class="lang-th">ทุก 1-2 สัปดาห์ บวกกับวันเยี่ยม (exeat) และวันหยุดที่โรงเรียนกำหนด — ปล่อยให้บุตรหลานปรับตัวเข้ากับกิจวัตรของตัวเอง</span>
+                            <span class="lang-en">Once every couple of weeks, plus scheduled exeats and visits — letting them settle into their own routine.</span>
                         </label>
                     </div>
                 </div>
@@ -780,30 +893,28 @@
                     <span class="lang-th">· ผลลัพธ์ ·</span>
                     <span class="lang-en">· YOUR RESULTS ·</span>
                 </div>
-                <h2 class="lang-th">คะแนนความพร้อมของคุณ</h2>
-                <h2 class="lang-en">Your Readiness Score</h2>
-                <p class="result-score"><span id="scoreValue">0</span> / 35</p>
+                <h2 class="lang-th">คะแนนความพร้อมของบุตรหลานคุณ</h2>
+                <h2 class="lang-en">Your Child's Readiness Score</h2>
+                <p class="result-score"><span id="scoreValue">0</span> / 24</p>
                 <p class="result-level"><span class="lang-th">ระดับความพร้อม: </span><span class="lang-en">Readiness Level: </span><span id="readinessLevel" style="color: var(--gold);"></span></p>
 
                 <div class="result-tips">
-                    <h3 class="lang-th">คำแนะนำส่วนบุคคล</h3>
-                    <h3 class="lang-en">Personalized Tips</h3>
+                    <h3 class="lang-th">จุดที่ควรเตรียมตัวเพิ่ม</h3>
+                    <h3 class="lang-en">Growth Areas</h3>
                     <ul id="tipList">
-                        <!-- Tips will be inserted here by JavaScript -->
+                        <!-- Growth areas will be inserted here by JavaScript -->
                     </ul>
                 </div>
 
-                <div class="school-recommendations">
-                    <h3 class="lang-th">โรงเรียนแนะนำ</h3>
-                    <h3 class="lang-en">Recommended Schools</h3>
-                    <p class="lang-th">จากความพร้อมของคุณ นี่คือโรงเรียนบางส่วนในสหราชอาณาจักรที่ LINKEDU แนะนำให้พิจารณา:</p>
-                    <p class="lang-en">Based on your readiness, here are some UK schools LINKEDU recommends considering:</p>
-                    <div id="schoolList">
-                        <!-- Schools will be inserted here by JavaScript -->
+                <div class="school-recommendations next-steps">
+                    <h3 class="lang-th">ขั้นตอนถัดไป</h3>
+                    <h3 class="lang-en">Next Step</h3>
+                    <div id="nextStepContent">
+                        <!-- Next step ladder will be inserted here by JavaScript -->
                     </div>
-                    <div class="vat-note">
-                        <p class="lang-th"><strong>หมายเหตุ:</strong> ค่าเล่าเรียนโรงเรียนเอกชนจะมีการเพิ่มภาษีมูลค่าเพิ่ม 20% ตั้งแต่เดือนมกราคม 2568 เป็นต้นไป โรงเรียนประจำของรัฐ (State Boarding Schools) ได้รับการยกเว้นภาษีมูลค่าเพิ่ม โดยมีค่าใช้จ่ายประมาณ 10,000 - 19,000 ปอนด์ต่อปี</p>
-                        <p class="lang-en"><strong>Note:</strong> Private school fees will have 20% VAT added from January 2025. State boarding schools are VAT exempt, with fees typically ranging from GBP 10,000 to 19,000 per year.</p>
+                    <div class="limits-note">
+                        <p class="lang-th">ผลลัพธ์นี้สะท้อนคำตอบของคุณเกี่ยวกับพฤติกรรมจริงของบุตรหลานในวันนี้ ไม่ใช่คำพยากรณ์ตายตัว เด็กส่วนใหญ่ปรับตัวได้เร็วขึ้นมากเมื่อมีการเตรียมตัวที่เหมาะสม การพูดคุยกับที่ปรึกษาของ LINKEDU จะช่วยให้คุณเห็นภาพที่ละเอียดและตรงกับบุตรหลานของคุณมากขึ้น</p>
+                        <p class="lang-en">This result reflects your answers about your child's real behaviour today — not a fixed prediction. Most children adapt quickly with the right preparation. A consultation with LINKEDU adds a personal read tailored to your child.</p>
                     </div>
                 </div>
 
@@ -812,8 +923,8 @@
                     <p class="line-handle">LINE: satitlinkedu</p>
                     <p class="consult-text lang-th">ปรึกษาฟรี</p>
                     <p class="consult-text lang-en">Free Consultation</p>
-                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
-                    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
+                    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
+                    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
                 </div>
             </div>
         </div>
@@ -825,8 +936,8 @@
             <p class="line-handle">LINE: satitlinkedu</p>
             <p class="consult-text lang-th">ปรึกษาฟรี</p>
             <p class="consult-text lang-en">Free Consultation</p>
-            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
-            <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
+            <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn lang-th">เพิ่ม LINE</a>
+            <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn lang-en">Add LINE</a>
         </div>
     </section>
 
@@ -870,203 +981,150 @@
             const scoreValue = document.getElementById('scoreValue');
             const readinessLevel = document.getElementById('readinessLevel');
             const tipList = document.getElementById('tipList');
-            const schoolList = document.getElementById('schoolList');
+            const nextStepContent = document.getElementById('nextStepContent');
+            const validationMessage = document.getElementById('validationMessage');
 
-            const schools = [
-                { name: "Brighton College", type: "Private Boarding", feesGBP: 45000, description_th: "โรงเรียนเอกชนชั้นนำ มีชื่อเสียงด้านวิชาการและศิลปะ", description_en: "A top private school, renowned for academics and arts." },
-                { name: "Bromsgrove", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียนสหศึกษาที่มีสิ่งอำนวยความสะดวกที่ทันสมัยและหลักสูตรที่หลากหลาย", description_en: "Co-educational school with modern facilities and diverse curriculum." },
-                { name: "Cardiff Sixth Form", type: "Private Boarding", feesGBP: 48000, description_th: "โรงเรียนชั้นนำด้านวิชาการสำหรับ Sixth Form มีผลการเรียนดีเยี่ยม", description_en: "Leading academic Sixth Form college with outstanding results." },
-                { name: "Caterham", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนที่มีสภาพแวดล้อมที่สวยงามและเน้นการพัฒนาทักษะชีวิต", description_en: "Set in beautiful surroundings, focusing on holistic development and life skills." },
-                { name: "Concord College", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนที่มีชื่อเสียงระดับโลกด้านวิชาการ โดยเฉพาะวิทยาศาสตร์และคณิตศาสตร์", description_en: "World-renowned for academic excellence, especially in Science and Maths." },
-                { name: "D Overbroeks", type: "Private Boarding", feesGBP: 38000, description_th: "โรงเรียนที่เน้นการเรียนรู้แบบส่วนตัวและบรรยากาศที่เป็นกันเอง", description_en: "Focuses on individual learning and a friendly, supportive atmosphere." },
-                { name: "Dulwich College", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนเก่าแก่ มีชื่อเสียงด้านวิชาการและกีฬา", description_en: "Historic boys' school, strong in academics and sports." },
-                { name: "Epsom College", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนสหศึกษาที่มีความโดดเด่นด้านวิชาการและกิจกรรมนอกหลักสูตร", description_en: "Co-educational school with strong academics and extracurriculars." },
-                { name: "Harrow School", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียนชายล้วนที่มีประวัติยาวนานและศิษย์เก่าที่มีชื่อเสียง", description_en: "Historic boys' school with a long tradition and famous alumni." },
-                { name: "Loretto School", type: "Private Boarding", feesGBP: 39000, description_th: "โรงเรียนเก่าแก่ในสกอตแลนด์ เน้นดนตรีและกีฬา", description_en: "Historic Scottish school, strong in music and sports." },
-                { name: "Millfield", type: "Private Boarding", feesGBP: 44000, description_th: "โรงเรียนที่มีชื่อเสียงด้านกีฬาและสิ่งอำนวยความสะดวกที่ยอดเยี่ยม", description_en: "Famous for its sports programs and excellent facilities." },
-                { name: "Oakham School", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนสหศึกษาที่เน้นการพัฒนาศักยภาพนักเรียนอย่างรอบด้าน", description_en: "Co-educational school focusing on all-round student development." },
-                { name: "Oundle School", type: "Private Boarding", feesGBP: 45000, description_th: "โรงเรียนขนาดใหญ่ที่มีวิชาการแข็งแกร่งและสิ่งอำนวยความสะดวกครบครัน", description_en: "Large school with strong academics and comprehensive facilities." },
-                { name: "Queen Ethelburgas", type: "Private Boarding", feesGBP: 50000, description_th: "โรงเรียนที่มีสิ่งอำนวยความสะดวกหรูหราและหลักสูตรที่ยืดหยุ่น", description_en: "Luxurious facilities and a flexible curriculum." },
-                { name: "Repton School", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนเก่าแก่ที่มีชื่อเสียงด้านการศึกษาและวัฒนธรรม", description_en: "Historic school known for education and culture." },
-                { name: "Roedean", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนหญิงล้วนชั้นนำใน Brighton พร้อมวิวทะเลที่สวยงาม", description_en: "Leading girls' school in Brighton with beautiful sea views." },
-                { name: "Rossall School", type: "Private Boarding", feesGBP: 37000, description_th: "โรงเรียนริมทะเลที่มีบรรยากาศอบอุ่นและโปรแกรมดนตรีที่โดดเด่น", description_en: "Seaside school with a warm atmosphere and outstanding music program." },
-                { name: "Royal Russell", type: "Private Boarding", feesGBP: 39000, description_th: "โรงเรียนที่มีความหลากหลายทางวัฒนธรรมและเน้นความเป็นผู้นำ", description_en: "Culturally diverse school with a focus on leadership." },
-                { name: "Sedbergh School", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนใน Lake District เน้นการเรียนรู้กลางแจ้งและกีฬา", description_en: "Located in the Lake District, strong in outdoor education and sports." },
-                { name: "Sevenoaks School", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียน IB ชั้นนำที่มีความเป็นสากลสูง", description_en: "Leading IB school with a strong international focus." },
-                { name: "Shrewsbury School", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียนเก่าแก่ริมแม่น้ำที่มีประวัติยาวนานและชื่อเสียง", description_en: "Historic riverside school with a long tradition and reputation." },
-                { name: "Sidcot School", type: "Private Boarding", feesGBP: 36000, description_th: "โรงเรียน Quaker ที่เน้นค่านิยมและความยั่งยืน", description_en: "Quaker school emphasizing values and sustainability." },
-                { name: "St Leonards", type: "Private Boarding", feesGBP: 38000, description_th: "โรงเรียน IB ในสกอตแลนด์ เน้นการพัฒนาส่วนบุคคล", description_en: "IB school in Scotland, focusing on personal development." },
-                { name: "The Leys School", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนใน Cambridge ที่มีสภาพแวดล้อมที่อบอุ่นและเป็นกันเอง", description_en: "Cambridge school with a warm and friendly environment." },
-                { name: "NMSC (Northern Medical School College)", type: "Private Boarding", feesGBP: 49000, description_th: "วิทยาลัยที่เชี่ยวชาญด้านการเตรียมตัวเข้าสู่มหาวิทยาลัยแพทย์", description_en: "College specializing in preparation for medical university." },
-                { name: "Tonbridge School", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนชั้นนำ มีชื่อเสียงด้านวิชาการและสิ่งอำนวยความสะดวก", description_en: "Leading boys' school, strong in academics and facilities." },
-                { name: "Uppingham School", type: "Private Boarding", feesGBP: 44000, description_th: "โรงเรียนที่มีชื่อเสียงด้านดนตรีและศิลปะ พร้อมวิชาการที่แข็งแกร่ง", description_en: "Known for music and arts, with strong academics." },
-                { name: "Wells Cathedral School", type: "Private Boarding", feesGBP: 37000, description_th: "โรงเรียนดนตรีชั้นนำของโลก พร้อมวิชาการที่ยอดเยี่ยม", description_en: "World-leading specialist music school with excellent academics." },
-                { name: "Abbotsholme", type: "Private Boarding", feesGBP: 35000, description_th: "โรงเรียนที่เน้นการเรียนรู้แบบปฏิบัติและกิจกรรมกลางแจ้ง", description_en: "Focuses on practical learning and outdoor activities." },
-                { name: "Ardingly College", type: "Private Boarding", feesGBP: 42000, description_th: "โรงเรียน IB และ A-Level ที่มีสภาพแวดล้อมนานาชาติ", description_en: "IB and A-Level school with an international environment." },
-                { name: "Bryanston", type: "Private Boarding", feesGBP: 43000, description_th: "โรงเรียนที่เน้นการศึกษาแบบองค์รวมและพัฒนาความคิดสร้างสรรค์", description_en: "Emphasizes holistic education and creative development." },
-                { name: "Charterhouse", type: "Private Boarding", feesGBP: 46000, description_th: "โรงเรียนชายล้วนเก่าแก่ที่มีประวัติยาวนานและชื่อเสียง", description_en: "Historic boys' school with a long tradition and reputation." },
-                { name: "Clifton College", type: "Private Boarding", feesGBP: 40000, description_th: "โรงเรียนในเมือง Bristol มีชื่อเสียงด้านวิชาการและกีฬา", description_en: "Bristol-based school, strong in academics and sports." },
-                { name: "Eton College", type: "Private Boarding", feesGBP: 47000, description_th: "โรงเรียนชายล้วนที่มีชื่อเสียงที่สุดแห่งหนึ่งของโลก", description_en: "One of the most famous boys' schools in the world." },
-                { name: "Lancing College", type: "Private Boarding", feesGBP: 41000, description_th: "โรงเรียนที่มีสถาปัตยกรรมงดงามและเน้นการพัฒนาด้านศิลปะ", description_en: "Stunning architecture, strong in arts development." },
-                { name: "Oxford International College", type: "Private Boarding", feesGBP: 52000, description_th: "วิทยาลัยที่เน้นการเตรียมตัวเข้ามหาวิทยาลัยชั้นนำ", description_en: "College focused on preparing students for top universities." },
-                // Example State Boarding School (not from the list, but for VAT note example)
-                // { name: "Wymondham College", type: "State Boarding", feesGBP: 16000, description_th: "โรงเรียนประจำของรัฐที่มีชื่อเสียงและค่าใช้จ่ายคุ้มค่า", description_en: "A well-regarded state boarding school offering excellent value." }
+            // 8 behavioural dimensions, each scored 0-3 by the parent's answer.
+            // Max total = 8 x 3 = 24, min total = 0.
+            const DIMENSIONS = [
+                'time_away',
+                'english_immersion',
+                'food_flexibility',
+                'self_care',
+                'homesickness_history',
+                'social_initiation',
+                'setback_handling',
+                'family_readiness'
             ];
+
+            const dimensionInfo = {
+                time_away: {
+                    label_th: 'ประสบการณ์อยู่ห่างจากครอบครัว',
+                    label_en: 'Time away from family',
+                    action_th: 'ลองให้บุตรหลานเข้าร่วมซัมเมอร์แคมป์ในสหราชอาณาจักรระยะ 2-4 สัปดาห์ก่อนตัดสินใจเรียนเต็มปี เพื่อทดลองอยู่ห่างบ้านแบบความเสี่ยงต่ำ',
+                    action_en: 'A 2–4 week UK summer camp before committing to a full year — a low-risk trial of time away from home.'
+                },
+                english_immersion: {
+                    label_th: 'การใช้ภาษาอังกฤษในชีวิตประจำวัน',
+                    label_en: 'Daily English immersion',
+                    action_th: 'เพิ่มการใช้ภาษาอังกฤษนอกห้องเรียน เช่น คุยกับติวเตอร์เจ้าของภาษาหรือดูสื่อภาษาอังกฤษเป็นประจำ อย่างน้อยหนึ่งภาคเรียนก่อนเดินทาง',
+                    action_en: 'Build daily English immersion outside the classroom — a native-speaking tutor or regular English media — for at least a term before departure.'
+                },
+                food_flexibility: {
+                    label_th: 'ความยืดหยุ่นเรื่องอาหาร',
+                    label_en: 'Food flexibility',
+                    action_th: 'ฝึกให้บุตรหลานลองอาหารหลากหลายมากขึ้นที่บ้านหรือระหว่างเดินทางในไทย เพื่อสร้างความคุ้นเคยก่อนไปโรงเรียนประจำ',
+                    action_en: 'Practice trying a wider range of foods at home or while traveling in Thailand, to build familiarity before boarding.'
+                },
+                self_care: {
+                    label_th: 'การดูแลตัวเอง',
+                    label_en: 'Self-care independence',
+                    action_th: 'ให้บุตรหลานรับผิดชอบกิจวัตรตอนเช้าด้วยตัวเอง เช่น ซักผ้า เก็บกระเป๋า ตั้งเวลาตื่น อย่างน้อยหนึ่งภาคเรียนก่อนไปเรียน',
+                    action_en: 'Hand over one term of managing their own morning routine — laundry, packing, waking up on time — before they leave.'
+                },
+                homesickness_history: {
+                    label_th: 'วิธีรับมือเมื่อคิดถึงบ้าน',
+                    label_en: 'Homesickness coping history',
+                    action_th: 'สร้างโอกาสให้บุตรหลานอยู่ห่างบ้านช่วงสั้นๆ เช่น ค่ายวันหยุดสุดสัปดาห์ เพื่อฝึกวิธีรับมือกับความคิดถึงบ้านก่อนไปเรียนจริง',
+                    action_en: 'Create a short trial away from home — a weekend camp or a stay with relatives — to build a coping routine before the real transition.'
+                },
+                social_initiation: {
+                    label_th: 'ความกล้าเข้าสังคมกับคนใหม่',
+                    label_en: 'Initiating friendships',
+                    action_th: 'พาบุตรหลานเข้าร่วมกิจกรรมกลุ่มหรือค่ายที่ต้องเจอเด็กใหม่ๆ เป็นประจำ เพื่อฝึกทักษะการเริ่มบทสนทนาด้วยตัวเอง',
+                    action_en: 'Enroll them in regular group activities or camps with new children, to practice starting conversations on their own.'
+                },
+                setback_handling: {
+                    label_th: 'การรับมือปัญหาด้วยตัวเองโดยไม่มีพ่อแม่อยู่ด้วย',
+                    label_en: 'Handling setbacks without you present',
+                    action_th: 'ปล่อยให้บุตรหลานแก้ปัญหาเล็กๆ ด้วยตัวเองก่อน (ของหาย ทะเลาะกับเพื่อน) แทนที่จะเข้าไปช่วยทันที เพื่อสร้างความเคยชิน',
+                    action_en: 'Let them work through small problems themselves first (a lost item, a disagreement) instead of stepping in right away, to build the habit.'
+                },
+                family_readiness: {
+                    label_th: 'ความคาดหวังเรื่องการติดต่อกับครอบครัว',
+                    label_en: 'Family contact expectations',
+                    action_th: 'ปรับความคาดหวังเรื่องความถี่ในการโทรหากันให้สอดคล้องกับนโยบายจริงของโรงเรียน (ส่วนใหญ่กำหนดให้โทรได้สัปดาห์ละครั้ง ไม่ใช่ทุกวัน) ก่อนเปิดเทอม',
+                    action_en: "Align your contact expectations with the school's actual policy (most schedule weekly calls, not daily) before term starts."
+                }
+            };
+
+            function getBand(score) {
+                if (score >= 19) return { key: 'ready', label_th: 'พร้อมแล้วตอนนี้', label_en: 'Ready now' };
+                if (score >= 13) return { key: 'nearly', label_th: 'เกือบพร้อม — ต้องเตรียมตัวเฉพาะจุด', label_en: 'Nearly ready — targeted preparation' };
+                if (score >= 7) return { key: 'runway', label_th: 'ต้องใช้เวลาเตรียมตัว 6-12 เดือน', label_en: 'Needs a 6–12 month runway' };
+                return { key: 'start', label_th: 'เริ่มจากก้าวเล็กๆ ก่อน', label_en: 'Start with shorter steps first' };
+            }
+
+            function getNextStepHtml(bandKey) {
+                if (bandKey === 'ready') {
+                    return `
+                        <p><span class="lang-th">พร้อมแล้ว — ขั้นตอนถัดไปคือหาโรงเรียนที่เหมาะกับบุตรหลานของคุณจริงๆ</span><span class="lang-en">Ready now — the next step is finding the school that actually fits your child.</span></p>
+                        <p><a href="../tools/personality-match.html"><span class="lang-th">School Fit Finder — สร้างชอร์ตลิสต์โรงเรียนที่จับคู่ด้วยข้อมูลจริง</span><span class="lang-en">School Fit Finder — build a data-matched shortlist</span></a></p>
+                        <p><a href="../find-your-school.html"><span class="lang-th">ดูรายชื่อโรงเรียนทั้งหมด</span><span class="lang-en">Browse all schools</span></a></p>
+                    `;
+                } else if (bandKey === 'nearly') {
+                    return `
+                        <p><span class="lang-th">เกือบพร้อมแล้ว — ใช้ช่วงเวลาที่เหลือเตรียมตัวเฉพาะจุดตามด้านที่ยังอ่อน (ดูจุดที่ควรเตรียมตัวเพิ่มด้านบน) แล้วคุยกับที่ปรึกษาของ LINKEDU เพื่อวางแผนเตรียมตัวที่เหมาะกับบุตรหลานของคุณ</span><span class="lang-en">Nearly ready — use the time you have to prepare the specific areas flagged above (see Growth Areas), then talk to a LINKEDU consultant to build a plan tailored to your child.</span></p>
+                    `;
+                }
+                return `
+                    <p><span class="lang-th">เริ่มจากก้าวเล็กๆ ที่ความเสี่ยงต่ำก่อนตัดสินใจเรื่องใหญ่</span><span class="lang-en">Start with a low-risk step before committing to anything bigger.</span></p>
+                    <p><a href="../summer-camps.html"><span class="lang-th">ดูซัมเมอร์แคมป์ในสหราชอาณาจักร — ให้บุตรหลานได้ลองอยู่ห่างบ้านก่อนตัดสินใจเรียนเต็มปี</span><span class="lang-en">See UK Summer Camps — a trial run for time away from home before committing to a full year</span></a></p>
+                `;
+            }
 
             quizForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                let score = 0;
-                const selectedAnswers = {};
-                const questions = quizForm.querySelectorAll('.quiz-question');
 
-                questions.forEach((q, index) => {
-                    const qName = `q${index + 1}`;
-                    const selected = quizForm.querySelector(`input[name="${qName}"]:checked`);
+                const questionEls = quizForm.querySelectorAll('.quiz-question');
+                const scores = {};
+                let firstMissing = null;
+
+                questionEls.forEach((qEl) => {
+                    const dim = qEl.dataset.dim;
+                    const selected = quizForm.querySelector(`input[name="${dim}"]:checked`);
                     if (selected) {
-                        score += parseInt(selected.value);
-                        selectedAnswers[qName] = parseInt(selected.value);
+                        scores[dim] = parseInt(selected.value, 10);
+                        qEl.classList.remove('missing');
+                    } else {
+                        qEl.classList.add('missing');
+                        if (!firstMissing) firstMissing = qEl;
                     }
                 });
 
-                scoreValue.textContent = score;
-                displayResults(score, selectedAnswers);
+                if (firstMissing) {
+                    validationMessage.style.display = 'block';
+                    firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                validationMessage.style.display = 'none';
+
+                const total = DIMENSIONS.reduce((sum, dim) => sum + (scores[dim] || 0), 0);
+
+                scoreValue.textContent = total;
+                displayResults(total, scores);
                 quizResults.style.display = 'block';
                 quizResults.scrollIntoView({ behavior: 'smooth' });
             });
 
-            function displayResults(score, answers) {
-                let levelText_th = '';
-                let levelText_en = '';
-                let tips_th = [];
-                let tips_en = [];
-                let recommendedSchools = [];
+            function displayResults(total, scores) {
+                const band = getBand(total);
 
-                if (score <= 15) {
-                    levelText_th = 'ต้องเตรียมตัวอย่างมาก';
-                    levelText_en = 'Needs Significant Preparation';
-                    tips_th = [
-                        'ศึกษาวัฒนธรรมอังกฤษ: เรียนรู้เกี่ยวกับประเพณี, มารยาทสังคม และรูปแบบการสื่อสาร',
-                        'ฝึกฝนการใช้ภาษาอังกฤษ: โดยเฉพาะการสนทนาในสถานการณ์จริง',
-                        'พัฒนาทักษะการพึ่งพาตนเอง: ลองจัดการกิจวัตรประจำวันและงบประมาณด้วยตัวเอง',
-                        'เปิดใจลองสิ่งใหม่: เริ่มจากการลองอาหารต่างชาติง่ายๆ หรือพูดคุยกับคนแปลกหน้าในไทย',
-                        'ทำความเข้าใจระบบการศึกษา: คุ้นเคยกับแนวคิดการคิดวิเคราะห์และการแสดงความคิดเห็น'
-                    ];
-                    tips_en = [
-                        'Research British Culture: Learn about customs, social etiquette, and communication styles.',
-                        'Practice English: Focus on conversational English for real-life situations.',
-                        'Develop Independence: Try managing daily routines and a budget on your own.',
-                        'Be Open to New Experiences: Start by trying simple international foods or talking to strangers in Thailand.',
-                        'Understand the Education System: Familiarize yourself with critical thinking and expressing opinions.'
-                    ];
-                    // Suggest schools that might offer more support or a diverse environment
-                    recommendedSchools = [
-                        schools.find(s => s.name === "Rossall School"),
-                        schools.find(s => s.name === "Sidcot School"),
-                        schools.find(s => s.name === "Abbotsholme")
-                    ];
-                } else if (score <= 25) {
-                    levelText_th = 'พอใช้ได้ แต่ยังต้องเตรียมตัวเพิ่ม';
-                    levelText_en = 'Moderate Readiness, Room for Improvement';
-                    tips_th = [
-                        'ฝึกฝนการสื่อสารเชิงรุก: ลองแสดงความคิดเห็นและถามคำถามบ่อยขึ้น',
-                        'สำรวจอาหารนานาชาติ: ค่อยๆ ลองอาหารจากวัฒนธรรมที่หลากหลาย',
-                        'วางแผนการเดินทางด้วยตัวเอง: ลองใช้ Google Maps หรือแอปขนส่งสาธารณะเพื่อไปสถานที่ใหม่ๆ',
-                        'สร้างเครือข่ายสังคม: เข้าร่วมกิจกรรมที่สนใจเพื่อพบปะผู้คนใหม่ๆ',
-                        'เตรียมพร้อมสำหรับสภาพอากาศ: ลงทุนกับเสื้อผ้ากันหนาวและอุปกรณ์กันฝนที่มีคุณภาพ'
-                    ];
-                    tips_en = [
-                        'Practice Proactive Communication: Try expressing your opinions and asking questions more often.',
-                        'Explore International Cuisine: Gradually try dishes from various cultures.',
-                        'Plan Independent Travel: Use Google Maps or public transport apps to navigate new places.',
-                        'Build a Social Network: Join clubs or activities of interest to meet new people.',
-                        'Prepare for the Weather: Invest in quality warm clothing and rain gear.'
-                    ];
-                    recommendedSchools = [
-                        schools.find(s => s.name === "Bromsgrove"),
-                        schools.find(s => s.name === "Royal Russell"),
-                        schools.find(s => s.name === "Oakham School")
-                    ];
-                } else {
-                    levelText_th = 'พร้อมมาก!';
-                    levelText_en = 'Highly Ready!';
-                    tips_th = [
-                        'รักษาทัศนคติเชิงบวก: คุณมีพื้นฐานที่ดีแล้ว จงเปิดใจและสนุกกับการผจญภัย',
-                        'เป็นส่วนหนึ่งของชุมชน: เข้าร่วมชมรม กิจกรรม หรืออาสาสมัครเพื่อสร้างประสบการณ์ที่หลากหลาย',
-                        'เรียนรู้ศัพท์เฉพาะถิ่น: คำแสลงและสำนวนท้องถิ่นจะช่วยให้คุณปรับตัวได้ดียิ่งขึ้น',
-                        'แบ่งปันวัฒนธรรมของคุณ: อย่าลืมแบ่งปันเรื่องราวและวัฒนธรรมไทยกับเพื่อนใหม่',
-                        'วางแผนการสำรวจ: ใช้ประโยชน์จากความพร้อมของคุณในการเดินทางและค้นพบสหราชอาณาจักร'
-                    ];
-                    tips_en = [
-                        'Maintain a Positive Attitude: You have a strong foundation; stay open-minded and enjoy the adventure.',
-                        'Engage with the Community: Join clubs, societies, or volunteer to enrich your experience.',
-                        'Learn Local Idioms: Slang and local expressions will help you integrate even better.',
-                        'Share Your Culture: Don\'t forget to share Thai stories and culture with your new friends.',
-                        'Plan Explorations: Leverage your readiness to travel and discover more of the UK.'
-                    ];
-                    recommendedSchools = [
-                        schools.find(s => s.name === "Brighton College"),
-                        schools.find(s => s.name === "Sevenoaks School"),
-                        schools.find(s => s.name === "Cardiff Sixth Form")
-                    ];
-                }
+                readinessLevel.innerHTML = `<span class="lang-th">${band.label_th}</span><span class="lang-en">${band.label_en}</span>`;
 
-                // Add specific tips based on low scores in certain areas
-                if (answers.q1 === 1) {
-                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองฝึกทำอาหารง่ายๆ หรือค้นหาร้านอาหารนานาชาติในพื้นที่ของคุณ');
-                    tips_en.push('Extra Tip: Try practicing simple cooking or researching international restaurants in your area.');
-                }
-                if (answers.q2 === 1) {
-                    tips_th.push('เคล็ดลับเพิ่มเติม: ฝึกการทักทายและบทสนทนาสั้นๆ (small talk) กับคนที่ไม่รู้จัก');
-                    tips_en.push('Extra Tip: Practice greetings and small talk with unfamiliar people.');
-                }
-                if (answers.q4 === 1) {
-                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองจัดการงานบ้านเล็กๆ น้อยๆ หรือวางแผนกิจกรรมประจำวันด้วยตัวเอง');
-                    tips_en.push('Extra Tip: Try managing small household chores or planning your daily activities independently.');
-                }
-                if (answers.q6 === 1) {
-                    tips_th.push('เคล็ดลับเพิ่มเติม: ลองอ่านบทความวิเคราะห์ข่าว หรือเข้าร่วมกลุ่มอภิปรายเล็กๆ เพื่อฝึกแสดงความคิดเห็น');
-                    tips_en.push('Extra Tip: Try reading analytical articles or joining small discussion groups to practice expressing opinions.');
-                }
-
-
-                readinessLevel.innerHTML = `<span class="lang-th">${levelText_th}</span><span class="lang-en">${levelText_en}</span>`;
+                // Two lowest-scoring dimensions become "growth areas".
+                // Deterministic: ties break on DIMENSIONS array order (stable sort).
+                const ranked = DIMENSIONS.slice().sort((a, b) => scores[a] - scores[b]);
+                const growthDims = ranked.slice(0, 2);
 
                 tipList.innerHTML = '';
-                tips_th.forEach((tip, index) => {
-                    tipList.innerHTML += `<li><span class="lang-th">${tip}</span><span class="lang-en">${tips_en[index]}</span></li>`;
+                growthDims.forEach((dim) => {
+                    const info = dimensionInfo[dim];
+                    tipList.innerHTML += `<li><span class="lang-th"><strong>${info.label_th}:</strong> ${info.action_th}</span><span class="lang-en"><strong>${info.label_en}:</strong> ${info.action_en}</span></li>`;
                 });
 
-                schoolList.innerHTML = '';
-                const uniqueRecommendedSchools = [...new Set(recommendedSchools)]; // Ensure unique schools
-                uniqueRecommendedSchools.forEach(school => {
-                    if (school) { // Check if school was found
-                        const feesGBP = school.feesGBP;
-                        const feesTHB = feesGBP * 45;
-                        const feesGBP_VAT = feesGBP * 1.2;
-                        const feesTHB_VAT = feesGBP_VAT * 45;
-
-                        let feeDisplay_th = '';
-                        let feeDisplay_en = '';
-
-                        if (school.type === "Private Boarding") {
-                            feeDisplay_th = `ค่าเล่าเรียนโดยประมาณ: <strong>£${feesGBP.toLocaleString()} / ${feesTHB.toLocaleString()} บาท ต่อปี</strong> (ก่อน VAT)<br>ตั้งแต่ ม.ค. 2568: <strong>£${feesGBP_VAT.toLocaleString()} / ${feesTHB_VAT.toLocaleString()} บาท ต่อปี</strong> (รวม VAT 20%)`;
-                            feeDisplay_en = `Estimated Fees: <strong>GBP ${feesGBP.toLocaleString()} / THB ${feesTHB.toLocaleString()} per year</strong> (Pre-VAT)<br>From Jan 2025: <strong>GBP ${feesGBP_VAT.toLocaleString()} / THB ${feesTHB_VAT.toLocaleString()} per year</strong> (Inc. 20% VAT)`;
-                        } else { // State Boarding (VAT exempt)
-                             feeDisplay_th = `ค่าเล่าเรียนโดยประมาณ: <strong>£${feesGBP.toLocaleString()} / ${feesTHB.toLocaleString()} บาท ต่อปี</strong> (ยกเว้น VAT)`;
-                             feeDisplay_en = `Estimated Fees: <strong>GBP ${feesGBP.toLocaleString()} / THB ${feesTHB.toLocaleString()} per year</strong> (VAT Exempt)`;
-                        }
-
-
-                        schoolList.innerHTML += `
-                            <div class="school-card">
-                                <h5><span class="lang-th">${school.name}</span><span class="lang-en">${school.name}</span></h5>
-                                <p><span class="lang-th">ประเภท: ${school.type === "Private Boarding" ? "โรงเรียนประจำเอกชน" : "โรงเรียนประจำของรัฐ"}</span><span class="lang-en">Type: ${school.type}</span></p>
-                                <p><span class="lang-th">${school.description_th}</span><span class="lang-en">${school.description_en}</span></p>
-                                <p class="fees"><span class="lang-th">${feeDisplay_th}</span><span class="lang-en">${feeDisplay_en}</span></p>
-                            </div>
-                        `;
-                    }
-                });
+                nextStepContent.innerHTML = getNextStepHtml(band.key);
             }
         });
     </script>

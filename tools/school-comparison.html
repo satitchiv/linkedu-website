@@ -781,7 +781,7 @@
                                 <td id="school3-isi-rating"></td>
                             </tr>
                             <tr>
-                                <td class="feature-column"><span data-en="International Students" data-th="นักเรียนต่างชาติ">International Students</span></td>
+                                <td class="feature-column"><span data-en="International mix (approx.)" data-th="สัดส่วนนักเรียนต่างชาติ (โดยประมาณ)">International mix (approx.)</span></td>
                                 <td id="school1-intl-pct"></td>
                                 <td id="school2-intl-pct"></td>
                                 <td id="school3-intl-pct"></td>
@@ -837,7 +837,7 @@
             <div class="section-label" data-en="· NEXT STEP ·" data-th="· ขั้นตอนต่อไป ·">· NEXT STEP ·</div>
             <h2 data-en="Ready to find your perfect school?" data-th="พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบของคุณแล้วหรือยัง?">Ready to find your perfect school?</h2>
             <p data-en="Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future." data-th="ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำคุณในทุกขั้นตอนของกระบวนการสมัคร เพื่อให้มั่นใจว่าคุณจะเลือกสิ่งที่ดีที่สุดสำหรับอนาคตของบุตรหลานของคุณ">Our expert consultants are here to guide you through every step of the application process, ensuring you make the best choice for your child's future.</p>
-            <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="cta-button" data-en="Connect with us on LINE!" data-th="เชื่อมต่อกับเราทาง LINE!">Connect with us on LINE!</a>
+            <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="cta-button" data-en="Connect with us on LINE!" data-th="เชื่อมต่อกับเราทาง LINE!">Connect with us on LINE!</a>
         </section>
     </main>
 
@@ -881,11 +881,12 @@
                 <div class="check">✓</div>
                 <h4 data-en="Request Received!" data-th="ได้รับคำขอแล้ว!">Request Received!</h4>
                 <p data-en="We'll send your personalised report via LINE within 24 hours. Our adviser will contact you shortly." data-th="เราจะส่งรายงานส่วนตัวของคุณทาง LINE ภายใน 24 ชั่วโมง ที่ปรึกษาของเราจะติดต่อคุณในเร็วๆ นี้">We'll send your personalised report via LINE within 24 hours. Our adviser will contact you shortly.</p>
-                <a href="https://line.me/ti/p/satitlinkedu" target="_blank" style="display:inline-block;margin-top:16px;background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:4px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Open LINE Chat →</a>
+                <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="display:inline-block;margin-top:16px;background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:4px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Open LINE Chat →</a>
             </div>
         </div>
     </div>
 
+    <script src="../js/schools-data.js"></script>
     <script>
         // --- SCHOOLS DATA (loaded from real portal data) ---
         let SCHOOLS = [];
@@ -894,9 +895,18 @@
             const base = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '100.100.120.57')
                 ? `http://${window.location.hostname}:8904`
                 : 'https://linkedu-parent-portal.netlify.app';
+            // The portal fetch is cross-origin and the portal sends no CORS
+            // headers, so browsers block it — fall back to the same-origin
+            // baked copy (js/schools-data.js) so the tool never renders empty.
+            let raw = null;
             try {
                 const res = await fetch(base + '/data/schools.json');
-                const raw = await res.json();
+                raw = await res.json();
+            } catch (corsErr) {
+                console.warn('Portal data unavailable, using baked same-origin copy');
+            }
+            if (!Array.isArray(raw) || raw.length === 0) raw = window.SCHOOLS_BAKED || [];
+            try {
                 const regionMap = {
                     'East': 'East of England',
                     'North': 'North West',
@@ -959,7 +969,7 @@
                     "St Edward's School": '55 min'
                 };
                 SCHOOLS = raw
-                    .filter(s => s.fee > 0 && s.name)
+                    .filter(s => s.fee >= 10000 && s.fee <= 100000 && s.name) // plausibility bounds: excludes corrupt records (e.g. fee '2025', billion-pound concatenations)
                     .map((s, idx) => {
                         const hasSchol = s.schol && s.schol.trim() !== '';
                         const pctMatches = (s.schol || '').match(/(\d+)%/g) || [];
@@ -980,8 +990,8 @@
                             totalStudents: s.totalStudents || 0,
                             boardingType: 'Full Boarding',
                             isiRating: 'Excellent',
-                            internationalPercent: intlPctMap[s.name] !== undefined ? intlPctMap[s.name] : 15,
-                            ealSupport: ealMap[s.name] || 'Limited',
+                            internationalPercent: intlPctMap[s.name] !== undefined ? intlPctMap[s.name] : null,
+                            ealSupport: ealMap[s.name] || null,
                             nearestAirport: nearestAirportMap[s.name] || 'Not available — contact school',
                             heathrowTime: heathrowTimeMap[s.name] || 'Not available — contact school'
                         };
@@ -1341,13 +1351,13 @@
                 const isiCell = bodyRows[10].children[colIndex];
                 isiCell.textContent = school.isiRating || 'Excellent';
 
-                // International Students %
+                // International Students % (only shown for explicitly mapped schools — see intlPctMap)
                 const intlCell = bodyRows[11].children[colIndex];
-                if (school.internationalPercent !== undefined) {
-                    intlCell.textContent = school.internationalPercent + '%';
-                }
+                intlCell.textContent = (school.internationalPercent !== null && school.internationalPercent !== undefined)
+                    ? school.internationalPercent + '%'
+                    : (currentLang === 'th' ? 'ไม่มีข้อมูล — ติดต่อโรงเรียน' : 'Not available — contact school');
 
-                // EAL Support
+                // EAL Support (only shown for explicitly mapped schools — see ealMap)
                 const ealCell = bodyRows[12].children[colIndex];
                 if (school.ealSupport) {
                     ealCell.textContent = school.ealSupport;
@@ -1355,6 +1365,8 @@
                         ealCell.style.color = '#B8962E';
                         ealCell.style.fontWeight = '600';
                     }
+                } else {
+                    ealCell.textContent = currentLang === 'th' ? 'ไม่มีข้อมูล — ติดต่อโรงเรียน' : 'Not available — contact school';
                 }
 
                 // Nearest Airport

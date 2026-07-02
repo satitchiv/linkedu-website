@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKEDU — Learning Style &amp; Tutor Match Quiz</title>
+<title>LINKEDU — Study Preference Profiler</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -71,6 +71,13 @@ html[lang="en"] .lang-th { display: none !important; }
 }
 .hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
 .hero p { color: rgba(245,240,232,0.65); max-width: 600px; margin: 0 auto; font-size: 0.95rem; }
+.honesty-box {
+  max-width: 640px; margin: 24px auto 0; text-align: left;
+  background: rgba(184,150,46,0.08); border: 1px solid rgba(184,150,46,0.35);
+  border-radius: 8px; padding: 16px 20px;
+}
+.honesty-box p { font-size: 0.85rem; color: rgba(245,240,232,0.85); line-height: 1.65; }
+.honesty-box strong { color: var(--gold); }
 
 /* ── Container ──────────────────────────────────────────── */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -182,6 +189,27 @@ html[lang="en"] .lang-th { display: none !important; }
 .style-pct-fill { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.8s ease; }
 .style-pct-label { font-size: 0.8rem; color: rgba(245,240,232,0.4); }
 
+/* PREFERENCE BARS — all four styles, shown as counts */
+.pref-bars { max-width: 420px; margin: 24px auto 0; text-align: left; }
+.pref-bar-row { display: grid; grid-template-columns: 120px 1fr 52px; align-items: center; gap: 10px; margin-bottom: 8px; }
+.pref-bar-label { font-size: 0.75rem; color: rgba(245,240,232,0.65); }
+.pref-bar-row.is-top .pref-bar-label { color: var(--gold); font-weight: 600; }
+.pref-bar-track { height: 6px; background: rgba(245,240,232,0.1); border-radius: 999px; overflow: hidden; }
+.pref-bar-fill { height: 100%; background: rgba(245,240,232,0.4); border-radius: 999px; transition: width 0.6s ease; }
+.pref-bar-row.is-top .pref-bar-fill { background: var(--gold); }
+.pref-bar-count { font-size: 0.72rem; color: rgba(245,240,232,0.5); text-align: right; }
+
+/* UNIVERSAL STUDY-SKILLS BOX */
+.universal-box {
+  background: var(--dark); border-radius: 8px; padding: 24px 28px;
+  border: 1px solid rgba(184,150,46,0.3); margin-bottom: 20px;
+}
+.universal-box .result-card-label { color: var(--gold); }
+.universal-box .result-card-label::before { background: var(--gold); }
+.universal-box p, .universal-box li { color: rgba(245,240,232,0.75) !important; }
+.universal-box h3 { color: var(--cream); font-size: 1.1rem; margin-bottom: 10px; }
+.universal-box .tip-list li::before { color: var(--gold); }
+
 .secondary-style {
   background: rgba(245,240,232,0.05); border-radius: 6px; padding: 14px 20px;
   margin-top: 16px; text-align: left; border: 1px solid rgba(184,150,46,0.15);
@@ -218,11 +246,6 @@ html[lang="en"] .lang-th { display: none !important; }
 }
 .inline-cta h4 { color: var(--cream); font-size: 1.15rem; margin-bottom: 8px; }
 .inline-cta p { color: rgba(245,240,232,0.6); font-size: 0.87rem; margin-bottom: 18px; }
-.urgency-tag {
-  display: inline-block; background: var(--gold-faint); border: 1px solid rgba(184,150,46,0.3);
-  color: var(--gold); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-  border-radius: 999px; padding: 4px 12px; margin-bottom: 12px;
-}
 .btn-line {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--gold); color: var(--dark); border: none; cursor: pointer;
@@ -279,7 +302,7 @@ footer a { color: var(--gold); text-decoration: none; }
     <a href="../../index.html"><span class="lang-th">หน้าหลัก</span><span class="lang-en">Home</span></a>
     <a href="../../schools.html"><span class="lang-th">โรงเรียน</span><span class="lang-en">Schools</span></a>
     <a href="../../fees.html"><span class="lang-th">ค่าใช้จ่าย</span><span class="lang-en">Fees</span></a>
-    <a href="../../tutoring-v3.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
+    <a href="../../tutoring.html" class="active"><span class="lang-th">การติว</span><span class="lang-en">Tutoring</span></a>
   </nav>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('th')" id="btn-th">TH</button>
@@ -292,13 +315,17 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="container">
     <span class="section-label">· LINKEDU TUTORING TOOLS ·</span>
     <h1>
-      <span class="lang-th">ค้นหาสไตล์การเรียน<br>และจับคู่ติวเตอร์</span>
-      <span class="lang-en">Learning Style<br>&amp; Tutor Match Quiz</span>
+      <span class="lang-th">โปรไฟล์รูปแบบการเรียน<br>ที่ลูกชอบ</span>
+      <span class="lang-en">Study Preference<br>Profiler</span>
     </h1>
     <p style="margin-top:16px;">
-      <span class="lang-th">10 คำถาม เพื่อค้นหาวิธีที่ลูกของคุณเรียนรู้ได้ดีที่สุด แล้วจับคู่กับติวเตอร์สไตล์ที่ใช่</span>
-      <span class="lang-en">10 questions to discover how your child learns best — then match them with exactly the right tutor style.</span>
+      <span class="lang-th">10 คำถาม เพื่อดูว่าบุตรหลานของคุณ<strong>ชอบ</strong>เรียนรู้แบบไหน แล้วนำไปบรีฟติวเตอร์ให้ตรงจุด</span>
+      <span class="lang-en">10 questions to map how your child prefers to engage with learning — so we can brief their tutor accordingly.</span>
     </p>
+    <div class="honesty-box">
+      <p class="lang-th"><strong>ข้อเท็จจริงที่ควรรู้:</strong> งานวิจัยพบว่าการจับคู่วิธีสอนให้ตรงกับ "สไตล์การเรียน" เพียงอย่างเดียว ไม่ได้ช่วยให้ผลการเรียนดีขึ้นจริง แต่การรู้ว่าบุตรหลานของคุณ<strong>ชอบ</strong>เรียนรู้แบบไหน ช่วยให้ติวเตอร์สร้างความสนิทสนม เลือกสื่อการสอนที่เหมาะสม และทำให้แต่ละเซสชันสนุกและมีส่วนร่วมมากขึ้น</p>
+      <p class="lang-en"><strong>Worth knowing:</strong> Research shows that matching teaching to a "learning style" does not, on its own, improve results. But knowing how your child prefers to engage helps a tutor build rapport, choose the right materials, and keep sessions enjoyable.</p>
+    </div>
   </div>
 </section>
 
@@ -344,10 +371,10 @@ footer a { color: var(--gold); text-decoration: none; }
 <section id="results-section">
   <div class="results-inner">
     <div style="text-align:center;margin-bottom:40px;">
-      <span class="section-label" style="color:var(--gold);">· ผลลัพธ์ · YOUR LEARNING PROFILE ·</span>
+      <span class="section-label" style="color:var(--gold);">· ผลลัพธ์ · YOUR STUDY PREFERENCE PROFILE ·</span>
       <h2 style="font-size:1.8rem;">
-        <span class="lang-th">สไตล์การเรียนของลูกคุณ</span>
-        <span class="lang-en">Your Child's Learning Style</span>
+        <span class="lang-th">โปรไฟล์การเรียนที่ลูกชอบ — และวิธีบรีฟติวเตอร์</span>
+        <span class="lang-en">Your Child's Study Preference — And How to Brief Their Tutor</span>
       </h2>
     </div>
 
@@ -359,21 +386,17 @@ footer a { color: var(--gold); text-decoration: none; }
 
     <!-- Inline CTA -->
     <div class="inline-cta">
-      <div class="urgency-tag">
-        <span class="lang-th">จับคู่ภายใน 48 ชั่วโมง</span>
-        <span class="lang-en">Match Within 48 Hours</span>
-      </div>
       <h4>
-        <span class="lang-th">เราจะจับคู่ลูกคุณกับติวเตอร์ที่เหมาะกับสไตล์การเรียนของเขาโดยเฉพาะ</span>
-        <span class="lang-en">We'll match your child with a tutor who suits their learning style exactly</span>
+        <span class="lang-th">เราจะช่วยบรีฟติวเตอร์ให้เข้าใจวิธีที่บุตรหลานคุณชอบเรียนรู้ตั้งแต่เซสชันแรก</span>
+        <span class="lang-en">We'll brief your child's tutor on exactly how they prefer to engage, from the very first session</span>
       </h4>
       <p>
-        <span class="lang-th">ติดต่อเราผ่าน LINE — เราจับคู่ภายใน 48 ชั่วโมง ติวเตอร์ LINKEDU มีทุกสไตล์</span>
-        <span class="lang-en">Contact us via LINE — we match within 48 hours. LINKEDU has tutors for every learning style.</span>
+        <span class="lang-th">ติดต่อเราผ่าน LINE — ติวเตอร์ LINKEDU พร้อมปรับวิธีสอนให้เข้ากับบุตรหลานคุณ</span>
+        <span class="lang-en">Contact us via LINE — LINKEDU tutors are briefed to adapt to your child's preferences.</span>
       </p>
-      <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line">
-        <span class="lang-th">ติดต่อ @linkedu.th ตอนนี้</span>
-        <span class="lang-en">Contact @linkedu.th Now</span>
+      <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line">
+        <span class="lang-th">ติดต่อ satitlinkedu ตอนนี้</span>
+        <span class="lang-en">Contact satitlinkedu Now</span>
       </a>
     </div>
 
@@ -400,7 +423,7 @@ footer a { color: var(--gold); text-decoration: none; }
     </p>
     <span class="line-handle">satitlinkedu</span>
     <br>
-    <a href="https://line.me/ti/p/~@linkedu.th" target="_blank" class="btn-line-large">
+    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-line-large">
       <span class="lang-th">เพิ่ม LINE / Add LINE</span>
       <span class="lang-en">เพิ่ม LINE / Add LINE</span>
     </a>
@@ -532,11 +555,11 @@ const QUESTIONS = [
 
 const STYLES = {
   V: {
-    name_th: 'ผู้เรียนด้วยภาพ',
-    name_en: 'Visual Learner',
+    name_th: 'ชอบเรียนรู้ด้วยภาพ',
+    name_en: 'Visual Preference',
     icon: '👁',
-    desc_th: 'ลูกของคุณประมวลผลข้อมูลได้ดีที่สุดผ่านไดอะแกรม แผนที่ความคิด สี และการมองเห็น สมองของเขา/เธอถูกออกแบบมาเพื่อจดจำและเชื่อมโยงข้อมูลผ่านภาพ',
-    desc_en: 'Your child processes information best through diagrams, mind maps, colour, and visual organisation. Their brain is wired to encode and connect information visually.',
+    desc_th: 'บุตรหลานของคุณมักชอบเรียนรู้สิ่งใหม่ผ่านไดอะแกรม แผนที่ความคิด สี และภาพ — นี่คือความชอบส่วนตัว ไม่ใช่ข้อจำกัดว่าเขา/เธอเรียนรู้แบบอื่นไม่ได้',
+    desc_en: 'Your child tends to prefer engaging with new material through diagrams, mind maps, colour, and visual organisation. This is a preference, not a limit on how else they can learn.',
     boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: ควรใช้ whiteboard, flashcard สี, แผนผังเวลา และ mind map ในทุกวิชา ตั้งแต่ Maths ไปจนถึง English Literature',
     boarding_en: 'For UK boarding school preparation: use whiteboards, colour flashcards, timeline diagrams, and mind maps across all subjects — from Maths to English Literature.',
     session_th: 'เซสชันควรมีกระดานไวท์บอร์ด, ไดอะแกรมที่วาดขณะสอน, โน้ตสีสัน และสรุปภาพรวมก่อนเริ่มเนื้อหาย่อยเสมอ',
@@ -569,11 +592,11 @@ const STYLES = {
     ]
   },
   A: {
-    name_th: 'ผู้เรียนด้วยเสียง',
-    name_en: 'Auditory Learner',
+    name_th: 'ชอบเรียนรู้ด้วยเสียง',
+    name_en: 'Auditory Preference',
     icon: '🎧',
-    desc_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดผ่านการฟัง พูด และอภิปราย เขา/เธอจดจำได้ดีเมื่อได้ยินข้อมูลออกมาดังๆ หรือพูดถึงมัน',
-    desc_en: 'Your child learns best through listening, speaking, and discussion. They retain information best when they hear it spoken aloud or talk about it themselves.',
+    desc_th: 'บุตรหลานของคุณมักชอบเรียนรู้ผ่านการฟัง พูด และอภิปราย และมักรู้สึกมีส่วนร่วมมากขึ้นเมื่อได้ยินหรือได้พูดถึงสิ่งที่เรียน',
+    desc_en: 'Your child tends to prefer listening, speaking, and discussion, and often engages more when they hear ideas spoken aloud or talk them through.',
     boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: การสนทนา Socratic, การอภิปราย และการอธิบายด้วยเสียงดังเป็นกุญแจสำคัญ โดยเฉพาะสำหรับ English, History และ Science',
     boarding_en: 'For UK boarding school preparation: Socratic discussion, verbal Q&A, and explaining concepts aloud are key — especially for English, History, and Science.',
     session_th: 'เซสชันควรเป็นการสนทนาโต้ตอบมากกว่าการบรรยายทางเดียว ติวเตอร์ควรถามคำถามบ่อยๆ และให้ลูกอธิบายแนวคิดด้วยตัวเอง',
@@ -606,11 +629,11 @@ const STYLES = {
     ]
   },
   K: {
-    name_th: 'ผู้เรียนแบบลงมือทำ',
-    name_en: 'Kinesthetic Learner',
+    name_th: 'ชอบเรียนรู้แบบลงมือทำ',
+    name_en: 'Hands-On Preference',
     icon: '✋',
-    desc_th: 'ลูกของคุณเรียนรู้ได้ดีที่สุดโดยการลงมือทำ ฝึกซ้อม และประสบการณ์โดยตรง เขา/เธอต้องการแบบฝึกหัดมากๆ และตัวอย่างที่ทำจริง',
-    desc_en: 'Your child learns best by doing, practising, and experiencing directly. They need lots of practice exercises and worked examples to truly understand.',
+    desc_th: 'บุตรหลานของคุณมักชอบเรียนรู้ด้วยการลงมือทำ ฝึกซ้อม และประสบการณ์ตรง และมักรู้สึกมีส่วนร่วมมากขึ้นเมื่อได้ฝึกทำโจทย์จำนวนมาก',
+    desc_en: 'Your child tends to prefer doing, practising, and hands-on experience, and often engages more with plenty of practice exercises and worked examples.',
     boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: ต้องการข้อสอบฝึกซ้อมและปัญหาจำนวนมาก โดยเฉพาะ Maths และ Science ก่อนสอบ 11+, 13+ หรือ A-Level',
     boarding_en: 'For UK boarding school preparation: needs high volumes of past papers and practice problems — especially for Maths and Sciences before 11+, 13+, or A-Level entries.',
     session_th: 'เซสชันควรเน้นการทำโจทย์จริง ไม่ใช่แค่การฟัง ติวเตอร์ควรให้ลูกลองทำเองก่อน จากนั้นจึงแก้ข้อผิดพลาดร่วมกัน',
@@ -643,11 +666,11 @@ const STYLES = {
     ]
   },
   R: {
-    name_th: 'ผู้เรียนด้วยการอ่านและเขียน',
-    name_en: 'Reading/Writing Learner',
+    name_th: 'ชอบเรียนรู้ด้วยการอ่านและเขียน',
+    name_en: 'Reading & Writing Preference',
     icon: '📝',
-    desc_th: 'ลูกของคุณดูดซับข้อมูลได้ดีที่สุดผ่านการอ่านและการเขียน เขา/เธอชื่นชอบโน้ตที่มีโครงสร้างชัดเจน รายการ และคำอธิบายเป็นลายลักษณ์อักษร',
-    desc_en: 'Your child absorbs information best through reading and writing. They love structured notes, lists, and written explanations — and retain most from what they write down themselves.',
+    desc_th: 'บุตรหลานของคุณมักชอบเรียนรู้ผ่านการอ่านและการเขียน และมักได้ประโยชน์มากจากโน้ตที่มีโครงสร้างชัดเจน รายการ และคำอธิบายเป็นลายลักษณ์อักษร',
+    desc_en: 'Your child tends to prefer reading and writing, and often gets the most out of structured notes, lists, and written explanations.',
     boarding_th: 'สำหรับการเตรียมตัวเข้าโรงเรียนประจำ UK: เหมาะอย่างยิ่งสำหรับ English Literature, History และ essay-based subjects ต้องพัฒนาทักษะ analytical writing ให้แข็งแกร่ง',
     boarding_en: 'For UK boarding school preparation: naturally strong for English Literature, History, and essay-based subjects. Must develop analytical writing skills to high standard.',
     session_th: 'เซสชันควรมีโน้ตสรุปที่ชัดเจนหลังแต่ละหัวข้อ รายการขั้นตอน และการให้ feedback เป็นลายลักษณ์อักษรบนงานเขียน',
@@ -750,15 +773,16 @@ function prevQuestion() {
 }
 
 function showResults() {
-  // Count style frequencies
+  // Count preference frequencies
   const counts = { V: 0, A: 0, K: 0, R: 0 };
   answers.forEach(a => { if (a) counts[a]++; });
-  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
-  const primary = sorted[0][0];
-  const secondary = sorted[1][0];
-  const primaryPct = Math.round(sorted[0][1] / 10 * 100);
-  const secondaryPct = Math.round(sorted[1][1] / 10 * 100);
-
+  const order = ['V', 'A', 'K', 'R'];
+  const rankedAll = order.map(k => ({ key: k, count: counts[k] })).sort((a, b) => b.count - a.count);
+  const topCount = rankedAll[0].count;
+  const topKeys = rankedAll.filter(e => e.count === topCount).map(e => e.key);
+  const isBalanced = topKeys.length > 1;
+  const primary = rankedAll[0].key;
+  const secondary = rankedAll[1].key;
   const ps = STYLES[primary];
   const ss = STYLES[secondary];
 
@@ -768,47 +792,86 @@ function showResults() {
   document.getElementById('results-section').style.display = 'block';
   document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
 
-  // Primary card
-  document.getElementById('primary-style-card').innerHTML = `
-    <div class="style-icon-wrap">${ps.icon}</div>
-    <div class="style-name"><span class="lang-th">${ps.name_th}</span><span class="lang-en">${ps.name_en}</span></div>
-    <div class="style-sub"><span class="lang-th">สไตล์หลัก · ${primaryPct}% ของคำตอบ</span><span class="lang-en">Primary style · ${primaryPct}% of answers</span></div>
-    <div class="style-pct-bar"><div class="style-pct-fill" style="width:${primaryPct}%"></div></div>
-    <div class="style-pct-label">${primaryPct}% match</div>
-    <div class="secondary-style">
-      <p><strong><span class="lang-th">สไตล์รอง: ${ss.name_th} (${secondaryPct}%)</span><span class="lang-en">Secondary style: ${ss.name_en} (${secondaryPct}%)</span></strong><br>
-      <span class="lang-th">ลูกของคุณยังแสดงลักษณะของ ${ss.name_th} ด้วย ติวเตอร์ที่ดีควรผสมทั้งสองสไตล์</span>
-      <span class="lang-en">Your child also shows strong ${ss.name_en} traits. A great tutor should blend both styles.</span></p>
-    </div>
-  `;
+  // All-four preference bars (counts, not fake "% match")
+  const prefBarsHTML = rankedAll.map(e => {
+    const s = STYLES[e.key];
+    const pct = Math.round((e.count / 10) * 100);
+    const isTop = topKeys.includes(e.key);
+    return `
+      <div class="pref-bar-row${isTop ? ' is-top' : ''}">
+        <div class="pref-bar-label"><span class="lang-th">${s.name_th}</span><span class="lang-en">${s.name_en}</span></div>
+        <div class="pref-bar-track"><div class="pref-bar-fill" style="width:${pct}%"></div></div>
+        <div class="pref-bar-count">${e.count} / 10</div>
+      </div>`;
+  }).join('');
 
-  // Detail cards
+  if (isBalanced) {
+    const tiedNamesTh = topKeys.map(k => STYLES[k].name_th).join(' + ');
+    const tiedNamesEn = topKeys.map(k => STYLES[k].name_en).join(' + ');
+    document.getElementById('primary-style-card').innerHTML = `
+      <div class="style-icon-wrap">⚖</div>
+      <div class="style-name"><span class="lang-th">รูปแบบผสม / สมดุล</span><span class="lang-en">Balanced / Mixed Preference</span></div>
+      <div class="style-sub"><span class="lang-th">${tiedNamesTh} — คะแนนเท่ากันที่ ${topCount} จาก 10 ข้อ</span><span class="lang-en">${tiedNamesEn} — tied at ${topCount} of 10 answers</span></div>
+      <div class="pref-bars">${prefBarsHTML}</div>
+      <div class="secondary-style">
+        <p><span class="lang-th">บุตรหลานของคุณไม่ได้เอนไปทางใดทางหนึ่งชัดเจน — นี่คือผลลัพธ์จริง ไม่ใช่ความผิดพลาดของแบบทดสอบ ติวเตอร์ที่ดีควรผสมผสานวิธีสอนจากทุกด้านที่ทำคะแนนสูง</span>
+        <span class="lang-en">Your child doesn't lean clearly toward one preference — that's a genuine result, not a test error. A good tutor should blend approaches across the tied preferences.</span></p>
+      </div>
+    `;
+  } else {
+    document.getElementById('primary-style-card').innerHTML = `
+      <div class="style-icon-wrap">${ps.icon}</div>
+      <div class="style-name"><span class="lang-th">${ps.name_th}</span><span class="lang-en">${ps.name_en}</span></div>
+      <div class="style-sub"><span class="lang-th">แนวโน้มหลัก · ${counts[primary]} จาก 10 คำตอบ</span><span class="lang-en">Primary preference · ${counts[primary]} of 10 answers</span></div>
+      <div class="pref-bars">${prefBarsHTML}</div>
+      <div class="secondary-style">
+        <p><strong><span class="lang-th">แนวโน้มรอง: ${ss.name_th} (${counts[secondary]} จาก 10)</span><span class="lang-en">Secondary preference: ${ss.name_en} (${counts[secondary]} of 10)</span></strong><br>
+        <span class="lang-th">บุตรหลานของคุณยังแสดงลักษณะของ ${ss.name_th} ด้วย ติวเตอร์ที่ดีควรผสมทั้งสองแนวทาง</span>
+        <span class="lang-en">Your child also shows ${ss.name_en} traits. A good tutor should blend both approaches.</span></p>
+      </div>
+    `;
+  }
+
+  // Detail cards — briefing content for the primary preference, or both tied
+  // preferences when the result is balanced.
   const det = document.getElementById('result-details');
-  det.innerHTML = `
+  const briefingStyles = isBalanced ? topKeys.map(k => STYLES[k]) : [ps];
+
+  const briefingCardsHTML = briefingStyles.map(s => `
     <div class="result-card">
-      <div class="result-card-label"><span class="lang-th">ความหมายสำหรับโรงเรียนประจำ UK</span><span class="lang-en">What This Means for UK Boarding School Prep</span></div>
-      <p><span class="lang-th">${ps.boarding_th}</span><span class="lang-en">${ps.boarding_en}</span></p>
+      <div class="result-card-label"><span class="lang-th">วิธีบรีฟติวเตอร์: ${s.name_th}</span><span class="lang-en">Briefing the Tutor: ${s.name_en}</span></div>
+      <p><span class="lang-th">${s.boarding_th}</span><span class="lang-en">${s.boarding_en}</span></p>
+      <p style="margin-top:10px"><span class="lang-th">${s.session_th}</span><span class="lang-en">${s.session_en}</span></p>
+      <p style="margin-top:10px"><span class="lang-th">${s.tutor_th}</span><span class="lang-en">${s.tutor_en}</span></p>
     </div>
     <div class="result-card">
-      <div class="result-card-label"><span class="lang-th">วิธีจัดโครงสร้างเซสชันติว</span><span class="lang-en">How to Structure Tutoring Sessions</span></div>
-      <p><span class="lang-th">${ps.session_th}</span><span class="lang-en">${ps.session_en}</span></p>
-    </div>
-    <div class="result-card">
-      <div class="result-card-label"><span class="lang-th">ติวเตอร์ที่ใช่ควรเป็นอย่างไร</span><span class="lang-en">What to Look for in a Tutor</span></div>
-      <p><span class="lang-th">${ps.tutor_th}</span><span class="lang-en">${ps.tutor_en}</span></p>
-    </div>
-    <div class="result-card">
-      <div class="result-card-label"><span class="lang-th">เทคนิคการเรียนที่ได้ผล 5 ข้อ</span><span class="lang-en">5 Study Techniques That Work for Your Child</span></div>
+      <div class="result-card-label"><span class="lang-th">5 แนวทางที่บุตรหลานคุณมักชอบ — ${s.name_th}</span><span class="lang-en">5 Ways Your Child Tends to Prefer Engaging — ${s.name_en}</span></div>
       <ul class="tip-list">
-        ${ps.tips_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
-        ${ps.tips_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
+        ${s.tips_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
+        ${s.tips_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
       </ul>
     </div>
     <div class="result-card">
-      <div class="result-card-label"><span class="lang-th">ข้อผิดพลาดที่ควรหลีกเลี่ยง</span><span class="lang-en">Common Mistakes to Avoid</span></div>
+      <div class="result-card-label"><span class="lang-th">แนวทางที่อาจไม่เหมาะกับ ${s.name_th}</span><span class="lang-en">Approaches That May Suit ${s.name_en} Less</span></div>
       <ul class="avoid-list">
-        ${ps.avoid_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
-        ${ps.avoid_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
+        ${s.avoid_th.map(t => `<li class="lang-th">${t}</li>`).join('')}
+        ${s.avoid_en.map(t => `<li class="lang-en">${t}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  det.innerHTML = `
+    ${briefingCardsHTML}
+    <div class="result-card universal-box">
+      <div class="result-card-label"><span class="lang-th">สิ่งที่ได้ผลกับผู้เรียนทุกคน (จากงานวิจัย)</span><span class="lang-en">What Works for Every Learner (Evidence-Based)</span></div>
+      <p style="margin-bottom:10px"><span class="lang-th">ไม่ว่าบุตรหลานของคุณจะมีโปรไฟล์แบบใดข้างต้น เทคนิคเหล่านี้มีหลักฐานงานวิจัยรองรับว่าได้ผลกับผู้เรียนแทบทุกคน</span><span class="lang-en">Regardless of the preference profile above, these techniques are backed by research as effective for almost every learner:</span></p>
+      <ul class="tip-list">
+        <li class="lang-th"><strong>ฝึกดึงความจำ (Retrieval Practice)</strong> — ทดสอบตัวเองบ่อยๆ แทนการอ่านซ้ำเฉยๆ ช่วยให้จำได้แม่นและนานกว่า</li>
+        <li class="lang-en"><strong>Retrieval practice</strong> — testing yourself often, instead of just re-reading, builds stronger, longer-lasting memory.</li>
+        <li class="lang-th"><strong>ทบทวนแบบเว้นระยะ (Spaced Review)</strong> — ทบทวนเนื้อหาเป็นช่วงๆ ห่างกันไปเรื่อยๆ ดีกว่าอัดเนื้อหาในคืนเดียว</li>
+        <li class="lang-en"><strong>Spaced review</strong> — spreading revision out over time beats last-minute cramming, for every subject.</li>
+        <li class="lang-th"><strong>ตัวอย่างที่แก้ทีละขั้น (Worked Examples)</strong> — ดูวิธีแก้โจทย์แบบทีละขั้นตอนก่อนลองทำเอง ช่วยให้เข้าใจเนื้อหาใหม่ได้เร็วขึ้น</li>
+        <li class="lang-en"><strong>Worked examples</strong> — seeing a problem solved step by step before attempting it yourself speeds up understanding of new material.</li>
       </ul>
     </div>
   `;

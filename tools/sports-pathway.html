@@ -585,7 +585,7 @@
                 <h3 class="text-center mb-40" data-en="Your Personalised Sports Pathway" data-th="เส้นทางกีฬาเฉพาะบุคคลของคุณ">Your Personalised Sports Pathway</h3>
 
                 <!-- Pathway Timeline -->
-                <div class="card mb-40">
+                <div id="pathway-timeline-card" class="card mb-40">
                     <h4 data-en="Pathway Timeline: What to Achieve by When" data-th="ไทม์ไลน์เส้นทาง: สิ่งที่ต้องทำให้สำเร็จตามช่วงอายุ">Pathway Timeline: What to Achieve by When</h4>
                     <div id="pathway-timeline-content" class="mt-20">
                         <!-- Timeline items will be injected here -->
@@ -598,12 +598,15 @@
                     <!-- Top 3 school cards will be injected here -->
                 </div>
 
+                <div id="scholarship-data-block">
                 <!-- Scholarship disclaimer -->
                 <div style="margin-bottom:32px;padding:14px 18px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:5px;display:flex;gap:12px;align-items:flex-start">
                     <span style="font-size:16px;color:#B8962E;flex-shrink:0;line-height:1.4">&#9432;</span>
                     <div>
-                        <span class="lang-en" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">About scholarship ranges:</strong> Figures shown are merit-based award estimates. Most UK boarding schools cap merit scholarships at 10–20% of fees. Larger awards (up to 100%) are means-tested bursaries and require a separate financial application. For sports newer to UK schools (Badminton, Squash, Table Tennis, Martial Arts), scholarships are rare — contact schools directly for current availability.</span>
-                        <span class="lang-th" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">เกี่ยวกับช่วงทุนการศึกษา:</strong> ตัวเลขที่แสดงเป็นการประมาณการทุนตามผลงาน โรงเรียนส่วนใหญ่จำกัดทุนประเภทนี้ไว้ที่ 10–20% ของค่าเล่าเรียน ทุนจำนวนมากขึ้น (ถึง 100%) มักเป็นทุนทดสอบฐานะทางการเงิน ซึ่งต้องยื่นสมัครแยกต่างหาก</span>
+                        <span class="lang-en" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">About scholarship ranges:</strong> Figures shown are merit-based award estimates. Most UK boarding schools cap merit scholarships at 10–20% of fees; exceptional cases go higher and are usually means-tested. Larger awards (up to 100%) are means-tested bursaries and require a separate financial application. For sports newer to UK schools (Badminton, Squash, Table Tennis, Martial Arts), scholarships are rare — contact schools directly for current availability.</span>
+                        <span class="lang-th" style="font-size:12px;color:rgba(245,240,232,0.65);line-height:1.6;display:block"><strong style="color:rgba(245,240,232,0.85)">เกี่ยวกับช่วงทุนการศึกษา:</strong> ตัวเลขที่แสดงเป็นการประมาณการทุนตามผลงาน โรงเรียนส่วนใหญ่จำกัดทุนประเภทนี้ไว้ที่ 10–20% ของค่าเล่าเรียน กรณีพิเศษอาจสูงกว่านี้และมักต้องผ่านการพิจารณาฐานะทางการเงิน ทุนจำนวนมากขึ้น (ถึง 100%) มักเป็นทุนทดสอบฐานะทางการเงิน ซึ่งต้องยื่นสมัครแยกต่างหาก</span>
+                        <span class="lang-en" style="font-size:11px;color:rgba(245,240,232,0.45);line-height:1.6;display:block;margin-top:8px;font-style:italic">Pathway and school data on this page is curated by LinkedU from published school scholarship policies and prospectuses — it is compiled manually, not pulled automatically from LinkedU's school database.</span>
+                        <span class="lang-th" style="font-size:11px;color:rgba(245,240,232,0.45);line-height:1.6;display:block;margin-top:8px;font-style:italic">ข้อมูลเส้นทางและโรงเรียนในหน้านี้รวบรวมโดยทีมงาน LinkedU จากนโยบายทุนการศึกษาและเอกสารเผยแพร่ของโรงเรียนโดยตรง — เป็นการรวบรวมด้วยมือ ไม่ได้ดึงข้อมูลอัตโนมัติจากฐานข้อมูลโรงเรียนของ LinkedU</span>
                     </div>
                 </div>
 
@@ -635,6 +638,7 @@
                         </table>
                     </div>
                 </div>
+                </div>
 
                 <!-- Save Results -->
                 <div id="sports-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
@@ -664,15 +668,15 @@
                 name: "Millfield School",
                 location: "Somerset, UK",
                 sports: {
-                    Tennis: { scholarship_range: "20-60%", level_required: "Regional/National" },
-                    Swimming: { scholarship_range: "20-70%", level_required: "National" },
-                    Athletics: { scholarship_range: "15-50%", level_required: "Regional/National" },
-                    Golf: { scholarship_range: "20-60%", level_required: "National" },
-                    Rugby: { scholarship_range: "15-50%", level_required: "Regional" }
+                    Tennis: { scholarship_range: "10-25%", level_required: "Regional/National" },
+                    Swimming: { scholarship_range: "10-25%", level_required: "National" },
+                    Athletics: { scholarship_range: "10-25%", level_required: "Regional/National" },
+                    Golf: { scholarship_range: "10-25%", level_required: "National" },
+                    Rugby: { scholarship_range: "10-25%", level_required: "Regional" }
                 },
                 facilities: {
-                    en: "Olympic-sized swimming pool, 12 indoor tennis courts, 5 golf courses, athletics track, multiple rugby pitches.",
-                    th: "สระว่ายน้ำขนาดโอลิมปิก, สนามเทนนิสในร่ม 12 คอร์ท, สนามกอล์ฟ 5 แห่ง, ลู่วกรีฑา, สนามรักบี้หลายแห่ง"
+                    en: "Olympic-sized swimming pool, extensive indoor tennis facilities, multiple golf courses, athletics track, multiple rugby pitches.",
+                    th: "สระว่ายน้ำขนาดโอลิมปิก, สิ่งอำนวยความสะดวกเทนนิสในร่มที่ครบครัน, สนามกอล์ฟหลายแห่ง, ลู่วิ่งกรีฑา, สนามรักบี้หลายแห่ง"
                 },
                 alumni: {
                     en: ["Helen Jenkins (Triathlon, Olympian)", "Chris Robshaw (Rugby, England Captain)", "James Guy (Swimming, Olympic Gold Medallist)"],
@@ -683,10 +687,10 @@
                 name: "Loughborough Schools Foundation",
                 location: "Leicestershire, UK",
                 sports: {
-                    Football: { scholarship_range: "10-40%", level_required: "Regional" },
-                    Rugby: { scholarship_range: "10-40%", level_required: "Regional" },
-                    Cricket: { scholarship_range: "10-30%", level_required: "Regional" },
-                    Athletics: { scholarship_range: "10-30%", level_required: "Regional" }
+                    Football: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Rugby: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-20%", level_required: "Regional" }
                 },
                 facilities: {
                     en: "State-of-the-art football pitches, rugby grounds, cricket nets and pitches, 400m athletics track.",
@@ -701,9 +705,9 @@
                 name: "Bradfield College",
                 location: "Berkshire, UK",
                 sports: {
-                    Football: { scholarship_range: "15-45%", level_required: "Regional" },
-                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Tennis: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Football: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Full-size football pitches, cricket pavilion and grounds, indoor tennis centre, strength & conditioning suite.",
@@ -718,10 +722,10 @@
                 name: "Sedbergh School",
                 location: "Cumbria, UK",
                 sports: {
-                    Rugby: { scholarship_range: "20-60%", level_required: "Regional/National" },
-                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Athletics: { scholarship_range: "10-30%", level_required: "Club/Regional" },
-                    Netball: { scholarship_range: "10-30%", level_required: "Regional" }
+                    Rugby: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-20%", level_required: "Club/Regional" },
+                    Netball: { scholarship_range: "10-20%", level_required: "Regional" }
                 },
                 facilities: {
                     en: "Extensive rugby pitches, cricket squares, modern sports hall, fells for cross-country running.",
@@ -736,9 +740,9 @@
                 name: "Stonyhurst College",
                 location: "Lancashire, UK",
                 sports: {
-                    Rugby: { scholarship_range: "15-45%", level_required: "Regional" },
-                    Football: { scholarship_range: "10-35%", level_required: "Club/Regional" },
-                    Cricket: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Rugby: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Football: { scholarship_range: "10-20%", level_required: "Club/Regional" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Rugby pitches, football pitches, cricket nets, indoor sports centre, gym.",
@@ -753,10 +757,10 @@
                 name: "Wellington College",
                 location: "Berkshire, UK",
                 sports: {
-                    Rugby: { scholarship_range: "20-50%", level_required: "Regional/National" },
-                    Hockey: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Athletics: { scholarship_range: "10-30%", level_required: "Regional" },
-                    Tennis: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Rugby: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Hockey: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Athletics: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Multiple rugby pitches, all-weather hockey pitches, athletics track, indoor sports complex, tennis courts.",
@@ -771,9 +775,9 @@
                 name: "Ellesmere College",
                 location: "Shropshire, UK",
                 sports: {
-                    Swimming: { scholarship_range: "20-60%", level_required: "Regional/National" },
-                    Golf: { scholarship_range: "15-45%", level_required: "Regional" },
-                    Tennis: { scholarship_range: "10-35%", level_required: "Club/Regional" }
+                    Swimming: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Golf: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Tennis: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "25m swimming pool, 9-hole golf course, indoor tennis dome, modern sports hall.",
@@ -788,10 +792,10 @@
                 name: "Repton School",
                 location: "Derbyshire, UK",
                 sports: {
-                    Football: { scholarship_range: "20-50%", level_required: "Regional/National" },
-                    Hockey: { scholarship_range: "20-50%", level_required: "Regional/National" },
-                    Cricket: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Golf: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Football: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Hockey: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Golf: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Floodlit AstroTurf pitches, football pitches, cricket squares, indoor sports centre, golf course access.",
@@ -806,10 +810,10 @@
                 name: "Shrewsbury School",
                 location: "Shropshire, UK",
                 sports: {
-                    Cricket: { scholarship_range: "20-60%", level_required: "Regional/National" },
-                    Football: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Rowing: { scholarship_range: "15-45%", level_required: "Regional" },
-                    Rugby: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Cricket: { scholarship_range: "10-20%", level_required: "Regional/National" },
+                    Football: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Rowing: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Rugby: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Historic cricket grounds, football pitches, boathouse on River Severn, modern sports hall.",
@@ -824,10 +828,10 @@
                 name: "Canford School",
                 location: "Dorset, UK",
                 sports: {
-                    Rugby: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Hockey: { scholarship_range: "15-40%", level_required: "Regional" },
-                    Rowing: { scholarship_range: "10-35%", level_required: "Club/Regional" },
-                    Cricket: { scholarship_range: "10-30%", level_required: "Club/Regional" }
+                    Rugby: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Hockey: { scholarship_range: "10-20%", level_required: "Regional" },
+                    Rowing: { scholarship_range: "10-20%", level_required: "Club/Regional" },
+                    Cricket: { scholarship_range: "10-20%", level_required: "Club/Regional" }
                 },
                 facilities: {
                     en: "Rugby pitches, AstroTurf hockey pitches, boathouse on River Stour, cricket squares, indoor sports centre.",
@@ -913,7 +917,12 @@
                 highLevelForAge: "You are already at a high level for your age, focus on maintaining and excelling!",
                 targetForLevel: "Target for {level} level",
                 scholarshipDistribution: "Scholarship Range Distribution for {sport}",
-                averageScholarship: "Average Scholarship %"
+                averageScholarship: "Average Scholarship %",
+                scholarshipQualifier: "(exceptional cases higher, usually means-tested)",
+                scholarshipQualifierTop: "(exceptional talent, usually means-tested)",
+                noDataTitle: "No dedicated scholarship pathway data yet for {sport}.",
+                noDataBody: "Several UK boarding schools offer this sport competitively — talk to us for personalised guidance.",
+                noDataCta: "Get Personalised Advice →"
             },
             th: {
                 sport: "กีฬา:",
@@ -933,7 +942,12 @@
                 highLevelForAge: "คุณอยู่ในระดับที่สูงสำหรับอายุของคุณแล้ว มุ่งเน้นการรักษาและพัฒนาต่อไป!",
                 targetForLevel: "เป้าหมายสำหรับระดับ {level}",
                 scholarshipDistribution: "การกระจายช่วงทุนการศึกษาสำหรับ{sport}",
-                averageScholarship: "เปอร์เซ็นต์ทุนการศึกษาเฉลี่ย"
+                averageScholarship: "เปอร์เซ็นต์ทุนการศึกษาเฉลี่ย",
+                scholarshipQualifier: "(กรณีพิเศษอาจสูงกว่านี้ มักพิจารณาฐานะทางการเงิน)",
+                scholarshipQualifierTop: "(สำหรับผู้มีความสามารถโดดเด่น มักพิจารณาฐานะทางการเงิน)",
+                noDataTitle: "ยังไม่มีข้อมูลเส้นทางทุนการศึกษาเฉพาะสำหรับกีฬา{sport}",
+                noDataBody: "โรงเรียนประจำในสหราชอาณาจักรหลายแห่งมีกีฬานี้ในระดับแข่งขัน ติดต่อเราเพื่อรับคำแนะนำส่วนตัว",
+                noDataCta: "ขอคำแนะนำส่วนตัว →"
             }
         };
 
@@ -1020,25 +1034,67 @@
                 return;
             }
 
-            // Filter schools
-            const filteredSchools = schoolsData.filter(school =>
-                school.sports[selectedSport] && levelOrder[school.sports[selectedSport].level_required] <= levelOrder[selectedLevel] + 1 // Allow slightly higher level for aspiration
-            ).sort((a, b) => levelOrder[a.sports[selectedSport].level_required] - levelOrder[b.sports[selectedSport].level_required]); // Sort by level required
+            const timelineCard = document.getElementById('pathway-timeline-card');
+            const scholarshipDataBlock = document.getElementById('scholarship-data-block');
 
-            // If no schools found (e.g. new sports not yet in database), show a helpful message
+            // Sports with no curated pathway/scholarship data yet (e.g. Badminton, Squash,
+            // Table Tennis, Martial Arts) — be honest instead of showing empty/fabricated results.
+            if (!pathwayData[selectedSport]) {
+                if (timelineCard) timelineCard.classList.add('hidden');
+                if (scholarshipDataBlock) scholarshipDataBlock.classList.add('hidden');
+                pathwayTimelineContent.innerHTML = '';
+                allSchoolsTableBody.innerHTML = '';
+                if (scholarshipChartInstance) { scholarshipChartInstance.destroy(); scholarshipChartInstance = null; }
+
+                const noDataContainer = document.getElementById('top-schools-container');
+                if (noDataContainer) {
+                    const t = translations[currentLang];
+                    noDataContainer.innerHTML = '<div style="grid-column:1/-1;padding:24px 20px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:6px;text-align:center">' +
+                        '<div style="font-size:13px;font-weight:600;color:rgba(245,240,232,0.85);margin-bottom:8px">' +
+                        t.noDataTitle.replace('{sport}', currentLang === 'th' ? selectedSport : ' ' + selectedSport) + '</div>' +
+                        '<div style="font-size:12px;color:rgba(245,240,232,0.55);margin-bottom:14px">' + t.noDataBody + '</div>' +
+                        '<a href="https://linkeduth.netlify.app/contact.html" style="display:inline-block;padding:8px 20px;background:#B8962E;color:#111;border-radius:4px;font-size:12px;font-weight:600;text-decoration:none">' +
+                        t.noDataCta + '</a></div>';
+                }
+                resultsSection.classList.remove('hidden');
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+
+            if (timelineCard) timelineCard.classList.remove('hidden');
+            if (scholarshipDataBlock) scholarshipDataBlock.classList.remove('hidden');
+
+            // Filter schools (level_required can be a compound value like "Regional/National" —
+            // compare against its first/base level, matching calculateMatchScore's logic)
+            const filteredSchools = schoolsData.filter(school => {
+                const info = school.sports[selectedSport];
+                if (!info) return false;
+                const schoolLevel = levelOrder[info.level_required.split('/')[0]];
+                return schoolLevel <= levelOrder[selectedLevel] + 1; // Allow slightly higher level for aspiration
+            }).sort((a, b) =>
+                levelOrder[a.sports[selectedSport].level_required.split('/')[0]] - levelOrder[b.sports[selectedSport].level_required.split('/')[0]]
+            ); // Sort by level required
+
+            // If this specific sport/level combination has no matching schools, show a helpful message
             if (filteredSchools.length === 0) {
+                if (timelineCard) timelineCard.classList.add('hidden');
+                if (scholarshipDataBlock) scholarshipDataBlock.classList.add('hidden');
+                pathwayTimelineContent.innerHTML = '';
+                allSchoolsTableBody.innerHTML = '';
+                if (scholarshipChartInstance) { scholarshipChartInstance.destroy(); scholarshipChartInstance = null; }
+
                 const container = document.getElementById('top-schools-container');
                 if (container) {
                     container.innerHTML = '<div style="grid-column:1/-1;padding:24px 20px;background:rgba(184,150,46,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:6px;text-align:center">' +
                         '<div style="font-size:13px;font-weight:600;color:rgba(245,240,232,0.85);margin-bottom:8px">' +
-                        (currentLang === 'en' ? 'We are building our school database for ' + selectedSport + '.' : 'เรากำลังสร้างฐานข้อมูลโรงเรียนสำหรับกีฬา ' + selectedSport) + '</div>' +
+                        (currentLang === 'en' ? 'No schools currently match your selected level for ' + selectedSport + '.' : 'ยังไม่มีโรงเรียนที่ตรงกับระดับที่คุณเลือกสำหรับกีฬา' + selectedSport) + '</div>' +
                         '<div style="font-size:12px;color:rgba(245,240,232,0.55);margin-bottom:14px">' +
                         (currentLang === 'en' ? 'Several UK boarding schools offer scholarships for this sport. Contact us for personalised recommendations.' : 'โรงเรียนประจำในสหราชอาณาจักรหลายแห่งมีทุนการศึกษาสำหรับกีฬานี้ ติดต่อเราเพื่อรับคำแนะนำส่วนตัว') + '</div>' +
                         '<a href="https://linkeduth.netlify.app/contact.html" style="display:inline-block;padding:8px 20px;background:#B8962E;color:#111;border-radius:4px;font-size:12px;font-weight:600;text-decoration:none">' +
                         (currentLang === 'en' ? 'Get Personalised Advice \u2192' : 'ขอคำแนะนำส่วนตัว \u2192') + '</a></div>';
                 }
-                const resultsSection = document.getElementById('pathway-results-section');
-                if (resultsSection) resultsSection.classList.add('visible');
+                resultsSection.classList.remove('hidden');
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 return;
             }
 
@@ -1143,6 +1199,14 @@
             return Math.min(100, Math.max(50, score)); // Keep score between 50-100
         }
 
+        // Millfield is presented as the top end of the scale (10-25%, exceptional talent);
+        // every other school uses the typical 10-20% qualifier, matching the disclaimer above.
+        function getScholarshipQualifier(school) {
+            return school.name === 'Millfield School'
+                ? translations[currentLang].scholarshipQualifierTop
+                : translations[currentLang].scholarshipQualifier;
+        }
+
         function renderTopRecommendations(schools, sport, currentLevel, currentAge) {
             topSchoolsContainer.innerHTML = '';
 
@@ -1171,7 +1235,7 @@
                     <div class="match-score">${score}%</div>
                     <h4>${school.name}</h4>
                     <p><strong>${translations[currentLang].sport}</strong> ${sport}</p>
-                    <p><strong>${translations[currentLang].scholarshipRange}</strong> ${schoolSportInfo.scholarship_range}</p>
+                    <p><strong>${translations[currentLang].scholarshipRange}</strong> ${schoolSportInfo.scholarship_range} <span style="font-size:11px;opacity:0.6">${getScholarshipQualifier(school)}</span></p>
                     <p><strong>${translations[currentLang].levelRequired}</strong> ${schoolSportInfo.level_required}</p>
                     <p><strong>${translations[currentLang].facilities}</strong> ${school.facilities[currentLang] || translations[currentLang].na}</p>
                     <p><strong>${translations[currentLang].alumniAthletes}</strong> ${school.alumni[currentLang].join(', ') || translations[currentLang].na}</p>
@@ -1193,7 +1257,7 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${school.name}</td>
-                    <td>${schoolSportInfo.scholarship_range}</td>
+                    <td>${schoolSportInfo.scholarship_range} <span style="font-size:11px;opacity:0.6;display:block">${getScholarshipQualifier(school)}</span></td>
                     <td>${schoolSportInfo.level_required}</td>
                     <td>${school.facilities[currentLang] || translations[currentLang].na}</td>
                     <td>${school.alumni[currentLang].join(', ') || translations[currentLang].na}</td>

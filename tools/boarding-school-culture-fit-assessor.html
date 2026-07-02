@@ -396,6 +396,48 @@
             color: var(--dark);
         }
 
+        .limits-note {
+            background-color: var(--cream);
+            padding: 16px 20px;
+            border-left: 5px solid var(--gold);
+            border-radius: 8px;
+            margin-top: 20px;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+        .limits-note p {
+            margin-bottom: 0;
+        }
+
+        #dimension-bars {
+            margin-bottom: 20px;
+        }
+        .dim-bar-row {
+            margin-bottom: 14px;
+        }
+        .dim-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+        .dim-bar-label .dim-bar-pct {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .dim-bar-track {
+            background: rgba(0,0,0,0.08);
+            border-radius: 4px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .dim-bar-fill {
+            background: var(--gold);
+            height: 100%;
+            border-radius: 4px;
+        }
+
         /* LINE CTA */
         .line-cta-section {
             background-color: var(--dark);
@@ -575,13 +617,17 @@
                     <h2 class="lang-en">School Culture Fit Results</h2>
 
                     <div class="result-score-box">
-                        <p class="lang-th">คะแนนความเหมาะสมโดยรวม:</p>
-                        <p class="lang-en">Overall Culture Fit Score:</p>
-                        <h3 id="fit-score">--%</h3>
+                        <p class="lang-th">โปรไฟล์ความเข้ากันได้ของครอบครัวคุณ:</p>
+                        <p class="lang-en">Your Family's Fit Profile:</p>
+                        <h3 id="fit-score"></h3>
                         <p id="score-interpretation"></p>
                     </div>
 
                     <div class="result-details">
+                        <h4 class="lang-th">ภาพรวมทั้ง 8 มิติ:</h4>
+                        <h4 class="lang-en">Your Full 8-Dimension Profile:</h4>
+                        <div id="dimension-bars"></div>
+
                         <h4 class="lang-th">จุดแข็งและจุดที่ต้องพิจารณา:</h4>
                         <h4 class="lang-en">Areas of Alignment & Consideration:</h4>
                         <ul id="alignment-areas"></ul>
@@ -589,6 +635,13 @@
                         <h4 class="lang-th">ประเภทโรงเรียนที่อาจเหมาะสม:</h4>
                         <h4 class="lang-en">Potential School Profiles:</h4>
                         <ul id="school-profiles"></ul>
+                        <p class="lang-th">สำหรับชอร์ตลิสต์ที่จับคู่กับข้อมูลโรงเรียนที่เผยแพร่จริง ลองใช้ <a href="../tools/personality-match.html">School Fit Finder</a></p>
+                        <p class="lang-en">For a shortlist matched to published school data, try the <a href="../tools/personality-match.html">School Fit Finder</a>.</p>
+
+                        <div class="limits-note">
+                            <p class="lang-th">แบบประเมินนี้มี 11 คำถาม เปรียบเสมือนจุดเริ่มต้นของบทสนทนาที่มีโครงสร้าง ไม่ใช่ข้อสรุปสุดท้าย — คุยกับที่ปรึกษาของ LINKEDU เพื่อความเข้าใจที่ละเอียดขึ้น</p>
+                            <p class="lang-en">This 11-question assessment is a structured conversation starter, not a verdict — talk to a LINKEDU consultant for a fuller picture.</p>
+                        </div>
 
                         <div class="fee-info">
                             <p class="lang-th"><strong>หมายเหตุเกี่ยวกับค่าเล่าเรียน:</strong> ค่าเล่าเรียนเฉลี่ยสำหรับโรงเรียนประจำเอกชนในสหราชอาณาจักรอยู่ระหว่าง <strong>£12,000 - £17,000 (540,000 - 765,000 บาท) ต่อเทอม</strong> หรือ <strong>£36,000 - £51,000 (1,620,000 - 2,295,000 บาท) ต่อปี</strong></p>
@@ -613,7 +666,7 @@
                     <!-- Save Results -->
                     <div id="culture-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
                       <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-                      <button onclick="(function(){var numericScore=window._cultureScore||0;var profileName=window._cultureProfile||'';var dims={structure:0,independence:0,support:0,social:0,academics:0,co_curricular:0,community:0,discipline:0};Object.keys(dims).forEach(function(dim){dims[dim]=maxScores[dim]>0?Math.round((scoreDimensions[dim]/maxScores[dim])*100):0;});var cfAnswers=questions.map(function(q){var val=userAnswers[q.id];var opt=q.options.find(function(o){return o.value===val;});return opt?{q:q.question_en,a:opt.text_en}:null;}).filter(Boolean);openSaveModal({tool_name:'culture-fit',tool_label:'Culture Fit Assessor',result_summary:'Profile: '+(profileName||numericScore+'%'),result_data:{score:numericScore,profile:profileName,dimensions:dims,answers:cfAnswers}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+                      <button onclick="(function(){var profileName=window._cultureProfile||'';var dims={structure:0,independence:0,support:0,social:0,academics:0,co_curricular:0,community:0,discipline:0};Object.keys(dims).forEach(function(dim){dims[dim]=maxScores[dim]>0?Math.round((scoreDimensions[dim]/maxScores[dim])*100):0;});var cfAnswers=questions.map(function(q){var val=userAnswers[q.id];var opt=q.options.find(function(o){return o.value===val;});return opt?{q:q.question_en,a:opt.text_en}:null;}).filter(Boolean);openSaveModal({tool_name:'culture-fit',tool_label:'Culture Fit Assessor',result_summary:'Profile: '+profileName,result_data:{profile:profileName,dimensions:dims,answers:cfAnswers}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
                     </div>
 
                     <!-- LINE CTA after results -->
@@ -621,7 +674,7 @@
                         <span class="line-handle">LINE: satitlinkedu</span>
                         <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
                         <p class="cta-subtext lang-en">Free Consultation</p>
-                        <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary">
+                        <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-primary">
                             <span class="lang-th">เพิ่ม LINE</span>
                             <span class="lang-en">Add LINE</span>
                         </a>
@@ -638,7 +691,7 @@
                 <span class="line-handle">LINE: satitlinkedu</span>
                 <p class="cta-subtext lang-th">ปรึกษาฟรี</p>
                 <p class="cta-subtext lang-en">Free Consultation</p>
-                <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" class="btn-primary">
+                <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn-primary">
                     <span class="lang-th">เพิ่ม LINE</span>
                     <span class="lang-en">Add LINE</span>
                 </a>
@@ -778,10 +831,10 @@
                 question_th: 'ลูกของคุณมีความมั่นใจในการสื่อสารภาษาอังกฤษมากแค่ไหน?',
                 question_en: 'How confident is your child communicating in English?',
                 options: [
-                    { value: 'beginner', text_th: 'ระดับเริ่มต้น — พูดสนทนาง่าย ๆ ได้ แต่ยังมีปัญหากับภาษาวิชาการ', text_en: 'Beginner — can manage basic conversation but struggles with academic English', scores: { support: 5, academics: 1 } },
+                    { value: 'beginner', text_th: 'ระดับเริ่มต้น — พูดสนทนาง่าย ๆ ได้ แต่ยังมีปัญหากับภาษาวิชาการ', text_en: 'Beginner — can manage basic conversation but struggles with academic English', scores: { support: 3, academics: 1 } },
                     { value: 'intermediate', text_th: 'ระดับกลาง — สบายใจในการสนทนา แต่อาจต้องการความช่วยเหลือในการเขียนเรียงความ', text_en: 'Intermediate — comfortable in conversation, may need support with essay writing', scores: { support: 3, academics: 3 } },
-                    { value: 'advanced', text_th: 'ระดับสูง — พูดและเขียนภาษาอังกฤษได้คล่อง ตรงตามระดับชั้น', text_en: 'Advanced — fluent in English, reads and writes confidently at age level', scores: { support: 1, academics: 5 } },
-                    { value: 'native', text_th: 'เจ้าของภาษาหรือสองภาษา — ภาษาอังกฤษเป็นภาษาหลักหรือภาษาที่สองที่เท่าเทียมกันที่บ้าน', text_en: 'Native or bilingual — English is a first or equal language at home', scores: { support: 0, academics: 5 } }
+                    { value: 'advanced', text_th: 'ระดับสูง — พูดและเขียนภาษาอังกฤษได้คล่อง ตรงตามระดับชั้น', text_en: 'Advanced — fluent in English, reads and writes confidently at age level', scores: { support: 1, academics: 3 } },
+                    { value: 'native', text_th: 'เจ้าของภาษาหรือสองภาษา — ภาษาอังกฤษเป็นภาษาหลักหรือภาษาที่สองที่เท่าเทียมกันที่บ้าน', text_en: 'Native or bilingual — English is a first or equal language at home', scores: { support: 0, academics: 3 } }
                 ]
             }
         ];
@@ -898,46 +951,78 @@
                 }
             });
 
-            // Calculate overall fit score (simple average of dimension percentages)
-            let totalPercentage = 0;
-            let countDimensions = 0;
-            for (const dim in scoreDimensions) {
-                if (maxScores[dim] > 0) { // Avoid division by zero
-                    totalPercentage += (scoreDimensions[dim] / maxScores[dim]) * 100;
-                    countDimensions++;
-                }
-            }
-            const overallFitScore = countDimensions > 0 ? Math.round(totalPercentage / countDimensions) : 0;
-
-            // Determine named profile from highest-scoring dimension
+            // Per-dimension percentages are the meaningful result: a true ratio of
+            // points earned to points available for that dimension. There is no
+            // single "overall" score — averaging unrelated dimensions produces a
+            // number that fits nothing, so it is never computed or displayed.
             const dimPercentages = {};
             for (const dim in scoreDimensions) {
                 dimPercentages[dim] = maxScores[dim] > 0 ? (scoreDimensions[dim] / maxScores[dim]) * 100 : 0;
             }
-            const topDimEntry = Object.entries(dimPercentages).sort((a, b) => b[1] - a[1])[0];
-            const topDimKey = topDimEntry ? topDimEntry[0] : null;
+            const rankedDims = Object.entries(dimPercentages).sort((a, b) => b[1] - a[1]);
+            const topDimKey = rankedDims[0] ? rankedDims[0][0] : null;
+            const secondDimKey = rankedDims[1] ? rankedDims[1][0] : null;
+            const topDimPct = rankedDims[0] ? rankedDims[0][1] : 0;
+            const secondDimPct = rankedDims[1] ? rankedDims[1][1] : 0;
 
             const profileMap = {
                 academics:    { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
                 structure:    { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
                 discipline:   { en: 'Traditional Academic',  th: 'นักเรียนแบบวิชาการ',      descEn: 'Your child may thrive in a structured, academically rigorous school with high expectations — e.g. Shrewsbury, Sevenoaks, Brighton College, Concord.',      descTh: 'บุตรหลานของคุณอาจเติบโตได้ดีในโรงเรียนที่เน้นวิชาการเข้มข้นและมีโครงสร้างชัดเจน เช่น Shrewsbury, Sevenoaks, Brighton College, Concord' },
-                support:      { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sherborne, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sherborne, Uppingham, The Leys' },
-                community:    { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sherborne, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sherborne, Uppingham, The Leys' },
-                independence: { en: 'Self-Directed Scholar', th: 'ผู้เรียนที่พึ่งตนเอง',   descEn: 'Your child is self-motivated and may suit a school that encourages independent thinking — e.g. Bedales, Bryanston, Marlborough, or a progressive sixth-form college.',descTh: 'บุตรหลานของคุณมีแรงจูงใจในตัวเองสูง เหมาะกับโรงเรียนที่ส่งเสริมการคิดอิสระ เช่น Bedales, Bryanston, Marlborough' },
-                co_curricular:{ en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Marlborough, Oundle, Millfield, Bromsgrove.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Marlborough, Oundle, Millfield, Bromsgrove' },
-                social:       { en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Marlborough, Oundle, Millfield, Bromsgrove.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Marlborough, Oundle, Millfield, Bromsgrove' },
+                support:      { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sidcot, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sidcot, Uppingham, The Leys, Abbotsholme' },
+                community:    { en: 'Pastoral First',        th: 'เน้นการดูแลส่วนตัว',      descEn: 'Your child would do best in a school known for strong pastoral care and community — ideal for first-time boarders, e.g. Sidcot, Uppingham, The Leys, Abbotsholme.',  descTh: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดในโรงเรียนที่มีระบบดูแลนักเรียนที่อบอุ่น เหมาะสำหรับผู้พักประจำครั้งแรก เช่น Sidcot, Uppingham, The Leys, Abbotsholme' },
+                independence: { en: 'Self-Directed Scholar', th: 'ผู้เรียนที่พึ่งตนเอง',   descEn: 'Your child is self-motivated and may suit a school that encourages independent thinking — e.g. Bryanston, D Overbroeks, or a self-directed sixth-form college such as Cardiff Sixth Form or Oxford International College.',descTh: 'บุตรหลานของคุณมีแรงจูงใจในตัวเองสูง เหมาะกับโรงเรียนที่ส่งเสริมการคิดอิสระ เช่น Bryanston, D Overbroeks หรือวิทยาลัย Sixth Form ที่เน้นการเรียนรู้ด้วยตนเอง เช่น Cardiff Sixth Form หรือ Oxford International College' },
+                co_curricular:{ en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Oundle, Millfield, Bromsgrove, Epsom.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Oundle, Millfield, Bromsgrove, Epsom' },
+                social:       { en: 'Modern All-Rounder',    th: 'นักเรียนรอบด้านสมัยใหม่', descEn: 'Your child may suit a school balancing strong academics with a rich activities programme — e.g. Oundle, Millfield, Bromsgrove, Epsom.',                       descTh: 'บุตรหลานของคุณเหมาะกับโรงเรียนที่สมดุลระหว่างวิชาการและกิจกรรมที่หลากหลาย เช่น Oundle, Millfield, Bromsgrove, Epsom' },
             };
-            const profile = profileMap[topDimKey] || { en: 'Balanced Fit', th: 'ความเข้ากันได้ที่สมดุล', descEn: 'Your child has a well-rounded profile and could adapt to a range of school types. We recommend visiting 2–3 schools to find the best personal fit.', descTh: 'บุตรหลานของคุณมีโปรไฟล์ที่สมดุลและสามารถปรับตัวเข้ากับโรงเรียนได้หลากหลายประเภท แนะนำให้เยี่ยมชม 2-3 โรงเรียนเพื่อหาความเหมาะสมที่ดีที่สุด' };
+            const fallbackProfile = { en: 'Balanced Fit', th: 'ความเข้ากันได้ที่สมดุล', descEn: 'Your child has a well-rounded profile and could adapt to a range of school types. We recommend visiting 2–3 schools to find the best personal fit.', descTh: 'บุตรหลานของคุณมีโปรไฟล์ที่สมดุลและสามารถปรับตัวเข้ากับโรงเรียนได้หลากหลายประเภท แนะนำให้เยี่ยมชม 2-3 โรงเรียนเพื่อหาความเหมาะสมที่ดีที่สุด' };
+            const profile = profileMap[topDimKey] || fallbackProfile;
+
+            // Explicit tie handling: if the top two dimensions are within 5
+            // percentage points of each other AND map to different named
+            // profiles, show a blended heading instead of silently picking
+            // the first dimension (which would otherwise favour declaration
+            // order in scoreDimensions).
+            const isTie = secondDimKey
+                && profileMap[topDimKey] && profileMap[secondDimKey]
+                && profileMap[topDimKey].en !== profileMap[secondDimKey].en
+                && Math.abs(topDimPct - secondDimPct) <= 5;
+
+            let displayNameEn = profile.en;
+            let displayNameTh = profile.th;
+            if (isTie) {
+                displayNameEn = `${profile.en} with strong ${getDimensionName_en(secondDimKey)} emphasis`;
+                displayNameTh = `${profile.th} ที่เน้น${getDimensionName_th(secondDimKey)}อย่างโดดเด่น`;
+            }
 
             // Store for save button access
-            window._cultureProfile = profile.en;
-            window._cultureScore = overallFitScore;
+            window._cultureProfile = displayNameEn;
 
             const lang = document.documentElement.lang || 'en';
-            fitScoreDisplay.textContent = lang === 'th' ? profile.th : profile.en;
+            fitScoreDisplay.textContent = lang === 'th' ? displayNameTh : displayNameEn;
             scoreInterpretationDisplay.innerHTML = `<span class="lang-th">${profile.descTh}</span><span class="lang-en">${profile.descEn}</span>`;
 
+            renderDimensionBars(dimPercentages);
             displayDetailedResults();
+        }
+
+        function renderDimensionBars(dimPercentages) {
+            const container = document.getElementById('dimension-bars');
+            if (!container) return;
+            container.innerHTML = '';
+            Object.keys(scoreDimensions).forEach(dim => {
+                const pct = Math.round(dimPercentages[dim] || 0);
+                const row = document.createElement('div');
+                row.className = 'dim-bar-row';
+                row.innerHTML = `
+                    <div class="dim-bar-label">
+                        <span><span class="lang-th">${getDimensionName_th(dim)}</span><span class="lang-en">${getDimensionName_en(dim)}</span></span>
+                        <span class="dim-bar-pct">${pct}%</span>
+                    </div>
+                    <div class="dim-bar-track"><div class="dim-bar-fill" style="width:${pct}%"></div></div>
+                `;
+                container.appendChild(row);
+            });
         }
 
         function displayDetailedResults() {
@@ -998,24 +1083,28 @@
 
             const schoolTypeSuggestions = {
                 academics_high: {
-                    th: `สำหรับนักเรียนที่มีแรงจูงใจทางวิชาการสูง: โรงเรียนที่มีชื่อเสียงด้านวิชาการที่แข็งแกร่งและเน้นผลการสอบ เช่น <strong>${APPROVED_SCHOOLS[28]} (Shrewsbury)</strong>, <strong>${APPROVED_SCHOOLS[27]} (Sevenoaks)</strong>, <strong>${APPROVED_SCHOOLS[2]} (Brighton College)</strong>, <strong>${APPROVED_SCHOOLS[9]} (Concord)</strong> หรือ <strong>${APPROVED_SCHOOLS[5]} (Cardiff Sixth Form)</strong>`,
-                    en: `For highly academic children: Schools with strong academic reputations and a focus on exam results, such as <strong>${APPROVED_SCHOOLS[28]} (Shrewsbury)</strong>, <strong>${APPROVED_SCHOOLS[27]} (Sevenoaks)</strong>, <strong>${APPROVED_SCHOOLS[2]} (Brighton College)</strong>, <strong>${APPROVED_SCHOOLS[9]} (Concord)</strong>, or <strong>${APPROVED_SCHOOLS[5]} (Cardiff Sixth Form)</strong>.`
+                    th: `สำหรับนักเรียนที่มีแรงจูงใจทางวิชาการสูง: โรงเรียนที่มีชื่อเสียงด้านวิชาการที่แข็งแกร่งและเน้นผลการสอบ เช่น <strong>${APPROVED_SCHOOLS[28]}</strong>, <strong>${APPROVED_SCHOOLS[27]}</strong>, <strong>${APPROVED_SCHOOLS[2]}</strong>, <strong>${APPROVED_SCHOOLS[9]}</strong> หรือ <strong>${APPROVED_SCHOOLS[5]}</strong>`,
+                    en: `For highly academic children: Schools with strong academic reputations and a focus on exam results, such as <strong>${APPROVED_SCHOOLS[28]}</strong>, <strong>${APPROVED_SCHOOLS[27]}</strong>, <strong>${APPROVED_SCHOOLS[2]}</strong>, <strong>${APPROVED_SCHOOLS[9]}</strong>, or <strong>${APPROVED_SCHOOLS[5]}</strong>.`
                 },
                 holistic_development: {
-                    th: `สำหรับนักเรียนที่ต้องการการพัฒนาแบบองค์รวม: โรงเรียนที่เน้นกีฬา ศิลปะ และกิจกรรมที่หลากหลาย เช่น <strong>${APPROVED_SCHOOLS[17]} (Millfield)</strong>, <strong>${APPROVED_SCHOOLS[3]} (Bromsgrove)</strong>, <strong>${APPROVED_SCHOOLS[18]} (Oakham)</strong> หรือ <strong>${APPROVED_SCHOOLS[12]} (Epsom)</strong>`,
-                    en: `For holistic development: Schools that emphasize sports, arts, and a wide range of activities, such as <strong>${APPROVED_SCHOOLS[17]} (Millfield)</strong>, <strong>${APPROVED_SCHOOLS[3]} (Bromsgrove)</strong>, <strong>${APPROVED_SCHOOLS[18]} (Oakham)</strong>, or <strong>${APPROVED_SCHOOLS[12]} (Epsom)</strong>.`
+                    th: `สำหรับนักเรียนที่ต้องการการพัฒนาแบบองค์รวม: โรงเรียนที่เน้นกีฬา ศิลปะ และกิจกรรมที่หลากหลาย เช่น <strong>${APPROVED_SCHOOLS[17]}</strong>, <strong>${APPROVED_SCHOOLS[3]}</strong>, <strong>${APPROVED_SCHOOLS[18]}</strong> หรือ <strong>${APPROVED_SCHOOLS[12]}</strong>`,
+                    en: `For holistic development: Schools that emphasize sports, arts, and a wide range of activities, such as <strong>${APPROVED_SCHOOLS[17]}</strong>, <strong>${APPROVED_SCHOOLS[3]}</strong>, <strong>${APPROVED_SCHOOLS[18]}</strong>, or <strong>${APPROVED_SCHOOLS[12]}</strong>.`
                 },
                 nurturing_support: {
-                    th: `สำหรับนักเรียนที่ต้องการการดูแลเอาใจใส่: โรงเรียนที่มีระบบการดูแลนักเรียน (Pastoral Care) ที่แข็งแกร่งและสภาพแวดล้อมที่อบอุ่น เช่น <strong>${APPROVED_SCHOOLS[23]} (Roedean)</strong>, <strong>${APPROVED_SCHOOLS[31]} (The Leys)</strong>, <strong>${APPROVED_SCHOOLS[0]} (Abbotsholme)</strong> หรือ <strong>${APPROVED_SCHOOLS[29]} (Sidcot)</strong>`,
-                    en: `For nurturing and support: Schools with strong pastoral care and a warm environment, such as <strong>${APPROVED_SCHOOLS[23]} (Roedean)</strong>, <strong>${APPROVED_SCHOOLS[31]} (The Leys)</strong>, <strong>${APPROVED_SCHOOLS[0]} (Abbotsholme)</strong>, or <strong>${APPROVED_SCHOOLS[29]} (Sidcot)</strong>.`
+                    th: `สำหรับนักเรียนที่ต้องการการดูแลเอาใจใส่: โรงเรียนที่มีระบบการดูแลนักเรียน (Pastoral Care) ที่แข็งแกร่งและสภาพแวดล้อมที่อบอุ่น เช่น <strong>${APPROVED_SCHOOLS[23]}</strong>, <strong>${APPROVED_SCHOOLS[31]}</strong>, <strong>${APPROVED_SCHOOLS[0]}</strong> หรือ <strong>${APPROVED_SCHOOLS[29]}</strong>`,
+                    en: `For nurturing and support: Schools with strong pastoral care and a warm environment, such as <strong>${APPROVED_SCHOOLS[23]}</strong>, <strong>${APPROVED_SCHOOLS[31]}</strong>, <strong>${APPROVED_SCHOOLS[0]}</strong>, or <strong>${APPROVED_SCHOOLS[29]}</strong>.`
                 },
                 traditional_structured: {
-                    th: `สำหรับนักเรียนที่ชอบโครงสร้างและประเพณี: โรงเรียนที่มีประวัติศาสตร์ยาวนานและโครงสร้างที่ชัดเจน เช่น <strong>${APPROVED_SCHOOLS[14]} (Eton)</strong>, <strong>${APPROVED_SCHOOLS[15]} (Harrow)</strong>, <strong>${APPROVED_SCHOOLS[19]} (Oundle)</strong> หรือ <strong>${APPROVED_SCHOOLS[34]} (Uppingham)</strong>`,
-                    en: `For structure and tradition: Schools with long histories and clear structures, such as <strong>${APPROVED_SCHOOLS[14]} (Eton)</strong>, <strong>${APPROVED_SCHOOLS[15]} (Harrow)</strong>, <strong>${APPROVED_SCHOOLS[19]} (Oundle)</strong>, or <strong>${APPROVED_SCHOOLS[34]} (Uppingham)</strong>.`
+                    th: `สำหรับนักเรียนที่ชอบโครงสร้างและประเพณี: โรงเรียนที่มีประวัติศาสตร์ยาวนานและโครงสร้างที่ชัดเจน เช่น <strong>${APPROVED_SCHOOLS[13]}</strong>, <strong>${APPROVED_SCHOOLS[14]}</strong>, <strong>${APPROVED_SCHOOLS[19]}</strong> หรือ <strong>${APPROVED_SCHOOLS[34]}</strong>`,
+                    en: `For structure and tradition: Schools with long histories and clear structures, such as <strong>${APPROVED_SCHOOLS[13]}</strong>, <strong>${APPROVED_SCHOOLS[14]}</strong>, <strong>${APPROVED_SCHOOLS[19]}</strong>, or <strong>${APPROVED_SCHOOLS[34]}</strong>.`
                 },
                 modern_flexible: {
-                    th: `สำหรับนักเรียนที่ชอบความยืดหยุ่นและนวัตกรรม: โรงเรียนที่มีแนวทางการศึกษาที่ทันสมัยและยืดหยุ่น เช่น <strong>${APPROVED_SCHOOLS[10]} (D Overbroeks)</strong>, <strong>${APPROVED_SCHOOLS[20]} (Oxford International)</strong> หรือ <strong>${APPROVED_SCHOOLS[4]} (Bryanston)</strong>`,
-                    en: `For flexibility and innovation: Schools with a modern and flexible approach to education, such as <strong>${APPROVED_SCHOOLS[10]} (D Overbroeks)</strong>, <strong>${APPROVED_SCHOOLS[20]} (Oxford International)</strong>, or <strong>${APPROVED_SCHOOLS[4]} (Bryanston)</strong>.`
+                    th: `สำหรับนักเรียนที่ชอบความยืดหยุ่นและนวัตกรรม: โรงเรียนที่มีแนวทางการศึกษาที่ทันสมัยและยืดหยุ่น เช่น <strong>${APPROVED_SCHOOLS[10]}</strong>, <strong>${APPROVED_SCHOOLS[20]}</strong> หรือ <strong>${APPROVED_SCHOOLS[4]}</strong>`,
+                    en: `For flexibility and innovation: Schools with a modern and flexible approach to education, such as <strong>${APPROVED_SCHOOLS[10]}</strong>, <strong>${APPROVED_SCHOOLS[20]}</strong>, or <strong>${APPROVED_SCHOOLS[4]}</strong>.`
+                },
+                independence: {
+                    th: `สำหรับนักเรียนที่พึ่งพาตนเองสูงและต้องการอิสระทางวิชาการ: วิทยาลัย Sixth Form ที่เน้นการเรียนรู้ด้วยตนเอง เช่น <strong>${APPROVED_SCHOOLS[5]}</strong>, <strong>${APPROVED_SCHOOLS[20]}</strong> หรือ <strong>${APPROVED_SCHOOLS[32]}</strong>`,
+                    en: `For highly self-directed children: self-directed sixth-form colleges such as <strong>${APPROVED_SCHOOLS[5]}</strong>, <strong>${APPROVED_SCHOOLS[20]}</strong>, or <strong>${APPROVED_SCHOOLS[32]}</strong>.`
                 }
             };
 
@@ -1037,7 +1126,7 @@
                     // Add inverse suggestions for low scores
                     if (dim === 'academics') suggestedSchoolTypes.add('holistic_development');
                     if (dim === 'structure') suggestedSchoolTypes.add('modern_flexible');
-                    if (dim === 'support') suggestedSchoolTypes.add('independence'); // No direct type, but implies a less structured support system
+                    if (dim === 'support') suggestedSchoolTypes.add('independence'); // Low pastoral-support need implies a self-directed learner
                     if (dim === 'independence') suggestedSchoolTypes.add('nurturing_support');
                 } else {
                     insightItem.innerHTML = `<strong class="lang-th">${getDimensionName_th(dim)} (ปานกลาง):</strong> <span class="lang-th">ความสมดุลในด้านนี้อาจหมายถึงความสามารถในการปรับตัวกับสภาพแวดล้อมที่หลากหลาย.</span><strong class="lang-en">${getDimensionName_en(dim)} (Moderate):</strong> <span class="lang-en">A balance in this area suggests adaptability to various environments.</span>`;

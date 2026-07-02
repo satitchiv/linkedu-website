@@ -328,6 +328,22 @@
     font-weight: 600;
     margin-top: 8px;
   }
+  .score-verdict-note {
+    font-size: 0.82rem;
+    color: rgba(26,26,26,0.55);
+    margin-top: 6px;
+  }
+  .honesty-note {
+    background: rgba(184,150,46,0.08);
+    border: 1px solid rgba(184,150,46,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .honesty-note a { color: #B8962E; font-weight: 600; text-decoration: none; }
+  .honesty-note a:hover { text-decoration: underline; }
 
   .subject-results { margin-bottom: 36px; }
   .subject-result-row {
@@ -361,6 +377,9 @@
   .sr-dot.green { background: #4a7c59; }
   .sr-dot.amber { background: #B8962E; }
   .sr-dot.red { background: #9e3030; }
+  .sr-bar.grey { background: rgba(26,26,26,0.2); }
+  .sr-status.grey { color: rgba(26,26,26,0.4); }
+  .sr-dot.grey { background: rgba(26,26,26,0.25); }
 
   .insight-card {
     background: #1a1a1a;
@@ -374,6 +393,12 @@
     font-size: 1.15rem;
     margin-bottom: 16px;
     color: #B8962E;
+  }
+  .insight-hedge {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 20px;
   }
   .insight-row {
     display: flex;
@@ -711,6 +736,12 @@
         <div class="step-sub lang-th">อ้างอิงจากคำตอบของคุณ นี่คือภาพรวมความพร้อมในปัจจุบัน</div>
         <div class="step-sub lang-en">Based on your inputs, here is your current readiness profile.</div>
 
+        <!-- Honesty note -->
+        <div class="honesty-note">
+          <span class="lang-th">ผลลัพธ์นี้สะท้อนการให้คะแนนของ<strong>คุณ</strong>เองต่อบุตรหลาน ไม่ใช่การทดสอบที่เป็นกลาง — การทดสอบวินิจฉัย (diagnostic test) กับติวเตอร์ของเราจะให้ baseline ที่แม่นยำกว่า และเป็นขั้นตอนถัดไปที่แนะนำ <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener">นัดทดสอบวินิจฉัยผ่าน LINE →</a></span>
+          <span class="lang-en">These results reflect <strong>your own ratings</strong> of your child, not an objective test. A diagnostic test with one of our tutors gives a firmer baseline — that's the natural next step. <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener">Book a diagnostic on LINE →</a></span>
+        </div>
+
         <!-- Score Ring -->
         <div class="score-ring-wrap">
           <svg class="score-ring" viewBox="0 0 120 120">
@@ -726,6 +757,7 @@
             <span class="lang-en">Overall Readiness Score</span>
           </div>
           <div class="score-verdict" id="score-verdict"></div>
+          <div class="score-verdict-note" id="score-verdict-note"></div>
         </div>
 
         <!-- Subject Bar Chart -->
@@ -743,6 +775,7 @@
             <span class="lang-th">แผนการเตรียมตัว</span>
             <span class="lang-en">Preparation Insights</span>
           </h3>
+          <p class="insight-hedge" id="insight-hedge"></p>
           <div class="insight-row" id="insight-row">
             <!-- Injected by JS -->
           </div>
@@ -769,7 +802,7 @@
               <span class="lang-en">Our consultant will analyse your results and build a personalised exam preparation plan.</span>
             </p>
           </div>
-          <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;">
+          <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;">
             <span class="lang-th">เพิ่ม LINE ฟรี</span>
             <span class="lang-en">Add LINE Now</span>
           </a>
@@ -803,7 +836,7 @@
       <span class="lang-en">We have helped Thai students gain entry to top UK boarding schools. Free consultation, no obligation.</span>
     </p>
     <div class="line-handle">LINE: satitlinkedu</div>
-    <a href="https://line.me/ti/p/~satitlinkedu" target="_blank" rel="noopener" class="btn-line">
+    <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener" class="btn-line">
       <span class="lang-th">เพิ่ม LINE / Add LINE</span>
       <span class="lang-en">เพิ่ม LINE / Add LINE</span>
     </a>
@@ -896,11 +929,6 @@
       alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกระดับการสอบก่อน' : 'Please select an entry level first.');
       return;
     }
-    if (n === 3 && Object.keys(state.subjects).length === 0) {
-      // default all to 3
-      const subs = subjectsByLevel[state.entryLevel] || [];
-      subs.forEach(s => { if (!state.subjects[s.id]) state.subjects[s.id] = 3; });
-    }
     if (n === 4 && !state.tier) {
       alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกโรงเรียนเป้าหมายก่อน' : 'Please select a target tier first.');
       return;
@@ -925,12 +953,15 @@
   }
 
   function buildSliders() {
-    const lang = document.documentElement.lang;
     const subs = subjectsByLevel[state.entryLevel] || [];
     const container = document.getElementById('subject-sliders');
     container.innerHTML = '';
     subs.forEach(s => {
-      const val = state.subjects[s.id] || 3;
+      // 3 is only the neutral starting handle position for a slider the parent
+      // has not touched yet — it is never written to state.subjects (and so
+      // never counted as a rating) until the parent actually moves it.
+      const touched = state.subjects.hasOwnProperty(s.id);
+      const val = touched ? state.subjects[s.id] : 3;
       const row = document.createElement('div');
       row.className = 'subject-row';
       row.innerHTML = `
@@ -961,51 +992,95 @@
   function updateSliderLabel(el) {
     if (!el) return;
     const lang = document.documentElement.lang;
-    const val = parseInt(el.value);
     const lbl = document.getElementById('lbl-' + el.dataset.subject);
-    if (lbl) lbl.textContent = levelLabels[lang][val];
+    if (!lbl) return;
+    if (!state.subjects.hasOwnProperty(el.dataset.subject)) {
+      lbl.textContent = lang === 'th' ? 'ยังไม่ได้ประเมิน' : 'Not Rated';
+      lbl.style.opacity = '0.45';
+      return;
+    }
+    lbl.style.opacity = '';
+    const val = parseInt(el.value);
+    lbl.textContent = levelLabels[lang][val];
   }
 
   function calculateResults() {
+    const lang = document.documentElement.lang;
     if (!state.timeline) {
-      alert(document.documentElement.lang === 'th' ? 'กรุณาเลือกระยะเวลาก่อน' : 'Please select a timeline first.');
+      alert(lang === 'th' ? 'กรุณาเลือกระยะเวลาก่อน' : 'Please select a timeline first.');
       return;
     }
 
-    // Collect final slider values
+    // Note: we deliberately do NOT re-read every slider's DOM value here.
+    // state.subjects is only ever written by onSlider() when a parent
+    // actually moves a slider, so it already holds exactly the rated
+    // subjects. Blindly reading el.value for every slider would silently
+    // capture the neutral default (3) for subjects nobody touched.
     const subs = subjectsByLevel[state.entryLevel] || [];
-    subs.forEach(s => {
-      const el = document.getElementById('sl-' + s.id);
-      if (el) state.subjects[s.id] = parseInt(el.value);
-    });
+    const ratedCount = subs.filter(s => state.subjects.hasOwnProperty(s.id)).length;
+    if (ratedCount < 3) {
+      alert(lang === 'th'
+        ? 'กรุณาประเมินอย่างน้อย 3 วิชา (เลื่อน slider) ก่อนดูผลลัพธ์'
+        : 'Please rate at least 3 subjects (move their sliders) before viewing results.');
+      goStep(2);
+      return;
+    }
 
     goStep(5);
     renderResults();
   }
 
+  const TIER_NAMES = {
+    elite: { th: 'Elite', en: 'Elite' },
+    top20: { th: 'Top 20', en: 'Top 20' },
+    top50: { th: 'Top 50', en: 'Top 50' },
+    any:   { th: 'โรงเรียนดีทั่วไป', en: 'a good school' },
+  };
+  // Ordered highest-to-lowest so we can find the toughest tier a score would satisfy.
+  const TIER_ORDER = [['elite',80], ['top20',70], ['top50',60], ['any',50]];
+  function tierForScore(pct) {
+    for (const [key, th] of TIER_ORDER) { if (pct >= th) return key; }
+    return null;
+  }
+
+  // Base ranges (hours) are hedged planning estimates, not fabricated precise
+  // figures. They widen when a subject shows a real gap (red/amber).
+  const HOURS_RANGE = {
+    elite: [220, 350],
+    top20: [150, 250],
+    top50: [100, 180],
+    any:   [60, 120],
+  };
+
   function renderResults() {
+    const lang = document.documentElement.lang;
     const subs = subjectsByLevel[state.entryLevel] || [];
     const tierThresh = tierThresholds[state.tier] || 60;
 
-    // Compute subject scores vs threshold
-    // Each subject: score = (val/5)*100. Gap = tierThresh - score
+    // Score each subject only if the parent actually rated it. Untouched
+    // sliders are excluded from the average entirely and shown as "Not Rated".
     let totalPct = 0;
     const subResults = subs.map(s => {
-      const raw = state.subjects[s.id] || 3;
+      if (!state.subjects.hasOwnProperty(s.id)) {
+        return { ...s, pct: null, gap: null, status: 'grey', rated: false };
+      }
+      const raw = state.subjects[s.id];
       const pct = Math.round((raw / 5) * 100);
       const gap = tierThresh - pct;
       let status = 'green';
       if (gap > 25) status = 'red';
       else if (gap > 0) status = 'amber';
       totalPct += pct;
-      return { ...s, pct, gap, status };
+      return { ...s, pct, gap, status, rated: true };
     });
 
-    const avgPct = subs.length ? Math.round(totalPct / subs.length) : 0;
+    const ratedResults = subResults.filter(s => s.rated);
+    const avgPct = ratedResults.length ? Math.round(totalPct / ratedResults.length) : 0;
 
-    // Timeline bonus (more time = slightly better projected score)
-    const timelineBonus = state.timeline >= 18 ? 5 : state.timeline >= 12 ? 3 : 0;
-    const displayPct = Math.min(100, avgPct + timelineBonus);
+    // No timeline bonus — timeline affects only the preparation PLAN below,
+    // never the readiness score itself. More time does not make a child
+    // more ready today.
+    const displayPct = avgPct;
 
     // Score arc
     const arc = document.getElementById('score-arc');
@@ -1023,32 +1098,62 @@
       if (count >= displayPct) clearInterval(interval);
     }, 20);
 
-    // Verdict
+    // Verdict — tier-aware, using the threshold for the tier the parent
+    // actually chose in Step 3 (previously this used fixed 80/60 cutoffs
+    // regardless of tier, which made the "isReady" tier check dead code).
     const verdictEl = document.getElementById('score-verdict');
-    const isReady = displayPct >= tierThresh;
-    const lang = document.documentElement.lang;
-    if (displayPct >= 80) {
-      verdictEl.textContent = lang === 'th' ? 'พร้อมมาก — ปรับแผนให้เข้มข้นขึ้นได้เลย' : 'Strong Foundation — Ready to intensify preparation';
+    const chosenTierLabel = TIER_NAMES[state.tier] ? TIER_NAMES[state.tier][lang] : (lang === 'th' ? 'เป้าหมายที่เลือก' : 'your target tier');
+    const diff = tierThresh - displayPct;
+    if (displayPct >= tierThresh) {
+      verdictEl.textContent = lang === 'th' ? `พร้อมสำหรับ ${chosenTierLabel}` : `On track for ${chosenTierLabel}`;
       verdictEl.style.color = '#4a7c59';
-    } else if (displayPct >= 60) {
-      verdictEl.textContent = lang === 'th' ? 'พอใช้ — มีช่องว่างบางวิชาที่ต้องเสริม' : 'On Track — Some subjects need targeted support';
+    } else if (diff <= 10) {
+      verdictEl.textContent = lang === 'th' ? `ใกล้เป้าหมาย ${chosenTierLabel} — ต้องเสริมเฉพาะจุด` : `Close to ${chosenTierLabel} — targeted work needed`;
       verdictEl.style.color = '#B8962E';
     } else {
-      verdictEl.textContent = lang === 'th' ? 'ต้องเสริมมาก — แนะนำเริ่มวางแผนเร็วๆ นี้' : 'Significant Gaps — Start planning soon';
+      verdictEl.textContent = lang === 'th' ? `ยังมีช่องว่างสำหรับ ${chosenTierLabel} — เป็นไปได้ถ้ามีเวลาเตรียมตัวที่เหมาะสม` : `Meaningful gaps for ${chosenTierLabel} — realistic with the right runway`;
       verdictEl.style.color = '#9e3030';
     }
 
-    // Subject bars
+    // Verdict note — honest secondary signal: what tier the current average
+    // would actually satisfy, plus how many subjects the score is based on.
+    const noteEl = document.getElementById('score-verdict-note');
+    const satisfiedKey = tierForScore(displayPct);
+    const ratedFraction = lang === 'th'
+      ? `(จาก ${ratedResults.length} ใน ${subs.length} วิชาที่ประเมิน)`
+      : `(based on ${ratedResults.length} of ${subs.length} subjects rated)`;
+    let noteText;
+    if (satisfiedKey && satisfiedKey !== state.tier) {
+      const satisfiedLabel = TIER_NAMES[satisfiedKey][lang];
+      noteText = lang === 'th'
+        ? `คะแนนปัจจุบันอยู่ในเกณฑ์ของ ${satisfiedLabel} ${ratedFraction}`
+        : `Currently in range for ${satisfiedLabel} entry ${ratedFraction}`;
+    } else if (satisfiedKey === state.tier) {
+      noteText = lang === 'th'
+        ? `อยู่ในเกณฑ์เป้าหมายที่เลือกไว้แล้ว ${ratedFraction}`
+        : `Already in range for your chosen tier ${ratedFraction}`;
+    } else {
+      noteText = lang === 'th'
+        ? `ยังไม่ถึงเกณฑ์อ้างอิงต่ำสุดของเรา — แนะนำเริ่มวางแผนแต่เนิ่นๆ ${ratedFraction}`
+        : `Below our lowest reference tier for now — early planning recommended ${ratedFraction}`;
+    }
+    noteEl.textContent = noteText;
+
+    // Subject bars — rated subjects show their status; untouched subjects
+    // are listed explicitly as "Not Rated" rather than silently scored.
     const srContainer = document.getElementById('subject-results');
     srContainer.innerHTML = '';
     subResults.forEach(s => {
       const row = document.createElement('div');
       row.className = 'subject-result-row';
-      const statusText = {
-        green: { th: 'พร้อมแล้ว', en: 'Ready' },
-        amber: { th: 'ต้องเสริม', en: 'Needs Work' },
-        red: { th: 'ช่องว่างใหญ่', en: 'Significant Gap' }
-      }[s.status];
+      const statusText = s.rated
+        ? {
+            green: { th: 'พร้อมแล้ว', en: 'Ready' },
+            amber: { th: 'ต้องเสริม', en: 'Needs Work' },
+            red: { th: 'ช่องว่างใหญ่', en: 'Significant Gap' }
+          }[s.status]
+        : { th: 'ยังไม่ได้ประเมิน', en: 'Not Rated' };
+      const barTarget = s.rated ? s.pct : 0;
       row.innerHTML = `
         <div class="sr-dot ${s.status}"></div>
         <div class="sr-name">
@@ -1056,7 +1161,7 @@
           <span class="lang-en">${s.en}</span>
         </div>
         <div class="sr-bar-wrap">
-          <div class="sr-bar ${s.status}" style="width:0%" data-target="${s.pct}%"></div>
+          <div class="sr-bar ${s.status}" style="width:0%" data-target="${barTarget}%"></div>
         </div>
         <div class="sr-status ${s.status}">
           <span class="lang-th">${statusText.th}</span>
@@ -1072,29 +1177,38 @@
       });
     }, 300);
 
-    // Insights
-    const redCount = subResults.filter(s => s.status === 'red').length;
-    const amberCount = subResults.filter(s => s.status === 'amber').length;
-    const hoursBase = state.tier === 'elite' ? 300 : state.tier === 'top20' ? 220 : state.tier === 'top50' ? 160 : 100;
-    const hoursGap = (redCount * 40) + (amberCount * 20);
-    const totalHours = Math.min(hoursBase + hoursGap, 480);
+    // Insights — hour figures are ranges with explicit hedging, derived from
+    // the tier's base range widened by real (rated) gaps, never presented as
+    // precise prescriptions.
+    const redCount = ratedResults.filter(s => s.status === 'red').length;
+    const amberCount = ratedResults.filter(s => s.status === 'amber').length;
+    const baseRange = HOURS_RANGE[state.tier] || HOURS_RANGE.top50;
+    const gapAdjust = (redCount * 15) + (amberCount * 8);
+    const lowHours = baseRange[0] + gapAdjust;
+    const highHours = Math.min(baseRange[1] + gapAdjust, 500);
+    const midHours = Math.round((lowHours + highHours) / 2);
     const weeksAvail = state.timeline * 4;
-    const hrsPerWeek = Math.ceil(totalHours / weeksAvail);
+    const hrsPerWeek = Math.max(1, Math.round(midHours / weeksAvail));
+
+    document.getElementById('insight-hedge').innerHTML = `
+      <span class="lang-th">โดยทั่วไป ${lowHours}–${highHours} ชั่วโมงของการเตรียมตัวอย่างมีโครงสร้าง สำหรับเป้าหมาย ${chosenTierLabel} จากจุดเริ่มต้นนี้ (ตัวเลขเป็นการประมาณเพื่อวางแผน ไม่ใช่ข้อกำหนดตายตัว)</span>
+      <span class="lang-en">Typically ${lowHours}–${highHours} hours of structured preparation for ${chosenTierLabel} entry from this starting point (a planning estimate, not a prescription).</span>
+    `;
 
     const insightRow = document.getElementById('insight-row');
     insightRow.innerHTML = `
       <div class="insight-item">
-        <div class="insight-value">${totalHours}</div>
+        <div class="insight-value">${lowHours}–${highHours}</div>
         <div class="insight-label">
-          <span class="lang-th">ชั่วโมงติวที่แนะนำ</span>
-          <span class="lang-en">Recommended tutoring hours</span>
+          <span class="lang-th">ชั่วโมงติวที่แนะนำ (ช่วงประมาณ)</span>
+          <span class="lang-en">Recommended tutoring hours (range)</span>
         </div>
       </div>
       <div class="insight-item">
-        <div class="insight-value">${hrsPerWeek}</div>
+        <div class="insight-value">~${hrsPerWeek}</div>
         <div class="insight-label">
-          <span class="lang-th">ชั่วโมงต่อสัปดาห์</span>
-          <span class="lang-en">Hours per week needed</span>
+          <span class="lang-th">ชั่วโมงต่อสัปดาห์ (ประมาณ)</span>
+          <span class="lang-en">Hours per week (estimate)</span>
         </div>
       </div>
       <div class="insight-item">
@@ -1112,12 +1226,12 @@
         </div>
       </div>`;
 
-    // Priority list
+    // Priority list — based on rated subjects only.
     const priorityEl = document.getElementById('priority-list');
     priorityEl.innerHTML = '';
-    const priorities = subResults.filter(s => s.status !== 'green').sort((a,b) => a.pct - b.pct);
+    const priorities = ratedResults.filter(s => s.status !== 'green').sort((a,b) => a.pct - b.pct);
     if (priorities.length === 0) {
-      priorityEl.innerHTML = `<li><span class="lang-th">ดีมาก! ทุกวิชาพร้อมสำหรับระดับเป้าหมาย</span><span class="lang-en">Excellent! All subjects are at target level.</span></li>`;
+      priorityEl.innerHTML = `<li><span class="lang-th">ดีมาก! ทุกวิชาที่ประเมินพร้อมสำหรับระดับเป้าหมาย</span><span class="lang-en">Excellent! All rated subjects are at target level.</span></li>`;
     } else {
       priorities.slice(0, 4).forEach((s, i) => {
         const tip = {

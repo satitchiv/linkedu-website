@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-en="LinkedU - School Personality Match" data-th="LinkedU - ค้นหาโรงเรียนที่ใช่สำหรับบุตรหลานของคุณ">LinkedU - School Personality Match</title>
+    <title data-en="LinkedU - School Fit Finder" data-th="LinkedU - ค้นหาโรงเรียนที่ใช่สำหรับบุตรหลานของคุณ">LinkedU - School Fit Finder</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
 
@@ -528,6 +528,31 @@
             }
         }
 
+        /* Fit bands & result notes */
+        .rank-line { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .rank-num {
+            font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold);
+            line-height: 1; min-width: 24px;
+        }
+        .fit-band {
+            font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.12em; padding: 5px 12px; border-radius: 2px;
+        }
+        .band-strong { background-color: var(--navy); color: var(--cream); }
+        .band-good { background-color: var(--gold); color: var(--dark); }
+        .band-look { background-color: var(--cream); color: var(--dark); border: 1px solid var(--border); }
+        .fit-pct { font-size: 12px; color: #888; }
+        .school-card h3 a { color: var(--navy); }
+        .data-gaps { font-size: 12px; color: #997; margin-top: 10px; font-style: italic; }
+        .result-note {
+            max-width: 800px; margin: 0 auto 14px auto; padding: 14px 20px;
+            background-color: var(--cream); border-left: 3px solid var(--gold);
+            font-size: 14px; color: var(--text);
+        }
+        .limits-line { grid-column: 1 / -1; font-size: 13px; color: #888; text-align: center; margin-top: 10px; }
+        .profile-link { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600; }
+        .multi-hint { text-align: center; font-size: 13px; color: #888; margin: -18px 0 24px 0; }
+
         @media (max-width: 480px) {
             .container {
                 padding: 0 15px;
@@ -573,14 +598,14 @@
         <section class="hero-section">
             <div class="container">
                 <div class="gold-line"></div>
-                <h1 data-en="Find Your Child's Perfect UK Boarding School" data-th="ค้นหาโรงเรียนประจำในสหราชอาณาจักรที่สมบูรณ์แบบสำหรับบุตรหลานของคุณ">Find Your Child's Perfect UK Boarding School</h1>
-                <p data-en="Take our 10-question quiz to discover the top schools that align with your child's unique personality, academic aspirations, and interests." data-th="ทำแบบทดสอบ 10 คำถามของเรา เพื่อค้นพบโรงเรียนชั้นนำที่ตรงกับบุคลิก ความใฝ่ฝันทางวิชาการ และความสนใจเฉพาะตัวของบุตรหลานของคุณ">Take our 10-question quiz to discover the top schools that align with your child's unique personality, academic aspirations, and interests.</p>
+                <h1 data-en="Find the UK Schools That Fit Your Child" data-th="ค้นหาโรงเรียนในสหราชอาณาจักรที่เหมาะกับบุตรหลานของคุณจริง ๆ">Find the UK Schools That Fit Your Child</h1>
+                <p data-en="Answer 11 questions about your child and your family's priorities. We match them against published data for 115 UK schools — fees, results, size, boarding culture — and show you exactly why each school fits. This is a shortlisting tool, not an admissions prediction." data-th="ตอบคำถาม 11 ข้อเกี่ยวกับบุตรหลานและลำดับความสำคัญของครอบครัวคุณ เราจะจับคู่คำตอบกับข้อมูลจริงที่เผยแพร่ของโรงเรียนในสหราชอาณาจักร 115 แห่ง — ค่าเทอม ผลการเรียน ขนาดโรงเรียน วัฒนธรรมการพักประจำ — พร้อมเหตุผลชัดเจนว่าทำไมแต่ละโรงเรียนจึงเหมาะสม เครื่องมือนี้ใช้คัดกรองรายชื่อเบื้องต้น ไม่ใช่การพยากรณ์ผลการรับเข้า">Answer 11 questions about your child and your family's priorities. We match them against published data for 115 UK schools — fees, results, size, boarding culture — and show you exactly why each school fits. This is a shortlisting tool, not an admissions prediction.</p>
             </div>
         </section>
 
         <section id="quiz-section">
             <div class="container">
-                <p class="section-label" data-en="· SCHOOL PERSONALITY MATCH ·" data-th="· ค้นหาโรงเรียนที่ใช่ ·">· SCHOOL PERSONALITY MATCH ·</p>
+                <p class="section-label" data-en="· SCHOOL FIT FINDER ·" data-th="· ค้นหาโรงเรียนที่ใช่ ·">· SCHOOL FIT FINDER ·</p>
                 <div id="quiz-container">
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="quiz-progress-bar"></div>
@@ -599,15 +624,16 @@
 
         <section id="results-section" class="hidden">
             <div class="container">
-                <p class="section-label" data-en="· YOUR TOP MATCHES ·" data-th="· โรงเรียนที่ตรงกับคุณที่สุด ·">· YOUR TOP MATCHES ·</p>
-                <h2 data-en="Recommended Schools for Your Child" data-th="โรงเรียนแนะนำสำหรับบุตรหลานของคุณ">Recommended Schools for Your Child</h2>
+                <p class="section-label" data-en="· YOUR SHORTLIST ·" data-th="· รายชื่อโรงเรียนของคุณ ·">· YOUR SHORTLIST ·</p>
+                <h2 data-en="Schools That Match Your Answers" data-th="โรงเรียนที่ตรงกับคำตอบของคุณ">Schools That Match Your Answers</h2>
+                <div id="results-notes"></div>
                 <div id="school-results-grid" class="school-results-grid">
                     <!-- School cards will be rendered here by JS -->
                 </div>
                 <!-- Save Results -->
                 <div id="personality-save-row" style="margin-top:32px;text-align:center;padding:24px;border-top:1px solid rgba(0,0,0,0.08)">
-                  <div style="font-size:12px;color:#888;margin-bottom:12px">Want to revisit these results later?</div>
-                  <button onclick="(function(){var cards=document.querySelectorAll('#school-results-grid .school-card');var topSchools=Array.from(cards).slice(0,5).map(function(c){var name=(c.querySelector('h3,h4,.school-name')?.textContent||'').trim();var scoreEl=c.querySelector('.compatibility-score,.match-score,.score-badge,.school-score');var scoreText=scoreEl?scoreEl.textContent.trim():'';var score=parseInt(scoreText.replace('%',''))||0;return name?{name:name,score:score}:null;}).filter(Boolean);var answers=questions.map(function(q){var idx=userAnswers[q.id];return idx!==undefined?{q:q.en,a:q.options[idx].en}:null;}).filter(Boolean);var q9idx=userAnswers['q9'];var boardingType=q9idx!==undefined&&questions[8]&&questions[8].options[q9idx]?(questions[8].options[q9idx].attributes||{}).boardingType||'':'';openSaveModal({tool_name:'personality-match',tool_label:'Personality Match',result_summary:'Top matches: '+topSchools.map(function(s){return s.name+(s.score?' ('+s.score+'%)':'');}).join(', '),result_data:{topSchools:topSchools,answers:answers,boardingType:boardingType}});})()" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em">Save My Results &mdash; Free</button>
+                  <div style="font-size:12px;color:#888;margin-bottom:12px" data-en="Want to revisit these results later?" data-th="ต้องการกลับมาดูผลลัพธ์นี้ภายหลังหรือไม่?">Want to revisit these results later?</div>
+                  <button id="save-results-btn" style="padding:12px 28px;background:#B8962E;color:#111;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.05em" data-en="Save My Results &mdash; Free" data-th="บันทึกผลลัพธ์ &mdash; ฟรี">Save My Results &mdash; Free</button>
                 </div>
             </div>
         </section>
@@ -617,7 +643,7 @@
                 <p class="section-label" data-en="· NEXT STEPS ·" data-th="· ขั้นตอนต่อไป ·">· ขั้นตอนต่อไป ·</p>
                 <h2 data-en="Ready to find the perfect school?" data-th="พร้อมที่จะค้นหาโรงเรียนที่สมบูรณ์แบบแล้วหรือยัง?">Ready to find the perfect school?</h2>
                 <p data-en="Connect with LinkedU's expert consultants for personalized guidance and to explore these top school matches in detail." data-th="เชื่อมต่อกับผู้เชี่ยวชาญของ LinkedU เพื่อรับคำแนะนำส่วนบุคคลและสำรวจโรงเรียนที่ตรงกับความต้องการของคุณอย่างละเอียด">Connect with LinkedU's expert consultants for personalized guidance and to explore these top school matches in detail.</p>
-                <a href="https://line.me/ti/p/satitlinkedu" target="_blank" class="btn btn-primary" style="margin-top: 30px;" data-en="Chat with us on LINE" data-th="พูดคุยกับเราทาง LINE">Chat with us on LINE</a>
+                <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" class="btn btn-primary" style="margin-top: 30px;" data-en="Chat with us on LINE" data-th="พูดคุยกับเราทาง LINE">Chat with us on LINE</a>
             </div>
         </section>
     </main>
@@ -628,201 +654,165 @@
         </div>
     </footer>
 
+    <script src="../js/schools-data.js"></script>
     <script>
-        // --- SCHOOLS DATA ---
-        // 114 real-ish UK schools, generated to meet the prompt's requirement for a diverse dataset.
-        // In a real application, this would be fetched from a database.
-        const UK_SCHOOL_NAMES = [
-            "Abbey College Cambridge", "Abbotsholme School", "Ackworth School", "Aldenham School", "Ashbourne College", "Badminton School", "Bedales School", "Bearwood College", "Benenden School", "Berkhamsted School",
-            "Bishop's Stortford College", "Bloxham School", "Bootham School", "Bradfield College", "Brighton College", "Bromsgrove School", "Bruton School for Girls", "Canford School", "Caterham School", "Charterhouse",
-            "Cheltenham College", "Cheltenham Ladies' College", "Christ College Brecon", "City of London Freemen's School", "Clifton College", "Cokethorpe School", "Concord College", "Cranbrook School", "Cranleigh School", "Culford School",
-            "Dauntsey's School", "Dean Close School", "Denstone College", "DLD College London", "Dover College", "Downside School", "Dulwich College", "Eastbourne College", "Ellesmere College", "Epsom College",
-            "Eton College", "Exeter School", "Fettes College", "Forest School", "Framlingham College", "Giggleswick School", "Gordonstoun School", "Haileybury", "Harrow School", "Headington School",
-            "Highgate School", "Holmwood House School", "Hurtwood House", "Ibstock Place School", "Kent College Canterbury", "King Edward's School Witley", "King's College Taunton", "King's School Canterbury", "King's School Ely", "King'swood School",
-            "Lancing College", "Leighton Park School", "Liverpool College", "Lomond School", "Lord Wandsworth College", "Loretto School", "Malvern College", "Marlborough College", "Marymount International School", "Mayfield School",
-            "Merchiston Castle School", "Millfield School", "Monkton Combe School", "More House School", "Mount Kelly", "New Hall School", "Oakham School", "Oundle School", "Pangbourne College", "Prior Park College",
-            "Queen Anne's School", "Queen Ethelburga's Collegiate", "Queen Margaret's School", "Queen's College Taunton", "Radley College", "Ratcliffe College", "Reed's School", "Rendcomb College", "Repton School", "Rochester Independent College",
-            "Rossall School", "Royal Hospital School", "Rugby School", "Rydal Penrhos School", "Rye St Antony School", "Sedbergh School", "Sevenoaks School", "Sherborne School", "Shiplake College", "Shrewsbury School",
-            "Sidcot School", "Sion Hill School", "Slindon College", "St Clare's Oxford", "St Edmund's School Canterbury", "St Edward's School Oxford", "St George's School Ascot", "St Lawrence College", "St Mary's School Ascot", "St Swithun's School",
-            "Stamford Endowed Schools", "Strathallan School", "Stowe School", "Taunton School", "Tettenhall College", "The Leys School", "Tonbridge School", "Trent College", "Truro School", "Uppingham School",
-            "Wellington College", "Wells Cathedral School", "West Buckland School", "Westonbirt School", "Whitgift School", "Winchester College", "Woldingham School", "Woodhouse Grove School", "Worksop College", "Worth School", "Wrekin College", "Wycliffe College"
-        ];
+        // ==================================================================
+        // SCHOOL FIT FINDER — deterministic matching against real school data
+        // Data: window.SCHOOLS_BAKED (js/schools-data.js, baked from Notion by
+        // bake-schools-data.py — same dataset as schools.html).
+        // Mechanics per docs/QUIZ-STANDARDS.md:
+        //   hard filters (child gender / entry year / budget) -> eligibility
+        //   soft preferences -> weighted credit; "no preference" removes the
+        //   dimension; missing school data removes it from that school's
+        //   denominator (never penalises) and is disclosed as a data gap.
+        // ==================================================================
 
-        const SCHOOLS = [];
-        const locations = ['city', 'countryside', 'near_london'];
+        // ---- Data sanitation: implausible values are treated as missing ----
+        const SCHOOLS = (window.SCHOOLS_BAKED || []).map(raw => {
+            const s = Object.assign({}, raw);
+            s.fee = (typeof raw.fee === 'number' && raw.fee >= 10000 && raw.fee <= 100000) ? raw.fee : null;
+            s.alevel = (typeof raw.alevel === 'number' && raw.alevel > 0 && raw.alevel <= 100) ? raw.alevel : null;
+            s.gcse = (typeof raw.gcse === 'number' && raw.gcse > 0 && raw.gcse <= 100) ? raw.gcse : null;
+            s.totalStudents = (typeof raw.totalStudents === 'number' && raw.totalStudents >= 100 && raw.totalStudents <= 3000) ? raw.totalStudents : null;
+            s.boardRatio = (typeof raw.boardRatio === 'number' && raw.boardRatio > 0 && raw.boardRatio <= 100) ? raw.boardRatio : null;
+            s.oxbridge = (typeof raw.oxbridge === 'number' && raw.oxbridge > 0 && raw.oxbridge <= 120) ? raw.oxbridge : 0;
+            s.sports = Array.isArray(raw.sports) ? raw.sports : [];
+            s.entry = Array.isArray(raw.entry) ? raw.entry : [];
+            return s;
+        });
 
-        // Schools known to be in near-London counties: Berkshire, Surrey, Bucks, Oxon, Hants, Kent, Greater London
-        const nearLondonSchoolNames = new Set([
-            "Charterhouse", "Caterham School", "City of London Freemen's School", "Cokethorpe School",
-            "Cranbrook School", "Cranleigh School", "DLD College London", "Dover College", "Dulwich College",
-            "Eton College", "Forest School", "Highgate School", "Hurtwood House", "Ibstock Place School",
-            "Kent College Canterbury", "King Edward's School Witley", "King's School Canterbury",
-            "Lord Wandsworth College", "Marymount International School", "More House School",
-            "Pangbourne College", "Queen Anne's School", "Radley College", "Reed's School",
-            "Rochester Independent College", "Sevenoaks School", "St Clare's Oxford",
-            "St Edmund's School Canterbury", "St Edward's School Oxford", "St George's School Ascot",
-            "St Lawrence College", "St Mary's School Ascot", "St Swithun's School",
-            "Stowe School", "Tonbridge School", "Wellington College", "Winchester College", "Woldingham School"
-        ]);
-
-        const sizes = ['small', 'large'];
-        const academicFocuses = ['strong', 'balanced', 'creative'];
-        const freeTimeActivitiesOptions = ['sports', 'arts', 'clubs', 'academic enrichment', 'outdoor', 'individual', 'social'];
-        const subjectStrengthsOptions = ['STEM', 'Humanities', 'Arts', 'Business', 'Languages', 'Technology'];
-        const universityPlacementOptions = ['Oxbridge', 'Russell Group', 'Specialized', 'StudentExperience', 'Broad'];
-        const sportsOptions = ['Football', 'Rugby', 'Hockey', 'Cricket', 'Swimming', 'Tennis', 'Athletics', 'Netball', 'Badminton', 'Basketball', 'Rowing', 'Golf', 'Equestrian', 'Lacrosse', 'Fencing', 'Sailing'];
-        const pastoralCareOptions = ['strong', 'moderate', 'independent'];
-        const extracurricularEmphasisOptions = ['sports', 'arts', 'clubs', 'academic', 'outdoor', 'balanced'];
-        const feesMin = 12000; // GBP per term
-        const feesMax = 18500; // GBP per term
-
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        function getRandomElement(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        function getRandomSubset(arr, min, max) {
-            const shuffled = arr.sort(() => 0.5 - Math.random());
-            const count = getRandomInt(min, max);
-            return shuffled.slice(0, count);
-        }
-
-        for (let i = 0; i < UK_SCHOOL_NAMES.length; i++) {
-            const name = UK_SCHOOL_NAMES[i];
-            const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '');
-
-            const location = nearLondonSchoolNames.has(name) ? 'near_london' : getRandomElement(['city', 'countryside']);
-            const size = getRandomElement(sizes);
-            const academicFocus = getRandomElement(academicFocuses);
-            const characterFocus = Math.random() > 0.3; // ~70% chance of having character focus
-            const freeTimeActivities = getRandomSubset(freeTimeActivitiesOptions, 2, 4);
-            const subjectStrengths = getRandomSubset(subjectStrengthsOptions, 1, 3);
-            const universityPlacement = getRandomSubset(universityPlacementOptions, 1, 2);
-            const sports = getRandomSubset(sportsOptions, 3, 7);
-            const feesPerTerm = getRandomInt(feesMin, feesMax);
-            const pastoralCare = getRandomElement(pastoralCareOptions);
-            const extracurricularEmphasis = getRandomElement(extracurricularEmphasisOptions);
-
-            SCHOOLS.push({
-                id, name, location, size, academicFocus, characterFocus,
-                freeTimeActivities, subjectStrengths, universityPlacement,
-                sports, feesPerTerm, pastoralCare, extracurricularEmphasis
-            });
-        }
-        // --- END SCHOOLS DATA ---
-
-
+        // ---- Questions ----------------------------------------------------
+        // kind: 'filter' = eligibility, 'pref' = scored dimension.
+        // Options with off:true switch that dimension off entirely.
         const questions = [
             {
-                id: 'q1',
-                en: 'How does your child prefer to spend their free time?',
-                th: 'บุตรหลานของคุณชอบใช้เวลาว่างอย่างไร?',
+                id: 'child', kind: 'filter',
+                en: 'Who are you choosing a school for?',
+                th: 'คุณกำลังเลือกโรงเรียนให้ใคร?',
                 options: [
-                    { en: 'Playing sports and outdoor activities', th: 'เล่นกีฬาและกิจกรรมกลางแจ้ง', attributes: { freeTimeActivities: ['sports', 'outdoor'], extracurricularEmphasis: 'sports' } },
-                    { en: 'Engaging in creative arts and music', th: 'เข้าร่วมกิจกรรมศิลปะและดนตรี', attributes: { freeTimeActivities: ['arts'], extracurricularEmphasis: 'arts', academicFocus: 'creative' } },
-                    { en: 'Joining clubs, debates, and academic societies', th: 'เข้าร่วมชมรม โต้วาที และสมาคมวิชาการ', attributes: { freeTimeActivities: ['clubs', 'academic enrichment'], extracurricularEmphasis: 'clubs', academicFocus: 'strong' } },
-                    { en: 'Relaxing with friends or pursuing individual hobbies', th: 'พักผ่อนกับเพื่อนหรือทำกิจกรรมอดิเรกส่วนตัว', attributes: { freeTimeActivities: ['social', 'individual'], characterFocus: true } }
+                    { en: 'My son', th: 'ลูกชาย', value: 'boy' },
+                    { en: 'My daughter', th: 'ลูกสาว', value: 'girl' }
                 ]
             },
             {
-                id: 'q2',
-                en: 'What is most important for your child\'s development?',
-                th: 'สิ่งใดสำคัญที่สุดสำหรับการพัฒนาของบุตรหลานของคุณ?',
+                id: 'entry', kind: 'filter',
+                en: 'Which year group will your child enter?',
+                th: 'บุตรหลานของคุณจะเข้าเรียนในชั้นปีใด?',
                 options: [
-                    { en: 'Achieving top academic results and university placements', th: 'การบรรลุผลการเรียนสูงสุดและการเข้ามหาวิทยาลัยชั้นนำ', attributes: { academicFocus: 'strong', universityPlacement: ['Oxbridge', 'Russell Group'] } },
-                    { en: 'Developing strong character, leadership, and personal skills', th: 'การพัฒนาบุคลิกภาพที่แข็งแกร่ง ความเป็นผู้นำ และทักษะส่วนบุคคล', attributes: { characterFocus: true, pastoralCare: 'strong' } },
-                    { en: 'A balanced approach, excelling in both academics and extracurriculars', th: 'แนวทางที่สมดุล เก่งทั้งด้านวิชาการและกิจกรรมนอกหลักสูตร', attributes: { academicFocus: 'balanced', characterFocus: true, extracurricularEmphasis: 'balanced' } }
+                    { en: 'Year 7 (age 11–12)', th: 'Year 7 (อายุ 11–12 ปี)', value: 'Year 7' },
+                    { en: 'Year 9 (age 13–14)', th: 'Year 9 (อายุ 13–14 ปี)', value: 'Year 9' },
+                    { en: 'Year 10 — GCSE entry (age 14–15)', th: 'Year 10 — เข้าเรียนระดับ GCSE (อายุ 14–15 ปี)', value: 'Year 10' },
+                    { en: 'Year 12 — Sixth Form (age 16–17)', th: 'Year 12 — Sixth Form (อายุ 16–17 ปี)', value: 'Year 12' },
+                    { en: 'Not sure yet', th: 'ยังไม่แน่ใจ', value: null }
                 ]
             },
             {
-                id: 'q3',
-                en: 'Where would your child thrive most?',
-                th: 'บุตรหลานของคุณจะเติบโตได้ดีที่สุดที่ใด?',
+                id: 'budget', kind: 'filter',
+                en: 'What is your realistic annual budget for boarding fees? (tuition + boarding, before extras)',
+                th: 'งบประมาณค่าเล่าเรียนต่อปีที่เป็นไปได้จริงของครอบครัวคุณ? (ค่าเรียนและที่พัก ยังไม่รวมค่าใช้จ่ายอื่น)',
                 options: [
-                    { en: 'In a vibrant city environment with cultural opportunities', th: 'ในสภาพแวดล้อมเมืองที่คึกคักพร้อมโอกาสทางวัฒนธรรม', attributes: { location: 'city' } },
-                    { en: 'In a peaceful countryside setting with open spaces', th: 'ในชนบทที่เงียบสงบพร้อมพื้นที่เปิดโล่ง', attributes: { location: 'countryside' } },
-                    { en: 'Within 1–2 hours of London/Heathrow', th: 'ภายใน 1–2 ชั่วโมงจากลอนดอน/สนามบินฮีทโธรว์', tooltip: 'Most UK boarding schools sit in market towns. For international families, proximity to Heathrow Airport is often more practical than city vs countryside.', attributes: { location: 'near_london' } }
+                    { en: 'Up to £40,000 (≈ ฿1.8M)', th: 'ไม่เกิน £40,000 (≈ ฿1.8 ล้าน)', value: 40000 },
+                    { en: 'Up to £55,000 (≈ ฿2.5M)', th: 'ไม่เกิน £55,000 (≈ ฿2.5 ล้าน)', value: 55000 },
+                    { en: 'Up to £70,000 (≈ ฿3.2M)', th: 'ไม่เกิน £70,000 (≈ ฿3.2 ล้าน)', value: 70000 },
+                    { en: 'Flexible for the right school', th: 'ยืดหยุ่นได้หากเป็นโรงเรียนที่ใช่', value: null }
                 ]
             },
             {
-                id: 'q4',
-                en: 'What school size would suit your child best?',
-                th: 'โรงเรียนขนาดใดที่เหมาะสมกับบุตรหลานของคุณมากที่สุด?',
+                id: 'community', kind: 'pref',
+                en: 'What kind of school community do you prefer?',
+                th: 'คุณต้องการชุมชนโรงเรียนแบบใด?',
                 options: [
-                    { en: 'A large school with many students and diverse opportunities', th: 'โรงเรียนขนาดใหญ่ที่มีนักเรียนจำนวนมากและโอกาสที่หลากหลาย', attributes: { size: 'large' } },
-                    { en: 'A smaller, more intimate school with a close-knit community', th: 'โรงเรียนขนาดเล็กและเป็นกันเองมากขึ้นพร้อมชุมชนที่อบอุ่น', attributes: { size: 'small', pastoralCare: 'strong' } }
+                    { en: 'Co-educational — boys and girls together', th: 'สหศึกษา — เรียนรวมชายหญิง', value: 'coed' },
+                    { en: 'Single-sex — focused, with strong tradition', th: 'ชายล้วน/หญิงล้วน — สมาธิดี มีขนบที่เข้มแข็ง', value: 'single' },
+                    { en: 'No preference', th: 'ไม่มีความชอบเฉพาะ', value: null, off: true }
                 ]
             },
             {
-                id: 'q5',
-                en: 'Which subjects excite your child the most?',
-                th: 'วิชาใดที่บุตรหลานของคุณสนใจมากที่สุด?',
+                id: 'academic', kind: 'pref',
+                en: 'Which academic environment would bring out the best in your child? Answer honestly — there is no right answer.',
+                th: 'สภาพแวดล้อมทางวิชาการแบบใดจะดึงศักยภาพของบุตรหลานคุณออกมาได้ดีที่สุด? ตอบตามจริง — ไม่มีคำตอบที่ถูกหรือผิด',
                 options: [
-                    { en: 'Science, Technology, Engineering, Maths (STEM)', th: 'วิทยาศาสตร์ เทคโนโลยี วิศวกรรมศาสตร์ คณิตศาสตร์ (STEM)', attributes: { subjectStrengths: ['STEM'] } },
-                    { en: 'History, English, Languages, Humanities', th: 'ประวัติศาสตร์ ภาษาอังกฤษ ภาษา มนุษยศาสตร์', attributes: { subjectStrengths: ['Humanities', 'Languages'] } },
-                    { en: 'Art, Drama, Music, Design (Creative Arts)', th: 'ศิลปะ การละคร ดนตรี การออกแบบ (ศิลปะสร้างสรรค์)', attributes: { subjectStrengths: ['Arts'], academicFocus: 'creative' } },
-                    { en: 'A broad curriculum with no specific preference', th: 'หลักสูตรที่หลากหลายโดยไม่มีความชอบเฉพาะเจาะจง', attributes: { subjectStrengths: ['STEM', 'Humanities', 'Arts', 'Business', 'Languages', 'Technology'], academicFocus: 'balanced' } }
+                    { en: 'Highly selective — my child pushes hardest among the strongest peers, even under real pressure', th: 'คัดเลือกเข้มข้น — บุตรหลานของฉันทุ่มเทที่สุดเมื่ออยู่ท่ามกลางเพื่อนที่เก่งที่สุด แม้จะมีความกดดันจริง', value: 75 },
+                    { en: 'Strong and steady — good results matter, but not a pressure-cooker', th: 'แข็งแกร่งและมั่นคง — ผลการเรียนสำคัญ แต่ไม่ใช่บรรยากาศกดดันสูง', value: 55 },
+                    { en: 'Confidence first — my child needs to feel secure before they can perform', th: 'ความมั่นใจมาก่อน — บุตรหลานของฉันต้องรู้สึกมั่นคงก่อนจึงจะแสดงศักยภาพได้', value: 40 }
                 ]
             },
             {
-                id: 'q6',
-                en: 'How does your child learn best?',
-                th: 'บุตรหลานของคุณเรียนรู้ได้ดีที่สุดด้วยวิธีใด?',
+                id: 'size', kind: 'pref',
+                en: 'What size of school suits your child?',
+                th: 'โรงเรียนขนาดใดเหมาะกับบุตรหลานของคุณ?',
                 options: [
-                    { en: 'Through structured lessons and traditional teaching', th: 'ผ่านบทเรียนที่มีโครงสร้างและการสอนแบบดั้งเดิม', attributes: { academicFocus: 'strong' } },
-                    { en: 'Through practical projects, hands-on learning, and exploration', th: 'ผ่านโครงการภาคปฏิบัติ การเรียนรู้จากประสบการณ์ และการสำรวจ', attributes: { academicFocus: 'creative', freeTimeActivities: ['individual'] } },
-                    { en: 'Through collaborative group work and discussion', th: 'ผ่านการทำงานกลุ่มร่วมกันและการอภิปราย', attributes: { characterFocus: true, freeTimeActivities: ['clubs', 'social'] } }
+                    { en: 'Small and close-knit — under ~450 students, everyone known by name', th: 'เล็กและอบอุ่น — ต่ำกว่า ~450 คน ครูรู้จักนักเรียนทุกคน', value: 'small' },
+                    { en: 'Mid-size — roughly 450–800 students', th: 'ขนาดกลาง — ประมาณ 450–800 คน', value: 'medium' },
+                    { en: 'Large and full of options — 800+ students', th: 'ใหญ่และมีตัวเลือกมาก — มากกว่า 800 คน', value: 'large' },
+                    { en: 'Not sure', th: 'ไม่แน่ใจ', value: null, off: true }
                 ]
             },
             {
-                id: 'q7',
-                en: 'What kind of social environment would your child prefer?',
-                th: 'บุตรหลานของคุณชอบสภาพแวดล้อมทางสังคมแบบใด?',
+                id: 'region', kind: 'pref',
+                en: 'How do you think about location?',
+                th: 'คุณให้ความสำคัญกับทำเลที่ตั้งอย่างไร?',
                 options: [
-                    { en: 'Highly competitive and ambitious peers', th: 'เพื่อนร่วมชั้นที่มีการแข่งขันสูงและมีความทะเยอทะยาน', attributes: { academicFocus: 'strong' } },
-                    { en: 'Supportive, friendly, and inclusive community', th: 'ชุมชนที่ให้การสนับสนุน เป็นมิตร และเปิดกว้าง', attributes: { characterFocus: true, pastoralCare: 'strong' } },
-                    { en: 'Diverse student body with varied backgrounds', th: 'นักเรียนที่หลากหลายจากภูมิหลังที่แตกต่างกัน', attributes: { characterFocus: true } }
+                    { en: 'Close to London and Heathrow — easy flights and visits matter', th: 'ใกล้ลอนดอนและสนามบินฮีทโธรว์ — การเดินทางและการเยี่ยมเยียนต้องสะดวก', value: 'london' },
+                    { en: 'Somewhere quieter, away from the London orbit — often better value', th: 'ที่เงียบสงบ ห่างจากวงโคจรลอนดอน — มักคุ้มค่ากว่า', value: 'quiet' },
+                    { en: 'Happy anywhere in the UK if the school is right', th: 'ที่ใดก็ได้ในสหราชอาณาจักรหากเป็นโรงเรียนที่ใช่', value: null, off: true }
                 ]
             },
             {
-                id: 'q8',
-                en: 'How important is pastoral care and well-being support?',
-                th: 'การดูแลเอาใจใส่และสนับสนุนความเป็นอยู่ที่ดีมีความสำคัญเพียงใด?',
+                id: 'boarding', kind: 'pref',
+                en: 'How often will your child go home or see family during term?',
+                th: 'ระหว่างเทอม บุตรหลานของคุณจะกลับบ้านหรือพบครอบครัวบ่อยแค่ไหน?',
                 options: [
-                    { en: 'Very important, a strong support system is crucial', th: 'สำคัญมาก ระบบสนับสนุนที่แข็งแกร่งเป็นสิ่งสำคัญ', attributes: { pastoralCare: 'strong', characterFocus: true } },
-                    { en: 'Moderately important, but academic rigor comes first', th: 'สำคัญปานกลาง แต่ความเข้มงวดทางวิชาการมาก่อน', attributes: { pastoralCare: 'moderate', academicFocus: 'strong' } },
-                    { en: 'Less critical, my child is very independent', th: 'สำคัญน้อยลง บุตรหลานของฉันเป็นอิสระมาก', attributes: { pastoralCare: 'independent' } }
+                    { en: 'Only in the main holidays — we live abroad, school is home during term', th: 'เฉพาะช่วงปิดเทอมหลัก — เราอยู่ต่างประเทศ โรงเรียนคือบ้านระหว่างเทอม', value: 'full' },
+                    { en: 'Regular weekends with family or a guardian in the UK', th: 'สุดสัปดาห์กับครอบครัวหรือผู้ปกครองในสหราชอาณาจักรเป็นประจำ', value: 'weekends' },
+                    { en: 'Not sure yet', th: 'ยังไม่แน่ใจ', value: null, off: true }
                 ]
             },
             {
-                id: 'q9',
-                en: 'What type of boarding arrangement suits your family?',
-                th: 'รูปแบบการพักประจำแบบใดที่เหมาะกับครอบครัวของคุณ?',
+                id: 'university', kind: 'pref',
+                en: 'How fixed are your university ambitions?',
+                th: 'เป้าหมายด้านมหาวิทยาลัยของครอบครัวคุณชัดเจนแค่ไหน?',
                 options: [
-                    { en: 'Full boarding — child stays at school during term, comes home for main holidays only', th: 'พักประจำเต็มรูปแบบ — บุตรหลานพักที่โรงเรียนตลอดภาคเรียน กลับบ้านเฉพาะช่วงปิดเทอมหลัก (เหมาะสำหรับครอบครัวที่อยู่ต่างประเทศ)', attributes: { boardingType: 'full' } },
-                    { en: 'Weekly boarding — child boards Monday to Friday, comes home most weekends', th: 'พักประจำรายสัปดาห์ — บุตรหลานพักที่โรงเรียนวันจันทร์ถึงศุกร์ กลับบ้านส่วนใหญ่ในวันหยุดสุดสัปดาห์', attributes: { boardingType: 'weekly' } },
-                    { en: 'Flexible boarding — mix of boarding and day attendance, decided week by week', th: 'พักประจำแบบยืดหยุ่น — ผสมระหว่างการพักประจำและการเดินทางมาเรียน ตัดสินใจเป็นรายสัปดาห์', attributes: { boardingType: 'flexible' } },
-                    { en: 'Not yet decided — open to all options', th: 'ยังไม่ตัดสินใจ — เปิดรับทุกรูปแบบ', attributes: { boardingType: 'any' } }
+                    { en: 'Aiming specifically for Oxford or Cambridge', th: 'มุ่งเป้า Oxford หรือ Cambridge โดยเฉพาะ', value: 'oxbridge' },
+                    { en: 'Ambitious but open — a strong university, not one specific name', th: 'ทะเยอทะยานแต่เปิดกว้าง — มหาวิทยาลัยชั้นนำ ไม่จำกัดชื่อ', value: 'strong' },
+                    { en: 'Too early to say — overall growth first', th: 'ยังเร็วเกินไป — เน้นการเติบโตโดยรวมก่อน', value: null, off: true }
                 ]
             },
             {
-                id: 'q10',
-                en: 'What are your child\'s university aspirations?',
-                th: 'บุตรหลานของคุณมีความฝันด้านมหาวิทยาลัยอย่างไร?',
+                id: 'support', kind: 'pref',
+                en: 'When your child struggles with schoolwork, what do they need first?',
+                th: 'เมื่อบุตรหลานของคุณติดขัดเรื่องการเรียน สิ่งแรกที่พวกเขาต้องการคืออะไร?',
                 options: [
-                    { en: 'Top research universities — Oxford, Cambridge, Imperial, LSE, UCL', th: 'มหาวิทยาลัยวิจัยชั้นนำ — Oxford, Cambridge, Imperial, LSE, UCL', attributes: { universityPlacement: ['Oxbridge', 'Russell Group'], academicFocus: 'strong' } },
-                    { en: 'Specialist universities — e.g. art (UAL), music (Royal Academy), medicine, engineering', th: 'มหาวิทยาลัยเฉพาะทาง เช่น ศิลปะ ดนตรี แพทยศาสตร์ วิศวกรรมศาสตร์', attributes: { universityPlacement: ['Specialized'], academicFocus: 'strong' } },
-                    { en: 'Universities with strong student life, community, and well-being', th: 'มหาวิทยาลัยที่มีชีวิตนักศึกษาที่ดี ชุมชนที่อบอุ่น และความเป็นอยู่ที่ดี', attributes: { universityPlacement: ['StudentExperience'], characterFocus: true } },
-                    { en: 'Not yet decided — focused on overall growth first', th: 'ยังไม่ตัดสินใจ — เน้นการเติบโตโดยรวมก่อน', attributes: { universityPlacement: ['Broad', 'Growth'], characterFocus: true, academicFocus: 'balanced' } }
+                    { en: 'A push — they respond well to challenge and clear expectations', th: 'แรงผลักดัน — พวกเขาตอบสนองดีต่อความท้าทายและความคาดหวังที่ชัดเจน', value: 75 },
+                    { en: 'Coaching — structured help to close the gap', th: 'การโค้ช — ความช่วยเหลืออย่างเป็นระบบเพื่อปิดช่องว่าง', value: 55 },
+                    { en: 'Reassurance — pressure makes things worse', th: 'กำลังใจ — ความกดดันทำให้แย่ลง', value: 40 }
+                ]
+            },
+            {
+                id: 'sports', kind: 'pref', multi: true, max: 3,
+                en: 'Does your child take any sports seriously? (choose up to 3)',
+                th: 'บุตรหลานของคุณเล่นกีฬาใดอย่างจริงจังหรือไม่? (เลือกได้สูงสุด 3 รายการ)',
+                options: [
+                    { en: 'Swimming', th: 'ว่ายน้ำ', value: 'Swimming' },
+                    { en: 'Football', th: 'ฟุตบอล', value: 'Football' },
+                    { en: 'Tennis', th: 'เทนนิส', value: 'Tennis' },
+                    { en: 'Golf', th: 'กอล์ฟ', value: 'Golf' },
+                    { en: 'Basketball', th: 'บาสเกตบอล', value: 'Basketball' },
+                    { en: 'Badminton', th: 'แบดมินตัน', value: 'Badminton' },
+                    { en: 'Hockey', th: 'ฮอกกี้', value: 'Hockey' },
+                    { en: 'Athletics', th: 'กรีฑา', value: 'Athletics' },
+                    { en: 'Rugby', th: 'รักบี้', value: 'Rugby' },
+                    { en: 'Fencing', th: 'ฟันดาบ', value: 'Fencing' },
+                    { en: 'Sailing', th: 'เรือใบ', value: 'Sailing' },
+                    { en: 'No particular sporting focus', th: 'ไม่มีกีฬาที่เน้นเป็นพิเศษ', value: null, off: true, exclusive: true }
                 ]
             }
         ];
 
+        // ---- State ----------------------------------------------------------
         let currentQuestionIndex = 0;
-        const userAnswers = {}; // Stores selected option index for each question
+        const userAnswers = {};            // question id -> option index | array of indexes
+        let lastResults = null;            // cached for language re-render + save
         let currentLanguage = localStorage.getItem('linkedU_lang') || 'en';
 
         const quizContainer = document.getElementById('quiz-container');
@@ -834,188 +824,388 @@
         const resultsSection = document.getElementById('results-section');
         const quizSection = document.getElementById('quiz-section');
         const schoolResultsGrid = document.getElementById('school-results-grid');
+        const resultsNotes = document.getElementById('results-notes');
         const langEnBtn = document.getElementById('lang-en');
         const langThBtn = document.getElementById('lang-th');
         const pageTitle = document.querySelector('title');
 
-        // Helper for dynamic Thai translations of school attributes
-        function getAcademicFocusThai(focus) {
-            switch (focus) {
-                case 'strong': return 'วิชาการเข้มข้น';
-                case 'balanced': return 'สมดุล';
-                case 'creative': return 'สร้างสรรค์';
-                default: return focus;
-            }
+        function t(en, th) { return currentLanguage === 'th' ? th : en; }
+
+        function isAnswered(q) {
+            const a = userAnswers[q.id];
+            if (q.multi) return Array.isArray(a) && a.length > 0;
+            return a !== undefined;
         }
 
-        function getFreeTimeActivityThai(activity) {
-            switch (activity) {
-                case 'sports': return 'กีฬา';
-                case 'outdoor': return 'กลางแจ้ง';
-                case 'arts': return 'ศิลปะ';
-                case 'clubs': return 'ชมรม';
-                case 'academic enrichment': return 'เสริมวิชาการ';
-                case 'social': return 'สังคม';
-                case 'individual': return 'ส่วนตัว';
-                default: return activity;
+        // ---- Profile from answers -------------------------------------------
+        function buildProfile() {
+            const get = id => {
+                const q = questions.find(x => x.id === id);
+                const idx = userAnswers[id];
+                if (idx === undefined) return null;
+                return q.options[idx];
+            };
+            const val = id => { const o = get(id); return o ? o.value : null; };
+
+            const sportsQ = questions.find(x => x.id === 'sports');
+            const sportsIdx = userAnswers['sports'] || [];
+            const sportsPicked = sportsIdx.map(i => sportsQ.options[i].value).filter(v => v !== null);
+
+            // Academic target blends the direct question with the support probe
+            // (same trait, opposite framing). A wide gap = inconsistent answers.
+            const acadDirect = val('academic');
+            const acadProbe = val('support');
+            let academicTarget = null, academicTension = false;
+            if (acadDirect !== null && acadProbe !== null) {
+                academicTarget = (acadDirect + acadProbe) / 2;
+                academicTension = Math.abs(acadDirect - acadProbe) >= 35;
+            } else if (acadDirect !== null) {
+                academicTarget = acadDirect;
             }
+
+            return {
+                child: val('child'),
+                entry: val('entry'),
+                budget: val('budget'),
+                community: val('community'),
+                academicTarget, academicTension,
+                academicChoice: acadDirect,
+                size: val('size'),
+                region: val('region'),
+                boarding: val('boarding'),
+                university: val('university'),
+                sports: sportsPicked
+            };
         }
 
-        function getSubjectStrengthThai(subject) {
-            switch (subject) {
-                case 'STEM': return 'STEM';
-                case 'Humanities': return 'มนุษยศาสตร์';
-                case 'Arts': return 'ศิลปะ';
-                case 'Business': return 'ธุรกิจ';
-                case 'Languages': return 'ภาษา';
-                case 'Technology': return 'เทคโนโลยี';
-                default: return subject;
+        // ---- Eligibility (hard filters) ---------------------------------------
+        function eligibility(s, prof) {
+            const out = { ok: true, failedBudgetOnly: false, gaps: [] };
+            if (prof.child === 'boy' && s.gender === 'Girls') { out.ok = false; return out; }
+            if (prof.child === 'girl' && s.gender === 'Boys') { out.ok = false; return out; }
+            if (prof.entry) {
+                if (s.entry.length === 0) out.gaps.push(t('entry years not published', 'ไม่มีข้อมูลชั้นปีที่รับเข้า'));
+                else if (!s.entry.includes(prof.entry)) { out.ok = false; return out; }
             }
+            if (prof.budget) {
+                if (s.fee === null) out.gaps.push(t('fee not confirmed', 'ยังไม่ยืนยันค่าเทอม'));
+                else if (s.fee > prof.budget) { out.ok = false; out.failedBudgetOnly = true; return out; }
+            }
+            return out;
         }
 
-        function getUniversityPlacementThai(placement) {
-            switch (placement) {
-                case 'Oxbridge': return 'Oxbridge';
-                case 'Russell Group': return 'Russell Group';
-                case 'Specialized': return 'เฉพาะทาง';
-                case 'StudentExperience': return 'ประสบการณ์นักศึกษา';
-                case 'Broad': return 'หลากหลาย';
-                case 'Growth': return 'การเติบโตส่วนบุคคล';
-                default: return placement;
-            }
-        }
+        // ---- Scoring dimensions -------------------------------------------------
+        const clamp01 = x => Math.max(0, Math.min(1, x));
 
-        function getPastoralCareThai(care) {
-            switch (care) {
-                case 'strong': return 'แข็งแกร่ง';
-                case 'moderate': return 'ปานกลาง';
-                case 'independent': return 'อิสระ';
-                default: return care;
-            }
-        }
+        function scoreSchool(s, prof) {
+            const dims = [];   // {w, credit, reason?, gap?}
+            const gaps = [];
 
-        function getExtracurricularEmphasisThai(emphasis) {
-            switch (emphasis) {
-                case 'sports': return 'กีฬา';
-                case 'arts': return 'ศิลปะ';
-                case 'clubs': return 'ชมรม';
-                case 'academic': return 'วิชาการ';
-                case 'outdoor': return 'กลางแจ้ง';
-                case 'balanced': return 'สมดุล';
-                default: return emphasis;
-            }
-        }
-
-        function getSchoolLocationThai(location) {
-            switch (location) {
-                case 'city': return 'ในเมือง';
-                case 'countryside': return 'ชนบท';
-                case 'near_london': return 'ใกล้ลอนดอน/สนามบินฮีทโธรว์';
-                default: return location;
-            }
-        }
-
-        function getSchoolSizeThai(size) {
-            switch (size) {
-                case 'small': return 'ขนาดเล็ก';
-                case 'large': return 'ขนาดใหญ่';
-                default: return size;
-            }
-        }
-
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('linkedU_lang', lang);
-
-            // Update title tag
-            const titleText = pageTitle.getAttribute(`data-${lang}`);
-            if (titleText) {
-                pageTitle.textContent = titleText;
+            if (prof.community) {
+                let credit = 0;
+                if (prof.community === 'coed') credit = s.gender === 'Co-ed' ? 1 : 0;
+                else credit = ((prof.child === 'boy' && s.gender === 'Boys') || (prof.child === 'girl' && s.gender === 'Girls')) ? 1 : 0;
+                dims.push({ w: 8, credit, reason: credit === 1 ? (prof.community === 'coed'
+                    ? t('Co-educational, as you preferred', 'เป็นสหศึกษาตามที่คุณต้องการ')
+                    : t('Single-sex school, as you preferred', 'เป็นโรงเรียน' + (s.gender === 'Boys' ? 'ชายล้วน' : 'หญิงล้วน') + 'ตามที่คุณต้องการ')) : null });
             }
 
-            // Update html lang attribute
-            document.documentElement.lang = lang;
-
-            document.querySelectorAll('[data-en], [data-th]').forEach(element => {
-                const text = element.getAttribute(`data-${lang}`);
-                if (text) {
-                    element.innerHTML = text;
+            if (prof.academicTarget !== null) {
+                if (s.alevel === null) gaps.push(t('A-level results not published', 'ไม่มีข้อมูลผล A-level'));
+                else {
+                    const credit = clamp01(1 - Math.abs(s.alevel - prof.academicTarget) / 35);
+                    const label = prof.academicChoice >= 75
+                        ? t(s.alevel + '% A*–A at A-level — the highly selective environment you chose', 'A*–A ระดับ A-level ' + s.alevel + '% — สภาพแวดล้อมคัดเลือกเข้มข้นตามที่คุณเลือก')
+                        : prof.academicChoice >= 55
+                        ? t(s.alevel + '% A*–A at A-level — strong without being a pressure-cooker', 'A*–A ระดับ A-level ' + s.alevel + '% — แข็งแกร่งโดยไม่กดดันเกินไป')
+                        : t('Academic level (' + s.alevel + '% A*–A) leaves room to build confidence', 'ระดับวิชาการ (A*–A ' + s.alevel + '%) เปิดพื้นที่ให้สร้างความมั่นใจ');
+                    dims.push({ w: 12, credit, reason: credit >= 0.7 ? label : null });
                 }
+            }
+
+            if (prof.size) {
+                if (s.totalStudents === null) gaps.push(t('student numbers not published', 'ไม่มีข้อมูลจำนวนนักเรียน'));
+                else {
+                    const band = s.totalStudents < 450 ? 'small' : s.totalStudents <= 800 ? 'medium' : 'large';
+                    const adjacent = (a, b) => (a === 'small' && b === 'medium') || (a === 'medium' && b !== 'medium') || (a === 'large' && b === 'medium');
+                    const credit = band === prof.size ? 1 : adjacent(prof.size, band) ? 0.5 : 0;
+                    dims.push({ w: 8, credit, reason: credit === 1
+                        ? t(s.totalStudents + ' students — the ' + prof.size + ' school you wanted',
+                            'นักเรียน ' + s.totalStudents + ' คน — ขนาด' + (prof.size === 'small' ? 'เล็ก' : prof.size === 'medium' ? 'กลาง' : 'ใหญ่') + 'ตามที่คุณต้องการ') : null });
+                }
+            }
+
+            if (prof.region) {
+                const nearLondon = { 'London': 1, 'South East': 1, 'East': 0.7, 'South West': 0.3, 'Midlands': 0.3, 'North': 0.1, 'Wales': 0.1, 'Scotland': 0.1 };
+                const quiet = { 'London': 0, 'South East': 0.3, 'East': 0.7, 'South West': 1, 'Midlands': 0.7, 'North': 1, 'Wales': 1, 'Scotland': 1 };
+                const table = prof.region === 'london' ? nearLondon : quiet;
+                const credit = table[s.region] !== undefined ? table[s.region] : 0.5;
+                dims.push({ w: 7, credit, reason: credit === 1 ? (prof.region === 'london'
+                    ? t(s.region + ' location — easy reach of London and Heathrow', 'ตั้งอยู่ใน' + s.region + ' — เดินทางถึงลอนดอนและฮีทโธรว์สะดวก')
+                    : t(s.region + ' location — the quieter setting you preferred', 'ตั้งอยู่ใน' + s.region + ' — บรรยากาศเงียบสงบตามที่คุณต้องการ')) : null });
+            }
+
+            if (prof.boarding) {
+                if (s.boardRatio === null) gaps.push(t('boarding ratio not published', 'ไม่มีข้อมูลสัดส่วนนักเรียนประจำ'));
+                else {
+                    let credit;
+                    if (prof.boarding === 'full') credit = s.boardRatio >= 60 ? 1 : s.boardRatio >= 40 ? 0.7 : s.boardRatio >= 20 ? 0.3 : 0;
+                    else credit = s.boardRatio < 40 ? 1 : s.boardRatio <= 60 ? 0.6 : 0.3;
+                    dims.push({ w: 10, credit, reason: credit >= 0.7 ? (prof.boarding === 'full'
+                        ? t(Math.round(s.boardRatio) + '% of students board — campus stays alive at weekends', 'นักเรียนประจำ ' + Math.round(s.boardRatio) + '% — บรรยากาศคึกคักแม้ในวันหยุดสุดสัปดาห์')
+                        : t('Boarding mix suits regular family weekends', 'สัดส่วนนักเรียนประจำเหมาะกับการพบครอบครัวช่วงสุดสัปดาห์')) : null });
+                }
+            }
+
+            if (prof.university) {
+                const w = prof.university === 'oxbridge' ? 10 : 5;
+                const credit = s.oxbridge >= 10 ? 1 : s.oxbridge >= 3 ? 0.7 : s.oxbridge >= 1 ? 0.4 : 0;
+                dims.push({ w, credit, reason: credit >= 0.7
+                    ? t(s.oxbridge + ' recent Oxbridge offers', 'มีนักเรียนได้รับข้อเสนอจาก Oxbridge ' + s.oxbridge + ' คนในปีล่าสุด') : null });
+            }
+
+            if (prof.sports.length > 0) {
+                const matched = prof.sports.filter(sp => s.sports.includes(sp));
+                const credit = matched.length / prof.sports.length;
+                dims.push({ w: 6, credit, reason: matched.length > 0
+                    ? t('Offers ' + matched.join(', '), 'มีกีฬาที่ต้องการ: ' + matched.join(', ')) : null });
+            }
+
+            const activeWeight = dims.reduce((a, d) => a + d.w, 0);
+            const earned = dims.reduce((a, d) => a + d.w * d.credit, 0);
+            const pct = activeWeight > 0 ? Math.round((earned / activeWeight) * 100) : 0;
+            const reasons = dims.map(d => d.reason).filter(Boolean);
+            return { pct, reasons, gaps, scoredDims: dims.length, activeWeight };
+        }
+
+        // ---- Run the match -------------------------------------------------------
+        function runMatch() {
+            const prof = buildProfile();
+            // Total weight the parent's stated preferences could reach
+            const prefWeights = [];
+            if (prof.community) prefWeights.push(8);
+            if (prof.academicTarget !== null) prefWeights.push(12);
+            if (prof.size) prefWeights.push(8);
+            if (prof.region) prefWeights.push(7);
+            if (prof.boarding) prefWeights.push(10);
+            if (prof.university) prefWeights.push(prof.university === 'oxbridge' ? 10 : 5);
+            if (prof.sports.length > 0) prefWeights.push(6);
+            const fullWeight = prefWeights.reduce((a, b) => a + b, 0);
+
+            const eligible = [], budgetMisses = [];
+            let genderCut = 0, entryCut = 0, budgetCut = 0;
+            SCHOOLS.forEach(s => {
+                const e = eligibility(s, prof);
+                if (!e.ok) {
+                    if (e.failedBudgetOnly) { budgetMisses.push(s); budgetCut++; }
+                    else if ((prof.child === 'boy' && s.gender === 'Girls') || (prof.child === 'girl' && s.gender === 'Boys')) genderCut++;
+                    else entryCut++;
+                    return;
+                }
+                const sc = scoreSchool(s, prof);
+                eligible.push(Object.assign({ school: s, eligGaps: e.gaps,
+                    limited: fullWeight > 0 && sc.activeWeight < 0.6 * fullWeight }, sc));
             });
 
-            langEnBtn.classList.remove('active');
-            langThBtn.classList.remove('active');
-            if (lang === 'en') {
-                langEnBtn.classList.add('active');
-            } else {
-                langThBtn.classList.add('active');
+            eligible.sort((a, b) => b.pct - a.pct || (b.school.alevel || 0) - (a.school.alevel || 0) || a.school.name.localeCompare(b.school.name));
+            let top = eligible.filter(r => r.pct >= 45).slice(0, 5);
+            if (top.length < 3) top = eligible.slice(0, 3);
+
+            // Budget near-miss: best school excluded only by budget
+            let nearMiss = null;
+            if (prof.budget && budgetMisses.length > 0 && top.length >= 3) {
+                const scored = budgetMisses.map(s => Object.assign({ school: s }, scoreSchool(s, prof)))
+                    .sort((a, b) => b.pct - a.pct);
+                if (scored[0] && scored[0].pct > top[Math.min(2, top.length - 1)].pct) nearMiss = scored[0];
             }
 
-            // Re-render current question and results to update text
-            if (!quizSection.classList.contains('hidden')) {
-                renderQuestion();
-            } else if (!resultsSection.classList.contains('hidden')) {
-                displayResults(); // Re-render results with new language
-            }
+            return { prof, top, eligibleCount: eligible.length, totalCount: SCHOOLS.length,
+                     cuts: { gender: genderCut, entry: entryCut, budget: budgetCut }, nearMiss, fullWeight };
         }
 
-        function updateProgressBar() {
-            const answeredCount = Object.keys(userAnswers).length;
-            const progress = (answeredCount / questions.length) * 100;
-            quizProgressBar.style.width = `${progress}%`;
+        // ---- Rendering: results ----------------------------------------------------
+        function bandOf(pct) {
+            if (pct >= 75) return { en: 'Strong fit', th: 'เหมาะสมมาก', cls: 'band-strong' };
+            if (pct >= 60) return { en: 'Good fit', th: 'เหมาะสมดี', cls: 'band-good' };
+            return { en: 'Worth a look', th: 'น่าพิจารณา', cls: 'band-look' };
+        }
 
+        function fmtFee(s) {
+            return s.fee !== null ? '£' + s.fee.toLocaleString() + t('/year', '/ปี') : t('not published', 'ไม่มีข้อมูล');
+        }
+
+        function displayResults() {
+            lastResults = runMatch();
+            renderResults();
+            quizSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            window.scrollTo({ top: resultsSection.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        function renderResults() {
+            if (!lastResults) return;
+            const { prof, top, eligibleCount, totalCount, cuts, nearMiss } = lastResults;
+            schoolResultsGrid.innerHTML = '';
+            resultsNotes.innerHTML = '';
+
+            // Headline notes
+            const notes = [];
+            notes.push(t(
+                'Matched against published data for ' + totalCount + ' UK schools. ' + eligibleCount + ' met your requirements' + (prof.budget || prof.entry ? ' (gender, entry year, budget)' : '') + '.',
+                'จับคู่กับข้อมูลจริงของโรงเรียนในสหราชอาณาจักร ' + totalCount + ' แห่ง — ' + eligibleCount + ' แห่งผ่านเงื่อนไขของคุณ' + (prof.budget || prof.entry ? ' (เพศ ชั้นปี งบประมาณ)' : '') + ''));
+            if (top.length >= 2 && Math.abs(top[0].pct - top[1].pct) <= 2) {
+                notes.push(t('The top two schools are effectively tied — treat them as joint first choices.',
+                    'สองอันดับแรกคะแนนใกล้กันมาก — ควรพิจารณาเป็นตัวเลือกอันดับหนึ่งร่วมกัน'));
+            }
+            if (prof.academicTension) {
+                notes.push(t('Your two answers about academic environment pulled in different directions, so we matched to a middle ground — treat the academic fit as a range, and mention this in a consultation.',
+                    'คำตอบสองข้อเกี่ยวกับสภาพแวดล้อมทางวิชาการของคุณไปคนละทิศทาง เราจึงจับคู่ที่จุดกึ่งกลาง — ควรมองความเหมาะสมด้านวิชาการเป็นช่วง และแจ้งเรื่องนี้เมื่อปรึกษาผู้เชี่ยวชาญ'));
+            }
+            if (nearMiss) {
+                notes.push(t(nearMiss.school.name + ' scored ' + nearMiss.pct + '% — higher than some of your matches — but its fee (' + fmtFee(nearMiss.school) + ') is above your budget. Worth knowing: many schools offer scholarships.',
+                    nearMiss.school.name + ' ได้คะแนน ' + nearMiss.pct + '% สูงกว่าบางโรงเรียนในผลลัพธ์ของคุณ แต่ค่าเทอม (' + fmtFee(nearMiss.school) + ') เกินงบประมาณที่ตั้งไว้ — หลายโรงเรียนมีทุนการศึกษา'));
+            }
+            if (top.length === 0) {
+                const worst = Math.max(cuts.entry, cuts.budget);
+                const loosen = worst === cuts.budget
+                    ? t('Your budget filter removed the most schools — try one band higher, or ask us about scholarships.', 'เงื่อนไขงบประมาณตัดโรงเรียนออกมากที่สุด — ลองเพิ่มงบหนึ่งขั้น หรือสอบถามเราเรื่องทุนการศึกษา')
+                    : t('Your entry year removed the most schools — some accept nearby year groups; ask us.', 'ชั้นปีที่เลือกตัดโรงเรียนออกมากที่สุด — บางแห่งรับชั้นปีใกล้เคียง สอบถามเราได้');
+                resultsNotes.innerHTML = '<div class="result-note">' + t('No school met every requirement.', 'ไม่มีโรงเรียนที่ผ่านทุกเงื่อนไข') + ' ' + loosen + '</div>';
+                return;
+            }
+            resultsNotes.innerHTML = notes.map(n => '<div class="result-note">' + n + '</div>').join('');
+
+            top.forEach((r, i) => {
+                const s = r.school;
+                const band = bandOf(r.pct);
+                const gapsAll = r.gaps.concat(r.eligGaps);
+                const facts = [
+                    [t('Fees', 'ค่าเทอม'), fmtFee(s)],
+                    [t('Students', 'จำนวนนักเรียน'), s.totalStudents !== null ? String(s.totalStudents) : '—'],
+                    [t('A-level A*–A', 'A-level A*–A'), s.alevel !== null ? s.alevel + '%' : '—'],
+                    [t('Boarders', 'นักเรียนประจำ'), s.boardRatio !== null ? Math.round(s.boardRatio) + '%' : '—'],
+                    [t('Region', 'ภูมิภาค'), s.region || '—'],
+                    [t('Type', 'ประเภท'), s.gender + (s.type ? ' · ' + s.type : '')]
+                ];
+                if (s.oxbridge > 0) facts.push([t('Oxbridge offers', 'ข้อเสนอ Oxbridge'), String(s.oxbridge)]);
+
+                const card = document.createElement('div');
+                card.classList.add('card', 'school-card');
+                card.innerHTML =
+                    '<div>' +
+                      '<div class="rank-line"><span class="rank-num">' + (i + 1) + '</span>' +
+                      '<span class="fit-band ' + band.cls + '">' + t(band.en, band.th) + '</span>' +
+                      '<span class="fit-pct">' + r.pct + '% ' + t('of your stated priorities met', 'ของลำดับความสำคัญที่คุณระบุ') + '</span></div>' +
+                      '<h3><a href="../schools/' + s.slug + '.html">' + s.name + '</a></h3>' +
+                      (r.reasons.length ? '<div class="reasons"><strong>' + t('Why it fits your answers:', 'เหตุผลที่ตรงกับคำตอบของคุณ:') + '</strong><ul>' +
+                        r.reasons.map(x => '<li>' + x + '</li>').join('') + '</ul></div>' : '') +
+                      (gapsAll.length ? '<div class="data-gaps">' + t('Data gaps: ', 'ข้อมูลที่ขาด: ') + gapsAll.join(' · ') + '</div>' : '') +
+                      (r.limited ? '<div class="data-gaps">' + t('Limited data — ranked on fewer factors than others.', 'ข้อมูลจำกัด — จัดอันดับจากปัจจัยน้อยกว่าโรงเรียนอื่น') + '</div>' : '') +
+                    '</div>' +
+                    '<div class="school-details"><strong>' + t('Published data:', 'ข้อมูลที่เผยแพร่:') + '</strong><ul>' +
+                      facts.map(f => '<li><span>' + f[0] + '</span><span>' + f[1] + '</span></li>').join('') +
+                    '</ul>' +
+                    '<a class="profile-link" href="../schools/' + s.slug + '.html">' + t('Full school profile →', 'ดูข้อมูลโรงเรียนฉบับเต็ม →') + '</a></div>';
+                schoolResultsGrid.appendChild(card);
+            });
+
+            const limits = document.createElement('p');
+            limits.className = 'limits-line';
+            limits.textContent = t(
+                'This shortlist is built from ' + questions.length + ' answers and published school data — enough to narrow the field, not to decide. A consultation adds entry requirements, waiting lists and first-hand school knowledge.',
+                'รายชื่อนี้สร้างจากคำตอบ ' + questions.length + ' ข้อและข้อมูลที่โรงเรียนเผยแพร่ — เพียงพอสำหรับคัดกรองเบื้องต้น แต่ยังไม่พอสำหรับตัดสินใจ การปรึกษาผู้เชี่ยวชาญจะเพิ่มข้อมูลเกณฑ์รับเข้า รายชื่อรอ และประสบการณ์ตรงกับโรงเรียน');
+            schoolResultsGrid.appendChild(limits);
+        }
+
+        // ---- Save results ------------------------------------------------------------
+        function saveResults() {
+            if (!lastResults) return;
+            const { prof, top } = lastResults;
+            const topSchools = top.map(r => ({ name: r.school.name, score: r.pct, slug: r.school.slug }));
+            openSaveModal({
+                tool_name: 'personality-match',
+                tool_label: 'School Fit Finder',
+                result_summary: 'Top matches: ' + topSchools.map(x => x.name + ' (' + x.score + '%)').join(', '),
+                result_data: {
+                    topSchools,
+                    filters: { child: prof.child, entry: prof.entry, budget: prof.budget },
+                    preferences: {
+                        community: prof.community, academicTarget: prof.academicTarget,
+                        size: prof.size, region: prof.region, boarding: prof.boarding,
+                        university: prof.university, sports: prof.sports
+                    },
+                    answers: questions.map(q => {
+                        const a = userAnswers[q.id];
+                        if (a === undefined) return null;
+                        const label = q.multi ? a.map(i => q.options[i].en).join(', ') : q.options[a].en;
+                        return { q: q.en, a: label };
+                    }).filter(Boolean)
+                }
+            });
+        }
+
+        // ---- Rendering: questions -------------------------------------------------
+        function updateProgressBar() {
+            const answeredCount = questions.filter(isAnswered).length;
+            quizProgressBar.style.width = ((answeredCount / questions.length) * 100) + '%';
             const allAnswered = answeredCount === questions.length;
             if (currentQuestionIndex === questions.length - 1) {
                 submitBtn.disabled = !allAnswered;
                 submitBtn.classList.toggle('btn-secondary', !allAnswered);
                 submitBtn.classList.toggle('btn-primary', allAnswered);
             }
+            nextBtn.disabled = !isAnswered(questions[currentQuestionIndex]) && questions[currentQuestionIndex].multi;
         }
 
         function renderQuestion() {
             const question = questions[currentQuestionIndex];
-            const questionLabelEn = `· QUESTION ${currentQuestionIndex + 1} OF ${questions.length} ·`;
-            const questionLabelTh = `· คำถามที่ ${currentQuestionIndex + 1} จาก ${questions.length} ·`;
+            const label = t('· QUESTION ' + (currentQuestionIndex + 1) + ' OF ' + questions.length + ' ·',
+                            '· คำถามที่ ' + (currentQuestionIndex + 1) + ' จาก ' + questions.length + ' ·');
+            const hint = question.multi ? '<p class="multi-hint">' + t('Select up to ' + question.max + ', then press Next.', 'เลือกได้สูงสุด ' + question.max + ' รายการ แล้วกด "ถัดไป"') + '</p>' : '';
 
-            questionDisplay.innerHTML = `
-                <p class="section-label">${currentLanguage === 'en' ? questionLabelEn : questionLabelTh}</p>
-                <h3 class="question-text">${question[currentLanguage]}</h3>
-                <div class="options-grid">
-                    ${question.options.map((option, index) => `
-                        <div class="option-card" data-option-index="${index}">
-                            ${option[currentLanguage]}
-                            ${option.tooltip ? `<div style="font-size:10px;color:#888;margin-top:5px;line-height:1.4;font-style:italic">${option.tooltip}</div>` : ''}
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            questionDisplay.innerHTML =
+                '<p class="section-label">' + label + '</p>' +
+                '<h3 class="question-text">' + question[currentLanguage] + '</h3>' + hint +
+                '<div class="options-grid">' +
+                question.options.map((option, index) =>
+                    '<div class="option-card" data-option-index="' + index + '">' + option[currentLanguage] + '</div>'
+                ).join('') + '</div>';
 
-            const selectedOptionIndex = userAnswers[question.id];
-            if (selectedOptionIndex !== undefined) {
-                const selectedOptionCard = questionDisplay.querySelector(`[data-option-index="${selectedOptionIndex}"]`);
-                if (selectedOptionCard) {
-                    selectedOptionCard.classList.add('selected');
-                }
-            }
+            const applySelected = () => {
+                const a = userAnswers[question.id];
+                questionDisplay.querySelectorAll('.option-card').forEach(oc => {
+                    const idx = parseInt(oc.dataset.optionIndex);
+                    const sel = question.multi ? Array.isArray(a) && a.includes(idx) : a === idx;
+                    oc.classList.toggle('selected', sel);
+                });
+            };
+            applySelected();
 
             questionDisplay.querySelectorAll('.option-card').forEach(card => {
                 card.addEventListener('click', (event) => {
-                    questionDisplay.querySelectorAll('.option-card').forEach(oc => oc.classList.remove('selected'));
-                    event.currentTarget.classList.add('selected');
-                    userAnswers[question.id] = parseInt(event.currentTarget.dataset.optionIndex);
-                    updateProgressBar();
-                    if (currentQuestionIndex < questions.length - 1) {
-                        setTimeout(() => {
-                            nextQuestion();
-                        }, 300);
-                    } else if (Object.keys(userAnswers).length === questions.length) {
-                        // All questions answered — auto-submit after brief pause
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('btn-secondary');
-                        submitBtn.classList.add('btn-primary');
-                        setTimeout(() => {
-                            displayResults();
-                        }, 300);
+                    const idx = parseInt(event.currentTarget.dataset.optionIndex);
+                    if (question.multi) {
+                        let arr = Array.isArray(userAnswers[question.id]) ? userAnswers[question.id].slice() : [];
+                        const opt = question.options[idx];
+                        if (opt.exclusive) {
+                            arr = arr.includes(idx) ? [] : [idx];
+                        } else {
+                            arr = arr.filter(i => !question.options[i].exclusive);
+                            if (arr.includes(idx)) arr = arr.filter(i => i !== idx);
+                            else if (arr.length < question.max) arr.push(idx);
+                        }
+                        userAnswers[question.id] = arr;
+                        applySelected();
+                        updateProgressBar();
+                    } else {
+                        userAnswers[question.id] = idx;
+                        applySelected();
+                        updateProgressBar();
+                        if (currentQuestionIndex < questions.length - 1) {
+                            setTimeout(nextQuestion, 300);
+                        } else if (questions.every(isAnswered)) {
+                            setTimeout(displayResults, 300);
+                        }
                     }
                 });
             });
@@ -1023,229 +1213,44 @@
             prevBtn.classList.toggle('hidden', currentQuestionIndex === 0);
             nextBtn.classList.toggle('hidden', currentQuestionIndex === questions.length - 1);
             submitBtn.classList.toggle('hidden', currentQuestionIndex !== questions.length - 1);
-
-            updateProgressBar(); // Ensure progress bar and submit button state are correct on render
+            updateProgressBar();
         }
 
         function nextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
-            }
+            if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; renderQuestion(); }
         }
-
         function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderQuestion();
-            }
+            if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); }
         }
 
-        function calculateMatchScore(childProfile, school) {
-            let score = 0;
-            const reasons = [];
-
-            const weights = {
-                location: 10,
-                size: 8,
-                academicFocus: 12,
-                characterFocus: 8,
-                freeTimeActivities: 7,
-                subjectStrengths: 10,
-                universityPlacement: 12,
-                pastoralCare: 9,
-                extracurricularEmphasis: 10
-            };
-
-            if (childProfile.location && school.location === childProfile.location) {
-                score += weights.location;
-                reasons.push({ en: `Prefers a ${childProfile.location} setting`, th: `ชอบสภาพแวดล้อมแบบ${getSchoolLocationThai(childProfile.location)}` });
-            }
-
-            if (childProfile.size && school.size === childProfile.size) {
-                score += weights.size;
-                reasons.push({ en: `Prefers a ${childProfile.size} school environment`, th: `ชอบโรงเรียนขนาด${getSchoolSizeThai(childProfile.size)}` });
-            }
-
-            if (childProfile.academicFocus && school.academicFocus === childProfile.academicFocus) {
-                score += weights.academicFocus;
-                reasons.push({ en: `Matches academic focus: ${childProfile.academicFocus}`, th: `ตรงกับจุดเน้นทางวิชาการ: ${getAcademicFocusThai(childProfile.academicFocus)}` });
-            }
-
-            if (childProfile.characterFocus && school.characterFocus) {
-                score += weights.characterFocus;
-                reasons.push({ en: `Values character development`, th: `ให้ความสำคัญกับการพัฒนาบุคลิกภาพ` });
-            }
-
-            if (childProfile.freeTimeActivities && childProfile.freeTimeActivities.length > 0) {
-                const commonActivities = school.freeTimeActivities.filter(activity => childProfile.freeTimeActivities.includes(activity));
-                if (commonActivities.length > 0) {
-                    score += weights.freeTimeActivities * commonActivities.length;
-                    reasons.push({ en: `Offers preferred free time activities like ${commonActivities.join(', ')}`, th: `มีกิจกรรมยามว่างที่ชื่นชอบ เช่น ${commonActivities.map(a => getFreeTimeActivityThai(a)).join(', ')}` });
-                }
-            }
-
-            if (childProfile.subjectStrengths && childProfile.subjectStrengths.length > 0) {
-                const commonSubjects = school.subjectStrengths.filter(subject => childProfile.subjectStrengths.includes(subject));
-                if (commonSubjects.length > 0) {
-                    score += weights.subjectStrengths * commonSubjects.length;
-                    reasons.push({ en: `Strong in subjects like ${commonSubjects.join(', ')}`, th: `โดดเด่นในวิชาเช่น ${commonSubjects.map(s => getSubjectStrengthThai(s)).join(', ')}` });
-                }
-            }
-
-            if (childProfile.universityPlacement && childProfile.universityPlacement.length > 0) {
-                const commonPlacements = school.universityPlacement.filter(placement => childProfile.universityPlacement.includes(placement));
-                if (commonPlacements.length > 0) {
-                    score += weights.universityPlacement * commonPlacements.length;
-                    reasons.push({ en: `Good placement record for ${commonPlacements.join(', ')} universities`, th: `มีประวัติการเข้ามหาวิทยาลัย ${commonPlacements.map(u => getUniversityPlacementThai(u)).join(', ')} ที่ดี` });
-                }
-            }
-
-            if (childProfile.pastoralCare && school.pastoralCare === childProfile.pastoralCare) {
-                score += weights.pastoralCare;
-                reasons.push({ en: `Matches pastoral care preference: ${childProfile.pastoralCare}`, th: `ตรงกับความต้องการด้านการดูแล: ${getPastoralCareThai(childProfile.pastoralCare)}` });
-            }
-
-            if (childProfile.extracurricularEmphasis && school.extracurricularEmphasis === childProfile.extracurricularEmphasis) {
-                score += weights.extracurricularEmphasis;
-                reasons.push({ en: `Strong emphasis on ${childProfile.extracurricularEmphasis} extracurriculars`, th: `เน้นกิจกรรมนอกหลักสูตรด้าน ${getExtracurricularEmphasisThai(childProfile.extracurricularEmphasis)}` });
-            }
-
-            return { score, reasons };
-        }
-
-        function displayResults() {
-            const childProfile = {
-                freeTimeActivities: [],
-                academicFocus: null,
-                characterFocus: false,
-                location: null,
-                size: null,
-                subjectStrengths: [],
-                universityPlacement: [],
-                pastoralCare: null,
-                extracurricularEmphasis: null
-            };
-
-            questions.forEach(question => {
-                const selectedOptionIndex = userAnswers[question.id];
-                if (selectedOptionIndex !== undefined) {
-                    const attributes = question.options[selectedOptionIndex].attributes;
-                    for (const key in attributes) {
-                        if (Array.isArray(attributes[key])) {
-                            childProfile[key] = [...(childProfile[key] || []), ...attributes[key]];
-                        } else if (typeof attributes[key] === 'boolean') {
-                            childProfile[key] = childProfile[key] || attributes[key];
-                        } else {
-                            childProfile[key] = attributes[key];
-                        }
-                    }
-                }
+        // ---- Language toggle -----------------------------------------------------
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('linkedU_lang', lang);
+            const titleText = pageTitle.getAttribute('data-' + lang);
+            if (titleText) pageTitle.textContent = titleText;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-en], [data-th]').forEach(el => {
+                const text = el.getAttribute('data-' + lang);
+                if (text) el.innerHTML = text;
             });
-
-            for (const key in childProfile) {
-                if (Array.isArray(childProfile[key])) {
-                    childProfile[key] = [...new Set(childProfile[key])]; // Remove duplicates
-                }
-            }
-
-            const schoolScores = SCHOOLS.map(school => {
-                const { score, reasons } = calculateMatchScore(childProfile, school);
-                return { school, score, reasons };
-            });
-
-            const sortedSchools = schoolScores.sort((a, b) => b.score - a.score);
-            const topSchools = sortedSchools.slice(0, 5); // Display top 5 schools
-
-            schoolResultsGrid.innerHTML = ''; // Clear previous results
-
-            if (topSchools.length === 0) {
-                schoolResultsGrid.innerHTML = `<p class="text-center" data-en="No schools matched your preferences. Please try again with different answers." data-th="ไม่พบโรงเรียนที่ตรงกับความต้องการของคุณ กรุณาลองอีกครั้งด้วยคำตอบที่แตกต่างกัน"></p>`;
-                schoolResultsGrid.querySelector('p').textContent = currentLanguage === 'en' ? "No schools matched your preferences. Please try again with different answers." : "ไม่พบโรงเรียนที่ตรงกับความต้องการของคุณ กรุณาลองอีกครั้งด้วยคำตอบที่แตกต่างกัน";
-            } else {
-                topSchools.forEach(match => {
-                    const school = match.school;
-                    const scorePercentage = Math.min(100, Math.round((match.score / 100) * 100)); // Normalize score to a percentage, capping at 100%
-
-                    const reasonsHtml = match.reasons.length > 0 ? `
-                        <div class="reasons">
-                            <strong data-en="Why this school is a good match:" data-th="เหตุผลที่โรงเรียนนี้เหมาะสม:">Why this school is a good match:</strong>
-                            <ul>
-                                ${match.reasons.map(reason => `
-                                    <li>${reason[currentLanguage]}</li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                    ` : '';
-
-                    const schoolDetailsHtml = `
-                        <div class="school-details">
-                            <strong data-en="School Profile:" data-th="ข้อมูลโรงเรียน:">School Profile:</strong>
-                            <ul>
-                                <li>
-                                    <span data-en="Location:" data-th="ที่ตั้ง:">Location:</span>
-                                    <span>${currentLanguage === 'en' ? (school.location === 'near_london' ? 'Near London/Heathrow' : school.location.charAt(0).toUpperCase() + school.location.slice(1)) : getSchoolLocationThai(school.location)}</span>
-                                </li>
-                                <li>
-                                    <span data-en="Size:" data-th="ขนาด:">Size:</span>
-                                    <span>${currentLanguage === 'en' ? school.size.charAt(0).toUpperCase() + school.size.slice(1) : getSchoolSizeThai(school.size)}</span>
-                                </li>
-                                <li>
-                                    <span data-en="Academic Focus:" data-th="จุดเน้นวิชาการ:">Academic Focus:</span>
-                                    <span>${currentLanguage === 'en' ? school.academicFocus.charAt(0).toUpperCase() + school.academicFocus.slice(1) : getAcademicFocusThai(school.academicFocus)}</span>
-                                </li>
-                                <li>
-                                    <span data-en="Fees (per term):" data-th="ค่าธรรมเนียม (ต่อเทอม):">Fees (per term):</span>
-                                    <span>£${school.feesPerTerm.toLocaleString()}</span>
-                                </li>
-                                <li>
-                                    <span data-en="Key Sports:" data-th="กีฬาสําคัญ:">Key Sports:</span>
-                                    <div class="sports-list">
-                                        ${school.sports.map(sport => `<span>${sport}</span>`).join('')}
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    `;
-
-                    const schoolCard = document.createElement('div');
-                    schoolCard.classList.add('card', 'school-card');
-                    schoolCard.innerHTML = `
-                        <div>
-                            <h3>${school.name}</h3>
-                            <div class="compatibility-score">${scorePercentage}<span>%</span></div>
-                            ${reasonsHtml}
-                        </div>
-                        ${schoolDetailsHtml}
-                    `;
-                    schoolResultsGrid.appendChild(schoolCard);
-                });
-            }
-
-            quizSection.classList.add('hidden');
-            resultsSection.classList.remove('hidden');
-
-            // Update section label for results section
-            const resultsSectionLabel = resultsSection.querySelector('.section-label');
-            resultsSectionLabel.textContent = currentLanguage === 'en' ? "· YOUR TOP MATCHES ·" : "· โรงเรียนที่ตรงกับคุณที่สุด ·";
-
-            // Update results section heading
-            const resultsSectionHeading = resultsSection.querySelector('h2');
-            resultsSectionHeading.textContent = currentLanguage === 'en' ? "Recommended Schools for Your Child" : "โรงเรียนแนะนำสำหรับบุตรหลานของคุณ";
+            langEnBtn.classList.toggle('active', lang === 'en');
+            langThBtn.classList.toggle('active', lang === 'th');
+            if (!quizSection.classList.contains('hidden')) renderQuestion();
+            if (!resultsSection.classList.contains('hidden')) renderResults();
         }
 
-        // Event Listeners
+        // ---- Wiring ----------------------------------------------------------------
         prevBtn.addEventListener('click', prevQuestion);
         nextBtn.addEventListener('click', nextQuestion);
-        submitBtn.addEventListener('click', displayResults);
-
+        submitBtn.addEventListener('click', () => { if (questions.every(isAnswered)) displayResults(); });
         langEnBtn.addEventListener('click', () => setLanguage('en'));
         langThBtn.addEventListener('click', () => setLanguage('th'));
+        document.getElementById('save-results-btn').addEventListener('click', saveResults);
 
-        // Initial setup
         document.addEventListener('DOMContentLoaded', () => {
-            setLanguage(currentLanguage); // Set initial language
-            renderQuestion(); // Render the first question
+            setLanguage(currentLanguage);
+            renderQuestion();
         });
     </script>
 

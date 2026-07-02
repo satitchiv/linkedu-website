@@ -1308,7 +1308,7 @@
         <div class="control-label lang-en">Annual Budget</div>
         <div class="budget-display">
           <span class="budget-display-gbp" id="budgetGBP">£55,000</span>
-          <span class="budget-display-thb" id="budgetTHB">฿2,475,000</span>
+          <span class="budget-display-thb" id="budgetTHB">฿2,365,000</span>
         </div>
         <input type="range" id="budgetSlider" min="10000" max="120000" step="1000" value="55000">
       </div>
@@ -1319,11 +1319,11 @@
         <div class="control-label lang-en">Exchange Rate</div>
         <div class="pills-row">
           <button class="pill" data-rate="40" onclick="setRate(40, this)">฿40</button>
-          <button class="pill active" data-rate="45" onclick="setRate(45, this)">฿45</button>
-          <button class="pill" data-rate="50" onclick="setRate(50, this)">฿50</button>
+          <button class="pill active" data-rate="43" onclick="setRate(43, this)">฿43</button>
+          <button class="pill" data-rate="47" onclick="setRate(47, this)">฿47</button>
         </div>
         <div style="margin-top:0.4rem;font-size:0.72rem;color:rgba(26,26,26,0.45);font-family:'Inter',sans-serif;">
-          <span class="lang-th">อัตราปัจจุบันประมาณ ฿43</span><span class="lang-en">Current rate approx. ฿43</span>
+          <span class="lang-th">อัตราแลกเปลี่ยนเปลี่ยนแปลงทุกวัน — กรุณาตรวจสอบอัตราวันนี้ก่อนตัดสินใจ</span><span class="lang-en">Exchange rates move daily — check today's rate before deciding</span>
         </div>
       </div>
 
@@ -1333,7 +1333,7 @@
         <div class="control-label lang-en">VAT 20%</div>
         <div class="vat-toggle-row">
           <label class="toggle-switch">
-            <input type="checkbox" id="vatToggle" checked>
+            <input type="checkbox" id="vatToggle">
             <span class="toggle-slider"></span>
           </label>
           <span class="toggle-label">
@@ -1342,7 +1342,7 @@
           </span>
         </div>
         <div style="margin-top:0.4rem;font-size:0.72rem;color:rgba(26,26,26,0.45);font-family:'Inter',sans-serif;line-height:1.4;">
-          <span class="lang-th">โรงเรียนเอกชน UK เพิ่ม VAT 20% ตั้งแต่ มกราคม 2568</span><span class="lang-en">UK private schools added VAT 20% from January 2025</span>
+          <span class="lang-th">ค่าเทอมด้านล่างรวม VAT แล้ว (กรณีโรงเรียนเรียกเก็บ)</span><span class="lang-en">Fees below already include VAT where the school applies it</span>
         </div>
       </div>
     </div>
@@ -1363,8 +1363,8 @@
     </div>
 
     <div class="vat-notice">
-      <span class="lang-th">* ราคาที่แสดงคือค่าเทอมบอร์ดดิ้งต่อปี (ก่อน VAT) สำหรับโรงเรียนเอกชนที่ไม่ใช่รัฐ VAT 20% จะถูกเพิ่มเข้าไปเมื่อเปิดใช้งาน</span>
-      <span class="lang-en">* Fees shown are annual full-boarding tuition (pre-VAT). VAT +20% applies to non-state private schools when enabled.</span>
+      <span class="lang-th">* ราคาที่แสดงคือค่าเทอมบอร์ดดิ้งต่อปีที่เผยแพร่สำหรับปีการศึกษา 2568–69 ซึ่งรวม VAT แล้วในกรณีที่โรงเรียนเรียกเก็บ ปุ่มเปิด/ปิดนี้ใช้เพิ่ม VAT 20% เฉพาะเมื่อคุณต้องการเปรียบเทียบกับราคาที่โรงเรียนแจ้งแบบก่อน VAT เท่านั้น</span>
+      <span class="lang-en">* Fees shown are published 2025–26 annual boarding fees, which already reflect VAT where schools apply it. The toggle adds 20% only if you're comparing against a school quoting pre-VAT figures.</span>
     </div>
 
     <!-- Count bar -->
@@ -1543,7 +1543,7 @@ LINKEDU จะติดต่อกลับภายใน 24 ชั่วโ�
         <div class="footer-heading"><span class="lang-th">เตรียมตัว</span><span class="lang-en">Prepare</span></div>
         <div class="footer-links">
           <a href="../prepare.html" class="footer-link"><span class="lang-th">ไทม์ไลน์สมัครเรียน</span><span class="lang-en">Application Timeline</span></a>
-          <a href="interview-prep-guide.html" class="footer-link"><span class="lang-th">เตรียมสัมภาษณ์</span><span class="lang-en">Interview Prep</span></a>
+          <a href="tutoring/tutoring-interview-scorer.html" class="footer-link"><span class="lang-th">เช็คลิสต์ความพร้อมสัมภาษณ์</span><span class="lang-en">Interview Readiness Checklist</span></a>
           <a href="culture-shock-readiness-quiz.html" class="footer-link"><span class="lang-th">ความพร้อมทางวัฒนธรรม</span><span class="lang-en">Culture Readiness</span></a>
           <a href="../guides.html" class="footer-link"><span class="lang-th">คู่มือครอบครัวไทย</span><span class="lang-en">Guides for Thai Families</span></a>
         </div>
@@ -1646,15 +1646,15 @@ LINKEDU จะติดต่อกลับภายใน 24 ชั่วโ�
 const SCHOOLS = [
   {"name":"Abbotsholme","minFee":20985,"maxFee":44313,"remission":"Remission: Not publicly stated | 11+: Academic, Agriculture, Art, Drama, Equestrian, Music, Sport | 16+: Academic, Agric","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Royal Masonic School for Girls","minFee":22233,"maxFee":22233,"remission":"Remission: up to 25% | 11+: Academic, All-Rounder, Art, Drama, Music, Sport | 16+: Academic, All-Rounder, Art, Drama, Mu","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Girls School","isState":false},
-  {"name":"D'Overbroeks College","minFee":25080,"maxFee":278106196538415,"remission":"Remission: up to 25% of tuition | 16+: Academic, Art, Drama, Media, Music, Sport, Tennis Academy","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"D'Overbroeks College","minFee":25080,"maxFee":null,"remission":"Remission: up to 25% of tuition | 16+: Academic, Art, Drama, Media, Music, Sport, Tennis Academy","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Kent College Canterbury","minFee":27978,"maxFee":38649,"remission":"Remission: up to 50% tuition; most awards ~20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Design, D","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
-  {"name":"Bedford School","minFee":30057,"maxFee":3711340755,"remission":"Remission: Music = free tuition on 2 instruments; other % not specified | 13+: Academic, Art, Computer Science, Drama, G","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
+  {"name":"Bedford School","minFee":30057,"maxFee":null,"remission":"Remission: Music = free tuition on 2 instruments; other % not specified | 13+: Academic, Art, Computer Science, Drama, G","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
   {"name":"Sidcot School","minFee":31350,"maxFee":39900,"remission":"Remission: 10% | 11+: Academic, Art, DT, Drama, Equestrian, Music, Peace & Global, Sport | 13+: Academic, Art, DT, Drama","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
-  {"name":"Kingswood School","minFee":32268,"maxFee":3840640794,"remission":"Remission: 5–15% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Art, Design ","maxScholPct":15,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Kingswood School","minFee":32268,"maxFee":null,"remission":"Remission: 5–15% | 11+: Academic, Art, Design Technology, Drama, Music, Sport | 13+: Academic, All-Rounder, Art, Design ","maxScholPct":15,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
   {"name":"Oxford International College","minFee":33637,"maxFee":35075,"remission":"Remission: partial to 100% | 16+: Academic","maxScholPct":100,"scholTypes":"Academic, Art","type":"Sixth Form College","isState":false},
   {"name":"Ardingly College","minFee":33903,"maxFee":48741,"remission":"Remission: 5–25% | 11+: Academic, Art, Dance, Drama, Music, Sport | 13+: Academic, Art, Dance, Drama, Music, Sport | 16+","maxScholPct":25,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Haileybury","minFee":33990,"maxFee":53580,"remission":"Remission: Not publicly specified | 11+: Academic, Art, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mus","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
-  {"name":"Leighton Park School","minFee":34800,"maxFee":4288542675,"remission":"Remission: 5–30%; honorary also awarded | 11+: Academic, Art, Dance, Drama, Ethical Changemaking, Music, Sport, STEAM | ","maxScholPct":30,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
+  {"name":"Leighton Park School","minFee":34800,"maxFee":null,"remission":"Remission: 5–30%; honorary also awarded | 11+: Academic, Art, Dance, Drama, Ethical Changemaking, Music, Sport, STEAM | ","maxScholPct":30,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Ashville College","minFee":34965,"maxFee":46095,"remission":"Remission: Fee discount (% not publicly disclosed) | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Mount Kelly","minFee":35370,"maxFee":49500,"remission":"Remission: Up to 10% (Westall Award: full day fee at 16+) | 11+: Academic, Art, Drama, Music, Sport, Swimming | 13+: Aca","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
   {"name":"Moreton Hall","minFee":35469,"maxFee":40233,"remission":"Remission: Up to 20% | 11+: Academic, Art, Drama, Music, Sport | 13+: Academic, Art, Drama, Music, Sport | 16+: Academic","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
@@ -1706,9 +1706,10 @@ const SCHOOLS = [
   {"name":"Mill Hill School","minFee":52320,"maxFee":52320,"remission":"Remission: up to 10% | 13+: Academic, Art & Design, Drama, DT, Music, Sport | 16+: Academic, Art & Design, Drama, DT, Mu","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"King's School Canterbury","minFee":52344,"maxFee":52344,"remission":"Remission: Fraction of annual fees (exact % undisclosed) | 13+: Academic, Art, Dance, DT, Drama, Music, Sport | 16+: Aca","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
   {"name":"Bishop's Stortford College","minFee":52479,"maxFee":52479,"remission":"Remission: 10–20% (Exhibition: up to 5%; Honorary: no remission) | 11+: Academic, Art, Music, Sport | 13+: Academic, Art","maxScholPct":20,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
-  {"name":"Taunton School","minFee":52530,"maxFee":5587512,"remission":"Remission: % not publicly specified | 11+: Academic, Art, Dance, Drama, DT, Music, Sport | 13+: Academic, Art, Drama, DT","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
+  {"name":"Taunton School","minFee":52530,"maxFee":null,"remission":"Remission: % not publicly specified | 11+: Academic, Art, Dance, Drama, DT, Music, Sport | 13+: Academic, Art, Drama, DT","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
   {"name":"Caterham School","minFee":52620,"maxFee":55455,"remission":"Remission: Up to 10% (up to 50% exceptional) | 11+: Academic, Art, Chess, Dance, Drama, Innovation, Music, Sport | 13+: ","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Co-Ed","isState":false},
-  {"name":"Eton College","minFee":52749,"maxFee":202563300,"remission":"Remission: Academic = honorary; Music = free tuition; Orwell Award (16+, state school) = 100% fees | 13+: Academic (King","maxScholPct":100,"scholTypes":"Academic, Music, Drama","type":"Boys School","isState":false},
+  // Eton College: minFee corrected from stale 52749 to 63300 (matches portal's cleaned dataset); maxFee was corrupt (202563300) so cleared to null
+  {"name":"Eton College","minFee":63300,"maxFee":null,"remission":"Remission: Academic = honorary; Music = free tuition; Orwell Award (16+, state school) = 100% fees | 13+: Academic (King","maxScholPct":100,"scholTypes":"Academic, Music, Drama","type":"Boys School","isState":false},
   {"name":"Eastbourne College","minFee":52959,"maxFee":53781,"remission":"Remission: 5–20% (up to 50% exceptional) | 13+: Academic, All-Rounder, Art, Dance, DT, Drama, Music, Sport | 16+: Academ","maxScholPct":50,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder","type":"Co-Ed","isState":false},
   {"name":"Lancing College","minFee":53319,"maxFee":53319,"remission":"Remission: 5–10% | 13+: Academic, All-Rounder, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Art, Drama, ","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, All-Rounder, STEM","type":"Co-Ed","isState":false},
   {"name":"Sherborne School for Girls","minFee":53640,"maxFee":53640,"remission":"Remission: Honorary only (no fee discount) | 11+: Academic, Music | 13+: Academic, Art, Drama, Music, Sport | 16+: Acade","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama","type":"Girls School","isState":false},
@@ -1755,9 +1756,10 @@ const SCHOOLS = [
   {"name":"The National Mathematics and Science College","minFee":69984,"maxFee":69984,"remission":"Remission: 5–10% (day tuition); up to 100% (local scholarship) | 16+: Academic","maxScholPct":100,"scholTypes":"Academic","type":"Co-Ed","isState":false},
   {"name":"Queen Ethelburga's Collegiate","minFee":69990,"maxFee":69990,"remission":"Remission: Scholarships withdrawn for new pupils (school absorbed VAT impact); no current merit scholarships available","maxScholPct":0,"scholTypes":"Academic","type":"Co-Ed","isState":false},
   {"name":"Abbey DLD College (Manchester)","minFee":0,"maxFee":0,"remission":"Remission: up to 50% | 16+: Academic","maxScholPct":50,"scholTypes":"Academic","type":"Sixth Form College","isState":false},
-  {"name":"Oakham School","minFee":4065053064,"maxFee":4065053064,"remission":"Remission: Small/not publicly specified | 11+: Academic, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mu","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
-  {"name":"Sherborne","minFee":4477555386,"maxFee":4477555386,"remission":"Remission: Up to 10% | 13+: Academic, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
-  {"name":"Dulwich College","minFee":4794961323,"maxFee":4794961323,"remission":"Remission: 10–33% | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":33,"scholTypes":"Academic, Art, Music, Sport","type":"Boys School","isState":false}
+  // The 3 entries below had minFee corrupted by min+max digit concatenation (e.g. 4065053064 = 40650|53064); de-concatenated here
+  {"name":"Oakham School","minFee":40650,"maxFee":53064,"remission":"Remission: Small/not publicly specified | 11+: Academic, Music, Sport | 13+: Academic, Art, Design Technology, Drama, Mu","maxScholPct":0,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Co-Ed","isState":false},
+  {"name":"Sherborne","minFee":44775,"maxFee":55386,"remission":"Remission: Up to 10% | 13+: Academic, Art, Design Technology, Drama, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":10,"scholTypes":"Academic, Art, Music, Sport, Drama, STEM","type":"Boys School","isState":false},
+  {"name":"Dulwich College","minFee":47949,"maxFee":61323,"remission":"Remission: 10–33% | 11+: Academic, Music | 13+: Academic, Art, Music, Sport | 16+: Academic, Music, Sport","maxScholPct":33,"scholTypes":"Academic, Art, Music, Sport","type":"Boys School","isState":false}
 ];
 
 /* ──────────────────────────────────
@@ -1765,8 +1767,8 @@ const SCHOOLS = [
 ────────────────────────────────── */
 const state = {
   budget: 55000,
-  rate: 45,
-  vatOn: true,
+  rate: 43,
+  vatOn: false,
   typeFilter: 'all',
   selectedSchool: null,
   livingCosts: {
@@ -1854,6 +1856,9 @@ function typeMatchesFilter(school) {
 
 function getMatchingSchools() {
   return SCHOOLS.filter(s => {
+    // Belt-and-braces guard against dirty data: exclude schools with an impossible
+    // fee (£0 placeholder rows, or corrupt/concatenated figures above a realistic ceiling)
+    if (s.minFee <= 0 || s.minFee > 150000) return false;
     const fee = effectiveFee(s);
     return fee <= state.budget && typeMatchesFilter(s);
   });
@@ -2121,14 +2126,14 @@ function renderStep2() {
         '<div class="panel-title lang-th">ค่าเทอม</div>' +
         '<div class="panel-title lang-en">School Fees</div>' +
         '<div class="fee-row">' +
-          '<span class="fee-row-label lang-th">ค่าบอร์ดดิ้ง (ก่อน VAT)</span>' +
-          '<span class="fee-row-label lang-en">Boarding Fee (pre-VAT)</span>' +
+          '<span class="fee-row-label lang-th">ค่าบอร์ดดิ้ง (ราคาเผยแพร่)</span>' +
+          '<span class="fee-row-label lang-en">Boarding Fee (published rate)</span>' +
           '<span class="fee-row-val">' + fmtGBP(school.minFee) + '</span>' +
         '</div>' +
         (vatAmount > 0 ?
           '<div class="fee-row">' +
-            '<span class="fee-row-label lang-th">VAT 20%</span>' +
-            '<span class="fee-row-label lang-en">VAT 20%</span>' +
+            '<span class="fee-row-label lang-th">VAT 20% (เปรียบเทียบ)</span>' +
+            '<span class="fee-row-label lang-en">VAT 20% (comparison)</span>' +
             '<span class="fee-row-val">+ ' + fmtGBP(vatAmount) + '</span>' +
           '</div>' : '') +
         '<div class="fee-row fee-row-total">' +
