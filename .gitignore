@@ -26,3 +26,6 @@ server.py*
 
 # Local Netlify folder
 .netlify
+
+# nested portal repo (own git repo, must never be committed here)
+portal/
