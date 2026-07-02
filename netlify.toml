@@ -9,3 +9,29 @@
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+# ── Umbrella clean paths ──────────────────────────────────────
+[[redirects]]
+  from = "/uk"
+  to = "/uk-home.html"
+  status = 200
+
+[[redirects]]
+  from = "/china"
+  to = "/studyinchina.html"
+  status = 200
+
+[[redirects]]
+  from = "/swiss"
+  to = "/studyinswitzerland.html"
+  status = 200
+
+[[redirects]]
+  from = "/golf"
+  to = "/golf-academy/"
+  status = 301
+
+[[redirects]]
+  from = "/camps"
+  to = "/summer-camps.html"
+  status = 200
