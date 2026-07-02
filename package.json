@@ -4,6 +4,6 @@
   "private": true,
   "description": "LINKEDU marketing site + Netlify functions",
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "2.99.2"
   }
 }
