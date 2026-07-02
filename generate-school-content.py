@@ -14,7 +14,9 @@ import urllib.request, urllib.error, json, os, sys, re, time
 # ── Config ────────────────────────────────────────────────────────────────────
 env_lines = open(os.path.expanduser("~/.openclaw/.env")).read().splitlines()
 NOTION_KEY  = next(l.split("=",1)[1].strip() for l in env_lines if l.startswith("NOTION_API_KEY"))
-GEMINI_KEY  = os.environ.get("GEMINI_API_KEY") or next((l.split("=",1)[1].strip() for l in env_lines if l.startswith("GEMINI_API_KEY")), "AIzaSyCslTW5KciIfB5EjmK4i0H0SEGvA1KuJEU")
+GEMINI_KEY  = os.environ.get("GEMINI_API_KEY") or next((l.split("=",1)[1].strip() for l in env_lines if l.startswith("GEMINI_API_KEY")), None)
+if not GEMINI_KEY:
+    sys.exit("GEMINI_API_KEY not set (env var or ~/.openclaw/.env)")
 DB_ID       = "30e9d89c-abdc-8002-a053-f16764e9d51d"
 DRY_RUN     = "--dry-run" in sys.argv
 FILTER_NAME = next((sys.argv[i+1] for i,a in enumerate(sys.argv) if a == "--school"), None)
