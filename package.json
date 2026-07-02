@@ -1,0 +1,9 @@
+{
+  "name": "linkedu-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LINKEDU marketing site + Netlify functions",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}
