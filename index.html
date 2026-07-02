@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LINKEDU — เรียนต่อต่างประเทศสำหรับครอบครัวไทย | UK · China · Switzerland · Golf</title>
-  <meta name="description" content="ที่ปรึกษาเรียนต่อต่างประเทศสำหรับครอบครัวไทย — โรงเรียนประจำอังกฤษ 114 แห่ง มหาวิทยาลัยจีน 248 แห่ง โรงเรียนสวิตเซอร์แลนด์ 109 แห่ง และเส้นทางนักกอล์ฟเยาวชน | LinkedU guides Thai families to the right overseas education: UK boarding, China universities, Switzerland schools, golf pathways.">
+  <meta name="description" content="ที่ปรึกษาเรียนต่อต่างประเทศสำหรับครอบครัวไทย — โรงเรียนประจำอังกฤษ 114 แห่ง มหาวิทยาลัยจีน 248 แห่ง โรงเรียนสวิตเซอร์แลนด์ 109 แห่ง และเส้นทางนักกอล์ฟเยาวชน รับรายงานเส้นทางเรียนต่อของลูกคุณฟรี | LinkedU guides Thai families to the right overseas education: UK boarding, China universities, Switzerland schools, golf pathways. Get your child's free pathway report.">
   <meta property="og:title" content="LINKEDU — Overseas Education for Thai Families">
   <meta property="og:description" content="UK boarding · China universities · Switzerland schools · Junior golf pathways. One consultancy, four destinations, Thai-language care at every step.">
   <meta property="og:type" content="website">
@@ -15,115 +15,218 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ── Hub-specific styles ─────────────────────────────────── */
-    .hub-hero { background: var(--dark); color: var(--cream); padding: 96px 0 72px; }
-    .hub-hero .container { max-width: var(--max); }
-    .hub-eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .hub-title { font-family: 'Playfair Display', serif; font-weight: 700;
-      font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.12; margin: 0 0 22px; }
+    /* ── Hub: First-Class Lounge ─────────────────────────────── */
+    .hub-hero { background: var(--dark); color: var(--cream); padding: 84px 0 72px;
+      position: relative; overflow: hidden; }
+    .hub-hero::before { content: ""; position: absolute; top: -300px; left: 50%;
+      transform: translateX(-58%); width: 1200px; height: 800px; border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(closest-side, rgba(184,150,46,0.20), rgba(184,150,46,0.05) 55%, transparent 74%); }
+    .hub-hero .container { max-width: var(--max); position: relative;
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+    @media (max-width: 980px) { .hub-hero .container { grid-template-columns: 1fr; gap: 44px; } }
+    .hub-eyebrow { display: inline-flex; align-items: center; gap: 9px;
+      border: 1px solid rgba(245,240,232,0.2); border-radius: 6px; padding: 7px 14px;
+      font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(245,240,232,0.75); margin-bottom: 26px; }
+    .hub-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      animation: hubPulse 2.4s infinite; }
+    @keyframes hubPulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hub-title { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(2.4rem, 5vw, 3.9rem); line-height: 1.1; margin: 0 0 22px; }
     .hub-title em { font-style: italic; color: var(--gold); }
-    .hub-sub { font-family: 'Inter', sans-serif; font-size: 1.05rem; line-height: 1.7;
-      color: rgba(245,240,232,0.75); max-width: 640px; margin: 0; }
-    .hub-hero-cta { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
-    .hub-btn { display: inline-block; padding: 14px 28px; border-radius: var(--radius);
-      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none;
+    .hub-sub { font-family: 'Inter', sans-serif; font-size: 1.02rem; line-height: 1.75;
+      color: rgba(245,240,232,0.72); max-width: 480px; margin: 0 0 32px; }
+    .hub-hero-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .hub-btn { display: inline-block; padding: 14px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none;
       transition: var(--trans); }
-    .hub-btn-gold { background: var(--gold); color: var(--dark); }
+    .hub-btn-gold { background: var(--gold); color: var(--dark);
+      box-shadow: 0 14px 40px -14px rgba(184,150,46,0.55); }
     .hub-btn-gold:hover { background: var(--gold-dk); }
     .hub-btn-ghost { border: 1px solid rgba(245,240,232,0.35); color: var(--cream); }
     .hub-btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hub-proofline { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 30px;
+      font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(245,240,232,0.5); }
+    .hub-proofline i { font-style: normal; color: var(--gold); margin-right: 7px; }
 
-    /* ── Departures board (signature) ────────────────────────── */
-    .board { background: var(--dark); padding: 0 0 96px; }
-    .board .container { max-width: var(--max); }
-    .board-head { display: grid; grid-template-columns: 1fr auto; align-items: baseline;
-      border-bottom: 1px solid rgba(245,240,232,0.18); padding-bottom: 14px; margin-bottom: 4px; }
-    .board-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.3em;
-      text-transform: uppercase; color: rgba(245,240,232,0.45); }
-    .board-label .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--gold); margin-right: 10px; animation: pulse 2.2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
-    .dep-row { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr) 130px;
-      align-items: center; gap: 24px; padding: 30px 10px;
-      border-bottom: 1px solid rgba(245,240,232,0.12); text-decoration: none;
-      transition: background 0.25s ease; color: var(--cream);
+    /* ── Section labels (design bible) ───────────────────────── */
+    .sec-label { text-align: center; margin-bottom: 16px; }
+    .sec-label .rule { display: block; width: 56px; height: 1px; background: var(--gold); margin: 0 auto 14px; }
+    .sec-label .txt { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dk); font-weight: 600; }
+    .sec-label.on-dark .txt { color: var(--gold); }
+    .sec-label.left { text-align: left; } .sec-label.left .rule { margin: 0 0 14px; }
+
+    /* ── Departures board — glass instrument in hero ─────────── */
+    .boardshell { background: rgba(245,240,232,0.05); border: 1px solid rgba(245,240,232,0.12);
+      border-radius: 8px; padding: 7px; }
+    .board { background: rgba(26,26,26,0.6); border-radius: 6px;
+      border: 1px solid rgba(245,240,232,0.08);
+      box-shadow: inset 0 1px 1px rgba(245,240,232,0.07); padding: 22px 22px 8px; }
+    .board-head { display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid rgba(245,240,232,0.14); padding-bottom: 12px; margin-bottom: 4px; }
+    .board-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.28em;
+      text-transform: uppercase; color: rgba(245,240,232,0.5); }
+    .board-live { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .board-live::before { content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); animation: hubPulse 2.4s infinite; }
+    .dep-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+      padding: 15px 8px; border-bottom: 1px solid rgba(245,240,232,0.08); border-radius: 6px;
+      text-decoration: none; transition: background 0.25s ease; color: var(--cream);
       opacity: 0; transform: translateY(14px); animation: depIn 0.6s ease forwards; }
+    .dep-row:last-child { border-bottom: none; }
     .dep-row:nth-of-type(1){animation-delay:.05s} .dep-row:nth-of-type(2){animation-delay:.13s}
     .dep-row:nth-of-type(3){animation-delay:.21s} .dep-row:nth-of-type(4){animation-delay:.29s}
     .dep-row:nth-of-type(5){animation-delay:.37s}
     @keyframes depIn { to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion: reduce) {
       .dep-row { animation: none; opacity: 1; transform: none; }
-      .board-label .dot { animation: none; }
+      .hub-eyebrow .dot, .board-live::before { animation: none; }
     }
-    .dep-row:hover, .dep-row:focus-visible { background: rgba(184,150,46,0.07); outline: none; }
+    .dep-row:hover, .dep-row:focus-visible { background: rgba(184,150,46,0.09); outline: none; }
     .dep-row:focus-visible { box-shadow: inset 0 0 0 2px var(--gold); }
-    .dep-name { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700; line-height: 1.2; }
-    .dep-name small { display: block; font-family: 'Inter', sans-serif; font-size: 12px;
-      font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(245,240,232,0.5); margin-top: 6px; }
-    .dep-route { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.14em;
-      text-transform: uppercase; line-height: 1.9; color: rgba(245,240,232,0.55); }
-    .dep-status { text-align: right; font-family: 'Inter', sans-serif; }
-    .dep-count { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+    .dep-name { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-weight: 400; line-height: 1.25; }
+    .dep-name small { display: block; font-family: 'Inter', sans-serif; font-size: 10px;
+      font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(245,240,232,0.45); margin-top: 5px; }
+    .dep-status { text-align: right; font-family: 'Inter', sans-serif; font-variant-numeric: tabular-nums; }
+    .dep-count { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400;
       color: var(--gold); line-height: 1; }
-    .dep-count small { display: block; font-family: 'Inter', sans-serif; font-size: 10px;
-      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-top: 6px; }
-    .dep-go { display: none; font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    .dep-count small { display: block; font-family: 'Inter', sans-serif; font-size: 9px;
+      letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,240,232,0.42); margin-top: 4px; }
+    .dep-go { display: none; font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--gold); }
     .dep-row:hover .dep-count { display: none; }
     .dep-row:hover .dep-go { display: block; }
-    @media (max-width: 760px) {
-      .dep-row { grid-template-columns: 1fr auto; }
-      .dep-route { display: none; }
-    }
 
-    /* ── Quiz ────────────────────────────────────────────────── */
-    .quiz { background: var(--cream); color: var(--dark); padding: 88px 0 96px; }
-    .quiz .container { max-width: 760px; }
-    .quiz-eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--gold-dk); text-align: center; margin-bottom: 18px; }
-    .quiz-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.4rem);
-      font-weight: 700; text-align: center; margin: 0 0 12px; }
-    .quiz-sub { font-family: 'Inter', sans-serif; text-align: center; color: rgba(26,26,26,0.65);
-      margin: 0 0 42px; font-size: 0.98rem; }
-    .quiz-card { background: #fff; border: 1px solid rgba(26,26,26,0.08); border-radius: 12px;
-      box-shadow: var(--shadow-md); padding: 40px 36px; }
-    .quiz-progress { display: flex; gap: 8px; justify-content: center; margin-bottom: 30px; }
+    /* ── Ticker ──────────────────────────────────────────────── */
+    .ticker { background: var(--dark); border-top: 1px solid rgba(245,240,232,0.1);
+      border-bottom: 1px solid rgba(245,240,232,0.1); padding: 17px 0;
+      overflow: hidden; white-space: nowrap; }
+    .ticker .track { display: inline-block; animation: tick 38s linear infinite;
+      font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(245,240,232,0.45); }
+    .ticker .track b { color: var(--gold); font-weight: 500; }
+    @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @media (prefers-reduced-motion: reduce) { .ticker .track { animation: none; } }
+
+    /* ── Free report + quiz ──────────────────────────────────── */
+    .report { background: var(--cream); color: var(--dark); padding: 88px 0 96px; }
+    .report .container { max-width: var(--max); }
+    .report-title { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1.8rem, 4vw, 2.6rem); text-align: center; margin: 0 0 12px; }
+    .report-title em { font-style: italic; color: var(--gold-dk); }
+    .report-sub { font-family: 'Inter', sans-serif; text-align: center; color: rgba(26,26,26,0.65);
+      margin: 0 auto 46px; font-size: 0.98rem; max-width: 560px; }
+    .report-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 22px; align-items: start; }
+    @media (max-width: 920px) { .report-grid { grid-template-columns: 1fr; } }
+    .quiz-card { background: #fff; border: 1px solid rgba(26,26,26,0.08); border-radius: 8px;
+      box-shadow: var(--shadow-md); padding: 38px 34px; }
+    .quiz-progress { display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; }
     .quiz-progress span { width: 34px; height: 4px; border-radius: 2px; background: rgba(26,26,26,0.12);
       transition: var(--trans); }
     .quiz-progress span.on { background: var(--gold); }
-    .quiz-q { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
-      text-align: center; margin: 0 0 26px; }
+    .quiz-q { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400;
+      text-align: center; margin: 0 0 24px; }
     .quiz-opts { display: grid; gap: 12px; }
     .quiz-opt { font-family: 'Inter', sans-serif; font-size: 15px; text-align: left;
-      padding: 16px 20px; border: 1.5px solid rgba(26,26,26,0.14); border-radius: var(--radius);
+      padding: 15px 20px; border: 1.5px solid rgba(26,26,26,0.14); border-radius: 6px;
       background: #fff; cursor: pointer; transition: var(--trans); width: 100%; }
     .quiz-opt:hover, .quiz-opt:focus-visible { border-color: var(--gold); background: rgba(184,150,46,0.06); }
-    .quiz-back { margin-top: 22px; background: none; border: none; font-family: 'Inter', sans-serif;
+    .quiz-back { margin-top: 20px; background: none; border: none; font-family: 'Inter', sans-serif;
       font-size: 13px; color: rgba(26,26,26,0.5); cursor: pointer; }
     .quiz-back:hover { color: var(--gold-dk); }
     .quiz-result { text-align: center; }
-    .quiz-result-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em;
+    .quiz-result-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.26em;
       text-transform: uppercase; color: var(--gold-dk); margin-bottom: 14px; }
-    .quiz-result-dest { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700;
-      margin: 0 0 16px; }
-    .quiz-result-why { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.75;
-      color: rgba(26,26,26,0.7); max-width: 520px; margin: 0 auto 30px; }
+    .quiz-result-dest { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 400;
+      margin: 0 0 14px; }
+    .quiz-result-why { font-family: 'Inter', sans-serif; font-size: 14.5px; line-height: 1.75;
+      color: rgba(26,26,26,0.7); max-width: 520px; margin: 0 auto 22px; }
     .quiz-result-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .quiz-restart { margin-top: 24px; background: none; border: none; font-family: 'Inter', sans-serif;
+    .quiz-restart { margin-top: 22px; background: none; border: none; font-family: 'Inter', sans-serif;
       font-size: 13px; color: rgba(26,26,26,0.45); cursor: pointer; text-decoration: underline; }
+    .report-panel { background: var(--dark); color: var(--cream); border-radius: 8px;
+      padding: 34px 32px; position: sticky; top: 96px; }
+    @media (max-width: 920px) { .report-panel { position: static; } }
+    .report-panel h3 { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 1.35rem; margin: 0 0 22px; color: var(--cream); }
+    .report-panel h3 em { font-style: italic; color: var(--gold); }
+    .report-list { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 14px; }
+    .report-list li { font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.6;
+      color: rgba(245,240,232,0.85); padding-left: 22px; position: relative; }
+    .report-list li::before { content: ""; position: absolute; left: 0; top: 9px;
+      width: 10px; height: 1px; background: var(--gold); }
+    .report-free { display: inline-block; font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--dark);
+      background: var(--gold); border-radius: 6px; padding: 6px 13px; font-weight: 600;
+      margin-bottom: 18px; }
+    .report-micro { font-family: 'Inter', sans-serif; font-size: 12px;
+      color: rgba(245,240,232,0.55); margin: 0; line-height: 1.6; }
 
-    /* ── Trust strip ─────────────────────────────────────────── */
-    .trust { background: var(--dark); color: var(--cream); padding: 64px 0; }
-    .trust .container { max-width: var(--max); display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px; text-align: center; }
-    .trust-item .n { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700;
-      color: var(--gold); }
-    .trust-item .l { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(245,240,232,0.55); margin-top: 8px; }
+    /* ── Service band (dark, photo) ──────────────────────────── */
+    .service { background: var(--dark); color: var(--cream); position: relative; overflow: hidden; }
+    .service .photo { position: absolute; right: -2%; bottom: 0; height: 100%; width: 56%;
+      object-fit: cover; object-position: center; opacity: 0.85; pointer-events: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%);
+      mask-image: linear-gradient(90deg, transparent, #000 40%); }
+    @media (max-width: 920px) { .service .photo { opacity: 0.22; width: 100%;
+      -webkit-mask-image: none; mask-image: none; } }
+    .service .container { position: relative; z-index: 1; max-width: var(--max);
+      padding-top: 88px; padding-bottom: 88px; }
+    .service-title { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 0 0 34px; max-width: 560px; }
+    .service-title em { font-style: italic; color: var(--gold); }
+    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; max-width: 620px; }
+    @media (max-width: 700px) { .service-grid { grid-template-columns: 1fr; } }
+    .service-item { border-left: 1px solid rgba(184,150,46,0.55); padding-left: 18px; }
+    .service-item h4 { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 1.05rem; margin: 0 0 7px; color: var(--cream); }
+    .service-item p { font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.65;
+      color: rgba(245,240,232,0.62); margin: 0; }
+    .service-stats { display: grid; grid-template-columns: repeat(4, auto); gap: 40px;
+      margin-top: 46px; padding-top: 34px; border-top: 1px solid rgba(245,240,232,0.14);
+      max-width: 620px; justify-content: start; }
+    @media (max-width: 700px) { .service-stats { grid-template-columns: 1fr 1fr; gap: 26px; } }
+    .service-stat .n { font-family: 'Playfair Display', serif; font-size: 1.9rem;
+      color: var(--gold); font-variant-numeric: tabular-nums; line-height: 1; }
+    .service-stat .l { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(245,240,232,0.5); margin-top: 8px; line-height: 1.6; }
+
+    /* ── The way (steps) ─────────────────────────────────────── */
+    .way { background: var(--cream); color: var(--dark); padding: 88px 0; }
+    .way .container { max-width: var(--max); }
+    .way-title { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1.8rem, 3.6vw, 2.5rem); text-align: center; margin: 0 0 48px; }
+    .way-title em { font-style: italic; color: var(--gold-dk); }
+    .way-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 860px) { .way-steps { grid-template-columns: 1fr; } }
+    .way-step { background: #fff; border: 1px solid rgba(26,26,26,0.08); border-radius: 8px;
+      box-shadow: var(--shadow); padding: 32px 28px; transition: var(--trans); }
+    .way-step:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .way-step .no { font-family: 'Playfair Display', serif; font-size: 15px;
+      color: var(--gold-dk); letter-spacing: 0.12em; margin-bottom: 16px; }
+    .way-step h3 { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 1.25rem; margin: 0 0 10px; }
+    .way-step p { font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.7;
+      color: rgba(26,26,26,0.68); margin: 0; }
+
+    /* ── LINE CTA (design bible) ─────────────────────────────── */
+    .line-cta { background: var(--dark); color: var(--cream); padding: 84px 0; text-align: center; }
+    .line-cta .urgency { display: inline-block; font-family: 'Inter', sans-serif; font-size: 10.5px;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+      border: 1px solid rgba(184,150,46,0.5); border-radius: 6px; padding: 7px 15px; margin-bottom: 26px; }
+    .line-cta .handle { font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1.6rem, 3.4vw, 2.3rem); color: var(--gold); margin: 0 0 10px; }
+    .line-cta .sub { font-family: 'Inter', sans-serif; color: var(--cream); font-size: 15px;
+      margin: 0 0 30px; }
+    .line-cta .ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
     .header-portal-btn { display: inline-block; padding: 9px 18px; border: 1px solid var(--gold);
       border-radius: var(--radius); color: var(--gold); font-family: 'Inter', sans-serif;
       font-size: 13px; font-weight: 600; text-decoration: none; transition: var(--trans); }
@@ -201,123 +304,222 @@
 </header>
 
 <!-- ============================================================
-     HERO
+     HERO — lounge glow + glass departures board
      ============================================================ -->
 <section class="hub-hero">
   <div class="container">
-    <div class="hub-eyebrow"><span class="lang-th">ลิงก์เอ็ดยู — ที่ปรึกษาเรียนต่อต่างประเทศ</span><span class="lang-en">LinkedU — Overseas Education, from Bangkok</span></div>
-    <h1 class="hub-title">
-      <span class="lang-th">ลูกของคุณจะไปเรียน<br><em>ที่ไหนในโลก?</em></span>
-      <span class="lang-en">Where in the world<br>will your child <em>study?</em></span>
-    </h1>
-    <p class="hub-sub">
-      <span class="lang-th">จากกรุงเทพฯ สู่โรงเรียนและมหาวิทยาลัยชั้นนำใน 4 เส้นทาง — อังกฤษ จีน สวิตเซอร์แลนด์ และเส้นทางนักกอล์ฟ เราอยู่ข้างครอบครัวคุณตั้งแต่คำถามแรกจนถึงวันรับปริญญา</span>
-      <span class="lang-en">From Bangkok to leading schools and universities across four pathways — the UK, China, Switzerland, and junior golf. We stand beside your family from the first question to graduation day.</span>
+    <div>
+      <div class="hub-eyebrow"><span class="dot"></span><span class="lang-th">ลิงก์เอ็ดยู — ที่ปรึกษาเรียนต่อต่างประเทศ</span><span class="lang-en">LINKEDU — Overseas education, from Bangkok</span></div>
+      <h1 class="hub-title">
+        <span class="lang-th">ลูกของคุณจะไปเรียน<br><em>ที่ไหนในโลก?</em></span>
+        <span class="lang-en">Where in the world<br>will your child <em>study?</em></span>
+      </h1>
+      <p class="hub-sub">
+        <span class="lang-th">จากโรงเรียนและมหาวิทยาลัย 471 แห่งใน 4 เส้นทาง — อังกฤษ จีน สวิตเซอร์แลนด์ และกอล์ฟ — เราคัดเส้นทางที่ใช่สำหรับลูกของคุณ และอยู่ข้างครอบครัวตั้งแต่คำถามแรกจนถึงวันเปิดเทอม</span>
+        <span class="lang-en">From 471 schools and universities across four pathways — the UK, China, Switzerland, and junior golf — we find the route that fits your child, and stand beside your family from the first question to the first day of term.</span>
+      </p>
+      <div class="hub-hero-cta">
+        <a href="#report" class="hub-btn hub-btn-gold"><span class="lang-th">รับรายงานฟรีสำหรับลูกของคุณ</span><span class="lang-en">Get your child's free report</span></a>
+        <a href="https://line.me/R/ti/p/satitlinkedu" class="hub-btn hub-btn-ghost" target="_blank" rel="noopener"><span class="lang-th">ปรึกษาฟรีทาง LINE</span><span class="lang-en">Free consult on LINE</span></a>
+      </div>
+      <div class="hub-proofline">
+        <span><i>◆</i><span class="lang-th">ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Replies within 24 hours</span></span>
+        <span><i>◆</i><span class="lang-th">ดูแลเป็นภาษาไทยทุกขั้นตอน</span><span class="lang-en">Thai-language care, every step</span></span>
+      </div>
+    </div>
+
+    <div class="boardshell">
+      <div class="board" id="board">
+        <div class="board-head">
+          <div class="board-label"><span class="lang-th">จุดหมายปลายทาง</span><span class="lang-en">Destinations</span></div>
+          <div class="board-live"><span class="lang-th">เปิดรับสมัคร</span><span class="lang-en">Now boarding</span></div>
+        </div>
+        <a class="dep-row" href="/uk">
+          <div class="dep-name">
+            <span class="lang-th">โรงเรียนประจำอังกฤษ</span><span class="lang-en">UK Boarding Schools</span>
+            <small><span class="lang-th">เส้นทางหลักสู่มหาวิทยาลัยชั้นนำ</span><span class="lang-en">The classic route to top universities</span></small>
+          </div>
+          <div class="dep-status">
+            <div class="dep-count">114<small><span class="lang-th">โรงเรียน</span><span class="lang-en">schools</span></small></div>
+            <div class="dep-go"><span class="lang-th">ดูเส้นทาง →</span><span class="lang-en">Explore →</span></div>
+          </div>
+        </a>
+        <a class="dep-row" href="/china">
+          <div class="dep-name">
+            <span class="lang-th">มหาวิทยาลัยจีน</span><span class="lang-en">China Universities</span>
+            <small><span class="lang-th">ปริญญานานาชาติ ค่าเรียนคุ้มค่า</span><span class="lang-en">International degrees, exceptional value</span></small>
+          </div>
+          <div class="dep-status">
+            <div class="dep-count">248<small><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span></small></div>
+            <div class="dep-go"><span class="lang-th">ดูเส้นทาง →</span><span class="lang-en">Explore →</span></div>
+          </div>
+        </a>
+        <a class="dep-row" href="/swiss">
+          <div class="dep-name">
+            <span class="lang-th">โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">Switzerland Schools</span>
+            <small><span class="lang-th">มาตรฐานระดับโลก หลายภาษา</span><span class="lang-en">World-class boarding, multilingual life</span></small>
+          </div>
+          <div class="dep-status">
+            <div class="dep-count">109<small><span class="lang-th">โรงเรียน</span><span class="lang-en">schools</span></small></div>
+            <div class="dep-go"><span class="lang-th">ดูเส้นทาง →</span><span class="lang-en">Explore →</span></div>
+          </div>
+        </a>
+        <a class="dep-row" href="/golf">
+          <div class="dep-name">
+            <span class="lang-th">เส้นทางนักกอล์ฟเยาวชน</span><span class="lang-en">Junior Golf Pathways</span>
+            <small><span class="lang-th">จากสนามไทยสู่ทุนมหาวิทยาลัย</span><span class="lang-en">From Thai fairways to US scholarships</span></small>
+          </div>
+          <div class="dep-status">
+            <div class="dep-count">10–21<small><span class="lang-th">ช่วงอายุ</span><span class="lang-en">age range</span></small></div>
+            <div class="dep-go"><span class="lang-th">ดูเส้นทาง →</span><span class="lang-en">Explore →</span></div>
+          </div>
+        </a>
+        <a class="dep-row" href="/camps">
+          <div class="dep-name">
+            <span class="lang-th">ซัมเมอร์แคมป์ & ติวเตอร์</span><span class="lang-en">Summer Camps & Tutoring</span>
+            <small><span class="lang-th">ก้าวแรกของประสบการณ์ต่างแดน</span><span class="lang-en">The first taste of studying abroad</span></small>
+          </div>
+          <div class="dep-status">
+            <div class="dep-count">8–16<small><span class="lang-th">ช่วงอายุ</span><span class="lang-en">age range</span></small></div>
+            <div class="dep-go"><span class="lang-th">ดูเส้นทาง →</span><span class="lang-en">Explore →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TICKER — live facts only
+     ============================================================ -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <b>114</b> UK boarding schools · <b>248</b> China universities · <b>11,472</b> programs · <b>109</b> Switzerland schools · golf to <b>NCAA</b> scholarships · camps age <b>8–16</b> · replies within <b>24h</b> · Thai &amp; English care ·&nbsp;
+    <b>114</b> UK boarding schools · <b>248</b> China universities · <b>11,472</b> programs · <b>109</b> Switzerland schools · golf to <b>NCAA</b> scholarships · camps age <b>8–16</b> · replies within <b>24h</b> · Thai &amp; English care ·&nbsp;
+  </div>
+</div>
+
+<!-- ============================================================
+     FREE PATHWAY REPORT — quiz as lead magnet
+     ============================================================ -->
+<section class="report" id="report">
+  <div class="container">
+    <div class="sec-label"><span class="rule"></span><span class="txt"><span class="lang-th">· รายงานฟรีสำหรับลูกของคุณ ·</span><span class="lang-en">· Your Child's Free Pathway Report ·</span></span></div>
+    <h2 class="report-title">
+      <span class="lang-th">ตอบ 4 ข้อ — รับ<em>รายงานเส้นทางเรียนต่อ</em>เฉพาะลูกของคุณ ฟรี</span>
+      <span class="lang-en">Answer 4 questions — get your child's <em>personalised pathway report,</em> free</span>
+    </h2>
+    <p class="report-sub">
+      <span class="lang-th">ใช้เวลาไม่ถึง 2 นาที เห็นผลเบื้องต้นทันที — แล้วรับรายงานฉบับเต็มที่จัดทำโดยที่ปรึกษาตัวจริง ส่งให้ทาง LINE ภายใน 24 ชั่วโมง</span>
+      <span class="lang-en">Under two minutes, with an instant preview — then receive the full report, prepared personally by an advisor and sent via LINE within 24 hours.</span>
     </p>
-    <div class="hub-hero-cta">
-      <a href="#quiz" class="hub-btn hub-btn-gold"><span class="lang-th">หาเส้นทางที่ใช่ใน 2 นาที</span><span class="lang-en">Find the right pathway in 2 minutes</span></a>
-      <a href="#board" class="hub-btn hub-btn-ghost"><span class="lang-th">ดูทุกจุดหมาย</span><span class="lang-en">Browse all destinations</span></a>
+
+    <div class="report-grid">
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress" id="quizProgress"><span class="on"></span><span></span><span></span><span></span></div>
+        <div id="quizBody"></div>
+      </div>
+
+      <aside class="report-panel">
+        <div class="report-free"><span class="lang-th">ฟรี — ไม่มีข้อผูกมัด</span><span class="lang-en">Free — no obligation</span></div>
+        <h3><span class="lang-th">ในรายงานฉบับเต็ม <em>ของลูกคุณ</em></span><span class="lang-en">Inside <em>your child's</em> full report</span></h3>
+        <ul class="report-list">
+          <li><span class="lang-th">เส้นทางที่แนะนำ พร้อมเหตุผลเฉพาะอายุ เป้าหมาย และงบประมาณของครอบครัวคุณ</span><span class="lang-en">The recommended pathway, reasoned from your child's age, your goals, and your budget</span></li>
+          <li><span class="lang-th">ประเภทโรงเรียนที่เหมาะกับลูก พร้อมค่าเรียนจริงเป็นปอนด์และบาท</span><span class="lang-en">The school types that fit, with real fees in GBP and THB</span></li>
+          <li><span class="lang-th">ไทม์ไลน์การสมัครนับจากวันนี้ ตามอายุของลูก</span><span class="lang-en">An application timeline from today, matched to your child's age</span></li>
+          <li><span class="lang-th">ทุนการศึกษาและทางเลือกที่คุ้มค่ากว่าที่ควรพิจารณา</span><span class="lang-en">Scholarship options and stronger-value alternatives worth considering</span></li>
+          <li><span class="lang-th">จัดทำโดยที่ปรึกษาตัวจริง — ไม่ใช่ระบบอัตโนมัติ — ส่งทาง LINE ภายใน 24 ชม.</span><span class="lang-en">Prepared personally by an advisor — not automated — sent via LINE within 24 hours</span></li>
+        </ul>
+        <p class="report-micro">
+          <span class="lang-th">ไม่ต้องกรอกอีเมล ไม่ต้องใส่เบอร์โทร — แค่ตอบ 4 ข้อ แล้วทักเราทาง LINE</span>
+          <span class="lang-en">No email forms, no phone number — just four answers and a LINE message.</span>
+        </p>
+      </aside>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     DEPARTURES BOARD
+     SERVICE — full-service care, photo band
      ============================================================ -->
-<section class="board" id="board">
+<section class="service">
+  <img class="photo" src="images/students/approved/img-students-group.png" alt="" loading="lazy">
   <div class="container">
-    <div class="board-head">
-      <div class="board-label"><span class="dot"></span><span class="lang-th">จุดหมายปลายทาง</span><span class="lang-en">Destinations</span></div>
-      <div class="board-label"><span class="lang-th">สถานะ</span><span class="lang-en">Status</span></div>
+    <div class="sec-label on-dark left"><span class="rule"></span><span class="txt"><span class="lang-th">· บริการของเรา ·</span><span class="lang-en">· Full-Service Care ·</span></span></div>
+    <h2 class="service-title">
+      <span class="lang-th">หนึ่งครอบครัว หนึ่งที่ปรึกษา <em>ดูแลทุกขั้นตอน</em></span>
+      <span class="lang-en">One family, one advisor, <em>every step handled</em></span>
+    </h2>
+    <div class="service-grid">
+      <div class="service-item">
+        <h4><span class="lang-th">คัดโรงเรียนและยื่นสมัคร</span><span class="lang-en">Shortlist &amp; applications</span></h4>
+        <p><span class="lang-th">คัดโรงเรียนที่ใช่จาก 471 แห่ง และดูแลเอกสารการสมัครครบทุกขั้น</span><span class="lang-en">The right shortlist from 471 institutions, with every application handled end-to-end.</span></p>
+      </div>
+      <div class="service-item">
+        <h4><span class="lang-th">เยี่ยมโรงเรียนและเตรียมสอบ</span><span class="lang-en">Visits &amp; preparation</span></h4>
+        <p><span class="lang-th">นัดเยี่ยมโรงเรียน เตรียมสัมภาษณ์ และติวข้อสอบเข้า</span><span class="lang-en">School visits arranged, interviews rehearsed, entrance exams prepared.</span></p>
+      </div>
+      <div class="service-item">
+        <h4><span class="lang-th">วีซ่าและก่อนเดินทาง</span><span class="lang-en">Visas &amp; pre-departure</span></h4>
+        <p><span class="lang-th">วีซ่านักเรียนและการเตรียมตัวก่อนเดินทาง ครบทุกรายละเอียด</span><span class="lang-en">Student visas and pre-departure preparation, down to the last detail.</span></p>
+      </div>
+      <div class="service-item">
+        <h4><span class="lang-th">ดูแลต่อเนื่องผ่านพอร์ทัล</span><span class="lang-en">Ongoing care &amp; portal</span></h4>
+        <p><span class="lang-th">ติดตามทุกขั้นตอนในพอร์ทัลผู้ปกครอง และตอบทุกคำถามภายใน 24 ชม.</span><span class="lang-en">Every step tracked in your Parent Portal, every question answered within 24 hours.</span></p>
+      </div>
     </div>
-
-    <a class="dep-row" href="/uk">
-      <div class="dep-name">
-        <span class="lang-th">โรงเรียนประจำอังกฤษ</span><span class="lang-en">UK Boarding Schools</span>
-        <small><span class="lang-th">เส้นทางหลักสู่มหาวิทยาลัยชั้นนำ</span><span class="lang-en">The classic route to top universities</span></small>
-      </div>
-      <div class="dep-route">114 schools profiled<br>Age 8–18 · Sep + Jan entry</div>
-      <div class="dep-status">
-        <div class="dep-count">114<small><span class="lang-th">โรงเรียน</span><span class="lang-en">schools</span></small></div>
-        <div class="dep-go"><span class="lang-th">เปิดรับสมัคร →</span><span class="lang-en">Now boarding →</span></div>
-      </div>
-    </a>
-
-    <a class="dep-row" href="/china">
-      <div class="dep-name">
-        <span class="lang-th">มหาวิทยาลัยจีน</span><span class="lang-en">China Universities</span>
-        <small><span class="lang-th">ปริญญานานาชาติ ค่าเรียนคุ้มค่า</span><span class="lang-en">International degrees, exceptional value</span></small>
-      </div>
-      <div class="dep-route">248 universities · 11,472 programs<br>Bachelor – PhD · EN + CN taught</div>
-      <div class="dep-status">
-        <div class="dep-count">248<small><span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span></small></div>
-        <div class="dep-go"><span class="lang-th">เปิดรับสมัคร →</span><span class="lang-en">Now boarding →</span></div>
-      </div>
-    </a>
-
-    <a class="dep-row" href="/swiss">
-      <div class="dep-name">
-        <span class="lang-th">โรงเรียนสวิตเซอร์แลนด์</span><span class="lang-en">Switzerland Schools</span>
-        <small><span class="lang-th">มาตรฐานระดับโลก หลายภาษา</span><span class="lang-en">World-class boarding, multilingual life</span></small>
-      </div>
-      <div class="dep-route">109 international schools<br>Boarding + hospitality path</div>
-      <div class="dep-status">
-        <div class="dep-count">109<small><span class="lang-th">โรงเรียน</span><span class="lang-en">schools</span></small></div>
-        <div class="dep-go"><span class="lang-th">เปิดรับสมัคร →</span><span class="lang-en">Now boarding →</span></div>
-      </div>
-    </a>
-
-    <a class="dep-row" href="/golf">
-      <div class="dep-name">
-        <span class="lang-th">เส้นทางนักกอล์ฟเยาวชน</span><span class="lang-en">Junior Golf Pathways</span>
-        <small><span class="lang-th">จากสนามไทยสู่ทุนมหาวิทยาลัย</span><span class="lang-en">From Thai fairways to US scholarships</span></small>
-      </div>
-      <div class="dep-route">UK academies → US NCAA<br>Age 10–21 · Scholarship track</div>
-      <div class="dep-status">
-        <div class="dep-count">10–21<small><span class="lang-th">ช่วงอายุ</span><span class="lang-en">age range</span></small></div>
-        <div class="dep-go"><span class="lang-th">เปิดรับสมัคร →</span><span class="lang-en">Now boarding →</span></div>
-      </div>
-    </a>
-
-    <a class="dep-row" href="/camps">
-      <div class="dep-name">
-        <span class="lang-th">ซัมเมอร์แคมป์ & ติวเตอร์</span><span class="lang-en">Summer Camps & Tutoring</span>
-        <small><span class="lang-th">ก้าวแรกของประสบการณ์ต่างแดน</span><span class="lang-en">The first taste of studying abroad</span></small>
-      </div>
-      <div class="dep-route">UK camps age 8–16<br>UKiset + entrance prep</div>
-      <div class="dep-status">
-        <div class="dep-count">8–16<small><span class="lang-th">ช่วงอายุ</span><span class="lang-en">age range</span></small></div>
-        <div class="dep-go"><span class="lang-th">เปิดรับสมัคร →</span><span class="lang-en">Now boarding →</span></div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ============================================================
-     QUIZ
-     ============================================================ -->
-<section class="quiz" id="quiz">
-  <div class="container">
-    <div class="quiz-eyebrow"><span class="lang-th">ไม่แน่ใจว่าเส้นทางไหนใช่?</span><span class="lang-en">Not sure which pathway fits?</span></div>
-    <h2 class="quiz-title"><span class="lang-th">ตอบ 4 ข้อ — เราแนะนำเส้นทางที่ใช่ให้</span><span class="lang-en">Answer 4 questions — we'll point the way</span></h2>
-    <p class="quiz-sub"><span class="lang-th">ใช้เวลาไม่ถึง 2 นาที ไม่ต้องกรอกข้อมูลติดต่อ</span><span class="lang-en">Under two minutes. No contact details required.</span></p>
-
-    <div class="quiz-card" id="quizCard">
-      <div class="quiz-progress" id="quizProgress"><span class="on"></span><span></span><span></span><span></span></div>
-      <div id="quizBody"></div>
+    <div class="service-stats">
+      <div class="service-stat"><div class="n">471</div><div class="l"><span class="lang-th">โรงเรียนและมหาวิทยาลัย</span><span class="lang-en">Institutions profiled</span></div></div>
+      <div class="service-stat"><div class="n">4</div><div class="l"><span class="lang-th">เส้นทางการศึกษา</span><span class="lang-en">Education pathways</span></div></div>
+      <div class="service-stat"><div class="n">24<span style="font-size:1rem">hr</span></div><div class="l"><span class="lang-th">ตอบกลับภายใน</span><span class="lang-en">Reply time</span></div></div>
+      <div class="service-stat"><div class="n">TH·EN</div><div class="l"><span class="lang-th">ดูแลสองภาษา</span><span class="lang-en">Care in both languages</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     TRUST
+     THE WAY — three steps
      ============================================================ -->
-<section class="trust">
+<section class="way">
   <div class="container">
-    <div class="trust-item"><div class="n">4</div><div class="l"><span class="lang-th">เส้นทางการศึกษา</span><span class="lang-en">Education pathways</span></div></div>
-    <div class="trust-item"><div class="n">471</div><div class="l"><span class="lang-th">โรงเรียนและมหาวิทยาลัยในระบบ</span><span class="lang-en">Schools & universities profiled</span></div></div>
-    <div class="trust-item"><div class="n">24<span style="font-size:1rem">hr</span></div><div class="l"><span class="lang-th">ตอบกลับภายใน</span><span class="lang-en">Response time</span></div></div>
-    <div class="trust-item"><div class="n">TH</div><div class="l"><span class="lang-th">ดูแลเป็นภาษาไทยทุกขั้นตอน</span><span class="lang-en">Thai-language care, every step</span></div></div>
+    <div class="sec-label"><span class="rule"></span><span class="txt"><span class="lang-th">· ขั้นตอนของเรา ·</span><span class="lang-en">· How It Works ·</span></span></div>
+    <h2 class="way-title">
+      <span class="lang-th">สามขั้นตอน หนึ่ง<em>ที่ปรึกษา</em></span>
+      <span class="lang-en">Three steps. One <em>advisor.</em></span>
+    </h2>
+    <div class="way-steps">
+      <div class="way-step">
+        <div class="no">I</div>
+        <h3><span class="lang-th">ค้นหาเส้นทาง</span><span class="lang-en">Discover</span></h3>
+        <p><span class="lang-th">ปรึกษาฟรี — เราวิเคราะห์อายุ เป้าหมาย และงบประมาณ เพื่อชี้เส้นทางที่ใช่ ไม่มีแบบฟอร์ม ไม่มีการกดดัน</span><span class="lang-en">A free consultation maps your child's age, goals, and budget to the right pathway. No forms, no pressure.</span></p>
+      </div>
+      <div class="way-step">
+        <div class="no">II</div>
+        <h3><span class="lang-th">คัดเลือกโรงเรียน</span><span class="lang-en">Shortlist</span></h3>
+        <p><span class="lang-th">คัดโรงเรียนที่เหมาะจาก 471 แห่ง นัดเยี่ยม เตรียมสัมภาษณ์ และเตรียมสอบเข้า</span><span class="lang-en">A curated shortlist from 471 profiled institutions — visits arranged, interviews and assessments prepared.</span></p>
+      </div>
+      <div class="way-step">
+        <div class="no">III</div>
+        <h3><span class="lang-th">สมัครและดูแลต่อเนื่อง</span><span class="lang-en">Enrol &amp; Beyond</span></h3>
+        <p><span class="lang-th">ยื่นสมัคร วีซ่า และการเตรียมตัว — ติดตามทุกขั้นในพอร์ทัลผู้ปกครอง พร้อมที่ปรึกษาคนไทยใน LINE</span><span class="lang-en">Applications, visas, and preparation — tracked in your Parent Portal, with a Thai-speaking advisor one LINE message away.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LINE CTA — mandatory close
+     ============================================================ -->
+<section class="line-cta">
+  <div class="container">
+    <div class="urgency"><span class="lang-th">รอบเข้าเรียนเดือนกันยายน — โรงเรียนที่ดีเต็มเร็ว</span><span class="lang-en">September intake — the best schools fill first</span></div>
+    <div class="sec-label on-dark"><span class="rule"></span><span class="txt"><span class="lang-th">· คุยกับเรา ·</span><span class="lang-en">· Talk To Us ·</span></span></div>
+    <div class="handle">LINE: satitlinkedu</div>
+    <p class="sub"><span class="lang-th">ปรึกษาฟรี — ตอบกลับภายใน 24 ชั่วโมง</span><span class="lang-en">Free consultation — replies within 24 hours</span></p>
+    <div class="ctas">
+      <a href="https://line.me/R/ti/p/satitlinkedu" class="hub-btn hub-btn-gold" target="_blank" rel="noopener"><span class="lang-th">เพิ่ม LINE / Add LINE</span><span class="lang-en">เพิ่ม LINE / Add LINE</span></a>
+      <a href="#report" class="hub-btn hub-btn-ghost"><span class="lang-th">หรือรับรายงานฟรีก่อน</span><span class="lang-en">or get the free report first</span></a>
+    </div>
   </div>
 </section>
 
@@ -382,7 +584,7 @@
 
 <script src="js/main.js"></script>
 <script>
-/* ── Pathway quiz ──────────────────────────────────────────── */
+/* ── Pathway quiz → free child report ──────────────────────── */
 (function () {
   var LANG = function () { return document.documentElement.getAttribute('lang') || 'th'; };
   var DEST = {
@@ -392,33 +594,35 @@
     golf:  { th: 'เส้นทางนักกอล์ฟเยาวชน', en: 'Junior Golf Pathways', href: '/golf' },
     camps: { th: 'ซัมเมอร์แคมป์ & ติวเตอร์', en: 'Summer Camps & Tutoring', href: '/camps' }
   };
+  /* s: additive weights · excl: pathways not offered for that answer (eligibility, not preference)
+     goal: marks Q2's pathway so ties can respect the family's stated priority */
   var QS = [
     { q: { th: 'ตอนนี้ลูกของคุณอายุเท่าไหร่?', en: 'How old is your child?' },
       opts: [
-        { t: { th: 'ต่ำกว่า 10 ปี', en: 'Under 10' },   s: { camps: 2, uk: 1 } },
+        { t: { th: 'ต่ำกว่า 10 ปี', en: 'Under 10' },   s: { camps: 2, uk: 1 }, excl: ['china'] },
         { t: { th: '10–13 ปี', en: '10–13' },            s: { uk: 2, camps: 1, golf: 1 } },
         { t: { th: '14–17 ปี', en: '14–17' },            s: { uk: 2, swiss: 1, golf: 1 } },
-        { t: { th: '18 ปีขึ้นไป', en: '18 or older' },   s: { china: 3, swiss: 1 } } ] },
+        { t: { th: '18 ปีขึ้นไป', en: '18 or older' },   s: { china: 3, swiss: 2 }, excl: ['uk', 'golf', 'camps'] } ] },
     { q: { th: 'อะไรสำคัญที่สุดสำหรับครอบครัวคุณ?', en: 'What matters most to your family?' },
       opts: [
-        { t: { th: 'เส้นทางสู่มหาวิทยาลัยชั้นนำ', en: 'A route to top universities' },            s: { uk: 3 } },
-        { t: { th: 'ปริญญานานาชาติ ค่าใช้จ่ายคุ้มค่า', en: 'An international degree at sensible cost' }, s: { china: 3 } },
-        { t: { th: 'ความเป็นสากล หลายภาษา', en: 'A global, multilingual environment' },           s: { swiss: 3 } },
-        { t: { th: 'พัฒนากอล์ฟสู่ระดับทุนการศึกษา', en: 'Golf development toward a scholarship' }, s: { golf: 3 } },
-        { t: { th: 'ลองประสบการณ์ต่างประเทศครั้งแรก', en: 'A first overseas experience' },         s: { camps: 3 } } ] },
+        { t: { th: 'เส้นทางสู่มหาวิทยาลัยชั้นนำ', en: 'A route to top universities' },            s: { uk: 3, china: 2 }, goal: 'uk' },
+        { t: { th: 'ปริญญานานาชาติ ค่าใช้จ่ายคุ้มค่า', en: 'An international degree at sensible cost' }, s: { china: 3 }, goal: 'china' },
+        { t: { th: 'ความเป็นสากล หลายภาษา', en: 'A global, multilingual environment' },           s: { swiss: 3 }, goal: 'swiss' },
+        { t: { th: 'พัฒนากอล์ฟสู่ระดับทุนการศึกษา', en: 'Golf development toward a scholarship' }, s: { golf: 3 }, goal: 'golf' },
+        { t: { th: 'ลองประสบการณ์ต่างประเทศครั้งแรก', en: 'A first overseas experience' },         s: { camps: 3 }, goal: 'camps' } ] },
     { q: { th: 'งบประมาณต่อปีของครอบครัว (บาท)?', en: 'Family budget per year (THB)?' },
       opts: [
-        { t: { th: 'ต่ำกว่า 600,000', en: 'Under 600,000' },       s: { china: 2, camps: 1 } },
-        { t: { th: '600,000 – 1.5 ล้าน', en: '600,000 – 1.5M' },   s: { camps: 2, china: 1, swiss: 1 } },
-        { t: { th: '1.5 – 3 ล้าน', en: '1.5M – 3M' },              s: { uk: 2, swiss: 1 } },
-        { t: { th: 'มากกว่า 3 ล้าน', en: 'Over 3M' },              s: { uk: 2, swiss: 2, golf: 1 } } ] },
+        { t: { th: 'ต่ำกว่า 600,000', en: 'Under 600,000' },       s: { china: 3, camps: 1 }, budget: 0 },
+        { t: { th: '600,000 – 1.5 ล้าน', en: '600,000 – 1.5M' },   s: { china: 2, camps: 2 }, budget: 1 },
+        { t: { th: '1.5 – 3 ล้าน', en: '1.5M – 3M' },              s: { uk: 2, golf: 1 }, budget: 2 },
+        { t: { th: 'มากกว่า 3 ล้าน', en: 'Over 3M' },              s: { uk: 2, swiss: 2, golf: 1 }, budget: 3 } ] },
     { q: { th: 'วางแผนจะเริ่มเมื่อไหร่?', en: 'When do you plan to start?' },
       opts: [
         { t: { th: 'ภายใน 12 เดือน', en: 'Within 12 months' },      s: {}, soon: true },
         { t: { th: '1–2 ปีข้างหน้า', en: 'In 1–2 years' },          s: {} },
         { t: { th: 'กำลังศึกษาข้อมูล', en: 'Just exploring' },      s: {} } ] }
   ];
-  var step = 0, score = { uk: 0, china: 0, swiss: 0, golf: 0, camps: 0 }, soon = false;
+  var step = 0, picked = [];
   var body = document.getElementById('quizBody');
   var dots = document.getElementById('quizProgress').children;
 
@@ -436,44 +640,107 @@
       btn.addEventListener('click', function () { pick(parseInt(btn.dataset.i, 10)); });
     });
     var back = body.querySelector('.quiz-back');
-    if (back) back.addEventListener('click', function () { step--; render(); });
+    if (back) back.addEventListener('click', function () { step--; picked.pop(); render(); });
   }
 
   function pick(i) {
-    var o = QS[step].opts[i];
-    for (var k in o.s) score[k] += o.s[k];
-    if (o.soon) soon = true;
+    picked[step] = i;
     step++;
     if (step < QS.length) render(); else result();
   }
 
+  function computeResult() {
+    var score = { uk: 0, china: 0, swiss: 0, golf: 0, camps: 0 };
+    var excluded = {}, soon = false, goal = null, budget = null;
+    picked.forEach(function (i, qi) {
+      var o = QS[qi].opts[i];
+      for (var k in o.s) score[k] += o.s[k];
+      (o.excl || []).forEach(function (k) { excluded[k] = true; });
+      if (o.soon) soon = true;
+      if (o.goal) goal = o.goal;
+      if (o.budget !== undefined) budget = o.budget;
+    });
+    var keys = Object.keys(score).filter(function (k) { return !excluded[k]; });
+    keys.sort(function (a, b) { return score[b] - score[a] || a.localeCompare(b); });
+    var best = keys[0], second = keys[1];
+    var isTie = second !== undefined && score[best] === score[second];
+    if (isTie && goal && score[goal] === score[best] && keys.indexOf(goal) >= 0) {
+      // family's stated priority breaks the tie in its own favour
+      best = goal;
+      second = keys.filter(function (k) { return k !== goal; })[0];
+      isTie = false;
+    }
+    // Affordability truth-check: expensive pathway recommended on a small budget
+    var pricey = { uk: true, swiss: true, golf: true };
+    var costNote = budget !== null && budget <= 1 && pricey[best];
+    return { best: best, second: second, isTie: isTie, soon: soon, budget: budget, costNote: costNote };
+  }
+
   function result() {
-    var lang = LANG();
-    var best = Object.keys(score).sort(function (a, b) { return score[b] - score[a]; })[0];
-    var d = DEST[best];
+    var lang = LANG(), r = computeResult();
     for (var i = 0; i < dots.length; i++) dots[i].className = 'on';
+    var d = DEST[r.best];
+    var ageTxt = QS[0].opts[picked[0]].t[lang];
+    var goalTxt = QS[1].opts[picked[1]].t[lang];
+    var budgetTxt = QS[2].opts[picked[2]].t[lang];
+
     var why = lang === 'th'
-      ? 'จากอายุ เป้าหมาย และงบประมาณของครอบครัวคุณ เส้นทางนี้เหมาะที่สุด' + (soon ? ' — และถ้าวางแผนเริ่มภายใน 12 เดือน เราควรคุยกันสัปดาห์นี้' : '')
-      : 'Based on your child\'s age, your goals, and your budget, this pathway fits best' + (soon ? ' — and with a start inside 12 months, this week is the right time to talk' : '') + '.';
+      ? 'เพราะลูกของคุณอายุ' + ageTxt + ' สิ่งที่สำคัญที่สุดคือ "' + goalTxt + '" และงบประมาณ' + budgetTxt + ' บาทต่อปี'
+        + (r.soon ? ' — และเมื่อวางแผนเริ่มภายใน 12 เดือน ควรเริ่มคุยรายละเอียดได้เลย' : '')
+      : 'Because your child is ' + ageTxt.toLowerCase() + ', "' + goalTxt + '" matters most to you, and your budget is ' + budgetTxt + ' THB per year'
+        + (r.soon ? ' — and with a start inside 12 months, it is worth talking details now' : '') + '.';
+
+    var costNote = '';
+    if (r.costNote) {
+      costNote = '<p class="quiz-result-why" style="font-size:0.85em;opacity:0.85">' + (lang === 'th'
+        ? 'หมายเหตุ: เส้นทางนี้ปกติใช้งบประมาณ 1.5 ล้านบาทขึ้นไปต่อปี ซึ่งสูงกว่างบที่คุณระบุ — บางโรงเรียนมีทุนการศึกษา หรือดู' + DEST.china[lang] + 'และ' + DEST.camps[lang] + 'เป็นทางเลือกที่คุ้มค่ากว่า'
+        : 'Note: this pathway typically costs upwards of ฿1.5M per year — above the budget you selected. Some schools offer scholarships, or consider ' + DEST.china[lang] + ' and ' + DEST.camps[lang] + ' as stronger-value alternatives.') + '</p>';
+    }
+
+    var header, destHtml, pathwayLink;
+    if (r.isTie) {
+      var d2 = DEST[r.second];
+      header = lang === 'th' ? 'ผลเบื้องต้น: สองเส้นทางเหมาะพอ ๆ กัน' : 'Preview result: two pathways fit equally well';
+      destHtml = '<div class="quiz-result-dest">' + d[lang] + '</div>'
+        + '<div class="quiz-result-dest" style="font-size:0.8em;opacity:0.9">' + d2[lang] + '</div>';
+      pathwayLink = '<a class="hub-btn hub-btn-ghost" style="border-color:rgba(26,26,26,0.3);color:var(--dark)" href="' + d.href + '">' + d[lang] + '</a>'
+        + '<a class="hub-btn hub-btn-ghost" style="border-color:rgba(26,26,26,0.3);color:var(--dark)" href="' + d2.href + '">' + d2[lang] + '</a>';
+    } else {
+      header = lang === 'th' ? 'ผลเบื้องต้น: เส้นทางที่แนะนำ' : 'Preview result: recommended pathway';
+      destHtml = '<div class="quiz-result-dest">' + d[lang] + '</div>';
+      pathwayLink = '<a class="hub-btn hub-btn-ghost" style="border-color:rgba(26,26,26,0.3);color:var(--dark)" href="' + d.href + '">' + (lang === 'th' ? 'ดูเส้นทางนี้' : 'Explore this pathway') + '</a>';
+    }
+
+    var reportPitch = lang === 'th'
+      ? 'นี่คือผลเบื้องต้น — รายงานฉบับเต็มของลูกคุณ (ประเภทโรงเรียนที่เหมาะ ค่าเรียนจริง ไทม์ไลน์ และทุนการศึกษา) จัดทำโดยที่ปรึกษาตัวจริง ฟรี ไม่มีข้อผูกมัด'
+      : 'This is the preview — your child\'s full report (matching school types, real fees, timeline, and scholarships) is prepared personally by an advisor. Free, no obligation.';
+
+    var howTo = lang === 'th'
+      ? 'ทัก LINE ว่า "ขอรายงาน" พร้อมคำตอบ 4 ข้อของคุณ — เราจัดทำและส่งกลับภายใน 24 ชั่วโมง'
+      : 'Message us "report" on LINE with your four answers — we prepare it and send it back within 24 hours.';
+
     body.innerHTML =
       '<div class="quiz-result">' +
-      '<div class="quiz-result-label">' + (lang === 'th' ? 'เส้นทางที่แนะนำ' : 'Recommended pathway') + '</div>' +
-      '<div class="quiz-result-dest">' + d[lang] + '</div>' +
+      '<div class="quiz-result-label">' + header + '</div>' +
+      destHtml +
       '<p class="quiz-result-why">' + why + '</p>' +
+      costNote +
+      '<p class="quiz-result-why" style="font-weight:600;color:var(--dark)">' + reportPitch + '</p>' +
       '<div class="quiz-result-cta">' +
-      '<a class="hub-btn hub-btn-gold" href="' + d.href + '">' + (lang === 'th' ? 'ดูเส้นทางนี้' : 'Explore this pathway') + '</a>' +
-      '<a class="hub-btn hub-btn-ghost" style="border-color:rgba(26,26,26,0.3);color:var(--dark)" href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener">' + (lang === 'th' ? 'คุยกับเราทาง LINE' : 'Talk to us on LINE') + '</a>' +
+      '<a class="hub-btn hub-btn-gold" href="https://line.me/R/ti/p/satitlinkedu" target="_blank" rel="noopener">' + (lang === 'th' ? 'รับรายงานฉบับเต็มฟรีทาง LINE' : 'Get the full report free on LINE') + '</a>' +
+      pathwayLink +
       '</div>' +
+      '<p class="quiz-result-why" style="font-size:0.8em;opacity:0.7;margin-top:18px">' + howTo + '</p>' +
       '<button class="quiz-restart">' + (lang === 'th' ? 'เริ่มใหม่' : 'Start over') + '</button>' +
       '</div>';
     body.querySelector('.quiz-restart').addEventListener('click', function () {
-      step = 0; soon = false; score = { uk: 0, china: 0, swiss: 0, golf: 0, camps: 0 }; render();
+      step = 0; picked = []; render();
     });
   }
 
   render();
   document.querySelectorAll('.lang-btn').forEach(function (b) {
-    b.addEventListener('click', function () { setTimeout(function () { if (step < QS.length) render(); }, 30); });
+    b.addEventListener('click', function () { setTimeout(function () { if (step < QS.length) render(); else result(); }, 30); });
   });
 })();
 </script>
