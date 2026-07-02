@@ -1,7 +1,6 @@
 [build]
   publish = "."
   functions = "netlify/functions"
-  ignore = "git log -1 --pretty=%B | grep -q '(0 new)'"
 
 [build.environment]
   NODE_VERSION = "18"
