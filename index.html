@@ -731,10 +731,87 @@
       pathwayLink +
       '</div>' +
       '<p class="quiz-result-why" style="font-size:0.8em;opacity:0.7;margin-top:18px">' + howTo + '</p>' +
+      callbackHtml(lang) +
       '<button class="quiz-restart">' + (lang === 'th' ? 'เริ่มใหม่' : 'Start over') + '</button>' +
       '</div>';
     body.querySelector('.quiz-restart').addEventListener('click', function () {
       step = 0; picked = []; render();
+    });
+    wireCallback(lang, r);
+  }
+
+  /* Optional callback capture — LINE stays the primary path (the section promise
+     "no forms required" holds: this field is an opt-in alternative, not a gate).
+     Sends the four answers + the within-12-months urgency flag to the CRM. */
+  function callbackHtml(lang) {
+    return '<div class="quiz-callback" style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(26,26,26,0.12)">' +
+      '<p class="quiz-result-why" style="font-size:0.85em;margin-bottom:8px">' + (lang === 'th'
+        ? 'ไม่สะดวกใช้ LINE? ใส่เบอร์โทรหรือ LINE ID แล้วที่ปรึกษาจะติดต่อกลับพร้อมรายงานของลูกคุณ'
+        : 'Not on LINE right now? Leave a phone number or LINE ID and an advisor will contact you with your child\'s report.') + '</p>' +
+      '<input type="text" class="quiz-cb-hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">' +
+      '<input type="text" class="quiz-cb-input" placeholder="' + (lang === 'th' ? 'เบอร์โทร หรือ LINE ID' : 'Phone number or LINE ID') + '" style="padding:10px 14px;border:1px solid rgba(26,26,26,0.25);border-radius:8px;font:inherit;min-width:200px;background:#fff">' +
+      '<button class="quiz-cb-btn hub-btn hub-btn-ghost" style="border-color:rgba(26,26,26,0.3);color:var(--dark)">' + (lang === 'th' ? 'ให้ติดต่อกลับ' : 'Request a call back') + '</button>' +
+      '</div>' +
+      '<p class="quiz-cb-status" style="font-size:0.8em;margin-top:8px;min-height:1em"></p>' +
+      '</div>';
+  }
+
+  function wireCallback(lang, r) {
+    var btn = body.querySelector('.quiz-cb-btn');
+    var input = body.querySelector('.quiz-cb-input');
+    var hp = body.querySelector('.quiz-cb-hp');
+    var status = body.querySelector('.quiz-cb-status');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var v = (input.value || '').trim();
+      if (!v) {
+        status.textContent = lang === 'th' ? 'กรุณาใส่เบอร์โทรหรือ LINE ID ก่อนค่ะ' : 'Please enter a phone number or LINE ID first.';
+        return;
+      }
+      var isPhone = /^[+\d][\d\s\-()]{7,}$/.test(v);
+      var payload = {
+        source: 'quiz',
+        phone: isPhone ? v : null,
+        line_id: isPhone ? null : v,
+        timeline: r.soon ? 'within_12_months' : QS[3].opts[picked[3]].t.en,
+        interest: r.best,
+        message: 'Homepage quiz: recommended ' + r.best + (r.isTie ? ' (tie with ' + r.second + ')' : ''),
+        answers: {
+          age: QS[0].opts[picked[0]].t.en,
+          priority: QS[1].opts[picked[1]].t.en,
+          budget_thb: QS[2].opts[picked[2]].t.en,
+          start: QS[3].opts[picked[3]].t.en
+        },
+        page: location.pathname,
+        hp: hp.value
+      };
+      btn.disabled = true;
+      status.textContent = lang === 'th' ? 'กำลังส่ง…' : 'Sending…';
+      fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) { return res.json().catch(function () { return {}; }).then(function (j) { return { ok: res.ok && j.ok === true, err: j.error }; }); })
+        .then(function (out) {
+          if (out.ok) {
+            input.disabled = true;
+            status.textContent = lang === 'th'
+              ? 'เรียบร้อยค่ะ ที่ปรึกษาจะติดต่อกลับภายใน 24 ชั่วโมง'
+              : 'Done — an advisor will contact you within 24 hours.';
+          } else {
+            btn.disabled = false;
+            status.textContent = lang === 'th'
+              ? 'ส่งไม่สำเร็จ กรุณาลองใหม่ หรือทักเราทาง LINE ด้านบนค่ะ'
+              : 'That did not go through — please try again, or message us on LINE above.';
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          status.textContent = lang === 'th'
+            ? 'ส่งไม่สำเร็จ กรุณาลองใหม่ หรือทักเราทาง LINE ด้านบนค่ะ'
+            : 'That did not go through — please try again, or message us on LINE above.';
+        });
     });
   }
 

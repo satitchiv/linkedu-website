@@ -465,18 +465,27 @@
         <div class="modal-title"><span class="lang-th">สอบถามข้อมูลโรงเรียน</span><span class="lang-en">School Enquiry</span></div>
         <div class="modal-sub" id="modal-school-name-sub">LINKEDU — Switzerland Specialist</div>
         <form class="modal-form" onsubmit="submitEnquiry(event)">
-          <input type="text" placeholder="ชื่อ-สกุล / Full name" required>
-          <input type="email" placeholder="อีเมล / Email" required>
-          <input type="tel" placeholder="เบอร์โทร / Phone (WhatsApp / Line)">
-          <select>
+          <input type="text" id="enq-name" placeholder="ชื่อ-สกุล / Full name" required>
+          <input type="email" id="enq-email" placeholder="อีเมล / Email" required>
+          <input type="tel" id="enq-phone" placeholder="เบอร์โทร / Phone (WhatsApp / Line)">
+          <select id="enq-year">
             <option value="">ระดับชั้น / Student year</option>
             <option>Primary (อายุ 6–11)</option>
             <option>Middle School (อายุ 11–14)</option>
             <option>IGCSE / Year 10–11 (อายุ 14–16)</option>
             <option>Sixth Form / IB (อายุ 16–18)</option>
           </select>
-          <textarea placeholder="ข้อความเพิ่มเติม / Message (optional)"></textarea>
-          <button type="submit" class="modal-submit"><span class="lang-th">ส่งข้อความ</span><span class="lang-en">Send Enquiry</span></button>
+          <textarea id="enq-message" placeholder="ข้อความเพิ่มเติม / Message (optional)"></textarea>
+          <input type="text" name="hp" id="enq-hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div id="enq-need-contact" style="display:none;padding:10px 14px;border-radius:4px;background:rgba(184,74,62,0.1);border:1px solid rgba(184,74,62,0.35);font-size:0.82rem;line-height:1.6;">
+            <span class="lang-th">กรุณาระบุอีเมลหรือเบอร์โทร อย่างน้อยหนึ่งช่องทาง</span>
+            <span class="lang-en">Please provide at least an email or phone number so we can reach you.</span>
+          </div>
+          <div id="enq-error" style="display:none;padding:10px 14px;border-radius:4px;background:rgba(184,74,62,0.1);border:1px solid rgba(184,74,62,0.35);font-size:0.82rem;line-height:1.6;">
+            <span class="lang-th">ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง หรือทักไลน์หาเราได้ที่ <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="font-weight:600">satitlinkedu</a></span>
+            <span class="lang-en">Something went wrong sending your message. Please try again, or message us on <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="font-weight:600">LINE</a>.</span>
+          </div>
+          <button type="submit" class="modal-submit" id="enq-submit-btn"><span class="lang-th">ส่งข้อความ</span><span class="lang-en">Send Enquiry</span></button>
         </form>
       </div>
     </div>
@@ -960,6 +969,12 @@
   function openModal() {
     document.getElementById('enquireModal').classList.add('open');
     document.body.style.overflow = 'hidden';
+    var errC = document.getElementById('enq-need-contact');
+    var errS = document.getElementById('enq-error');
+    if (errC) errC.style.display = 'none';
+    if (errS) errS.style.display = 'none';
+    var btn = document.getElementById('enq-submit-btn');
+    if (btn) btn.disabled = false;
   }
   function closeModal() {
     document.getElementById('enquireModal').classList.remove('open');
@@ -969,13 +984,58 @@
     if (e.target === this) closeModal();
   });
 
-  function submitEnquiry(e) {
+  async function postLead(payload) {
+    var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+    });
+    var json = {};
+    try { json = await res.json(); } catch (e) {}
+    if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+  }
+
+  async function submitEnquiry(e) {
     e.preventDefault();
-    document.getElementById('modal-body').innerHTML =
-      '<div class="modal-success"><div class="modal-success-icon">✓</div>' +
-      '<h3><span class="lang-th">ได้รับข้อความแล้ว</span><span class="lang-en">Message Received</span></h3>' +
-      '<p><span class="lang-th">ทีม LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง</span><span class="lang-en">The LINKEDU team will respond within 24 hours.</span></p></div>';
-    setTimeout(closeModal, 3500);
+    var val = function(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    var email = val('enq-email');
+    var phone = val('enq-phone');
+    var errC = document.getElementById('enq-need-contact');
+    var errS = document.getElementById('enq-error');
+    errC.style.display = 'none';
+    errS.style.display = 'none';
+
+    if (!email && !phone) {
+      errC.style.display = 'block';
+      return;
+    }
+
+    var btn = document.getElementById('enq-submit-btn');
+    btn.disabled = true;
+
+    var schoolName = (schoolData && schoolData.name) ? schoolData.name : 'Switzerland school (unspecified)';
+    var msg = val('enq-message');
+    var combinedMessage = 'School: ' + schoolName + ' · Student year: ' + val('enq-year') + (msg ? ' · ' + msg : '');
+
+    try {
+      await postLead({
+        source: 'enquiry',
+        name: val('enq-name'),
+        email: email,
+        phone: phone,
+        country: 'Switzerland',
+        message: combinedMessage,
+        hp: val('enq-hp')
+      });
+      document.getElementById('modal-body').innerHTML =
+        '<div class="modal-success"><div class="modal-success-icon">✓</div>' +
+        '<h3><span class="lang-th">ได้รับข้อความแล้ว</span><span class="lang-en">Message Received</span></h3>' +
+        '<p><span class="lang-th">ทีม LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง</span><span class="lang-en">The LINKEDU team will respond within 24 hours.</span></p></div>';
+      setTimeout(closeModal, 3500);
+    } catch (err) {
+      errS.style.display = 'block';
+      btn.disabled = false;
+    }
   }
 
   function setLang(l) {

@@ -346,13 +346,14 @@
             <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label>
             <input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
+      <input type="text" name="hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button onclick="sendEnquiry(this)" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
         <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
         <span class="lang-en">Send Enquiry — Free Consultation →</span>
       </button>
       <p style="font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(245,240,232,0.45);margin-top:10px;text-align:center;">
-        <span class="lang-th">ปุ่มนี้จะเปิดอีเมลถึง thai.enquiry@linkedu.asia — ทางที่เร็วที่สุดคือ LINE: satitlinkedu</span>
-        <span class="lang-en">This opens an email to thai.enquiry@linkedu.asia — fastest reply is via LINE: satitlinkedu</span>
+        <span class="lang-th">ข้อมูลของคุณจะถูกส่งตรงถึงทีมงาน — หรือทักไลน์ได้ทันทีที่ satitlinkedu</span>
+        <span class="lang-en">Your details go straight to our team — or message us directly on LINE: satitlinkedu</span>
       </p>
     </div>
   </div>
@@ -487,13 +488,14 @@
             <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label>
             <input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
-      <button onclick="sendEnquiry(this); closeEqModal();" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+      <input type="text" name="hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button onclick="sendEnquiry(this)" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:14px 20px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.07em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
         <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
         <span class="lang-en">Send Enquiry — Free Consultation →</span>
       </button>
       <p style="font-family:'Inter',sans-serif;font-size:0.72rem;color:rgba(245,240,232,0.45);margin-top:10px;text-align:center;">
-        <span class="lang-th">ปุ่มนี้จะเปิดอีเมลถึง thai.enquiry@linkedu.asia — ทางที่เร็วที่สุดคือ LINE: satitlinkedu</span>
-        <span class="lang-en">This opens an email to thai.enquiry@linkedu.asia — fastest reply is via LINE: satitlinkedu</span>
+        <span class="lang-th">ข้อมูลของคุณจะถูกส่งตรงถึงทีมงาน — หรือทักไลน์ได้ทันทีที่ satitlinkedu</span>
+        <span class="lang-en">Your details go straight to our team — or message us directly on LINE: satitlinkedu</span>
       </p>
     </div>
   </div>
@@ -515,14 +517,51 @@
     document.getElementById('eqOverlay').style.display = 'none';
     document.body.style.overflow = '';
   }
-  // FIX 2: scroll to form if it exists on this page, else popup
+  async function postLead(payload) {
+    var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+    });
+    var json = {};
+    try { json = await res.json(); } catch (e) {}
+    if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+  }
+
+  function showEnquiryStatus(container, ok, isEn) {
+    var el = container.querySelector('.enquiry-status');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'enquiry-status';
+      el.style.cssText = 'margin-top:14px;padding:14px 16px;border-radius:4px;font-family:\'Inter\',sans-serif;font-size:0.82rem;line-height:1.5;text-align:center;';
+      var note = container.querySelector('p');
+      if (note) container.insertBefore(el, note); else container.appendChild(el);
+    }
+    if (ok) {
+      el.style.background = 'rgba(184,150,46,0.12)';
+      el.style.border = '1px solid rgba(184,150,46,0.4)';
+      el.style.color = '#f5f0e8';
+      el.innerHTML = '<span class="lang-th"><strong style="color:#B8962E">ส่งข้อมูลสำเร็จ</strong> ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง</span>' +
+        '<span class="lang-en"><strong style="color:#B8962E">Sent successfully.</strong> Our team will be in touch within 24 hours.</span>';
+    } else {
+      el.style.background = 'rgba(200,60,60,0.12)';
+      el.style.border = '1px solid rgba(200,60,60,0.4)';
+      el.style.color = '#f5f0e8';
+      el.innerHTML = '<span class="lang-th">ส่งอัตโนมัติไม่สำเร็จ ระบบได้เปิดอีเมลสำรองให้แล้ว หรือติดต่อผ่าน <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>' +
+        '<span class="lang-en">Automatic send failed — we\'ve opened a backup email for you, or contact us via <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>';
+    }
+  }
+
   function sendEnquiry(btn) {
-    // Collect the enquiry form around the button and deliver it via the
-    // user's own mail client — there is no form backend on this static site.
     var root = btn.closest('#eqOverlay') || btn.closest('section') || document;
+    var isEn = document.documentElement.getAttribute('lang') === 'en';
+
+    // Collect every filled field, keyed by its English label — used both to
+    // build the structured POST payload and as the mailto fallback body.
     var lines = [];
+    var byLabel = {};
     root.querySelectorAll('input, select').forEach(function (el) {
-      if (!el.value) return;
+      if (el.name === 'hp' || !el.value) return;
       var holder = el.parentElement;
       var label = holder ? holder.querySelector('label') : null;
       var name = '';
@@ -531,16 +570,63 @@
         name = (en ? en.textContent : label.textContent).trim();
       }
       lines.push((name || el.type) + ': ' + el.value);
+      if (name) byLabel[name] = el.value;
     });
-    var isEn = document.documentElement.getAttribute('lang') === 'en';
+
     if (lines.length === 0) {
       alert(isEn ? 'Please fill in at least one field first.' : 'กรุณากรอกข้อมูลอย่างน้อยหนึ่งช่องก่อนส่ง');
       return;
     }
-    var subject = 'Website enquiry — Find Your School';
-    var body = lines.join('\n') + '\n\n(Sent from linkeduth.netlify.app/find-your-school)';
-    window.location.href = 'mailto:thai.enquiry@linkedu.asia?subject=' +
-      encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    var firstName = byLabel['First Name'] || '';
+    var lastName = byLabel['Last Name'] || '';
+    var childDob = byLabel["Child's Date of Birth"] || '';
+    var currentYear = byLabel['Current Year / Grade'] || '';
+    var phone = byLabel['Phone Number'] || '';
+    var email = byLabel['Email'] || '';
+    var lineId = byLabel['LINE ID'] || '';
+    var country = byLabel['Country of Interest'] || '';
+    var entryYear = byLabel['Intended Entry Year'] || '';
+    var schools = byLabel['Schools of Interest (optional)'] || '';
+
+    if (!phone && !email && !lineId) {
+      alert(isEn ? 'Please provide a phone number, email, or LINE ID so we can reach you.' : 'กรุณากรอกเบอร์โทร อีเมล หรือไลน์ไอดี เพื่อให้เราติดต่อกลับได้');
+      return;
+    }
+
+    var messageLines = [];
+    if (childDob) messageLines.push('Child DOB: ' + childDob);
+    if (currentYear) messageLines.push('Current year: ' + currentYear);
+    if (schools) messageLines.push('Schools of interest: ' + schools);
+
+    var hpEl = root.querySelector('input[name="hp"]');
+    var statusHolder = btn.parentElement;
+
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+
+    postLead({
+      source: 'enquiry',
+      name: (firstName + ' ' + lastName).trim(),
+      phone: phone,
+      email: email,
+      line_id: lineId,
+      country: country,
+      timeline: entryYear,
+      message: messageLines.join('\n'),
+      hp: hpEl ? hpEl.value : ''
+    }).then(function () {
+      showEnquiryStatus(statusHolder, true, isEn);
+    }).catch(function () {
+      btn.disabled = false;
+      btn.style.opacity = '';
+      showEnquiryStatus(statusHolder, false, isEn);
+      // Fall back to the mail client so the lead isn't dropped entirely.
+      var subject = 'Website enquiry — Find Your School';
+      var body = lines.join('\n') + '\n\n(Sent from linkeduth.netlify.app/find-your-school)';
+      window.location.href = 'mailto:thai.enquiry@linkedu.asia?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
   }
 
   function consultAction() {

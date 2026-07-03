@@ -764,5 +764,94 @@
 
 <script src="js/main.js"></script>
 <script src="js/auth-indicator.js"></script>
+<script>
+  (function () {
+    var form = document.querySelector('form[name="prepare-roadmap-consultation"]');
+    if (!form) return;
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    function showStatus(ok) {
+      var el = form.querySelector('.prepare-form-status');
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'prepare-form-status';
+        el.style.cssText = 'margin-top:14px;padding:14px 16px;border-radius:4px;font-family:\'Inter\',sans-serif;font-size:0.82rem;line-height:1.5;text-align:center;';
+        form.appendChild(el);
+      }
+      if (ok) {
+        el.style.background = 'rgba(184,150,46,0.12)';
+        el.style.border = '1px solid rgba(184,150,46,0.4)';
+        el.style.color = '#f5f0e8';
+        el.innerHTML = '<span class="lang-th"><strong style="color:#B8962E">ส่งข้อมูลสำเร็จ</strong> ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง</span>' +
+          '<span class="lang-en"><strong style="color:#B8962E">Sent successfully.</strong> Our team will be in touch within 24 hours.</span>';
+      } else {
+        el.style.background = 'rgba(200,60,60,0.12)';
+        el.style.border = '1px solid rgba(200,60,60,0.4)';
+        el.style.color = '#f5f0e8';
+        el.innerHTML = '<span class="lang-th">ส่งอัตโนมัติไม่สำเร็จ กำลังส่งผ่านฟอร์มสำรอง — หรือติดต่อผ่าน <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>' +
+          '<span class="lang-en">Automatic send failed — falling back to our backup form, or contact us via <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>';
+      }
+    }
+
+    async function postLead(payload) {
+      var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+      });
+      var json = {};
+      try { json = await res.json(); } catch (e) {}
+      if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstName = form.first_name.value.trim();
+      var lastName = form.last_name.value.trim();
+      var childDob = form.child_dob.value;
+      var currentYear = form.current_year.value;
+      var phone = form.phone.value.trim();
+      var email = form.email.value.trim();
+      var lineId = form.line_id.value.trim();
+      var country = form.country.value;
+      var entryYear = form.entry_year.value;
+      var schools = form.schools.value.trim();
+      var hp = form['bot-field'] ? form['bot-field'].value : '';
+
+      if (!phone && !email && !lineId) {
+        alert(document.documentElement.getAttribute('lang') === 'en'
+          ? 'Please provide a phone number, email, or LINE ID so we can reach you.'
+          : 'กรุณากรอกเบอร์โทร อีเมล หรือไลน์ไอดี เพื่อให้เราติดต่อกลับได้');
+        return;
+      }
+
+      var messageLines = [];
+      if (childDob) messageLines.push('Child DOB: ' + childDob);
+      if (currentYear) messageLines.push('Current year: ' + currentYear);
+      if (schools) messageLines.push('Schools of interest: ' + schools);
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; }
+
+      postLead({
+        source: 'enquiry',
+        name: (firstName + ' ' + lastName).trim(),
+        phone: phone,
+        email: email,
+        line_id: lineId,
+        country: country,
+        timeline: entryYear,
+        message: messageLines.join('\n'),
+        hp: hp
+      }).then(function () {
+        showStatus(true);
+      }).catch(function () {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }
+        showStatus(false);
+        form.submit(); // Netlify Forms fallback so the lead is not lost.
+      });
+    });
+  })();
+</script>
 </body>
 </html>

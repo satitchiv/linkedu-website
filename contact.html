@@ -321,19 +321,19 @@
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชื่อ</span><span class="lang-en">First Name</span></label>
-              <input type="text" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+              <input type="text" id="cf-first-name" placeholder="เช่น สุภา" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">นามสกุล</span><span class="lang-en">Last Name</span></label>
-              <input type="text" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+              <input type="text" id="cf-last-name" placeholder="เช่น วงศ์ดี" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">วันเกิดของลูก</span><span class="lang-en">Child's Date of Birth</span></label>
-              <input type="date" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+              <input type="date" id="cf-child-dob" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ชั้นปีปัจจุบัน</span><span class="lang-en">Current Year / Grade</span></label>
-              <select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <select id="cf-current-year" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
                 <option value="">-- เลือก --</option>
                 <option>Year 6 / ป.6</option><option>Year 7 / ม.1</option><option>Year 8 / ม.2</option>
                 <option>Year 9 / ม.3</option><option>Year 10 / ม.4</option><option>Year 11 / ม.5</option>
@@ -342,21 +342,21 @@
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">เบอร์โทรติดต่อ</span><span class="lang-en">Phone Number</span></label>
-              <input type="tel" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+              <input type="tel" id="cf-phone" placeholder="+66 81 234 5678" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">อีเมล</span><span class="lang-en">Email</span></label>
-              <input type="email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+              <input type="email" id="cf-email" placeholder="your@email.com" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
             </div>
           </div>
           <div style="margin-top:14px;">
             <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ไลน์ไอดี</span><span class="lang-en">LINE ID</span></label>
-            <input type="text" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+            <input type="text" id="cf-line-id" placeholder="@your.line.id" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ประเทศที่สนใจ</span><span class="lang-en">Country of Interest</span></label>
-              <select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <select id="cf-country" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
                 <option value="">-- เลือก --</option>
                 <option selected>United Kingdom</option><option>United States</option>
                 <option>Australia</option><option>Canada</option><option>Switzerland</option><option>อื่นๆ</option>
@@ -364,7 +364,7 @@
             </div>
             <div>
               <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">ปีที่ต้องการศึกษา</span><span class="lang-en">Intended Entry Year</span></label>
-              <select style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
+              <select id="cf-entry-year" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;">
                 <option value="">-- เลือก --</option>
                 <option>2026</option><option>2027</option><option>2028</option><option>2029</option>
               </select>
@@ -372,9 +372,11 @@
           </div>
           <div style="margin-top:14px;">
             <label style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.5);display:block;margin-bottom:6px;"><span class="lang-th">โรงเรียนที่สนใจ (ถ้ายังไม่รู้ก็ได้)</span><span class="lang-en">Schools of Interest (optional)</span></label>
-            <input type="text" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
+            <input type="text" id="cf-schools" placeholder="เช่น Harrow, Bromsgrove — หรือยังไม่รู้ก็ได้" style="width:100%;background:#2a2a2a;border:1.5px solid rgba(184,150,46,0.3);border-radius:4px;padding:11px 14px;color:#f5f0e8;font-family:'Inter',sans-serif;font-size:0.88rem;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#B8962E'" onblur="this.style.borderColor='rgba(184,150,46,0.3)'">
           </div>
-      <button onclick="alert('ขอบคุณครับ/ค่ะ!\nLINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง ผ่าน LINE หรืออีเมล')" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+          <input type="text" id="cf-hp" name="hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div id="cf-status" style="display:none;margin-top:14px;padding:12px 14px;border-radius:4px;font-family:'Inter',sans-serif;font-size:0.82rem;line-height:1.6;"></div>
+      <button id="cf-submit-btn" onclick="submitContactForm()" style="width:100%;background:#B8962E;color:#1a1a1a;border:none;border-radius:4px;padding:15px 20px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;margin-top:20px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
         <span class="lang-th">ส่งข้อมูล — ปรึกษาฟรี →</span>
         <span class="lang-en">Send Enquiry — Free Consultation →</span>
       </button>
@@ -437,5 +439,82 @@
 
 <script src="js/main.js"></script>
 <script src="js/auth-indicator.js"></script>
+<script>
+async function postLead(payload) {
+  var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+  });
+  var json = {};
+  try { json = await res.json(); } catch (e) {}
+  if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+}
+
+function cfShowStatus(kind, html) {
+  var el = document.getElementById('cf-status');
+  el.style.display = 'block';
+  el.innerHTML = html;
+  if (kind === 'error') {
+    el.style.background = 'rgba(184,74,62,0.12)';
+    el.style.border = '1px solid rgba(184,74,62,0.4)';
+    el.style.color = '#f5f0e8';
+  } else {
+    el.style.background = 'rgba(184,150,46,0.12)';
+    el.style.border = '1px solid rgba(184,150,46,0.4)';
+    el.style.color = '#f5f0e8';
+  }
+}
+
+async function submitContactForm() {
+  var val = function(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  var firstName = val('cf-first-name');
+  var lastName = val('cf-last-name');
+  var phone = val('cf-phone');
+  var email = val('cf-email');
+  var lineId = val('cf-line-id');
+
+  if (!phone && !email && !lineId) {
+    cfShowStatus('error',
+      '<span class="lang-th">กรุณาระบุเบอร์โทรศัพท์ อีเมล หรือไลน์ไอดี อย่างน้อยหนึ่งช่องทาง เพื่อให้เราติดต่อกลับได้</span>' +
+      '<span class="lang-en">Please provide at least a phone number, email, or LINE ID so we can reach you.</span>');
+    return;
+  }
+
+  var btn = document.getElementById('cf-submit-btn');
+  btn.disabled = true;
+
+  var childDob = val('cf-child-dob');
+  var currentYear = val('cf-current-year');
+  var schools = val('cf-schools');
+  var messageParts = [];
+  if (childDob) messageParts.push('Child DOB: ' + childDob);
+  if (currentYear) messageParts.push('Current year: ' + currentYear);
+  if (schools) messageParts.push('Schools of interest: ' + schools);
+
+  try {
+    await postLead({
+      source: 'enquiry',
+      name: (firstName + ' ' + lastName).trim(),
+      phone: phone,
+      email: email,
+      line_id: lineId,
+      country: val('cf-country'),
+      timeline: val('cf-entry-year'),
+      message: messageParts.join(' · '),
+      hp: val('cf-hp')
+    });
+    cfShowStatus('success',
+      '<span class="lang-th">ขอบคุณครับ/ค่ะ! LINKEDU จะติดต่อกลับภายใน 24 ชั่วโมง ผ่าน LINE หรืออีเมล</span>' +
+      '<span class="lang-en">Thank you! LINKEDU will be in touch within 24 hours via LINE or email.</span>');
+    btn.style.display = 'none';
+  } catch (err) {
+    cfShowStatus('error',
+      '<span class="lang-th">ส่งข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง หรือทักไลน์หาเราได้ที่ <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="color:#B8962E;font-weight:600">satitlinkedu</a></span>' +
+      '<span class="lang-en">Something went wrong sending your enquiry. Please try again, or message us directly on <a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="color:#B8962E;font-weight:600">LINE</a>.</span>');
+    btn.disabled = false;
+  }
+}
+</script>
 </body>
 </html>

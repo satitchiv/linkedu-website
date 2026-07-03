@@ -1147,6 +1147,8 @@
 
           <form id="contact-form" action="#" method="POST" class="contact-form">
 
+            <input type="text" name="hp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
             <!-- Parent Name -->
             <div class="form-group">
               <label class="form-label" for="parent-name">
@@ -1275,9 +1277,9 @@
 
           </form>
 
-          <p class="form-note">
-            <span class="lang-th">ฟอร์มนี้ยังไม่ได้เชื่อมต่อ กรุณาติดต่อผ่าน LINE satitlinkedu โดยตรง</span>
-            <span class="lang-en">This form is not yet connected. Please contact us directly via LINE satitlinkedu</span>
+          <p class="form-note" id="contact-form-note">
+            <span class="lang-th">ข้อมูลของคุณจะถูกส่งตรงถึงทีมงาน — หรือทักไลน์ได้ทันทีที่ satitlinkedu</span>
+            <span class="lang-en">Your details go straight to our team — or message us directly on LINE: satitlinkedu</span>
           </p>
         </div>
 
@@ -1793,6 +1795,82 @@
             answer.style.maxHeight = answer.scrollHeight + 'px';
             icon.textContent = '+'; /* stays +, CSS rotates it via .faq-item[open] */
           }
+        });
+      });
+    })();
+
+    /* ── Lead intake: contact form ── */
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      var formCard = document.querySelector('.action-card-form');
+      var noteEl = document.getElementById('contact-form-note');
+      var submitBtn = form.querySelector('.form-submit');
+      var phoneLineRe = /^[+\d][\d\s\-()]{7,}$/;
+
+      async function postLead(payload) {
+        var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+        });
+        var json = {};
+        try { json = await res.json(); } catch (e) {}
+        if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var parentName = form.parent_name.value.trim();
+        var phoneLine = form.phone_line.value.trim();
+        var email = form.email.value.trim();
+        var golferAge = form.golfer_age.value;
+        var handicap = form.handicap.value;
+        var pathway = form.pathway.value;
+        var message = form.message.value.trim();
+        var hp = form.hp.value;
+
+        var phone = '';
+        var lineId = '';
+        if (phoneLine) {
+          if (phoneLineRe.test(phoneLine)) { phone = phoneLine; } else { lineId = phoneLine; }
+        }
+
+        if (!phone && !lineId && !email) {
+          noteEl.innerHTML = '<span class="lang-th">กรุณากรอกเบอร์โทร LINE ID หรืออีเมลอย่างน้อยหนึ่งช่อง</span>' +
+            '<span class="lang-en">Please provide a phone number, LINE ID, or email so we can reach you.</span>';
+          return;
+        }
+
+        var messageLines = [];
+        if (handicap) messageLines.push('Handicap: ' + handicap);
+        if (pathway) messageLines.push('Pathway interest: ' + pathway);
+        if (message) messageLines.push('Message: ' + message);
+
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.6';
+
+        postLead({
+          source: 'golf',
+          interest: 'golf',
+          name: parentName,
+          phone: phone,
+          email: email,
+          line_id: lineId,
+          child_age: golferAge,
+          message: messageLines.join('\n'),
+          hp: hp
+        }).then(function () {
+          formCard.innerHTML =
+            '<h2><span class="lang-th">ได้รับข้อมูลแล้ว</span><span class="lang-en">Details Received</span></h2>' +
+            '<p><span class="lang-th">ขอบคุณค่ะ ทีมงานจะติดต่อกลับภายใน 1 วันทำการ</span>' +
+            '<span class="lang-en">Thank you — our team will be in touch within 1 business day.</span></p>';
+        }).catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '';
+          noteEl.innerHTML = '<span class="lang-th">ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อผ่าน <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>' +
+            '<span class="lang-en">Something went wrong. Please try again, or contact us via <a href="https://line.me/R/ti/p/satitlinkedu" style="color:#B8962E">LINE: satitlinkedu</a></span>';
         });
       });
     })();

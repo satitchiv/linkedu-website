@@ -1450,14 +1450,14 @@
                 <span class="lang-th">ชื่อนักเรียน</span>
                 <span class="lang-en">Student Name</span>
               </label>
-              <input type="text" class="modal-inp" placeholder="Name / ชื่อ" required>
+              <input type="text" id="efStudentName" class="modal-inp" placeholder="Name / ชื่อ" required>
             </div>
             <div>
               <label class="modal-lbl">
                 <span class="lang-th">อายุนักเรียน</span>
                 <span class="lang-en">Student Age</span>
               </label>
-              <input type="number" class="modal-inp" placeholder="Age / อายุ" min="8" max="20" required>
+              <input type="number" id="efStudentAge" class="modal-inp" placeholder="Age / อายุ" min="8" max="20" required>
             </div>
           </div>
 
@@ -1467,7 +1467,7 @@
                 <span class="lang-th">เพศนักเรียน</span>
                 <span class="lang-en">Student Gender</span>
               </label>
-              <select class="modal-sel" required>
+              <select id="efGender" class="modal-sel" required>
                 <option value="">-- Select --</option>
                 <option>Male / ชาย</option>
                 <option>Female / หญิง</option>
@@ -1478,7 +1478,7 @@
                 <span class="lang-th">ปีที่ต้องการเข้า</span>
                 <span class="lang-en">Desired Entry Year</span>
               </label>
-              <select class="modal-sel" required>
+              <select id="efEntryYear" class="modal-sel" required>
                 <option value="">-- Select --</option>
                 <option>2025</option>
                 <option>2026</option>
@@ -1494,17 +1494,17 @@
                 <span class="lang-th">ชื่อผู้ปกครอง</span>
                 <span class="lang-en">Parent Name</span>
               </label>
-              <input type="text" class="modal-inp" placeholder="Parent / ผู้ปกครอง" required>
+              <input type="text" id="efParentName" class="modal-inp" placeholder="Parent / ผู้ปกครอง" required>
             </div>
             <div>
               <label class="modal-lbl">LINE ID</label>
-              <input type="text" class="modal-inp" placeholder="@yourlineid">
+              <input type="text" id="efLineId" class="modal-inp" placeholder="@yourlineid">
             </div>
           </div>
 
           <div class="modal-field">
             <label class="modal-lbl">Email</label>
-            <input type="email" class="modal-inp" placeholder="email@example.com" required>
+            <input type="email" id="efEmail" class="modal-inp" placeholder="email@example.com" required>
           </div>
 
           <div class="modal-field">
@@ -1512,7 +1512,7 @@
               <span class="lang-th">งบประมาณต่อปี</span>
               <span class="lang-en">Annual Budget</span>
             </label>
-            <select class="modal-sel" required>
+            <select id="efBudget" class="modal-sel" required>
               <option value="">-- Select --</option>
               <option>Under £40,000</option>
               <option>£40,000 – £50,000</option>
@@ -1526,7 +1526,7 @@
               <span class="lang-th">จุดสนใจหลัก</span>
               <span class="lang-en">Primary Interest</span>
             </label>
-            <select class="modal-sel" required>
+            <select id="efInterest" class="modal-sel" required>
               <option value="">-- Select --</option>
               <option>Academic / Oxbridge</option>
               <option>Sports Scholarship</option>
@@ -1540,10 +1540,21 @@
               <span class="lang-th">ข้อความ (ไม่บังคับ)</span>
               <span class="lang-en">Message (optional)</span>
             </label>
-            <textarea class="modal-ta" placeholder="Any questions or specific requirements..."></textarea>
+            <textarea id="efMessage" class="modal-ta" placeholder="Any questions or specific requirements..."></textarea>
           </div>
 
-          <button type="submit" class="modal-submit">
+          <input type="text" name="hp" id="efHp" value="" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div id="modalFormError" style="display:none;margin-bottom:14px;padding:12px 14px;border-radius:4px;background:rgba(184,74,62,0.1);border:1px solid rgba(184,74,62,0.35);font-size:0.82rem;line-height:1.6;">
+            <span class="lang-th">ส่งข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง หรือทักไลน์หาเราได้ที่ <a href="https://line.me/ti/p/satitlinkedu" target="_blank" style="font-weight:600">satitlinkedu</a></span>
+            <span class="lang-en">Something went wrong sending your enquiry. Please try again, or message us on <a href="https://line.me/ti/p/satitlinkedu" target="_blank" style="font-weight:600">LINE</a>.</span>
+          </div>
+          <div id="modalNeedContact" style="display:none;margin-bottom:14px;padding:12px 14px;border-radius:4px;background:rgba(184,74,62,0.1);border:1px solid rgba(184,74,62,0.35);font-size:0.82rem;line-height:1.6;">
+            <span class="lang-th">กรุณาระบุอีเมลหรือไลน์ไอดี อย่างน้อยหนึ่งช่องทาง</span>
+            <span class="lang-en">Please provide at least an email or LINE ID so we can reach you.</span>
+          </div>
+
+          <button type="submit" class="modal-submit" id="efSubmitBtn">
             <span class="lang-th">ส่งข้อมูล — เจ้าหน้าที่จะติดต่อกลับใน 24 ชั่วโมง</span>
             <span class="lang-en">Submit — We'll respond within 24 hours</span>
           </button>
@@ -1909,6 +1920,9 @@
       document.getElementById('modalFormWrap').style.display = 'block';
       document.getElementById('modalSuccess').classList.remove('show');
       document.getElementById('enquiryForm').reset();
+      document.getElementById('modalFormError').style.display = 'none';
+      document.getElementById('modalNeedContact').style.display = 'none';
+      document.getElementById('efSubmitBtn').disabled = false;
       document.getElementById('modalOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1922,10 +1936,61 @@
       if (e.target === document.getElementById('modalOverlay')) closeModal();
     }
 
-    function handleSubmit(e) {
+    async function postLead(payload) {
+      var res = await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ page: location.pathname }, payload))
+      });
+      var json = {};
+      try { json = await res.json(); } catch (e) {}
+      if (!res.ok || json.ok !== true) throw new Error((json && json.error) || ('HTTP ' + res.status));
+    }
+
+    async function handleSubmit(e) {
       e.preventDefault();
-      document.getElementById('modalFormWrap').style.display = 'none';
-      document.getElementById('modalSuccess').classList.add('show');
+      var val = function(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      var email = val('efEmail');
+      var lineId = val('efLineId');
+      var errNeedContact = document.getElementById('modalNeedContact');
+      var errSend = document.getElementById('modalFormError');
+      errNeedContact.style.display = 'none';
+      errSend.style.display = 'none';
+
+      if (!email && !lineId) {
+        errNeedContact.style.display = 'block';
+        return;
+      }
+
+      var btn = document.getElementById('efSubmitBtn');
+      btn.disabled = true;
+
+      var schoolName = document.getElementById('modalSchoolLabel').textContent;
+      var msg = val('efMessage');
+      var combinedMessage = 'School: ' + schoolName +
+        ' · Gender: ' + val('efGender') +
+        ' · Budget: ' + val('efBudget') +
+        (msg ? ' · ' + msg : '');
+
+      try {
+        await postLead({
+          source: 'enquiry',
+          name: val('efParentName'),
+          email: email,
+          line_id: lineId,
+          child_name: val('efStudentName'),
+          child_age: val('efStudentAge'),
+          timeline: val('efEntryYear'),
+          interest: val('efInterest'),
+          message: combinedMessage,
+          hp: val('efHp')
+        });
+        document.getElementById('modalFormWrap').style.display = 'none';
+        document.getElementById('modalSuccess').classList.add('show');
+      } catch (err) {
+        errSend.style.display = 'block';
+        btn.disabled = false;
+      }
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });

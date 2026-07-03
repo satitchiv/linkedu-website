@@ -498,6 +498,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
         <button type="submit" class="btn-submit" id="btn-submit">
           <span id="btn-submit-text">Send Enquiry →</span>
         </button>
+        <div class="modal-form-note" id="modal-form-error" style="display:none;background:#fbeaea;border-left:3px solid #B84A3E;margin-top:10px">
+          <span class="lang-en">Something went wrong sending your enquiry. Please try again, or message us directly on LINE.</span>
+          <span class="lang-th">ส่งข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง หรือทักไลน์หาเราได้เลย</span>
+          <div style="margin-top:8px"><a href="https://line.me/R/ti/p/satitlinkedu" target="_blank" style="color:#B84A3E;font-weight:600">Chat on LINE →</a></div>
+        </div>
+        <div class="modal-form-note" id="modal-form-need-contact" style="display:none;background:#fbeaea;border-left:3px solid #B84A3E;margin-top:10px">
+          <span class="lang-en">Please provide at least an email, phone number, or LINE ID so we can reach you.</span>
+          <span class="lang-th">กรุณาระบุอีเมล เบอร์โทรศัพท์ หรือ LINE ID อย่างน้อยหนึ่งช่องทาง เพื่อให้เราติดต่อกลับได้</span>
+        </div>
       </form>
     </div>
     <div class="modal-success" id="modal-success">
@@ -1009,6 +1018,9 @@ function openModal(campId, type){
   document.getElementById('f-request-type').value=type;
   document.getElementById('modal-form-body').style.display='block';
   document.getElementById('modal-success').style.display='none';
+  document.getElementById('modal-form-error').style.display='none';
+  document.getElementById('modal-form-need-contact').style.display='none';
+  document.getElementById('btn-submit').disabled=false;
   document.getElementById('enquiry-form').reset();
   document.getElementById('f-camp-name').value=camp.title;
   document.getElementById('f-request-type').value=type;
@@ -1018,22 +1030,55 @@ function openModal(campId, type){
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';}
 function handleOverlayClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
-// Form submit — Netlify handles POST; we intercept for UX
-document.getElementById('enquiry-form').addEventListener('submit',function(e){
+// Lead intake — posts to LinkedU backend
+async function postLead(payload){
+  var res=await fetch('https://linkedu-parent-portal.netlify.app/api/lead-intake',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(Object.assign({page:location.pathname},payload))
+  });
+  var json={};
+  try{json=await res.json();}catch(e){}
+  if(!res.ok||json.ok!==true)throw new Error((json&&json.error)||('HTTP '+res.status));
+}
+
+document.getElementById('enquiry-form').addEventListener('submit',async function(e){
   e.preventDefault();
   const form=this;
-  const data=new FormData(form);
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams(data).toString()})
-  .then(()=>{
+  const val=n=>{const el=form.querySelector('[name="'+n+'"]');return el?el.value.trim():'';};
+  const errNeedContact=document.getElementById('modal-form-need-contact');
+  const errSend=document.getElementById('modal-form-error');
+  errNeedContact.style.display='none';
+  errSend.style.display='none';
+
+  const phone=val('phone'),email=val('email'),lineId=val('line-id');
+  if(!phone&&!email&&!lineId){
+    errNeedContact.style.display='block';
+    return;
+  }
+
+  const btn=document.getElementById('btn-submit');
+  btn.disabled=true;
+  const campName=val('camp-name'),requestType=val('request-type'),msg=val('message');
+  const combinedMessage='Camp: '+campName+' · Request: '+requestType+(msg?' · '+msg:'');
+  try{
+    await postLead({
+      source:'camps',
+      name:val('parent-name'),
+      phone:phone,
+      email:email,
+      line_id:lineId,
+      child_age:val('child-age'),
+      interest:'summer_camp',
+      message:combinedMessage,
+      hp:val('bot-field')
+    });
     document.getElementById('modal-form-body').style.display='none';
     document.getElementById('modal-success').style.display='block';
-  })
-  .catch(()=>{
-    // Fallback: show success anyway (form may have submitted)
-    document.getElementById('modal-form-body').style.display='none';
-    document.getElementById('modal-success').style.display='block';
-  });
+  }catch(err){
+    errSend.style.display='block';
+    btn.disabled=false;
+  }
 });
 
 // ─── CARD BUILDER ────────────────────────────────────────────
@@ -1228,6 +1273,9 @@ function openNoResultsModal(){
   document.getElementById('f-request-type').value='custom-search';
   document.getElementById('modal-form-body').style.display='block';
   document.getElementById('modal-success').style.display='none';
+  document.getElementById('modal-form-error').style.display='none';
+  document.getElementById('modal-form-need-contact').style.display='none';
+  document.getElementById('btn-submit').disabled=false;
   document.getElementById('enquiry-form').reset();
   document.getElementById('f-camp-name').value='General Programme Search';
   document.getElementById('f-request-type').value='custom-search';
