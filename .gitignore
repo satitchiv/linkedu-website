@@ -29,3 +29,16 @@ server.py*
 
 # nested portal repo (own git repo, must never be committed here)
 portal/
+
+# Night Lead internal ops files — netlify.toml publishes the whole repo root ("publish = ."),
+# so anything committed to main becomes a public URL. These are internal automation process
+# files (curated backlog, precedent log, run scratch data, QA probe transcripts), never
+# site content — must never be git-added. They exist as plain files on disk for Night Lead to
+# read/write directly; no git tracking is required for that to work.
+/data/backlog.md
+/data/TASTE.md
+/data/night/
+/qa/probes/
+# Night Lead's guard snapshot (lib.sh nl_guard_snapshot copies backlog.md -> backlog.md.nlbak;
+# normally deleted after each run, but a crashed run leaves it behind — same publish risk)
+*.nlbak
