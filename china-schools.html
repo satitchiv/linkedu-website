@@ -588,6 +588,7 @@
   let renderedCount = 0;
   let fetchSeq = 0;        // bumped per fetch so stale in-flight batches can bail
   let inFlightSeq = null;  // generation of the batch currently rendering, or null
+  let readySeq = null;     // generation whose first batch is actually on screen
 
   // Read URL param for city pre-select
   const urlParams = new URLSearchParams(window.location.search);
@@ -659,6 +660,10 @@
 
   async function fetchUniversities() {
     var myseq = ++fetchSeq;
+    // Hide the pager immediately. The grid is not cleared until the RPC resolves, so
+    // without this the button stays clickable and a click would adopt this generation
+    // before its grid exists — blocking the real batch and leaving a stale, unpageable grid.
+    document.getElementById('loadMoreWrap').style.display = 'none';
     var grid = document.getElementById('schoolCardsGrid');
     grid.innerHTML = '<div class="results-loading" style="grid-column:1/-1;"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div>';
     document.getElementById('noResults').style.display = 'none';
@@ -774,6 +779,7 @@
 
       renderCards(result, startIdx);
       renderedCount = startIdx + batch.length;
+      readySeq = myseq;
       updateLoadMore();
     } finally {
       // Only clear if we still own it — a newer generation may have taken over.
@@ -804,6 +810,10 @@
   }
 
   window.loadMoreUniversities = async function() {
+    // Refuse until the current generation's first batch is actually on screen.
+    // Otherwise a click landing during a refetch RPC adopts the new generation
+    // before its grid exists, blocks the real batch, and renders stale rows.
+    if (readySeq !== fetchSeq) return;
     var btn = document.getElementById('loadMoreBtn');
     btn.disabled = true;
     btn.innerHTML = '<span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span>';
