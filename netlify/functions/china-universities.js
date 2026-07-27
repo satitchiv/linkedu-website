@@ -5,7 +5,7 @@
 const { createClient } = require('@supabase/supabase-js');
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ufspivvuevllmkxmivbe.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmc3BpdnZ1ZXZsbG1reG1pdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMTU2MDUsImV4cCI6MjA4ODY5MTYwNX0.aybHZVeG4_gl5RDXjrhfTAKNq0sUEdYslwuwTdghIpk';
+const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_5iAEih-Cq-6cIAihBLuSVQ_lKYf8a0x';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
