@@ -30,6 +30,11 @@ server.py*
 # nested portal repo (own git repo, must never be committed here)
 portal/
 
+# portal work-copies (camp-crawler, linda-context, parent-mobile-phase2) — 1,018 untracked
+# files, 18 of which hold service_role / legacy-JWT / API-key literals. netlify.toml publishes
+# the repo root, so a stray `git add -A` would both commit a secret and mint a public URL for it.
+portal-*/
+
 # Night Lead internal ops files — netlify.toml publishes the whole repo root ("publish = ."),
 # so anything committed to main becomes a public URL. These are internal automation process
 # files (curated backlog, precedent log, run scratch data, QA probe transcripts), never
@@ -42,3 +47,14 @@ portal/
 # Night Lead's guard snapshot (lib.sh nl_guard_snapshot copies backlog.md -> backlog.md.nlbak;
 # normally deleted after each run, but a crashed run leaves it behind — same publish risk)
 *.nlbak
+
+# PM / Scout / Reconciler feeders (Night Lead sibling automation) — ops tooling + their outputs.
+# Same publish risk as above (netlify.toml publishes "."): these must NEVER become public URLs.
+# They live as plain files on disk for the feeders to read/run directly; no git tracking needed.
+/fixpass/
+/data/reconcile_proposals.md
+/data/reconcile_digest.md
+# feeder guard snapshots (append-only + cmp restore leave *.pmbak/*.scoutbak/*.recbak on a crash)
+*.pmbak
+*.scoutbak
+*.recbak
