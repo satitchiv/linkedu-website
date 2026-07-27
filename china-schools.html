@@ -902,6 +902,7 @@
 
   // Toggle programs expand inside card
   window.togglePrograms = async function(idx, uniId, topSubjectsEncoded) {
+    var myseq = fetchSeq;  // bail if a filter/sort re-render lands while the query is in flight
     var expandDiv = document.getElementById('pexpand-' + idx);
     var btn = document.getElementById('vbtn-' + idx);
 
@@ -938,6 +939,7 @@
         .limit(500);
 
       if (error) throw error;
+      if (myseq !== fetchSeq) return; // grid was re-rendered mid-flight; expandDiv is detached
 
       if (!programs || programs.length === 0) {
         expandDiv.innerHTML = '<div class="programs-expand"><div class="programs-expand-label">PROGRAMS</div><div class="programs-loading" style="color:rgba(26,26,26,0.4);">No programs found</div></div>';
