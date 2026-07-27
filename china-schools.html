@@ -130,6 +130,13 @@
     .no-results-block h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1a1a1a; margin-bottom: 8px; }
     .no-results-block p { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: rgba(26,26,26,0.48); }
 
+    /* Load more */
+    .load-more-wrap { text-align: center; padding: 34px 24px 8px; }
+    .load-more-btn { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #f5f0e8; background: #1a1a1a; border: none; padding: 14px 38px; cursor: pointer; transition: background 0.2s; }
+    .load-more-btn:hover { background: #2c2c2c; }
+    .load-more-btn[disabled] { background: #e8e8e8; color: #aaa; cursor: default; }
+    .load-more-count { margin-top: 11px; font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(26,26,26,0.45); }
+
     @media (max-width: 1024px) {
       .schools-layout { grid-template-columns: 240px 1fr; }
     }
@@ -334,6 +341,14 @@
       <div class="results-loading" style="grid-column:1/-1;">
         <span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span>
       </div>
+    </div>
+
+    <!-- Load more -->
+    <div id="loadMoreWrap" class="load-more-wrap" style="display:none;">
+      <button id="loadMoreBtn" class="load-more-btn" onclick="loadMoreUniversities()">
+        <span class="lang-th">ดูเพิ่มเติม</span><span class="lang-en">Load more</span>
+      </button>
+      <div id="loadMoreCount" class="load-more-count"></div>
     </div>
 
     <!-- No results -->
@@ -567,6 +582,13 @@
   // Track open program expand per card (by uni id)
   let openCardExpandId = null;
 
+  // Paging — the RPC returns every match, we render PAGE_SIZE at a time
+  const PAGE_SIZE = 100;
+  let allUnis = [];
+  let renderedCount = 0;
+  let fetchSeq = 0;        // bumped per fetch so stale in-flight batches can bail
+  let inFlightSeq = null;  // generation of the batch currently rendering, or null
+
   // Read URL param for city pre-select
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('city')) {
@@ -636,6 +658,7 @@
   }
 
   async function fetchUniversities() {
+    var myseq = ++fetchSeq;
     var grid = document.getElementById('schoolCardsGrid');
     grid.innerHTML = '<div class="results-loading" style="grid-column:1/-1;"><span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span></div>';
     document.getElementById('noResults').style.display = 'none';
@@ -654,15 +677,16 @@
 
       var { data: universities, error } = await sb.rpc('get_china_universities', rpcParams);
       if (error) throw error;
+      if (myseq !== fetchSeq) return; // a newer filter/sort landed while this was in flight
 
-      var unis = universities || [];
-      var total = unis.length;
+      allUnis = universities || [];
+      var total = allUnis.length;
 
       // Sort client-side
       if (state.sort_by === 'programs') {
-        unis.sort(function(a, b) { return b.program_count - a.program_count; });
+        allUnis.sort(function(a, b) { return b.program_count - a.program_count; });
       } else {
-        unis.sort(function(a, b) {
+        allUnis.sort(function(a, b) {
           if (a.qs_rank && b.qs_rank) return a.qs_rank - b.qs_rank;
           if (a.qs_rank) return -1;
           if (b.qs_rank) return 1;
@@ -670,30 +694,68 @@
         });
       }
 
-      var topResults = unis.slice(0, 100);
+      // Update counts
+      document.getElementById('resultsNum').textContent = total;
+      document.getElementById('resultsNumEn').textContent = total;
+      document.getElementById('sidebarCount').innerHTML = '<strong>' + total + '</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span>';
 
-      // Fetch subject strengths (top-10 world rankings only)
-      var displayedIds = topResults.map(function(u) { return u.id; });
+      // Every fetch rebuilds the grid from scratch, so paging state resets too
+      grid.innerHTML = '';
+      renderedCount = 0;
+      openCardExpandId = null;
+
+      if (total === 0) {
+        document.getElementById('loadMoreWrap').style.display = 'none';
+        document.getElementById('noResults').style.display = 'block';
+        return;
+      }
+
+      await renderNextBatch(myseq);
+    } catch(err) {
+      console.error(err);
+      document.getElementById('loadMoreWrap').style.display = 'none';
+      document.getElementById('schoolCardsGrid').innerHTML = '<div class="no-results-block" style="grid-column:1/-1;"><h3>Error</h3><p>' + err.message + '</p></div>';
+    }
+  }
+
+  // Renders the next PAGE_SIZE universities and appends them below the existing cards.
+  // Subject strengths are fetched per batch so the first paint stays cheap.
+  async function renderNextBatch(seq) {
+    var myseq = (seq === undefined) ? fetchSeq : seq;
+    // Only block a double-tap within the same generation. A batch from an older
+    // generation is already doomed, so a newer fetch must be allowed to take over.
+    if (inFlightSeq === myseq) return;
+    inFlightSeq = myseq;
+    try {
+      // startIdx is captured before the await — renderedCount may move underneath us
+      var startIdx = renderedCount;
+      var batch = allUnis.slice(startIdx, startIdx + PAGE_SIZE);
+      if (batch.length === 0) return;
+
+      var sb = getSB();
+      if (!sb) throw new Error('Supabase client not ready');
+
+      var batchIds = batch.map(function(u) { return u.id; });
       var subjectMap = {};
-      if (displayedIds.length > 0) {
-        var { data: subjects } = await sb
-          .from('university_subjects')
-          .select('university_id, subject, subject_rank')
-          .in('university_id', displayedIds)
-          .lte('subject_rank', 10)
-          .order('subject_rank', { ascending: true });
-        if (subjects) {
-          subjects.forEach(function(s) {
-            if (!subjectMap[s.university_id]) subjectMap[s.university_id] = [];
-            if (subjectMap[s.university_id].length < 3) {
-              subjectMap[s.university_id].push({ subject: s.subject, rank: s.subject_rank });
-            }
-          });
-        }
+      var { data: subjects, error: subjErr } = await sb
+        .from('university_subjects')
+        .select('university_id, subject, subject_rank')
+        .in('university_id', batchIds)
+        .lte('subject_rank', 10)
+        .order('subject_rank', { ascending: true });
+      if (myseq !== fetchSeq) return; // grid was reset mid-flight; drop this stale batch
+      if (subjErr) console.error('subject fetch failed', subjErr);
+      if (subjects) {
+        subjects.forEach(function(s) {
+          if (!subjectMap[s.university_id]) subjectMap[s.university_id] = [];
+          if (subjectMap[s.university_id].length < 3) {
+            subjectMap[s.university_id].push({ subject: s.subject, rank: s.subject_rank });
+          }
+        });
       }
 
       // Normalise
-      var result = topResults.map(function(u) {
+      var result = batch.map(function(u) {
         return {
           id: u.id,
           name_en: u.name_en,
@@ -710,27 +772,54 @@
         };
       });
 
-      // Update counts
-      document.getElementById('resultsNum').textContent = total;
-      document.getElementById('resultsNumEn').textContent = total;
-      document.getElementById('sidebarCount').innerHTML = '<strong>' + total + '</strong> <span class="lang-th">มหาวิทยาลัย</span><span class="lang-en">universities</span>';
-
-      if (result.length === 0) {
-        grid.innerHTML = '';
-        document.getElementById('noResults').style.display = 'block';
-        return;
-      }
-
-      renderCards(result);
-    } catch(err) {
-      console.error(err);
-      document.getElementById('schoolCardsGrid').innerHTML = '<div class="no-results-block" style="grid-column:1/-1;"><h3>Error</h3><p>' + err.message + '</p></div>';
+      renderCards(result, startIdx);
+      renderedCount = startIdx + batch.length;
+      updateLoadMore();
+    } finally {
+      // Only clear if we still own it — a newer generation may have taken over.
+      if (inFlightSeq === myseq) inFlightSeq = null;
     }
   }
 
-  function renderCards(unis) {
+  function updateLoadMore() {
+    var wrap = document.getElementById('loadMoreWrap');
+    var btn = document.getElementById('loadMoreBtn');
+    var countEl = document.getElementById('loadMoreCount');
+    var total = allUnis.length;
+    var remaining = total - renderedCount;
+
+    if (remaining > 0) {
+      wrap.style.display = 'block';
+      btn.style.display = 'inline-block';
+      countEl.innerHTML = '<span class="lang-th">แสดง ' + renderedCount + ' จาก ' + total + ' มหาวิทยาลัย</span>' +
+                          '<span class="lang-en">Showing ' + renderedCount + ' of ' + total + ' universities</span>';
+    } else if (total > PAGE_SIZE) {
+      wrap.style.display = 'block';
+      btn.style.display = 'none';
+      countEl.innerHTML = '<span class="lang-th">แสดงครบทั้ง ' + total + ' มหาวิทยาลัยแล้ว</span>' +
+                          '<span class="lang-en">Showing all ' + total + ' universities</span>';
+    } else {
+      wrap.style.display = 'none';
+    }
+  }
+
+  window.loadMoreUniversities = async function() {
+    var btn = document.getElementById('loadMoreBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="lang-th">กำลังโหลด...</span><span class="lang-en">Loading...</span>';
+    try {
+      await renderNextBatch();
+    } catch(err) {
+      console.error(err);
+    }
+    btn.disabled = false;
+    btn.innerHTML = '<span class="lang-th">ดูเพิ่มเติม</span><span class="lang-en">Load more</span>';
+  };
+
+  function renderCards(unis, startIdx) {
     var grid = document.getElementById('schoolCardsGrid');
-    grid.innerHTML = unis.map(function(u, idx) {
+    grid.insertAdjacentHTML('beforeend', unis.map(function(u, i) {
+      var idx = startIdx + i;
       // Bar colour: 985 = gold, 211 = blue, others = grey
       var barStyle, tierBadge;
       if (u.is_985) {
@@ -798,7 +887,7 @@
           '<button onclick="consultAction()" class="scard-btn scard-btn-enquire"><span class="lang-th">สอบถาม</span><span class="lang-en">Enquire</span></button>' +
         '</div>' +
       '</article>';
-    }).join('');
+    }).join(''));
   }
 
   // Toggle programs expand inside card
